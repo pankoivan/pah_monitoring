@@ -10,7 +10,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = "role")
+@ToString
 @Entity
 @Table(name = "generated_registration_security_code")
 public class RegistrationSecurityCode {
@@ -23,15 +23,15 @@ public class RegistrationSecurityCode {
     @Column(name = "code")
     private UUID code;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private String role;
+
     @Column(name = "hospital_id")
     private String hospitalId;
 
     @Column(name = "expiration_date")
     private LocalDate expirationDate;
-
-    @ManyToOne
-    @JoinColumn(name = "user_role_id")
-    private Role role;
 
     @Override
     public boolean equals(Object o) {

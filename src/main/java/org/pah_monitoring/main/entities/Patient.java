@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString // todo
+@ToString(of = {"id", "hospitalId"})
 @Entity
 @Table(name = "patient")
 public class Patient {
@@ -16,6 +16,9 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
+
+    @Column(name = "hospital_id")
+    private String hospitalId;
 
     @OneToOne
     @JoinColumn(name = "user_security_information_id")
@@ -32,6 +35,9 @@ public class Patient {
     @OneToOne
     @JoinColumn(name = "patient_card_id")
     private PatientCard patientCard;
+
+    @OneToOne(mappedBy = "patient")
+    private PatientRecovery recovery;
 
     @Override
     public boolean equals(Object o) {

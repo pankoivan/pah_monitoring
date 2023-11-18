@@ -2,15 +2,16 @@ package org.pah_monitoring.main.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.enums.GenderEnum;
+import org.pah_monitoring.main.entities.enums.Gender;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString // todo
+@ToString(exclude = {"sentMessages", "receivedMessages"})
 @Entity
 @Table(name = "user_information")
 public class UserInformation {
@@ -30,13 +31,19 @@ public class UserInformation {
     private String patronymic;
 
     @Column(name = "gender")
-    private GenderEnum gender;
+    private Gender gender;
 
     @Column(name = "birthdate")
     private LocalDate birthdate;
 
     @Column(name = "phone_number")
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "author")
+    private List<UserMessage> sentMessages;
+
+    @OneToMany(mappedBy = "recipient")
+    private List<UserMessage> receivedMessages;
 
     @Override
     public boolean equals(Object o) {

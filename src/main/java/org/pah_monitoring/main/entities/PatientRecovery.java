@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString // todo
+@ToString(of = "id")
 @Entity
 @Table(name = "patient_recovery")
 public class PatientRecovery {

@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString // todo
+@ToString
 @Entity
 @Table(name = "patient_card")
 public class PatientCard {

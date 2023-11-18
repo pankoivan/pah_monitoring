@@ -9,9 +9,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString // todo
+@ToString(exclude = {"employee", "author"})
 @Entity
-@Table(name = "patient_recovery")
+@Table(name = "hospital_employee_vacation")
 public class Vacation {
 
     @Id
@@ -25,13 +25,16 @@ public class Vacation {
     @Column(name = "end_date")
     private LocalDate endDate;
 
+    @Column(name = "comment")
+    private String comment;
+
     @ManyToOne
     @JoinColumn(name = "hospital_employee_information_id")
-    private HospitalEmployeeInformation employee;
+    private EmployeeInformation employee;
 
     @ManyToOne
     @JoinColumn(name = "administrator_id")
-    private HospitalEmployeeInformation author;
+    private Administrator author;
 
     @Override
     public boolean equals(Object o) {

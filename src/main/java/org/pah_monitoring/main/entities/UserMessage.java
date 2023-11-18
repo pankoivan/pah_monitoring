@@ -3,11 +3,13 @@ package org.pah_monitoring.main.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString // todo
+@ToString(exclude = {"recipient", "author"})
 @Entity
 @Table(name = "patient")
 public class UserMessage {
@@ -20,8 +22,8 @@ public class UserMessage {
     @Column(name = "message_text")
     private String text;
 
-    @Column(name = "receipt_date")
-    private String date;
+    @Column(name = "date")
+    private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "user_information_id")

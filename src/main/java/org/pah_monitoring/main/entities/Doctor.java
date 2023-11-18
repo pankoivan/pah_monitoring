@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString // todo
+@ToString(of = {"id", "hospitalId", "university"})
 @Entity
 @Table(name = "doctor")
 public class Doctor {
@@ -31,10 +31,13 @@ public class Doctor {
 
     @OneToOne
     @JoinColumn(name = "hospital_employee_information_id")
-    private HospitalEmployeeInformation hospitalEmployeeInformation;
+    private EmployeeInformation employeeInformation;
 
     @OneToMany(mappedBy = "doctor")
     private List<PatientCard> patientCards;
+
+    @OneToMany(mappedBy = "doctor")
+    private List<PatientRecovery> patientRecoveries;
 
     @Override
     public boolean equals(Object o) {
