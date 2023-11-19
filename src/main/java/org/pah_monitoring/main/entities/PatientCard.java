@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "doctor")
 @Entity
 @Table(name = "patient_card")
 public class PatientCard {

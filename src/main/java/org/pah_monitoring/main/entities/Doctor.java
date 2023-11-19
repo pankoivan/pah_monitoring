@@ -2,7 +2,11 @@ package org.pah_monitoring.main.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.enums.Role;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor
@@ -12,7 +16,7 @@ import java.util.List;
 @ToString(of = {"id", "hospitalId", "university"})
 @Entity
 @Table(name = "doctor")
-public class Doctor {
+public class Doctor implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,10 +38,52 @@ public class Doctor {
     private EmployeeInformation employeeInformation;
 
     @OneToMany(mappedBy = "doctor")
+    private List<Patient> patients;
+
+    @OneToMany(mappedBy = "doctor")
     private List<PatientCard> patientCards;
 
     @OneToMany(mappedBy = "doctor")
     private List<PatientRecovery> patientRecoveries;
+
+    public boolean isActive() {
+        return employeeInformation.getDismissal() == null;
+    }
+
+    @Override
+    public String getUsername() {
+        return userSecurityInformation.getEmail();
+    }
+
+    @Override
+    public String getPassword() {
+        return userSecurityInformation.getPassword();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(Role.DOCTOR);
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return isActive();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return isActive();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return isActive();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive();
+    }
 
     @Override
     public boolean equals(Object o) {
