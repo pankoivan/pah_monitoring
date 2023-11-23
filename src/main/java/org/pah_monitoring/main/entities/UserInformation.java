@@ -30,6 +30,7 @@ public class UserInformation {
     @Column(name = "patronymic")
     private String patronymic;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     private Gender gender;
 

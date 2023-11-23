@@ -2,6 +2,7 @@ package org.pah_monitoring.main.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.enums.Role;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -25,7 +26,7 @@ public class RegistrationSecurityCode {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private String role;
+    private Role role;
 
     @Column(name = "hospital_id")
     private String hospitalId;

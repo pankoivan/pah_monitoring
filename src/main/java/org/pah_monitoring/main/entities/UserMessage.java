@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString(exclude = {"recipient", "author"})
 @Entity
-@Table(name = "patient")
+@Table(name = "user_message")
 public class UserMessage {
 
     @Id
@@ -26,11 +26,11 @@ public class UserMessage {
     private LocalDateTime date;
 
     @ManyToOne
-    @JoinColumn(name = "user_information_id")
+    @JoinColumn(name = "recipient_id")
     private UserInformation recipient;
 
     @ManyToOne
-    @JoinColumn(name = "user_information_id")
+    @JoinColumn(name = "author_id")
     private UserInformation author;
 
     @Override
