@@ -23,7 +23,7 @@ public final class AuthenticationUtils {
         }
     }
 
-    public static <T> T extractCurrentUserOrNull(Authentication authentication, Class<T> concreteUserClass)
+    /*public static <T> T extractCurrentUserOrNull(Authentication authentication, Class<T> concreteUserClass)
             throws AuthenticationUtilsException {
 
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
@@ -36,7 +36,7 @@ public final class AuthenticationUtils {
             throw new AuthenticationUtilsException("Security user (i.e. principal) is not an object of requested class \"%s\""
                     .formatted(concreteUserClass.getName()), e);
         }
-    }
+    }*/
 
     public <T> boolean checkConcreteUserClass(Authentication authentication, Class<T> concreteUserClass) {
         return authentication.getPrincipal().getClass().equals(concreteUserClass);

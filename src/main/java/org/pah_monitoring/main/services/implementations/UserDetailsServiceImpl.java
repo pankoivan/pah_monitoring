@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+import java.util.stream.Stream;
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -34,17 +37,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return mainAdministratorRepository.findByUserSecurityInformationEmail(email).orElse(
-                        administratorRepository.findByUserSecurityInformationEmail(email).orElse(
-                                doctorRepository.findByUserSecurityInformationEmail(email).orElse(
-                                        patientRepository.findByUserSecurityInformationEmail(email).orElseThrow(
-                                                () -> new UsernameNotFoundException(
-                                                        "User with email \"%s\" doesn't exists".formatted(email)
-                                                )
-                                        )
-                                )
-                        )
-                );
+        return Stream.of(
+                mainAdministratorRepository.findByUserSecurityInformationEmail(email).orElse(null),
+                administratorRepository.findByUserSecurityInformationEmail(email).orElse(null),
+                doctorRepository.findByUserSecurityInformationEmail(email).orElse(null),
+                patientRepository.findByUserSecurityInformationEmail(email).orElse(null)
+        )
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElseThrow(() -> new UsernameNotFoundException("User with email \"%s\" doesn't exists".formatted(email)));
     }
 
 }

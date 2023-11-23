@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Регистрация</title>
+        <link
+            href="../static/css/bootstrap.min.css"
+            th:href="@{/css/bootstrap.min.css}"
+            rel="stylesheet"
+        />
+        <link
+            href="../static/css/style.css"
+            th:href="@{/css/style.css}"
+            rel="stylesheet"
+        />
+        <!--<link
+            href="../static/favicon/apple-touch-icon.png"
+            th:href="@{/favicon/apple-touch-icon.png}"
+            rel="apple-touch-icon"
+            sizes="180x180"
+        />
+        <link
+            href="../static/favicon/favicon-32x32.png"
+            th:href="@{/favicon/favicon-32x32.png}"
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+        />
+        <link
+            href="../static/favicon/favicon-16x16.png"
+            th:href="@{/favicon/favicon-16x16.png}"
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+        />-->
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column justify-content-center">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <h1>Регистрация</h1>
+            </div>
+            <div class="row">
+                <div
+                    class="col-6 text-white text-center bg-dark rounded p-3 mx-auto"
+                >
+                    <form
+                        action="#"
+                        th:action="@{/auth/registration/processing}"
+                        method="post"
+                    >
+                        <div class="mb-2">
+                            <label for="email" class="form-label">Почта</label>
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                class="form-control"
+                                placeholder="example@yandex.ru"
+                            />
+                        </div>
+                        <div class="mb-2">
+                            <label for="password" class="form-label"
+                                >Пароль</label
+                            >
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                class="form-control"
+                                placeholder="123"
+                            />
+                        </div>
+                        <div class="mb-2">
+                            <label for="name" class="form-label">Имя</label>
+                            <input
+                                id="name"
+                                name="name"
+                                type="text"
+                                class="form-control"
+                                placeholder="Иван"
+                            />
+                        </div>
+                        <div class="mb-2">
+                            <label for="lastname" class="form-label"
+                                >Фамилия</label
+                            >
+                            <input
+                                id="lastname"
+                                name="lastname"
+                                type="text"
+                                class="form-control"
+                                placeholder="Иванов"
+                            />
+                        </div>
+                        <div class="mb-2">
+                            <label for="patronymic" class="form-label"
+                                >Отчество</label
+                            >
+                            <input
+                                id="patronymic"
+                                name="patronymic"
+                                type="text"
+                                class="form-control"
+                                placeholder="Иванович"
+                            />
+                        </div>
+                        <div class="mb-5">
+                            <label for="code" class="form-label">Код</label>
+                            <input
+                                id="code"
+                                name="code"
+                                type="text"
+                                class="form-control"
+                                placeholder="ABCD-EFGX-FORU-DJDJ"
+                            />
+                        </div>
+                        <div class="mb-5">
+                            <p>Роль</p>
+                            <select name="role" id="role" class="form-select">
+                                <option
+                                    th:each="each : ${roles}"
+                                    th:text="${each.alias}"
+                                    th:value="${each}"
+                                ></option>
+                            </select>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">
+                                Войти
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
