@@ -33,7 +33,7 @@ public class SickLeave {
     private EmployeeInformation employee;
 
     @ManyToOne
-    @JoinColumn(name = "administrator_id")
+    @JoinColumn(name = "author_id")
     private Administrator author;
 
     @Override

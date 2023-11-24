@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(of = {"id", "experience"})
+@Builder
 @Entity
 @Table(name = "hospital_employee_information")
 public class EmployeeInformation {
@@ -22,7 +23,7 @@ public class EmployeeInformation {
     @Column(name = "experience")
     private Integer experience;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_information_id")
     private UserInformation userInformation;
 

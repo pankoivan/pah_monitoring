@@ -12,6 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
+@Builder
 @Entity
 @Table(name = "generated_registration_security_code")
 public class RegistrationSecurityCode {

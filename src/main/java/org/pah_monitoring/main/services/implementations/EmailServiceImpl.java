@@ -1,0 +1,29 @@
+package org.pah_monitoring.main.services.implementations;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Component;
+
+@Component
+public class EmailServiceImpl {
+
+    @Autowired
+    private JavaMailSender sender;
+
+    public void send(String to, String subject, String text) {
+
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom("panivan98@yandex.ru");
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(text);
+
+        System.out.println(message);
+
+        sender.send(message);
+
+    }
+
+}

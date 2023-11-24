@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(of = {"id", "hospitalId"})
+@Builder
 @Entity
 @Table(name = "administrator")
 public class Administrator implements UserDetails {
@@ -26,11 +27,11 @@ public class Administrator implements UserDetails {
     @Column(name = "hospital_id")
     private String hospitalId;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_security_information_id")
     private UserSecurityInformation userSecurityInformation;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "hospital_employee_information_id")
     private EmployeeInformation employeeInformation;
 

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html
+    lang="en"
+    xmlns:th="https://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Генерация кодов</title>
+        <link
+            href="../static/css/bootstrap.min.css"
+            th:href="@{/css/bootstrap.min.css}"
+            rel="stylesheet"
+        />
+        <link
+            href="../static/css/style.css"
+            th:href="@{/css/style.css}"
+            rel="stylesheet"
+        />
+        <!--<link
+            href="../static/favicon/apple-touch-icon.png"
+            th:href="@{/favicon/apple-touch-icon.png}"
+            rel="apple-touch-icon"
+            sizes="180x180"
+        />
+        <link
+            href="../static/favicon/favicon-32x32.png"
+            th:href="@{/favicon/favicon-32x32.png}"
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+        />
+        <link
+            href="../static/favicon/favicon-16x16.png"
+            th:href="@{/favicon/favicon-16x16.png}"
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+        />-->
+    </head>
+
+    <body
+        class="min-vh-100 d-flex flex-column align-items-center justify-content-between"
+    >
+        <div sec:authorize="!isAuthenticated()" class="container-fluid bg-dark">
+            <div class="row">
+                <div class="col-12 mx-auto text-white text-center">
+                    ЗАГОЛОВОК
+                </div>
+                <div class="col-12 mx-auto text-white text-center">
+                    ЗАГОЛОВОК
+                </div>
+                <div class="col-12 mx-auto text-white text-center">
+                    ЗАГОЛОВОК
+                </div>
+            </div>
+        </div>
+        <div
+            sec:authorize="isAuthenticated()"
+            th:replace="@{${header1}} :: ${header}"
+        ></div>
+        <div class="container">
+            <div class="row text-center mb-5">
+                <h1>Генерация кодов</h1>
+            </div>
+            <div class="row">
+                <div
+                    class="col-6 text-white text-center bg-dark rounded p-3 mx-auto"
+                >
+                    <form
+                        action="#"
+                        th:action="@{/main-admin-code-gen/processing}"
+                        method="post"
+                    >
+                        <div class="mb-2">
+                            <label for="oid" class="form-label"
+                                >Идентификатор больницы</label
+                            >
+                            <input
+                                id="oid"
+                                name="oid"
+                                type="text"
+                                class="form-control"
+                                placeholder="OID"
+                            />
+                        </div>
+                        <div class="mb-2">
+                            <label for="email" class="form-label">Почта</label>
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                class="form-control"
+                                placeholder="example@yandex.ru"
+                            />
+                        </div>
+                        <div class="mb-2">
+                            <p>Роль</p>
+                            <select name="role" id="role" class="form-select">
+                                <option
+                                    th:each="each : ${roles}"
+                                    th:text="${each.alias}"
+                                    th:value="${each}"
+                                ></option>
+                            </select>
+                        </div>
+                        <div class="mb-5">
+                            <p>Срок годности</p>
+                            <select
+                                name="expire"
+                                id="expire"
+                                class="form-select"
+                            >
+                                <option
+                                    th:each="each : ${expire}"
+                                    th:text="'Число дней: ' + ${each}"
+                                    th:value="${each}"
+                                ></option>
+                            </select>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">
+                                Сгенерировать код
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid bg-dark">
+            <div class="row">
+                <div class="col-12 mx-auto text-white text-center">ФУТЕР</div>
+                <div class="col-12 mx-auto text-white text-center">ФУТЕР</div>
+                <div class="col-12 mx-auto text-white text-center">ФУТЕР</div>
+            </div>
+        </div>
+    </body>
+</html>

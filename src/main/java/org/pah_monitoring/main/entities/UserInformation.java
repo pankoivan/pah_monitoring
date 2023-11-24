@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(exclude = {"sentMessages", "receivedMessages"})
+@Builder
 @Entity
 @Table(name = "user_information")
 public class UserInformation {

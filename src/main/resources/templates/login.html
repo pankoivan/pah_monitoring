@@ -42,7 +42,10 @@
             <div class="row text-center mb-5">
                 <h1>Вход</h1>
             </div>
-            <div class="row">
+            <div class="row text-center mb-5">
+                <a href="#" th:href="@{/}">На главную</a>
+            </div>
+            <div class="row mb-5">
                 <div
                     class="col-6 text-white text-center bg-dark rounded p-3 mx-auto"
                 >
@@ -81,6 +84,14 @@
                             </button>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div class="text-center">
+                <div th:if="${param.error}" class="mb-5 text-red">
+                    <p>Неверный логин или пароль</p>
+                </div>
+                <div th:if="${param.logout}" class="mb-5 text-blue">
+                    <p>Вы вышли из аккаунта</p>
                 </div>
             </div>
         </div>

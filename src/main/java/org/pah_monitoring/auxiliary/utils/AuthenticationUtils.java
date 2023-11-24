@@ -39,7 +39,7 @@ public final class AuthenticationUtils {
     }*/
 
     public <T> boolean checkConcreteUserClass(Authentication authentication, Class<T> concreteUserClass) {
-        return authentication.getPrincipal().getClass().equals(concreteUserClass);
+        return authentication != null && authentication.getPrincipal().getClass().equals(concreteUserClass);
     }
 
     private static <T> T cast(Object from, Class<T> to) {

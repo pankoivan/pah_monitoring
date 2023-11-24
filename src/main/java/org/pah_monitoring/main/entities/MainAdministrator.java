@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(of = "id")
+@Builder
 @Entity
 @Table(name = "main_administrator")
 public class MainAdministrator implements UserDetails {

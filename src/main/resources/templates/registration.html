@@ -42,6 +42,11 @@
             <div class="row text-center mb-5">
                 <h1>Регистрация</h1>
             </div>
+            <div
+                th:if="${error}"
+                th:text="${error}"
+                class="text-red text-center mb-5"
+            ></div>
             <div class="row">
                 <div
                     class="col-6 text-white text-center bg-dark rounded p-3 mx-auto"
@@ -58,6 +63,7 @@
                                 name="email"
                                 type="email"
                                 class="form-control"
+                                th:value="${email ?: ''}"
                                 placeholder="example@yandex.ru"
                             />
                         </div>
@@ -70,6 +76,7 @@
                                 name="password"
                                 type="password"
                                 class="form-control"
+                                th:value="${password ?: ''}"
                                 placeholder="123"
                             />
                         </div>
@@ -80,6 +87,7 @@
                                 name="name"
                                 type="text"
                                 class="form-control"
+                                th:value="${name ?: ''}"
                                 placeholder="Иван"
                             />
                         </div>
@@ -92,6 +100,7 @@
                                 name="lastname"
                                 type="text"
                                 class="form-control"
+                                th:value="${lastname ?: ''}"
                                 placeholder="Иванов"
                             />
                         </div>
@@ -104,6 +113,7 @@
                                 name="patronymic"
                                 type="text"
                                 class="form-control"
+                                th:value="${patronymic ?: ''}"
                                 placeholder="Иванович"
                             />
                         </div>
@@ -114,6 +124,7 @@
                                 name="code"
                                 type="text"
                                 class="form-control"
+                                th:value="${code ?: ''}"
                                 placeholder="ABCD-EFGX-FORU-DJDJ"
                             />
                         </div>
@@ -124,6 +135,7 @@
                                     th:each="each : ${roles}"
                                     th:text="${each.alias}"
                                     th:value="${each}"
+                                    th:selected="${role ?: 'PATIENT'}"
                                 ></option>
                             </select>
                         </div>
