@@ -64,44 +64,16 @@
         ></div>
         <div class="container mx-2">
             <div class="row text-white text-center bg-dark rounded p-5 mb-5">
-                <p>
-                    Войдите в аккаунт или зарегистрируйтесь. Если ваше
-                    медицинское учреждение уже использует приложение, ожидайте
-                    выдачи кода для регистрации.
-                </p>
-                <p>
-                    Для регистрации приложения обращайтесь к сотруднику
-                    департамента цифрового развития и информационных технологий,
-                    управляющего приложением. Ниже приведены его контакты.
-                </p>
                 <div>
                     <ul>
-                        <li
-                            th:each="each : ${formattedContacts}"
-                            th:text="${each}"
-                        ></li>
+                        <li th:each="each : ${allAdmins}">
+                            <a
+                                href="#"
+                                th:href="@{/profile/__${each.id}__}"
+                                th:text="${each.employeeInformation.userInformation.name} + ' ' + ${each.employeeInformation.userInformation.lastname} + ' oid: ' + ${each.hospitalId}"
+                            ></a>
+                        </li>
                     </ul>
-                </div>
-            </div>
-            <div
-                sec:authorize="!isAuthenticated()"
-                class="row text-white bg-dark text-center rounded py-2"
-            >
-                <div>
-                    <a
-                        href="#"
-                        th:href="@{/auth/login}"
-                        class="btn btn-primary m-1"
-                        >Войти</a
-                    >
-                </div>
-                <div>
-                    <a
-                        href="#"
-                        th:href="@{/auth/registration}"
-                        class="btn btn-warning m-1"
-                        >Зарегистрироваться</a
-                    >
                 </div>
             </div>
         </div>

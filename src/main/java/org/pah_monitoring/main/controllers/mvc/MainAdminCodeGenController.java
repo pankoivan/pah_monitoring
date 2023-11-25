@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.controllers.mvc;
 
+import org.pah_monitoring.auxiliary.exceptions.AuthenticationUtilsException;
 import org.pah_monitoring.auxiliary.utils.AuthenticationUtils;
 import org.pah_monitoring.main.entities.*;
 import org.pah_monitoring.main.entities.enums.Role;
@@ -27,21 +28,16 @@ public class MainAdminCodeGenController {
     private EmailServiceImpl emailService;
 
     @RequestMapping
-    public String returnCodeGenPage(Model model, Authentication authentication) {
+    public String returnCodeGenPage(Model model, Authentication authentication) throws AuthenticationUtilsException {
 
-        if (AuthenticationUtils.checkConcreteUserClass(authentication, MainAdministrator.class)) {
-            model.addAttribute("header1", "fragments/main-admin-header");
-            model.addAttribute("header", "main-admin-header");
-        } else if (AuthenticationUtils.checkConcreteUserClass(authentication, Administrator.class)) {
-            model.addAttribute("header1", "fragments/admin-header");
-            model.addAttribute("header", "admin-header");
-        } else if (AuthenticationUtils.checkConcreteUserClass(authentication, Doctor.class)) {
-            model.addAttribute("header1", "fragments/doctor-header");
-            model.addAttribute("header", "doctor-header");
-        } else if (AuthenticationUtils.checkConcreteUserClass(authentication, Patient.class)) {
-            model.addAttribute("header1", "fragments/patient-header");
-            model.addAttribute("header", "patient-header");
-        }
+        MainAdministrator mainAdministrator = AuthenticationUtils.extractCurrentUser(authentication, MainAdministrator.class);
+        model.addAttribute("currentUser", mainAdministrator);
+        model.addAttribute("nameLastname", "%s %s".formatted(
+                mainAdministrator.getUserInformation().getName(),
+                mainAdministrator.getUserInformation().getLastname()
+        ));
+        model.addAttribute("header1", "fragments/main-admin-header");
+        model.addAttribute("header", "main-admin-header");
 
         model.addAttribute("roles", List.of(Role.ADMINISTRATOR));
         model.addAttribute("expire", List.of(1, 3, 7, 30));

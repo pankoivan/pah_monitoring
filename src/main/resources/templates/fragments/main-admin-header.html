@@ -26,15 +26,17 @@
             <!-- Навигационная панель -->
             <nav class="m-2">
                 <ul class="nav justify-content-center">
-                    <li class="text-white">
+                    <li>
                         <a
                             href="#"
-                            th:href="@{/users/id}"
+                            th:href="@{/profile/__${currentUser.id}__}"
                             class="nav-link text-wheat"
+                            th:text="${nameLastname}"
                             th:classappend="${#strings.equals(page, 'index')} ? text-secondary"
-                            >ГЛАВНЫЙ АДМИНИСТРАТОР</a
+                            >ИмяФамилия</a
                         >
                     </li>
+                    <li class="text-white">ГЛАВНЫЙ АДМИНИСТРАТОР</li>
                     <li>
                         <a
                             href="#"
@@ -56,7 +58,7 @@
                     <li>
                         <a
                             href="#"
-                            th:href="@{/admins}"
+                            th:href="@{/all-admins}"
                             class="nav-link text-wheat"
                             th:classappend="${#strings.equals(page, 'index')} ? text-secondary"
                             >Администраторы</a

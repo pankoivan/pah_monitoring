@@ -20,21 +20,23 @@
     <body class="min-vh-100 d-flex flex-column justify-content-start">
         <!-- ---------------------------------------- Фрагмент: навигационная панель заголовков ---------------------------------------- -->
         <div
-            th:fragment="headers-nav"
+            th:fragment="doctor-header"
             class="bg-dark d-flex flex-row flex-wrap align-items-center justify-content-center"
         >
             <!-- Навигационная панель -->
             <nav class="m-2">
                 <ul class="nav justify-content-center">
-                    <li class="text-white">
+                    <li>
                         <a
                             href="#"
-                            th:href="@{/users/id}"
+                            th:href="@{/profile/__${currentUser.id}__}"
                             class="nav-link text-wheat"
+                            th:text="${nameLastname}"
                             th:classappend="${#strings.equals(page, 'index')} ? text-secondary"
-                            >ВРАЧ</a
+                            >ИмяФамилия</a
                         >
                     </li>
+                    <li class="text-white">ВРАЧ</li>
                     <li>
                         <a
                             href="#"
