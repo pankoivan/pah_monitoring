@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.print.Doc;
+
 @Controller
 @RequestMapping("/")
 public class IndexController {
@@ -29,6 +31,15 @@ public class IndexController {
 
         if (AuthenticationUtils.checkConcreteUserClass(authentication, Administrator.class)) {
             return "redirect:/admin-code-gen";
+        }
+
+        if (AuthenticationUtils.checkConcreteUserClass(authentication, Doctor.class)) {
+            return "redirect:/own-patients";
+        }
+
+        if (AuthenticationUtils.checkConcreteUserClass(authentication, Patient.class)) {
+            Patient patient = AuthenticationUtils.extractCurrentUser(authentication, Patient.class);
+            return "redirect:/progress/%s".formatted(patient.getId());
         }
 
         model.addAttribute("formattedContacts", mainPageContactRepository.findAll()

@@ -64,25 +64,15 @@
         ></div>
         <div class="container mx-2">
             <div class="row text-white text-center bg-dark rounded p-5 mb-5">
-                <h1 th:text="${patient.role.alias}"></h1>
+                <h1>Показатели</h1>
                 <div>
                     <ul>
-                        <li th:text="${patient.hospitalId}"></li>
-                        <li th:text="${patient.userInformation.lastname}"></li>
-                        <li th:text="${patient.userInformation.name}"></li>
                         <li
-                            th:text="${patient.userInformation.patronymic}"
+                            th:each="each : ${examinations}"
+                            th:text="${each}"
                         ></li>
                     </ul>
                 </div>
-            </div>
-            <div>
-                <a
-                    href="#"
-                    th:href="@{/progress/__${currentUser.id}__}"
-                    class="btn btn-primary"
-                    >Посмотреть показатели этого пациента</a
-                >
             </div>
         </div>
         <div class="container-fluid bg-dark">

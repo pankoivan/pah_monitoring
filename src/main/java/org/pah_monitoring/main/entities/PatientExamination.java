@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = "doctor")
+@ToString(exclude = {"patient", "doctor"})
 @Entity
 @Table(name = "patient_examination")
 public class PatientExamination {
