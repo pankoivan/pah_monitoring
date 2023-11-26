@@ -27,6 +27,10 @@ public class IndexController {
             return "redirect:/main-admin-code-gen";
         }
 
+        if (AuthenticationUtils.checkConcreteUserClass(authentication, Administrator.class)) {
+            return "redirect:/admin-code-gen";
+        }
+
         model.addAttribute("formattedContacts", mainPageContactRepository.findAll()
                 .stream()
                 .map(a -> "%s: %s".formatted(a.getDescription(), a.getContact())));

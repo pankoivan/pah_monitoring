@@ -43,13 +43,13 @@
                             th:href="@{/}"
                             class="nav-link text-wheat"
                             th:classappend="${#strings.equals(page, 'index')} ? text-secondary"
-                            >Главная</a
+                            >Коды</a
                         >
                     </li>
                     <li>
                         <a
                             href="#"
-                            th:href="@{/}"
+                            th:href="@{/admins}"
                             class="nav-link text-wheat"
                             th:classappend="${#strings.equals(page, 'index')} ? text-secondary"
                             >Администраторы</a
@@ -58,7 +58,7 @@
                     <li>
                         <a
                             href="#"
-                            th:href="@{/}"
+                            th:href="@{/doctors}"
                             class="nav-link text-wheat"
                             th:classappend="${#strings.equals(page, 'index')} ? text-secondary"
                             >Врачи</a
@@ -67,7 +67,7 @@
                     <li>
                         <a
                             href="#"
-                            th:href="@{/}"
+                            th:href="@{/patients}"
                             class="nav-link text-wheat"
                             th:classappend="${#strings.equals(page, 'index')} ? text-secondary"
                             >Пациенты</a

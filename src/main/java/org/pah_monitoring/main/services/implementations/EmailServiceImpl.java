@@ -13,6 +13,10 @@ public class EmailServiceImpl {
 
     public void send(String to, String subject, String text) {
 
+        if (!to.equals("pank-tanya@yandex.ru") && !to.equals("ivan.tornado2@yandex.ru")) {
+            throw new AssertionError();
+        }
+
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setFrom("panivan98@yandex.ru");

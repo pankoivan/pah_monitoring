@@ -64,10 +64,13 @@
         ></div>
         <div class="container mx-2">
             <div class="row text-white text-center bg-dark rounded p-5 mb-5">
-                <h1 class="mb-5">Администраторы от всех больниц</h1>
+                <h1
+                    th:text="'Администраторы вашей больницы с oid = ' + ${currentUser.hospitalId}"
+                    class="mb-5"
+                ></h1>
                 <div>
                     <ul>
-                        <li th:each="each : ${allAdmins}">
+                        <li th:each="each : ${admins}">
                             <a
                                 href="#"
                                 th:href="@{/profile/admin/__${each.id}__}"
