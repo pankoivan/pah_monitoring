@@ -44,6 +44,10 @@ public class Administrator implements UserDetails {
     @OneToMany(mappedBy = "author")
     private List<Dismissal> assignedDismissals;
 
+    public Role getRole() {
+        return Role.ADMINISTRATOR;
+    }
+
     public boolean isActive() {
         return employeeInformation.getDismissal() == null;
     }
@@ -60,7 +64,7 @@ public class Administrator implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(Role.ADMINISTRATOR);
+        return List.of(getRole());
     }
 
     @Override

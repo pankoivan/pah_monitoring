@@ -29,7 +29,7 @@
                     <li>
                         <a
                             href="#"
-                            th:href="@{/profile/__${currentUser.id}__}"
+                            th:href="@{/profile/main-admin/__${currentUser.id}__}"
                             class="nav-link text-wheat"
                             th:text="${nameLastname}"
                             th:classappend="${#strings.equals(page, 'index')} ? text-secondary"

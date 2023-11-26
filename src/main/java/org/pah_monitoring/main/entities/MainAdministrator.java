@@ -32,6 +32,10 @@ public class MainAdministrator implements UserDetails {
     @JoinColumn(name = "user_information_id")
     private UserInformation userInformation;
 
+    public Role getRole() {
+        return Role.MAIN_ADMINISTRATOR;
+    }
+
     @Override
     public String getUsername() {
         return userSecurityInformation.getEmail();
@@ -44,7 +48,7 @@ public class MainAdministrator implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(Role.MAIN_ADMINISTRATOR);
+        return List.of(getRole());
     }
 
     @Override

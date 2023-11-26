@@ -64,17 +64,20 @@
         ></div>
         <div class="container mx-2">
             <div class="row text-white text-center bg-dark rounded p-5 mb-5">
-                <p th:text="">
-                </p>
+                <h1 th:text="${mainAdmin.role.alias}"></h1>
                 <div>
                     <ul>
                         <li
-                            th:each="each : ${formattedContacts}"
-                            th:text="${each}"
+                            th:text="${mainAdmin.userInformation.lastname}"
+                        ></li>
+                        <li th:text="${mainAdmin.userInformation.name}"></li>
+                        <li
+                            th:text="${mainAdmin.userInformation.patronymic}"
                         ></li>
                     </ul>
                 </div>
             </div>
+        </div>
         <div class="container-fluid bg-dark">
             <div class="row">
                 <div class="col-12 mx-auto text-white text-center">ФУТЕР</div>

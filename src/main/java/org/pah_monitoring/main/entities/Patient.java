@@ -46,6 +46,10 @@ public class Patient implements UserDetails {
     @OneToOne(mappedBy = "patient")
     private PatientRecovery recovery;
 
+    public Role getRole() {
+        return Role.PATIENT;
+    }
+
     public boolean isActive() {
         return recovery == null;
     }
@@ -62,7 +66,7 @@ public class Patient implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(Role.PATIENT);
+        return List.of(getRole());
     }
 
     @Override

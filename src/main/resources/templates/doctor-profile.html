@@ -64,17 +64,27 @@
         ></div>
         <div class="container mx-2">
             <div class="row text-white text-center bg-dark rounded p-5 mb-5">
-                <p th:text="">
-                </p>
+                <h1 th:text="${doctor.role.alias}"></h1>
                 <div>
                     <ul>
+                        <li th:text="${doctor.hospitalId}"></li>
                         <li
-                            th:each="each : ${formattedContacts}"
-                            th:text="${each}"
+                            th:text="${doctor.employeeInformation.userInformation.lastname}"
                         ></li>
+                        <li
+                            th:text="${doctor.employeeInformation.userInformation.name}"
+                        ></li>
+                        <li
+                            th:text="${doctor.employeeInformation.userInformation.patronymic}"
+                        ></li>
+                        <li
+                            th:text="${doctor.employeeInformation.experience}"
+                        ></li>
+                        <li th:text="${doctor.university}"></li>
                     </ul>
                 </div>
             </div>
+        </div>
         <div class="container-fluid bg-dark">
             <div class="row">
                 <div class="col-12 mx-auto text-white text-center">ФУТЕР</div>

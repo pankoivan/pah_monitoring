@@ -47,6 +47,10 @@ public class Doctor implements UserDetails {
     @OneToMany(mappedBy = "doctor")
     private List<PatientRecovery> patientRecoveries;
 
+    public Role getRole() {
+        return Role.DOCTOR;
+    }
+
     public boolean isActive() {
         return employeeInformation.getDismissal() == null;
     }
@@ -63,7 +67,7 @@ public class Doctor implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(Role.DOCTOR);
+        return List.of(getRole());
     }
 
     @Override
