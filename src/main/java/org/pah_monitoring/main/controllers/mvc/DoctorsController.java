@@ -34,7 +34,7 @@ public class DoctorsController {
         model.addAttribute("header1", "fragments/admin-header");
         model.addAttribute("header", "admin-header");
 
-        model.addAttribute("admins", doctorRepository.findAllByHospitalId(administrator.getHospitalId()));
+        model.addAttribute("doctors", doctorRepository.findAllByHospitalId(administrator.getHospitalId()));
 
         return "doctors";
 

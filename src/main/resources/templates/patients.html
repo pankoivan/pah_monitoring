@@ -74,7 +74,7 @@
                             <a
                                 href="#"
                                 th:href="@{/profile/patient/__${each.id}__}"
-                                th:text="${each.userInformation.name} + ' ' + ${each.employeeInformation.lastname} + ' oid: ' + ${each.hospitalId}"
+                                th:text="${each.userInformation.name} + ' ' + ${each.userInformation.lastname} + ' oid: ' + ${each.hospitalId}"
                             ></a>
                         </li>
                     </ul>

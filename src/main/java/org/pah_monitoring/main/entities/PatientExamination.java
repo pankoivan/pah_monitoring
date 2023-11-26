@@ -11,8 +11,8 @@ import java.time.LocalDate;
 @Setter
 @ToString(exclude = "doctor")
 @Entity
-@Table(name = "patient_card")
-public class PatientCard {
+@Table(name = "patient_examination")
+public class PatientExamination {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,13 +83,17 @@ public class PatientCard {
     private String chestTomographyLink;
 
     @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
+
+    @ManyToOne
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof PatientCard other))
+                || ((o instanceof PatientExamination other))
                 && (id != null)
                 && (id.equals(other.id));
     }

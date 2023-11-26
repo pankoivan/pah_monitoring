@@ -39,9 +39,8 @@ public class Patient implements UserDetails {
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-    @OneToOne
-    @JoinColumn(name = "patient_card_id")
-    private PatientCard patientCard;
+    @OneToMany(mappedBy = "patient")
+    private List<PatientExamination> examinations;
 
     @OneToOne(mappedBy = "patient")
     private PatientRecovery recovery;

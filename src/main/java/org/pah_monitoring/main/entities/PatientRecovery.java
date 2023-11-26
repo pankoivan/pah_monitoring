@@ -22,7 +22,7 @@ public class PatientRecovery {
     private Patient patient;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id")
+    @JoinColumn(name = "author_id")
     private Doctor doctor;
 
     @Override

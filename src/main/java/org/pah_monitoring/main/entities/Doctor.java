@@ -42,7 +42,7 @@ public class Doctor implements UserDetails {
     private List<Patient> patients;
 
     @OneToMany(mappedBy = "doctor")
-    private List<PatientCard> patientCards;
+    private List<PatientExamination> patientExaminations;
 
     @OneToMany(mappedBy = "doctor")
     private List<PatientRecovery> patientRecoveries;
