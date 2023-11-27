@@ -5,7 +5,7 @@ import org.pah_monitoring.auxiliary.utils.AuthenticationUtils;
 import org.pah_monitoring.auxiliary.utils.TempCheck;
 import org.pah_monitoring.main.entities.Patient;
 import org.pah_monitoring.main.entities.PatientExamination;
-import org.pah_monitoring.main.repositorites.PatientCardRepository;
+import org.pah_monitoring.main.repositorites.PatientExaminationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Controller
@@ -24,7 +23,7 @@ import java.util.UUID;
 public class ExaminationController {
 
     @Autowired
-    private PatientCardRepository examinationRepository;
+    private PatientExaminationRepository examinationRepository;
 
     @RequestMapping
     public String returnExaminationPage(Model model, Authentication authentication) throws AuthenticationUtilsException {

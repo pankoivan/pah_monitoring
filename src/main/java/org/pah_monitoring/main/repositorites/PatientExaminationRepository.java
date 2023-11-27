@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PatientCardRepository extends JpaRepository<PatientExamination, Integer> {
+public interface PatientExaminationRepository extends JpaRepository<PatientExamination, Integer> {
 
     List<PatientExamination> findAllByPatientId(int id);
 
