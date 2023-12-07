@@ -42,10 +42,10 @@ public class Doctor implements UserDetails {
     private List<Patient> patients;
 
     @OneToMany(mappedBy = "doctor")
-    private List<PatientExamination> patientExaminations;
+    private List<Examination> examinations;
 
     @OneToMany(mappedBy = "doctor")
-    private List<PatientRecovery> patientRecoveries;
+    private List<Recovery> patientRecoveries;
 
     public Role getRole() {
         return Role.DOCTOR;

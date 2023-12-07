@@ -40,10 +40,10 @@ public class Patient implements UserDetails {
     private Doctor doctor;
 
     @OneToMany(mappedBy = "patient")
-    private List<PatientExamination> examinations;
+    private List<Examination> examinations;
 
     @OneToOne(mappedBy = "patient")
-    private PatientRecovery recovery;
+    private Recovery recovery;
 
     public Role getRole() {
         return Role.PATIENT;

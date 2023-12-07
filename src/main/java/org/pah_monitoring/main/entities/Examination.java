@@ -11,8 +11,8 @@ import java.time.LocalDate;
 @Setter
 @ToString(exclude = {"patient", "doctor"})
 @Entity
-@Table(name = "patient_examination")
-public class PatientExamination {
+@Table(name = "examination")
+public class Examination {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -93,7 +93,7 @@ public class PatientExamination {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof PatientExamination other))
+                || ((o instanceof Examination other))
                 && (id != null)
                 && (id.equals(other.id));
     }

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 @ToString(exclude = {"employee", "author"})
 @Entity
-@Table(name = "hospital_employee_sick_leave")
+@Table(name = "sick_leave")
 public class SickLeave {
 
     @Id

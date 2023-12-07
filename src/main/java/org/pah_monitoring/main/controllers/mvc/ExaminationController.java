@@ -4,7 +4,7 @@ import org.pah_monitoring.auxiliary.exceptions.AuthenticationUtilsException;
 import org.pah_monitoring.auxiliary.utils.AuthenticationUtils;
 import org.pah_monitoring.auxiliary.utils.TempCheck;
 import org.pah_monitoring.main.entities.Patient;
-import org.pah_monitoring.main.entities.PatientExamination;
+import org.pah_monitoring.main.entities.Examination;
 import org.pah_monitoring.main.repositorites.PatientExaminationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -30,7 +30,7 @@ public class ExaminationController {
 
         TempCheck.checkRole(model, authentication);
 
-        model.addAttribute("examination", new PatientExamination());
+        model.addAttribute("examination", new Examination());
 
         return "examination";
     }
@@ -38,7 +38,7 @@ public class ExaminationController {
     @RequestMapping("/processing")
     public String redirectExaminationPageAfterProcessing(Model model,
                                                          Authentication authentication,
-                                                         PatientExamination examination,
+                                                         Examination examination,
                                                          MultipartFile bloodTest,
                                                          MultipartFile electrocardiography,
                                                          MultipartFile radiography,

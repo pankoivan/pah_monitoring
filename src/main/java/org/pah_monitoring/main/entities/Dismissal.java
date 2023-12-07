@@ -9,7 +9,7 @@ import lombok.*;
 @Setter
 @ToString(exclude = {"employee", "author"})
 @Entity
-@Table(name = "hospital_employee_dismissal")
+@Table(name = "dismissal")
 public class Dismissal {
 
     @Id

@@ -9,8 +9,8 @@ import lombok.*;
 @Setter
 @ToString(of = "id")
 @Entity
-@Table(name = "patient_recovery")
-public class PatientRecovery {
+@Table(name = "recovery")
+public class Recovery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class PatientRecovery {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof PatientRecovery other))
+                || ((o instanceof Recovery other))
                 && (id != null)
                 && (id.equals(other.id));
     }
