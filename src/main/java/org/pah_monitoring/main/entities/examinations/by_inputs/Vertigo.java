@@ -9,6 +9,7 @@ import org.pah_monitoring.main.entities.examinations.examination.Examination;
 @Getter
 @Setter
 @ToString(exclude = "examination")
+@Builder
 @Entity
 @Table(name = "vertigo")
 public class Vertigo {
@@ -19,7 +20,7 @@ public class Vertigo {
     private Integer id;
 
     @Column(name = "duration")
-    private CommonDuration duration;
+    private EventDuration duration;
 
     @Column(name = "nausea")
     private Boolean nausea;

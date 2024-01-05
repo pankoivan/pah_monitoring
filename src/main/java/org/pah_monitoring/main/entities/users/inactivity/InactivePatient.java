@@ -5,19 +5,28 @@ import lombok.*;
 import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(of = "id")
+@ToString(exclude = {"patient", "doctor"})
+@Builder
 @Entity
-@Table(name = "recovery")
+@Table(name = "inactive_patient")
 public class InactivePatient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
+
+    @Column(name = "date")
+    private LocalDate date;
+
+    @Column(name = "comment")
+    private String comment;
 
     @OneToOne
     @JoinColumn(name = "patient_id")

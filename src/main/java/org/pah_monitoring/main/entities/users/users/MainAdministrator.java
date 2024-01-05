@@ -2,9 +2,9 @@ package org.pah_monitoring.main.entities.users.users;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
-import org.pah_monitoring.main.entities.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -26,11 +26,11 @@ public class MainAdministrator implements UserDetails {
     @Column(name = "id")
     private Integer id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_security_information_id")
     private UserSecurityInformation userSecurityInformation;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_information_id")
     private UserInformation userInformation;
 

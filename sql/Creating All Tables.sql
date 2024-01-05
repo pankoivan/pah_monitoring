@@ -134,7 +134,7 @@ CREATE TABLE IF NOT EXISTS dismissal
 	id SERIAL PRIMARY KEY,
 	hospital_employee_information_id INT REFERENCES hospital_employee_information (id) UNIQUE NOT NULL,
 	author_id INT REFERENCES administrator (id) NOT NULL,
-	date TIME NOT NULL,
+	date DATE NOT NULL,
 	comment TEXT,
 	
 	CONSTRAINT dismissal__hospital_employee_and_author_are_not_equal CHECK (hospital_employee_information_id != author_id)
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS inactive_patient
 	id SERIAL PRIMARY KEY,
 	patient_id INT REFERENCES patient (id) UNIQUE NOT NULL,
 	author_id INT REFERENCES doctor (id) NOT NULL,
-	date TIME NOT NULL,
+	date DATE NOT NULL,
 	comment TEXT
 );
 

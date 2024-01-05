@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString(exclude = {"patient", "doctor"})
+@Builder
 @Entity
 @Table(name = "examination")
 public class Examination {

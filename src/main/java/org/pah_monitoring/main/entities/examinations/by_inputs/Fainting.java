@@ -9,6 +9,7 @@ import org.pah_monitoring.main.entities.examinations.examination.Examination;
 @Getter
 @Setter
 @ToString(exclude = "examination")
+@Builder
 @Entity
 @Table(name = "fainting")
 public class Fainting {
@@ -19,10 +20,10 @@ public class Fainting {
     private Integer id;
 
     @Column(name = "duration")
-    private CommonDuration duration;
+    private EventDuration duration;
 
     @Column(name = "during_exercise")
-    private Boolean during_exercise;
+    private Boolean duringExercise;
 
     @OneToOne
     @JoinColumn(name = "examination_id")

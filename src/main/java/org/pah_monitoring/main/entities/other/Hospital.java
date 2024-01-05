@@ -2,7 +2,6 @@ package org.pah_monitoring.main.entities.other;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.examinations.by_inputs.Ascites;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
@@ -14,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(exclude = {"employees", "patients"})
+@Builder
 @Entity
 @Table(name = "hospital")
 public class Hospital {
@@ -40,7 +40,6 @@ public class Hospital {
 
     @OneToMany(mappedBy = "hospital")
     private List<Patient> patients;
-
 
     @Override
     public boolean equals(Object o) {

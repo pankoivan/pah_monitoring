@@ -15,6 +15,7 @@ import org.pah_monitoring.main.entities.examinations.examination.Examination;
         "pressureAfter",
         "examination",
 })
+@Builder
 @Entity
 @Table(name = "examination")
 public class WalkTest {
@@ -35,6 +36,9 @@ public class WalkTest {
 
     @Column(name = "number_of_stops")
     private Integer numberOfStops;
+
+    @Column(name = "breathlessness")
+    private Breathlessness breathlessness;
 
     @OneToOne
     @JoinColumn(name = "pulse_oximetry_id_before")

@@ -2,14 +2,15 @@ package org.pah_monitoring.main.entities.users.users;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.examinations.examination.Examination;
 import org.pah_monitoring.main.entities.examinations.schedule.ExaminationSchedule;
+import org.pah_monitoring.main.entities.other.Achievement;
 import org.pah_monitoring.main.entities.other.Hospital;
 import org.pah_monitoring.main.entities.other.Medicine;
 import org.pah_monitoring.main.entities.users.inactivity.InactivePatient;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
-import org.pah_monitoring.main.entities.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(of = {"id", "hospitalId"})
+@ToString(of = "id")
 @Builder
 @Entity
 @Table(name = "patient")
@@ -31,17 +32,17 @@ public class Patient implements UserDetails {
     @Column(name = "id")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "hospital_id")
-    private Hospital hospital;
-
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_security_information_id")
     private UserSecurityInformation userSecurityInformation;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_information_id")
     private UserInformation userInformation;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital_id")
+    private Hospital hospital;
 
     @ManyToOne
     @JoinColumn(name = "doctor_id")
@@ -55,6 +56,14 @@ public class Patient implements UserDetails {
 
     @OneToMany(mappedBy = "patient")
     private List<Medicine> medicines;
+
+    @ManyToMany
+    @JoinTable(
+            name = "patient_achievement",
+            joinColumns = @JoinColumn(name = "patient_id"),
+            inverseJoinColumns = @JoinColumn(name = "achievement_id")
+    )
+    private List<Achievement> achievements;
 
     @OneToOne(mappedBy = "patient")
     private InactivePatient inactivePatient;

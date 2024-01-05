@@ -2,14 +2,17 @@ package org.pah_monitoring.main.entities.users.inactivity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
+import org.pah_monitoring.main.entities.users.users.Administrator;
+
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString(exclude = {"employee", "author"})
+@Builder
 @Entity
 @Table(name = "dismissal")
 public class Dismissal {
@@ -18,6 +21,9 @@ public class Dismissal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
+
+    @Column(name = "date")
+    private LocalDate date;
 
     @Column(name = "comment")
     private String comment;

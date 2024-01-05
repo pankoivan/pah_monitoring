@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString(exclude = {"recipient", "author"})
+@Builder
 @Entity
 @Table(name = "user_message")
 public class UserMessage {

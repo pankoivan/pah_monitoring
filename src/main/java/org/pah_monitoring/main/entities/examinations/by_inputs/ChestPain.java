@@ -9,6 +9,7 @@ import org.pah_monitoring.main.entities.examinations.examination.Examination;
 @Getter
 @Setter
 @ToString(exclude = "examination")
+@Builder
 @Entity
 @Table(name = "chest_pain")
 public class ChestPain {
@@ -22,7 +23,7 @@ public class ChestPain {
     private ChestPainType type;
 
     @Column(name = "duration")
-    private CommonDuration duration;
+    private EventDuration duration;
 
     @Column(name = "nitroglycerin")
     private ChestPainNitroglycerin nitroglycerin;

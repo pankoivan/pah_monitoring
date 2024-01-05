@@ -9,6 +9,7 @@ import org.pah_monitoring.main.entities.examinations.examination.Examination;
 @Getter
 @Setter
 @ToString(exclude = "examination")
+@Builder
 @Entity
 @Table(name = "overall_health")
 public class OverallHealth {

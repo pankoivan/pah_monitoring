@@ -3,15 +3,16 @@ package org.pah_monitoring.main.entities.security_codes;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.Role;
+import org.pah_monitoring.main.entities.other.Hospital;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "hospital")
 @Builder
 @Entity
 @Table(name = "registration_security_code")
@@ -29,11 +30,12 @@ public class RegistrationSecurityCode {
     @Column(name = "role")
     private Role role;
 
-    @Column(name = "hospital_id")
-    private String hospitalId;
-
     @Column(name = "expiration_date")
-    private LocalDate expirationDate;
+    private LocalDateTime expirationDate;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital_id")
+    private Hospital hospital;
 
     @Override
     public boolean equals(Object o) {

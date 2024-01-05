@@ -11,6 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
+@Builder
 @Entity
 @Table(name = "page_access_security_code")
 public class PageAccessSecurityCode {

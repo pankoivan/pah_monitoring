@@ -9,6 +9,7 @@ import org.pah_monitoring.main.entities.users.users.Patient;
 @Getter
 @Setter
 @ToString(exclude = "patient")
+@Builder
 @Entity
 @Table(name = "medicine")
 public class Medicine {

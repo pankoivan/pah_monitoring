@@ -8,6 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
+@Builder
 @Entity
 @Table(name = "main_admin_contact")
 public class MainAdminContact {

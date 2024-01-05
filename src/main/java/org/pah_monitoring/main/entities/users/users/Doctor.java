@@ -2,11 +2,11 @@ package org.pah_monitoring.main.entities.users.users;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
+import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.examinations.examination.Examination;
 import org.pah_monitoring.main.entities.users.inactivity.InactivePatient;
+import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
-import org.pah_monitoring.main.entities.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(of = {"id", "hospitalId", "university"})
+@ToString(of = {"id", "university"})
 @Builder
 @Entity
 @Table(name = "doctor")
@@ -28,17 +28,14 @@ public class Doctor implements UserDetails {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "hospital_id")
-    private String hospitalId;
-
     @Column(name = "university")
     private String university;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_security_information_id")
     private UserSecurityInformation userSecurityInformation;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "hospital_employee_information_id")
     private EmployeeInformation employeeInformation;
 
@@ -49,7 +46,7 @@ public class Doctor implements UserDetails {
     private List<Examination> examinations;
 
     @OneToMany(mappedBy = "doctor")
-    private List<InactivePatient> patientRecoveries;
+    private List<InactivePatient> assignedInactivePatients;
 
     public Role getRole() {
         return Role.DOCTOR;

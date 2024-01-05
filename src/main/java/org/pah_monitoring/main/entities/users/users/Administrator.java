@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(of = {"id", "hospitalId"})
+@ToString(of = "id")
 @Builder
 @Entity
 @Table(name = "administrator")
@@ -29,14 +29,11 @@ public class Administrator implements UserDetails {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "hospital_id")
-    private String hospitalId;
-
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_security_information_id")
     private UserSecurityInformation userSecurityInformation;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "hospital_employee_information_id")
     private EmployeeInformation employeeInformation;
 

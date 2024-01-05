@@ -9,6 +9,7 @@ import org.pah_monitoring.main.entities.users.users.Patient;
 @Getter
 @Setter
 @ToString(exclude = "patient")
+@Builder
 @Entity
 @Table(name = "examination_schedule")
 public class ExaminationSchedule {
@@ -17,6 +18,9 @@ public class ExaminationSchedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
+
+    @Column(name = "indicators_group")
+    private IndicatorsGroup indicatorsGroup;
 
     @Column(name = "times")
     private ScheduleTimes times;
