@@ -3,6 +3,9 @@ package org.pah_monitoring.main.entities.users.users;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.examinations.examination.Examination;
+import org.pah_monitoring.main.entities.examinations.schedule.ExaminationSchedule;
+import org.pah_monitoring.main.entities.other.Hospital;
+import org.pah_monitoring.main.entities.other.Medicine;
 import org.pah_monitoring.main.entities.users.inactivity.InactivePatient;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
@@ -28,8 +31,9 @@ public class Patient implements UserDetails {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "hospital_id")
-    private String hospitalId;
+    @ManyToOne
+    @JoinColumn(name = "hospital_id")
+    private Hospital hospital;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_security_information_id")
@@ -45,6 +49,12 @@ public class Patient implements UserDetails {
 
     @OneToMany(mappedBy = "patient")
     private List<Examination> examinations;
+
+    @OneToMany(mappedBy = "patient")
+    private List<ExaminationSchedule> schedules;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Medicine> medicines;
 
     @OneToOne(mappedBy = "patient")
     private InactivePatient inactivePatient;

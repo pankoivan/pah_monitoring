@@ -2,6 +2,7 @@ package org.pah_monitoring.main.entities.users.info;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.other.Hospital;
 import org.pah_monitoring.main.entities.users.inactivity.Dismissal;
 import org.pah_monitoring.main.entities.users.inactivity.SickLeave;
 import org.pah_monitoring.main.entities.users.inactivity.Vacation;
@@ -25,6 +26,10 @@ public class EmployeeInformation {
 
     @Column(name = "experience")
     private Integer experience;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital_id")
+    private Hospital hospital;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_information_id")

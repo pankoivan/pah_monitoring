@@ -393,7 +393,7 @@ CREATE TABLE IF NOT EXISTS examination_schedule
 
 /* Лекарства, назначенные пациентам (37) */
 
-CREATE TABLE IF NOT EXISTS patient_medicine
+CREATE TABLE IF NOT EXISTS medicine
 (
     id SERIAL PRIMARY KEY,
     patient_id INT REFERENCES patient (id) NOT NULL,
