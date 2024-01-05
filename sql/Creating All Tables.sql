@@ -1,167 +1,108 @@
-/* Контакты главного администратора */
+/* Контакты главного администратора (1) */
 
-CREATE TABLE main_admin_contact (
+CREATE TABLE IF NOT EXISTS main_admin_contact
+(
 	id SERIAL PRIMARY KEY,
 	contact VARCHAR (256) UNIQUE NOT NULL,
 	description VARCHAR (128) UNIQUE NOT NULL
 );
 
-/* Зарегистрированные медицинские учреждения */
+/* Медицинские учреждения (2) */
 
-CREATE TABLE registered_hospital (
+CREATE TABLE IF NOT EXISTS hospital
+(
 	id SERIAL PRIMARY KEY,
-	oid VARCHAR (512) UNIQUE NOT NULL,
-	name VARCHAR (1024) UNIQUE NOT NULL,
-	date TIMESTAMP NOT NULL
+	oid VARCHAR (256) UNIQUE NOT NULL,
+	name VARCHAR (512) UNIQUE NOT NULL,
+	date TIMESTAMP NOT NULL,
+	current_state VARCHAR (24) NOT NULL
 );
 
-/* Коды безопасности для регистрации администраторов, врачей и пациентов */
+/* Коды безопасности для регистрации пользователей (3) */
 
-CREATE TABLE registration_security_code (
+CREATE TABLE IF NOT EXISTS registration_security_code
+(
 	id SERIAL PRIMARY KEY,
-	registered_hospital_id INT REFERENCES registered_hospital (id) NOT NULL,
-	role VARCHAR (32) NOT NULL,
+	hospital_id INT REFERENCES hospital (id) NOT NULL,
+	role VARCHAR (24) NOT NULL,
 	code UUID UNIQUE NOT NULL,
-	expiration_date DATE NOT NULL
+	expiration_date TIMESTAMP NOT NULL
 );
 
-/* Коды безопасности для доступа к странице (форме) регистрации медицинского учреждения */
+/* Коды безопасности для доступа к странице регистрации медицинского учреждения (4) */
 
-CREATE TABLE page_access_security_code (
+CREATE TABLE IF NOT EXISTS page_access_security_code
+(
 	id SERIAL PRIMARY KEY,
 	code UUID UNIQUE NOT NULL,
-	expiration_date DATE NOT NULL
+	expiration_date TIMESTAMP NOT NULL
 );
 
-/* Почты и пароли всех пользователей */
+/* Почты и пароли всех пользователей (5) */
 
-CREATE TABLE user_security_information (
+CREATE TABLE IF NOT EXISTS user_security_information
+(
 	id SERIAL PRIMARY KEY,
 	email VARCHAR (256) UNIQUE NOT NULL,
-	password VARCHAR (256) NOT NULL
+	password VARCHAR (64) NOT NULL
 );
 
-/* Общая информация обо всех пользователях */
+/* Общая информация обо всех пользователях (6) */
 
-CREATE TABLE user_information (
+CREATE TABLE IF NOT EXISTS user_information
+(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR (32) NOT NULL,
 	lastname VARCHAR (64) NOT NULL,
 	patronymic VARCHAR (32) NOT NULL,
 	gender VARCHAR (8),
 	birthdate DATE,
-	phone_number VARCHAR (24)
+	phone_number VARCHAR (24) NOT NULL
 );
 
-/* Информация о сотрудниках медицинского учреждения */
+/* Информация о сотрудниках медицинского учреждения (7) */
 
-CREATE TABLE hospital_employee_information (
+CREATE TABLE IF NOT EXISTS hospital_employee_information
+(
 	id SERIAL PRIMARY KEY,
 	user_information_id INT REFERENCES user_information (id) UNIQUE NOT NULL,
-	registered_hospital_id INT REFERENCES registered_hospital (id) NOT NULL,
+	hospital_id INT REFERENCES hospital (id) NOT NULL,
 	post VARCHAR (128) NOT NULL,
 	experience INT
 );
 
-/* Главный администратор */
+/* Главный администратор (8) */
 
-CREATE TABLE main_administrator (
+CREATE TABLE IF NOT EXISTS main_administrator
+(
 	id SERIAL PRIMARY KEY,
 	user_security_information_id INT REFERENCES user_security_information (id) UNIQUE NOT NULL,
 	user_information_id INT REFERENCES user_information (id) UNIQUE NOT NULL
 );
 
-/* Администраторы */
+/* Администраторы (9) */
 
-CREATE TABLE administrator (
+CREATE TABLE IF NOT EXISTS administrator
+(
 	id SERIAL PRIMARY KEY,
 	user_security_information_id INT REFERENCES user_security_information (id) UNIQUE NOT NULL,
 	hospital_employee_information_id INT REFERENCES hospital_employee_information (id) UNIQUE NOT NULL
 );
 
-/* Врачи */
+/* Врачи (10) */
 
-CREATE TABLE doctor (
+CREATE TABLE IF NOT EXISTS doctor
+(
 	id SERIAL PRIMARY KEY,
 	user_security_information_id INT REFERENCES user_security_information (id) UNIQUE NOT NULL,
 	hospital_employee_information_id INT REFERENCES hospital_employee_information (id) UNIQUE NOT NULL,
 	university VARCHAR (256)
 );
 
-/* Пациенты */
+/* Больничные сотрудников медицинских учреждений (11) */
 
-CREATE TABLE patient (
-	id SERIAL PRIMARY KEY,
-	user_security_information_id INT REFERENCES user_security_information (id) UNIQUE NOT NULL,
-	user_information_id INT REFERENCES user_information (id) UNIQUE NOT NULL,
-	doctor_id INT REFERENCES doctor (id),
-	registered_hospital_id INT REFERENCES registered_hospital (id) NOT NULL,
-);
-
-/* Наблюдения */
-
-CREATE TABLE examination (
-	id SERIAL PRIMARY KEY,
-	patient_id INT REFERENCES patient (id) NOT NULL,
-	doctor_id INT REFERENCES doctor (id) NOT NULL,
-	date TIMESTAMP NOT NULL
-);
-
-/* Показатели */
-
-CREATE TABLE indicator (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR (128) UNIQUE NOT NULL,
-    group VARCHAR (32) NOT NULL
-);
-
-/* Конкретные показатели в конкретном наблюдении */
-
-CREATE TABLE examination_indicator (
-    id SERIAL PRIMARY KEY,
-    examination_id INT REFERENCES examination (id) NOT NULL,
-    indicator_id INT REFERENCES indicator (id) NOT NULL,
-    value VARCHAR (256) NOT NULL
-);
-
-/* Расписания сбора показателей */
-
-CREATE TABLE indicator_schedule (
-    id SERIAL PRIMARY KEY,
-    patient_id INT REFERENCES patient (id) NOT NULL,
-    indicator_id INT REFERENCES indicator (id) NOT NULL,
-    schedule VARCHAR (64) NOT NULL
-);
-
-/* Лекарства, назначенные пациентам */
-
-CREATE TABLE medicine (
-    id SERIAL PRIMARY KEY,
-    patient_id INT REFERENCES patient (id) NOT NULL,
-    medicine_api_id VARCHAR (1024) NOT NULL,
-    description TEXT NOT NULL
-);
-
-/* Награды пациентов */
-
-CREATE TABLE achievement (
-    id SERIAL PRIMARY KEY,
-    filename VARCHAR (256) UNIQUE NOT NULL,
-    name VARCHAR (64) UNIQUE NOT NULL,
-    description TEXT UNIQUE NOT NULL
-);
-
-/* Связи пациентов и наград */
-
-CREATE TABLE patient_achievement (
-    id SERIAL PRIMARY KEY,
-    patient_id INT REFERENCES patient (id) NOT NULL,
-    achievement_id INT REFERENCES achievement (id) NOT NULL
-);
-
-/* Больничные сотрудников медицинских учреждений */
-
-CREATE TABLE sick_leave (
+CREATE TABLE IF NOT EXISTS sick_leave
+(
 	id SERIAL PRIMARY KEY,
 	hospital_employee_information_id INT REFERENCES hospital_employee_information (id) NOT NULL,
 	author_id INT REFERENCES administrator (id) NOT NULL,
@@ -170,9 +111,10 @@ CREATE TABLE sick_leave (
 	comment TEXT
 );
 
-/* Отпуски сотрудников медицинских учреждений */
+/* Отпуски сотрудников медицинских учреждений (12) */
 
-CREATE TABLE vacation (
+CREATE TABLE IF NOT EXISTS vacation
+(
 	id SERIAL PRIMARY KEY,
 	hospital_employee_information_id INT REFERENCES hospital_employee_information (id) NOT NULL,
 	author_id INT REFERENCES administrator (id) NOT NULL,
@@ -181,9 +123,10 @@ CREATE TABLE vacation (
 	comment TEXT
 );
 
-/* Увольнения сотрудников медицинских учреждений */
+/* Увольнения сотрудников медицинских учреждений (13) */
 
-CREATE TABLE dismissal (
+CREATE TABLE IF NOT EXISTS dismissal
+(
 	id SERIAL PRIMARY KEY,
 	hospital_employee_information_id INT REFERENCES hospital_employee_information (id) UNIQUE NOT NULL,
 	author_id INT REFERENCES administrator (id) NOT NULL,
@@ -191,9 +134,21 @@ CREATE TABLE dismissal (
 	comment TEXT
 );
 
-/* Выписки пациентов */
+/* Пациенты (14) */
 
-CREATE TABLE recovery (
+CREATE TABLE IF NOT EXISTS patient
+(
+	id SERIAL PRIMARY KEY,
+	user_security_information_id INT REFERENCES user_security_information (id) UNIQUE NOT NULL,
+	user_information_id INT REFERENCES user_information (id) UNIQUE NOT NULL,
+	doctor_id INT REFERENCES doctor (id),
+	hospital_id INT REFERENCES hospital (id) NOT NULL,
+);
+
+/* Неактивные пациенты (15) */
+
+CREATE TABLE IF NOT EXISTS inactive_patient
+(
 	id SERIAL PRIMARY KEY,
 	patient_id INT REFERENCES patient (id) UNIQUE NOT NULL,
 	author_id INT REFERENCES doctor (id) NOT NULL,
@@ -201,9 +156,262 @@ CREATE TABLE recovery (
 	comment TEXT
 );
 
-/* Сообщения всех пользователей */
+/* Наблюдения (16) */
 
-CREATE TABLE user_message (
+CREATE TABLE IF NOT EXISTS examination
+(
+	id SERIAL PRIMARY KEY,
+	patient_id INT REFERENCES patient (id) NOT NULL,
+	doctor_id INT REFERENCES doctor (id) NOT NULL,
+	date TIMESTAMP NOT NULL
+);
+
+/* Группа показателей: "Спирометрия + DLCO" (17) */
+
+CREATE TABLE IF NOT EXISTS spirometry_and_DLCO
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	VLC REAL NOT NULL,
+	AVLC REAL NOT NULL,
+	RLV REAL NOT NULL,
+	VFE1 REAL NOT NULL,
+	DLCO REAL NOT NULL
+);
+
+/* Группа показателей: "Пульсоксиметрия" (18) */
+
+CREATE TABLE IF NOT EXISTS pulse_oximetry
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) NOT NULL,
+	oxygen_percentage REAL NOT NULL,
+	pulse_rate INT NOT NULL,
+	during_exercise BOOL NOT NULL
+);
+
+/* Группа показателей: "Давление" (19) */
+
+CREATE TABLE IF NOT EXISTS pressure
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) NOT NULL,
+	upper INT NOT NULL,
+	lower INT NOT NULL,
+	during_exercise BOOL NOT NULL
+);
+
+/* Группа показателей: "Т6МХ" (20) */
+
+CREATE TABLE IF NOT EXISTS walk_test
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	oxygen_support BOOL NOT NULL,
+	auxiliary_devices BOOL NOT NULL,
+	distance REAL NOT NULL,
+	number_of_stops INT NOT NULL,
+	pulse_oximetry_id_before INT REFERENCES pulse_oximetry (id) NOT NULL,
+	pulse_oximetry_id_after INT REFERENCES pulse_oximetry (id) NOT NULL,
+	pressure_id_before INT REFERENCES pressure (id) NOT NULL,
+	pressure_id_after INT REFERENCES pressure (id) NOT NULL,
+	breathlessness REAL NOT NULL
+);
+
+/* Группа показателей: "Кашель" (21) */
+
+CREATE TABLE IF NOT EXISTS cough
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	type VARCHAR (24) NOT NULL,
+	power VARCHAR (24) NOT NULL,
+	timbre VARCHAR (32) NOT NULL,
+	hemoptysis BOOL NOT NULL
+);
+
+/* Группа показателей: "Боль в груди" (22) */
+
+CREATE TABLE IF NOT EXISTS chest_pain
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	type VARCHAR (16) NOT NULL,
+	duration VARCHAR (16) NOT NULL,
+	nitroglycerin VARCHAR (16) NOT NULL
+);
+
+/* Группа показателей: "Обморок" (23) */
+
+CREATE TABLE IF NOT EXISTS fainting
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	duration VARCHAR (16) NOT NULL,
+	during_exercise BOOL NOT NULL
+);
+
+/* Группа показателей: "Физические изменения" (24) */
+
+CREATE TABLE IF NOT EXISTS physical_changes
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	acrocyanosis BOOL NOT NULL,
+	fingers_phalanges BOOL NOT NULL,
+	nails BOOL NOT NULL,
+	chest BOOL NOT NULL,
+	neck_veins BOOL NOT NULL,
+	lower_extremities BOOL NOT NULL
+);
+
+/* Группа показателей: "Асцит" (25) */
+
+CREATE TABLE IF NOT EXISTS ascites
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	liquid_amount VARCHAR (16) NOT NULL,
+	content_infection VARCHAR (16) NOT NULL,
+	response_to_drug_therapy VARCHAR (24) NOT NULL
+);
+
+/* Группа показателей: "Общее самочувствие" (26) */
+
+CREATE TABLE IF NOT EXISTS overall_health
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+	fatigue BOOL NOT NULL,
+	rest_feeling BOOL NOT NULL,
+	drowsiness BOOL NOT NULL,
+	concentration BOOL NOT NULL,
+	weakness VARCHAR (24) NOT NULL,
+	appetite BOOL NOT NULL,
+	cold_extremities VARCHAR (24) NOT NULL
+);
+
+/* Группа показателей: "Головокружение" (27) */
+
+CREATE TABLE IF NOT EXISTS vertigo
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+	duration VARCHAR (16) NOT NULL,
+	nausea BOOL NOT NULL
+);
+
+/* Группа показателей: "Жидкость и вес" (28) */
+
+CREATE TABLE IF NOT EXISTS liquid_and_weight
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	liquid REAL NOT NULL,
+	weight REAL NOT NULL
+);
+
+/* Группа показателей: "Функциональный класс" (29) */
+
+CREATE TABLE IF NOT EXISTS functional_class
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	functional_class INT NOT NULL
+);
+
+/* Группа показателей: "Развёрнутый анализ крови" (30) */
+
+CREATE TABLE IF NOT EXISTS detailed_blood_test
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+);
+
+/* Группа показателей: "Электрокардиограия" (31) */
+
+CREATE TABLE IF NOT EXISTS electrocardiography
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+);
+
+/* Группа показателей: "Рентгенография органов грудной клетки" (32) */
+
+CREATE TABLE IF NOT EXISTS radiography
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+);
+
+/* Группа показателей: "Эхокардиография" (33) */
+
+CREATE TABLE IF NOT EXISTS echocardiography
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+);
+
+/* Группа показателей: "Компьютерная томография органов грудной клетки" (34) */
+
+CREATE TABLE IF NOT EXISTS computed_tomography
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+);
+
+/* Группа показателей: "Катетеризация правых отделов сердца" (35) */
+
+CREATE TABLE IF NOT EXISTS right_heart_cateterization
+(
+	id SERIAL PRIMARY KEY,
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+);
+
+/* Расписания сбора показателей (36) */
+
+CREATE TABLE IF NOT EXISTS examination_schedule
+(
+    id SERIAL PRIMARY KEY,
+    patient_id INT REFERENCES patient (id) NOT NULL,
+    indicators_group VARCHAR (64) NOT NULL,
+    times INT NOT NULL,
+	period VARCHAR (24) NOT NULL
+);
+
+/* Лекарства, назначенные пациентам (37) */
+
+CREATE TABLE IF NOT EXISTS patient_medicine
+(
+    id SERIAL PRIMARY KEY,
+    patient_id INT REFERENCES patient (id) NOT NULL,
+    medicine_api_id VARCHAR (1024) NOT NULL,
+    description TEXT NOT NULL
+);
+
+/* Награды для пациентов (38) */
+
+CREATE TABLE IF NOT EXISTS achievement
+(
+    id SERIAL PRIMARY KEY,
+    filename VARCHAR (256) UNIQUE NOT NULL,
+    name VARCHAR (64) UNIQUE NOT NULL,
+    description TEXT UNIQUE NOT NULL
+);
+
+/* Связи пациентов и наград (39) */
+
+CREATE TABLE IF NOT EXISTS patient_achievement
+(
+    id SERIAL PRIMARY KEY,
+    patient_id INT REFERENCES patient (id) NOT NULL,
+    achievement_id INT REFERENCES achievement (id) NOT NULL
+);
+
+/* Сообщения всех пользователей (40) */
+
+CREATE TABLE IF NOT EXISTS user_message
+(
 	id SERIAL PRIMARY KEY,
 	recipient_id INT REFERENCES user_information (id) NOT NULL,
 	author_id INT REFERENCES user_information (id) NOT NULL,
