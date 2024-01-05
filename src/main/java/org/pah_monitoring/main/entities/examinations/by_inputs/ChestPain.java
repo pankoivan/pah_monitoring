@@ -19,12 +19,15 @@ public class ChestPain {
     @Column(name = "id")
     private Integer id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private ChestPainType type;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "duration")
     private EventDuration duration;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "nitroglycerin")
     private ChestPainNitroglycerin nitroglycerin;
 

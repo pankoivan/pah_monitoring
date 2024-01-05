@@ -19,12 +19,15 @@ public class ExaminationSchedule {
     @Column(name = "id")
     private Integer id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "indicators_group")
     private IndicatorsGroup indicatorsGroup;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "times")
     private ScheduleTimes times;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "period")
     private SchedulePeriod period;
 

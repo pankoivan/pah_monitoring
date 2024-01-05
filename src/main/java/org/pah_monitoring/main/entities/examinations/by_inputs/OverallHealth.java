@@ -37,6 +37,7 @@ public class OverallHealth {
     @Column(name = "appetite")
     private Boolean appetite;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "cold_extremities")
     private OverallHealthColdExtremities coldExtremities;
 

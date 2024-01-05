@@ -32,6 +32,7 @@ public class Hospital {
     @Column(name = "date")
     private LocalDateTime date;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "current_state")
     private HospitalCurrentState currentState;
 

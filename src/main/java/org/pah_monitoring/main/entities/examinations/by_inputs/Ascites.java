@@ -19,12 +19,15 @@ public class Ascites {
     @Column(name = "id")
     private Integer id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "liquid_amount")
     private AscitesLiquidAmount liquidAmount;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "content_infection")
     private AscitesContentInfection contentInfection;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "response_to_drug_therapy")
     private AscitesResponseToDrugTherapy responseToDrugTherapy;
 

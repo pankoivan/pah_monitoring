@@ -19,6 +19,7 @@ public class FunctionalClass {
     @Column(name = "id")
     private Integer id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "functional_class")
     private FunctionalClassNumber functionalClassNumber;
 

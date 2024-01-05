@@ -37,6 +37,7 @@ public class WalkTest {
     @Column(name = "number_of_stops")
     private Integer numberOfStops;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "breathlessness")
     private Breathlessness breathlessness;
 

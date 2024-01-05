@@ -22,6 +22,7 @@ public class AnalysisFile {
     @Column(name = "filename")
     private String filename;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "analysis_type")
     private AnalysisType analysisType;
 

@@ -19,12 +19,15 @@ public class Cough {
     @Column(name = "id")
     private Integer id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private CoughType type;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "power")
     private CoughPower power;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "timbre")
     private CoughTimbre timbre;
 
