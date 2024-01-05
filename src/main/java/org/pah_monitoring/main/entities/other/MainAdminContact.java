@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 @Entity
 @Table(name = "main_page_contact")
-public class MainPageContact {
+public class MainAdminContact {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,7 @@ public class MainPageContact {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof MainPageContact other))
+                || ((o instanceof MainAdminContact other))
                 && (id != null)
                 && (id.equals(other.id));
     }
