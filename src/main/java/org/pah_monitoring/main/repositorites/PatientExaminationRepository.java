@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.repositorites;
 
-import org.pah_monitoring.main.entities.Examination;
+import org.pah_monitoring.main.entities.examinations.examination.Examination;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

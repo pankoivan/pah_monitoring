@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities;
+package org.pah_monitoring.main.entities.users.info;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,31 +7,27 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"employee", "author"})
+@ToString
+@Builder
 @Entity
-@Table(name = "dismissal")
-public class Dismissal {
+@Table(name = "user_security_information")
+public class UserSecurityInformation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "comment")
-    private String comment;
+    @Column(name = "email")
+    private String email;
 
-    @OneToOne
-    @JoinColumn(name = "hospital_employee_information_id")
-    private EmployeeInformation employee;
-
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private Administrator author;
+    @Column(name = "password")
+    private String password;
 
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof Dismissal other))
+                || ((o instanceof UserSecurityInformation other))
                 && (id != null)
                 && (id.equals(other.id));
     }

@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities;
+package org.pah_monitoring.main.entities.security_codes;
 
 import jakarta.persistence.*;
 import lombok.*;

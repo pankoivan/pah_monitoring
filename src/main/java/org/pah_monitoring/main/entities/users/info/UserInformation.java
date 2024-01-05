@@ -1,7 +1,8 @@
-package org.pah_monitoring.main.entities;
+package org.pah_monitoring.main.entities.users.info;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.users.message.UserMessage;
 import org.pah_monitoring.main.entities.enums.Gender;
 
 import java.time.LocalDate;

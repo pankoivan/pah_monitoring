@@ -1,8 +1,13 @@
-package org.pah_monitoring.main.entities;
+package org.pah_monitoring.main.entities.users.users;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.Role;
+import org.pah_monitoring.main.entities.users.inactivity.Dismissal;
+import org.pah_monitoring.main.entities.users.inactivity.SickLeave;
+import org.pah_monitoring.main.entities.users.inactivity.Vacation;
+import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
+import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,8 +21,8 @@ import java.util.List;
 @ToString(of = {"id", "hospitalId"})
 @Builder
 @Entity
-@Table(name = "patient")
-public class Patient implements UserDetails {
+@Table(name = "administrator")
+public class Administrator implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,25 +37,24 @@ public class Patient implements UserDetails {
     private UserSecurityInformation userSecurityInformation;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "user_information_id")
-    private UserInformation userInformation;
+    @JoinColumn(name = "hospital_employee_information_id")
+    private EmployeeInformation employeeInformation;
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id")
-    private Doctor doctor;
+    @OneToMany(mappedBy = "author")
+    private List<Vacation> assignedVacations;
 
-    @OneToMany(mappedBy = "patient")
-    private List<Examination> examinations;
+    @OneToMany(mappedBy = "author")
+    private List<SickLeave> assignedSickLeaves;
 
-    @OneToOne(mappedBy = "patient")
-    private Recovery recovery;
+    @OneToMany(mappedBy = "author")
+    private List<Dismissal> assignedDismissals;
 
     public Role getRole() {
-        return Role.PATIENT;
+        return Role.ADMINISTRATOR;
     }
 
     public boolean isActive() {
-        return recovery == null;
+        return employeeInformation.getDismissal() == null;
     }
 
     @Override
@@ -91,7 +95,7 @@ public class Patient implements UserDetails {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof Patient other))
+                || ((o instanceof Administrator other))
                 && (id != null)
                 && (id.equals(other.id));
     }

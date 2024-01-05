@@ -1,7 +1,11 @@
-package org.pah_monitoring.main.entities;
+package org.pah_monitoring.main.entities.users.users;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
+import org.pah_monitoring.main.entities.examinations.examination.Examination;
+import org.pah_monitoring.main.entities.users.inactivity.InactivePatient;
+import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,11 +17,11 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(of = {"id", "hospitalId"})
+@ToString(of = {"id", "hospitalId", "university"})
 @Builder
 @Entity
-@Table(name = "administrator")
-public class Administrator implements UserDetails {
+@Table(name = "doctor")
+public class Doctor implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +31,9 @@ public class Administrator implements UserDetails {
     @Column(name = "hospital_id")
     private String hospitalId;
 
+    @Column(name = "university")
+    private String university;
+
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_security_information_id")
     private UserSecurityInformation userSecurityInformation;
@@ -35,17 +42,17 @@ public class Administrator implements UserDetails {
     @JoinColumn(name = "hospital_employee_information_id")
     private EmployeeInformation employeeInformation;
 
-    @OneToMany(mappedBy = "author")
-    private List<Vacation> assignedVacations;
+    @OneToMany(mappedBy = "doctor")
+    private List<Patient> patients;
 
-    @OneToMany(mappedBy = "author")
-    private List<SickLeave> assignedSickLeaves;
+    @OneToMany(mappedBy = "doctor")
+    private List<Examination> examinations;
 
-    @OneToMany(mappedBy = "author")
-    private List<Dismissal> assignedDismissals;
+    @OneToMany(mappedBy = "doctor")
+    private List<InactivePatient> patientRecoveries;
 
     public Role getRole() {
-        return Role.ADMINISTRATOR;
+        return Role.DOCTOR;
     }
 
     public boolean isActive() {
@@ -90,7 +97,7 @@ public class Administrator implements UserDetails {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof Administrator other))
+                || ((o instanceof Doctor other))
                 && (id != null)
                 && (id.equals(other.id));
     }

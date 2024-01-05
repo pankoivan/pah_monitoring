@@ -1,7 +1,11 @@
-package org.pah_monitoring.main.entities;
+package org.pah_monitoring.main.entities.users.users;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.examinations.examination.Examination;
+import org.pah_monitoring.main.entities.users.inactivity.InactivePatient;
+import org.pah_monitoring.main.entities.users.info.UserInformation;
+import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,11 +17,11 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(of = {"id", "hospitalId", "university"})
+@ToString(of = {"id", "hospitalId"})
 @Builder
 @Entity
-@Table(name = "doctor")
-public class Doctor implements UserDetails {
+@Table(name = "patient")
+public class Patient implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,32 +31,30 @@ public class Doctor implements UserDetails {
     @Column(name = "hospital_id")
     private String hospitalId;
 
-    @Column(name = "university")
-    private String university;
-
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_security_information_id")
     private UserSecurityInformation userSecurityInformation;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "hospital_employee_information_id")
-    private EmployeeInformation employeeInformation;
+    @JoinColumn(name = "user_information_id")
+    private UserInformation userInformation;
 
-    @OneToMany(mappedBy = "doctor")
-    private List<Patient> patients;
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "patient")
     private List<Examination> examinations;
 
-    @OneToMany(mappedBy = "doctor")
-    private List<Recovery> patientRecoveries;
+    @OneToOne(mappedBy = "patient")
+    private InactivePatient inactivePatient;
 
     public Role getRole() {
-        return Role.DOCTOR;
+        return Role.PATIENT;
     }
 
     public boolean isActive() {
-        return employeeInformation.getDismissal() == null;
+        return inactivePatient == null;
     }
 
     @Override
@@ -93,7 +95,7 @@ public class Doctor implements UserDetails {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof Doctor other))
+                || ((o instanceof Patient other))
                 && (id != null)
                 && (id.equals(other.id));
     }

@@ -1,7 +1,9 @@
-package org.pah_monitoring.main.entities;
+package org.pah_monitoring.main.entities.users.users;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.users.info.UserInformation;
+import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

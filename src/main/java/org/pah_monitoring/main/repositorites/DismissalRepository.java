@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.repositorites;
 
-import org.pah_monitoring.main.entities.Dismissal;
+import org.pah_monitoring.main.entities.users.inactivity.Dismissal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

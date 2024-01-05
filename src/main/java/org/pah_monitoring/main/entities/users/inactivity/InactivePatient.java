@@ -1,7 +1,9 @@
-package org.pah_monitoring.main.entities;
+package org.pah_monitoring.main.entities.users.inactivity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.users.users.Doctor;
+import org.pah_monitoring.main.entities.users.users.Patient;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -10,7 +12,7 @@ import lombok.*;
 @ToString(of = "id")
 @Entity
 @Table(name = "recovery")
-public class Recovery {
+public class InactivePatient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +30,7 @@ public class Recovery {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof Recovery other))
+                || ((o instanceof InactivePatient other))
                 && (id != null)
                 && (id.equals(other.id));
     }
