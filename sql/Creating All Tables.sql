@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS patient
 	user_security_information_id INT REFERENCES user_security_information (id) UNIQUE NOT NULL,
 	user_information_id INT REFERENCES user_information (id) UNIQUE NOT NULL,
 	doctor_id INT REFERENCES doctor (id),
-	hospital_id INT REFERENCES hospital (id) NOT NULL,
+	hospital_id INT REFERENCES hospital (id) NOT NULL
 );
 
 /* Неактивные пациенты (15) */
@@ -287,7 +287,7 @@ CREATE TABLE IF NOT EXISTS ascites
 CREATE TABLE IF NOT EXISTS overall_health
 (
 	id SERIAL PRIMARY KEY,
-	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
 	fatigue BOOL NOT NULL,
 	rest_feeling BOOL NOT NULL,
 	drowsiness BOOL NOT NULL,
@@ -302,7 +302,7 @@ CREATE TABLE IF NOT EXISTS overall_health
 CREATE TABLE IF NOT EXISTS vertigo
 (
 	id SERIAL PRIMARY KEY,
-	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
 	duration VARCHAR (16) NOT NULL,
 	nausea BOOL NOT NULL
 );
@@ -332,7 +332,7 @@ CREATE TABLE IF NOT EXISTS detailed_blood_test
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	filename VARHCAR (256) UNIQUE NOT NULL
+	filename VARCHAR (256) UNIQUE NOT NULL
 );
 
 /* Группа показателей: "Электрокардиограия" (31) */
@@ -341,7 +341,7 @@ CREATE TABLE IF NOT EXISTS electrocardiography
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	filename VARHCAR (256) UNIQUE NOT NULL
+	filename VARCHAR (256) UNIQUE NOT NULL
 );
 
 /* Группа показателей: "Рентгенография органов грудной клетки" (32) */
@@ -350,7 +350,7 @@ CREATE TABLE IF NOT EXISTS radiography
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	filename VARHCAR (256) UNIQUE NOT NULL
+	filename VARCHAR (256) UNIQUE NOT NULL
 );
 
 /* Группа показателей: "Эхокардиография" (33) */
@@ -359,7 +359,7 @@ CREATE TABLE IF NOT EXISTS echocardiography
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	filename VARHCAR (256) UNIQUE NOT NULL
+	filename VARCHAR (256) UNIQUE NOT NULL
 );
 
 /* Группа показателей: "Компьютерная томография органов грудной клетки" (34) */
@@ -368,7 +368,7 @@ CREATE TABLE IF NOT EXISTS computed_tomography
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	filename VARHCAR (256) UNIQUE NOT NULL
+	filename VARCHAR (256) UNIQUE NOT NULL
 );
 
 /* Группа показателей: "Катетеризация правых отделов сердца" (35) */
@@ -377,7 +377,7 @@ CREATE TABLE IF NOT EXISTS right_heart_cateterization
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	filename VARHCAR (256) UNIQUE NOT NULL
+	filename VARCHAR (256) UNIQUE NOT NULL
 );
 
 /* Расписания отправки показателей (36) */
