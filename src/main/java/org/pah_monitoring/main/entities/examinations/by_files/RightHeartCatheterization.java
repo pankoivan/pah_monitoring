@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities.examinations.by_inputs;
+package org.pah_monitoring.main.entities.examinations.by_files;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,19 +10,16 @@ import org.pah_monitoring.main.entities.examinations.examination.Examination;
 @Setter
 @ToString(exclude = "examination")
 @Entity
-@Table(name = "liquid_and_weight")
-public class LiquidAndWeight {
+@Table(name = "right_heart_catheterization")
+public class RightHeartCatheterization {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "liquid")
-    private Double liquid;
-
-    @Column(name = "weight")
-    private Double weight;
+    @Column(name = "filename")
+    private String filename;
 
     @OneToOne
     @JoinColumn(name = "examination_id")
@@ -31,7 +28,7 @@ public class LiquidAndWeight {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof LiquidAndWeight other))
+                || ((o instanceof RightHeartCatheterization other))
                 && (id != null)
                 && (id.equals(other.id));
     }

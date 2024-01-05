@@ -217,10 +217,10 @@ CREATE TABLE IF NOT EXISTS walk_test
 	auxiliary_devices BOOL NOT NULL,
 	distance REAL NOT NULL,
 	number_of_stops INT NOT NULL,
-	pulse_oximetry_id_before INT REFERENCES pulse_oximetry (id) NOT NULL,
-	pulse_oximetry_id_after INT REFERENCES pulse_oximetry (id) NOT NULL,
-	pressure_id_before INT REFERENCES pressure (id) NOT NULL,
-	pressure_id_after INT REFERENCES pressure (id) NOT NULL,
+	pulse_oximetry_id_before INT REFERENCES pulse_oximetry (id) UNIQUE NOT NULL,
+	pulse_oximetry_id_after INT REFERENCES pulse_oximetry (id) UNIQUE NOT NULL,
+	pressure_id_before INT REFERENCES pressure (id) UNIQUE NOT NULL,
+	pressure_id_after INT REFERENCES pressure (id) UNIQUE NOT NULL,
 	breathlessness VARCHAR (4) NOT NULL
 );
 
@@ -373,7 +373,7 @@ CREATE TABLE IF NOT EXISTS computed_tomography
 
 /* Группа показателей: "Катетеризация правых отделов сердца" (35) */
 
-CREATE TABLE IF NOT EXISTS right_heart_cateterization
+CREATE TABLE IF NOT EXISTS right_heart_catheterization
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
