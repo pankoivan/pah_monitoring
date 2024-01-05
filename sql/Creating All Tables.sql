@@ -108,7 +108,9 @@ CREATE TABLE IF NOT EXISTS sick_leave
 	author_id INT REFERENCES administrator (id) NOT NULL,
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL,
-	comment TEXT
+	comment TEXT,
+	
+	CONSTRAINT sick_leave__hospital_employee_and_author_are_not_equal CHECK (hospital_employee_information_id != author_id)
 );
 
 /* Отпуски сотрудников медицинских учреждений (12) */
@@ -120,7 +122,9 @@ CREATE TABLE IF NOT EXISTS vacation
 	author_id INT REFERENCES administrator (id) NOT NULL,
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL,
-	comment TEXT
+	comment TEXT,
+	
+	CONSTRAINT vacation__hospital_employee_and_author_are_not_equal CHECK (hospital_employee_information_id != author_id)
 );
 
 /* Увольнения сотрудников медицинских учреждений (13) */
@@ -131,7 +135,9 @@ CREATE TABLE IF NOT EXISTS dismissal
 	hospital_employee_information_id INT REFERENCES hospital_employee_information (id) UNIQUE NOT NULL,
 	author_id INT REFERENCES administrator (id) NOT NULL,
 	date TIME NOT NULL,
-	comment TEXT
+	comment TEXT,
+	
+	CONSTRAINT dismissal__hospital_employee_and_author_are_not_equal CHECK (hospital_employee_information_id != author_id)
 );
 
 /* Пациенты (14) */
@@ -215,7 +221,7 @@ CREATE TABLE IF NOT EXISTS walk_test
 	pulse_oximetry_id_after INT REFERENCES pulse_oximetry (id) NOT NULL,
 	pressure_id_before INT REFERENCES pressure (id) NOT NULL,
 	pressure_id_after INT REFERENCES pressure (id) NOT NULL,
-	breathlessness REAL NOT NULL
+	breathlessness VARCHAR (4) NOT NULL
 );
 
 /* Группа показателей: "Кашель" (21) */
@@ -317,7 +323,7 @@ CREATE TABLE IF NOT EXISTS functional_class
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	functional_class INT NOT NULL
+	functional_class VARCHAR (1) NOT NULL
 );
 
 /* Группа показателей: "Развёрнутый анализ крови" (30) */
@@ -325,7 +331,8 @@ CREATE TABLE IF NOT EXISTS functional_class
 CREATE TABLE IF NOT EXISTS detailed_blood_test
 (
 	id SERIAL PRIMARY KEY,
-	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	filename VARHCAR (256) UNIQUE NOT NULL
 );
 
 /* Группа показателей: "Электрокардиограия" (31) */
@@ -333,7 +340,8 @@ CREATE TABLE IF NOT EXISTS detailed_blood_test
 CREATE TABLE IF NOT EXISTS electrocardiography
 (
 	id SERIAL PRIMARY KEY,
-	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	filename VARHCAR (256) UNIQUE NOT NULL
 );
 
 /* Группа показателей: "Рентгенография органов грудной клетки" (32) */
@@ -341,7 +349,8 @@ CREATE TABLE IF NOT EXISTS electrocardiography
 CREATE TABLE IF NOT EXISTS radiography
 (
 	id SERIAL PRIMARY KEY,
-	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	filename VARHCAR (256) UNIQUE NOT NULL
 );
 
 /* Группа показателей: "Эхокардиография" (33) */
@@ -349,7 +358,8 @@ CREATE TABLE IF NOT EXISTS radiography
 CREATE TABLE IF NOT EXISTS echocardiography
 (
 	id SERIAL PRIMARY KEY,
-	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	filename VARHCAR (256) UNIQUE NOT NULL
 );
 
 /* Группа показателей: "Компьютерная томография органов грудной клетки" (34) */
@@ -357,7 +367,8 @@ CREATE TABLE IF NOT EXISTS echocardiography
 CREATE TABLE IF NOT EXISTS computed_tomography
 (
 	id SERIAL PRIMARY KEY,
-	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	filename VARHCAR (256) UNIQUE NOT NULL
 );
 
 /* Группа показателей: "Катетеризация правых отделов сердца" (35) */
@@ -365,17 +376,18 @@ CREATE TABLE IF NOT EXISTS computed_tomography
 CREATE TABLE IF NOT EXISTS right_heart_cateterization
 (
 	id SERIAL PRIMARY KEY,
-	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL
+	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
+	filename VARHCAR (256) UNIQUE NOT NULL
 );
 
-/* Расписания сбора показателей (36) */
+/* Расписания отправки показателей (36) */
 
 CREATE TABLE IF NOT EXISTS examination_schedule
 (
     id SERIAL PRIMARY KEY,
     patient_id INT REFERENCES patient (id) NOT NULL,
     indicators_group VARCHAR (64) NOT NULL,
-    times INT NOT NULL,
+    times VARCHAR (8) NOT NULL,
 	period VARCHAR (24) NOT NULL
 );
 
@@ -386,7 +398,9 @@ CREATE TABLE IF NOT EXISTS patient_medicine
     id SERIAL PRIMARY KEY,
     patient_id INT REFERENCES patient (id) NOT NULL,
     medicine_api_id VARCHAR (1024) NOT NULL,
-    description TEXT NOT NULL
+    description TEXT NOT NULL,
+	
+	CONSTRAINT patient_medicine__many_to_many_unique UNIQUE (patient_id, medicine_api_id)
 );
 
 /* Награды для пациентов (38) */
@@ -405,7 +419,9 @@ CREATE TABLE IF NOT EXISTS patient_achievement
 (
     id SERIAL PRIMARY KEY,
     patient_id INT REFERENCES patient (id) NOT NULL,
-    achievement_id INT REFERENCES achievement (id) NOT NULL
+    achievement_id INT REFERENCES achievement (id) NOT NULL,
+	
+	CONSTRAINT patient_achievement__many_to_many_unique UNIQUE (patient_id, achievement_id)
 );
 
 /* Сообщения всех пользователей (40) */
@@ -416,5 +432,8 @@ CREATE TABLE IF NOT EXISTS user_message
 	recipient_id INT REFERENCES user_information (id) NOT NULL,
 	author_id INT REFERENCES user_information (id) NOT NULL,
 	message_text TEXT NOT NULL,
-	date TIMESTAMP NOT NULL
+	date TIMESTAMP NOT NULL,
+	
+	CONSTRAINT user_message__many_to_many_unique UNIQUE (recipient_id, author_id),
+	CONSTRAINT user_message__recipient_and_author_are_not_equal CHECK (recipient_id != author_id)
 );
