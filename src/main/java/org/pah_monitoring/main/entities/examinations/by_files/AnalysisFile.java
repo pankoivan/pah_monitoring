@@ -9,9 +9,10 @@ import org.pah_monitoring.main.entities.examinations.examination.Examination;
 @Getter
 @Setter
 @ToString(exclude = "examination")
+@Builder
 @Entity
-@Table(name = "computed_tomography")
-public class ComputedTomography {
+@Table(name = "analysis_file")
+public class AnalysisFile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,9 @@ public class ComputedTomography {
     @Column(name = "filename")
     private String filename;
 
+    @Column(name = "analysis_type")
+    private AnalysisType analysisType;
+
     @OneToOne
     @JoinColumn(name = "examination_id")
     private Examination examination;
@@ -28,7 +32,7 @@ public class ComputedTomography {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof ComputedTomography other))
+                || ((o instanceof AnalysisFile other))
                 && (id != null)
                 && (id.equals(other.id));
     }

@@ -326,61 +326,17 @@ CREATE TABLE IF NOT EXISTS functional_class
 	functional_class VARCHAR (1) NOT NULL
 );
 
-/* Группа показателей: "Развёрнутый анализ крови" (30) */
+/* Группа показателей: "Файлы с результатами анализов" (30) */
 
-CREATE TABLE IF NOT EXISTS detailed_blood_test
+CREATE TABLE IF NOT EXISTS analysis_file
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	filename VARCHAR (256) UNIQUE NOT NULL
+	filename VARCHAR (256) UNIQUE NOT NULL,
+	analysis_type VARCHAR (24) NOT NULL
 );
 
-/* Группа показателей: "Электрокардиограия" (31) */
-
-CREATE TABLE IF NOT EXISTS electrocardiography
-(
-	id SERIAL PRIMARY KEY,
-	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	filename VARCHAR (256) UNIQUE NOT NULL
-);
-
-/* Группа показателей: "Рентгенография органов грудной клетки" (32) */
-
-CREATE TABLE IF NOT EXISTS radiography
-(
-	id SERIAL PRIMARY KEY,
-	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	filename VARCHAR (256) UNIQUE NOT NULL
-);
-
-/* Группа показателей: "Эхокардиография" (33) */
-
-CREATE TABLE IF NOT EXISTS echocardiography
-(
-	id SERIAL PRIMARY KEY,
-	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	filename VARCHAR (256) UNIQUE NOT NULL
-);
-
-/* Группа показателей: "Компьютерная томография органов грудной клетки" (34) */
-
-CREATE TABLE IF NOT EXISTS computed_tomography
-(
-	id SERIAL PRIMARY KEY,
-	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	filename VARCHAR (256) UNIQUE NOT NULL
-);
-
-/* Группа показателей: "Катетеризация правых отделов сердца" (35) */
-
-CREATE TABLE IF NOT EXISTS right_heart_catheterization
-(
-	id SERIAL PRIMARY KEY,
-	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	filename VARCHAR (256) UNIQUE NOT NULL
-);
-
-/* Расписания отправки показателей (36) */
+/* Расписания отправки показателей (31) */
 
 CREATE TABLE IF NOT EXISTS examination_schedule
 (
@@ -391,7 +347,7 @@ CREATE TABLE IF NOT EXISTS examination_schedule
 	period VARCHAR (24) NOT NULL
 );
 
-/* Лекарства, назначенные пациентам (37) */
+/* Лекарства, назначенные пациентам (32) */
 
 CREATE TABLE IF NOT EXISTS medicine
 (
@@ -403,7 +359,7 @@ CREATE TABLE IF NOT EXISTS medicine
 	CONSTRAINT patient_medicine__many_to_many_unique UNIQUE (patient_id, medicine_api_id)
 );
 
-/* Награды для пациентов (38) */
+/* Награды для пациентов (33) */
 
 CREATE TABLE IF NOT EXISTS achievement
 (
@@ -413,7 +369,7 @@ CREATE TABLE IF NOT EXISTS achievement
     description TEXT UNIQUE NOT NULL
 );
 
-/* Связи пациентов и наград (39) */
+/* Связи пациентов и наград (34) */
 
 CREATE TABLE IF NOT EXISTS patient_achievement
 (
@@ -424,7 +380,7 @@ CREATE TABLE IF NOT EXISTS patient_achievement
 	CONSTRAINT patient_achievement__many_to_many_unique UNIQUE (patient_id, achievement_id)
 );
 
-/* Сообщения всех пользователей (40) */
+/* Сообщения всех пользователей (35) */
 
 CREATE TABLE IF NOT EXISTS user_message
 (
