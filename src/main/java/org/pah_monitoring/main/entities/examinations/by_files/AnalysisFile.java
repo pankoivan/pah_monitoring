@@ -2,7 +2,6 @@ package org.pah_monitoring.main.entities.examinations.by_files;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.enums.AnalysisType;
 import org.pah_monitoring.main.entities.examinations.examination.Examination;
 
 @NoArgsConstructor
@@ -42,6 +41,26 @@ public class AnalysisFile {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum AnalysisType {
+
+        BLOOD_TEST("Развёрнутый анализ крови"),
+
+        ELECTROCARDIOGRAPHY("Электрокардиография"),
+
+        RADIOGRAPHY("Рентгенография органов грудной клетки"),
+
+        ECHOCARDIOGRAPHY("Эхокардиография"),
+
+        COMPUTED_TOMOGRAPHY("Компьютерная томография органов грудной клетки"),
+
+        CATHETERIZATION("Катетеризация правых отделов сердца");
+
+        private final String alias;
+
     }
 
 }

@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS user_information
 	phone_number VARCHAR (24) NOT NULL
 );
 
-/* Информация о сотрудниках медицинского учреждения (7) */
+/* Информация о сотрудниках медицинских учреждений (7) */
 
 CREATE TABLE IF NOT EXISTS hospital_employee_information
 (
@@ -230,9 +230,9 @@ CREATE TABLE IF NOT EXISTS cough
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	type VARCHAR (24) NOT NULL,
-	power VARCHAR (24) NOT NULL,
-	timbre VARCHAR (32) NOT NULL,
+	type VARCHAR (4) NOT NULL,
+	power VARCHAR (16) NOT NULL,
+	timbre VARCHAR (12) NOT NULL,
 	hemoptysis BOOL NOT NULL
 );
 
@@ -242,7 +242,7 @@ CREATE TABLE IF NOT EXISTS chest_pain
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	type VARCHAR (16) NOT NULL,
+	type VARCHAR (12) NOT NULL,
 	duration VARCHAR (16) NOT NULL,
 	nitroglycerin VARCHAR (16) NOT NULL
 );
@@ -277,8 +277,8 @@ CREATE TABLE IF NOT EXISTS ascites
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	liquid_amount VARCHAR (16) NOT NULL,
-	content_infection VARCHAR (16) NOT NULL,
+	liquid_amount VARCHAR (12) NOT NULL,
+	content_infection VARCHAR (12) NOT NULL,
 	response_to_drug_therapy VARCHAR (24) NOT NULL
 );
 
@@ -292,9 +292,9 @@ CREATE TABLE IF NOT EXISTS overall_health
 	rest_feeling BOOL NOT NULL,
 	drowsiness BOOL NOT NULL,
 	concentration BOOL NOT NULL,
-	weakness VARCHAR (24) NOT NULL,
+	weakness VARCHAR (12) NOT NULL,
 	appetite BOOL NOT NULL,
-	cold_extremities VARCHAR (24) NOT NULL
+	cold_extremities VARCHAR (12) NOT NULL
 );
 
 /* Группа показателей: "Головокружение" (27) */
@@ -303,7 +303,7 @@ CREATE TABLE IF NOT EXISTS vertigo
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	duration VARCHAR (16) NOT NULL,
+	duration VARCHAR (12) NOT NULL,
 	nausea BOOL NOT NULL
 );
 
@@ -336,18 +336,18 @@ CREATE TABLE IF NOT EXISTS analysis_file
 	analysis_type VARCHAR (24) NOT NULL
 );
 
-/* Расписания отправки показателей (31) */
+/* Расписания наблюдений (31) */
 
 CREATE TABLE IF NOT EXISTS examination_schedule
 (
     id SERIAL PRIMARY KEY,
     patient_id INT REFERENCES patient (id) NOT NULL,
-    indicators_group VARCHAR (64) NOT NULL,
+    indicators_group VARCHAR (32) NOT NULL,
     times VARCHAR (8) NOT NULL,
-	period VARCHAR (24) NOT NULL
+	period VARCHAR (16) NOT NULL
 );
 
-/* Лекарства, назначенные пациентам (32) */
+/* Лекарства для пациентов (32) */
 
 CREATE TABLE IF NOT EXISTS medicine
 (
@@ -389,7 +389,6 @@ CREATE TABLE IF NOT EXISTS user_message
 	author_id INT REFERENCES user_information (id) NOT NULL,
 	message_text TEXT NOT NULL,
 	date TIMESTAMP NOT NULL,
-	
-	CONSTRAINT user_message__many_to_many_unique UNIQUE (recipient_id, author_id),
+
 	CONSTRAINT user_message__recipient_and_author_are_not_equal CHECK (recipient_id != author_id)
 );

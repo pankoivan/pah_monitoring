@@ -32,7 +32,7 @@ public class OverallHealth {
     private Boolean concentration;
 
     @Column(name = "weakness")
-    private Boolean weakness;
+    private Weakness weakness;
 
     @Column(name = "appetite")
     private Boolean appetite;
@@ -56,6 +56,20 @@ public class OverallHealth {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum Weakness {
+
+        GENERALIZED("Генерализированный вид"),
+
+        ACUTE("Острый вид"),
+
+        RECURRENT("Рецидивирующая");
+
+        private final String alias;
+
     }
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
