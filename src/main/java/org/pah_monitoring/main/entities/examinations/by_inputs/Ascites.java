@@ -21,15 +21,15 @@ public class Ascites {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "liquid_amount")
-    private AscitesLiquidAmount liquidAmount;
+    private LiquidAmount liquidAmount;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "content_infection")
-    private AscitesContentInfection contentInfection;
+    private ContentInfection contentInfection;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "response_to_drug_therapy")
-    private AscitesResponseToDrugTherapy responseToDrugTherapy;
+    private ResponseToDrugTherapy responseToDrugTherapy;
 
     @OneToOne
     @JoinColumn(name = "examination_id")
@@ -46,6 +46,46 @@ public class Ascites {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum LiquidAmount {
+
+        SMALL("Небольшое"),
+
+        MODERATE("Умеренное"),
+
+        SIGNIFICANT("Значительное");
+
+        private final String alias;
+
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum ContentInfection {
+
+        STERILE("Стерильное"),
+
+        INFECTED("Инфицированное"),
+
+        PERITONITIS("Спонтанный перитонит");
+
+        private final String alias;
+
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum ResponseToDrugTherapy {
+
+        AMENABLE("Поддающийся"),
+
+        CANNOT_BE_ELIMINATED("Не может быть устранён");
+
+        private final String alias;
+
     }
 
 }

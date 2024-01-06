@@ -39,7 +39,7 @@ public class OverallHealth {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "cold_extremities")
-    private OverallHealthColdExtremities coldExtremities;
+    private ColdExtremities coldExtremities;
 
     @OneToOne
     @JoinColumn(name = "examination_id")
@@ -56,6 +56,20 @@ public class OverallHealth {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum ColdExtremities {
+
+        SHORT_TIME("Короткое время"),
+
+        LONG_TIME("Длительное время"),
+
+        CONSTANTLY("Постоянно");
+
+        private final String alias;
+
     }
 
 }

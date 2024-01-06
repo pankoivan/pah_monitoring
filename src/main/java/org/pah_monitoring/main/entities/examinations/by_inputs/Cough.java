@@ -21,15 +21,15 @@ public class Cough {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
-    private CoughType type;
+    private Type type;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "power")
-    private CoughPower power;
+    private Power power;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "timbre")
-    private CoughTimbre timbre;
+    private Timbre timbre;
 
     @Column(name = "hemoptysis")
     private Boolean hemoptysis;
@@ -49,6 +49,50 @@ public class Cough {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum Type {
+
+        DRY("Сухой"),
+
+        WET("Влажный");
+
+        private final String alias;
+
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum Power {
+
+        COUGHING("Покашливание"),
+
+        TEARING_COUGH("Надрывный кашель");
+
+        private final String alias;
+
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum Timbre {
+
+        SHORT("Короткий и осторожный"),
+
+        BARKING("Лающий"),
+
+        CHEST("Звонкий грудной"),
+
+        HOARSE("Сиплый"),
+
+        MUFFLED("Приглушённый"),
+
+        SOUNDLESS("Беззвучный");
+
+        private final String alias;
+
     }
 
 }

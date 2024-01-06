@@ -74,4 +74,36 @@ public class WalkTest {
         return getClass().hashCode();
     }
 
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum Breathlessness {
+
+        SCORE_0("Отсутствует"),
+
+        SCORE_0_5("Очень-очень лёгкая"),
+
+        SCORE_1("Очень лёгкая"),
+
+        SCORE_2("Лёгкая"),
+
+        SCORE_3("Умеренная"),
+
+        SCORE_4("В некоторой степени тяжёлая"),
+
+        SCORE_5("Тяжёлая"),
+
+        SCORE_6("Тяжёлая"),
+
+        SCORE_7("Очень тяжёлая"),
+
+        SCORE_8("Очень тяжёлая"),
+
+        SCORE_9("Очень-очень тяжёлая"),
+
+        SCORE_10("Максимальная");
+
+        private final String alias;
+
+    }
+
 }

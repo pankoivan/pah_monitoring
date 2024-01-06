@@ -2,6 +2,7 @@ package org.pah_monitoring.main.entities.examinations.schedule;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.enums.IndicatorsGroup;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
 @NoArgsConstructor
@@ -25,11 +26,11 @@ public class ExaminationSchedule {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "times")
-    private ScheduleTimes times;
+    private Times times;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "period")
-    private SchedulePeriod period;
+    private Period period;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
@@ -46,6 +47,52 @@ public class ExaminationSchedule {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum Times {
+
+        ONE("Один раз"),
+
+        TWO("Два раза"),
+
+        THREE("Три раза"),
+
+        FOURTH("Четыре раза"),
+
+        FIVE("Пять раз");
+
+        private final String alias;
+
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum Period {
+
+        DAY("В день"),
+
+        TWO_DAYS("В два дня"),
+
+        THREE_DAYS("В три дня"),
+
+        WEEK("В неделю"),
+
+        TWO_WEEKS("В две недели"),
+
+        MONTH("В месяц"),
+
+        TWO_MONTHS("В два месяца"),
+
+        THREE_MONTHS("В три месяца"),
+
+        HALF_YEAR("В полгода"),
+
+        YEAR("В год");
+
+        private final String alias;
+
     }
 
 }

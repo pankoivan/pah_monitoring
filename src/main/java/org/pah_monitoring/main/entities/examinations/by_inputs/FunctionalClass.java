@@ -40,4 +40,20 @@ public class FunctionalClass {
         return getClass().hashCode();
     }
 
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum FunctionalClassNumber {
+
+        I("ФК 1"),
+
+        II("ФК 2"),
+
+        III("ФК 3"),
+
+        IV("ФК 3");
+
+        private final String alias;
+
+    }
+
 }

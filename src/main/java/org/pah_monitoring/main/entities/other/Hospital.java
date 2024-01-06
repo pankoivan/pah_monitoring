@@ -34,7 +34,7 @@ public class Hospital {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "current_state")
-    private HospitalCurrentState currentState;
+    private CurrentState currentState;
 
     @OneToMany(mappedBy = "hospital")
     private List<EmployeeInformation> employees;
@@ -53,6 +53,20 @@ public class Hospital {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum CurrentState {
+
+        WAITING_CODE("Ожидает выдачу кода безопасности для регистрации администратора"),
+
+        WAITING_REGISTRATION("Ожидает регистрацию администратора"),
+
+        REGISTERED("Зарегистрировано");
+
+        private final String alias;
+
     }
 
 }

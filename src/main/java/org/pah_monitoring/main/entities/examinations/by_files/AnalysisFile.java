@@ -2,6 +2,7 @@ package org.pah_monitoring.main.entities.examinations.by_files;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.enums.AnalysisType;
 import org.pah_monitoring.main.entities.examinations.examination.Examination;
 
 @NoArgsConstructor
