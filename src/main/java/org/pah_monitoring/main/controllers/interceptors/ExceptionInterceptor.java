@@ -36,12 +36,6 @@ public class ExceptionInterceptor {
         return "errors/405";
     }
 
-    /*@ExceptionHandler(MainInstrumentsException.class)
-    public String expectedServerError(MainInstrumentsException e, Model model) {
-        model.addAttribute("error", e.getMessage());
-        return "errors/expected-server-error";
-    }*/
-
     @ExceptionHandler(Exception.class)
     public String unexpectedServerError(Exception e, Model model) {
         model.addAttribute("error", e.getMessage());
