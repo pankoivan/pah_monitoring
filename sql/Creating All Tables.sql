@@ -323,7 +323,7 @@ CREATE TABLE IF NOT EXISTS functional_class
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	functional_class VARCHAR (1) NOT NULL
+	functional_class VARCHAR (4) NOT NULL
 );
 
 /* Группа показателей: "Файлы с результатами анализов" (30) */
