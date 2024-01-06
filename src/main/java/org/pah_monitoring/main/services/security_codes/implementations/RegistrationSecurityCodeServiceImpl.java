@@ -1,0 +1,18 @@
+package org.pah_monitoring.main.services.security_codes.implementations;
+
+import org.pah_monitoring.main.repositorites.security_codes.RegistrationSecurityCodeRepository;
+import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurityCodeService {
+
+    private final RegistrationSecurityCodeRepository repository;
+
+    @Autowired
+    public RegistrationSecurityCodeServiceImpl(RegistrationSecurityCodeRepository repository) {
+        this.repository = repository;
+    }
+
+}
