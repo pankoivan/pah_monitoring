@@ -221,7 +221,7 @@ CREATE TABLE IF NOT EXISTS walk_test
 	pulse_oximetry_id_after INT REFERENCES pulse_oximetry (id) UNIQUE NOT NULL,
 	pressure_id_before INT REFERENCES pressure (id) UNIQUE NOT NULL,
 	pressure_id_after INT REFERENCES pressure (id) UNIQUE NOT NULL,
-	breathlessness VARCHAR (4) NOT NULL
+	breathlessness VARCHAR (12) NOT NULL
 );
 
 /* Группа показателей: "Кашель" (21) */
