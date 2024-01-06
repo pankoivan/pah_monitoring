@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.controllers.interceptors;
 
+import org.pah_monitoring.auxiliary.exceptions.unchecked.UncheckedException;
 import org.pah_monitoring.auxiliary.text.HttpErrorText;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -41,7 +42,11 @@ public class ExceptionInterceptor {
         return "errors/error";
     }
 
-    // todo: expected server error interception
+    @ExceptionHandler(UncheckedException.class)
+    public String expectedServerError(Model model) {
+        addToModel(model, HttpErrorText.titleExpectedServerError, HttpErrorText.textExpectedServerError);
+        return "errors/error";
+    }
 
     @ExceptionHandler(Exception.class)
     public String unexpectedServerError(Model model) {

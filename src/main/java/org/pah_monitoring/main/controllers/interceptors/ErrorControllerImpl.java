@@ -2,7 +2,7 @@ package org.pah_monitoring.main.controllers.interceptors;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
-import org.pah_monitoring.auxiliary.exceptions.NotHandledErrorStatusCodeException;
+import org.pah_monitoring.auxiliary.exceptions.checked.NotHandledErrorStatusCodeException;
 import org.pah_monitoring.auxiliary.text.HttpErrorText;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,6 +1,6 @@
-package org.pah_monitoring.auxiliary.exceptions;
+package org.pah_monitoring.auxiliary.exceptions.checked;
 
-public class NotHandledErrorStatusCodeException extends Exception {
+public class NotHandledErrorStatusCodeException extends CheckedException {
 
     public NotHandledErrorStatusCodeException() {
         super();
