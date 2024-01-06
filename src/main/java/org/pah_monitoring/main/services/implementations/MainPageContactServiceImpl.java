@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.services.implementations;
 
-import org.pah_monitoring.main.repositorites.MainPageContactRepository;
+import org.pah_monitoring.main.repositorites.other.MainAdminContactRepository;
 import org.pah_monitoring.main.services.interfaces.MainPageContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class MainPageContactServiceImpl implements MainPageContactService {
 
-    private final MainPageContactRepository repository;
+    private final MainAdminContactRepository repository;
 
     @Autowired
-    public MainPageContactServiceImpl(MainPageContactRepository repository) {
+    public MainPageContactServiceImpl(MainAdminContactRepository repository) {
         this.repository = repository;
     }
 

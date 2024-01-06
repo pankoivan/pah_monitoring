@@ -1,18 +1,15 @@
-package org.pah_monitoring.main.repositorites;
+package org.pah_monitoring.main.repositorites.users.users;
 
-import org.pah_monitoring.main.entities.users.users.Patient;
+import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PatientRepository extends JpaRepository<Patient, Integer> {
+public interface AdministratorRepository extends JpaRepository<Administrator, Integer> {
 
     Optional<UserDetails> findByUserSecurityInformationEmail(String email);
-
-    List<Patient> findAllByHospitalId(String hospitalId);
 
 }

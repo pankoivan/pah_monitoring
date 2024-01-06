@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.services.implementations;
 
-import org.pah_monitoring.main.repositorites.UserSecurityInformationRepository;
+import org.pah_monitoring.main.repositorites.users.info.UserSecurityInformationRepository;
 import org.pah_monitoring.main.services.interfaces.UserSecurityInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.repositorites;
+package org.pah_monitoring.main.repositorites.users.inactivity;
 
 import org.pah_monitoring.main.entities.users.inactivity.Dismissal;
 import org.springframework.data.jpa.repository.JpaRepository;

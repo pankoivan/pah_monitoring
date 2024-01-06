@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.repositorites;
+package org.pah_monitoring.main.repositorites.users.info;
 
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,9 +1,9 @@
 package org.pah_monitoring.main.services.implementations;
 
-import org.pah_monitoring.main.repositorites.AdministratorRepository;
-import org.pah_monitoring.main.repositorites.DoctorRepository;
-import org.pah_monitoring.main.repositorites.MainAdministratorRepository;
-import org.pah_monitoring.main.repositorites.PatientRepository;
+import org.pah_monitoring.main.repositorites.users.users.AdministratorRepository;
+import org.pah_monitoring.main.repositorites.users.users.DoctorRepository;
+import org.pah_monitoring.main.repositorites.users.users.MainAdministratorRepository;
+import org.pah_monitoring.main.repositorites.users.users.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.repositorites;
+package org.pah_monitoring.main.repositorites.users.message;
 
 import org.pah_monitoring.main.entities.users.message.UserMessage;
 import org.springframework.data.jpa.repository.JpaRepository;
