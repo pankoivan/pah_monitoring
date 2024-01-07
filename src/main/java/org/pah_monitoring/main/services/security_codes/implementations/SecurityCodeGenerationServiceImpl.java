@@ -11,16 +11,12 @@ import java.util.UUID;
 @Service
 public class SecurityCodeGenerationServiceImpl implements SecurityCodeGenerationService {
 
-    private final RegistrationSecurityCodeService registrationSecurityCodeService;
+    private RegistrationSecurityCodeService registrationSecurityCodeService;
 
-    private final PageAccessSecurityCodeService pageAccessSecurityCodeService;
+    private PageAccessSecurityCodeService pageAccessSecurityCodeService;
 
-    @Autowired
-    public SecurityCodeGenerationServiceImpl(RegistrationSecurityCodeService registrationSecurityCodeService,
-                                             PageAccessSecurityCodeService pageAccessSecurityCodeService) {
+    public SecurityCodeGenerationServiceImpl() {
 
-        this.registrationSecurityCodeService = registrationSecurityCodeService;
-        this.pageAccessSecurityCodeService = pageAccessSecurityCodeService;
     }
 
     @Override
@@ -30,6 +26,16 @@ public class SecurityCodeGenerationServiceImpl implements SecurityCodeGeneration
             code = UUID.randomUUID();
         }
         return code;
+    }
+
+    @Autowired
+    public void setRegistrationSecurityCodeService(RegistrationSecurityCodeService registrationSecurityCodeService) {
+        this.registrationSecurityCodeService = registrationSecurityCodeService;
+    }
+
+    @Autowired
+    public void setPageAccessSecurityCodeService(PageAccessSecurityCodeService pageAccessSecurityCodeService) {
+        this.pageAccessSecurityCodeService = pageAccessSecurityCodeService;
     }
 
 }
