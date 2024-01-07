@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.services.auxiliary.implementations;
 
+import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.auxiliary.text.ApplicationNameText;
 import org.pah_monitoring.auxiliary.text.EmailMessageText;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
@@ -35,17 +36,20 @@ public class EmailServiceImpl implements EmailService {
 
         message.setTo(to);
 
-        message.setSubject(EmailMessageText.registrationCodeTitle.formatted(ApplicationNameText.applicationName));
+        message.setSubject(
+                EmailMessageText.registrationCodeTitle.formatted(ApplicationNameText.applicationName)
+        );
 
         message.setText(EmailMessageText.registrationCodeText.formatted(
                 ApplicationNameText.applicationName,
                 code.getHospital().getName(),
                 code.getRole().getAlias(),
                 code.toString(),
-                code.getExpirationDate()
+                DateTimeFormatConstants.DAY_MONTH_YEAR_IN_HOUR_MINUTE_SECOND.format(code.getExpirationDate())
         ));
 
         mailSender.send(message);
+
     }
 
     // todo: delete in final version
