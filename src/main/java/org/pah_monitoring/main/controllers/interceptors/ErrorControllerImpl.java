@@ -21,9 +21,9 @@ public class ErrorControllerImpl implements ErrorController {
         status = status == null ? "404" : status;
         switch (status.toString()) {
             case "401" -> addToModel(model, HttpErrorText.title401, HttpErrorText.text401);
-            case "403" -> addToModel(model, HttpErrorText.title403, HttpErrorText.title403);
-            case "404" -> addToModel(model, HttpErrorText.title404, HttpErrorText.title404);
-            case "405" -> addToModel(model, HttpErrorText.title405, HttpErrorText.title405);
+            case "403" -> addToModel(model, HttpErrorText.title403, HttpErrorText.text403);
+            case "404" -> addToModel(model, HttpErrorText.title404, HttpErrorText.text404);
+            case "405" -> addToModel(model, HttpErrorText.title405, HttpErrorText.text405);
             case "500" -> addToModel(model, HttpErrorText.titleUnexpectedServerError, HttpErrorText.textUnexpectedServerError);
             default -> throw new NotHandledErrorStatusCodeException(
                     "There were no explicit mappings for error with status code %s".formatted(status)
