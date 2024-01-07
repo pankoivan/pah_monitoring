@@ -59,9 +59,7 @@ public class Hospital {
     @Getter
     public enum CurrentState {
 
-        WAITING_CODE("Ожидает выдачу кода безопасности для регистрации администратора"),
-
-        WAITING_REGISTRATION("Ожидает регистрацию администратора"),
+        WAITING("Ожидает регистрацию"),
 
         REGISTERED("Зарегистрировано");
 

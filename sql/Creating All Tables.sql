@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS hospital
 	oid VARCHAR (256) UNIQUE NOT NULL,
 	name VARCHAR (512) UNIQUE NOT NULL,
 	date TIMESTAMP NOT NULL,
-	current_state VARCHAR (24) NOT NULL
+	current_state VARCHAR (12) NOT NULL
 );
 
 /* Коды безопасности для регистрации пользователей (3) */
