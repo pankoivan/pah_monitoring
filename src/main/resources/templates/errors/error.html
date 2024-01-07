@@ -17,25 +17,31 @@
         />
     </head>
 
-    <body
-        class="min-vh-100 bg-lightgray d-flex flex-column justify-content-center"
-    >
+    <body class="min-vh-100 d-flex flex-column justify-content-center el">
         <div class="container">
             <div class="row">
-                <div
-                    class="col-12 col-md-8 col-lg-6 text-center text-white mx-auto"
-                >
-                    <div class="bg-dark rounded px-3 py-2">
-                        <p th:text="${errorTitle}">Заголовок ошибки</p>
-                        <p th:text="${errorText}">
-                            ТекстОшибкиТекстОшибкиТекстОшибки
-                            ТекстОшибкиТекстОшибкиТекстОшибки
-                            ТекстОшибкиТекстОшибкиТекстОшибки
-                            ТекстОшибкиТекстОшибкиТекстОшибки
-                            ТекстОшибкиТекстОшибкиТекстОшибки
-                            ТекстОшибкиТекстОшибкиТекстОшибки
-                        </p>
-                        <p><a href="#" th:href="@{/}">На главную</a></p>
+                <div class="col-12 col-md-9 col-lg-6 text-center mx-auto">
+                    <div class="p-3">
+                        <div class="border-bottom border-black">
+                            <h1 th:text="${errorTitle}">Заголовок ошибки</h1>
+                        </div>
+                        <div class="border-bottom border-black mt-3">
+                            <p th:text="${errorText}" class="fs-3">
+                                ТекстОшибкиТекстОшибкиТекстОшибки
+                                ТекстОшибкиТекстОшибкиТекстОшибки
+                                ТекстОшибкиТекстОшибкиТекстОшибки
+                                ТекстОшибкиТекстОшибкиТекстОшибки
+                                ТекстОшибкиТекстОшибкиТекстОшибки
+                                ТекстОшибкиТекстОшибкиТекстОшибки
+                            </p>
+                        </div>
+                        <div class="mt-2">
+                            <p class="fs-3">
+                                <a href="#" th:href="@{/}" class="text-black"
+                                    >На главную</a
+                                >
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
