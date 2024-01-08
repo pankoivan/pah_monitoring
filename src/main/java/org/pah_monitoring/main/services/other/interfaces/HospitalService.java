@@ -8,7 +8,7 @@ public interface HospitalService {
 
     List<Hospital> findAll();
 
-    void save(Hospital hospital);
+    Hospital save(Hospital hospital);
 
     void register(Hospital hospital);
 

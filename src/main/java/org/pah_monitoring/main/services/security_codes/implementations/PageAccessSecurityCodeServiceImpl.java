@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.entities.security_codes.PageAccessSecurityCode;
 import org.pah_monitoring.main.repositorites.security_codes.PageAccessSecurityCodeRepository;
 import org.pah_monitoring.main.services.security_codes.interfaces.PageAccessSecurityCodeService;
-import org.pah_monitoring.main.services.security_codes.interfaces.SecurityCodeGenerationService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,13 +15,11 @@ public class PageAccessSecurityCodeServiceImpl implements PageAccessSecurityCode
 
     private final PageAccessSecurityCodeRepository repository;
 
-    private final SecurityCodeGenerationService codeGenerationService;
-
     @Override
-    public void save(PageAccessSecurityCode code) {
-        code.setCode(codeGenerationService.generate());
+    public PageAccessSecurityCode save(PageAccessSecurityCode code, UUID generatedCode) {
+        code.setCode(generatedCode);
         code.setExpirationDate(LocalDateTime.now().plusDays(code.getExpirationDateEnum().getDays()));
-        repository.save(code);
+        return repository.save(code);
     }
 
     @Override
