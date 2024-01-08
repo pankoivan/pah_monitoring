@@ -30,7 +30,7 @@ public final class HttpErrorText {
 
     public static final String text405 = """
             Неподходящий HTTP-метод. Воспользуйтесь другим HTTP-методом для получения страницы по данному URL-адресу.\
-             Текущий метод не предназначен для обращения по данному адресу.
+             Текущий метод не предназначен для обращения по этому адресу.
             """;
 
     public static final String titleExpectedServerError = "Ожидаемая ошибка сервера";
