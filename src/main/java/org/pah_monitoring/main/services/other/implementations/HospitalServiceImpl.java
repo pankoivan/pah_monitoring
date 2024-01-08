@@ -30,9 +30,9 @@ public class HospitalServiceImpl implements HospitalService {
         save(hospital, Hospital.CurrentState.REGISTERED, LocalDateTime.now());
     }
 
-    private Hospital save(Hospital hospital, Hospital.CurrentState currentState, LocalDateTime localDateTime) {
+    private Hospital save(Hospital hospital, Hospital.CurrentState currentState, LocalDateTime registrationDate) {
         hospital.setCurrentState(currentState);
-        hospital.setDate(localDateTime);
+        hospital.setRegistrationDate(registrationDate);
         return repository.save(hospital);
     }
 
