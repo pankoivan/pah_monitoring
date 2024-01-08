@@ -45,7 +45,7 @@ public class EmailServiceImpl implements EmailService {
                 code.getHospital().getName(),
                 code.getRole().getAlias(),
                 code.toString(),
-                DateTimeFormatConstants.DAY_MONTH_YEAR_IN_HOUR_MINUTE_SECOND.format(code.getExpirationDate())
+                DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(code.getExpirationDate())
         ));
 
         mailSender.send(message);
