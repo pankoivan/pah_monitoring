@@ -1,13 +1,14 @@
 package org.pah_monitoring.main.services.security_codes.implementations;
 
+import lombok.Setter;
 import org.pah_monitoring.main.services.security_codes.interfaces.PageAccessSecurityCodeService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.pah_monitoring.main.services.security_codes.interfaces.SecurityCodeGenerationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Setter
 @Service
 public class SecurityCodeGenerationServiceImpl implements SecurityCodeGenerationService {
 
@@ -26,16 +27,6 @@ public class SecurityCodeGenerationServiceImpl implements SecurityCodeGeneration
             code = UUID.randomUUID();
         }
         return code;
-    }
-
-    @Autowired
-    public void setRegistrationSecurityCodeService(RegistrationSecurityCodeService registrationSecurityCodeService) {
-        this.registrationSecurityCodeService = registrationSecurityCodeService;
-    }
-
-    @Autowired
-    public void setPageAccessSecurityCodeService(PageAccessSecurityCodeService pageAccessSecurityCodeService) {
-        this.pageAccessSecurityCodeService = pageAccessSecurityCodeService;
     }
 
 }
