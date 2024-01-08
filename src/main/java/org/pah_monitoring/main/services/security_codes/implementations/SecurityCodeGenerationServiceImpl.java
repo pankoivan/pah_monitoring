@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.services.security_codes.implementations;
 
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.services.security_codes.interfaces.PageAccessSecurityCodeService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@NoArgsConstructor
 @Setter
 @Service
 public class SecurityCodeGenerationServiceImpl implements SecurityCodeGenerationService {
@@ -15,10 +17,6 @@ public class SecurityCodeGenerationServiceImpl implements SecurityCodeGeneration
     private RegistrationSecurityCodeService registrationSecurityCodeService;
 
     private PageAccessSecurityCodeService pageAccessSecurityCodeService;
-
-    public SecurityCodeGenerationServiceImpl() {
-
-    }
 
     @Override
     public UUID generate() {

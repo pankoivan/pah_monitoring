@@ -2,6 +2,7 @@ package org.pah_monitoring.main.entities.security_codes;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.enums.ExpirationDate;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.other.Hospital;
 
@@ -32,6 +33,9 @@ public class RegistrationSecurityCode {
 
     @Column(name = "expiration_date")
     private LocalDateTime expirationDate;
+
+    @Transient
+    private transient ExpirationDate expirationDateEnum;
 
     @ManyToOne
     @JoinColumn(name = "hospital_id")

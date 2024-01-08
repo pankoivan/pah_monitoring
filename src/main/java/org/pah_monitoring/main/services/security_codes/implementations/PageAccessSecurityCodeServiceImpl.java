@@ -7,6 +7,7 @@ import org.pah_monitoring.main.services.security_codes.interfaces.PageAccessSecu
 import org.pah_monitoring.main.services.security_codes.interfaces.SecurityCodeGenerationService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -19,7 +20,9 @@ public class PageAccessSecurityCodeServiceImpl implements PageAccessSecurityCode
 
     @Override
     public void save(PageAccessSecurityCode code) {
-        // todo
+        code.setCode(codeGenerationService.generate());
+        code.setExpirationDate(LocalDateTime.now().plusDays(code.getExpirationDateEnum().getDays()));
+        repository.save(code);
     }
 
     @Override
