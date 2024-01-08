@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-12 col-md-9 col-lg-6 text-center mx-auto">
                     <div class="p-4">
-                        <div class="border-bottom border-black">
+                        <div>
                             <h1
                                 th:text="${errorTitle}"
                                 class="text-secondary mb-3"
@@ -32,7 +32,8 @@
                                 Заголовок ошибки
                             </h1>
                         </div>
-                        <div class="border-bottom border-black my-2">
+                        <hr />
+                        <div class="my-2">
                             <p
                                 th:text="${errorText}"
                                 class="text-secondary word-wrap fs-3"
@@ -44,6 +45,7 @@
                                 ТекстОшибки ТекстОшибки ТекстОшибки ТекстОшибки
                             </p>
                         </div>
+                        <hr />
                         <div>
                             <p class="fs-3">
                                 <a
