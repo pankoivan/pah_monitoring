@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Получаем значения из input-полей
         const expirationDate = document.querySelector(
-            'select[name="expirationDateEnum"]'
+            'select[name="expirationDate"]'
         ).value;
 
         // Формируем JSON из полученных значений

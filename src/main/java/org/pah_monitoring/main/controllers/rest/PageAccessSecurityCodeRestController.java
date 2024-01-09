@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.controllers.rest;
 
 import lombok.AllArgsConstructor;
+import org.pah_monitoring.main.entities.dto.PageAccessSecurityCodeSavingDto;
 import org.pah_monitoring.main.entities.security_codes.PageAccessSecurityCode;
 import org.pah_monitoring.main.services.security_codes.interfaces.PageAccessSecurityCodeService;
 import org.pah_monitoring.main.services.security_codes.interfaces.SecurityCodeGenerationService;
@@ -21,8 +22,8 @@ public class PageAccessSecurityCodeRestController {
     private final SecurityCodeGenerationService codeGenerationService;
 
     @PostMapping
-    public PageAccessSecurityCode add(@RequestBody PageAccessSecurityCode code) {
-        code = service.save(code, codeGenerationService.generate());
+    public PageAccessSecurityCode add(@RequestBody PageAccessSecurityCodeSavingDto codeDto) {
+        PageAccessSecurityCode code = service.save(codeDto, codeGenerationService.generate());
         System.out.println(code);
         return code;
     }

@@ -2,7 +2,6 @@ package org.pah_monitoring.main.entities.security_codes;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.enums.ExpirationDate;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -27,9 +26,6 @@ public class PageAccessSecurityCode {
 
     @Column(name = "expiration_date")
     private LocalDateTime expirationDate;
-
-    @Transient
-    private transient ExpirationDate expirationDateEnum;
 
     @Override
     public boolean equals(Object o) {
