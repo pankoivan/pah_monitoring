@@ -7,21 +7,13 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault(); // Предотвращаем стандартное поведение отправки формы
 
         // Получаем значения из input-полей
-        /*const name = document.querySelector('input[name="name"]').value;
-        const lastname = document.querySelector('input[name="lastname"]').value;
-        const patronymic = document.querySelector(
-            'input[name="patronymic"]'
-        ).value;*/
-        const expirationDateEnum = document.querySelector(
+        const expirationDate = document.querySelector(
             'select[name="expirationDateEnum"]'
         ).value;
 
         // Формируем JSON из полученных значений
         const data = {
-            /*name: name,
-            lastname: lastname,
-            patronymic: patronymic,*/
-            expirationDateEnum: expirationDateEnum,
+            expirationDate: expirationDate,
         };
 
         // Отправляем данные методом POST на сервер
