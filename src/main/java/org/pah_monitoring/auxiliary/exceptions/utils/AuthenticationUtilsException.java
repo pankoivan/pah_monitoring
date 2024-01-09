@@ -1,8 +1,8 @@
-package org.pah_monitoring.auxiliary.exceptions;
+package org.pah_monitoring.auxiliary.exceptions.utils;
 
-// todo: change to extends CheckedException
+import org.pah_monitoring.auxiliary.exceptions.utils.common.UtilsException;
 
-public class AuthenticationUtilsException extends Exception {
+public class AuthenticationUtilsException extends UtilsException {
 
     public AuthenticationUtilsException() {
         super();

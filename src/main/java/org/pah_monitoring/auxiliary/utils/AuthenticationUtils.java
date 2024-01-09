@@ -1,7 +1,7 @@
 package org.pah_monitoring.auxiliary.utils;
 
 import lombok.experimental.UtilityClass;
-import org.pah_monitoring.auxiliary.exceptions.AuthenticationUtilsException;
+import org.pah_monitoring.auxiliary.exceptions.utils.AuthenticationUtilsException;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 

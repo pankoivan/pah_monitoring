@@ -1,5 +1,9 @@
 package org.pah_monitoring.main.controllers.interceptors;
 
+import org.pah_monitoring.auxiliary.exceptions.common.CheckedException;
+import org.pah_monitoring.auxiliary.exceptions.common.UncheckedException;
+import org.pah_monitoring.auxiliary.exceptions.controller.IncorrectUrlControllerException;
+import org.pah_monitoring.auxiliary.exceptions.service.EntityNotFoundServiceException;
 import org.pah_monitoring.auxiliary.text.HttpErrorText;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.access.AccessDeniedException;
@@ -17,7 +21,13 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @PreAuthorize("permitAll()")
 public class GlobalExceptionInterceptor {
 
-    @ExceptionHandler({ServerWebInputException.class, HttpClientErrorException.BadRequest.class})
+    // todo: add exceptions to methods parameters for future use in logging (and add logging)
+
+    @ExceptionHandler({
+            ServerWebInputException.class,
+            HttpClientErrorException.BadRequest.class,
+            IncorrectUrlControllerException.class
+    })
     public String error400(Model model) {
         addToModel(model, HttpErrorText.title400, HttpErrorText.text400);
         return "errors/error";
@@ -35,7 +45,11 @@ public class GlobalExceptionInterceptor {
         return "errors/error";
     }
 
-    @ExceptionHandler({NoHandlerFoundException.class, HttpClientErrorException.NotFound.class})
+    @ExceptionHandler({
+            NoHandlerFoundException.class,
+            HttpClientErrorException.NotFound.class,
+            EntityNotFoundServiceException.class
+    })
     public String error404(Model model) {
         addToModel(model, HttpErrorText.title404, HttpErrorText.text404);
         return "errors/error";
@@ -47,8 +61,14 @@ public class GlobalExceptionInterceptor {
         return "errors/error";
     }
 
+    @ExceptionHandler({UncheckedException.class, CheckedException.class})
+    public String unexpectedServerErrorByMyExceptions(Model model) {
+        addToModel(model, HttpErrorText.titleUnexpectedServerError, HttpErrorText.textUnexpectedServerError);
+        return "errors/error";
+    }
+
     @ExceptionHandler(Exception.class)
-    public String unexpectedServerError(Model model) {
+    public String unexpectedServerErrorByOtherExceptions(Model model) {
         addToModel(model, HttpErrorText.titleUnexpectedServerError, HttpErrorText.textUnexpectedServerError);
         return "errors/error";
     }

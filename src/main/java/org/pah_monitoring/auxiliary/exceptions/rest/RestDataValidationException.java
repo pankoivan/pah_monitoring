@@ -1,8 +1,8 @@
 package org.pah_monitoring.auxiliary.exceptions.rest;
 
-import org.pah_monitoring.auxiliary.exceptions.common.UncheckedException;
+import org.pah_monitoring.auxiliary.exceptions.rest.common.RestException;
 
-public class RestDataValidationException extends UncheckedException {
+public class RestDataValidationException extends RestException {
 
     public RestDataValidationException() {
         super();

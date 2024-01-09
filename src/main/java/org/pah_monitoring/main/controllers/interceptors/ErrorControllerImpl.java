@@ -28,7 +28,6 @@ public class ErrorControllerImpl implements ErrorController {
             case "403" -> addToModel(model, HttpErrorText.title403, HttpErrorText.text403);
             case "404" -> addToModel(model, HttpErrorText.title404, HttpErrorText.text404);
             case "405" -> addToModel(model, HttpErrorText.title405, HttpErrorText.text405);
-            case "500" -> addToModel(model, HttpErrorText.titleUnexpectedServerError, HttpErrorText.textUnexpectedServerError);
             default -> addToModel(
                     model,
                     HttpErrorText.titleXxx.formatted(status),
