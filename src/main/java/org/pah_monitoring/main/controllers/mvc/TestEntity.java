@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc;
 
 import lombok.*;
+import org.pah_monitoring.main.entities.enums.ExpirationDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,5 +17,7 @@ public class TestEntity {
     private String lastname;
 
     private String patronymic;
+
+    private ExpirationDate expirationDate;
 
 }

@@ -7,21 +7,25 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault(); // Предотвращаем стандартное поведение отправки формы
 
         // Получаем значения из input-полей
-        const name = document.querySelector('input[name="name"]').value;
+        /*const name = document.querySelector('input[name="name"]').value;
         const lastname = document.querySelector('input[name="lastname"]').value;
         const patronymic = document.querySelector(
             'input[name="patronymic"]'
+        ).value;*/
+        const expirationDateEnum = document.querySelector(
+            'select[name="expirationDateEnum"]'
         ).value;
 
         // Формируем JSON из полученных значений
         const data = {
-            name: name,
+            /*name: name,
             lastname: lastname,
-            patronymic: patronymic,
+            patronymic: patronymic,*/
+            expirationDateEnum: expirationDateEnum,
         };
 
         // Отправляем данные методом POST на сервер
-        fetch("http://localhost:8080/test/rest/processing", {
+        fetch("http://localhost:8080/rest/code-generation", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

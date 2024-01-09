@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title th:text="${errorTitle}">Генерация кодов</title>
+        <link
+            href="../static/css/bootstrap.min.css"
+            th:href="@{/css/bootstrap.min.css}"
+            rel="stylesheet"
+        />
+        <link
+            href="../static/css/style.css"
+            th:href="@{/css/style.css}"
+            rel="stylesheet"
+        />
+    </head>
+
+    <body
+        class="min-vh-100 d-flex flex-column justify-content-center bg-gray-100"
+    >
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <form
+                        action="#"
+                        th:action="@{/rest/code-generation}"
+                        method="post"
+                        class="border rounded p-5"
+                    >
+                        <label
+                            for="expirationDateEnum"
+                            class="form-label text-secondary fs-4"
+                            >Срок действия кода</label
+                        >
+                        <select
+                            id="expirationDateEnum"
+                            class="form-select mb-5"
+                            name="expirationDateEnum"
+                        >
+                            <option
+                                th:each="each: ${expirationDateList}"
+                                th:text="${each.alias}"
+                                th:value="${each}"
+                            ></option>
+                        </select>
+                        <button type="submit" class="btn btn-lg btn-primary">
+                            Сгенерировать код
+                        </button>
+                    </form>
+                </div>
+                <div class="col-12 text-secondary">
+                    <div>
+                        <h1 class="text-center">Инструкция</h1>
+                    </div>
+                    <hr />
+                    <div class="text-start fs-5">
+                        <p>
+                            При нажатии на кнопку "Сгенерировать" сервер создаст
+                            уникальный код, который будет вам отображён. Этот
+                            код является паролем для доступа к странице
+                            регистрации медицинского учреждения.
+                        </p>
+                        <p>
+                            Не пересылайте этот код никому кроме того
+                            представителя медицинского учреждения, для которого
+                            он предназначен.
+                        </p>
+                        <p>
+                            После успешной регистрации медицинского учреждения
+                            код удаляется из базы данных. Если срок действия
+                            кода истёк, а медицинское учреждение по каким-то
+                            причинам не было зарегистрировано, процедуру нужно
+                            будет повторить.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../static/js/test.js" th:src="@{/js/test.js}"></script>
+    </body>
+</html>
