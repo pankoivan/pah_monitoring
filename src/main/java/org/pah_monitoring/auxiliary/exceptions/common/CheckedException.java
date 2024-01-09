@@ -1,4 +1,4 @@
-package org.pah_monitoring.auxiliary.exceptions.checked;
+package org.pah_monitoring.auxiliary.exceptions.common;
 
 public class CheckedException extends Exception {
 

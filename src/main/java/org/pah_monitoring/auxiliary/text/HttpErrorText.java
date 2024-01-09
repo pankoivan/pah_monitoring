@@ -5,6 +5,20 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class HttpErrorText {
 
+    public static final String titleXxx = "Ошибка %s";
+
+    public static final String textNotHandledXxx = """
+            Для ошибки с кодом %s на сервере не предусмотрен поясняющий текст. Если вы хотите больше узнать об этой ошибке,\
+             можете поискать информацию в Интернете.
+            """;
+
+    public static final String title400 = "Ошибка 400";
+
+    public static final String text400 = """
+            Некорректный URL-адрес. Скорее всего, вы вручную набрали его в адресной строке, поэтому возникла такая ошибка.\
+             Для осуществления всех действий на сайте используйте только предоставляемые приложением ссылки и кнопки.
+            """;
+
     public static final String title401 = "Ошибка 401";
 
     public static final String text401 = """
@@ -31,13 +45,6 @@ public final class HttpErrorText {
     public static final String text405 = """
             Неподходящий HTTP-метод. Воспользуйтесь другим HTTP-методом для получения страницы по данному URL-адресу.\
              Текущий метод не предназначен для обращения по этому адресу.
-            """;
-
-    public static final String titleExpectedServerError = "Ожидаемая ошибка сервера";
-
-    public static final String textExpectedServerError = """
-            На сервере возникла ошибка, скорее всего связанная с тем, что вы вручную вводили некорректные данные в адресную\
-             строку. Для осуществления всех действий на сайте используйте специально предназначенные для этого ссылки и кнопки.
             """;
 
     public static final String titleUnexpectedServerError = "Неожиданная ошибка сервера";

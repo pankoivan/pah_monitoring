@@ -2,7 +2,6 @@ package org.pah_monitoring.main.controllers.interceptors;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
-import org.pah_monitoring.auxiliary.exceptions.checked.NotHandledErrorStatusCodeException;
 import org.pah_monitoring.auxiliary.text.HttpErrorText;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,21 +14,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @PreAuthorize("permitAll()")
 public class ErrorControllerImpl implements ErrorController {
 
+    // todo: check why i get here with every request
+
     @RequestMapping
-    public String errors(HttpServletRequest request, Model model) throws NotHandledErrorStatusCodeException {
-        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-        status = status == null ? "404" : status;
-        switch (status.toString()) {
+    public String errors(HttpServletRequest request, Model model) {
+
+        Object statusObj = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        String status = statusObj == null ? "404" : statusObj.toString();
+
+        switch (status) {
+            case "400" -> addToModel(model, HttpErrorText.title400, HttpErrorText.text400);
             case "401" -> addToModel(model, HttpErrorText.title401, HttpErrorText.text401);
             case "403" -> addToModel(model, HttpErrorText.title403, HttpErrorText.text403);
             case "404" -> addToModel(model, HttpErrorText.title404, HttpErrorText.text404);
             case "405" -> addToModel(model, HttpErrorText.title405, HttpErrorText.text405);
             case "500" -> addToModel(model, HttpErrorText.titleUnexpectedServerError, HttpErrorText.textUnexpectedServerError);
-            default -> throw new NotHandledErrorStatusCodeException(
-                    "There were no explicit mappings for error with status code %s".formatted(status)
+            default -> addToModel(
+                    model,
+                    HttpErrorText.titleXxx.formatted(status),
+                    HttpErrorText.textNotHandledXxx.formatted(status)
             );
         }
+
         return "errors/error";
+
     }
 
     private void addToModel(Model model, Object errorTitle, Object errorText) {

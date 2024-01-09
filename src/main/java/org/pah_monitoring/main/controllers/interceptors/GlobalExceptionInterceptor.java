@@ -1,8 +1,6 @@
 package org.pah_monitoring.main.controllers.interceptors;
 
-import org.pah_monitoring.auxiliary.exceptions.unchecked.UncheckedException;
 import org.pah_monitoring.auxiliary.text.HttpErrorText;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,20 +9,27 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ServerWebInputException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(2000)
 @PreAuthorize("permitAll()")
-public class ExceptionInterceptor {
+public class GlobalExceptionInterceptor {
 
-    @ExceptionHandler({AccessDeniedException.class, HttpClientErrorException.Unauthorized.class})
+    @ExceptionHandler({ServerWebInputException.class, HttpClientErrorException.BadRequest.class})
+    public String error400(Model model) {
+        addToModel(model, HttpErrorText.title400, HttpErrorText.text400);
+        return "errors/error";
+    }
+
+    @ExceptionHandler({HttpClientErrorException.Unauthorized.class})
     public String error401(Model model) {
         addToModel(model, HttpErrorText.title401, HttpErrorText.text401);
         return "errors/error";
     }
 
-    @ExceptionHandler(HttpClientErrorException.Forbidden.class)
+    @ExceptionHandler({AccessDeniedException.class, HttpClientErrorException.Forbidden.class})
     public String error403(Model model) {
         addToModel(model, HttpErrorText.title403, HttpErrorText.text403);
         return "errors/error";
@@ -39,12 +44,6 @@ public class ExceptionInterceptor {
     @ExceptionHandler({HttpRequestMethodNotSupportedException.class, HttpClientErrorException.MethodNotAllowed.class})
     public String error405(Model model) {
         addToModel(model, HttpErrorText.title405, HttpErrorText.text405);
-        return "errors/error";
-    }
-
-    @ExceptionHandler(UncheckedException.class)
-    public String expectedServerError(Model model) {
-        addToModel(model, HttpErrorText.titleExpectedServerError, HttpErrorText.textExpectedServerError);
         return "errors/error";
     }
 
