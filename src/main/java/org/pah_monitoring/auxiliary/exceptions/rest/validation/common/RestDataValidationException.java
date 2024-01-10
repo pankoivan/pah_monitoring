@@ -1,4 +1,4 @@
-package org.pah_monitoring.auxiliary.exceptions.rest;
+package org.pah_monitoring.auxiliary.exceptions.rest.validation.common;
 
 import org.pah_monitoring.auxiliary.exceptions.rest.common.RestException;
 

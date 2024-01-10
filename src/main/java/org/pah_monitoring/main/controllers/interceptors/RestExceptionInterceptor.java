@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.controllers.interceptors;
 
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.auxiliary.exceptions.rest.RestDataValidationException;
+import org.pah_monitoring.auxiliary.exceptions.rest.validation.common.RestDataValidationException;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

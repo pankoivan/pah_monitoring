@@ -7,4 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MainAdminContactRepository extends JpaRepository<MainAdminContact, Integer> {
 
+    boolean existsByContact(String contact);
+
+    boolean existsByDescription(String description);
+
 }
