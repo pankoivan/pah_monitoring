@@ -3,8 +3,8 @@
 CREATE TABLE IF NOT EXISTS main_admin_contact
 (
 	id SERIAL PRIMARY KEY,
-	contact VARCHAR (256) UNIQUE NOT NULL,
-	description VARCHAR (128) UNIQUE NOT NULL
+	contact VARCHAR (80) UNIQUE NOT NULL,
+	description VARCHAR (48) UNIQUE NOT NULL
 );
 
 /* Медицинские учреждения (2) */
