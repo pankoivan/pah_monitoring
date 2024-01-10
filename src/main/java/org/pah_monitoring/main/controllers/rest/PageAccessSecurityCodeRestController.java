@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/rest/code-generation")
-@PreAuthorize("permitAll()")
+@PreAuthorize("permitAll()") // todo: only main admin
 public class PageAccessSecurityCodeRestController {
 
     private final PageAccessSecurityCodeService service;
@@ -24,7 +24,7 @@ public class PageAccessSecurityCodeRestController {
     @PostMapping
     public PageAccessSecurityCode add(@RequestBody PageAccessSecurityCodeSavingDto codeDto) {
         PageAccessSecurityCode code = service.save(codeDto, codeGenerationService.generate());
-        System.out.println(code);
+        System.out.println(code); // todo: delete
         return code;
     }
 
