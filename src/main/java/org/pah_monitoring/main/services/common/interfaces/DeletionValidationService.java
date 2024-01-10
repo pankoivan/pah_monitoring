@@ -4,6 +4,6 @@ import org.pah_monitoring.auxiliary.exceptions.rest.validation.RestDataDeletionV
 
 public interface DeletionValidationService<T> {
 
-    void isValidForDeletion(T t) throws RestDataDeletionValidationException;
+    void checkValidityForDeletion(T t) throws RestDataDeletionValidationException;
 
 }

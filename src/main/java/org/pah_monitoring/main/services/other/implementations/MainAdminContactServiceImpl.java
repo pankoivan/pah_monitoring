@@ -6,6 +6,7 @@ import org.pah_monitoring.main.entities.other.MainAdminContact;
 import org.pah_monitoring.main.repositorites.other.MainAdminContactRepository;
 import org.pah_monitoring.main.services.other.interfaces.MainAdminContactService;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
@@ -31,7 +32,14 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
     }
 
     @Override
-    public void isValidForSaving(MainAdminContact contact) throws RestDataSavingValidationException {
+    public void checkBindingResult(BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new RestDataSavingValidationException(bindingResultAnyErrorMessage(bindingResult));
+        }
+    }
+
+    @Override
+    public void checkValidityForSaving(MainAdminContact contact) throws RestDataSavingValidationException {
         if (repository.existsByContact(contact.getContact())) {
             throw new RestDataSavingValidationException("Контакт \"%s\" уже существует".formatted(contact.getContact()));
         }
