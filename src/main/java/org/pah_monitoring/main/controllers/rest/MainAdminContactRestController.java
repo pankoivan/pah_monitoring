@@ -44,23 +44,28 @@ public class MainAdminContactRestController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String pathId) {
-        Integer id;
+        int id = getId(pathId);
+        if (!service.deleteById(id)) {
+            throw new DataHasNotBeenDeletedRestException(
+                    "Элемент не был удалён. Скорее всего это связано с какой-то ошибкой на сервере. Повторите попытку позже"
+            );
+        }
+    }
+
+    private int getId(String pathId) {
+        int id;
         try {
             id = Integer.parseInt(pathId);
         } catch (NumberFormatException e) {
-            throw new DataDeletionRestException("Текст 1");
+            throw new DataDeletionRestException("Идентификатор \"%s\" не является целым числом".formatted(pathId));
         }
         if (id <= 0) {
-            throw new DataDeletionRestException("Текст 2");
+            throw new DataDeletionRestException("Идентификатор \"%s\" не является целым положительным числом".formatted(pathId));
         }
         if (!service.existsById(id)) {
-            throw new DataDeletionRestException("Текст 3");
+            throw new DataDeletionRestException("Идентификатор \"%s\" не существует");
         }
-        if (!service.deleteById(id)) {
-            throw new DataHasNotBeenDeletedRestException(
-                    "Элемент не был удалён. Скорее всего это связано с какой-то ошибкой на сервере. Повторите попытку позже."
-            );
-        }
+        return id;
     }
 
 }
