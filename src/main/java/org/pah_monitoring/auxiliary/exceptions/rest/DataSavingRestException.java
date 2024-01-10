@@ -2,17 +2,17 @@ package org.pah_monitoring.auxiliary.exceptions.rest;
 
 import org.pah_monitoring.auxiliary.exceptions.rest.common.RestException;
 
-public class RestDataSavingException extends RestException {
+public class DataSavingRestException extends RestException {
 
-    public RestDataSavingException() {
+    public DataSavingRestException() {
         super();
     }
 
-    public RestDataSavingException(String msg) {
+    public DataSavingRestException(String msg) {
         super(msg);
     }
 
-    public RestDataSavingException(String msg, Throwable throwable) {
+    public DataSavingRestException(String msg, Throwable throwable) {
         super(msg, throwable);
     }
 

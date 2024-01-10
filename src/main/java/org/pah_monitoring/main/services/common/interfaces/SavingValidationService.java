@@ -7,9 +7,7 @@ import java.util.List;
 
 public interface SavingValidationService<T> {
 
-    boolean isBindingResultHasErrors(BindingResult bindingResult);
-
-    boolean isValidForSaving(T t, BindingResult bindingResult);
+    boolean isNotValidForSaving(T t, BindingResult bindingResult);
 
     default String bindingResultAnyErrorMessage(BindingResult bindingResult) {
         return bindingResult.getAllErrors()

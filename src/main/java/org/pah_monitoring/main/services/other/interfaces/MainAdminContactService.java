@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface MainAdminContactService extends SavingValidationService<MainAdminContact> {
 
+    boolean existsById(Integer id);
+
     List<MainAdminContact> findAll();
 
     MainAdminContact save(MainAdminContact contact);

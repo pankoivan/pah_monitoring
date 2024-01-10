@@ -17,6 +17,11 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
     private final MainAdminContactRepository repository;
 
     @Override
+    public boolean existsById(Integer id) {
+        return repository.existsById(id);
+    }
+
+    @Override
     public List<MainAdminContact> findAll() {
         return repository.findAll();
     }
@@ -33,24 +38,21 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
     }
 
     @Override
-    public boolean isBindingResultHasErrors(BindingResult bindingResult) {
-        return bindingResult.hasErrors();
-    }
-
-    @Override
-    public boolean isValidForSaving(MainAdminContact contact, BindingResult bindingResult) {
-        boolean wereErrors = false;
+    public boolean isNotValidForSaving(MainAdminContact contact, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return true;
+        }
         if (repository.existsByContact(contact.getContact())) {
             bindingResult.addError(new ObjectError("contactAlreadyExists",
                     "Контакт \"%s\" уже существует".formatted(contact.getContact())));
-            wereErrors = true;
+            return true;
         }
         if (repository.existsByDescription(contact.getDescription())) {
             bindingResult.addError(new ObjectError("contactDescriptionAlreadyExists",
                     "Контакт с описанием \"%s\" уже существует".formatted(contact.getDescription())));
-            wereErrors = true;
+            return true;
         }
-        return wereErrors;
+        return false;
     }
 
 }
