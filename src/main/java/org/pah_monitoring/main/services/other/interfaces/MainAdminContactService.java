@@ -11,6 +11,6 @@ public interface MainAdminContactService extends SavingValidationService<MainAdm
 
     MainAdminContact save(MainAdminContact contact);
 
-    void deleteById(Integer id);
+    boolean deleteById(Integer id);
 
 }

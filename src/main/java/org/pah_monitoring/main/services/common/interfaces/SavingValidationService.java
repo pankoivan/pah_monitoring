@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.services.common.interfaces;
 
-import org.pah_monitoring.auxiliary.exceptions.rest.validation.RestDataSavingValidationException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindingResult;
 
@@ -8,9 +7,9 @@ import java.util.List;
 
 public interface SavingValidationService<T> {
 
-    void checkBindingResult(BindingResult bindingResult) throws RestDataSavingValidationException;
+    boolean isBindingResultHasErrors(BindingResult bindingResult);
 
-    void checkValidityForSaving(T t) throws RestDataSavingValidationException;
+    boolean isValidForSaving(T t, BindingResult bindingResult);
 
     default String bindingResultAnyErrorMessage(BindingResult bindingResult) {
         return bindingResult.getAllErrors()

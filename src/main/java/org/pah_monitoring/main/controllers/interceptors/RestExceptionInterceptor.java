@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.controllers.interceptors;
 
 import lombok.*;
-import org.pah_monitoring.auxiliary.exceptions.rest.validation.common.RestDataValidationException;
+import org.pah_monitoring.auxiliary.exceptions.rest.common.RestException;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class RestExceptionInterceptor {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(RestDataValidationException.class)
-    public ResponseEntity<ExceptionEntity> restDataValidationException(RestDataValidationException e) {
+    @ExceptionHandler(RestException.class)
+    public ResponseEntity<ExceptionEntity> restDataValidationException(RestException e) {
         ExceptionEntity json = new ExceptionEntity(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
     }
