@@ -32,7 +32,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (response.ok) {
                     console.log("Данные успешно отправлены");
                 } else {
-                    console.error("Произошла ошибка при отправке данных");
+                    response.json().then((responseJson) => {
+                        // Получаем экземпляр модального окна
+                        var myModal = new bootstrap.Modal(
+                            document.getElementById("exampleModalCenter")
+                        );
+
+                        // Показываем модальное окно
+                        myModal.show();
+                    });
                 }
             })
             .catch((error) => {
