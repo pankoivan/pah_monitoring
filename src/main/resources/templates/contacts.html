@@ -69,48 +69,31 @@
                 </form>
             </div>
             <div class="row">
-                <div class="text-start mb-3">
-                    <h4 class="text-secondary">ВКонтакте</h4>
-                    <p class="mb-2 break-all">
-                        bttps://part1/part2/part3/part4/part5/part1/part2/part3/part4/part5/part1/part2/part3/part4/part5/
+                <div
+                    th:each="each, status : ${contacts}"
+                    class="text-start"
+                    th:classappend="${!status.last} ? 'mb-2'"
+                >
+                    <h4 class="text-secondary" th:text="${each.description}">
+                        ВКонтакте
+                    </h4>
+                    <p
+                        class="text-dark break-all mb-2"
+                        th:text="${each.contact}"
+                    >
+                        bttps://some/very/very/very/very/very/long/link
                     </p>
                     <a href="#" class="text-secondary me-1">Изменить</a>
                     <a href="#" class="text-secondary ms-1">Удалить</a>
-                </div>
-                <hr />
-                <div class="text-start mb-3">
-                    <h4 class="text-secondary">ВКонтакте</h4>
-                    <p class="mb-2 break-all">
-                        bttps://part1/part2/part3/part4/part5/part1/part2/part3/part4/part5/part1/part2/part3/part4/part5/
-                    </p>
-                    <a href="#" class="text-secondary me-1">Изменить</a>
-                    <a href="#" class="text-secondary ms-1">Удалить</a>
-                </div>
-                <hr />
-                <div class="text-start mb-3">
-                    <h4 class="text-secondary">ВКонтакте</h4>
-                    <p class="mb-2 break-all">
-                        bttps://part1/part2/part3/part4/part5/part1/part2/part3/part4/part5/part1/part2/part3/part4/part5/
-                    </p>
-                    <a href="#" class="text-secondary me-1">Изменить</a>
-                    <a href="#" class="text-secondary ms-1">Удалить</a>
+                    <hr th:if="${!status.last}" />
                 </div>
             </div>
         </div>
-        <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#errorModal"
-        >
-            Vertically centered modal
-        </button>
-        <!-- Vertically centered modal -->
         <div
             class="modal fade"
             id="errorModal"
             tabindex="-1"
-            aria-labelledby="errorModalLabel"
+            data-bs-backdrop="static"
             aria-hidden="true"
         >
             <div
@@ -118,7 +101,7 @@
             >
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-4" id="errorModalLabel">
+                        <h1 class="modal-title fs-4" id="errorModalTitle">
                             Ошибка
                         </h1>
                         <button
@@ -128,7 +111,7 @@
                             aria-label="Close"
                         ></button>
                     </div>
-                    <div class="modal-body fs-5">
+                    <div class="modal-body fs-5" id="errorModalText">
                         Здесь располагается короткое описание ошибки. Пример:
                         "Минимальная длина почты - 8 символов, максимальная -
                         256 символов"

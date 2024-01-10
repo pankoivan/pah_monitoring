@@ -34,6 +34,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else {
                     response.json().then((responseJson) => {
                         // Получаем экземпляр модального окна
+
+                        errorModalText =
+                            document.getElementById("errorModalText");
+                        errorModalText.innerText =
+                            responseJson.errorDescription;
+
                         var myModal = new bootstrap.Modal(
                             document.getElementById("errorModal")
                         );
