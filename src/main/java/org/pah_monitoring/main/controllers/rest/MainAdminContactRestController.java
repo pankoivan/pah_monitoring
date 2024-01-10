@@ -12,7 +12,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/contacts")
+@RequestMapping("/rest/contacts")
 @PreAuthorize("permitAll()") // todo: only main admin
 public class MainAdminContactRestController {
 
