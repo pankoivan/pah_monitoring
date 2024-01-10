@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title th:text="${errorTitle}">Генерация кодов</title>
+        <title>Контакты</title>
         <link
             href="../static/css/bootstrap.min.css"
             th:href="@{/css/bootstrap.min.css}"
@@ -29,7 +29,7 @@
                     class="border rounded p-3"
                 >
                     <div
-                        class="d-flex flex-wrap justify-content-center align-items-center"
+                        class="d-flex flex-row flex-wrap align-items-center justify-content-center"
                     >
                         <div class="flex-grow-1 m-1">
                             <label
@@ -97,51 +97,29 @@
                 </div>
             </div>
         </div>
-        <script src="../static/js/test2.js" th:src="@{/js/test2.js}"></script>
-        <script
-            src="../static/js/bootstrap.bundle.min.js"
-            th:src="@{/js/bootstrap.bundle.min.js}"
-        ></script>
-        <!--<button
-            type="button"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-            data-bs-whatever="@mdo"
-        >
-            Open modal for @mdo
-        </button>
         <button
             type="button"
             class="btn btn-primary"
             data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-            data-bs-whatever="@fat"
+            data-bs-target="#errorModal"
         >
-            Open modal for @fat
+            Vertically centered modal
         </button>
-        <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-            data-bs-whatever="@getbootstrap"
-        >
-            Open modal for @getbootstrap
-        </button>
-
+        <!-- Vertically centered modal -->
         <div
             class="modal fade"
-            id="exampleModal"
+            id="errorModal"
             tabindex="-1"
-            aria-labelledby="exampleModalLabel"
+            aria-labelledby="errorModalLabel"
             aria-hidden="true"
         >
-            <div class="modal-dialog">
+            <div
+                class="modal-dialog modal-dialog-centered modal-overriden-danger mx-auto"
+            >
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">
-                            New message
+                        <h1 class="modal-title fs-4" id="errorModalLabel">
+                            Ошибка
                         </h1>
                         <button
                             type="button"
@@ -150,30 +128,10 @@
                             aria-label="Close"
                         ></button>
                     </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label
-                                    for="recipient-name"
-                                    class="col-form-label"
-                                    >Recipient:</label
-                                >
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="recipient-name"
-                                />
-                            </div>
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label"
-                                    >Message:</label
-                                >
-                                <textarea
-                                    class="form-control"
-                                    id="message-text"
-                                ></textarea>
-                            </div>
-                        </form>
+                    <div class="modal-body fs-5">
+                        Здесь располагается короткое описание ошибки. Пример:
+                        "Минимальная длина почты - 8 символов, максимальная -
+                        256 символов"
                     </div>
                     <div class="modal-footer">
                         <button
@@ -181,40 +139,16 @@
                             class="btn btn-secondary"
                             data-bs-dismiss="modal"
                         >
-                            Close
-                        </button>
-                        <button type="button" class="btn btn-primary">
-                            Send message
+                            Закрыть
                         </button>
                     </div>
                 </div>
             </div>
-        </div>-->
-        <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModalCenter"
-        >
-            Vertically centered modal
-        </button>
-        <!-- Vertically centered modal -->
-        <div
-            class="modal fade"
-            id="exampleModalCenter"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog modal-dialog-centered mx-auto">
-                <div class="bg-dark rounded p-5 mx-auto text-white">
-                    <p>123213213</p>
-                    <hr />
-                    <p>fasdfsadfdsafsadfsadfdsaf</p>
-                    <hr />
-                    <p>123213213</p>
-                </div>
-            </div>
         </div>
+        <script src="../static/js/test2.js" th:src="@{/js/test2.js}"></script>
+        <script
+            src="../static/js/bootstrap.bundle.min.js"
+            th:src="@{/js/bootstrap.bundle.min.js}"
+        ></script>
     </body>
 </html>

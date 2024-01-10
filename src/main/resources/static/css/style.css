@@ -1,8 +1,22 @@
+/* Цвет фона всего приложения */
+
 .bg-gray-100 {
     background-color: var(--bs-gray-100);
 }
 
+/* Перенос непрерывного длинного слова на новую строку */
+
 .break-all {
     word-wrap: break-word;
     word-break: break-all;
+}
+
+/* Переопределение цветов стандартного модального окна под стиль "alert-danger" */
+
+.modal-overriden-danger {
+    --bs-modal-bg: var(--bs-danger-bg-subtle);
+    --bs-modal-color: var(--bs-danger-text-emphasis);
+    --bs-modal-border-color: var(--bs-danger-border-subtle);
+    --bs-modal-header-border-color: var(--bs-danger-border-subtle);
+    --bs-modal-footer-border-color: var(--bs-danger-border-subtle);
 }

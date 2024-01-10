@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     response.json().then((responseJson) => {
                         // Получаем экземпляр модального окна
                         var myModal = new bootstrap.Modal(
-                            document.getElementById("exampleModalCenter")
+                            document.getElementById("errorModal")
                         );
 
                         // Показываем модальное окно
