@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title th:text="${errorTitle}">Генерация кодов</title>
+        <link
+            href="../static/css/bootstrap.min.css"
+            th:href="@{/css/bootstrap.min.css}"
+            rel="stylesheet"
+        />
+        <link
+            href="../static/css/style.css"
+            th:href="@{/css/style.css}"
+            rel="stylesheet"
+        />
+    </head>
+
+    <body
+        class="min-vh-100 d-flex flex-column justify-content-center bg-gray-100"
+    >
+        <div class="container">
+            <div class="row mb-5">
+                <!-- todo: correct url -->
+                <form
+                    action="#"
+                    th:action="@{later}"
+                    method="post"
+                    class="border rounded p-3"
+                >
+                    <div
+                        class="d-flex flex-wrap justify-content-center align-items-center"
+                    >
+                        <div class="flex-grow-1 m-1">
+                            <label
+                                for="description"
+                                class="form-label text-secondary"
+                                >Описание</label
+                            >
+                            <input
+                                id="description"
+                                type="text"
+                                name="description"
+                                placeholder="ВКонтакте"
+                                class="form-control"
+                            />
+                        </div>
+                        <div class="flex-grow-1 m-1">
+                            <label
+                                for="contact"
+                                class="form-label text-secondary"
+                                >Контакт</label
+                            >
+                            <input
+                                id="contact"
+                                type="text"
+                                name="contact"
+                                placeholder="bttps://vk.com"
+                                class="form-control"
+                            />
+                        </div>
+                        <!-- todo: margin top when small screen -->
+                        <div class="m-1 mt-auto">
+                            <button type="submit" class="btn btn-primary">
+                                Сохранить
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="text-start mb-3">
+                    <h4 class="text-secondary">ВКонтакте</h4>
+                    <p class="mb-2 break-all">
+                        bttps://part1/part2/part3/part4/part5/part1/part2/part3/part4/part5/part1/part2/part3/part4/part5/
+                    </p>
+                    <a href="#" class="text-secondary me-1">Изменить</a>
+                    <a href="#" class="text-secondary ms-1">Удалить</a>
+                </div>
+                <hr />
+                <div class="text-start mb-3">
+                    <h4 class="text-secondary">ВКонтакте</h4>
+                    <p class="mb-2 break-all">
+                        bttps://part1/part2/part3/part4/part5/part1/part2/part3/part4/part5/part1/part2/part3/part4/part5/
+                    </p>
+                    <a href="#" class="text-secondary me-1">Изменить</a>
+                    <a href="#" class="text-secondary ms-1">Удалить</a>
+                </div>
+                <hr />
+                <div class="text-start mb-3">
+                    <h4 class="text-secondary">ВКонтакте</h4>
+                    <p class="mb-2 break-all">
+                        bttps://part1/part2/part3/part4/part5/part1/part2/part3/part4/part5/part1/part2/part3/part4/part5/
+                    </p>
+                    <a href="#" class="text-secondary me-1">Изменить</a>
+                    <a href="#" class="text-secondary ms-1">Удалить</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
