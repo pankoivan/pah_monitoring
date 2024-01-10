@@ -22,10 +22,9 @@
     >
         <div class="container">
             <div class="row mb-5">
-                <!-- todo: correct url -->
                 <form
                     action="#"
-                    th:action="@{later}"
+                    th:action="@{/rest/contacts}"
                     method="post"
                     class="border rounded p-3"
                 >
@@ -98,5 +97,6 @@
                 </div>
             </div>
         </div>
+        <script src="../static/js/test2.js" th:src="@{/js/test2.js}"></script>
     </body>
 </html>
