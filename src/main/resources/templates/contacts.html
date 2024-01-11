@@ -23,11 +23,13 @@
         <div class="container">
             <div class="row mb-5">
                 <form
+                    id="contactForm"
                     action="#"
-                    th:action="@{/rest/contacts}"
+                    th:action="@{/rest/contacts/save}"
                     method="post"
                     class="border rounded p-3"
                 >
+                    <input style="display: none" name="id" />
                     <div
                         class="d-flex flex-row flex-wrap align-items-center justify-content-center"
                     >
@@ -68,23 +70,39 @@
                     </div>
                 </form>
             </div>
-            <div class="row">
+            <div id="contactsDiv" class="row">
                 <div
                     th:each="each, status : ${contacts}"
                     class="text-start"
                     th:classappend="${!status.last} ? 'mb-2'"
+                    th:id="${each.id}"
                 >
-                    <h4 class="text-secondary" th:text="${each.description}">
+                    <h4
+                        th:id="'description' + ${each.id}"
+                        class="text-secondary"
+                        th:text="${each.description}"
+                    >
                         ВКонтакте
                     </h4>
                     <p
+                        th:id="'contact' + ${each.id}"
                         class="text-dark break-all mb-2"
                         th:text="${each.contact}"
                     >
                         bttps://some/very/very/very/very/very/long/link
                     </p>
-                    <a href="#" class="text-secondary me-1">Изменить</a>
-                    <a href="#" class="text-secondary ms-1">Удалить</a>
+                    <a
+                        th:id="'edit' + ${each.id}"
+                        href="#"
+                        class="text-secondary me-1"
+                        >Изменить</a
+                    >
+                    <a
+                        th:id="'delete' + ${each.id}"
+                        href="#"
+                        class="text-secondary ms-1"
+                        >Удалить</a
+                    >
                     <hr th:if="${!status.last}" />
                 </div>
             </div>
