@@ -44,10 +44,7 @@ public class GlobalExceptionInterceptor {
         return "errors/error";
     }
 
-    @ExceptionHandler({
-            NoHandlerFoundException.class,
-            HttpClientErrorException.NotFound.class
-    })
+    @ExceptionHandler({NoHandlerFoundException.class, HttpClientErrorException.NotFound.class})
     public String error404(Model model) {
         addToModel(model, HttpErrorText.title404, HttpErrorText.text404);
         return "errors/error";
