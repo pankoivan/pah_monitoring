@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.services.other.implementations;
 
 import lombok.AllArgsConstructor;
+import org.pah_monitoring.auxiliary.constants.QuantityRestrictionConstants;
 import org.pah_monitoring.main.entities.other.MainAdminContact;
 import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
@@ -46,6 +47,10 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
     public void checkDataValidityForSaving(MainAdminContact contact, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+        if (repository.count() == QuantityRestrictionConstants.MAX_NUMBER_OF_MAIN_ADMIN_CONTACTS) {
+            throw new DataValidationServiceException("Максимально допустимое число контактов: %s".formatted(
+                    QuantityRestrictionConstants.MAX_NUMBER_OF_MAIN_ADMIN_CONTACTS));
         }
         if (isNew(contact) && repository.existsByContact(contact.getContact())) {
             throw new DataValidationServiceException("Контакт \"%s\" уже существует".formatted(contact.getContact()));
