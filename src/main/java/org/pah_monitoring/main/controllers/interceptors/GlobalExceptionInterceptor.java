@@ -1,9 +1,9 @@
 package org.pah_monitoring.main.controllers.interceptors;
 
-import org.pah_monitoring.auxiliary.exceptions.common.CheckedException;
-import org.pah_monitoring.auxiliary.exceptions.common.UncheckedException;
-import org.pah_monitoring.auxiliary.exceptions.controller.IncorrectUrlControllerException;
-import org.pah_monitoring.auxiliary.exceptions.service.EntityNotFoundServiceException;
+import org.pah_monitoring.main.exceptions.common.CheckedException;
+import org.pah_monitoring.main.exceptions.common.UncheckedException;
+import org.pah_monitoring.main.exceptions.controller.IncorrectUrlControllerException;
+import org.pah_monitoring.main.exceptions.service.EntityNotFoundServiceException;
 import org.pah_monitoring.auxiliary.text.HttpErrorText;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.access.AccessDeniedException;

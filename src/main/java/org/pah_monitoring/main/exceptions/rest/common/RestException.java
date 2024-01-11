@@ -1,6 +1,6 @@
-package org.pah_monitoring.auxiliary.exceptions.rest.common;
+package org.pah_monitoring.main.exceptions.rest.common;
 
-import org.pah_monitoring.auxiliary.exceptions.common.UncheckedException;
+import org.pah_monitoring.main.exceptions.common.UncheckedException;
 
 public class RestException extends UncheckedException {
 

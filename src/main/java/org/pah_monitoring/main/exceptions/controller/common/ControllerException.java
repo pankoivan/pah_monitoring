@@ -1,6 +1,6 @@
-package org.pah_monitoring.auxiliary.exceptions.controller.common;
+package org.pah_monitoring.main.exceptions.controller.common;
 
-import org.pah_monitoring.auxiliary.exceptions.common.UncheckedException;
+import org.pah_monitoring.main.exceptions.common.UncheckedException;
 
 public class ControllerException extends UncheckedException {
 

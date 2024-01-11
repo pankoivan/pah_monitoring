@@ -1,6 +1,6 @@
-package org.pah_monitoring.auxiliary.exceptions.utils.common;
+package org.pah_monitoring.main.exceptions.utils.common;
 
-import org.pah_monitoring.auxiliary.exceptions.common.CheckedException;
+import org.pah_monitoring.main.exceptions.common.CheckedException;
 
 public class UtilsException extends CheckedException {
 

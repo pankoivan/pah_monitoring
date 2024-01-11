@@ -1,6 +1,6 @@
-package org.pah_monitoring.auxiliary.exceptions.rest.internal_server;
+package org.pah_monitoring.main.exceptions.rest.internal_server;
 
-import org.pah_monitoring.auxiliary.exceptions.rest.internal_server.common.InternalServerProblemRestException;
+import org.pah_monitoring.main.exceptions.rest.internal_server.common.InternalServerProblemRestException;
 
 public class DataSavingRestException extends InternalServerProblemRestException {
 

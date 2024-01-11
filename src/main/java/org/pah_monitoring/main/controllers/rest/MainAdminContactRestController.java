@@ -2,9 +2,9 @@ package org.pah_monitoring.main.controllers.rest;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.auxiliary.exceptions.rest.bad_request.MalformedUrlRestException;
-import org.pah_monitoring.auxiliary.exceptions.rest.internal_server.DataDeletionRestException;
-import org.pah_monitoring.auxiliary.exceptions.rest.bad_request.DataValidationRestException;
+import org.pah_monitoring.main.exceptions.rest.bad_request.MalformedUrlRestException;
+import org.pah_monitoring.main.exceptions.rest.internal_server.DataDeletionRestException;
+import org.pah_monitoring.main.exceptions.rest.bad_request.DataValidationRestException;
 import org.pah_monitoring.main.entities.other.MainAdminContact;
 import org.pah_monitoring.main.services.other.interfaces.MainAdminContactService;
 import org.springframework.security.access.prepost.PreAuthorize;

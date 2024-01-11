@@ -1,6 +1,6 @@
-package org.pah_monitoring.auxiliary.exceptions.service.common;
+package org.pah_monitoring.main.exceptions.service.common;
 
-import org.pah_monitoring.auxiliary.exceptions.common.UncheckedException;
+import org.pah_monitoring.main.exceptions.common.UncheckedException;
 
 public class ServiceException extends UncheckedException {
 

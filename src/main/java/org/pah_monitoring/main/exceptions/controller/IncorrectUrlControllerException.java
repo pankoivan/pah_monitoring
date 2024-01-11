@@ -1,6 +1,6 @@
-package org.pah_monitoring.auxiliary.exceptions.controller;
+package org.pah_monitoring.main.exceptions.controller;
 
-import org.pah_monitoring.auxiliary.exceptions.controller.common.ControllerException;
+import org.pah_monitoring.main.exceptions.controller.common.ControllerException;
 
 public class IncorrectUrlControllerException extends ControllerException {
 

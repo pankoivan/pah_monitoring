@@ -1,6 +1,6 @@
-package org.pah_monitoring.auxiliary.exceptions.utils;
+package org.pah_monitoring.main.exceptions.utils;
 
-import org.pah_monitoring.auxiliary.exceptions.utils.common.UtilsException;
+import org.pah_monitoring.main.exceptions.utils.common.UtilsException;
 
 public class AuthenticationUtilsException extends UtilsException {
 

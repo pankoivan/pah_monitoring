@@ -1,6 +1,6 @@
-package org.pah_monitoring.auxiliary.exceptions.rest.bad_request.common;
+package org.pah_monitoring.main.exceptions.rest.bad_request.common;
 
-import org.pah_monitoring.auxiliary.exceptions.rest.common.RestException;
+import org.pah_monitoring.main.exceptions.rest.common.RestException;
 
 public class BadRequestRestException extends RestException {
 

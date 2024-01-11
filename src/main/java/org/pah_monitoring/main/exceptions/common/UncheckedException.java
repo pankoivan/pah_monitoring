@@ -1,4 +1,4 @@
-package org.pah_monitoring.auxiliary.exceptions.common;
+package org.pah_monitoring.main.exceptions.common;
 
 public class UncheckedException extends RuntimeException {
 

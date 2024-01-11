@@ -1,6 +1,6 @@
-package org.pah_monitoring.auxiliary.exceptions.service;
+package org.pah_monitoring.main.exceptions.service;
 
-import org.pah_monitoring.auxiliary.exceptions.service.common.ServiceException;
+import org.pah_monitoring.main.exceptions.service.common.ServiceException;
 
 public class EntityNotFoundServiceException extends ServiceException {
 

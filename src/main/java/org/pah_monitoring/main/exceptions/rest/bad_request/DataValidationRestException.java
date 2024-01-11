@@ -1,6 +1,6 @@
-package org.pah_monitoring.auxiliary.exceptions.rest.bad_request;
+package org.pah_monitoring.main.exceptions.rest.bad_request;
 
-import org.pah_monitoring.auxiliary.exceptions.rest.bad_request.common.BadRequestRestException;
+import org.pah_monitoring.main.exceptions.rest.bad_request.common.BadRequestRestException;
 
 public class DataValidationRestException extends BadRequestRestException {
 
