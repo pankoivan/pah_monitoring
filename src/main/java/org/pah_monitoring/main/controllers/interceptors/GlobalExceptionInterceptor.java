@@ -1,8 +1,9 @@
 package org.pah_monitoring.main.controllers.interceptors;
 
+import org.pah_monitoring.auxiliary.text.HttpErrorText;
 import org.pah_monitoring.main.exceptions.common.CheckedException;
 import org.pah_monitoring.main.exceptions.common.UncheckedException;
-import org.pah_monitoring.auxiliary.text.HttpErrorText;
+import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,7 +25,7 @@ public class GlobalExceptionInterceptor {
     @ExceptionHandler({
             ServerWebInputException.class,
             HttpClientErrorException.BadRequest.class,
-            //IncorrectUrlControllerException.class // todo: change it by other exception
+            UrlValidationMvcControllerException.class
     })
     public String error400(Model model) {
         addToModel(model, HttpErrorText.title400, HttpErrorText.text400);
@@ -45,8 +46,7 @@ public class GlobalExceptionInterceptor {
 
     @ExceptionHandler({
             NoHandlerFoundException.class,
-            HttpClientErrorException.NotFound.class,
-            //EntityNotFoundServiceException.class // todo: change it by other exception
+            HttpClientErrorException.NotFound.class
     })
     public String error404(Model model) {
         addToModel(model, HttpErrorText.title404, HttpErrorText.text404);
