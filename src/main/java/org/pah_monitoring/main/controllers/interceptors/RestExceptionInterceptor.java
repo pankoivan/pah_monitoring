@@ -1,9 +1,9 @@
 package org.pah_monitoring.main.controllers.interceptors;
 
 import lombok.*;
-import org.pah_monitoring.auxiliary.exceptions.rest.DataDeletionRestException;
-import org.pah_monitoring.auxiliary.exceptions.rest.DataHasNotBeenDeletedRestException;
-import org.pah_monitoring.auxiliary.exceptions.rest.DataSavingRestException;
+import org.pah_monitoring.auxiliary.exceptions.rest.bad_request.MalformedUrlRestException;
+import org.pah_monitoring.auxiliary.exceptions.rest.internal_server.DataDeletionRestException;
+import org.pah_monitoring.auxiliary.exceptions.rest.bad_request.DataValidationRestException;
 import org.pah_monitoring.auxiliary.exceptions.rest.common.RestException;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -19,15 +19,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class RestExceptionInterceptor {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({DataSavingRestException.class, DataDeletionRestException.class})
+    @ExceptionHandler({DataValidationRestException.class, MalformedUrlRestException.class})
     public ResponseEntity<ExceptionEntity> restException(RestException e) {
         ExceptionEntity json = new ExceptionEntity(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(DataHasNotBeenDeletedRestException.class)
-    public ResponseEntity<ExceptionEntity> dataHasNotBeenDeletedRestException(DataHasNotBeenDeletedRestException e) {
+    @ExceptionHandler(DataDeletionRestException.class)
+    public ResponseEntity<ExceptionEntity> dataHasNotBeenDeletedRestException(DataDeletionRestException e) {
         ExceptionEntity json = new ExceptionEntity(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
         return new ResponseEntity<>(json, HttpStatus.INTERNAL_SERVER_ERROR);
     }

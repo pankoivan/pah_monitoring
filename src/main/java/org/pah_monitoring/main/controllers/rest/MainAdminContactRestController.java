@@ -2,9 +2,9 @@ package org.pah_monitoring.main.controllers.rest;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.auxiliary.exceptions.rest.DataDeletionRestException;
-import org.pah_monitoring.auxiliary.exceptions.rest.DataHasNotBeenDeletedRestException;
-import org.pah_monitoring.auxiliary.exceptions.rest.DataSavingRestException;
+import org.pah_monitoring.auxiliary.exceptions.rest.bad_request.MalformedUrlRestException;
+import org.pah_monitoring.auxiliary.exceptions.rest.internal_server.DataDeletionRestException;
+import org.pah_monitoring.auxiliary.exceptions.rest.bad_request.DataValidationRestException;
 import org.pah_monitoring.main.entities.other.MainAdminContact;
 import org.pah_monitoring.main.services.other.interfaces.MainAdminContactService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,7 +29,7 @@ public class MainAdminContactRestController {
     @PostMapping
     public MainAdminContact add(@RequestBody @Valid MainAdminContact contact, BindingResult bindingResult) {
         if (service.isNotValidForSaving(contact, bindingResult)) {
-            throw new DataSavingRestException(service.bindingResultAnyErrorMessage(bindingResult));
+            throw new DataValidationRestException(service.bindingResultAnyErrorMessage(bindingResult));
         }
         return service.save(contact);
     }
@@ -37,7 +37,7 @@ public class MainAdminContactRestController {
     @PutMapping
     public MainAdminContact edit(@RequestBody @Valid MainAdminContact contact, BindingResult bindingResult) {
         if (service.isNotValidForSaving(contact, bindingResult)) {
-            throw new DataSavingRestException(service.bindingResultAnyErrorMessage(bindingResult));
+            throw new DataValidationRestException(service.bindingResultAnyErrorMessage(bindingResult));
         }
         return service.save(contact);
     }
@@ -46,7 +46,7 @@ public class MainAdminContactRestController {
     public void delete(@PathVariable("id") String pathId) {
         int id = getId(pathId);
         if (!service.deleteById(id)) {
-            throw new DataHasNotBeenDeletedRestException(
+            throw new DataDeletionRestException(
                     "Элемент не был удалён. Скорее всего это связано с какой-то ошибкой на сервере. Повторите попытку позже"
             );
         }
@@ -57,13 +57,13 @@ public class MainAdminContactRestController {
         try {
             id = Integer.parseInt(pathId);
         } catch (NumberFormatException e) {
-            throw new DataDeletionRestException("Идентификатор \"%s\" не является целым числом".formatted(pathId));
+            throw new MalformedUrlRestException("Идентификатор \"%s\" не является целым числом".formatted(pathId));
         }
         if (id <= 0) {
-            throw new DataDeletionRestException("Идентификатор \"%s\" не является целым положительным числом".formatted(pathId));
+            throw new MalformedUrlRestException("Идентификатор \"%s\" не является целым положительным числом".formatted(pathId));
         }
         if (!service.existsById(id)) {
-            throw new DataDeletionRestException("Идентификатор \"%s\" не существует");
+            throw new MalformedUrlRestException("Идентификатор \"%s\" не существует");
         }
         return id;
     }
