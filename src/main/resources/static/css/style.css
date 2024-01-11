@@ -1,7 +1,13 @@
 /* Цвет фона всего приложения */
 
-.bg-gray-100 {
+.bg-main {
     background-color: var(--bs-gray-100);
+}
+
+/* Остальные фоновые цвета */
+
+.bg-gray-200 {
+    background-color: var(--bs-gray-200);
 }
 
 /* Перенос непрерывного длинного слова на новую строку */
@@ -19,4 +25,18 @@
     --bs-modal-border-color: var(--bs-danger-border-subtle);
     --bs-modal-header-border-color: var(--bs-danger-border-subtle);
     --bs-modal-footer-border-color: var(--bs-danger-border-subtle);
+}
+
+/* Информационные блоки */
+
+.login-logout {
+    background-color: var(--bs-primary-bg-subtle);
+    color: var(--bs-primary-text-emphasis);
+    border-color: var(--bs-primary-border-subtle);
+}
+
+.login-error {
+    background-color: var(--bs-danger-bg-subtle);
+    color: var(--bs-danger-text-emphasis);
+    border-color: var(--bs-danger-border-subtle);
 }
