@@ -50,7 +50,8 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
         }
         if (repository.count() == QuantityRestrictionConstants.MAX_NUMBER_OF_MAIN_ADMIN_CONTACTS) {
             throw new DataValidationServiceException("Максимально допустимое число контактов: %s".formatted(
-                    QuantityRestrictionConstants.MAX_NUMBER_OF_MAIN_ADMIN_CONTACTS));
+                    QuantityRestrictionConstants.MAX_NUMBER_OF_MAIN_ADMIN_CONTACTS)
+            );
         }
         if (isNew(contact) && repository.existsByContact(contact.getContact())) {
             throw new DataValidationServiceException("Контакт \"%s\" уже существует".formatted(contact.getContact()));
