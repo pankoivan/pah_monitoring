@@ -47,10 +47,10 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-        if (repository.existsByContact(contact.getContact())) {
+        if (isNew(contact) && repository.existsByContact(contact.getContact())) {
             throw new DataValidationServiceException("Контакт \"%s\" уже существует".formatted(contact.getContact()));
         }
-        if (repository.existsByDescription(contact.getDescription())) {
+        if (isNew(contact) && repository.existsByDescription(contact.getDescription())) {
             throw new DataValidationServiceException("Контакт с описанием \"%s\" уже существует".formatted(contact.getDescription()));
         }
     }
@@ -70,6 +70,10 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
             throw new UrlValidationServiceException("Идентификатор \"%s\" не существует".formatted(pathId));
         }
         return id;
+    }
+
+    private boolean isNew(MainAdminContact contact) {
+        return contact.getId() == null || !repository.existsById(contact.getId());
     }
 
 }
