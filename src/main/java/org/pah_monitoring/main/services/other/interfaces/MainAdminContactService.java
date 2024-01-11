@@ -3,8 +3,8 @@ package org.pah_monitoring.main.services.other.interfaces;
 import org.pah_monitoring.main.entities.other.MainAdminContact;
 import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
-import org.pah_monitoring.main.services.common.interfaces.SavingValidationService;
-import org.pah_monitoring.main.services.common.interfaces.UrlValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.SavingValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.UrlValidationService;
 
 import java.util.List;
 

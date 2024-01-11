@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.services.common.interfaces;
+package org.pah_monitoring.main.services.validation.interfaces;
 
 import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
 
