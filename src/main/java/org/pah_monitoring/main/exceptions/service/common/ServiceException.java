@@ -1,8 +1,8 @@
 package org.pah_monitoring.main.exceptions.service.common;
 
-import org.pah_monitoring.main.exceptions.common.UncheckedException;
+import org.pah_monitoring.main.exceptions.common.CheckedException;
 
-public class ServiceException extends UncheckedException {
+public class ServiceException extends CheckedException {
 
     public ServiceException() {
         super();

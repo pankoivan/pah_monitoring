@@ -2,11 +2,14 @@ package org.pah_monitoring.main.services.other.implementations;
 
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.entities.other.MainAdminContact;
+import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
+import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
+import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
 import org.pah_monitoring.main.repositorites.other.MainAdminContactRepository;
 import org.pah_monitoring.main.services.other.interfaces.MainAdminContactService;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 
 import java.util.List;
 
@@ -17,42 +20,56 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
     private final MainAdminContactRepository repository;
 
     @Override
-    public boolean existsById(Integer id) {
-        return repository.existsById(id);
-    }
-
-    @Override
     public List<MainAdminContact> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public MainAdminContact save(MainAdminContact contact) {
-        return repository.save(contact);
+    public MainAdminContact save(MainAdminContact contact) throws DataSavingServiceException {
+        try {
+            return repository.save(contact);
+        } catch (Exception e) {
+            throw new DataSavingServiceException("Сущность \"%s\" не была сохранена".formatted(contact), e);
+        }
     }
 
     @Override
-    public boolean deleteById(Integer id) {
-        repository.deleteById(id);
-        return repository.existsById(id);
+    public void deleteById(Integer id) throws DataDeletionServiceException {
+        try {
+            repository.deleteById(id);
+        } catch (Exception e) {
+            throw new DataDeletionServiceException("Сущность с идентификатором \"%s\" не была удалена".formatted(id), e);
+        }
     }
 
     @Override
-    public boolean isNotValidForSaving(MainAdminContact contact, BindingResult bindingResult) {
+    public void checkDataValidityForSaving(MainAdminContact contact, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
-            return true;
+            throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
         if (repository.existsByContact(contact.getContact())) {
-            bindingResult.addError(new ObjectError("contactAlreadyExists",
-                    "Контакт \"%s\" уже существует".formatted(contact.getContact())));
-            return true;
+            throw new DataValidationServiceException("Контакт \"%s\" уже существует".formatted(contact.getContact()));
         }
         if (repository.existsByDescription(contact.getDescription())) {
-            bindingResult.addError(new ObjectError("contactDescriptionAlreadyExists",
-                    "Контакт с описанием \"%s\" уже существует".formatted(contact.getDescription())));
-            return true;
+            throw new DataValidationServiceException("Контакт с описанием \"%s\" уже существует".formatted(contact.getDescription()));
         }
-        return false;
+    }
+
+    @Override
+    public int parsePathId(String pathId) throws UrlValidationServiceException {
+        int id;
+        try {
+            id = Integer.parseInt(pathId);
+        } catch (NumberFormatException e) {
+            throw new UrlValidationServiceException("Идентификатор \"%s\" не является целым числом".formatted(pathId));
+        }
+        if (id <= 0) {
+            throw new UrlValidationServiceException("Идентификатор \"%s\" не является целым положительным числом".formatted(pathId));
+        }
+        if (!repository.existsById(id)) {
+            throw new UrlValidationServiceException("Идентификатор \"%s\" не существует".formatted(pathId));
+        }
+        return id;
     }
 
 }

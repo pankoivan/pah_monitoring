@@ -1,8 +1,8 @@
 package org.pah_monitoring.main.controllers.interceptors;
 
 import lombok.*;
-import org.pah_monitoring.main.exceptions.rest.bad_request.common.BadRequestRestException;
-import org.pah_monitoring.main.exceptions.rest.internal_server.common.InternalServerProblemRestException;
+import org.pah_monitoring.main.exceptions.controller.rest.bad_request.common.BadRequestRestControllerException;
+import org.pah_monitoring.main.exceptions.controller.rest.internal_server.common.InternalServerErrorRestControllerException;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class RestExceptionInterceptor {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(BadRequestRestException.class)
-    public ResponseEntity<ExceptionEntity> badRequest(BadRequestRestException e) {
+    @ExceptionHandler(BadRequestRestControllerException.class)
+    public ResponseEntity<ExceptionEntity> badRequest(BadRequestRestControllerException e) {
         ExceptionEntity json = new ExceptionEntity(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(InternalServerProblemRestException.class)
-    public ResponseEntity<ExceptionEntity> internalServerProblem(InternalServerProblemRestException e) {
+    @ExceptionHandler(InternalServerErrorRestControllerException.class)
+    public ResponseEntity<ExceptionEntity> internalServerError(InternalServerErrorRestControllerException e) {
         ExceptionEntity json = new ExceptionEntity(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
         return new ResponseEntity<>(json, HttpStatus.INTERNAL_SERVER_ERROR);
     }
