@@ -47,6 +47,9 @@ function fetchSave(data) {
             if (response.ok) {
                 contactsForm.reset();
                 response.json().then((responseJson) => {
+                    if (document.getElementById("emptyContactsMessage")) {
+                        removeEmptyContactsMessage();
+                    }
                     try {
                         document.getElementById("contact-contact-" + responseJson.id).innerText = responseJson.contact;
                         document.getElementById("description-contact-" + responseJson.id).innerText = responseJson.description;
@@ -72,6 +75,9 @@ function fetchDelete(contact) {
         .then((response) => {
             if (response.ok) {
                 contact.remove();
+                if (document.getElementById("contacts").childElementCount == 0) {
+                    addEmptyContactsMessage();
+                }
                 console.log("Контакт был успешно удалён");
             } else {
                 showModalError(response);
@@ -90,33 +96,33 @@ function showModalError(response) {
 }
 
 function newContact(responseJson) {
-    contact = document.createElement("div");
+    let contact = document.createElement("div");
     contact.id = "contact-" + responseJson.id;
     contact.className = "text-start mb-2";
 
-    contactDescription = document.createElement("h4");
+    let contactDescription = document.createElement("h4");
     contactDescription.id = "description-contact-" + responseJson.id;
     contactDescription.className = "text-secondary";
     contactDescription.textContent = responseJson.description;
 
-    contactContact = document.createElement("p");
+    let contactContact = document.createElement("p");
     contactContact.id = "contact-contact-" + responseJson.id;
     contactContact.className = "text-dark break-all mb-2";
     contactContact.textContent = responseJson.contact;
 
-    contactEdit = document.createElement("a");
+    let contactEdit = document.createElement("a");
     contactEdit.id = "edit-contact-" + responseJson.id;
     contactEdit.href = "#";
     contactEdit.className = "text-secondary me-1";
     contactEdit.textContent = "Изменить";
 
-    contactDelete = document.createElement("a");
+    let contactDelete = document.createElement("a");
     contactDelete.id = "delete-contact-" + responseJson.id;
     contactDelete.href = "#";
     contactDelete.className = "text-secondary ms-1";
     contactDelete.textContent = "Удалить";
 
-    contactHr = document.createElement("hr");
+    let contactHr = document.createElement("hr");
 
     contact.appendChild(contactDescription);
     contact.appendChild(contactContact);
@@ -124,7 +130,7 @@ function newContact(responseJson) {
     contact.appendChild(contactDelete);
     contact.appendChild(contactHr);
 
-    contacts = document.getElementById("contacts");
+    let contacts = document.getElementById("contacts");
     contacts.insertBefore(contact, contacts.firstChild);
 
     addEditDeleteEventListenersToContact(contact);
@@ -133,4 +139,25 @@ function newContact(responseJson) {
 function extractEntityId(elementId) {
     let parts = elementId.split("-");
     return parts[parts.length - 1];
+}
+
+function addEmptyContactsMessage() {
+    let row = document.createElement("div");
+    row.id = "emptyContactsMessage";
+    row.className = "row";
+
+    let col = document.createElement("div");
+    col.className = "col-12";
+
+    let message = document.createElement("div");
+    message.className = "text-secondary text-center fst-italic fs-1";
+    message.textContent = "Список контактов пуст";
+
+    col.appendChild(message);
+    row.appendChild(col);
+    document.getElementById("contacts-container").appendChild(row);
+}
+
+function removeEmptyContactsMessage() {
+    document.getElementById("emptyContactsMessage").remove();
 }

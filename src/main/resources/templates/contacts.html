@@ -11,7 +11,7 @@
 
     <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
         <!-- Основная часть страницы -->
-        <div class="container">
+        <div class="container" id="contacts-container">
             <!-- Форма создания и редактирования контактов -->
             <div class="row mb-5">
                 <div class="col-12">
@@ -44,6 +44,12 @@
                         <a th:id="'delete-contact-' + ${each.id}" href="#" class="text-secondary ms-1">Удалить</a>
                         <hr th:if="${!status.last}" />
                     </div>
+                </div>
+            </div>
+            <!-- Сообщение об отсутствии контактов -->
+            <div th:if="${contacts.empty}" class="row" id="emptyContactsMessage">
+                <div class="col-12">
+                    <div class="text-secondary text-center fst-italic fs-1">Список контактов пуст</div>
                 </div>
             </div>
         </div>
