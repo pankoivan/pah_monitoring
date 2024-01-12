@@ -12,7 +12,7 @@ contactsForm.addEventListener("submit", function (event) {
     fetchSave(data);
 });
 
-document.getElementById("contacts").children.forEach((contact) => {
+Array.from(document.getElementById("contacts").children).forEach((contact) => {
     addEditDeleteEventListenersToContact(contact);
 });
 
@@ -75,7 +75,7 @@ function fetchDelete(contact) {
                 if (document.getElementById("contacts").childElementCount == 0) {
                     addEmptyContactsMessage();
                 } else {
-                    let contacts = document.getElementById("contacts").children;
+                    let contacts = Array.from(document.getElementById("contacts").children);
                     let lastContact = contacts[contacts.length - 1];
                     let lastContactHrs = lastContact.querySelectorAll("hr");
                     if (lastContactHrs.length == 1) {
