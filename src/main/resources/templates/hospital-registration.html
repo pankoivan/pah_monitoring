@@ -5,165 +5,55 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Регистрация медицинского учреждения</title>
-        <link
-            href="../static/css/bootstrap.min.css"
-            th:href="@{/css/bootstrap.min.css}"
-            rel="stylesheet"
-        />
-        <link
-            href="../static/css/style.css"
-            th:href="@{/css/style.css}"
-            rel="stylesheet"
-        />
+        <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
     </head>
 
     <body class="min-vh-100 d-flex flex-column justify-content-center bg-main">
         <div class="container">
             <div class="row">
                 <div class="col-12 mx-auto">
-                    <form
-                        action="#"
-                        th:action="@{/login/processing}"
-                        method="post"
-                        class="border rounded p-3 bg-gray-200"
-                    >
-                        <h2 class="text-secondary fs-4">
-                            Заявка на регистрацию медицинского учреждения
-                        </h2>
+                    <form action="#" th:action="@{/login/processing}" method="post" class="border rounded p-3 bg-gray-200">
+                        <h2 class="text-secondary fs-4">Заявка на регистрацию медицинского учреждения</h2>
                         <hr />
-                        <div
-                            class="d-flex flex-row flex-wrap align-items-center justify-content-center mb-3"
-                        >
+                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-center mb-3">
                             <div class="flex-grow-1 m-1">
-                                <label
-                                    for="name"
-                                    class="form-label text-secondary fs-5"
-                                    >Имя
-                                    <span class="text-danger fs-6">
-                                        *</span
-                                    ></label
-                                >
-                                <input
-                                    type="text"
-                                    name="name"
-                                    id="name"
-                                    class="form-control"
-                                />
+                                <label for="name" class="form-label text-secondary fs-5">Имя <span class="text-danger fs-6"> *</span></label>
+                                <input type="text" name="name" id="name" class="form-control" />
                             </div>
                             <div class="flex-grow-1 m-1">
-                                <label
-                                    for="lastname"
-                                    class="form-label text-secondary fs-5"
-                                    >Фамилия
-                                    <span class="text-danger fs-6">
-                                        *</span
-                                    ></label
-                                >
-                                <input
-                                    type="text"
-                                    name="lastname"
-                                    id="lastname"
-                                    class="form-control"
-                                />
+                                <label for="lastname" class="form-label text-secondary fs-5">Фамилия <span class="text-danger fs-6"> *</span></label>
+                                <input type="text" name="lastname" id="lastname" class="form-control" />
                             </div>
                             <div class="flex-grow-1 m-1">
-                                <label
-                                    for="patronymic"
-                                    class="form-label text-secondary fs-5"
-                                    >Отчество
-                                    <span class="text-danger fs-6">
-                                        *</span
-                                    ></label
-                                >
-                                <input
-                                    type="text"
-                                    name="patronymic"
-                                    id="patronymic"
-                                    class="form-control"
-                                />
+                                <label for="patronymic" class="form-label text-secondary fs-5">Отчество <span class="text-danger fs-6"> *</span></label>
+                                <input type="text" name="patronymic" id="patronymic" class="form-control" />
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label
-                                for="hospitalName"
-                                class="form-label text-secondary fs-5"
-                                >Полное наименование медицинского учреждения
-                                <span class="text-danger fs-6"> *</span></label
-                            >
-                            <input
-                                type="text"
-                                name="hospitalName"
-                                id="hospitalName"
-                                class="form-control"
-                            />
+                            <label for="hospitalName" class="form-label text-secondary fs-5">Полное наименование медицинского учреждения <span class="text-danger fs-6"> *</span></label>
+                            <input type="text" name="hospitalName" id="hospitalName" class="form-control" />
                         </div>
                         <div class="mb-3">
-                            <label
-                                for="post"
-                                class="form-label text-secondary fs-5"
-                                >Ваша должность в этом медицинском учреждении
-                                <span class="text-danger fs-6"> *</span></label
-                            >
-                            <input
-                                type="text"
-                                name="post"
-                                id="post"
-                                class="form-control"
-                            />
+                            <label for="post" class="form-label text-secondary fs-5">Ваша должность в этом медицинском учреждении <span class="text-danger fs-6"> *</span></label>
+                            <input type="text" name="post" id="post" class="form-control" />
                         </div>
-                        <div
-                            class="d-flex flex-row flex-wrap align-items-center justify-content-center mb-3"
-                        >
+                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-center mb-3">
                             <div class="flex-grow-1 m-1">
-                                <label
-                                    for="passport"
-                                    class="form-label text-secondary fs-5"
-                                    >Серия и номер паспорта
-                                    <span class="text-danger fs-6">
-                                        *</span
-                                    ></label
-                                >
-                                <input
-                                    type="text"
-                                    name="passport"
-                                    id="passport"
-                                    class="form-control"
-                                />
+                                <label for="passport" class="form-label text-secondary fs-5">Серия и номер паспорта <span class="text-danger fs-6"> *</span></label>
+                                <input type="text" name="passport" id="passport" class="form-control" />
                             </div>
                             <div class="flex-grow-1 m-1">
-                                <label
-                                    for="phoneNumber"
-                                    class="form-label text-secondary fs-5"
-                                    >Номер телефона
-                                    <span class="text-danger fs-6">
-                                        *</span
-                                    ></label
-                                >
-                                <input
-                                    type="text"
-                                    name="phoneNumber"
-                                    id="phoneNumber"
-                                    class="form-control"
-                                />
+                                <label for="phoneNumber" class="form-label text-secondary fs-5">Номер телефона <span class="text-danger fs-6"> *</span></label>
+                                <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" />
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label
-                                for="comment"
-                                class="form-label text-secondary fs-5"
-                                >Комментарий к заявке</label
-                            >
-                            <textarea
-                                name="comment"
-                                id="comment"
-                                class="form-control"
-                                rows="3"
-                            ></textarea>
+                            <label for="comment" class="form-label text-secondary fs-5">Комментарий к заявке</label>
+                            <textarea name="comment" id="comment" class="form-control" rows="3"></textarea>
                         </div>
                         <hr />
-                        <button class="btn btn-lg btn-primary">
-                            Отправить
-                        </button>
+                        <button class="btn btn-lg btn-primary">Отправить</button>
                     </form>
                 </div>
             </div>
