@@ -3,7 +3,7 @@ const contactsForm = document.getElementById("contacts-form");
 contactsForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const data = {
+    let data = {
         id: contactsForm.querySelector('input[name="id"]').value,
         contact: contactsForm.querySelector('input[name="contact"]').value,
         description: contactsForm.querySelector('input[name="description"]').value,
@@ -12,12 +12,9 @@ contactsForm.addEventListener("submit", function (event) {
     fetchSave(data);
 });
 
-document
-    .getElementById("contacts")
-    .querySelectorAll("div")
-    .forEach((contact) => {
-        addEditDeleteEventListenersToContact(contact);
-    });
+document.getElementById("contacts").children.forEach((contact) => {
+    addEditDeleteEventListenersToContact(contact);
+});
 
 function addEditDeleteEventListenersToContact(contact) {
     let contactId = extractEntityId(contact.id);
@@ -47,15 +44,15 @@ function fetchSave(data) {
             if (response.ok) {
                 contactsForm.reset();
                 response.json().then((responseJson) => {
-                    if (document.getElementById("emptyContactsMessage")) {
-                        removeEmptyContactsMessage();
-                    }
                     try {
                         document.getElementById("contact-contact-" + responseJson.id).innerText = responseJson.contact;
                         document.getElementById("description-contact-" + responseJson.id).innerText = responseJson.description;
                         console.log("Контакт был успешно изменён");
                     } catch (error) {
-                        newContact(responseJson);
+                        if (document.getElementById("emptyContactsMessage")) {
+                            removeEmptyContactsMessage();
+                        }
+                        newContact(responseJson, document.getElementById("contacts").childElementCount == 0);
                         console.log("Контакт был успешно добавлен");
                     }
                 });
@@ -64,7 +61,7 @@ function fetchSave(data) {
             }
         })
         .catch((error) => {
-            console.error("Контакт не был сохранён:", error);
+            console.error("Ошибка при сохранении контакта", error);
         });
 }
 
@@ -77,6 +74,13 @@ function fetchDelete(contact) {
                 contact.remove();
                 if (document.getElementById("contacts").childElementCount == 0) {
                     addEmptyContactsMessage();
+                } else {
+                    let contacts = document.getElementById("contacts").children;
+                    let lastContact = contacts[contacts.length - 1];
+                    let lastContactHrs = lastContact.querySelectorAll("hr");
+                    if (lastContactHrs.length == 1) {
+                        lastContact.removeChild(lastContactHrs[0]);
+                    }
                 }
                 console.log("Контакт был успешно удалён");
             } else {
@@ -84,7 +88,7 @@ function fetchDelete(contact) {
             }
         })
         .catch((error) => {
-            console.error("Контакт не был удалён:", error);
+            console.error("Ошибка при удалении контакта", error);
         });
 }
 
@@ -95,7 +99,7 @@ function showModalError(response) {
     });
 }
 
-function newContact(responseJson) {
+function newContact(responseJson, isFirst) {
     let contact = document.createElement("div");
     contact.id = "contact-" + responseJson.id;
     contact.className = "text-start mb-2";
@@ -128,17 +132,14 @@ function newContact(responseJson) {
     contact.appendChild(contactContact);
     contact.appendChild(contactEdit);
     contact.appendChild(contactDelete);
-    contact.appendChild(contactHr);
+    if (!isFirst) {
+        contact.appendChild(contactHr);
+    }
 
     let contacts = document.getElementById("contacts");
     contacts.insertBefore(contact, contacts.firstChild);
 
     addEditDeleteEventListenersToContact(contact);
-}
-
-function extractEntityId(elementId) {
-    let parts = elementId.split("-");
-    return parts[parts.length - 1];
 }
 
 function addEmptyContactsMessage() {
@@ -160,4 +161,9 @@ function addEmptyContactsMessage() {
 
 function removeEmptyContactsMessage() {
     document.getElementById("emptyContactsMessage").remove();
+}
+
+function extractEntityId(elementId) {
+    let parts = elementId.split("-");
+    return parts[parts.length - 1];
 }
