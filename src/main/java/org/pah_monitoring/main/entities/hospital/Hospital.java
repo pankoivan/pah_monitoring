@@ -2,8 +2,8 @@ package org.pah_monitoring.main.entities.hospital;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.users.Patient;
+import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -62,7 +62,9 @@ public class Hospital {
     @Getter
     public enum CurrentState {
 
-        WAITING("Ожидает регистрацию"),
+        WAITING_CODE("Ожидает выдачу кода"),
+
+        WAITING_REGISTRATION("Ожидает регистрацию администратора"),
 
         REGISTERED("Зарегистрировано");
 

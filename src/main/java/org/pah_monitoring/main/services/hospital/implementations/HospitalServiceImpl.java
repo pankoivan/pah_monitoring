@@ -22,7 +22,7 @@ public class HospitalServiceImpl implements HospitalService {
 
     @Override
     public Hospital save(Hospital hospital) {
-        return save(hospital, Hospital.CurrentState.WAITING, null);
+        return save(hospital, Hospital.CurrentState.WAITING_CODE, null);
     }
 
     @Override

@@ -15,25 +15,31 @@ CREATE TABLE IF NOT EXISTS hospital
 	oid VARCHAR (256) UNIQUE NOT NULL,
 	name VARCHAR (512) UNIQUE NOT NULL,
 	registration_date TIMESTAMP NOT NULL,
-	current_state VARCHAR (12) NOT NULL
+	current_state VARCHAR (24) NOT NULL
 );
 
-/* Коды безопасности для регистрации пользователей (3) */
+/* Заявки на регистрацию медицинских учреждений (3) */
+
+CREATE TABLE IF NOT EXISTS hospital_registration_request
+(
+	id SERIAL PRIMARY KEY,
+	hospital_id INT REFERENCES hospital (id) UNIQUE NOT NULL,
+	name VARCHAR (32) NOT NULL,
+	lastname VARCHAR (64) NOT NULL,
+	patronymic VARCHAR (32) NOT NULL,
+	post VARCHAR (128) NOT NULL,
+	passport VARCHAR (12) UNIQUE,
+	phone_number VARCHAR (24) UNIQUE NOT NULL,
+	email VARCHAR (256) NOT NULL
+);
+
+/* Коды безопасности для регистрации пользователей (4) */
 
 CREATE TABLE IF NOT EXISTS registration_security_code
 (
 	id SERIAL PRIMARY KEY,
 	hospital_id INT REFERENCES hospital (id) NOT NULL,
 	role VARCHAR (24) NOT NULL,
-	code UUID UNIQUE NOT NULL,
-	expiration_date TIMESTAMP NOT NULL
-);
-
-/* Коды безопасности для доступа к странице регистрации медицинского учреждения (4) */
-
-CREATE TABLE IF NOT EXISTS page_access_security_code
-(
-	id SERIAL PRIMARY KEY,
 	code UUID UNIQUE NOT NULL,
 	expiration_date TIMESTAMP NOT NULL
 );
