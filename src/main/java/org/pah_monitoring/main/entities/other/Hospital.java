@@ -42,6 +42,9 @@ public class Hospital {
     @OneToMany(mappedBy = "hospital")
     private List<Patient> patients;
 
+    @OneToOne(mappedBy = "hospital")
+    private HospitalRegistrationRequest hospitalRegistrationRequest;
+
     @Override
     public boolean equals(Object o) {
         return (this == o)
