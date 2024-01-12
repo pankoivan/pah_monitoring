@@ -48,7 +48,7 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-        if (repository.count() == QuantityRestrictionConstants.MAX_NUMBER_OF_MAIN_ADMIN_CONTACTS) {
+        if (isNew(contact) && repository.count() == QuantityRestrictionConstants.MAX_NUMBER_OF_MAIN_ADMIN_CONTACTS) {
             throw new DataValidationServiceException("Максимально допустимое число контактов: %s".formatted(
                     QuantityRestrictionConstants.MAX_NUMBER_OF_MAIN_ADMIN_CONTACTS)
             );
