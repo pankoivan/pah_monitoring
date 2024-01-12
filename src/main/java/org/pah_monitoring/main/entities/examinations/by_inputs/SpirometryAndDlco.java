@@ -2,7 +2,7 @@ package org.pah_monitoring.main.entities.examinations.by_inputs;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.examinations.examination.Examination;
+import org.pah_monitoring.main.entities.examinations.Examination;
 
 @NoArgsConstructor
 @AllArgsConstructor

@@ -3,7 +3,7 @@ package org.pah_monitoring.main.entities.users.inactivity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
-import org.pah_monitoring.main.entities.users.users.Administrator;
+import org.pah_monitoring.main.entities.users.Administrator;
 
 import java.time.LocalDate;
 

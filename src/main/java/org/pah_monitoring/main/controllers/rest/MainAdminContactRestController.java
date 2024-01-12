@@ -2,7 +2,7 @@ package org.pah_monitoring.main.controllers.rest;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.entities.other.MainAdminContact;
+import org.pah_monitoring.main.entities.main_admin_contacts.MainAdminContact;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataDeletionRestControllerException;
@@ -11,7 +11,7 @@ import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
-import org.pah_monitoring.main.services.other.interfaces.MainAdminContactService;
+import org.pah_monitoring.main.services.users.main_admin_contacts.interfaces.MainAdminContactService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;

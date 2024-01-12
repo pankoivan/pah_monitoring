@@ -2,8 +2,8 @@ package org.pah_monitoring.main.entities.users.inactivity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.users.users.Doctor;
-import org.pah_monitoring.main.entities.users.users.Patient;
+import org.pah_monitoring.main.entities.users.Doctor;
+import org.pah_monitoring.main.entities.users.Patient;
 
 import java.time.LocalDate;
 

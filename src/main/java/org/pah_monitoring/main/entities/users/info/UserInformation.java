@@ -3,7 +3,7 @@ package org.pah_monitoring.main.entities.users.info;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.Gender;
-import org.pah_monitoring.main.entities.users.message.UserMessage;
+import org.pah_monitoring.main.entities.users.messages.UserMessage;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc;
 
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.services.other.interfaces.MainAdminContactService;
+import org.pah_monitoring.main.services.users.main_admin_contacts.interfaces.MainAdminContactService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
