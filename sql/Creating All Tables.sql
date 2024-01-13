@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS hospital_registration_request
 	post VARCHAR (128) NOT NULL,
 	passport VARCHAR (12) UNIQUE,
 	phone_number VARCHAR (24) UNIQUE NOT NULL,
-	email VARCHAR (256) NOT NULL
+	email VARCHAR (256) NOT NULL,
+	comment VARCHAR (512) NOT NULL
 );
 
 /* Коды безопасности для регистрации пользователей (4) */

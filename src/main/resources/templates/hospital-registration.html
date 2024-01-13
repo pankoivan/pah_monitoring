@@ -9,55 +9,78 @@
         <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
     </head>
 
-    <body class="min-vh-100 d-flex flex-column justify-content-center bg-main">
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
+        <!-- Основная часть страницы: форма заявки на регистрацию медицинского учреждения -->
         <div class="container">
             <div class="row">
-                <div class="col-12 mx-auto">
-                    <form action="#" th:action="@{/login/processing}" method="post" class="border rounded p-3 bg-gray-200">
-                        <h2 class="text-secondary fs-4">Заявка на регистрацию медицинского учреждения</h2>
+                <div class="col-12">
+                    <form action="#" th:action="@{/rest/hospitals/registration-request}" method="post" class="border rounded text-secondary fs-5 p-3 bg-gray-200">
+                        <h2 class="fs-4">Заявка на регистрацию медицинского учреждения</h2>
                         <hr />
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center mb-3">
                             <div class="flex-grow-1 m-1">
-                                <label for="name" class="form-label text-secondary fs-5">Имя <span class="text-danger fs-6"> *</span></label>
-                                <input type="text" name="name" id="name" class="form-control" />
-                            </div>
-                            <div class="flex-grow-1 m-1">
-                                <label for="lastname" class="form-label text-secondary fs-5">Фамилия <span class="text-danger fs-6"> *</span></label>
+                                <label for="lastname" class="form-label">Фамилия <span class="text-danger fs-6"> *</span></label>
                                 <input type="text" name="lastname" id="lastname" class="form-control" />
                             </div>
                             <div class="flex-grow-1 m-1">
-                                <label for="patronymic" class="form-label text-secondary fs-5">Отчество <span class="text-danger fs-6"> *</span></label>
+                                <label for="name" class="form-label">Имя <span class="text-danger fs-6"> *</span></label>
+                                <input type="text" name="name" id="name" class="form-control" />
+                            </div>
+                            <div class="flex-grow-1 m-1">
+                                <label for="patronymic" class="form-label">Отчество <span class="text-danger fs-6"> *</span></label>
                                 <input type="text" name="patronymic" id="patronymic" class="form-control" />
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="hospitalName" class="form-label text-secondary fs-5">Полное наименование медицинского учреждения <span class="text-danger fs-6"> *</span></label>
+                            <label for="hospitalName" class="form-label">Полное наименование медицинского учреждения <span class="text-danger fs-6"> *</span></label>
                             <input type="text" name="hospitalName" id="hospitalName" class="form-control" />
                         </div>
                         <div class="mb-3">
-                            <label for="post" class="form-label text-secondary fs-5">Ваша должность в этом медицинском учреждении <span class="text-danger fs-6"> *</span></label>
+                            <label for="post" class="form-label">Ваша должность в этом медицинском учреждении <span class="text-danger fs-6"> *</span></label>
                             <input type="text" name="post" id="post" class="form-control" />
                         </div>
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center mb-3">
                             <div class="flex-grow-1 m-1">
-                                <label for="passport" class="form-label text-secondary fs-5">Серия и номер паспорта <span class="text-danger fs-6"> *</span></label>
+                                <label for="passport" class="form-label">Серия и номер паспорта <span class="text-danger fs-6"> *</span></label>
                                 <input type="text" name="passport" id="passport" class="form-control" />
                             </div>
                             <div class="flex-grow-1 m-1">
-                                <label for="phoneNumber" class="form-label text-secondary fs-5">Номер телефона <span class="text-danger fs-6"> *</span></label>
+                                <label for="phoneNumber" class="form-label">Номер телефона <span class="text-danger fs-6"> *</span></label>
                                 <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" />
                             </div>
                         </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Почта, на которую придёт код регистрации в приложении <span class="text-danger fs-6"> *</span></label>
+                            <input type="email" name="email" id="email" class="form-control" />
+                        </div>
                         <div class="mb-4">
-                            <label for="comment" class="form-label text-secondary fs-5">Комментарий к заявке</label>
+                            <label for="comment" class="form-label">Комментарий к заявке</label>
                             <textarea name="comment" id="comment" class="form-control" rows="3"></textarea>
                         </div>
                         <hr />
-                        <button class="btn btn-lg btn-primary">Отправить</button>
+                        <button type="submit" class="btn btn-lg btn-primary mt-1">Отправить</button>
                     </form>
                 </div>
             </div>
         </div>
-        <script src="../static/js/test.js" th:src="@{/js/test.js}"></script>
+        <!-- Модальное окно ошибок -->
+        <div class="modal fade" id="error-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-overriden-danger mx-auto">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-4" id="error-modal-title">Ошибка</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body fs-5" id="error-modal-text">Здесь располагается короткое описание ошибки. Пример: "Минимальная длина почты - 8 символов, максимальная - 256 символов"</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Скрипты -->
+        <!-- todo: change to js-file specific for this file -->
+        <script src="../static/js/contacts.js" th:src="@{/js/contacts.js}"></script>
+        <script src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
     </body>
 </html>
