@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/rest/hospitals/registration-request")
+@RequestMapping("/rest/hospitals/registration-requests")
 @PreAuthorize("permitAll()")
 public class HospitalRegistrationRequestRestController {
 
