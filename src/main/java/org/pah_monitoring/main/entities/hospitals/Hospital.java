@@ -42,7 +42,7 @@ public class Hospital {
     @OneToMany(mappedBy = "hospital")
     private List<Patient> patients;
 
-    @OneToOne(mappedBy = "hospital", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "hospital", cascade = CascadeType.REMOVE)
     private HospitalRegistrationRequest hospitalRegistrationRequest;
 
     @Override

@@ -28,10 +28,10 @@ CREATE TABLE IF NOT EXISTS hospital_registration_request
 	lastname VARCHAR (64) NOT NULL,
 	patronymic VARCHAR (32) NOT NULL,
 	post VARCHAR (128) NOT NULL,
-	passport VARCHAR (12) UNIQUE,
+	passport VARCHAR (12) UNIQUE NOT NULL,
 	phone_number VARCHAR (24) UNIQUE NOT NULL,
 	email VARCHAR (256) NOT NULL,
-	comment VARCHAR (512) NOT NULL
+	comment VARCHAR (512)
 );
 
 /* Коды безопасности для регистрации пользователей (4) */
