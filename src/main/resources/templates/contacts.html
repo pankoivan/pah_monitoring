@@ -47,15 +47,15 @@
                 </div>
             </div>
             <!-- Сообщение об отсутствии контактов -->
-            <div th:if="${contacts.empty}" class="row" id="emptyContactsMessage">
+            <div th:if="${contacts.empty}" class="row" id="empty-contacts-message">
                 <div class="col-12">
                     <div class="text-secondary text-center fst-italic fs-1">Список контактов пуст</div>
                 </div>
             </div>
         </div>
-        <!-- Модальное окно ошибок -->
+        <!-- Модальное окно с сообщением об ошибке -->
         <div class="modal fade" id="error-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-overriden-danger mx-auto">
+            <div class="modal-dialog modal-dialog-centered modal-overriden-danger">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-4" id="error-modal-title">Ошибка</h1>

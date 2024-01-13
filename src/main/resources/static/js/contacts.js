@@ -49,7 +49,7 @@ function fetchSave(data) {
                         document.getElementById("description-contact-" + responseJson.id).innerText = responseJson.description;
                         console.log("Контакт был успешно изменён");
                     } catch (error) {
-                        if (document.getElementById("emptyContactsMessage")) {
+                        if (document.getElementById("empty-contacts-message")) {
                             removeEmptyContactsMessage();
                         }
                         newContact(responseJson, document.getElementById("contacts").childElementCount == 0);
@@ -144,7 +144,7 @@ function newContact(responseJson, isFirst) {
 
 function addEmptyContactsMessage() {
     let row = document.createElement("div");
-    row.id = "emptyContactsMessage";
+    row.id = "empty-contacts-message";
     row.className = "row";
 
     let col = document.createElement("div");
@@ -160,7 +160,7 @@ function addEmptyContactsMessage() {
 }
 
 function removeEmptyContactsMessage() {
-    document.getElementById("emptyContactsMessage").remove();
+    document.getElementById("empty-contacts-message").remove();
 }
 
 function extractEntityId(elementId) {
