@@ -27,6 +27,16 @@
     --bs-modal-footer-border-color: var(--bs-danger-border-subtle);
 }
 
+/* Переопределение цветов стандартного модального окна под стиль "alert-success" */
+
+.modal-overriden-success {
+    --bs-modal-bg: var(--bs-success-bg-subtle);
+    --bs-modal-color: var(--bs-success-text-emphasis);
+    --bs-modal-border-color: var(--bs-success-border-subtle);
+    --bs-modal-header-border-color: var(--bs-success-border-subtle);
+    --bs-modal-footer-border-color: var(--bs-success-border-subtle);
+}
+
 /* Информационные блоки страницы входа для событий "выход" и "ошибка" */
 
 .login-logout {

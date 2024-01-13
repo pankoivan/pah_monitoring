@@ -31,15 +31,13 @@ function fetchSave(data) {
         .then((response) => {
             if (response.ok) {
                 hospitalRegistrationForm.reset();
-                response.json().then((responseJson) => {
-                    console.log(responseJson);
-                });
+                showModalSuccess(response);
             } else {
                 showModalError(response);
             }
         })
         .catch((error) => {
-            console.error("Ошибка при сохранении контакта", error);
+            console.error("Ошибка при сохранении заявки", error);
         });
 }
 
@@ -47,5 +45,13 @@ function showModalError(response) {
     response.json().then((responseJson) => {
         document.getElementById("error-modal-text").innerText = responseJson.errorDescription;
         new bootstrap.Modal(document.getElementById("error-modal")).show();
+    });
+}
+
+function showModalSuccess(response) {
+    response.json().then((responseJson) => {
+        document.getElementById("success-modal-text-hospital-name").innerText = " " + responseJson.hospital.name + " ";
+        document.getElementById("success-modal-text-email").innerText = responseJson.email;
+        new bootstrap.Modal(document.getElementById("success-modal")).show();
     });
 }

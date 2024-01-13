@@ -10,7 +10,7 @@
     </head>
 
     <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
-        <!-- Основная часть страницы: форма заявки на регистрацию медицинского учреждения -->
+        <!-- Основная часть страницы -->
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -20,42 +20,42 @@
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center mb-3">
                             <div class="flex-grow-1 m-1">
                                 <label for="lastname" class="form-label">Фамилия <span class="text-danger fs-6"> *</span></label>
-                                <input type="text" name="lastname" id="lastname" class="form-control" />
+                                <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Иванов" />
                             </div>
                             <div class="flex-grow-1 m-1">
                                 <label for="name" class="form-label">Имя <span class="text-danger fs-6"> *</span></label>
-                                <input type="text" name="name" id="name" class="form-control" />
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Иван" />
                             </div>
                             <div class="flex-grow-1 m-1">
-                                <label for="patronymic" class="form-label">Отчество <span class="text-danger fs-6"> *</span></label>
-                                <input type="text" name="patronymic" id="patronymic" class="form-control" />
+                                <label for="patronymic" class="form-label">Отчество</label>
+                                <input type="text" name="patronymic" id="patronymic" class="form-control" placeholder="Иванович" />
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="hospitalName" class="form-label">Полное наименование медицинского учреждения <span class="text-danger fs-6"> *</span></label>
-                            <input type="text" name="hospitalName" id="hospitalName" class="form-control" />
+                            <input type="text" name="hospitalName" id="hospitalName" class="form-control" placeholder="Национальный медицинский исследовательский центр имени В. А. Алмазова" />
                         </div>
                         <div class="mb-3">
                             <label for="post" class="form-label">Ваша должность в этом медицинском учреждении <span class="text-danger fs-6"> *</span></label>
-                            <input type="text" name="post" id="post" class="form-control" />
+                            <input type="text" name="post" id="post" class="form-control" placeholder="Главный врач" />
                         </div>
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center mb-3">
                             <div class="flex-grow-1 m-1">
                                 <label for="passport" class="form-label">Серия и номер паспорта <span class="text-danger fs-6"> *</span></label>
-                                <input type="text" name="passport" id="passport" class="form-control" />
+                                <input type="text" name="passport" id="passport" class="form-control" placeholder="3012 981322" />
                             </div>
                             <div class="flex-grow-1 m-1">
                                 <label for="phoneNumber" class="form-label">Номер телефона <span class="text-danger fs-6"> *</span></label>
-                                <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" />
+                                <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" placeholder="890231214560" />
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Почта, на которую придёт код регистрации в приложении <span class="text-danger fs-6"> *</span></label>
-                            <input type="email" name="email" id="email" class="form-control" />
+                            <input type="email" name="email" id="email" class="form-control" placeholder="example@mail.com" />
                         </div>
                         <div class="mb-4">
                             <label for="comment" class="form-label">Комментарий к заявке</label>
-                            <textarea name="comment" id="comment" class="form-control" rows="3"></textarea>
+                            <textarea name="comment" id="comment" class="form-control" rows="3" placeholder="Здесь вы можете написать, для чего вы оставляете данную заявку"></textarea>
                         </div>
                         <hr />
                         <button type="submit" class="btn btn-lg btn-primary mt-1">Отправить</button>
@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <!-- Модальное окно ошибок -->
+        <!-- Модальное окно с сообщением об ошибке -->
         <div class="modal fade" id="error-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-overriden-danger mx-auto">
                 <div class="modal-content">
@@ -72,6 +72,29 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body fs-5" id="error-modal-text">Здесь располагается короткое описание ошибки. Пример: "Минимальная длина почты - 8 символов, максимальная - 256 символов"</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Модальное окно с сообщением об успехе-->
+        <div class="modal fade" id="success-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-overriden-success mx-auto">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-4" id="success-modal-title">Успех</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body fs-5" id="success-modal-text">
+                        Заявка на регистрацию медицинского учреждения
+                        <span id="success-modal-text-hospital-name" class="fw-bold">Заполняется js-кодом</span>
+                        успешно отправлена.
+                        <br /><br />
+                        Если ваша личность будет подтверждена, главный администратор приложения сгенерирует код, который придёт на почту
+                        <span id="success-modal-text-email" class="fw-bold">Заполняется js-кодом</span>. <br /><br />
+                        Ожидайте.
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                     </div>
