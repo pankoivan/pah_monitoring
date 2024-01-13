@@ -35,9 +35,9 @@
                             всего, начало повседневной работы по формированию позиции требует от нас анализа поставленных обществом задач.
                         </p>
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
-                            <a href="#" class="btn btn-primary m-2">Войти</a>
-                            <a href="#" class="btn btn-success m-2">Зарегистрироваться</a>
-                            <a href="#" class="btn btn-warning m-2">Подать заявку</a>
+                            <a href="#" th:href="@{/login}" class="btn btn-primary m-2">Войти</a>
+                            <button href="#" class="btn btn-success m-2" data-bs-toggle="modal" data-bs-target="#code-input-modal">Зарегистрироваться</button>
+                            <a href="#" th:href="@{/hospital-registration-requests}" class="btn btn-warning m-2">Подать заявку</a>
                         </div>
                     </div>
                 </div>
@@ -60,6 +60,32 @@
             <div class="row" th:if="${contacts.empty}" id="empty-contacts-message">
                 <div class="col-12">
                     <div class="text-secondary text-center fst-italic fs-4">К сожалению, список контактов главного администратора пока пуст</div>
+                </div>
+            </div>
+        </div>
+        <!-- Модальное окно с вводом кода регистрации -->
+        <div class="modal fade" id="code-input-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-4" id="error-modal-title">Ввод кода</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body fs-4" id="error-modal-text">
+                        <div class="mb-2" id="code-input-error">
+                            <div class="text-center fs-4 login-error rounded h-100">
+                                <p class="mb-1 my-auto">Неверный код</p>
+                            </div>
+                        </div>
+                        <form action="" class="mb-2">
+                            <label for="code" class="form-label text-center">Введите код регистрации</label>
+                            <input type="text" name="code" id="code" class="form-control mb-3" placeholder="dkjf-dsfj37-127sj-12s72j-1sju" />
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
                 </div>
             </div>
         </div>
