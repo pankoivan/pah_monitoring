@@ -12,19 +12,20 @@ import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistratio
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/rest/hospitals/registration-requests")
+@RequestMapping("/rest/hospital-registration-requests")
 @PreAuthorize("permitAll()")
 public class HospitalRegistrationRequestRestController {
 
     private final HospitalRegistrationRequestService service;
 
-    @PostMapping
-    public HospitalRegistrationRequest save(@Valid HospitalRegistrationRequestSavingDto requestDto, BindingResult bindingResult) {
+    @PostMapping("/save")
+    public HospitalRegistrationRequest save(@Valid @RequestBody HospitalRegistrationRequestSavingDto requestDto, BindingResult bindingResult) {
         try {
             service.checkDataValidityForSaving(requestDto, bindingResult);
         } catch (DataValidationServiceException e) {
