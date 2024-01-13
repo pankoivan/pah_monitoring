@@ -6,7 +6,7 @@ import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.examinations.Examination;
 import org.pah_monitoring.main.entities.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.patient_additions.Achievement;
-import org.pah_monitoring.main.entities.hospital.Hospital;
+import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.patient_additions.Medicine;
 import org.pah_monitoring.main.entities.users.inactivity.InactivePatient;
 import org.pah_monitoring.main.entities.users.info.UserInformation;

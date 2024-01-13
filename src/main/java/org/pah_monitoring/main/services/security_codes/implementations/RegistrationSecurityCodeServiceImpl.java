@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.services.security_codes.implementations;
 
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.entities.hospital.Hospital;
+import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.repositorites.security_codes.RegistrationSecurityCodeRepository;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;

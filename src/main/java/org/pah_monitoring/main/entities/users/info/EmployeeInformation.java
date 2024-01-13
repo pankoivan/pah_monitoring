@@ -2,7 +2,7 @@ package org.pah_monitoring.main.entities.users.info;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.hospital.Hospital;
+import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.users.inactivity.Dismissal;
 import org.pah_monitoring.main.entities.users.inactivity.SickLeave;
 import org.pah_monitoring.main.entities.users.inactivity.Vacation;

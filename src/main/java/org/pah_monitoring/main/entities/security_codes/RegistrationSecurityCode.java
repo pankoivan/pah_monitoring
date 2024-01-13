@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.ExpirationDate;
 import org.pah_monitoring.main.entities.enums.Role;
-import org.pah_monitoring.main.entities.hospital.Hospital;
+import org.pah_monitoring.main.entities.hospitals.Hospital;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

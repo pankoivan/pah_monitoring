@@ -11,7 +11,7 @@ import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
-import org.pah_monitoring.main.services.users.main_admin_contacts.interfaces.MainAdminContactService;
+import org.pah_monitoring.main.services.main_admin_contacts.interfaces.MainAdminContactService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
