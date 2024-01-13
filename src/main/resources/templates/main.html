@@ -36,7 +36,7 @@
                         </p>
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
                             <a href="#" th:href="@{/login}" class="btn btn-primary m-2">Войти</a>
-                            <button href="#" class="btn btn-success m-2" data-bs-toggle="modal" data-bs-target="#code-input-modal">Зарегистрироваться</button>
+                            <button class="btn btn-success m-2" data-bs-toggle="modal" data-bs-target="#code-input-modal">Зарегистрироваться</button>
                             <a href="#" th:href="@{/hospital-registration-requests}" class="btn btn-warning m-2">Подать заявку</a>
                         </div>
                     </div>
@@ -68,18 +68,18 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-4" id="error-modal-title">Ввод кода</h1>
+                        <h1 class="modal-title fs-4">Ввод кода</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body fs-4" id="error-modal-text">
-                        <div class="mb-2" id="code-input-error">
+                    <div class="modal-body fs-4">
+                        <div class="mb-2 mt-1" id="code-input-error">
                             <div class="text-center fs-4 login-error rounded h-100">
                                 <p class="mb-1 my-auto">Неверный код</p>
                             </div>
                         </div>
-                        <form action="" class="mb-2">
+                        <form action="#" th:action="@{/rest/security-codes/check}" method="post" id="code-input-form" class="mb-2">
                             <label for="code" class="form-label text-center">Введите код регистрации</label>
-                            <input type="text" name="code" id="code" class="form-control mb-3" placeholder="dkjf-dsfj37-127sj-12s72j-1sju" />
+                            <input type="text" name="code" class="form-control mb-3" placeholder="dkjf-dsfj37-127sj-12s72j-1sju" />
                             <button type="submit" class="btn btn-primary">Отправить</button>
                         </form>
                     </div>
@@ -90,6 +90,7 @@
             </div>
         </div>
         <!-- Скрипты -->
+        <script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
         <script src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
     </body>
 </html>

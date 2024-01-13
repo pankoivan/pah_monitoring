@@ -4,14 +4,14 @@ codeInputForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     let data = {
-        code: codeInputForm.querySelector('input[name="code"]'),
+        code: codeInputForm.querySelector('input[name="code"]').value,
     };
 
     fetchCheck(data);
 });
 
 function fetchCheck(data) {
-    fetch("http://localhost:8080/rest/temp", {
+    fetch("http://localhost:8080/rest/security-codes/check", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -22,19 +22,24 @@ function fetchCheck(data) {
             if (response.ok) {
                 response.json().then((responseJson) => {
                     if (responseJson.isTrue) {
-                        window.location.href = "registration?code=`${data.code}`";
+                        redirectRegistrationPage(data.code);
                     } else {
+                        showErrorMessage();
                     }
                 });
             } else {
-                console.error("Произошла ошибка, для которой не предусмотрено никаких действий");
+                console.error("На сервере произошла ошибка, для которой здесь не предусмотрено никаких действий");
             }
         })
         .catch((error) => {
-            console.error("Ошибка при сохранении заявки", error);
+            console.error("Произошла ошибка, для которой не предусмотрено никаких действий", error);
         });
 }
 
-function addElement() {}
+function redirectRegistrationPage(code) {
+    window.location.href = `/registration?code=${code}`;
+}
 
-function removeElement() {}
+function showErrorMessage() {
+    document.getElementById("code-input-error").style.display = "";
+}

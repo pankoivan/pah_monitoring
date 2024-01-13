@@ -4,6 +4,7 @@ import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -11,6 +12,6 @@ public interface RegistrationSecurityCodeRepository extends JpaRepository<Regist
 
     boolean existsByCode(UUID code);
 
-    //RegistrationSecurityCode findByCode(String code);
+    Optional<RegistrationSecurityCode> findByCode(UUID code);
 
 }
