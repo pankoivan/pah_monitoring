@@ -16,7 +16,6 @@ public class RegistrationSecurityCodeRestController {
 
     @PostMapping("/check")
     public TrueFalseEntity isCodeExists(@RequestBody CheckCode checkCode) {
-        System.out.println(checkCode);
         return new TrueFalseEntity(service.existsByStringCode(checkCode.code));
     }
 

@@ -1,6 +1,8 @@
 package org.pah_monitoring.main.services.security_codes.implementations;
 
 import lombok.AllArgsConstructor;
+import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
+import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.security_codes.RegistrationSecurityCodeRepository;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.springframework.stereotype.Service;
@@ -17,9 +19,15 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
     public boolean existsByStringCode(String code) {
         try {
             return repository.existsByCode(UUID.fromString(code));
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             return false;
         }
+    }
+
+    @Override
+    public RegistrationSecurityCode findByCode(UUID code) throws DataSearchingServiceException {
+        return repository.findByCode(code)
+                .orElseThrow(() -> new DataSearchingServiceException("Код \"%s\" не существует".formatted(code)));
     }
 
 }
