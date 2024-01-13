@@ -3,6 +3,8 @@ package org.pah_monitoring.main.entities.hospitals;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -41,6 +43,9 @@ public class HospitalRegistrationRequest {
 
     @Column(name = "comment")
     private String comment;
+
+    @Column(name = "date")
+    private LocalDateTime date;
 
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "hospital_id")

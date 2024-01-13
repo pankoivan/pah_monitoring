@@ -12,6 +12,7 @@ import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +45,7 @@ public class HospitalServiceImpl implements HospitalService {
                             .name(hospitalDto.getName())
                             .oid(namesMap.get(hospitalDto.getName())) // todo: change in later versions
                             .currentState(Hospital.CurrentState.WAITING_CODE)
-                            .registrationDate(null)
+                            .date(LocalDateTime.now())
                             .build()
             );
         } catch (Exception e) {

@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS hospital
 	id SERIAL PRIMARY KEY,
 	oid VARCHAR (256) UNIQUE NOT NULL,
 	name VARCHAR (512) UNIQUE NOT NULL,
-	registration_date TIMESTAMP NOT NULL,
+	date TIMESTAMP NOT NULL,
 	current_state VARCHAR (24) NOT NULL
 );
 
@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS hospital_registration_request
 	passport VARCHAR (12) UNIQUE NOT NULL,
 	phone_number VARCHAR (24) UNIQUE NOT NULL,
 	email VARCHAR (256) NOT NULL,
-	comment VARCHAR (512)
+	comment VARCHAR (512),
+	date TIMESTAMP NOT NULL
 );
 
 /* Коды безопасности для регистрации пользователей (4) */

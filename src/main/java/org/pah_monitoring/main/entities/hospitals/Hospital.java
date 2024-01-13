@@ -29,8 +29,8 @@ public class Hospital {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "registration_date")
-    private LocalDateTime registrationDate;
+    @Column(name = "date")
+    private LocalDateTime date;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "current_state")

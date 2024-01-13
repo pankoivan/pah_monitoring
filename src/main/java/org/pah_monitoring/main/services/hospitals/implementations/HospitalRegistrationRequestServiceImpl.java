@@ -14,6 +14,8 @@ import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import java.time.LocalDateTime;
+
 @AllArgsConstructor
 @Service
 public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrationRequestService {
@@ -38,6 +40,7 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
                             .email(requestDto.getEmail())
                             .comment(requestDto.getComment())
                             .hospital(hospital)
+                            .date(hospital.getDate())
                             .build()
             );
         } catch (Exception e) {

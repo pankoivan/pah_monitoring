@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -48,5 +50,7 @@ public class HospitalRegistrationRequestSavingDto {
 
     @Size(max = 512, message = "Максимальная длина комментария - 512 символов")
     private String comment;
+
+    private LocalDateTime date;
 
 }
