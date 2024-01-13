@@ -13,14 +13,14 @@
         <div class="container">
             <div th:if="${param.logout}" class="row mb-5">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
-                    <div class="text-center fs-4 login-logout rounded h-100">
+                    <div class="text-center fs-4 info-block rounded h-100">
                         <p class="mb-1 my-auto">Вы вышли из аккаунта</p>
                     </div>
                 </div>
             </div>
             <div th:if="${param.error}" class="row mb-5">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
-                    <div class="text-center fs-4 login-error rounded h-100">
+                    <div class="text-center fs-4 danger-block rounded h-100">
                         <p class="mb-1 my-auto">Неверный логин или пароль</p>
                     </div>
                 </div>

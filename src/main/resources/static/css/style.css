@@ -17,7 +17,7 @@
     word-break: break-all;
 }
 
-/* Переопределение цветов стандартного модального окна под стиль "alert-danger" */
+/* Переопределение цветов стандартного модального окна под стиль "danger" */
 
 .modal-overriden-danger {
     --bs-modal-bg: var(--bs-danger-bg-subtle);
@@ -27,7 +27,7 @@
     --bs-modal-footer-border-color: var(--bs-danger-border-subtle);
 }
 
-/* Переопределение цветов стандартного модального окна под стиль "alert-success" */
+/* Переопределение цветов стандартного модального окна под стиль "success" */
 
 .modal-overriden-success {
     --bs-modal-bg: var(--bs-success-bg-subtle);
@@ -37,15 +37,17 @@
     --bs-modal-footer-border-color: var(--bs-success-border-subtle);
 }
 
-/* Информационные блоки страницы входа для событий "выход" и "ошибка" */
+/* Информационный блок под стиль "info" */
 
-.login-logout {
+.info-block {
     background-color: var(--bs-primary-bg-subtle);
     color: var(--bs-primary-text-emphasis);
     border-color: var(--bs-primary-border-subtle);
 }
 
-.login-error {
+/* Информационный блок под стиль "danger" */
+
+.danger-block {
     background-color: var(--bs-danger-bg-subtle);
     color: var(--bs-danger-text-emphasis);
     border-color: var(--bs-danger-border-subtle);
