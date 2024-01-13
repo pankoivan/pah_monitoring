@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.entities.dto.saving;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -13,10 +14,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class HospitalRegistrationRequestSavingDto {
 
-    @Size(min = 12, max = 512, message = "Минимальная длина названия медицинского учреждения - 12 символов, максимальная - 512 символов")
-    @NotEmpty(message = "Название медицинского учреждения не должно быть пустым")
-    @NotBlank(message = "Название медицинского учреждения не должно состоять только из пробельных символов")
-    private String hospitalName;
+    @Valid
+    private HospitalSavingDto hospitalDto;
 
     @Size(min = 2, max = 32, message = "Минимальная длина имени - 2 символа, максимальная - 32 символа")
     @NotEmpty(message = "Имя не должно быть пустым")

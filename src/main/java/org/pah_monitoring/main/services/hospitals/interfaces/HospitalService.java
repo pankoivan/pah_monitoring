@@ -1,15 +1,18 @@
 package org.pah_monitoring.main.services.hospitals.interfaces;
 
+import org.pah_monitoring.main.entities.dto.saving.HospitalSavingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
+import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
+import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
+import org.pah_monitoring.main.services.validation.interfaces.DeletionValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.SavingValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.UrlValidationService;
 
-import java.util.List;
+public interface HospitalService extends SavingValidationService<HospitalSavingDto>, DeletionValidationService<Hospital>,
+        UrlValidationService {
 
-public interface HospitalService {
+    Hospital save(HospitalSavingDto hospital) throws DataSavingServiceException;
 
-    List<Hospital> findAll();
-
-    Hospital save(Hospital hospital);
-
-    void register(Hospital hospital);
+    void deleteById(Integer id) throws DataDeletionServiceException;
 
 }
