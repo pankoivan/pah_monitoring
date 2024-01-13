@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.services.hospitals.implementations;
 
 import lombok.AllArgsConstructor;
+import org.pah_monitoring.main.entities.dto.saving.HospitalRegistrationRequestSavingDto;
 import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
@@ -18,7 +19,7 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     private final HospitalRegistrationRequestRepository repository;
 
     @Override
-    public HospitalRegistrationRequest save(HospitalRegistrationRequest request) throws DataSavingServiceException {
+    public HospitalRegistrationRequest save(HospitalRegistrationRequestSavingDto request) throws DataSavingServiceException {
         return null;
     }
 
@@ -28,7 +29,21 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     }
 
     @Override
-    public void checkDataValidityForSaving(HospitalRegistrationRequest request, BindingResult bindingResult) throws DataValidationServiceException {
+    public void checkDataValidityForSaving(HospitalRegistrationRequestSavingDto request, BindingResult bindingResult)
+            throws DataValidationServiceException {
+
+        if (bindingResult.hasErrors()) {
+            throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+        if (repository.existsByPassport(request.getPassport())) {
+            throw new DataValidationServiceException("Человек с паспортными данными \"%s\" уже подал заявку на регистрацию медицинского учреждения"
+                    .formatted(request.getPassport()));
+        }
+
+        if (repository.existsByPhoneNumber(request.getPhoneNumber())) {
+            throw new DataValidationServiceException("Человек с номером телефона \"%s\" уже подал заявку на регистрацию медицинского учреждения"
+                    .formatted(request.getPhoneNumber()));
+        }
 
     }
 
