@@ -49,15 +49,15 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     @Override
-    public void checkDataValidityForSaving(AdministratorSavingDto administratorSavingDto, BindingResult bindingResult)
+    public void checkDataValidityForSaving(AdministratorSavingDto savingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
 
-        securityInformationService.checkDataValidityForSaving(administratorSavingDto.getUserSecurityInformationSavingDto(), bindingResult);
-        employeeInformationService.checkDataValidityForSaving(administratorSavingDto.getEmployeeInformationSavingDto(), bindingResult);
+        securityInformationService.checkDataValidityForSaving(savingDto.getUserSecurityInformationSavingDto(), bindingResult);
+        employeeInformationService.checkDataValidityForSaving(savingDto.getEmployeeInformationSavingDto(), bindingResult);
 
     }
 
