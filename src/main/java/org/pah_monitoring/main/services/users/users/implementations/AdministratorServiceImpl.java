@@ -2,9 +2,9 @@ package org.pah_monitoring.main.services.users.users.implementations;
 
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
-import org.pah_monitoring.main.entities.dto.saving.AdministratorSavingDto;
-import org.pah_monitoring.main.entities.dto.saving.EmployeeInformationSavingDto;
-import org.pah_monitoring.main.entities.dto.saving.UserSecurityInformationSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.AdministratorSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.info.EmployeeInformationSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.info.UserSecurityInformationSavingDto;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.entities.users.Administrator;

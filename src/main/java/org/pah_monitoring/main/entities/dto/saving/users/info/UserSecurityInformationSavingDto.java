@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities.dto.saving;
+package org.pah_monitoring.main.entities.dto.saving.users.info;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

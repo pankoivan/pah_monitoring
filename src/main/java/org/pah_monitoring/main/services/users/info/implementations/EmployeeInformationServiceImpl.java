@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.services.users.info.implementations;
 
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.entities.dto.saving.EmployeeInformationSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.info.EmployeeInformationSavingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;

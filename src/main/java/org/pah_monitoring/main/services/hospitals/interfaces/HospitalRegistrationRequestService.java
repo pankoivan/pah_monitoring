@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.services.hospitals.interfaces;
 
-import org.pah_monitoring.main.entities.dto.saving.HospitalRegistrationRequestSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalRegistrationRequestSavingDto;
 import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;

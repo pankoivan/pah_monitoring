@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities.dto.saving;
+package org.pah_monitoring.main.entities.dto.saving.hospitals;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

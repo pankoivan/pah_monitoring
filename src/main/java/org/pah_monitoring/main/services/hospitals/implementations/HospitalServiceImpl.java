@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.services.hospitals.implementations;
 
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.entities.dto.saving.HospitalSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalSavingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;

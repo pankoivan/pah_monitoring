@@ -2,7 +2,7 @@ package org.pah_monitoring.main.services.hospitals.implementations;
 
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
-import org.pah_monitoring.main.entities.dto.saving.HospitalRegistrationRequestSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalRegistrationRequestSavingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
