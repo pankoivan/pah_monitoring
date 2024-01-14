@@ -20,16 +20,16 @@ public class UserInformationServiceImpl implements UserInformationService {
     public UserInformation save(UserInformationSavingDto userInformationDto) throws DataSavingServiceException {
         try {
             return repository.save(
-              UserInformation
-                      .builder()
-                      .id(userInformationDto.getId())
-                      .name(userInformationDto.getName())
-                      .lastname(userInformationDto.getLastname())
-                      .patronymic(userInformationDto.getPatronymic())
-                      .gender(userInformationDto.getGender())
-                      .birthdate(userInformationDto.getBirthdate())
-                      .phoneNumber(PhoneNumberUtils.readable(userInformationDto.getPhoneNumber()))
-                      .build()
+                    UserInformation
+                            .builder()
+                            .id(userInformationDto.getId())
+                            .name(userInformationDto.getName())
+                            .lastname(userInformationDto.getLastname())
+                            .patronymic(userInformationDto.getPatronymic())
+                            .gender(userInformationDto.getGender())
+                            .birthdate(userInformationDto.getBirthdate())
+                            .phoneNumber(PhoneNumberUtils.readable(userInformationDto.getPhoneNumber()))
+                            .build()
             );
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(userInformationDto));
