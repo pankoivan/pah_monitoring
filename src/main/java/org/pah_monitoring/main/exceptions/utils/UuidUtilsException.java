@@ -1,8 +1,8 @@
 package org.pah_monitoring.main.exceptions.utils;
 
-import org.pah_monitoring.main.exceptions.common.CheckedException;
+import org.pah_monitoring.main.exceptions.utils.common.UtilsException;
 
-public class UuidUtilsException extends CheckedException {
+public class UuidUtilsException extends UtilsException {
 
     public UuidUtilsException() {
         super();
