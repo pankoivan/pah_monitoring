@@ -5,8 +5,8 @@ import lombok.*;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.examinations.Examination;
 import org.pah_monitoring.main.entities.examinations.schedules.ExaminationSchedule;
-import org.pah_monitoring.main.entities.patient_additions.Achievement;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
+import org.pah_monitoring.main.entities.patient_additions.Achievement;
 import org.pah_monitoring.main.entities.patient_additions.Medicine;
 import org.pah_monitoring.main.entities.users.inactivity.InactivePatient;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
@@ -32,11 +32,11 @@ public class Patient implements UserDetails {
     @Column(name = "id")
     private Integer id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "user_security_information_id")
     private UserSecurityInformation userSecurityInformation;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "user_information_id")
     private UserInformation userInformation;
 

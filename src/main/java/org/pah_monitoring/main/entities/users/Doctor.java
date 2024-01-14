@@ -31,11 +31,11 @@ public class Doctor implements UserDetails {
     @Column(name = "university")
     private String university;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "user_security_information_id")
     private UserSecurityInformation userSecurityInformation;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "hospital_employee_information_id")
     private EmployeeInformation employeeInformation;
 

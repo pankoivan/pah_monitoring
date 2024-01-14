@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(of = {"id", "experience", "post"})
+@ToString(of = {"id", "post"})
 @Builder
 @Entity
 @Table(name = "hospital_employee_information")
@@ -24,13 +24,10 @@ public class EmployeeInformation {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "experience")
-    private Integer experience;
-
     @Column(name = "post")
     private String post;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "user_information_id")
     private UserInformation userInformation;
 

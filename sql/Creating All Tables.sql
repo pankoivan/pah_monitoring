@@ -75,8 +75,7 @@ CREATE TABLE IF NOT EXISTS hospital_employee_information
 	id SERIAL PRIMARY KEY,
 	user_information_id INT REFERENCES user_information (id) UNIQUE NOT NULL,
 	hospital_id INT REFERENCES hospital (id) NOT NULL,
-	post VARCHAR (128) NOT NULL,
-	experience INT
+	post VARCHAR (128) NOT NULL
 );
 
 /* Главный администратор (8) */
