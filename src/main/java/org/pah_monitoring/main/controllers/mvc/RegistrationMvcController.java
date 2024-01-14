@@ -8,6 +8,7 @@ import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,6 +20,7 @@ public class RegistrationMvcController {
 
     private final RegistrationSecurityCodeService service;
 
+    @GetMapping
     public String getPage(@RequestParam(value = "code", required = false) String stringCode) {
         try {
             RegistrationSecurityCode code = service.findByStringUuid(stringCode);
