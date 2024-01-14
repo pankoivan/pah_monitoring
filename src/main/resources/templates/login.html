@@ -25,6 +25,13 @@
                     </div>
                 </div>
             </div>
+            <div th:if="${param.registered}" class="row mb-5">
+                <div class="col-12 col-md-9 col-lg-6 mx-auto">
+                    <div class="text-center fs-4 success-block rounded h-100">
+                        <p class="mb-1 my-auto">Вы успешно зарегистрировались. Войдите в свой аккаунт.</p>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
                     <form action="#" th:action="@{/login/processing}" method="post" class="border rounded p-3 bg-gray-200">
