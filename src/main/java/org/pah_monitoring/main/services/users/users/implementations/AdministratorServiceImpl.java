@@ -40,7 +40,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     @Override
-    public Administrator save(AdministratorSavingDto savingDto) throws DataSavingServiceException {
+    public Administrator save(AdministratorSavingDto savingDto) throws DataValidationServiceException, DataSavingServiceException {
         try {
             return edit(findById(savingDto.getId()), savingDto);
         } catch (DataSearchingServiceException e) {
@@ -61,23 +61,24 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     }
 
-    private Administrator create(AdministratorSavingDto savingDto) throws DataSavingServiceException {
+    private Administrator create(AdministratorSavingDto savingDto) throws DataValidationServiceException, DataSavingServiceException {
 
         RegistrationSecurityCode code;
         try {
             code = codeService.findByStringUuid(savingDto.getCode());
         } catch (UuidUtilsException | DataSearchingServiceException e) {
-            throw new DataSavingServiceException(e.getMessage(), e);
+            throw new DataValidationServiceException(e.getMessage(), e);
         }
 
         if (codeService.isExpired(code)) {
-            throw new DataSavingServiceException(
+            throw new DataValidationServiceException(
                     "Истёк срок действия кода. Код был действителен до %s"
                             .formatted(DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(code.getExpirationDate()))
             );
         }
+
         if (!codeService.isSuitableForRole(code, Role.ADMINISTRATOR)) {
-            throw new DataSavingServiceException("Код не предназначен для роли \"%s\"".formatted(Role.ADMINISTRATOR));
+            throw new DataValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.ADMINISTRATOR));
         }
 
         UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();

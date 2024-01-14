@@ -43,6 +43,8 @@ public class RegistrationRestController {
         }
         try {
             return administratorService.save(savingDto);
+        } catch (DataValidationServiceException e) {
+            throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
             throw new DataSavingRestControllerException(e.getMessage(), e);
         }
@@ -57,6 +59,8 @@ public class RegistrationRestController {
         }
         try {
             return doctorService.save(savingDto);
+        } catch (DataValidationServiceException e) {
+            throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
             throw new DataSavingRestControllerException(e.getMessage(), e);
         }
@@ -71,6 +75,8 @@ public class RegistrationRestController {
         }
         try {
             return patientService.save(savingDto);
+        } catch (DataValidationServiceException e) {
+            throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
             throw new DataSavingRestControllerException(e.getMessage(), e);
         }
