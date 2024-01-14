@@ -20,7 +20,9 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserSecurityInformation save(UserSecurityInformationSavingDto securityInformationDto) {
+    public UserSecurityInformation save(UserSecurityInformationSavingDto securityInformationDto)
+            throws DataSavingServiceException {
+
         try {
             return repository.save(
                     UserSecurityInformation
@@ -31,8 +33,9 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(securityInformationDto));
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(securityInformationDto), e);
         }
+
     }
 
     @Override
