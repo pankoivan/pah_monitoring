@@ -1,7 +1,6 @@
 package org.pah_monitoring.main.controllers.mvc;
 
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.auxiliary.utils.UuidUtils;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
@@ -21,18 +20,19 @@ public class RegistrationController {
     private final RegistrationSecurityCodeService service;
 
     public String getPage(@RequestParam(value = "code", required = false) String stringCode) {
-        RegistrationSecurityCode code;
         try {
-            code = service.findByCode(UuidUtils.fromString(stringCode));
-        } catch (DataSearchingServiceException | UuidUtilsException e) {
+            RegistrationSecurityCode code = service.findByStringUuid(stringCode);
+            return switch (code.getRole()) {
+                case ADMINISTRATOR -> "registration-administrator";
+                case DOCTOR -> "registration-doctor";
+                case PATIENT -> "registration-patient";
+                default -> throw new UrlValidationMvcControllerException(
+                        "Для роли \"%s\" не предусмотрена генерация кодов регистрации".formatted(code.getRole().getAlias())
+                );
+            };
+        } catch (UuidUtilsException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }
-        return switch (code.getRole()) {
-            case ADMINISTRATOR -> "registration-administrator";
-            case DOCTOR -> "registration-doctor";
-            case PATIENT -> "registration-patient";
-            default -> throw new UrlValidationMvcControllerException();
-        };
     }
 
 }

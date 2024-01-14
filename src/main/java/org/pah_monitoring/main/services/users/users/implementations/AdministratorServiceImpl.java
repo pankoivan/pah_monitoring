@@ -2,9 +2,10 @@ package org.pah_monitoring.main.services.users.users.implementations;
 
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.entities.dto.saving.AdministratorSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.EmployeeInformationSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.UserSecurityInformationSavingDto;
+import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.entities.users.Administrator;
-import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
-import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
@@ -35,10 +36,10 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public Administrator save(AdministratorSavingDto savingDto) throws DataSavingServiceException {
 
-        if (isNew()) {
+        try {
+            return edit(findById(savingDto.getId()), savingDto);
+        } catch (DataSearchingServiceException e) {
             return create(savingDto);
-        } else {
-            return edit(savingDto);
         }
 
     }
@@ -56,22 +57,64 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     }
 
-    private Administrator create(AdministratorSavingDto administratorDto) {
+    private Administrator create(AdministratorSavingDto savingDto) throws DataSavingServiceException  {
 
-        if (codeNotForRole || isCodeExpired) {
+        if (codeDoesNotExists || isCodeExpired || isCodeNotForRole) {
             throw new DataValidationServiceException("");
         }
 
-        administratorDto.getUserSecurityInformationDto().setId(null);
-        administratorDto.getEmployeeInformationDto().setId(null);
-        UserSecurityInformation userSecurityInformation = userSecurityInformationService
-                .save(administratorDto.getUserSecurityInformationDto());
-        EmployeeInformation employeeInformation = employeeInformationService
-                .save(administratorDto.getEmployeeInformationDto());
+        RegistrationSecurityCode code;
+
+        UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
+        securityInformationSavingDto.setId(null);
+
+        EmployeeInformationSavingDto employeeInformationSavingDto = savingDto.getEmployeeInformationSavingDto();
+        employeeInformationSavingDto.setId(null);
+
+        employeeInformationSavingDto.getUserInformationSavingDto().setId(null);
+
+        try {
+            return repository.save(
+                    Administrator
+                            .builder()
+                            .userSecurityInformation(userSecurityInformationService.save(securityInformationSavingDto))
+                            .employeeInformation(employeeInformationService.save(employeeInformationSavingDto, code.getHospital()))
+                            .build()
+            );
+        } catch (Exception e) {
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+        }
 
     }
 
-    private Administrator edit(AdministratorSavingDto administratorDto) {
+    private Administrator edit(Administrator administrator, AdministratorSavingDto savingDto) throws DataSavingServiceException {
+
+        UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
+        securityInformationSavingDto.setId(administrator.getUserSecurityInformation().getId());
+
+        EmployeeInformationSavingDto employeeInformationSavingDto = savingDto.getEmployeeInformationSavingDto();
+        employeeInformationSavingDto.setId(administrator.getEmployeeInformation().getId());
+
+        employeeInformationSavingDto.getUserInformationSavingDto().setId(administrator.getEmployeeInformation().getUserInformation().getId());
+
+        try {
+            return repository.save(
+                    Administrator
+                            .builder()
+                            .userSecurityInformation(userSecurityInformationService.save(securityInformationSavingDto))
+                            .employeeInformation(employeeInformationService.save(
+                                    employeeInformationSavingDto,
+                                    administrator.getEmployeeInformation().getHospital())
+                            )
+                            .build()
+            );
+        } catch (Exception e) {
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+        }
+
+    }
+
+    private RegistrationSecurityCode checkCodeValidity(String stringUuid) throws DataValidationServiceException {
 
     }
 

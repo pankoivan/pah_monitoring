@@ -16,7 +16,7 @@ public class RegistrationSecurityCodeRestController {
 
     @PostMapping("/check")
     public TrueFalseEntity isCodeExists(@RequestBody CheckCode checkCode) {
-        return new TrueFalseEntity(service.existsByStringCode(checkCode.code));
+        return new TrueFalseEntity(service.existsByStringUuid(checkCode.code));
     }
 
     @NoArgsConstructor
