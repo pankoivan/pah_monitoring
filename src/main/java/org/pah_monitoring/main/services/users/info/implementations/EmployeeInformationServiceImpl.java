@@ -45,6 +45,8 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
 
+        userInformationService.checkDataValidityForSaving(savingDto.getUserInformationSavingDto(), bindingResult);
+
     }
 
 }

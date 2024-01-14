@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.entities.dto.saving.AdministratorSavingDto;
 import org.pah_monitoring.main.entities.users.Administrator;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
-import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
+import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.users.AdministratorRepository;
 import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformationService;
@@ -26,13 +26,33 @@ public class AdministratorServiceImpl implements AdministratorService {
     private final EmployeeInformationService employeeInformationService;
 
     @Override
-    public Administrator save(AdministratorSavingDto administratorDto) throws DataSavingServiceException {
+    public Administrator findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Администратор с id \"%s\" не существует".formatted(id))
+        );
+    }
+
+    @Override
+    public Administrator save(AdministratorSavingDto savingDto) throws DataSavingServiceException {
 
         if (isNew()) {
-            return create(administratorDto);
+            return create(savingDto);
         } else {
-            return edit(administratorDto);
+            return edit(savingDto);
         }
+
+    }
+
+    @Override
+    public void checkDataValidityForSaving(AdministratorSavingDto administratorSavingDto, BindingResult bindingResult)
+            throws DataValidationServiceException {
+
+        if (bindingResult.hasErrors()) {
+            throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+
+        userSecurityInformationService.checkDataValidityForSaving(administratorSavingDto.getUserSecurityInformationSavingDto(), bindingResult);
+        employeeInformationService.checkDataValidityForSaving(administratorSavingDto.getEmployeeInformationSavingDto(), bindingResult);
 
     }
 
@@ -52,16 +72,6 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     private Administrator edit(AdministratorSavingDto administratorDto) {
-
-    }
-
-    @Override
-    public void checkDataValidityForSaving(AdministratorSavingDto administratorSavingDto, BindingResult bindingResult)
-            throws DataValidationServiceException {
-
-        if (bindingResult.hasErrors()) {
-            throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
-        }
 
     }
 
