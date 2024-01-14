@@ -37,19 +37,19 @@ public class HospitalServiceImpl implements HospitalService {
     private final HospitalRepository repository;
 
     @Override
-    public Hospital save(HospitalSavingDto hospitalDto) throws DataSavingServiceException {
+    public Hospital save(HospitalSavingDto savingDto) throws DataSavingServiceException {
         try {
             return repository.save(
                     Hospital
                             .builder()
-                            .name(hospitalDto.getName())
-                            .oid(namesMap.get(hospitalDto.getName())) // todo: change in later versions
+                            .name(savingDto.getName())
+                            .oid(namesMap.get(savingDto.getName())) // todo: change in later versions
                             .currentState(Hospital.CurrentState.WAITING_CODE)
                             .date(LocalDateTime.now())
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(hospitalDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
         }
     }
 
@@ -59,16 +59,16 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public void checkDataValidityForSaving(HospitalSavingDto hospitalDto, BindingResult bindingResult) throws DataValidationServiceException {
+    public void checkDataValidityForSaving(HospitalSavingDto savingDto, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-        if (repository.existsByName(hospitalDto.getName())) {
-            throw new DataValidationServiceException("Медицинское учреждение \"%s\" уже существует".formatted(hospitalDto.getName()));
+        if (repository.existsByName(savingDto.getName())) {
+            throw new DataValidationServiceException("Медицинское учреждение \"%s\" уже существует".formatted(savingDto.getName()));
         }
         // todo: change in later versions
-        if (!names.contains(hospitalDto.getName())) {
-            throw new DataValidationServiceException("Медицинского учреждения \"%s\" нет в справочнике".formatted(hospitalDto.getName()));
+        if (!names.contains(savingDto.getName())) {
+            throw new DataValidationServiceException("Медицинского учреждения \"%s\" нет в справочнике".formatted(savingDto.getName()));
         }
     }
 

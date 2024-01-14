@@ -12,7 +12,7 @@ hospitalRegistrationForm.addEventListener("submit", function (event) {
         phoneNumber: hospitalRegistrationForm.querySelector('input[name="phoneNumber"]').value,
         email: hospitalRegistrationForm.querySelector('input[name="email"]').value,
         comment: hospitalRegistrationForm.querySelector('textarea[name="comment"]').value,
-        hospitalDto: {
+        hospitalSavingDto: {
             name: hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value,
         },
     };

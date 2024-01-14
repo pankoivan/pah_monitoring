@@ -24,26 +24,26 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     private final HospitalService hospitalService;
 
     @Override
-    public HospitalRegistrationRequest save(HospitalRegistrationRequestSavingDto requestDto) throws DataSavingServiceException {
+    public HospitalRegistrationRequest save(HospitalRegistrationRequestSavingDto savingDto) throws DataSavingServiceException {
         try {
-            Hospital hospital = hospitalService.save(requestDto.getHospitalDto());
+            Hospital hospital = hospitalService.save(savingDto.getHospitalSavingDto());
             return repository.save(
                     HospitalRegistrationRequest
                             .builder()
-                            .name(requestDto.getName())
-                            .lastname(requestDto.getLastname())
-                            .patronymic(requestDto.getPatronymic())
-                            .post(requestDto.getPost())
-                            .passport(requestDto.getPassport())
-                            .phoneNumber(PhoneNumberUtils.readable(requestDto.getPhoneNumber()))
-                            .email(requestDto.getEmail())
-                            .comment(requestDto.getComment())
+                            .name(savingDto.getName())
+                            .lastname(savingDto.getLastname())
+                            .patronymic(savingDto.getPatronymic())
+                            .post(savingDto.getPost())
+                            .passport(savingDto.getPassport())
+                            .phoneNumber(PhoneNumberUtils.readable(savingDto.getPhoneNumber()))
+                            .email(savingDto.getEmail())
+                            .comment(savingDto.getComment())
                             .hospital(hospital)
                             .date(hospital.getDate())
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(requestDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
         }
     }
 
@@ -53,22 +53,22 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     }
 
     @Override
-    public void checkDataValidityForSaving(HospitalRegistrationRequestSavingDto requestDto, BindingResult bindingResult)
+    public void checkDataValidityForSaving(HospitalRegistrationRequestSavingDto savingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-        if (repository.existsByPassport(requestDto.getPassport())) {
+        if (repository.existsByPassport(savingDto.getPassport())) {
             throw new DataValidationServiceException("Человек с паспортными данными \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
-                    .formatted(requestDto.getPassport()));
+                    .formatted(savingDto.getPassport()));
         }
-        if (repository.existsByPhoneNumber(requestDto.getPhoneNumber())) {
+        if (repository.existsByPhoneNumber(savingDto.getPhoneNumber())) {
             throw new DataValidationServiceException("Человек с номером телефона \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
-                    .formatted(requestDto.getPhoneNumber()));
+                    .formatted(savingDto.getPhoneNumber()));
         }
 
-        hospitalService.checkDataValidityForSaving(requestDto.getHospitalDto(), bindingResult);
+        hospitalService.checkDataValidityForSaving(savingDto.getHospitalSavingDto(), bindingResult);
 
     }
 

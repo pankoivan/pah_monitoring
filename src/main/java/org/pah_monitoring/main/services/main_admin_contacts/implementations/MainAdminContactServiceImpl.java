@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -61,10 +62,10 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
                     QuantityRestrictionConstants.MAX_NUMBER_OF_MAIN_ADMIN_CONTACTS)
             );
         }
-        if (isNew(savingDto) && repository.existsByContact(savingDto.getContact())) {
+        if (existsByContact(savingDto)) {
             throw new DataValidationServiceException("Контакт \"%s\" уже существует".formatted(savingDto.getContact()));
         }
-        if (isNew(savingDto) && repository.existsByDescription(savingDto.getDescription())) {
+        if (existsByDescription(savingDto)) {
             throw new DataValidationServiceException("Контакт с описанием \"%s\" уже существует".formatted(savingDto.getDescription()));
         }
     }
@@ -88,6 +89,16 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
 
     private boolean isNew(MainAdminContactSavingDto savingDto) {
         return savingDto.getId() == null || !repository.existsById(savingDto.getId());
+    }
+
+    private boolean existsByContact(MainAdminContactSavingDto savingDto) {
+        Optional<MainAdminContact> mainAdminContact = repository.findByContact(savingDto.getContact());
+        return mainAdminContact.isPresent() && !mainAdminContact.get().getId().equals(savingDto.getId());
+    }
+
+    private boolean existsByDescription(MainAdminContactSavingDto savingDto) {
+        Optional<MainAdminContact> mainAdminContact = repository.findByDescription(savingDto.getDescription());
+        return mainAdminContact.isPresent() && !mainAdminContact.get().getId().equals(savingDto.getId());
     }
 
 }

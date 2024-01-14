@@ -35,7 +35,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public Doctor findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Доктор с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Врач с id \"%s\" не существует".formatted(id))
         );
     }
 
@@ -93,6 +93,7 @@ public class DoctorServiceImpl implements DoctorService {
             return repository.save(
                     Doctor
                             .builder()
+                            .university(savingDto.getUniversity())
                             .userSecurityInformation(securityInformationService.save(securityInformationSavingDto))
                             .employeeInformation(employeeInformationService.save(employeeInformationSavingDto, code.getHospital()))
                             .build()

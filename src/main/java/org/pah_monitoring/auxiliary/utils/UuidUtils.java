@@ -12,7 +12,7 @@ public final class UuidUtils {
         try {
             return UUID.fromString(stringUuid);
         } catch (IllegalArgumentException | NullPointerException e) {
-            throw new UuidUtilsException("Некорректный UUID: \"%s\"".formatted(stringUuid));
+            throw new UuidUtilsException("Некорректный UUID: \"%s\"".formatted(stringUuid), e);
         }
     }
 

@@ -91,9 +91,9 @@ public class PatientServiceImpl implements PatientService {
             return repository.save(
                     Patient
                             .builder()
+                            .hospital(code.getHospital())
                             .userSecurityInformation(securityInformationService.save(securityInformationSavingDto))
                             .userInformation(userInformationService.save(userInformationSavingDto))
-                            .hospital(code.getHospital())
                             .build()
             );
         } catch (Exception e) {
@@ -114,9 +114,9 @@ public class PatientServiceImpl implements PatientService {
             return repository.save(
                     Patient
                             .builder()
+                            .hospital(patient.getHospital())
                             .userSecurityInformation(securityInformationService.save(securityInformationSavingDto))
                             .userInformation(userInformationService.save(userInformationSavingDto))
-                            .hospital(patient.getHospital())
                             .build()
             );
         } catch (Exception e) {

@@ -11,7 +11,7 @@ import org.pah_monitoring.main.services.validation.interfaces.UrlValidationServi
 public interface HospitalService extends SavingValidationService<HospitalSavingDto>, DeletionValidationService<Hospital>,
         UrlValidationService {
 
-    Hospital save(HospitalSavingDto hospital) throws DataSavingServiceException;
+    Hospital save(HospitalSavingDto savingDto) throws DataSavingServiceException;
 
     void deleteById(Integer id) throws DataDeletionServiceException;
 

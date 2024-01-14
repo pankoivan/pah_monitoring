@@ -16,9 +16,6 @@ import java.time.LocalDateTime;
 @Data
 public class HospitalRegistrationRequestSavingDto {
 
-    @Valid
-    private HospitalSavingDto hospitalDto;
-
     @Size(min = 2, max = 32, message = "Минимальная длина имени - 2 символа, максимальная - 32 символа")
     @NotEmpty(message = "Имя не должно быть пустым")
     @NotBlank(message = "Имя не должно состоять только из пробельных символов")
@@ -52,5 +49,8 @@ public class HospitalRegistrationRequestSavingDto {
     private String comment;
 
     private LocalDateTime date;
+
+    @Valid
+    private HospitalSavingDto hospitalSavingDto;
 
 }

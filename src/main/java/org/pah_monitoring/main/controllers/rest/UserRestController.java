@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/rest/registration/save")
+@RequestMapping("/rest/users/save")
 @PreAuthorize("permitAll()")
-public class RegistrationRestController {
+public class UserRestController {
 
     private final AdministratorService administratorService;
 
@@ -38,10 +38,6 @@ public class RegistrationRestController {
     public Administrator saveAdministrator(@RequestBody @Valid AdministratorSavingDto savingDto, BindingResult bindingResult) {
         try {
             administratorService.checkDataValidityForSaving(savingDto, bindingResult);
-        } catch (DataValidationServiceException e) {
-            throw new DataValidationRestControllerException(e.getMessage(), e);
-        }
-        try {
             return administratorService.save(savingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
@@ -54,10 +50,6 @@ public class RegistrationRestController {
     public Doctor saveDoctor(@RequestBody @Valid DoctorSavingDto savingDto, BindingResult bindingResult) {
         try {
             doctorService.checkDataValidityForSaving(savingDto, bindingResult);
-        } catch (DataValidationServiceException e) {
-            throw new DataValidationRestControllerException(e.getMessage(), e);
-        }
-        try {
             return doctorService.save(savingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
@@ -70,10 +62,6 @@ public class RegistrationRestController {
     public Patient savePatient(@RequestBody @Valid PatientSavingDto savingDto, BindingResult bindingResult) {
         try {
             patientService.checkDataValidityForSaving(savingDto, bindingResult);
-        } catch (DataValidationServiceException e) {
-            throw new DataValidationRestControllerException(e.getMessage(), e);
-        }
-        try {
             return patientService.save(savingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
