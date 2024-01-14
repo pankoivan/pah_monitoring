@@ -17,4 +17,6 @@ public class AdministratorSavingDto {
 
     private EmployeeInformationSavingDto employeeInformationSavingDto;
 
+    private String code;
+
 }
