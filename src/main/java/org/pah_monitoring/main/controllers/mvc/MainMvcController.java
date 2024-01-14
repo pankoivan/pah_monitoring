@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 @PreAuthorize("permitAll()")
-public class MainController {
+public class MainMvcController {
 
     private final MainAdminContactService mainAdminContactService;
 

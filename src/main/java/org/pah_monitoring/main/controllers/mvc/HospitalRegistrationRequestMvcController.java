@@ -6,14 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/hospital-registration-requests")
 @PreAuthorize("permitAll()")
-public class LoginController {
+public class HospitalRegistrationRequestMvcController {
 
     @GetMapping
     public String getPage() {
-        // todo: add check if user already authenticated
-        return "login";
+        return "hospital-registration";
     }
 
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/registration")
 @PreAuthorize("permitAll()")
-public class RegistrationController {
+public class RegistrationMvcController {
 
     private final RegistrationSecurityCodeService service;
 
