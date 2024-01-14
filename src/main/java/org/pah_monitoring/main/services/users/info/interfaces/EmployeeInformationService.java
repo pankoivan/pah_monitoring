@@ -1,5 +1,12 @@
 package org.pah_monitoring.main.services.users.info.interfaces;
 
-public interface EmployeeInformationService {
+import org.pah_monitoring.main.entities.dto.saving.EmployeeInformationSavingDto;
+import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
+import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
+import org.pah_monitoring.main.services.validation.interfaces.SavingValidationService;
+
+public interface EmployeeInformationService extends SavingValidationService<EmployeeInformation> {
+
+    EmployeeInformation save(EmployeeInformationSavingDto employeeInformationDto) throws DataSavingServiceException;
 
 }
