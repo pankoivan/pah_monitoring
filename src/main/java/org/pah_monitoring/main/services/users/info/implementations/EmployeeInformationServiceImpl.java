@@ -21,27 +21,24 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
     private final UserInformationService userInformationService;
 
     @Override
-    public EmployeeInformation save(EmployeeInformationSavingDto employeeInformationDto, Hospital hospital)
-            throws DataSavingServiceException {
-
+    public EmployeeInformation save(EmployeeInformationSavingDto savingDto, Hospital hospital) throws DataSavingServiceException {
         try {
             return repository.save(
                     EmployeeInformation
                             .builder()
-                            .id(employeeInformationDto.getId())
-                            .post(employeeInformationDto.getPost())
-                            .userInformation(userInformationService.save(employeeInformationDto.getUserInformationSavingDto()))
+                            .id(savingDto.getId())
+                            .post(savingDto.getPost())
+                            .userInformation(userInformationService.save(savingDto.getUserInformationSavingDto()))
                             .hospital(hospital)
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(employeeInformationDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
         }
-
     }
 
     @Override
-    public void checkDataValidityForSaving(EmployeeInformationSavingDto employeeInformation, BindingResult bindingResult)
+    public void checkDataValidityForSaving(EmployeeInformationSavingDto savingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {

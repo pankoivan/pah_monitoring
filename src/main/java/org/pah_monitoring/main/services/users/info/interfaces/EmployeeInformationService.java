@@ -8,6 +8,6 @@ import org.pah_monitoring.main.services.validation.interfaces.SavingValidationSe
 
 public interface EmployeeInformationService extends SavingValidationService<EmployeeInformationSavingDto> {
 
-    EmployeeInformation save(EmployeeInformationSavingDto employeeInformationDto, Hospital hospital) throws DataSavingServiceException;
+    EmployeeInformation save(EmployeeInformationSavingDto savingDto, Hospital hospital) throws DataSavingServiceException;
 
 }

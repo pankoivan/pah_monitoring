@@ -20,30 +20,30 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserSecurityInformation save(UserSecurityInformationSavingDto securityInformationDto) throws DataSavingServiceException {
+    public UserSecurityInformation save(UserSecurityInformationSavingDto savingDto) throws DataSavingServiceException {
         try {
             return repository.save(
                     UserSecurityInformation
                             .builder()
-                            .id(securityInformationDto.getId())
-                            .email(securityInformationDto.getEmail())
-                            .password(passwordEncoder.encode(securityInformationDto.getPassword()))
+                            .id(savingDto.getId())
+                            .email(savingDto.getEmail())
+                            .password(passwordEncoder.encode(savingDto.getPassword()))
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(securityInformationDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
         }
     }
 
     @Override
-    public void checkDataValidityForSaving(UserSecurityInformationSavingDto userSecurityInformationSavingDto, BindingResult bindingResult)
+    public void checkDataValidityForSaving(UserSecurityInformationSavingDto savingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-        if (repository.existsByEmail(userSecurityInformationSavingDto.getEmail())) {
-            throw new DataValidationServiceException("Почта \"%s\" уже занята".formatted(userSecurityInformationSavingDto.getEmail()));
+        if (repository.existsByEmail(savingDto.getEmail())) {
+            throw new DataValidationServiceException("Почта \"%s\" уже занята".formatted(savingDto.getEmail()));
         }
 
     }

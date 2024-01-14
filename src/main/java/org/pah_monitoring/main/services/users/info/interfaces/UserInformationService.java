@@ -7,6 +7,6 @@ import org.pah_monitoring.main.services.validation.interfaces.SavingValidationSe
 
 public interface UserInformationService extends SavingValidationService<UserInformationSavingDto> {
 
-    UserInformation save(UserInformationSavingDto userInformationDto) throws DataSavingServiceException;
+    UserInformation save(UserInformationSavingDto savingDto) throws DataSavingServiceException;
 
 }

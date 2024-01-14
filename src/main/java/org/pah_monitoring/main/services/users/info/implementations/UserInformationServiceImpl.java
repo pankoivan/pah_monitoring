@@ -18,27 +18,27 @@ public class UserInformationServiceImpl implements UserInformationService {
     private final UserInformationRepository repository;
 
     @Override
-    public UserInformation save(UserInformationSavingDto userInformationDto) throws DataSavingServiceException {
+    public UserInformation save(UserInformationSavingDto savingDto) throws DataSavingServiceException {
         try {
             return repository.save(
                     UserInformation
                             .builder()
-                            .id(userInformationDto.getId())
-                            .name(userInformationDto.getName())
-                            .lastname(userInformationDto.getLastname())
-                            .patronymic(userInformationDto.getPatronymic())
-                            .gender(userInformationDto.getGender())
-                            .birthdate(userInformationDto.getBirthdate())
-                            .phoneNumber(PhoneNumberUtils.readable(userInformationDto.getPhoneNumber()))
+                            .id(savingDto.getId())
+                            .name(savingDto.getName())
+                            .lastname(savingDto.getLastname())
+                            .patronymic(savingDto.getPatronymic())
+                            .gender(savingDto.getGender())
+                            .birthdate(savingDto.getBirthdate())
+                            .phoneNumber(PhoneNumberUtils.readable(savingDto.getPhoneNumber()))
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(userInformationDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
         }
     }
 
     @Override
-    public void checkDataValidityForSaving(UserInformationSavingDto userInformationSavingDto, BindingResult bindingResult)
+    public void checkDataValidityForSaving(UserInformationSavingDto savingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {
