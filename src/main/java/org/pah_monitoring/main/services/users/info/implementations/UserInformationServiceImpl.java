@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.services.users.info.implementations;
 
 import lombok.AllArgsConstructor;
+import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.entities.dto.saving.UserInformationSavingDto;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
@@ -32,7 +33,7 @@ public class UserInformationServiceImpl implements UserInformationService {
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(userInformationDto));
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(userInformationDto), e);
         }
     }
 

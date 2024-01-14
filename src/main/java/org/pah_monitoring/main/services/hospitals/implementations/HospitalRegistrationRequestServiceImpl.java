@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.services.hospitals.implementations;
 
 import lombok.AllArgsConstructor;
+import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.entities.dto.saving.HospitalRegistrationRequestSavingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
@@ -13,8 +14,6 @@ import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistratio
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
-
-import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Service
@@ -36,7 +35,7 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
                             .patronymic(requestDto.getPatronymic())
                             .post(requestDto.getPost())
                             .passport(requestDto.getPassport())
-                            .phoneNumber(requestDto.getPhoneNumber())
+                            .phoneNumber(PhoneNumberUtils.readable(requestDto.getPhoneNumber()))
                             .email(requestDto.getEmail())
                             .comment(requestDto.getComment())
                             .hospital(hospital)
