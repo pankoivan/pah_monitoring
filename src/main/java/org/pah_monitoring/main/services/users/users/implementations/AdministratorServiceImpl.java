@@ -41,13 +41,11 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     @Override
     public Administrator save(AdministratorSavingDto savingDto) throws DataSavingServiceException {
-
         try {
             return edit(findById(savingDto.getId()), savingDto);
         } catch (DataSearchingServiceException e) {
             return create(savingDto);
         }
-
     }
 
     @Override
@@ -75,7 +73,7 @@ public class AdministratorServiceImpl implements AdministratorService {
         if (codeService.isExpired(code)) {
             throw new DataSavingServiceException(
                     "Истёк срок действия кода. Код был действителен до %s"
-                            .formatted(DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(code.getExpirationDate()))
+                            .formatted(DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(code.getExpirationDate()))
             );
         }
         if (!codeService.isSuitableForRole(code, Role.ADMINISTRATOR)) {
