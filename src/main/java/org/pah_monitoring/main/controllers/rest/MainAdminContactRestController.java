@@ -2,6 +2,7 @@ package org.pah_monitoring.main.controllers.rest;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.pah_monitoring.main.entities.dto.saving.main_admin_contacts.MainAdminContactSavingDto;
 import org.pah_monitoring.main.entities.main_admin_contacts.MainAdminContact;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidationRestControllerException;
@@ -25,14 +26,14 @@ public class MainAdminContactRestController {
     private final MainAdminContactService service;
 
     @PostMapping("/save")
-    public MainAdminContact save(@RequestBody @Valid MainAdminContact contact, BindingResult bindingResult) {
+    public MainAdminContact save(@RequestBody @Valid MainAdminContactSavingDto savingDto, BindingResult bindingResult) {
         try {
-            service.checkDataValidityForSaving(contact, bindingResult);
+            service.checkDataValidityForSaving(savingDto, bindingResult);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         }
         try {
-            return service.save(contact);
+            return service.save(savingDto);
         } catch (DataSavingServiceException e) {
             throw new DataSavingRestControllerException(e.getMessage(), e);
         }

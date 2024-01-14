@@ -2,6 +2,7 @@ package org.pah_monitoring.main.services.main_admin_contacts.implementations;
 
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.auxiliary.constants.QuantityRestrictionConstants;
+import org.pah_monitoring.main.entities.dto.saving.main_admin_contacts.MainAdminContactSavingDto;
 import org.pah_monitoring.main.entities.main_admin_contacts.MainAdminContact;
 import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
@@ -26,11 +27,18 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
     }
 
     @Override
-    public MainAdminContact save(MainAdminContact contact) throws DataSavingServiceException {
+    public MainAdminContact save(MainAdminContactSavingDto savingDto) throws DataSavingServiceException {
         try {
-            return repository.save(contact);
+            return repository.save(
+                    MainAdminContact
+                            .builder()
+                            .id(savingDto.getId())
+                            .contact(savingDto.getContact())
+                            .description(savingDto.getDescription())
+                            .build()
+            );
         } catch (Exception e) {
-            throw new DataSavingServiceException("Сущность \"%s\" не была сохранена".formatted(contact), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
         }
     }
 
@@ -44,20 +52,20 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
     }
 
     @Override
-    public void checkDataValidityForSaving(MainAdminContact contact, BindingResult bindingResult) throws DataValidationServiceException {
+    public void checkDataValidityForSaving(MainAdminContactSavingDto savingDto, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-        if (isNew(contact) && repository.count() == QuantityRestrictionConstants.MAX_NUMBER_OF_MAIN_ADMIN_CONTACTS) {
+        if (isNew(savingDto) && repository.count() == QuantityRestrictionConstants.MAX_NUMBER_OF_MAIN_ADMIN_CONTACTS) {
             throw new DataValidationServiceException("Максимально допустимое число контактов: %s".formatted(
                     QuantityRestrictionConstants.MAX_NUMBER_OF_MAIN_ADMIN_CONTACTS)
             );
         }
-        if (isNew(contact) && repository.existsByContact(contact.getContact())) {
-            throw new DataValidationServiceException("Контакт \"%s\" уже существует".formatted(contact.getContact()));
+        if (isNew(savingDto) && repository.existsByContact(savingDto.getContact())) {
+            throw new DataValidationServiceException("Контакт \"%s\" уже существует".formatted(savingDto.getContact()));
         }
-        if (isNew(contact) && repository.existsByDescription(contact.getDescription())) {
-            throw new DataValidationServiceException("Контакт с описанием \"%s\" уже существует".formatted(contact.getDescription()));
+        if (isNew(savingDto) && repository.existsByDescription(savingDto.getDescription())) {
+            throw new DataValidationServiceException("Контакт с описанием \"%s\" уже существует".formatted(savingDto.getDescription()));
         }
     }
 
@@ -78,8 +86,8 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
         return id;
     }
 
-    private boolean isNew(MainAdminContact contact) {
-        return contact.getId() == null || !repository.existsById(contact.getId());
+    private boolean isNew(MainAdminContactSavingDto savingDto) {
+        return savingDto.getId() == null || !repository.existsById(savingDto.getId());
     }
 
 }

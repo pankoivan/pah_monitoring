@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.services.main_admin_contacts.interfaces;
 
+import org.pah_monitoring.main.entities.dto.saving.main_admin_contacts.MainAdminContactSavingDto;
 import org.pah_monitoring.main.entities.main_admin_contacts.MainAdminContact;
 import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
@@ -8,11 +9,11 @@ import org.pah_monitoring.main.services.validation.interfaces.UrlValidationServi
 
 import java.util.List;
 
-public interface MainAdminContactService extends SavingValidationService<MainAdminContact>, UrlValidationService {
+public interface MainAdminContactService extends SavingValidationService<MainAdminContactSavingDto>, UrlValidationService {
 
     List<MainAdminContact> findAll();
 
-    MainAdminContact save(MainAdminContact contact) throws DataSavingServiceException;
+    MainAdminContact save(MainAdminContactSavingDto savingDto) throws DataSavingServiceException;
 
     void deleteById(Integer id) throws DataDeletionServiceException;
 
