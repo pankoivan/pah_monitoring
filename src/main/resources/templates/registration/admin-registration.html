@@ -24,7 +24,7 @@
             <!-- Форма регистрации в приложении -->
             <div class="row mb-5">
                 <div class="col-12">
-                    <form action="#" th:action="@{/rest/registration/administrator}" method="post" class="bg-gray-200 border border-dark rounded text-secondary fs-5 p-3" id="administrator-registration-form">
+                    <form action="#" th:action="@{/rest/registration/administrator}" method="post" class="bg-gray-200 border border-dark rounded text-secondary fs-5 p-3" id="admin-registration-form">
                         <h2 class="fs-4">Регистрация</h2>
                         <hr class="text-dark" />
                         <div class="mb-3">
@@ -104,7 +104,7 @@
         <!-- Модальное окно с сообщением об успехе -->
         <div th:replace="~{/fragments/modal/modal-success :: modal-success}"></div>
         <!-- Скрипты -->
-        <script src="../../static/js/registration/registration-administrator.js" th:src="@{/js/registration/registration-administrator.js}"></script>
+        <script src="../../static/js/registration/admin-registration.js" th:src="@{/js/registration/admin-registration.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
     </body>
 </html>
