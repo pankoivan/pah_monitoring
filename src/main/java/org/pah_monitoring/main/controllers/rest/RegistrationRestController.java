@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/rest/users/save")
+@RequestMapping("/rest/registration")
 @PreAuthorize("permitAll()")
-public class UserRestController {
+public class RegistrationRestController {
 
     private final AdministratorService administratorService;
 
@@ -35,10 +35,10 @@ public class UserRestController {
     private final PatientService patientService;
 
     @PostMapping("/administrator")
-    public Administrator saveAdministrator(@RequestBody @Valid AdministratorSavingDto savingDto, BindingResult bindingResult) {
+    public Administrator addAdministrator(@RequestBody @Valid AdministratorSavingDto savingDto, BindingResult bindingResult) {
         try {
             administratorService.checkDataValidityForSaving(savingDto, bindingResult);
-            return administratorService.save(savingDto);
+            return administratorService.add(savingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -47,10 +47,10 @@ public class UserRestController {
     }
 
     @PostMapping("/doctor")
-    public Doctor saveDoctor(@RequestBody @Valid DoctorSavingDto savingDto, BindingResult bindingResult) {
+    public Doctor addDoctor(@RequestBody @Valid DoctorSavingDto savingDto, BindingResult bindingResult) {
         try {
             doctorService.checkDataValidityForSaving(savingDto, bindingResult);
-            return doctorService.save(savingDto);
+            return doctorService.add(savingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -59,10 +59,10 @@ public class UserRestController {
     }
 
     @PostMapping("/patient")
-    public Patient savePatient(@RequestBody @Valid PatientSavingDto savingDto, BindingResult bindingResult) {
+    public Patient addPatient(@RequestBody @Valid PatientSavingDto savingDto, BindingResult bindingResult) {
         try {
             patientService.checkDataValidityForSaving(savingDto, bindingResult);
-            return patientService.save(savingDto);
+            return patientService.add(savingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
