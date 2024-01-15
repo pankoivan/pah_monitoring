@@ -64,13 +64,56 @@
             <div class="row">
                 <div class="col-12 text-center" th:switch="${request.hospital.currentState}">
                     <div th:case="'WAITING_CODE'" class="d-flex flex-row flex-wrap align-items-center justify-content-center">
-                        <button class="btn btn-lg btn-success m-2">Принять</button>
+                        <button class="btn btn-lg btn-success m-2" data-bs-toggle="modal" data-bs-target="#code-generation-modal">Принять</button>
                         <button class="btn btn-lg btn-danger m-2">Отклонить</button>
                     </div>
                     <div th:case="'WAITING_REGISTRATION'" class="fs-2 fst-italic text-warning">Данное медицинское учреждение ожидает регистрации администратора</div>
                     <div th:case="'REGISTERED'" class="fs-2 fst-italic text-success">
                         Данное медицинское учреждение было зарегистрировано
                         <span th:text="${request.hospital.date}">19.12.2021 в 12:59:01</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Модальное окно для генерации кода -->
+        <div th:if="${request.hospital.currentState} == 'WAITING_CODE'" class="modal fade" id="code-generation-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title text-secondary fs-4" id="code-generation-modal-title">Генерация кода</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body fs-5" id="code-generation-modal-text">
+                        <form action="#" th:action="@{/rest/code-generaion}" class="border rounded text-secondary fs-5 p-3">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Медицинское учреждение</label>
+                                <input type="text" name="name" id="name" class="form-control" disabled th:value="${request.hospital.name}" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="oid" class="form-label">OID</label>
+                                <input type="text" name="oid" id="oid" class="form-control" disabled th:value="${request.hospital.oid}" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="role" class="form-label">Роль</label>
+                                <select name="role" id="role" class="form-select" disabled>
+                                    <option th:text="${role}">Администратор</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Почта</label>
+                                <input type="email" name="email" id="email" class="form-control" disabled th:value="${request.email}" />
+                            </div>
+                            <div class="mb-4">
+                                <label for="expiration-date" class="form-label">Срок действия кода</label>
+                                <select name="expirationDate" id="expiration-date" class="form-select">
+                                    <option th:each="each : ${expirationDateList}" tx:text="${each.alias}" th:value="${each}">1 день</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-1">Сгенерировать код</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                     </div>
                 </div>
             </div>

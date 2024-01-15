@@ -10,41 +10,6 @@
     </head>
 
     <body class="min-vh-100 d-flex flex-column justify-content-center bg-main">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#errorModal">Launch demo modal</button>
-        <div class="modal fade" id="errorModal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered mx-auto">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title text-secondary fs-4" id="errorModalTitle">Генерация кода</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body fs-5" id="errorModalText">
-                        <form action="" class="">
-                            <label for="name" class="form-label text-secondary fs-5">Роль</label>
-                            <select name="" id="" class="form-select mb-3" disabled>
-                                <option value="Администратор">Администратор</option>
-                            </select>
-                            <label for="name" class="form-label text-secondary fs-5">Наименование медицинского учреждения</label>
-                            <input type="text" name="name" id="name" class="form-control mb-3" disabled value="Алмазова" />
-                            <label for="name" class="form-label text-secondary fs-5">OID медицинского учреждения</label>
-                            <input type="text" name="name" id="name" class="form-control mb-3" disabled value="1.2432.343.123.23324" />
-                            <label for="name" class="form-label text-secondary fs-5">Срок действия кода</label>
-                            <select name="" id="" class="form-select mb-4">
-                                <option value="1 день">1 день</option>
-                                <option value="3 дня">3 дня</option>
-                                <option value="Неделя">Неделя</option>
-                                <option value="Месяц">Месяц</option>
-                            </select>
-                            <button type="submit" class="btn btn-primary">Сгенерировать код</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <script src="../static/js/test2.js" th:src="@{/js/test2.js}"></script>
         <script src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
     </body>
