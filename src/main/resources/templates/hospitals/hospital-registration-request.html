@@ -65,7 +65,7 @@
                 <div class="col-12 text-center" th:switch="${request.hospital.currentState}">
                     <div th:case="'WAITING_CODE'" class="d-flex flex-row flex-wrap align-items-center justify-content-center">
                         <button class="btn btn-lg btn-success m-2" data-bs-toggle="modal" data-bs-target="#code-generation-modal">Принять</button>
-                        <button class="btn btn-lg btn-danger m-2">Отклонить</button>
+                        <button class="btn btn-lg btn-danger m-2" id="decline-request">Отклонить</button>
                     </div>
                     <div th:case="'WAITING_REGISTRATION'" class="fs-2 fst-italic text-warning">Данное медицинское учреждение ожидает регистрации администратора</div>
                     <div th:case="'REGISTERED'" class="fs-2 fst-italic text-success">
@@ -84,7 +84,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body fs-5" id="code-generation-modal-text">
-                        <form action="#" th:action="@{/rest/code-generaion}" class="border rounded text-secondary fs-5 p-3">
+                        <form action="#" th:action="@{/rest/code-generation}" class="border rounded text-secondary fs-5 p-3">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Медицинское учреждение</label>
                                 <input type="text" name="name" id="name" class="form-control" disabled th:value="${request.hospital.name}" />
@@ -106,7 +106,7 @@
                             <div class="mb-4">
                                 <label for="expiration-date" class="form-label">Срок действия кода</label>
                                 <select name="expirationDate" id="expiration-date" class="form-select">
-                                    <option th:each="each : ${expirationDateList}" tx:text="${each.alias}" th:value="${each}">1 день</option>
+                                    <option th:each="each : ${expirationDateList}" th:text="${each.alias}" th:value="${each}">1 день</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary mb-1">Сгенерировать код</button>

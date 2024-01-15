@@ -63,21 +63,8 @@
                 </div>
             </div>
         </div>
-        <!-- Модальное окно с сообщением об ошибке -->
-        <div class="modal fade" id="error-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-overriden-danger mx-auto">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-4" id="error-modal-title">Ошибка</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body fs-5" id="error-modal-text">Здесь располагается короткое описание ошибки. Пример: "Минимальная длина почты - 8 символов, максимальная - 256 символов"</div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Модальное окно для сообщений об ошибке -->
+        <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
         <!-- Модальное окно с сообщением об успехе -->
         <div class="modal fade col-12" id="success-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-overriden-success">
@@ -103,6 +90,6 @@
         </div>
         <!-- Скрипты -->
         <script src="../../static/js/hospitals/hospital-registration.js" th:src="@{/js/hospitals/hospital-registration.js}"></script>
-        <script src="../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
     </body>
 </html>

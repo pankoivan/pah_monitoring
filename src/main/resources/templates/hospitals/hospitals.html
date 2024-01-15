@@ -10,13 +10,12 @@
     </head>
 
     <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
-        <!-- Основная часть страницы -->
         <div class="container text-secondary">
             <div th:each="each : ${hospitals}" class="d-flex position-relative row mb-3">
                 <div class="col-12">
                     <div class="border rounded p-2">
                         <div class="text-center mb-2 m-1">
-                            <h2 class="fs-4 mb-2">Национальный медицинский исследовательский центр имени В. А. Алмазова</h2>
+                            <h2 class="fs-4 mb-2" th:text="${each.name}">Национальный медицинский исследовательский центр имени В. А. Алмазова</h2>
                             <div th:switch="${each.currentState}">
                                 <p th:case="'WAITING_CODE'" class="text-danger fs-5">Ожидает выдачу кода</p>
                                 <p th:case="'WAITING_REGISTRATION'" class="text-warning fs-5">Ожидает регистрации администратора</p>
@@ -24,16 +23,25 @@
                             </div>
                         </div>
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center justify-content-md-between">
-                            <h3 class="fs-4 mb-1 m-1">OID: 1.232.345.7665.123.5</h3>
+                            <h3 class="fs-4 mb-1 m-1">OID: <span th:text="${each.oid}">1.232.345.7665.123.5</span></h3>
                             <div th:switch="${each.currentState}">
                                 <p th:case="'WAITING_CODE'" class="fs-5 mb-1 m-1">
-                                    <a href="#" th:href="@{/hospitals/__${each.id}__/request}" class="stretched-link text-decoration-none text-danger">Дата подачи заявки: 25-12-2019 19:11:43</a>
+                                    <a href="#" th:href="@{/hospitals/__${each.id}__/request}" class="stretched-link text-decoration-none text-warning">
+                                        Дата подачи заявки:
+                                        <span th:text="${each.request.date}">25-12-2019 19:11:43</span>
+                                    </a>
                                 </p>
                                 <p th:case="'WAITING_REGISTRATION'" class="fs-5 mb-1 m-1">
-                                    <a href="#" th:href="@{/hospitals/__${each.id}__/request}" class="stretched-link text-decoration-none text-warning">Дата подачи заявки: 25-12-2019 19:11:43</a>
+                                    <a href="#" th:href="@{/hospitals/__${each.id}__/request}" class="stretched-link text-decoration-none text-warning">
+                                        Дата подачи заявки:
+                                        <span th:text="${each.request.date}">25-12-2019 19:11:43</span>
+                                    </a>
                                 </p>
                                 <p th:case="'REGISTERED'" class="text-success fs-5 mb-1 m-1">
-                                    <a href="#" th:href="@{/hospitals/__${each.id}__}" class="stretched-link text-decoration-none text-success">Дата регистрации 25-12-2019 19:11:43</a>
+                                    <a href="#" th:href="@{/hospitals/__${each.id}__}" class="stretched-link text-decoration-none text-success">
+                                        Дата регистрации:
+                                        <span th:text="${each.date}">25-12-2019 19:11:43 </span>
+                                    </a>
                                 </p>
                             </div>
                         </div>
@@ -41,7 +49,5 @@
                 </div>
             </div>
         </div>
-        <!-- Скрипты -->
-        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
     </body>
 </html>
