@@ -11,6 +11,7 @@ import org.pah_monitoring.main.entities.users.Administrator;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.SecurityCodeValidationServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.users.AdministratorRepository;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
@@ -40,45 +41,24 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     @Override
-    public Administrator save(AdministratorSavingDto savingDto) throws DataValidationServiceException, DataSavingServiceException {
-        try {
-            return edit(findById(savingDto.getId()), savingDto);
-        } catch (DataSearchingServiceException e) {
-            return create(savingDto);
-        }
-    }
-
-    @Override
-    public void checkDataValidityForSaving(AdministratorSavingDto savingDto, BindingResult bindingResult)
-            throws DataValidationServiceException {
-
-        if (bindingResult.hasErrors()) {
-            throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
-        }
-
-        securityInformationService.checkDataValidityForSaving(savingDto.getUserSecurityInformationSavingDto(), bindingResult);
-        employeeInformationService.checkDataValidityForSaving(savingDto.getEmployeeInformationSavingDto(), bindingResult);
-
-    }
-
-    private Administrator create(AdministratorSavingDto savingDto) throws DataValidationServiceException, DataSavingServiceException {
+    public Administrator add(AdministratorSavingDto savingDto) throws SecurityCodeValidationServiceException, DataSavingServiceException {
 
         RegistrationSecurityCode code;
         try {
             code = codeService.findByStringUuid(savingDto.getCode());
         } catch (UuidUtilsException | DataSearchingServiceException e) {
-            throw new DataValidationServiceException(e.getMessage(), e);
+            throw new SecurityCodeValidationServiceException(e.getMessage(), e);
         }
 
         if (codeService.isExpired(code)) {
-            throw new DataValidationServiceException(
+            throw new SecurityCodeValidationServiceException(
                     "Истёк срок действия кода. Код был действителен до %s"
                             .formatted(DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(code.getExpirationDate()))
             );
         }
 
         if (!codeService.isSuitableForRole(code, Role.ADMINISTRATOR)) {
-            throw new DataValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.ADMINISTRATOR));
+            throw new SecurityCodeValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.ADMINISTRATOR));
         }
 
         UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
@@ -103,7 +83,10 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     }
 
-    private Administrator edit(Administrator administrator, AdministratorSavingDto savingDto) throws DataSavingServiceException {
+    @Override
+    public Administrator edit(AdministratorSavingDto savingDto) throws DataSearchingServiceException, DataSavingServiceException {
+
+        Administrator administrator = findById(savingDto.getId());
 
         UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
         securityInformationSavingDto.setId(administrator.getUserSecurityInformation().getId());
@@ -127,6 +110,19 @@ public class AdministratorServiceImpl implements AdministratorService {
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
         }
+
+    }
+
+    @Override
+    public void checkDataValidityForSaving(AdministratorSavingDto savingDto, BindingResult bindingResult)
+            throws DataValidationServiceException {
+
+        if (bindingResult.hasErrors()) {
+            throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+
+        securityInformationService.checkDataValidityForSaving(savingDto.getUserSecurityInformationSavingDto(), bindingResult);
+        employeeInformationService.checkDataValidityForSaving(savingDto.getEmployeeInformationSavingDto(), bindingResult);
 
     }
 

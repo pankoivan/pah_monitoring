@@ -11,6 +11,7 @@ import org.pah_monitoring.main.entities.users.Doctor;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.SecurityCodeValidationServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.users.DoctorRepository;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
@@ -40,45 +41,24 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Doctor save(DoctorSavingDto savingDto) throws DataValidationServiceException, DataSavingServiceException {
-        try {
-            return edit(findById(savingDto.getId()), savingDto);
-        } catch (DataSearchingServiceException e) {
-            return create(savingDto);
-        }
-    }
-
-    @Override
-    public void checkDataValidityForSaving(DoctorSavingDto savingDto, BindingResult bindingResult)
-            throws DataValidationServiceException {
-
-        if (bindingResult.hasErrors()) {
-            throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
-        }
-
-        securityInformationService.checkDataValidityForSaving(savingDto.getUserSecurityInformationSavingDto(), bindingResult);
-        employeeInformationService.checkDataValidityForSaving(savingDto.getEmployeeInformationSavingDto(), bindingResult);
-
-    }
-
-    private Doctor create(DoctorSavingDto savingDto) throws DataValidationServiceException, DataSavingServiceException {
+    public Doctor add(DoctorSavingDto savingDto) throws SecurityCodeValidationServiceException, DataSavingServiceException {
 
         RegistrationSecurityCode code;
         try {
             code = codeService.findByStringUuid(savingDto.getCode());
         } catch (UuidUtilsException | DataSearchingServiceException e) {
-            throw new DataValidationServiceException(e.getMessage(), e);
+            throw new SecurityCodeValidationServiceException(e.getMessage(), e);
         }
 
         if (codeService.isExpired(code)) {
-            throw new DataValidationServiceException(
+            throw new SecurityCodeValidationServiceException(
                     "Истёк срок действия кода. Код был действителен до %s"
                             .formatted(DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(code.getExpirationDate()))
             );
         }
 
         if (!codeService.isSuitableForRole(code, Role.DOCTOR)) {
-            throw new DataValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.DOCTOR));
+            throw new SecurityCodeValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.DOCTOR));
         }
 
         UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
@@ -104,7 +84,10 @@ public class DoctorServiceImpl implements DoctorService {
 
     }
 
-    private Doctor edit(Doctor doctor, DoctorSavingDto savingDto) throws DataSavingServiceException {
+    @Override
+    public Doctor edit(DoctorSavingDto savingDto) throws DataSearchingServiceException, DataSavingServiceException {
+
+        Doctor doctor = findById(savingDto.getId());
 
         UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
         securityInformationSavingDto.setId(doctor.getUserSecurityInformation().getId());
@@ -128,6 +111,19 @@ public class DoctorServiceImpl implements DoctorService {
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
         }
+
+    }
+
+    @Override
+    public void checkDataValidityForSaving(DoctorSavingDto savingDto, BindingResult bindingResult)
+            throws DataValidationServiceException {
+
+        if (bindingResult.hasErrors()) {
+            throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+
+        securityInformationService.checkDataValidityForSaving(savingDto.getUserSecurityInformationSavingDto(), bindingResult);
+        employeeInformationService.checkDataValidityForSaving(savingDto.getEmployeeInformationSavingDto(), bindingResult);
 
     }
 
