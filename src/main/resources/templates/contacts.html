@@ -18,16 +18,17 @@
                     <form id="contacts-form" action="#" th:action="@{/rest/contacts/save}" method="post" class="border rounded p-3">
                         <input style="display: none" name="id" />
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
-                            <div class="flex-grow-1 m-1">
-                                <label for="contacts-form-description" class="form-label text-secondary">Описание</label>
-                                <input id="contacts-form-description" type="text" name="description" placeholder="ВКонтакте" class="form-control" />
+                            <div class="d-flex flex-row flex-wrap align-items-center justify-content-center flex-grow-1">
+                                <div class="flex-grow-1 m-1">
+                                    <label for="contacts-form-description" class="form-label text-secondary">Описание</label>
+                                    <input id="contacts-form-description" type="text" name="description" placeholder="ВКонтакте" class="form-control" />
+                                </div>
+                                <div class="flex-grow-1 m-1">
+                                    <label for="contacts-form-contact" class="form-label text-secondary">Контакт</label>
+                                    <input id="contacts-form-contact" type="text" name="contact" placeholder="bttps://vk.com" class="form-control" />
+                                </div>
                             </div>
-                            <div class="flex-grow-1 m-1">
-                                <label for="contacts-form-contact" class="form-label text-secondary">Контакт</label>
-                                <input id="contacts-form-contact" type="text" name="contact" placeholder="bttps://vk.com" class="form-control" />
-                            </div>
-                            <!-- todo: margin top when small screen -->
-                            <div class="m-1 mt-auto">
+                            <div class="m-1 mt-3 mt-md-auto">
                                 <button type="submit" class="btn btn-primary">Сохранить</button>
                             </div>
                         </div>
@@ -53,23 +54,10 @@
                 </div>
             </div>
         </div>
-        <!-- Модальное окно с сообщением об ошибке -->
-        <div class="modal fade" id="error-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-overriden-danger">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-4" id="error-modal-title">Ошибка</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body fs-5" id="error-modal-text">Здесь располагается короткое описание ошибки. Пример: "Минимальная длина почты - 8 символов, максимальная - 256 символов"</div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Модальное окно для сообщений об ошибке -->
+        <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
         <!-- Скрипты -->
         <script src="../static/js/contacts.js" th:src="@{/js/contacts.js}"></script>
-        <script src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+        <script src="../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
     </body>
 </html>

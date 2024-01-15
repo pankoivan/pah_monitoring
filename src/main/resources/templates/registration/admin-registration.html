@@ -16,9 +16,9 @@
             <div class="row text-center mb-5">
                 <h1 class="text-secondary fs-2 word-wrap">
                     Регистрация от имени медицинского учреждения
-                    <span th:text="${hospitalName}" class="fw-bold">"Национальный медицинский исследовательский центр имени В. А. Алмазова"</span>
+                    <span th:text="'&quot;' + ${hospitalName} + '&quot;'" class="fw-bold">"Национальный медицинский исследовательский центр имени В. А. Алмазова"</span>
                     на роль
-                    <span th:text="${role}" class="fw-bold">"Администратор"</span>
+                    <span th:text="'&quot;' + ${role} + '&quot;'" class="fw-bold">"Администратор"</span>
                 </h1>
             </div>
             <!-- Форма регистрации в приложении -->
@@ -28,7 +28,7 @@
                         <h2 class="fs-4">Регистрация</h2>
                         <hr class="text-dark" />
                         <div class="mb-3">
-                            <label for="login-info" class="form-label">Логин-информация</label>
+                            <p class="form-label">Логин-информация</p>
                             <div class="border border-dark rounded p-2" id="login-info">
                                 <div class="mb-2 m-1">
                                     <label for="email" class="form-label">Почта <span class="text-danger fs-6"> *</span></label>
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="main-info" class="form-label">Основная информация</label>
+                            <p class="form-label">Основная информация</p>
                             <div class="border border-dark rounded p-2" id="main-info">
                                 <div class="mb-2">
                                     <div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
@@ -70,10 +70,10 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label for="additional-info" class="form-label">Дополнительная информация</label>
+                            <p class="form-label">Дополнительная информация</p>
                             <div class="border border-dark rounded p-3" id="additional-info">
                                 <div class="mb-3">
-                                    <label for="gender" class="form-label">Пол</label>
+                                    <p class="form-label">Пол</p>
                                     <div class="form-check" th:each="each, status : ${genders}" id="gender">
                                         <div>
                                             <label class="form-check-label" th:for="'gender-radio-' + ${status.index}"> Пол </label>
@@ -99,12 +99,12 @@
                 </div>
             </div>
         </div>
-        <!-- Модальное окно с сообщением об ошибке -->
-        <div th:replace="~{/fragments/modal/modal-error :: modal-error}"></div>
-        <!-- Модальное окно с сообщением об успехе -->
-        <div th:replace="~{/fragments/modal/modal-success :: modal-success}"></div>
+        <!-- Модальное окно для сообщений об ошибке -->
+        <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
+        <!-- Модальное окно для сообщений успехе -->
+        <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
         <!-- Скрипты -->
         <script src="../../static/js/registration/admin-registration.js" th:src="@{/js/registration/admin-registration.js}"></script>
-        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <script src="../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
     </body>
 </html>

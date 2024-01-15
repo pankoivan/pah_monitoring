@@ -52,11 +52,3 @@
     color: var(--bs-danger-text-emphasis);
     border-color: var(--bs-danger-border-subtle);
 }
-
-/* Информационный блок под стиль "success" */
-
-.success-block {
-    background-color: var(--bs-success-bg-subtle);
-    color: var(--bs-success-text-emphasis);
-    border-color: var(--bs-success-border-subtle);
-}

@@ -10,7 +10,9 @@
     </head>
 
     <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
+        <!-- Основная часть страницы -->
         <div class="container">
+            <!-- Сообщение о выходе из аккаунта -->
             <div th:if="${param.logout}" class="row mb-5">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
                     <div class="text-center fs-4 info-block rounded h-100">
@@ -18,6 +20,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Сообщение об ошибке входа -->
             <div th:if="${param.error}" class="row mb-5">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
                     <div class="text-center fs-4 danger-block rounded h-100">
@@ -25,28 +28,27 @@
                     </div>
                 </div>
             </div>
-            <div th:if="${param.registered}" class="row mb-5">
+            <!-- Форма входа в приложение -->
+            <div class="row mb-5">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
-                    <div class="text-center fs-4 success-block rounded h-100">
-                        <p class="mb-1 my-auto">Вы успешно зарегистрировались. Войдите в свой аккаунт.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-md-9 col-lg-6 mx-auto">
-                    <form action="#" th:action="@{/login/processing}" method="post" class="border rounded p-3 bg-gray-200">
+                    <form action="#" th:action="@{/login/processing}" method="post" class="bg-gray-200 border rounded text-secondary fs-5 p-3">
                         <h2 class="text-secondary fs-4">Вход</h2>
                         <hr />
-                        <label for="email" class="form-label text-secondary fs-5">Почта</label>
-                        <input type="email" name="email" id="email" class="form-control mb-2" />
-                        <label for="password" class="form-label text-secondary fs-5">Пароль</label>
-                        <input type="password" name="password" id="password" class="form-control mb-4" />
+                        <div class="mb-2">
+                            <label for="email" class="form-label">Почта</label>
+                            <input type="email" name="email" id="email" class="form-control" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Пароль</label>
+                            <input type="password" name="password" id="password" class="form-control" />
+                        </div>
                         <hr />
                         <button type="submit" class="text-center btn btn-lg btn-primary mt-1">Войти</button>
                     </form>
                 </div>
             </div>
-            <div class="row text-center mt-4">
+            <!-- Ссылка на главную страницу -->
+            <div class="row text-center">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
                     <a href="#" th:href="@{/}" class="text-secondary fs-4">Вернуться на главную</a>
                 </div>

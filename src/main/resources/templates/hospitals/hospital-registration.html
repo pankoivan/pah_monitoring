@@ -5,16 +5,16 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Регистрация медицинского учреждения</title>
-        <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
-        <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
     </head>
 
     <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
         <!-- Основная часть страницы -->
-        <div class="container">
+        <div class="container my-5">
             <div class="row">
                 <div class="col-12">
-                    <form action="#" th:action="@{/rest/hospital-registration-requests/save}" method="post" class="border rounded text-secondary fs-5 p-3 bg-gray-200" id="hospital-registration-form">
+                    <form action="#" th:action="@{/rest/hospital-registration-requests/save}" method="post" class="bg-gray-200 border rounded text-secondary fs-5 p-3" id="hospital-registration-form">
                         <h2 class="fs-4">Заявка на регистрацию медицинского учреждения</h2>
                         <hr class="mb-1" />
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center mb-3">
@@ -32,8 +32,8 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="hospitalName" class="form-label">Полное наименование медицинского учреждения <span class="text-danger fs-6"> *</span></label>
-                            <input type="text" name="hospitalName" id="hospitalName" class="form-control" placeholder="Национальный медицинский исследовательский центр имени В. А. Алмазова" />
+                            <label for="hospital-name" class="form-label">Полное наименование медицинского учреждения <span class="text-danger fs-6"> *</span></label>
+                            <input type="text" name="hospitalName" id="hospital-name" class="form-control" placeholder="Национальный медицинский исследовательский центр имени В. А. Алмазова" />
                         </div>
                         <div class="mb-3">
                             <label for="post" class="form-label">Ваша должность в этом медицинском учреждении <span class="text-danger fs-6"> *</span></label>
@@ -45,8 +45,8 @@
                                 <input type="text" name="passport" id="passport" class="form-control" placeholder="3012 981322" />
                             </div>
                             <div class="flex-grow-1 m-1">
-                                <label for="phoneNumber" class="form-label">Номер телефона <span class="text-danger fs-6"> *</span></label>
-                                <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" placeholder="890231214560" />
+                                <label for="phone-number" class="form-label">Номер телефона <span class="text-danger fs-6"> *</span></label>
+                                <input type="text" name="phoneNumber" id="phone-number" class="form-control" placeholder="890231214560" />
                             </div>
                         </div>
                         <div class="mb-3">
@@ -102,7 +102,7 @@
             </div>
         </div>
         <!-- Скрипты -->
-        <script src="../static/js/hospital-registration.js" th:src="@{/js/hospital-registration.js}"></script>
-        <script src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+        <script src="../../static/js/hospitals/hospital-registration.js" th:src="@{/js/hospitals/hospital-registration.js}"></script>
+        <script src="../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
     </body>
 </html>
