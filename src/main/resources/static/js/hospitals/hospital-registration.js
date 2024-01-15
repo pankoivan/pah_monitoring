@@ -41,6 +41,13 @@ function fetchSave(data) {
         });
 }
 
+function showModalSuccess(response) {
+    response.json().then((responseJson) => {
+        fillSuccessModalText(responseJson);
+        new bootstrap.Modal(document.getElementById("success-modal")).show();
+    });
+}
+
 function showModalError(response) {
     response.json().then((responseJson) => {
         document.getElementById("error-modal-text").innerText = responseJson.errorDescription;
@@ -48,10 +55,28 @@ function showModalError(response) {
     });
 }
 
-function showModalSuccess(response) {
-    response.json().then((responseJson) => {
-        document.getElementById("success-modal-text-hospital-name").innerText = " " + responseJson.hospital.name + " ";
-        document.getElementById("success-modal-text-email").innerText = responseJson.email;
-        new bootstrap.Modal(document.getElementById("success-modal")).show();
-    });
+function fillSuccessModalText(responseJson) {
+    let successModalText = document.getElementById("success-modal-text");
+
+    successModalText.textContent = "";
+
+    let hospitalName = document.createElement("span");
+    hospitalName.className = "fw-bold";
+    hospitalName.innerText = ` "${responseJson.hospital.name}" `;
+
+    let email = document.createElement("span");
+    email.className = "fw-bold";
+    email.innerText = ` "${responseJson.email}"`;
+
+    successModalText.appendChild(document.createTextNode("Заявка на регистрацию медицинского учреждения"));
+    successModalText.appendChild(hospitalName);
+    successModalText.appendChild(document.createTextNode("успешно отправлена."));
+    successModalText.appendChild(document.createElement("br"));
+    successModalText.appendChild(document.createElement("br"));
+    successModalText.appendChild(document.createTextNode("Если ваша личность будет подтверждена, главный администратор приложения сгенерирует код, который придёт на почту"));
+    successModalText.appendChild(email);
+    successModalText.appendChild(document.createTextNode("."));
+    successModalText.appendChild(document.createElement("br"));
+    successModalText.appendChild(document.createElement("br"));
+    successModalText.appendChild(document.createTextNode("Ожидайте."));
 }

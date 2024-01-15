@@ -7,7 +7,7 @@ import org.pah_monitoring.main.exceptions.utils.PhoneNumberUtilsException;
 public final class PhoneNumberUtils {
 
     public static String readable(String phoneNumber) throws PhoneNumberUtilsException {
-        if (phoneNumber.matches("^\\d{11}$")) {
+        if (!phoneNumber.matches("^\\d{11}$")) {
             throw new PhoneNumberUtilsException(
                     "Исходный номер телефона должен состоять только из подряд идущих цифр от 0 до 9. Пример: 89112345129"
             );

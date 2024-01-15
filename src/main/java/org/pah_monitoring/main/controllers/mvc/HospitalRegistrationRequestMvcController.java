@@ -12,7 +12,7 @@ public class HospitalRegistrationRequestMvcController {
 
     @GetMapping
     public String getPage() {
-        return "hospital-registration";
+        return "hospitals/hospital-registration";
     }
 
 }

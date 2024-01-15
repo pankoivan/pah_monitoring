@@ -66,28 +66,7 @@
         <!-- Модальное окно для сообщений об ошибке -->
         <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
         <!-- Модальное окно с сообщением об успехе -->
-        <div class="modal fade col-12" id="success-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-overriden-success">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-4" id="success-modal-title">Успех</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body fs-5" id="success-modal-text">
-                        Заявка на регистрацию медицинского учреждения
-                        <span id="success-modal-text-hospital-name" class="fw-bold">Заполняется js-кодом</span>
-                        успешно отправлена.
-                        <br /><br />
-                        Если ваша личность будет подтверждена, главный администратор приложения сгенерирует код, который придёт на почту
-                        <span id="success-modal-text-email" class="fw-bold">Заполняется js-кодом</span>. <br /><br />
-                        Ожидайте.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
         <!-- Скрипты -->
         <script src="../../static/js/hospitals/hospital-registration.js" th:src="@{/js/hospitals/hospital-registration.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
