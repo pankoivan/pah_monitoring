@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Регистрация</title>
+        <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
+        <!-- Основная часть страницы -->
+        <div class="container my-5">
+            <!-- Заголовок с названием медицинского учреждения и ролью пользователя -->
+            <div class="row text-center mb-5">
+                <h1 class="text-secondary fs-2 word-wrap">
+                    Регистрация от имени медицинского учреждения
+                    <span th:text="${hospitalName}" class="fw-bold">"Национальный медицинский исследовательский центр имени В. А. Алмазова"</span>
+                    на роль
+                    <span th:text="${role}" class="fw-bold">"Администратор"</span>
+                </h1>
+            </div>
+            <!-- Форма регистрации в приложении -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <form action="#" th:action="@{/rest/registration/administrator}" method="post" class="bg-gray-200 border border-dark rounded text-secondary fs-5 p-3" id="administrator-registration-form">
+                        <h2 class="fs-4">Регистрация</h2>
+                        <hr class="text-dark" />
+                        <div class="mb-3">
+                            <label for="login-info" class="form-label">Логин-информация</label>
+                            <div class="border border-dark rounded p-2" id="login-info">
+                                <div class="mb-2 m-1">
+                                    <label for="email" class="form-label">Почта <span class="text-danger fs-6"> *</span></label>
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="example@mail.com" />
+                                </div>
+                                <div class="mb-2 m-1">
+                                    <label for="password" class="form-label">Пароль <span class="text-danger fs-6"> *</span></label>
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="@strong!Password123@" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="main-info" class="form-label">Основная информация</label>
+                            <div class="border border-dark rounded p-2" id="main-info">
+                                <div class="mb-2">
+                                    <div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
+                                        <div class="flex-grow-1 m-1">
+                                            <label for="lastname" class="form-label">Фамилия <span class="text-danger fs-6"> *</span></label>
+                                            <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Иванов" />
+                                        </div>
+                                        <div class="flex-grow-1 m-1">
+                                            <label for="name" class="form-label">Имя <span class="text-danger fs-6"> *</span></label>
+                                            <input type="text" name="name" id="name" class="form-control" placeholder="Иван" />
+                                        </div>
+                                        <div class="flex-grow-1 m-1">
+                                            <label for="patronymic" class="form-label">Отчество</label>
+                                            <input type="text" name="patronymic" id="patronymic" class="form-control" placeholder="Иванович" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2 m-1">
+                                    <label for="phone-number" class="form-label">Номер телефона <span class="text-danger fs-6"> *</span></label>
+                                    <input type="text" name="phoneNumber" id="phone-number" class="form-control" placeholder="89212345901" />
+                                </div>
+                                <div class="mb-2 m-1">
+                                    <label for="post" class="form-label">Должность <span class="text-danger fs-6"> *</span></label>
+                                    <input type="text" name="post" id="post" class="form-control" placeholder="Секретарь" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="additional-info" class="form-label">Дополнительная информация</label>
+                            <div class="border border-dark rounded p-3" id="additional-info">
+                                <div class="mb-3">
+                                    <label for="gender" class="form-label">Пол</label>
+                                    <div class="form-check" th:each="each, status : ${genders}" id="gender">
+                                        <div>
+                                            <label class="form-check-label" th:for="'gender-radio-' + ${status.index}"> Пол </label>
+                                            <input th:id="'gender-radio-' + ${status.index}" type="radio" class="form-check-input" th:text="${each.alias}" th:value="${each}" name="gender" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="birthdate" class="form-label">Дата рождения</label>
+                                    <input type="date" name="birthdate" id="birthdate" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="text-dark" />
+                        <button type="submit" class="btn btn-lg btn-primary my-1">Зарегистрироваться</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Ссылка на главную страницу -->
+            <div class="row text-center">
+                <div class="col-12">
+                    <a href="#" th:href="@{/}" class="text-secondary fs-4">Вернуться на главную</a>
+                </div>
+            </div>
+        </div>
+        <!-- Модальное окно с сообщением об ошибке -->
+        <div class="modal fade" id="error-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-overriden-danger">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-4" id="error-modal-title">Ошибка</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body fs-5" id="error-modal-text">Здесь располагается короткое описание ошибки. Пример: "Минимальная длина почты - 8 символов, максимальная - 256 символов"</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Модальное окно с сообщением об успехе -->
+        <div class="modal fade" id="success-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-overriden-success">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-4" id="success-modal-title">Успех</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body fs-5" id="success-modal-text">
+                        Заявка на регистрацию медицинского учреждения
+                        <span id="success-modal-text-hospital-name" class="fw-bold">Заполняется js-кодом</span>
+                        успешно отправлена.
+                        <br /><br />
+                        Если ваша личность будет подтверждена, главный администратор приложения сгенерирует код, который придёт на почту
+                        <span id="success-modal-text-email" class="fw-bold">Заполняется js-кодом</span>. <br /><br />
+                        Ожидайте.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Скрипты -->
+        <script src="../../static/js/registration/registration-administrator.js" th:src="@{/js/registration/registration-administrator.js}"></script>
+        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+    </body>
+</html>
