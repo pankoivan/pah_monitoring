@@ -43,7 +43,7 @@ public class Hospital {
     private List<Patient> patients;
 
     @OneToOne(mappedBy = "hospital")
-    private HospitalRegistrationRequest hospitalRegistrationRequest;
+    private HospitalRegistrationRequest request;
 
     @Override
     public boolean equals(Object o) {
