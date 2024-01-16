@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.controllers.mvc;
+package org.pah_monitoring.main.controllers.mvc.registration;
 
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
@@ -25,9 +25,9 @@ public class RegistrationMvcController {
         try {
             RegistrationSecurityCode code = service.findByStringUuid(stringCode);
             return switch (code.getRole()) {
-                case ADMINISTRATOR -> "registration-administrator";
-                case DOCTOR -> "registration-doctor";
-                case PATIENT -> "registration-patient";
+                case ADMINISTRATOR -> "registration/admin-registration";
+                case DOCTOR -> "registration/doctor-registration";
+                case PATIENT -> "registration/patient-registration";
                 default -> throw new UrlValidationMvcControllerException(
                         "Для роли \"%s\" не предусмотрена генерация кодов регистрации".formatted(code.getRole().getAlias())
                 );

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 @Controller
 @RequestMapping("/hospitals/{hospitalId}/doctors")
-@PreAuthorize("permitAll()")
+@PreAuthorize("permitAll()") // todo: for main admin and people with hospital id = id
 public class HospitalDoctorMvcController {
 
     private final DoctorService service;

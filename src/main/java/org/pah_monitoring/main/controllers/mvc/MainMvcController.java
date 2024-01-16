@@ -25,7 +25,6 @@ public class MainMvcController {
     public String getPage(Model model, @AuthenticationPrincipal Object principal) {
 
         return switch (principal) {
-
             case MainAdministrator ignored -> "redirect:/hospitals";
 
             case Administrator administrator -> "redirect:/hospitals/%s"
@@ -39,7 +38,6 @@ public class MainMvcController {
             default -> {
                 model.addAttribute("contacts", mainAdminContactService.findAll());
                 yield "main";
-
             }
         };
 

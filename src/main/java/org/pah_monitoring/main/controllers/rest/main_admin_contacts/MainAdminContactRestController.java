@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.controllers.rest;
+package org.pah_monitoring.main.controllers.rest.main_admin_contacts;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

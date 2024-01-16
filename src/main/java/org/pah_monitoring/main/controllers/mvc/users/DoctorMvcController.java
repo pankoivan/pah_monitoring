@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 @Controller
 @RequestMapping("/doctors")
-@PreAuthorize("permitAll()")
+@PreAuthorize("permitAll()") // todo: only for main admin
 public class DoctorMvcController {
 
     private final DoctorService service;

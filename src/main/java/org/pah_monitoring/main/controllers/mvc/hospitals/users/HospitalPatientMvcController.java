@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 @Controller
 @RequestMapping("/hospitals/{hospitalId}/patients")
-@PreAuthorize("permitAll()")
+@PreAuthorize("permitAll()") // todo: for main admin and people with hospital id = id
 public class HospitalPatientMvcController {
 
     private final PatientService service;
@@ -35,7 +35,7 @@ public class HospitalPatientMvcController {
     }
 
     @GetMapping("/{id}")
-    public String getDoctor(Model model, @PathVariable("hospitalId") String pathHospitalId, @PathVariable("id") String pathId) {
+    public String getPatient(Model model, @PathVariable("hospitalId") String pathHospitalId, @PathVariable("id") String pathId) {
         // todo: add method to admin service
         return "users/profiles/patient-profile";
     }

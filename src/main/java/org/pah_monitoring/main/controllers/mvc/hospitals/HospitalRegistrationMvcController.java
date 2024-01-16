@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 @Controller
 @RequestMapping("/hospital-registration")
-@PreAuthorize("permitAll()")
+@PreAuthorize("permitAll()") // todo: remove
 public class HospitalRegistrationMvcController {
 
     private final HospitalRegistrationRequestService service;
 
-    @GetMapping("/form")
+    @GetMapping("/form") // todo: for all
     public String getForm() {
         return "hospitals/hospital-registration-form";
     }
 
-    @GetMapping("/requests/{id}")
+    @GetMapping("/requests/{id}") // todo: only for main admin
     public String getRequest(Model model, @PathVariable("id") String pathId) {
         try {
             model.addAttribute("request", service.findById(service.parsePathId(pathId)));

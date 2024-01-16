@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 @Controller
 @RequestMapping("/hospitals")
-@PreAuthorize("permitAll()")
+@PreAuthorize("permitAll()") // todo: remove
 public class HospitalMvcController {
 
-    private HospitalService service;
+    private final HospitalService service;
 
-    @GetMapping
+    @GetMapping // todo: for main admin
     public String getHospitals(Model model) {
         model.addAttribute("hospitals", service.findAll());
         return "hospitals/hospitals";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") // todo: for users with hospital id = request id
     public String getHospital(Model model, @PathVariable("id") String pathId) {
         try {
             model.addAttribute("hospital", service.findByIdWithCurrentStateCheck(service.parsePathId(pathId)));

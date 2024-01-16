@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/rest/hospital-registration/requests")
-@PreAuthorize("permitAll()")
+@PreAuthorize("permitAll()") // todo: remove
 public class HospitalRegistrationRestController {
 
     private final HospitalRegistrationRequestService service;
 
-    @PostMapping("/add")
+    @PostMapping("/add") // todo: for all
     public HospitalRegistrationRequest add(@RequestBody @Valid HospitalRegistrationRequestSavingDto requestDto, BindingResult bindingResult) {
         try {
             service.checkDataValidityForSaving(requestDto, bindingResult);
@@ -36,7 +36,7 @@ public class HospitalRegistrationRestController {
         }
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/delete/{id}") // todo: only for main admin
     public void delete(@PathVariable("id") String pathId) {
         HospitalRegistrationRequest request;
         try {
