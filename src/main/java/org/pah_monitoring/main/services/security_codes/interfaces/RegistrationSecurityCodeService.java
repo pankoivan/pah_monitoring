@@ -11,7 +11,7 @@ public interface RegistrationSecurityCodeService {
 
     boolean isExpired(RegistrationSecurityCode code);
 
-    boolean isSuitableForRole(RegistrationSecurityCode code, Role role);
+    boolean isNotSuitableForRole(RegistrationSecurityCode code, Role role);
 
     RegistrationSecurityCode findByUuid(UUID uuid) throws DataSearchingServiceException;
 

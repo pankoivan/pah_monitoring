@@ -25,8 +25,8 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
     }
 
     @Override
-    public boolean isSuitableForRole(RegistrationSecurityCode code, Role role) {
-        return code.getRole() == role;
+    public boolean isNotSuitableForRole(RegistrationSecurityCode code, Role role) {
+        return code.getRole() != role;
     }
 
     @Override

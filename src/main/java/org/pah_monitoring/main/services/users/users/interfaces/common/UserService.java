@@ -4,7 +4,7 @@ import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.SecurityCodeValidationServiceException;
 
-public interface UserInterface<T, M> {
+public interface UserService<T, M> {
 
     T findById(Integer id) throws DataSearchingServiceException;
 

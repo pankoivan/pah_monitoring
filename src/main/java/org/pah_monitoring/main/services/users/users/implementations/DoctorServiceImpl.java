@@ -57,8 +57,8 @@ public class DoctorServiceImpl implements DoctorService {
             );
         }
 
-        if (!codeService.isSuitableForRole(code, Role.DOCTOR)) {
-            throw new SecurityCodeValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.DOCTOR));
+        if (codeService.isNotSuitableForRole(code, Role.DOCTOR)) {
+            throw new SecurityCodeValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.DOCTOR.getAlias()));
         }
 
         UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();

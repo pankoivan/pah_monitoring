@@ -57,8 +57,8 @@ public class PatientServiceImpl implements PatientService {
             );
         }
 
-        if (!codeService.isSuitableForRole(code, Role.PATIENT)) {
-            throw new SecurityCodeValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.PATIENT));
+        if (codeService.isNotSuitableForRole(code, Role.PATIENT)) {
+            throw new SecurityCodeValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.PATIENT.getAlias()));
         }
 
         UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();

@@ -57,8 +57,8 @@ public class AdministratorServiceImpl implements AdministratorService {
             );
         }
 
-        if (!codeService.isSuitableForRole(code, Role.ADMINISTRATOR)) {
-            throw new SecurityCodeValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.ADMINISTRATOR));
+        if (codeService.isNotSuitableForRole(code, Role.ADMINISTRATOR)) {
+            throw new SecurityCodeValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.ADMINISTRATOR.getAlias()));
         }
 
         UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
