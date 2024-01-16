@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS hospital_registration_request
 	post VARCHAR (128) NOT NULL,
 	passport VARCHAR (12) UNIQUE NOT NULL,
 	phone_number VARCHAR (24) UNIQUE NOT NULL,
-	email VARCHAR (256) NOT NULL,
+	email VARCHAR (256) UNIQUE NOT NULL,
 	comment VARCHAR (512),
 	date TIMESTAMP NOT NULL
 );
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS registration_security_code
 	hospital_id INT REFERENCES hospital (id) NOT NULL,
 	role VARCHAR (24) NOT NULL,
 	code UUID UNIQUE NOT NULL,
-	email VARCHAR (256) NOT NULL,
+	email VARCHAR (256) UNIQUE NOT NULL,
 	expiration_date TIMESTAMP NOT NULL
 );
 
