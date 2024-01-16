@@ -14,7 +14,7 @@ public interface HospitalRegistrationRequestService extends SavingValidationServ
 
     HospitalRegistrationRequest findById(Integer id) throws DataSearchingServiceException;
 
-    HospitalRegistrationRequest save(HospitalRegistrationRequestSavingDto savingDto) throws DataSavingServiceException;
+    HospitalRegistrationRequest add(HospitalRegistrationRequestSavingDto savingDto) throws DataSavingServiceException;
 
     void deleteById(Integer id) throws DataDeletionServiceException;
 

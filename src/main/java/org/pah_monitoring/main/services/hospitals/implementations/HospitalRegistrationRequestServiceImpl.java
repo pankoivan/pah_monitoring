@@ -33,7 +33,7 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     }
 
     @Override
-    public HospitalRegistrationRequest save(HospitalRegistrationRequestSavingDto savingDto) throws DataSavingServiceException {
+    public HospitalRegistrationRequest add(HospitalRegistrationRequestSavingDto savingDto) throws DataSavingServiceException {
         try {
             return repository.save(
                     HospitalRegistrationRequest
@@ -47,7 +47,7 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
                             .email(savingDto.getEmail())
                             .comment(savingDto.getComment())
                             .date(LocalDateTime.now())
-                            .hospital(hospitalService.save(savingDto.getHospitalSavingDto()))
+                            .hospital(hospitalService.add(savingDto.getHospitalSavingDto()))
                             .build()
             );
         } catch (Exception e) {

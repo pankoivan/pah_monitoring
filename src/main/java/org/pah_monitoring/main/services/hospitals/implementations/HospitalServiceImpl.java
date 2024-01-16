@@ -3,10 +3,8 @@ package org.pah_monitoring.main.services.hospitals.implementations;
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalSavingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
-import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
 import org.pah_monitoring.main.repositorites.hospitals.HospitalRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.springframework.stereotype.Service;
@@ -37,7 +35,7 @@ public class HospitalServiceImpl implements HospitalService {
     private final HospitalRepository repository;
 
     @Override
-    public Hospital save(HospitalSavingDto savingDto) throws DataSavingServiceException {
+    public Hospital add(HospitalSavingDto savingDto) throws DataSavingServiceException {
         try {
             return repository.save(
                     Hospital
@@ -54,8 +52,13 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public void deleteById(Integer id) throws DataDeletionServiceException {
+    public void codeReceived(Hospital hospital) {
+        hospital.setCurrentState(Hospital.CurrentState.WAITING_REGISTRATION);
+    }
 
+    @Override
+    public void registered(Hospital hospital) {
+        hospital.setCurrentState(Hospital.CurrentState.REGISTERED);
     }
 
     @Override
@@ -70,16 +73,6 @@ public class HospitalServiceImpl implements HospitalService {
         if (!names.contains(savingDto.getName())) {
             throw new DataValidationServiceException("Медицинского учреждения \"%s\" нет в справочнике".formatted(savingDto.getName()));
         }
-    }
-
-    @Override
-    public void checkDataValidityForDeleting(Hospital hospital) throws DataValidationServiceException {
-
-    }
-
-    @Override
-    public int parsePathId(String pathId) throws UrlValidationServiceException {
-        return 0;
     }
 
 }

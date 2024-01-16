@@ -30,7 +30,7 @@ public class HospitalRegistrationRequestRestController {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         }
         try {
-            return service.save(requestDto);
+            return service.add(requestDto);
         } catch (DataSavingServiceException e) {
             throw new DataSavingRestControllerException(e.getMessage(), e);
         }
