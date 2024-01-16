@@ -14,6 +14,8 @@ public interface HospitalService extends SavingValidationService<HospitalSavingD
 
     List<Hospital> findAll();
 
+    Hospital findById(Integer id) throws DataSearchingServiceException;
+
     Hospital findByIdWithCurrentStateCheck(Integer id) throws DataSearchingServiceException, DataValidationServiceException;
 
     Hospital add(HospitalSavingDto savingDto) throws DataSavingServiceException;

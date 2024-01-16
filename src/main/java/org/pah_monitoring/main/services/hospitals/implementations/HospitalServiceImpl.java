@@ -41,10 +41,15 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public Hospital findByIdWithCurrentStateCheck(Integer id) throws DataSearchingServiceException, DataValidationServiceException {
-        Hospital hospital = repository.findById(id).orElseThrow(
+    public Hospital findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
                 () -> new DataSearchingServiceException("Медицинское учреждение с id \"%s\" не существует".formatted(id))
         );
+    }
+
+    @Override
+    public Hospital findByIdWithCurrentStateCheck(Integer id) throws DataSearchingServiceException, DataValidationServiceException {
+        Hospital hospital = findById(id);
         if (hospital.getCurrentState() == Hospital.CurrentState.REGISTERED) {
             return hospital;
         } else {
