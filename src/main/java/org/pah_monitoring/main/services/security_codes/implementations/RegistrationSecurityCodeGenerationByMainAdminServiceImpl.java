@@ -24,7 +24,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter(onMethod = @__(@Autowired))
-@Service("codeByMainAdmin")
+@Service("codeGeneratorByMainAdmin")
 public class RegistrationSecurityCodeGenerationByMainAdminServiceImpl
         implements RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByMainAdminSavingDto> {
 
