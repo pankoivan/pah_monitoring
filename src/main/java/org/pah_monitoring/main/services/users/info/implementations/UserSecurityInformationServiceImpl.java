@@ -1,6 +1,9 @@
 package org.pah_monitoring.main.services.users.info.implementations;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.pah_monitoring.main.entities.dto.saving.users.info.UserSecurityInformationSavingDto;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
@@ -11,13 +14,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+@NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Service
 public class UserSecurityInformationServiceImpl implements UserSecurityInformationService {
 
-    private final UserSecurityInformationRepository repository;
+    private UserSecurityInformationRepository repository;
 
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserSecurityInformation save(UserSecurityInformationSavingDto savingDto) throws DataSavingServiceException {

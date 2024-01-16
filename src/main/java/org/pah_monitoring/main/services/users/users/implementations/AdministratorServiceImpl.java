@@ -1,6 +1,9 @@
 package org.pah_monitoring.main.services.users.users.implementations;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.dto.saving.users.AdministratorSavingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.info.EmployeeInformationSavingDto;
@@ -24,19 +27,22 @@ import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
+@NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Service
 public class AdministratorServiceImpl implements AdministratorService {
 
-    private final AdministratorRepository repository;
+    private AdministratorRepository repository;
 
-    private final UserSecurityInformationService securityInformationService;
+    private UserSecurityInformationService securityInformationService;
 
-    private final EmployeeInformationService employeeInformationService;
+    private EmployeeInformationService employeeInformationService;
 
-    private final RegistrationSecurityCodeService codeService;
+    private RegistrationSecurityCodeService codeService;
 
-    private final HospitalService hospitalService;
+    private HospitalService hospitalService;
 
     @Override
     public List<Administrator> findAll() {

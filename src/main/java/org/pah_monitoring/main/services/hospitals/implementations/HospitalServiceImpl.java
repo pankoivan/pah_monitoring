@@ -1,6 +1,9 @@
 package org.pah_monitoring.main.services.hospitals.implementations;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalSavingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
@@ -15,7 +18,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+@NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Service
 public class HospitalServiceImpl implements HospitalService {
 
@@ -33,7 +39,7 @@ public class HospitalServiceImpl implements HospitalService {
             "Медицинское учреждение 3", "OID для медицинского учреждения 3"
     );
 
-    private final HospitalRepository repository;
+    private HospitalRepository repository;
 
     @Override
     public List<Hospital> findAll() {

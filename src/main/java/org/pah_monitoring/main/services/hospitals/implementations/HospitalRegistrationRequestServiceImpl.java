@@ -1,6 +1,9 @@
 package org.pah_monitoring.main.services.hospitals.implementations;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalRegistrationRequestSavingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
@@ -17,13 +20,16 @@ import org.springframework.validation.BindingResult;
 
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Service
 public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrationRequestService {
 
-    private final HospitalRegistrationRequestRepository repository;
+    private HospitalRegistrationRequestRepository repository;
 
-    private final HospitalService hospitalService;
+    private HospitalService hospitalService;
 
     @Override
     public HospitalRegistrationRequest findById(Integer id) throws DataSearchingServiceException {

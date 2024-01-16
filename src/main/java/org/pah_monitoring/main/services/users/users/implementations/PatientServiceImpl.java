@@ -1,6 +1,9 @@
 package org.pah_monitoring.main.services.users.users.implementations;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.dto.saving.users.PatientSavingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.info.UserInformationSavingDto;
@@ -25,21 +28,24 @@ import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
+@NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Service
 public class PatientServiceImpl implements PatientService {
 
-    private final PatientRepository repository;
+    private PatientRepository repository;
 
-    private final UserSecurityInformationService securityInformationService;
+    private UserSecurityInformationService securityInformationService;
 
-    private final UserInformationService userInformationService;
+    private UserInformationService userInformationService;
 
-    private final RegistrationSecurityCodeService codeService;
+    private RegistrationSecurityCodeService codeService;
 
-    private final HospitalService hospitalService;
+    private HospitalService hospitalService;
 
-    private final DoctorService doctorService;
+    private DoctorService doctorService;
 
     @Override
     public List<Patient> findAllByDoctorId(Integer id) throws DataSearchingServiceException {

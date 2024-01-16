@@ -1,6 +1,9 @@
 package org.pah_monitoring.main.services.users.info.implementations;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.entities.dto.saving.users.info.UserInformationSavingDto;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
@@ -11,11 +14,14 @@ import org.pah_monitoring.main.services.users.info.interfaces.UserInformationSer
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+@NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Service
 public class UserInformationServiceImpl implements UserInformationService {
 
-    private final UserInformationRepository repository;
+    private UserInformationRepository repository;
 
     @Override
     public UserInformation save(UserInformationSavingDto savingDto) throws DataSavingServiceException {

@@ -1,6 +1,9 @@
 package org.pah_monitoring.main.services.users.info.implementations;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.pah_monitoring.main.entities.dto.saving.users.info.EmployeeInformationSavingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
@@ -12,13 +15,16 @@ import org.pah_monitoring.main.services.users.info.interfaces.UserInformationSer
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+@NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Service
 public class EmployeeInformationServiceImpl implements EmployeeInformationService {
 
-    private final EmployeeInformationRepository repository;
+    private EmployeeInformationRepository repository;
 
-    private final UserInformationService userInformationService;
+    private UserInformationService userInformationService;
 
     @Override
     public EmployeeInformation save(EmployeeInformationSavingDto savingDto, Hospital hospital) throws DataSavingServiceException {
