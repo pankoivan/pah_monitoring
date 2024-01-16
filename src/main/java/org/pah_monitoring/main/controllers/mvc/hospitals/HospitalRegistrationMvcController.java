@@ -1,6 +1,8 @@
 package org.pah_monitoring.main.controllers.mvc.hospitals;
 
 import lombok.AllArgsConstructor;
+import org.pah_monitoring.main.entities.enums.ExpirationDate;
+import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
@@ -29,6 +31,8 @@ public class HospitalRegistrationMvcController {
     public String getRequest(Model model, @PathVariable("id") String pathId) {
         try {
             model.addAttribute("request", service.findById(service.parsePathId(pathId)));
+            model.addAttribute("role", Role.ADMINISTRATOR);
+            model.addAttribute("expirationDateList", ExpirationDate.values());
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }
