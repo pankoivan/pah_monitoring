@@ -93,6 +93,11 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
                             .formatted(savingDto.getPhoneNumber())
             );
         }
+        if (repository.existsByEmail(savingDto.getEmail())) {
+            throw new DataValidationServiceException(
+                    "Почта \"%s\" уже была указана в другой заявке".formatted(savingDto.getEmail())
+            );
+        }
         if (securityInformationService.existsByEmail(savingDto.getEmail())) {
             throw new DataValidationServiceException(
                     "Человек с почтой \"%s\" уже зарегистрирован в приложении".formatted(savingDto.getPhoneNumber())

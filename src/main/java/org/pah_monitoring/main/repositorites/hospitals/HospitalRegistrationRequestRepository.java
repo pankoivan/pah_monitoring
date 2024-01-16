@@ -11,4 +11,6 @@ public interface HospitalRegistrationRequestRepository extends JpaRepository<Hos
 
     boolean existsByPhoneNumber(String phoneNumber);
 
+    boolean existsByEmail(String phoneNumber);
+
 }

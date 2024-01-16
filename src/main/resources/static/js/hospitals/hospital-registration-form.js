@@ -60,22 +60,23 @@ function fillSuccessModalText(responseJson) {
 
     successModalText.textContent = "";
 
-    let fullname = document.createElement("span");
-    fullname.className = "fw-bold";
-    fullname.innerText = ` "${responseJson.lastname}" "${responseJson.name}" "${responseJson.patronymic}" `;
+    let hospitalName = document.createElement("span");
+    hospitalName.className = "fw-bold";
+    hospitalName.innerText = ` "${responseJson.hospital.name}" `;
 
-    let link = document.createElement("a");
-    link.href = "/login";
-    link.textContent = " войти ";
+    let email = document.createElement("span");
+    email.className = "fw-bold";
+    email.innerText = ` "${responseJson.email}"`;
 
-    let login = document.createElement("span");
-    login.appendChild(document.createTextNode("Теперь вы можете"));
-    login.appendChild(link);
-    login.appendChild(document.createTextNode("в свой аккаунт."));
-
-    successModalText.appendChild(document.createTextNode("Вы успешно зарегистрировались в приложении,"));
-    successModalText.appendChild(fullname);
+    successModalText.appendChild(document.createTextNode("Заявка на регистрацию медицинского учреждения"));
+    successModalText.appendChild(hospitalName);
+    successModalText.appendChild(document.createTextNode("успешно отправлена."));
     successModalText.appendChild(document.createElement("br"));
     successModalText.appendChild(document.createElement("br"));
-    successModalText.appendChild(document.createTextNode(login));
+    successModalText.appendChild(document.createTextNode("Если ваша личность будет подтверждена, главный администратор приложения сгенерирует код, который придёт на почту"));
+    successModalText.appendChild(email);
+    successModalText.appendChild(document.createTextNode("."));
+    successModalText.appendChild(document.createElement("br"));
+    successModalText.appendChild(document.createElement("br"));
+    successModalText.appendChild(document.createTextNode("Ожидайте."));
 }
