@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByMainAdminSavingDto;
 import org.pah_monitoring.main.entities.enums.Role;
+import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
@@ -34,13 +35,15 @@ public class RegistrationSecurityCodeGenerationByMainAdminServiceImpl
     @Override
     public RegistrationSecurityCode generate(RegistrationSecurityCodeByMainAdminSavingDto savingDto) throws DataSavingServiceException {
         try {
+            HospitalRegistrationRequest request = requestService.findById(savingDto.getHospitalRegistrationRequestId());
             return repository.save(
                     RegistrationSecurityCode
                             .builder()
                             .code(UUID.randomUUID())
                             .role(Role.ADMINISTRATOR)
-                            .email(requestService.findById(savingDto.getHospitalRegistrationRequestId()).getEmail())
+                            .email(requestService.findById(request.getId()).getEmail())
                             .expirationDate(LocalDateTime.now().plusDays(savingDto.getExpirationDate().getDays()))
+                            .hospital(request.getHospital())
                             .build()
             );
         } catch (Exception e) {

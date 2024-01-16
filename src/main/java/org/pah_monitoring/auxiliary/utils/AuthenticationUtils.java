@@ -8,8 +8,7 @@ import org.springframework.security.core.Authentication;
 @UtilityClass
 public final class AuthenticationUtils {
 
-    public static <T> T extractCurrentUser(Authentication authentication, Class<T> concreteUserClass)
-            throws AuthenticationUtilsException {
+    public static <T> T extractCurrentUser(Authentication authentication, Class<T> concreteUserClass) throws AuthenticationUtilsException {
 
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             throw new AuthenticationUtilsException("Security user (i.e. principal) should not be null or anonymous");
@@ -18,9 +17,11 @@ public final class AuthenticationUtils {
         try {
             return cast(authentication.getPrincipal(), concreteUserClass);
         } catch (ClassCastException e) {
-            throw new AuthenticationUtilsException("Security user (i.e. principal) is not an object of requested class \"%s\""
-                    .formatted(concreteUserClass.getName()), e);
+            throw new AuthenticationUtilsException(
+                    "Security user (i.e. principal) is not an object of requested class \"%s\"".formatted(concreteUserClass.getName()), e
+            );
         }
+
     }
 
     /*public static <T> T extractCurrentUserOrNull(Authentication authentication, Class<T> concreteUserClass)
@@ -36,11 +37,11 @@ public final class AuthenticationUtils {
             throw new AuthenticationUtilsException("Security user (i.e. principal) is not an object of requested class \"%s\""
                     .formatted(concreteUserClass.getName()), e);
         }
-    }*/
+    }
 
     public <T> boolean checkConcreteUserClass(Authentication authentication, Class<T> concreteUserClass) {
         return authentication != null && authentication.getPrincipal().getClass().equals(concreteUserClass);
-    }
+    }*/
 
     private static <T> T cast(Object from, Class<T> to) {
         return to.cast(from);
