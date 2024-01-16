@@ -6,9 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByMainAdminSavingDto;
 import org.pah_monitoring.main.entities.enums.Role;
+import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
+import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.security_codes.RegistrationSecurityCodeRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
@@ -57,6 +59,19 @@ public class RegistrationSecurityCodeGenerationByMainAdminServiceImpl
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+
+        HospitalRegistrationRequest request;
+        try {
+            request = requestService.findById(savingDto.getHospitalRegistrationRequestId());
+        } catch (DataSearchingServiceException e) {
+            throw new DataValidationServiceException(e.getMessage(), e);
+        }
+
+        if (request.getHospital().getCurrentState() != Hospital.CurrentState.WAITING_CODE) {
+            throw new DataValidationServiceException(
+                    "Нельзя сгенерировать код для медицинского учреждения, которое его не ожидает"
+            );
         }
 
     }

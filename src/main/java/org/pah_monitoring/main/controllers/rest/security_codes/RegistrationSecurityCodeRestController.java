@@ -49,6 +49,7 @@ public class RegistrationSecurityCodeRestController {
                                                         BindingResult bindingResult) {
         try {
             codeGeneratorByMainAdmin.checkDataValidityForSaving(savingDto, bindingResult);
+            // todo: email message
             return codeGeneratorByMainAdmin.generate(savingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
@@ -62,6 +63,7 @@ public class RegistrationSecurityCodeRestController {
                                                         BindingResult bindingResult) {
         try {
             codeGeneratorByAdmin.checkDataValidityForSaving(savingDto, bindingResult);
+            // todo: email message
             return codeGeneratorByAdmin.generate(savingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
