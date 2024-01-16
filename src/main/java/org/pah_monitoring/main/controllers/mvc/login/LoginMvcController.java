@@ -14,9 +14,7 @@ public class LoginMvcController {
 
     @GetMapping
     public String getLogin(@AuthenticationPrincipal Object principal) {
-        return principal == null || principal instanceof AnonymousAuthenticationToken
-                ? "login"
-                : "redirect:/";
+        return "login"; // todo: add redirect if anonymous
     }
 
 }
