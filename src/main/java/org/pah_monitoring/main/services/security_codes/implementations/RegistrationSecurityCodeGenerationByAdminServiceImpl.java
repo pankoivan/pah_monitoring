@@ -47,12 +47,11 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
                             .email(savingDto.getEmail())
                             .expirationDate(LocalDateTime.now().plusDays(savingDto.getExpirationDate().getDays()))
                             .hospital(
-                                    hospitalService.findById(9)
-                                    /*AuthenticationUtils.extractCurrentUser(
+                                    AuthenticationUtils.extractCurrentUser(
                                             SecurityContextHolder.getContext().getAuthentication(),
                                             Administrator.class
                                     ).getEmployeeInformation()
-                                            .getHospital()*/
+                                            .getHospital()
                             )
                             .build()
             );
@@ -67,6 +66,11 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+        if (repository.existsByEmail(savingDto.getEmail())) {
+            throw new DataValidationServiceException(
+                    "Пользователю с почтой \"%s\" уже выдан код".formatted(savingDto.getEmail())
+            );
         }
         if (securityInformationService.existsByEmail(savingDto.getEmail())) {
             throw new DataValidationServiceException(

@@ -19,4 +19,6 @@ public interface RegistrationSecurityCodeService {
 
     boolean existsByStringUuid(String stringUuid);
 
+    boolean existsByEmail(String email);
+
 }

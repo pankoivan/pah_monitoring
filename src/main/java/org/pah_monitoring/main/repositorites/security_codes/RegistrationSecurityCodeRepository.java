@@ -14,4 +14,6 @@ public interface RegistrationSecurityCodeRepository extends JpaRepository<Regist
 
     Optional<RegistrationSecurityCode> findByCode(UUID code);
 
+    boolean existsByEmail(String email);
+
 }

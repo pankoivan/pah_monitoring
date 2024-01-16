@@ -43,7 +43,7 @@ public class RegistrationSecurityCodeGenerationByMainAdminServiceImpl
                             .builder()
                             .code(UUID.randomUUID())
                             .role(Role.ADMINISTRATOR)
-                            .email(requestService.findById(request.getId()).getEmail())
+                            .email(request.getEmail())
                             .expirationDate(LocalDateTime.now().plusDays(savingDto.getExpirationDate().getDays()))
                             .hospital(request.getHospital())
                             .build()
@@ -70,7 +70,7 @@ public class RegistrationSecurityCodeGenerationByMainAdminServiceImpl
 
         if (request.getHospital().getCurrentState() != Hospital.CurrentState.WAITING_CODE) {
             throw new DataValidationServiceException(
-                    "Нельзя сгенерировать код для медицинского учреждения, которое его не ожидает"
+                    "Для медицинского учреждения \"%s\" уже был сгенерирован код".formatted(request.getHospital().getName())
             );
         }
 

@@ -60,4 +60,9 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
         }
     }
 
+    @Override
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
+    }
+
 }
