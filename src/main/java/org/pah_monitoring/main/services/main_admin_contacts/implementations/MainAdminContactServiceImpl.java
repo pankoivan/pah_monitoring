@@ -60,7 +60,9 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
     }
 
     @Override
-    public void checkDataValidityForSaving(MainAdminContactSavingDto savingDto, BindingResult bindingResult) throws DataValidationServiceException {
+    public void checkDataValidityForSaving(MainAdminContactSavingDto savingDto, BindingResult bindingResult)
+            throws DataValidationServiceException {
+
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
@@ -75,6 +77,7 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
         if (existsByDescription(savingDto)) {
             throw new DataValidationServiceException("Контакт с описанием \"%s\" уже существует".formatted(savingDto.getDescription()));
         }
+
     }
 
     private boolean isNew(MainAdminContactSavingDto savingDto) {
