@@ -28,8 +28,8 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
                             .builder()
                             .id(savingDto.getId())
                             .post(savingDto.getPost())
-                            .userInformation(userInformationService.save(savingDto.getUserInformationSavingDto()))
                             .hospital(hospital)
+                            .userInformation(userInformationService.save(savingDto.getUserInformationSavingDto()))
                             .build()
             );
         } catch (Exception e) {

@@ -14,12 +14,16 @@ import org.pah_monitoring.main.exceptions.service.DataValidationServiceException
 import org.pah_monitoring.main.exceptions.service.SecurityCodeValidationServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.users.PatientRepository;
+import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserInformationService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
+import org.pah_monitoring.main.services.users.users.interfaces.DoctorService;
 import org.pah_monitoring.main.services.users.users.interfaces.PatientService;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -33,11 +37,30 @@ public class PatientServiceImpl implements PatientService {
 
     private final RegistrationSecurityCodeService codeService;
 
+    private final HospitalService hospitalService;
+
+    private final DoctorService doctorService;
+
+    @Override
+    public List<Patient> findAllByDoctorId(Integer id) throws DataSearchingServiceException {
+        return repository.findAllByDoctorId(doctorService.findById(id).getId());
+    }
+
+    @Override
+    public List<Patient> findAll() {
+        return repository.findAll();
+    }
+
     @Override
     public Patient findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
                 () -> new DataSearchingServiceException("Пациент с id \"%s\" не существует".formatted(id))
         );
+    }
+
+    @Override
+    public List<Patient> findAllByHospitalId(Integer id) throws DataSearchingServiceException {
+        return repository.findAllByHospitalId(hospitalService.findById(id).getId());
     }
 
     @Override

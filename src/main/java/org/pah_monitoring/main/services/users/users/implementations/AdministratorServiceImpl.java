@@ -14,12 +14,15 @@ import org.pah_monitoring.main.exceptions.service.DataValidationServiceException
 import org.pah_monitoring.main.exceptions.service.SecurityCodeValidationServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.users.AdministratorRepository;
+import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformationService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
 import org.pah_monitoring.main.services.users.users.interfaces.AdministratorService;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -33,11 +36,23 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     private final RegistrationSecurityCodeService codeService;
 
+    private final HospitalService hospitalService;
+
+    @Override
+    public List<Administrator> findAll() {
+        return repository.findAll();
+    }
+
     @Override
     public Administrator findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
                 () -> new DataSearchingServiceException("Администратор с id \"%s\" не существует".formatted(id))
         );
+    }
+
+    @Override
+    public List<Administrator> findAllByHospitalId(Integer id) throws DataSearchingServiceException {
+        return repository.findAllByEmployeeInformationHospitalId(hospitalService.findById(id).getId());
     }
 
     @Override

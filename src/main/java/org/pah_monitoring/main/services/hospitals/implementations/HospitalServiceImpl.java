@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalSavingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
+import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.hospitals.HospitalRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
@@ -33,6 +34,18 @@ public class HospitalServiceImpl implements HospitalService {
     );
 
     private final HospitalRepository repository;
+
+    @Override
+    public List<Hospital> findAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Hospital findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Медицинское учреждение с id \"%s\" не существует".formatted(id))
+        );
+    }
 
     @Override
     public Hospital add(HospitalSavingDto savingDto) throws DataSavingServiceException {
