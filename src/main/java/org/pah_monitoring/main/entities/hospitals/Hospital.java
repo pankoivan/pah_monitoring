@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.entities.hospitals;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.users.Patient;
@@ -13,8 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"employees", "patients"})
+@ToString(exclude = {"employees", "patients", "request"})
 @Builder
+@JsonIgnoreProperties({"employees", "patients", "request"})
 @Entity
 @Table(name = "hospital")
 public class Hospital {
@@ -37,15 +38,12 @@ public class Hospital {
     @Column(name = "current_state")
     private CurrentState currentState;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "hospital")
     private List<EmployeeInformation> employees;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "hospital")
     private List<Patient> patients;
 
-    @JsonIgnore
     @OneToOne(mappedBy = "hospital")
     private HospitalRegistrationRequest request;
 

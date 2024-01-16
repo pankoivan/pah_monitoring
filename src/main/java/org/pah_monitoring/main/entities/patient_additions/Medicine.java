@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.entities.patient_additions;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.users.Patient;
@@ -10,6 +11,7 @@ import org.pah_monitoring.main.entities.users.Patient;
 @Setter
 @ToString(exclude = "patient")
 @Builder
+@JsonIgnoreProperties("patient")
 @Entity
 @Table(name = "medicine")
 public class Medicine {

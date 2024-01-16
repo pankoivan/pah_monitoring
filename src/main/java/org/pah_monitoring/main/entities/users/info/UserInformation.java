@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.entities.users.info;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.Gender;
@@ -14,6 +15,7 @@ import java.util.List;
 @Setter
 @ToString(exclude = {"sentMessages", "receivedMessages"})
 @Builder
+@JsonIgnoreProperties({"sentMessages", "receivedMessages"})
 @Entity
 @Table(name = "user_information")
 public class UserInformation {

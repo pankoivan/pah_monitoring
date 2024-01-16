@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.entities.security_codes;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.Role;
@@ -15,6 +15,7 @@ import java.util.UUID;
 @Setter
 @ToString(exclude = "hospital")
 @Builder
+@JsonIgnoreProperties("hospital")
 @Entity
 @Table(name = "registration_security_code")
 public class RegistrationSecurityCode {
@@ -37,7 +38,6 @@ public class RegistrationSecurityCode {
     @Column(name = "expiration_date")
     private LocalDateTime expirationDate;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;

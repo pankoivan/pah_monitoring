@@ -1,9 +1,10 @@
 package org.pah_monitoring.main.entities.users.inactivity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.users.Administrator;
+import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 
 import java.time.LocalDate;
 
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 @Setter
 @ToString(exclude = {"employee", "author"})
 @Builder
+@JsonIgnoreProperties({"employee", "author"})
 @Entity
 @Table(name = "vacation")
 public class Vacation {

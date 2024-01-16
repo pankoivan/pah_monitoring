@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.entities.examinations;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.users.Doctor;
@@ -11,8 +12,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"patient", "doctor"})
+@ToString(of = {"id", "date"})
 @Builder
+@JsonIncludeProperties({"id", "date"})
 @Entity
 @Table(name = "examination")
 public class Examination {

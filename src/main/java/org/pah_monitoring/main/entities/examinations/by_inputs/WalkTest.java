@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.entities.examinations.by_inputs;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.examinations.Examination;
@@ -16,8 +17,15 @@ import org.pah_monitoring.main.entities.examinations.Examination;
         "examination",
 })
 @Builder
+@JsonIgnoreProperties({
+        "pulseOximetryBefore",
+        "pulseOximetryAfter",
+        "pressureBefore",
+        "pressureAfter",
+        "examination",
+})
 @Entity
-@Table(name = "examination")
+@Table(name = "walk_test")
 public class WalkTest {
 
     @Id

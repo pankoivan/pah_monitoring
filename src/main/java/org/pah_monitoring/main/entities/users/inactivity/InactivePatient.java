@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.entities.users.inactivity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.users.Doctor;
@@ -11,8 +12,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"patient", "doctor"})
+@ToString(exclude = {"patient", "author"})
 @Builder
+@JsonIgnoreProperties({"patient", "author"})
 @Entity
 @Table(name = "inactive_patient")
 public class InactivePatient {
@@ -34,7 +36,7 @@ public class InactivePatient {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private Doctor doctor;
+    private Doctor author;
 
     @Override
     public boolean equals(Object o) {

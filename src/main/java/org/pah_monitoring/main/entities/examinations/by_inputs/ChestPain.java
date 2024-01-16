@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.entities.examinations.by_inputs;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.EventDuration;
@@ -11,6 +12,7 @@ import org.pah_monitoring.main.entities.examinations.Examination;
 @Setter
 @ToString(exclude = "examination")
 @Builder
+@JsonIgnoreProperties("examination")
 @Entity
 @Table(name = "chest_pain")
 public class ChestPain {

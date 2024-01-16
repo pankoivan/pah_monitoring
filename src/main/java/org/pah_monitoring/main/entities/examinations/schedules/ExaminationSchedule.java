@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.entities.examinations.schedules;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.IndicatorsGroup;
@@ -11,6 +12,7 @@ import org.pah_monitoring.main.entities.users.Patient;
 @Setter
 @ToString(exclude = "patient")
 @Builder
+@JsonIgnoreProperties("patient")
 @Entity
 @Table(name = "examination_schedule")
 public class ExaminationSchedule {
