@@ -5,15 +5,14 @@ import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalRegistrationRequestSavingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
-import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
-import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
-import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.*;
 import org.pah_monitoring.main.repositorites.hospitals.HospitalRegistrationRequestRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
+
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Service
@@ -24,9 +23,15 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     private final HospitalService hospitalService;
 
     @Override
+    public HospitalRegistrationRequest findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Заявка с id \"%s\" не существует".formatted(id))
+        );
+    }
+
+    @Override
     public HospitalRegistrationRequest save(HospitalRegistrationRequestSavingDto savingDto) throws DataSavingServiceException {
         try {
-            Hospital hospital = hospitalService.save(savingDto.getHospitalSavingDto());
             return repository.save(
                     HospitalRegistrationRequest
                             .builder()
@@ -38,8 +43,8 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
                             .phoneNumber(PhoneNumberUtils.readable(savingDto.getPhoneNumber()))
                             .email(savingDto.getEmail())
                             .comment(savingDto.getComment())
-                            .hospital(hospital)
-                            .date(hospital.getDate())
+                            .date(LocalDateTime.now())
+                            .hospital(hospitalService.save(savingDto.getHospitalSavingDto()))
                             .build()
             );
         } catch (Exception e) {
@@ -49,7 +54,11 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
 
     @Override
     public void deleteById(Integer id) throws DataDeletionServiceException {
-
+        try {
+            repository.deleteById(id);
+        } catch (Exception e) {
+            throw new DataDeletionServiceException("Сущность с идентификатором \"%s\" не была удалена".formatted(id), e);
+        }
     }
 
     @Override
@@ -74,12 +83,28 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
 
     @Override
     public void checkDataValidityForDeleting(HospitalRegistrationRequest request) throws DataValidationServiceException {
-
+        if (request.getHospital().getCurrentState() != Hospital.CurrentState.WAITING_CODE) {
+            throw new DataValidationServiceException(
+                    "Медицинское учреждение \"%s\" не может быть удалено, так как заявка на его регистрацию была подтверждена"
+            );
+        }
     }
 
     @Override
     public int parsePathId(String pathId) throws UrlValidationServiceException {
-        return 0;
+        int id;
+        try {
+            id = Integer.parseInt(pathId);
+        } catch (NumberFormatException e) {
+            throw new UrlValidationServiceException("Идентификатор \"%s\" не является целым числом".formatted(pathId));
+        }
+        if (id <= 0) {
+            throw new UrlValidationServiceException("Идентификатор \"%s\" не является целым положительным числом".formatted(pathId));
+        }
+        if (!repository.existsById(id)) {
+            throw new UrlValidationServiceException("Идентификатор \"%s\" не существует".formatted(pathId));
+        }
+        return id;
     }
 
 }

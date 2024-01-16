@@ -5,16 +5,14 @@ import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalRegistrationRequestSavingDto;
 import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
+import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidationRestControllerException;
+import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataDeletionRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
-import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
-import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.*;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
@@ -35,6 +33,21 @@ public class HospitalRegistrationRequestRestController {
             return service.save(requestDto);
         } catch (DataSavingServiceException e) {
             throw new DataSavingRestControllerException(e.getMessage(), e);
+        }
+    }
+
+    @PostMapping("/delete/{id}")
+    public void delete(@PathVariable("id") String pathId) {
+        HospitalRegistrationRequest request;
+        try {
+            request = service.findById(service.parsePathId(pathId));
+        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
+            throw new UrlValidationRestControllerException(e.getMessage(), e);
+        }
+        try {
+            service.deleteById(request.getId());
+        } catch (DataDeletionServiceException e) {
+            throw new DataDeletionRestControllerException(e.getMessage(), e);
         }
     }
 
