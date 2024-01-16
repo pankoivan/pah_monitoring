@@ -15,6 +15,7 @@ import org.pah_monitoring.main.exceptions.service.DataValidationServiceException
 import org.pah_monitoring.main.repositorites.hospitals.HospitalRegistrationRequestRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
+import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,8 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     private HospitalRegistrationRequestRepository repository;
 
     private HospitalService hospitalService;
+
+    private UserSecurityInformationService securityInformationService;
 
     @Override
     public HospitalRegistrationRequest findById(Integer id) throws DataSearchingServiceException {
@@ -88,6 +91,11 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
             throw new DataValidationServiceException(
                     "Человек с номером телефона \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
                             .formatted(savingDto.getPhoneNumber())
+            );
+        }
+        if (securityInformationService.existsByEmail(savingDto.getEmail())) {
+            throw new DataValidationServiceException(
+                    "Человек с почтой \"%s\" уже зарегистрирован в приложении".formatted(savingDto.getPhoneNumber())
             );
         }
 
