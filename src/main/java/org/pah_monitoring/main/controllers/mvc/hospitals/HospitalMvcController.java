@@ -29,7 +29,7 @@ public class HospitalMvcController {
     @GetMapping("/{id}")
     public String getHospital(Model model, @PathVariable("id") String pathId) {
         try {
-            model.addAttribute("request", service.findById(service.parsePathId(pathId)));
+            model.addAttribute("hospital", service.findById(service.parsePathId(pathId)));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }

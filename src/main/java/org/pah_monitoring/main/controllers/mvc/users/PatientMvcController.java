@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc.users;
 
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.services.users.users.interfaces.AdministratorService;
+import org.pah_monitoring.main.services.users.users.interfaces.PatientService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/admins")
+@RequestMapping("/patients")
 @PreAuthorize("permitAll()")
-public class AdministratorController {
+public class PatientMvcController {
 
-    private final AdministratorService service;
+    private final PatientService service;
 
     @GetMapping
-    public String getAdmins(Model model) {
-        model.addAttribute("admins", service.findAll());
-        return "admins";
+    public String getPatients(Model model) {
+        model.addAttribute("patients", service.findAll());
+        return "users/patients";
     }
 
 }

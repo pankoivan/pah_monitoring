@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/doctors")
 @PreAuthorize("permitAll()")
-public class DoctorController {
+public class DoctorMvcController {
 
     private final DoctorService service;
 
     @GetMapping
     public String getDoctors(Model model) {
         model.addAttribute("doctors", service.findAll());
-        return "doctors";
+        return "users/doctors";
     }
 
 }
