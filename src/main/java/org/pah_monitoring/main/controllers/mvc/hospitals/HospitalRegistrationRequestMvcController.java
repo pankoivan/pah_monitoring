@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.controllers.mvc;
+package org.pah_monitoring.main.controllers.mvc.hospitals;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.controllers.rest;
+package org.pah_monitoring.main.controllers.rest.hospitals;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ public class HospitalRegistrationRequestRestController {
     private final HospitalRegistrationRequestService service;
 
     @PostMapping("/save")
-    public HospitalRegistrationRequest save(@Valid @RequestBody HospitalRegistrationRequestSavingDto requestDto, BindingResult bindingResult) {
+    public HospitalRegistrationRequest save(@RequestBody @Valid HospitalRegistrationRequestSavingDto requestDto, BindingResult bindingResult) {
         try {
             service.checkDataValidityForSaving(requestDto, bindingResult);
         } catch (DataValidationServiceException e) {
