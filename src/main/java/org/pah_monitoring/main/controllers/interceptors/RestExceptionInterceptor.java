@@ -1,6 +1,8 @@
 package org.pah_monitoring.main.controllers.interceptors;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.common.BadRequestRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.common.InternalServerErrorRestControllerException;
 import org.springframework.core.annotation.Order;
@@ -32,9 +34,7 @@ public class RestExceptionInterceptor {
 
     @NoArgsConstructor
     @AllArgsConstructor
-    @Getter
-    @Setter
-    @ToString
+    @Data
     public static class ExceptionEntity {
 
         private Integer errorStatusCode;

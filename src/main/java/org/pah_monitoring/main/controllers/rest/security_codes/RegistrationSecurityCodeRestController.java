@@ -1,6 +1,8 @@
 package org.pah_monitoring.main.controllers.rest.security_codes;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,9 +25,7 @@ public class RegistrationSecurityCodeRestController {
 
     @NoArgsConstructor
     @AllArgsConstructor
-    @Getter
-    @Setter
-    @ToString
+    @Data
     public static class CheckCode {
 
         private String code;
@@ -34,9 +34,7 @@ public class RegistrationSecurityCodeRestController {
 
     @NoArgsConstructor
     @AllArgsConstructor
-    @Getter
-    @Setter
-    @ToString
+    @Data
     public static class TrueFalseEntity {
 
         private boolean isTrue;
