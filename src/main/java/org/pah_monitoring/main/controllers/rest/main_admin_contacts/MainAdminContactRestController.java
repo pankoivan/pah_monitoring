@@ -8,10 +8,7 @@ import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValida
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataDeletionRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
-import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
-import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
-import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.*;
 import org.pah_monitoring.main.services.main_admin_contacts.interfaces.MainAdminContactService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -41,14 +38,14 @@ public class MainAdminContactRestController {
 
     @PostMapping("/delete/{id}")
     public void delete(@PathVariable("id") String pathId) {
-        int id;
+        MainAdminContact contact;
         try {
-            id = service.parsePathId(pathId);
-        } catch (UrlValidationServiceException e) {
+            contact = service.findById(service.parsePathId(pathId));
+        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
         }
         try {
-            service.deleteById(id);
+            service.deleteById(contact.getId());
         } catch (DataDeletionServiceException e) {
             throw new DataDeletionRestControllerException(e.getMessage(), e);
         }
