@@ -11,6 +11,7 @@ import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValida
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeGenerationService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class RegistrationSecurityCodeRestController {
     @Qualifier("codeGeneratorByAdmin")
     private RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByAdminSavingDto> codeGeneratorByAdmin;
 
+    @Autowired
+    private HospitalService hospitalService;
+
     @PostMapping("/check") // todo: for all
     public TrueFalseEntity isCodeExists(@RequestBody CheckCode checkCode) {
         return new TrueFalseEntity(service.existsByStringUuid(checkCode.code));
@@ -49,8 +53,10 @@ public class RegistrationSecurityCodeRestController {
                                                         BindingResult bindingResult) {
         try {
             codeGeneratorByMainAdmin.checkDataValidityForSaving(savingDto, bindingResult);
+            RegistrationSecurityCode code = codeGeneratorByMainAdmin.generate(savingDto);
             // todo: email message
-            return codeGeneratorByMainAdmin.generate(savingDto);
+            hospitalService.codeReceived(code.getHospital());
+            return code;
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -60,7 +66,7 @@ public class RegistrationSecurityCodeRestController {
 
     @PostMapping("/generate/by-admin") // todo: only for admin
     public RegistrationSecurityCode generateByAdmin(@RequestBody @Valid RegistrationSecurityCodeByAdminSavingDto savingDto,
-                                                        BindingResult bindingResult) {
+                                                    BindingResult bindingResult) {
         try {
             codeGeneratorByAdmin.checkDataValidityForSaving(savingDto, bindingResult);
             // todo: email message

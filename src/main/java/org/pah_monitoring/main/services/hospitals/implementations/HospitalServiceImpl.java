@@ -87,11 +87,13 @@ public class HospitalServiceImpl implements HospitalService {
     @Override
     public void codeReceived(Hospital hospital) {
         hospital.setCurrentState(Hospital.CurrentState.WAITING_REGISTRATION);
+        repository.save(hospital);
     }
 
     @Override
     public void registered(Hospital hospital) {
         hospital.setCurrentState(Hospital.CurrentState.REGISTERED);
+        repository.save(hospital);
     }
 
     @Override

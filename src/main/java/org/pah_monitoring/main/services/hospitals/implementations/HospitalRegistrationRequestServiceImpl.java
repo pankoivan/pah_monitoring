@@ -12,6 +12,7 @@ import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.utils.PhoneNumberUtilsException;
 import org.pah_monitoring.main.repositorites.hospitals.HospitalRegistrationRequestRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
@@ -87,11 +88,15 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
                             .formatted(savingDto.getPassport())
             );
         }
-        if (repository.existsByPhoneNumber(savingDto.getPhoneNumber())) {
-            throw new DataValidationServiceException(
-                    "Человек с номером телефона \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
-                            .formatted(savingDto.getPhoneNumber())
-            );
+        try {
+            if (repository.existsByPhoneNumber(PhoneNumberUtils.readable(savingDto.getPhoneNumber()))) {
+                throw new DataValidationServiceException(
+                        "Человек с номером телефона \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
+                                .formatted(savingDto.getPhoneNumber())
+                );
+            }
+        } catch (PhoneNumberUtilsException e) {
+            throw new DataValidationServiceException(e.getMessage(), e);
         }
         if (repository.existsByEmail(savingDto.getEmail())) {
             throw new DataValidationServiceException(
@@ -113,6 +118,7 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
         if (request.getHospital().getCurrentState() != Hospital.CurrentState.WAITING_CODE) {
             throw new DataValidationServiceException(
                     "Медицинское учреждение \"%s\" не может быть удалено, так как заявка на его регистрацию была подтверждена"
+                            .formatted(request.getHospital().getName())
             );
         }
     }
