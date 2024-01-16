@@ -22,8 +22,8 @@ public class HospitalRegistrationRequestRestController {
 
     private final HospitalRegistrationRequestService service;
 
-    @PostMapping("/save")
-    public HospitalRegistrationRequest save(@RequestBody @Valid HospitalRegistrationRequestSavingDto requestDto, BindingResult bindingResult) {
+    @PostMapping("/add")
+    public HospitalRegistrationRequest add(@RequestBody @Valid HospitalRegistrationRequestSavingDto requestDto, BindingResult bindingResult) {
         try {
             service.checkDataValidityForSaving(requestDto, bindingResult);
         } catch (DataValidationServiceException e) {
@@ -43,6 +43,11 @@ public class HospitalRegistrationRequestRestController {
             request = service.findById(service.parsePathId(pathId));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
+        }
+        try {
+            service.checkDataValidityForDeleting(request);
+        } catch (DataValidationServiceException e) {
+            throw new DataValidationRestControllerException(e.getMessage(), e);
         }
         try {
             service.deleteById(request.getId());

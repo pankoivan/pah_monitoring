@@ -5,7 +5,10 @@ import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalRegistrationRequestSavingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
-import org.pah_monitoring.main.exceptions.service.*;
+import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
+import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
+import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
+import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.hospitals.HospitalRegistrationRequestRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
@@ -69,12 +72,16 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
         if (repository.existsByPassport(savingDto.getPassport())) {
-            throw new DataValidationServiceException("Человек с паспортными данными \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
-                    .formatted(savingDto.getPassport()));
+            throw new DataValidationServiceException(
+                    "Человек с паспортными данными \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
+                            .formatted(savingDto.getPassport())
+            );
         }
         if (repository.existsByPhoneNumber(savingDto.getPhoneNumber())) {
-            throw new DataValidationServiceException("Человек с номером телефона \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
-                    .formatted(savingDto.getPhoneNumber()));
+            throw new DataValidationServiceException(
+                    "Человек с номером телефона \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
+                            .formatted(savingDto.getPhoneNumber())
+            );
         }
 
         hospitalService.checkDataValidityForSaving(savingDto.getHospitalSavingDto(), bindingResult);
@@ -88,23 +95,6 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
                     "Медицинское учреждение \"%s\" не может быть удалено, так как заявка на его регистрацию была подтверждена"
             );
         }
-    }
-
-    @Override
-    public int parsePathId(String pathId) throws UrlValidationServiceException {
-        int id;
-        try {
-            id = Integer.parseInt(pathId);
-        } catch (NumberFormatException e) {
-            throw new UrlValidationServiceException("Идентификатор \"%s\" не является целым числом".formatted(pathId));
-        }
-        if (id <= 0) {
-            throw new UrlValidationServiceException("Идентификатор \"%s\" не является целым положительным числом".formatted(pathId));
-        }
-        if (!repository.existsById(id)) {
-            throw new UrlValidationServiceException("Идентификатор \"%s\" не существует".formatted(pathId));
-        }
-        return id;
     }
 
 }

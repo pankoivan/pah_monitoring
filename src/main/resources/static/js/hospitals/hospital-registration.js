@@ -21,7 +21,7 @@ hospitalRegistrationForm.addEventListener("submit", function (event) {
 });
 
 function fetchSave(data) {
-    fetch("http://localhost:8080/rest/hospital-registration-requests/save", {
+    fetch("http://localhost:8080/rest/hospital-registration-requests/add", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
