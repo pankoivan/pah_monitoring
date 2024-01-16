@@ -33,10 +33,4 @@ public class HospitalAdministratorMvcController {
         return "users/admins";
     }
 
-    @GetMapping("/{id}")
-    public String getAdmin(Model model, @PathVariable("hospitalId") String pathHospitalId, @PathVariable("id") String pathId) {
-        // todo: add method to admin service
-        return "users/profiles/admin-profile";
-    }
-
 }

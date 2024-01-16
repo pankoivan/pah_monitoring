@@ -49,11 +49,6 @@ public class PatientServiceImpl implements PatientService {
     private DoctorService doctorService;
 
     @Override
-    public List<Patient> findAllByDoctorId(Integer id) throws DataSearchingServiceException {
-        return repository.findAllByDoctorId(doctorService.findById(id).getId());
-    }
-
-    @Override
     public List<Patient> findAll() {
         return repository.findAll();
     }

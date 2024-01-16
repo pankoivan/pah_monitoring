@@ -5,7 +5,6 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
-import org.pah_monitoring.main.services.users.users.interfaces.AdministratorService;
 import org.pah_monitoring.main.services.users.users.interfaces.DoctorService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -32,12 +31,6 @@ public class HospitalDoctorMvcController {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }
         return "users/doctors";
-    }
-
-    @GetMapping("/{id}")
-    public String getDoctor(Model model, @PathVariable("hospitalId") String pathHospitalId, @PathVariable("id") String pathId) {
-        // todo: add method to admin service
-        return "users/profiles/doctor-profile";
     }
 
 }
