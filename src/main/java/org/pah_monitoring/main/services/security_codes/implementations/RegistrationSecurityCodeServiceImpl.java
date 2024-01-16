@@ -28,7 +28,7 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
 
     @Override
     public boolean isExpired(RegistrationSecurityCode code) {
-        return code.getExpirationDate().isAfter(LocalDateTime.now());
+        return LocalDateTime.now().isAfter(code.getExpirationDate());
     }
 
     @Override

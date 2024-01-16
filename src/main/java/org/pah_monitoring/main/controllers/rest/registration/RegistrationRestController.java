@@ -21,9 +21,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
-@Controller
+@RestController
 @RequestMapping("/rest/registration")
 @PreAuthorize("permitAll()")
 public class RegistrationRestController {
@@ -34,8 +35,8 @@ public class RegistrationRestController {
 
     private final PatientService patientService;
 
-    @PostMapping("/administrator")
-    public Administrator addAdministrator(@RequestBody @Valid AdministratorSavingDto savingDto, BindingResult bindingResult) {
+    @PostMapping("/admin")
+    public Administrator addAdmin(@RequestBody @Valid AdministratorSavingDto savingDto, BindingResult bindingResult) {
         try {
             administratorService.checkDataValidityForSaving(savingDto, bindingResult);
             return administratorService.add(savingDto);

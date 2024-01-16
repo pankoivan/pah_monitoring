@@ -11,6 +11,7 @@ import org.pah_monitoring.main.entities.users.Administrator;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.security_codes.RegistrationSecurityCodeRepository;
+import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeGenerationService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,8 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
 
     private UserSecurityInformationService securityInformationService;
 
+    private HospitalService hospitalService;
+
     @Override
     public RegistrationSecurityCode generate(RegistrationSecurityCodeByAdminSavingDto savingDto) throws DataSavingServiceException {
         try {
@@ -44,11 +47,12 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
                             .email(savingDto.getEmail())
                             .expirationDate(LocalDateTime.now().plusDays(savingDto.getExpirationDate().getDays()))
                             .hospital(
-                                    AuthenticationUtils.extractCurrentUser(
+                                    hospitalService.findById(9)
+                                    /*AuthenticationUtils.extractCurrentUser(
                                             SecurityContextHolder.getContext().getAuthentication(),
                                             Administrator.class
                                     ).getEmployeeInformation()
-                                            .getHospital()
+                                            .getHospital()*/
                             )
                             .build()
             );
