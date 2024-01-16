@@ -27,6 +27,11 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
     private PasswordEncoder passwordEncoder;
 
     @Override
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
+    }
+
+    @Override
     public UserSecurityInformation save(UserSecurityInformationSavingDto savingDto) throws DataSavingServiceException {
         try {
             return repository.save(

@@ -7,6 +7,8 @@ import org.pah_monitoring.main.services.validation.interfaces.SavingValidationSe
 
 public interface UserSecurityInformationService extends SavingValidationService<UserSecurityInformationSavingDto> {
 
+    boolean existsByEmail(String email);
+
     UserSecurityInformation save(UserSecurityInformationSavingDto savingDto) throws DataSavingServiceException;
 
 }
