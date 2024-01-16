@@ -13,6 +13,7 @@ import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.main_admin_contacts.MainAdminContactRepository;
 import org.pah_monitoring.main.services.main_admin_contacts.interfaces.MainAdminContactService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -22,7 +23,7 @@ import java.util.Optional;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
+@Setter(onMethod = @__(@Autowired))
 @Service
 public class MainAdminContactServiceImpl implements MainAdminContactService {
 

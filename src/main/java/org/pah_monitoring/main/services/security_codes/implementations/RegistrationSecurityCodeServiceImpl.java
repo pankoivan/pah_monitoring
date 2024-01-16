@@ -11,6 +11,7 @@ import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.security_codes.RegistrationSecurityCodeRepository;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
+@Setter(onMethod = @__(@Autowired))
 @Service
 public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurityCodeService {
 

@@ -11,13 +11,14 @@ import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.users.info.UserInformationRepository;
 import org.pah_monitoring.main.services.users.info.interfaces.UserInformationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
+@Setter(onMethod = @__(@Autowired))
 @Service
 public class UserInformationServiceImpl implements UserInformationService {
 

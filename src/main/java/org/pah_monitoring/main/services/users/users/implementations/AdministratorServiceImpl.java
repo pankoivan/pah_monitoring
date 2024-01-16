@@ -22,6 +22,7 @@ import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSe
 import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformationService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
 import org.pah_monitoring.main.services.users.users.interfaces.AdministratorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -30,7 +31,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
+@Setter(onMethod = @__(@Autowired))
 @Service
 public class AdministratorServiceImpl implements AdministratorService {
 

@@ -23,6 +23,7 @@ import org.pah_monitoring.main.services.users.info.interfaces.UserInformationSer
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
 import org.pah_monitoring.main.services.users.users.interfaces.DoctorService;
 import org.pah_monitoring.main.services.users.users.interfaces.PatientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -31,7 +32,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
+@Setter(onMethod = @__(@Autowired))
 @Service
 public class PatientServiceImpl implements PatientService {
 

@@ -15,6 +15,7 @@ import org.pah_monitoring.main.exceptions.service.DataValidationServiceException
 import org.pah_monitoring.main.repositorites.hospitals.HospitalRegistrationRequestRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -23,7 +24,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
+@Setter(onMethod = @__(@Autowired))
 @Service
 public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrationRequestService {
 

@@ -12,13 +12,14 @@ import org.pah_monitoring.main.exceptions.service.DataValidationServiceException
 import org.pah_monitoring.main.repositorites.users.info.EmployeeInformationRepository;
 import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformationService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserInformationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
+@Setter(onMethod = @__(@Autowired))
 @Service
 public class EmployeeInformationServiceImpl implements EmployeeInformationService {
 

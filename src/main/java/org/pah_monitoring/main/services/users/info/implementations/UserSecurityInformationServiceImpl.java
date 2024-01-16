@@ -10,6 +10,7 @@ import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.users.info.UserSecurityInformationRepository;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -17,7 +18,7 @@ import org.springframework.validation.BindingResult;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
+@Setter(onMethod = @__(@Autowired))
 @Service
 public class UserSecurityInformationServiceImpl implements UserSecurityInformationService {
 
