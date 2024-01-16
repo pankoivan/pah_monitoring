@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS registration_security_code
 	hospital_id INT REFERENCES hospital (id) NOT NULL,
 	role VARCHAR (24) NOT NULL,
 	code UUID UNIQUE NOT NULL,
+	email VARCHAR (256) NOT NULL,
 	expiration_date TIMESTAMP NOT NULL
 );
 
