@@ -41,10 +41,18 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public Hospital findById(Integer id) throws DataSearchingServiceException {
-        return repository.findById(id).orElseThrow(
+    public Hospital findByIdWithCurrentStateCheck(Integer id) throws DataSearchingServiceException, DataValidationServiceException {
+        Hospital hospital = repository.findById(id).orElseThrow(
                 () -> new DataSearchingServiceException("Медицинское учреждение с id \"%s\" не существует".formatted(id))
         );
+        if (hospital.getCurrentState() == Hospital.CurrentState.REGISTERED) {
+            return hospital;
+        } else {
+            throw new DataValidationServiceException(("Невозможно получить информацию о медицинском учреждении \"%s\", " +
+                    "так как оно в данный момент ещё не зарегистрировано, а только ожидает выдачи кода или регистрации администратора")
+                            .formatted(hospital.getName())
+            );
+        }
     }
 
     @Override
