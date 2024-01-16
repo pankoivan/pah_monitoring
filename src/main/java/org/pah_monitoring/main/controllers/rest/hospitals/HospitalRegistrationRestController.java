@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/rest/hospital-registration-requests")
+@RequestMapping("/rest/hospital-registration/requests")
 @PreAuthorize("permitAll()")
-public class HospitalRegistrationRequestRestController {
+public class HospitalRegistrationRestController {
 
     private final HospitalRegistrationRequestService service;
 
