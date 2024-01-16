@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.entities.hospitals;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -47,6 +48,7 @@ public class HospitalRegistrationRequest {
     @Column(name = "date")
     private LocalDateTime date;
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;

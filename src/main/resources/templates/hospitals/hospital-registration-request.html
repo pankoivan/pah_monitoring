@@ -84,7 +84,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body fs-5" id="code-generation-modal-text">
-                        <form action="#" th:action="@{/rest/code-generation}" class="border rounded text-secondary fs-5 p-3">
+                        <form action="#" th:action="@{/rest/code-generation}" class="border rounded text-secondary fs-5 p-3" id="code-generation-form">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Медицинское учреждение</label>
                                 <input type="text" name="name" id="name" class="form-control" disabled th:value="${request.hospital.name}" />
@@ -118,6 +118,10 @@
                 </div>
             </div>
         </div>
+        <!-- Модальное окно для сообщений об ошибке -->
+        <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
+        <!-- Модальное окно для сообщений об успехе -->
+        <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
         <!-- Скрипты -->
         <script src="../../static/js/hospitals/hospital-registration-request.js" th:src="@{/js/hospitals/hospital-registration-request.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>

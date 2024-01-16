@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.entities.hospitals;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.users.Patient;
@@ -36,12 +37,15 @@ public class Hospital {
     @Column(name = "current_state")
     private CurrentState currentState;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "hospital")
     private List<EmployeeInformation> employees;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "hospital")
     private List<Patient> patients;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "hospital")
     private HospitalRegistrationRequest request;
 

@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.entities.security_codes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.Role;
@@ -36,6 +37,7 @@ public class RegistrationSecurityCode {
     @Column(name = "expiration_date")
     private LocalDateTime expirationDate;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
