@@ -42,11 +42,11 @@ public class RegistrationSecurityCodeRestController {
     private RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByAdminSavingDto> codeGeneratorByAdmin;
 
     @Autowired
-    private HospitalService hospitalService;
-
-    @Autowired
     @Qualifier("codeEmailSender")
     private EmailService<RegistrationSecurityCode> emailService;
+
+    @Autowired
+    private HospitalService hospitalService;
 
     @PostMapping("/check") // todo: for all
     public TrueFalseEntity isCodeExists(@RequestBody CheckCode checkCode) {
@@ -59,7 +59,7 @@ public class RegistrationSecurityCodeRestController {
         try {
             codeGeneratorByMainAdmin.checkDataValidityForSaving(savingDto, bindingResult);
             RegistrationSecurityCode code = codeGeneratorByMainAdmin.generate(savingDto);
-            emailService.send(code.getEmail(), code, true);
+            emailService.send(code.getEmail(), code, false);
             hospitalService.upgrade(code.getHospital());
             return code;
         } catch (DataValidationServiceException e) {
@@ -75,7 +75,7 @@ public class RegistrationSecurityCodeRestController {
         try {
             codeGeneratorByAdmin.checkDataValidityForSaving(savingDto, bindingResult);
             RegistrationSecurityCode code = codeGeneratorByAdmin.generate(savingDto);
-            emailService.send(code.getEmail(), code, true);
+            emailService.send(code.getEmail(), code, false);
             return code;
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
