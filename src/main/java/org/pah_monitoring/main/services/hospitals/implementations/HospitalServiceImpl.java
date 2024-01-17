@@ -92,8 +92,10 @@ public class HospitalServiceImpl implements HospitalService {
 
     @Override
     public void registered(Hospital hospital) {
-        hospital.setCurrentState(Hospital.CurrentState.REGISTERED);
-        repository.save(hospital);
+        if (hospital.getCurrentState() != Hospital.CurrentState.REGISTERED) {
+            hospital.setCurrentState(Hospital.CurrentState.REGISTERED);
+            repository.save(hospital);
+        }
     }
 
     @Override
