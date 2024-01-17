@@ -83,6 +83,12 @@ public class AdministratorServiceImpl implements AdministratorService {
             throw new SecurityCodeValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.ADMINISTRATOR.getAlias()));
         }
 
+        if (codeService.isNotSuitableForEmail(code, savingDto.getUserSecurityInformationSavingDto().getEmail())) {
+            throw new SecurityCodeValidationServiceException(
+                    "Код не предназначен для почты \"%s\"".formatted(savingDto.getUserSecurityInformationSavingDto().getEmail())
+            );
+        }
+
         UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
         securityInformationSavingDto.setId(null);
 
@@ -125,8 +131,8 @@ public class AdministratorServiceImpl implements AdministratorService {
                             .userSecurityInformation(securityInformationService.save(securityInformationSavingDto))
                             .employeeInformation(employeeInformationService.save(
                                     employeeInformationSavingDto,
-                                    administrator.getEmployeeInformation().getHospital())
-                            )
+                                    administrator.getEmployeeInformation().getHospital()
+                            ))
                             .build()
             );
         } catch (Exception e) {

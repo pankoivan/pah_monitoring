@@ -86,6 +86,12 @@ public class PatientServiceImpl implements PatientService {
             throw new SecurityCodeValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.PATIENT.getAlias()));
         }
 
+        if (codeService.isNotSuitableForEmail(code, savingDto.getUserSecurityInformationSavingDto().getEmail())) {
+            throw new SecurityCodeValidationServiceException(
+                    "Код не предназначен для почты \"%s\"".formatted(savingDto.getUserSecurityInformationSavingDto().getEmail())
+            );
+        }
+
         UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
         securityInformationSavingDto.setId(null);
 

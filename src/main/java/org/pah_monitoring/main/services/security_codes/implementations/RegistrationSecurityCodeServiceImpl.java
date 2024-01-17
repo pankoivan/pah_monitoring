@@ -38,6 +38,11 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
     }
 
     @Override
+    public boolean isNotSuitableForEmail(RegistrationSecurityCode code, String email) {
+        return !code.getEmail().equals(email);
+    }
+
+    @Override
     public RegistrationSecurityCode findByUuid(UUID uuid) throws DataSearchingServiceException {
         return repository.findByCode(uuid).orElseThrow(
                 () -> new DataSearchingServiceException("Код \"%s\" не существует".formatted(uuid))
@@ -52,6 +57,11 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
     }
 
     @Override
+    public boolean existsByUuid(UUID uuid) {
+        return repository.existsByCode(uuid);
+    }
+
+    @Override
     public boolean existsByStringUuid(String stringUuid) {
         try {
             findByStringUuid(stringUuid);
@@ -62,11 +72,14 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
     }
 
     @Override
-    public void deleteById(Integer id) throws DataDeletionServiceException {
+    public void deleteByEmail(String email) throws DataSearchingServiceException, DataDeletionServiceException {
+        if (repository.findByEmail(email).isEmpty()) {
+            throw new DataSearchingServiceException("Для почты \"%s\" не существует кода".formatted(email));
+        }
         try {
-            repository.deleteById(id);
+            repository.deleteByEmail(email);
         } catch (Exception e) {
-            throw new DataDeletionServiceException("Сущность с идентификатором \"%s\" не была удалена".formatted(id), e);
+            throw new DataDeletionServiceException("Сущность с полем \"email\" = \"%s\" не была удалена".formatted(email), e);
         }
     }
 

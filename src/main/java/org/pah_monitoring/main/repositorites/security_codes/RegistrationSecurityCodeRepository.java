@@ -10,10 +10,14 @@ import java.util.UUID;
 @Repository
 public interface RegistrationSecurityCodeRepository extends JpaRepository<RegistrationSecurityCode, Integer> {
 
-    boolean existsByCode(UUID code);
+    boolean existsByCode(UUID uuid);
 
     Optional<RegistrationSecurityCode> findByCode(UUID code);
 
     boolean existsByEmail(String email);
+
+    Optional<RegistrationSecurityCode> findByEmail(String email);
+
+    void deleteByEmail(String email);
 
 }

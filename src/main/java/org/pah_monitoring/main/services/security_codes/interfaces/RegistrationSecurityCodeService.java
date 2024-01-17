@@ -14,12 +14,16 @@ public interface RegistrationSecurityCodeService {
 
     boolean isNotSuitableForRole(RegistrationSecurityCode code, Role role);
 
+    boolean isNotSuitableForEmail(RegistrationSecurityCode code, String email);
+
     RegistrationSecurityCode findByUuid(UUID uuid) throws DataSearchingServiceException;
 
     RegistrationSecurityCode findByStringUuid(String stringUuid) throws UuidUtilsException, DataSearchingServiceException;
 
+    boolean existsByUuid(UUID uuid);
+
     boolean existsByStringUuid(String stringUuid);
 
-    void deleteById(Integer id) throws DataDeletionServiceException;
+    void deleteByEmail(String email) throws DataSearchingServiceException, DataDeletionServiceException;
 
 }

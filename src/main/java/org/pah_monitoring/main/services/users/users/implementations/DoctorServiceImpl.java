@@ -83,6 +83,12 @@ public class DoctorServiceImpl implements DoctorService {
             throw new SecurityCodeValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.DOCTOR.getAlias()));
         }
 
+        if (codeService.isNotSuitableForEmail(code, savingDto.getUserSecurityInformationSavingDto().getEmail())) {
+            throw new SecurityCodeValidationServiceException(
+                    "Код не предназначен для почты \"%s\"".formatted(savingDto.getUserSecurityInformationSavingDto().getEmail())
+            );
+        }
+
         UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
         securityInformationSavingDto.setId(null);
 
@@ -126,8 +132,8 @@ public class DoctorServiceImpl implements DoctorService {
                             .userSecurityInformation(securityInformationService.save(securityInformationSavingDto))
                             .employeeInformation(employeeInformationService.save(
                                     employeeInformationSavingDto,
-                                    doctor.getEmployeeInformation().getHospital())
-                            )
+                                    doctor.getEmployeeInformation().getHospital()
+                            ))
                             .build()
             );
         } catch (Exception e) {

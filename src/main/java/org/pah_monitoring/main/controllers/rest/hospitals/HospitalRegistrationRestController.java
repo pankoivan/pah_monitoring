@@ -23,10 +23,10 @@ public class HospitalRegistrationRestController {
     private final HospitalRegistrationRequestService service;
 
     @PostMapping("/add") // todo: for all
-    public HospitalRegistrationRequest add(@RequestBody @Valid HospitalRegistrationRequestSavingDto requestDto, BindingResult bindingResult) {
+    public HospitalRegistrationRequest add(@RequestBody @Valid HospitalRegistrationRequestSavingDto savingDto, BindingResult bindingResult) {
         try {
-            service.checkDataValidityForSaving(requestDto, bindingResult);
-            return service.add(requestDto);
+            service.checkDataValidityForSaving(savingDto, bindingResult);
+            return service.add(savingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {

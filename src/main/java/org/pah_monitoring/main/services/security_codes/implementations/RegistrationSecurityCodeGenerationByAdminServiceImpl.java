@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.utils.AuthenticationUtils;
 import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByAdminSavingDto;
+import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.entities.users.Administrator;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
@@ -68,14 +69,13 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
         if (repository.existsByEmail(savingDto.getEmail())) {
-            throw new DataValidationServiceException(
-                    "Пользователю с почтой \"%s\" уже выдан код".formatted(savingDto.getEmail())
-            );
+            throw new DataValidationServiceException("Пользователю с почтой \"%s\" уже выдан код".formatted(savingDto.getEmail()));
         }
         if (securityInformationService.existsByEmail(savingDto.getEmail())) {
-            throw new DataValidationServiceException(
-                    "Пользователь с почтой \"%s\" уже зарегистрирован".formatted(savingDto.getEmail())
-            );
+            throw new DataValidationServiceException("Пользователь с почтой \"%s\" уже зарегистрирован".formatted(savingDto.getEmail()));
+        }
+        if (savingDto.getRole() == Role.MAIN_ADMINISTRATOR) {
+            throw new DataValidationServiceException("Для роли \"%s\" не предусмотрена генерация кода".formatted(savingDto.getEmail()));
         }
 
     }
