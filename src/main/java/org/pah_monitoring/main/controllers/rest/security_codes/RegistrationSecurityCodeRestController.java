@@ -11,6 +11,7 @@ import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValida
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.services.auxiliary.email.interfaces.EmailService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeGenerationService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
@@ -43,6 +44,10 @@ public class RegistrationSecurityCodeRestController {
     @Autowired
     private HospitalService hospitalService;
 
+    @Autowired
+    @Qualifier("codeEmailSender")
+    private EmailService<RegistrationSecurityCode> emailService;
+
     @PostMapping("/check") // todo: for all
     public TrueFalseEntity isCodeExists(@RequestBody CheckCode checkCode) {
         return new TrueFalseEntity(service.existsByStringUuid(checkCode.code));
@@ -54,7 +59,7 @@ public class RegistrationSecurityCodeRestController {
         try {
             codeGeneratorByMainAdmin.checkDataValidityForSaving(savingDto, bindingResult);
             RegistrationSecurityCode code = codeGeneratorByMainAdmin.generate(savingDto);
-            // todo: email message
+            emailService.send(code.getEmail(), code, true);
             hospitalService.upgrade(code.getHospital());
             return code;
         } catch (DataValidationServiceException e) {
@@ -69,8 +74,9 @@ public class RegistrationSecurityCodeRestController {
                                                     BindingResult bindingResult) {
         try {
             codeGeneratorByAdmin.checkDataValidityForSaving(savingDto, bindingResult);
-            // todo: email message
-            return codeGeneratorByAdmin.generate(savingDto);
+            RegistrationSecurityCode code = codeGeneratorByAdmin.generate(savingDto);
+            emailService.send(code.getEmail(), code, true);
+            return code;
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {

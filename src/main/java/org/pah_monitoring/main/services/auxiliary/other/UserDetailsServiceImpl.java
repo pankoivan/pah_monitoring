@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.services.auxiliary.implementations;
+package org.pah_monitoring.main.services.auxiliary.other;
 
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.repositorites.users.AdministratorRepository;
