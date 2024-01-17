@@ -20,8 +20,6 @@ public interface HospitalService extends SavingValidationService<HospitalSavingD
 
     Hospital add(HospitalSavingDto savingDto) throws DataSavingServiceException;
 
-    void codeReceived(Hospital hospital);
-
-    void registered(Hospital hospital);
+    void upgrade(Hospital hospital);
 
 }

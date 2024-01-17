@@ -85,17 +85,13 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public void codeReceived(Hospital hospital) {
-        hospital.setCurrentState(Hospital.CurrentState.WAITING_REGISTRATION);
-        repository.save(hospital);
-    }
-
-    @Override
-    public void registered(Hospital hospital) {
-        if (hospital.getCurrentState() != Hospital.CurrentState.REGISTERED) {
+    public void upgrade(Hospital hospital) {
+        if (hospital.getCurrentState() == Hospital.CurrentState.WAITING_CODE) {
+            hospital.setCurrentState(Hospital.CurrentState.WAITING_REGISTRATION);
+        } else if (hospital.getCurrentState() == Hospital.CurrentState.WAITING_REGISTRATION) {
             hospital.setCurrentState(Hospital.CurrentState.REGISTERED);
-            repository.save(hospital);
         }
+        repository.save(hospital);
     }
 
     @Override

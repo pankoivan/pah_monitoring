@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.services.security_codes.implementations;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -71,6 +72,7 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
         }
     }
 
+    @Transactional
     @Override
     public void deleteByEmail(String email) throws DataSearchingServiceException, DataDeletionServiceException {
         if (repository.findByEmail(email).isEmpty()) {

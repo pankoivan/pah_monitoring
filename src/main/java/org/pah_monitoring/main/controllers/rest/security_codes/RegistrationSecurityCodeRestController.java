@@ -55,7 +55,7 @@ public class RegistrationSecurityCodeRestController {
             codeGeneratorByMainAdmin.checkDataValidityForSaving(savingDto, bindingResult);
             RegistrationSecurityCode code = codeGeneratorByMainAdmin.generate(savingDto);
             // todo: email message
-            hospitalService.codeReceived(code.getHospital());
+            hospitalService.upgrade(code.getHospital());
             return code;
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);

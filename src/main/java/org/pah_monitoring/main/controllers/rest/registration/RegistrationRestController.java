@@ -49,7 +49,7 @@ public class RegistrationRestController {
             administratorService.checkDataValidityForSaving(savingDto, bindingResult);
             Administrator administrator = administratorService.add(savingDto);
             codeService.deleteByEmail(administrator.getUserSecurityInformation().getEmail());
-            hospitalService.registered(administrator.getEmployeeInformation().getHospital());
+            hospitalService.upgrade(administrator.getEmployeeInformation().getHospital());
             return administrator;
         } catch (DataValidationServiceException | DataSearchingServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
