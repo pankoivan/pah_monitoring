@@ -26,11 +26,9 @@ public class HospitalRegistrationRestController {
     public HospitalRegistrationRequest add(@RequestBody @Valid HospitalRegistrationRequestSavingDto requestDto, BindingResult bindingResult) {
         try {
             service.checkDataValidityForSaving(requestDto, bindingResult);
+            return service.add(requestDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
-        }
-        try {
-            return service.add(requestDto);
         } catch (DataSavingServiceException e) {
             throw new DataSavingRestControllerException(e.getMessage(), e);
         }
@@ -38,19 +36,14 @@ public class HospitalRegistrationRestController {
 
     @PostMapping("/delete/{id}") // todo: only for main admin
     public void delete(@PathVariable("id") String pathId) {
-        HospitalRegistrationRequest request;
         try {
-            request = service.findById(service.parsePathId(pathId));
+            int id = service.parsePathId(pathId);
+            service.checkDataValidityForDeleting(service.findById(id));
+            service.deleteById(id);
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
-        }
-        try {
-            service.checkDataValidityForDeleting(request);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
-        }
-        try {
-            service.deleteById(request.getId());
         } catch (DataDeletionServiceException e) {
             throw new DataDeletionRestControllerException(e.getMessage(), e);
         }
