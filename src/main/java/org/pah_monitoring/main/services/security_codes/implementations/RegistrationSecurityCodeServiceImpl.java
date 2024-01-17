@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.pah_monitoring.auxiliary.utils.UuidUtils;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
+import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.security_codes.RegistrationSecurityCodeRepository;
@@ -61,8 +62,12 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
     }
 
     @Override
-    public boolean existsByEmail(String email) {
-        return repository.existsByEmail(email);
+    public void deleteById(Integer id) throws DataDeletionServiceException {
+        try {
+            repository.deleteById(id);
+        } catch (Exception e) {
+            throw new DataDeletionServiceException("Сущность с идентификатором \"%s\" не была удалена".formatted(id), e);
+        }
     }
 
 }

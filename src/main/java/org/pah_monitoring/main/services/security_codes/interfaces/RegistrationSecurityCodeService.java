@@ -2,6 +2,7 @@ package org.pah_monitoring.main.services.security_codes.interfaces;
 
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
+import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 
@@ -19,6 +20,6 @@ public interface RegistrationSecurityCodeService {
 
     boolean existsByStringUuid(String stringUuid);
 
-    boolean existsByEmail(String email);
+    void deleteById(Integer id) throws DataDeletionServiceException;
 
 }
