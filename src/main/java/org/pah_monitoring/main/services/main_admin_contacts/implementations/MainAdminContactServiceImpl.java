@@ -58,9 +58,10 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
     }
 
     @Override
-    public void deleteById(Integer id) throws DataDeletionServiceException {
+    public void deleteById(Integer id) throws DataSearchingServiceException, DataDeletionServiceException {
+        MainAdminContact contact = findById(id);
         try {
-            repository.deleteById(id);
+            repository.deleteById(contact.getId());
         } catch (Exception e) {
             throw new DataDeletionServiceException("Сущность с идентификатором \"%s\" не была удалена".formatted(id), e);
         }

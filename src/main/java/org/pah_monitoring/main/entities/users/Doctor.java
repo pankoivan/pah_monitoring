@@ -47,7 +47,7 @@ public class Doctor implements UserDetails {
     @OneToMany(mappedBy = "doctor")
     private List<Examination> examinations;
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "author")
     private List<InactivePatient> assignedInactivePatients;
 
     public Role getRole() {

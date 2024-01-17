@@ -26,11 +26,9 @@ public class MainAdminContactRestController {
     public MainAdminContact save(@RequestBody @Valid MainAdminContactSavingDto savingDto, BindingResult bindingResult) {
         try {
             service.checkDataValidityForSaving(savingDto, bindingResult);
+            return service.save(savingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
-        }
-        try {
-            return service.save(savingDto);
         } catch (DataSavingServiceException e) {
             throw new DataSavingRestControllerException(e.getMessage(), e);
         }
@@ -38,14 +36,10 @@ public class MainAdminContactRestController {
 
     @PostMapping("/delete/{id}")
     public void delete(@PathVariable("id") String pathId) {
-        MainAdminContact contact;
         try {
-            contact = service.findById(service.parsePathId(pathId));
+            service.deleteById(service.parsePathId(pathId));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
-        }
-        try {
-            service.deleteById(contact.getId());
         } catch (DataDeletionServiceException e) {
             throw new DataDeletionRestControllerException(e.getMessage(), e);
         }
