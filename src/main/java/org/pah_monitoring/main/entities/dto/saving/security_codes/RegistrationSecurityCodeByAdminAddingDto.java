@@ -12,7 +12,7 @@ import org.pah_monitoring.main.entities.enums.Role;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class RegistrationSecurityCodeByAdminSavingDto {
+public class RegistrationSecurityCodeByAdminAddingDto {
 
     @Size(min = 8, max = 256, message = "Минимальная длина почты - 8 символов, максимальная - 256 символов")
     @NotEmpty(message = "Почта не должна быть пустой")

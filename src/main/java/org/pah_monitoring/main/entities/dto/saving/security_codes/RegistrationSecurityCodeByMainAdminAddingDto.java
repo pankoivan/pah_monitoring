@@ -8,7 +8,7 @@ import org.pah_monitoring.main.entities.enums.ExpirationDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class RegistrationSecurityCodeByMainAdminSavingDto {
+public class RegistrationSecurityCodeByMainAdminAddingDto {
 
     Integer hospitalRegistrationRequestId;
 

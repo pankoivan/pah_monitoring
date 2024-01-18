@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByAdminSavingDto;
-import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByMainAdminSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByAdminAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByMainAdminAddingDto;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
@@ -32,10 +32,10 @@ public class RegistrationSecurityCodeRestController {
     private final RegistrationSecurityCodeService service;
 
     @Qualifier("codeGeneratorByMainAdmin")
-    private final RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByMainAdminSavingDto> codeGeneratorByMainAdmin;
+    private final RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByMainAdminAddingDto> codeGeneratorByMainAdmin;
 
     @Qualifier("codeGeneratorByAdmin")
-    private final RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByAdminSavingDto> codeGeneratorByAdmin;
+    private final RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByAdminAddingDto> codeGeneratorByAdmin;
 
     @Qualifier("codeEmailSender")
     private final EmailService<RegistrationSecurityCode> emailMessageSender;
@@ -50,11 +50,11 @@ public class RegistrationSecurityCodeRestController {
 
     @PostMapping("/generate/by-main-admin")
     @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
-    public RegistrationSecurityCode generateByMainAdmin(@RequestBody @Valid RegistrationSecurityCodeByMainAdminSavingDto savingDto,
+    public RegistrationSecurityCode generateByMainAdmin(@RequestBody @Valid RegistrationSecurityCodeByMainAdminAddingDto addingDto,
                                                         BindingResult bindingResult) {
         try {
-            codeGeneratorByMainAdmin.checkDataValidityForSaving(savingDto, bindingResult);
-            RegistrationSecurityCode code = codeGeneratorByMainAdmin.add(savingDto);
+            codeGeneratorByMainAdmin.checkDataValidityForSaving(addingDto, bindingResult);
+            RegistrationSecurityCode code = codeGeneratorByMainAdmin.add(addingDto);
             emailMessageSender.send(code.getEmail(), code, false);
             hospitalService.upgrade(code.getHospital());
             return code;
@@ -67,7 +67,7 @@ public class RegistrationSecurityCodeRestController {
 
     @PostMapping("/generate/by-admin")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
-    public RegistrationSecurityCode generateByAdmin(@RequestBody @Valid RegistrationSecurityCodeByAdminSavingDto savingDto,
+    public RegistrationSecurityCode generateByAdmin(@RequestBody @Valid RegistrationSecurityCodeByAdminAddingDto savingDto,
                                                     BindingResult bindingResult) {
         try {
             codeGeneratorByAdmin.checkDataValidityForSaving(savingDto, bindingResult);

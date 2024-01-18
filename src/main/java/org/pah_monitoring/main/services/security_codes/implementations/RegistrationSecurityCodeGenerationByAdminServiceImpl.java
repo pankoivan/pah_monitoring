@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.utils.AuthenticationUtils;
-import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByAdminSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByAdminAddingDto;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.entities.users.users.Administrator;
@@ -29,7 +29,7 @@ import java.util.UUID;
 @Setter(onMethod = @__(@Autowired))
 @Service("codeGeneratorByAdmin")
 public class RegistrationSecurityCodeGenerationByAdminServiceImpl
-        implements RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByAdminSavingDto> {
+        implements RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByAdminAddingDto> {
 
     private RegistrationSecurityCodeRepository repository;
 
@@ -38,15 +38,15 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
     private HospitalService hospitalService;
 
     @Override
-    public RegistrationSecurityCode add(RegistrationSecurityCodeByAdminSavingDto savingDto) throws DataSavingServiceException {
+    public RegistrationSecurityCode add(RegistrationSecurityCodeByAdminAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(
                     RegistrationSecurityCode
                             .builder()
                             .code(UUID.randomUUID())
-                            .role(savingDto.getRole())
-                            .email(savingDto.getEmail())
-                            .expirationDate(LocalDateTime.now().plusDays(savingDto.getExpirationDate().getDays()))
+                            .role(addingDto.getRole())
+                            .email(addingDto.getEmail())
+                            .expirationDate(LocalDateTime.now().plusDays(addingDto.getExpirationDate().getDays()))
                             .hospital(
                                     AuthenticationUtils.extractCurrentUser(
                                             SecurityContextHolder.getContext().getAuthentication(),
@@ -56,24 +56,24 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
     }
 
     @Override
-    public void checkDataValidityForSaving(RegistrationSecurityCodeByAdminSavingDto savingDto, BindingResult bindingResult)
+    public void checkDataValidityForSaving(RegistrationSecurityCodeByAdminAddingDto addingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-        if (repository.existsByEmail(savingDto.getEmail())) {
-            throw new DataValidationServiceException("Пользователю с почтой \"%s\" уже выдан код".formatted(savingDto.getEmail()));
+        if (repository.existsByEmail(addingDto.getEmail())) {
+            throw new DataValidationServiceException("Пользователю с почтой \"%s\" уже выдан код".formatted(addingDto.getEmail()));
         }
-        if (securityInformationService.existsByEmail(savingDto.getEmail())) {
-            throw new DataValidationServiceException("Пользователь с почтой \"%s\" уже зарегистрирован".formatted(savingDto.getEmail()));
+        if (securityInformationService.existsByEmail(addingDto.getEmail())) {
+            throw new DataValidationServiceException("Пользователь с почтой \"%s\" уже зарегистрирован".formatted(addingDto.getEmail()));
         }
-        if (savingDto.getRole() == Role.MAIN_ADMINISTRATOR) {
+        if (addingDto.getRole() == Role.MAIN_ADMINISTRATOR) {
             throw new DataValidationServiceException(
                     "Для роли \"%s\" не предусмотрена генерация кода".formatted(Role.MAIN_ADMINISTRATOR.getAlias())
             );

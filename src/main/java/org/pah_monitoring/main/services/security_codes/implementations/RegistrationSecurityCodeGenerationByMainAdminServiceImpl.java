@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByMainAdminSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByMainAdminAddingDto;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
@@ -28,33 +28,33 @@ import java.util.UUID;
 @Setter(onMethod = @__(@Autowired))
 @Service("codeGeneratorByMainAdmin")
 public class RegistrationSecurityCodeGenerationByMainAdminServiceImpl
-        implements RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByMainAdminSavingDto> {
+        implements RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByMainAdminAddingDto> {
 
     private RegistrationSecurityCodeRepository repository;
 
     private HospitalRegistrationRequestService requestService;
 
     @Override
-    public RegistrationSecurityCode add(RegistrationSecurityCodeByMainAdminSavingDto savingDto) throws DataSavingServiceException {
+    public RegistrationSecurityCode add(RegistrationSecurityCodeByMainAdminAddingDto addingDto) throws DataSavingServiceException {
         try {
-            HospitalRegistrationRequest request = requestService.findById(savingDto.getHospitalRegistrationRequestId());
+            HospitalRegistrationRequest request = requestService.findById(addingDto.getHospitalRegistrationRequestId());
             return repository.save(
                     RegistrationSecurityCode
                             .builder()
                             .code(UUID.randomUUID())
                             .role(Role.ADMINISTRATOR)
                             .email(request.getEmail())
-                            .expirationDate(LocalDateTime.now().plusDays(savingDto.getExpirationDate().getDays()))
+                            .expirationDate(LocalDateTime.now().plusDays(addingDto.getExpirationDate().getDays()))
                             .hospital(request.getHospital())
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
     }
 
     @Override
-    public void checkDataValidityForSaving(RegistrationSecurityCodeByMainAdminSavingDto savingDto, BindingResult bindingResult)
+    public void checkDataValidityForSaving(RegistrationSecurityCodeByMainAdminAddingDto addingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {
@@ -63,7 +63,7 @@ public class RegistrationSecurityCodeGenerationByMainAdminServiceImpl
 
         HospitalRegistrationRequest request;
         try {
-            request = requestService.findById(savingDto.getHospitalRegistrationRequestId());
+            request = requestService.findById(addingDto.getHospitalRegistrationRequestId());
         } catch (DataSearchingServiceException e) {
             throw new DataValidationServiceException(e.getMessage(), e);
         }
