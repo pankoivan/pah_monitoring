@@ -4,9 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.dto.saving.users.info.UserSecurityInformationSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.info.adding.UserSecurityInformationAddingDto;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
+import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.users.info.UserSecurityInformationRepository;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
@@ -32,12 +33,19 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
     }
 
     @Override
-    public UserSecurityInformation save(UserSecurityInformationSavingDto savingDto) throws DataSavingServiceException {
+    public UserSecurityInformation findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Логин-информация с id \"%s\" не существует".formatted(id))
+        );
+    }
+
+    @Override
+    public UserSecurityInformation add(UserSecurityInformationAddingDto savingDto) throws DataSavingServiceException {
+
         try {
             return repository.save(
                     UserSecurityInformation
                             .builder()
-                            .id(savingDto.getId())
                             .email(savingDto.getEmail())
                             .password(passwordEncoder.encode(savingDto.getPassword()))
                             .build()
@@ -45,10 +53,11 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
         }
+
     }
 
     @Override
-    public void checkDataValidityForSaving(UserSecurityInformationSavingDto savingDto, BindingResult bindingResult)
+    public void checkDataValidityForSaving(UserSecurityInformationAddingDto savingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {

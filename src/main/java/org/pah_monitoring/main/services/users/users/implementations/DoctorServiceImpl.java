@@ -5,9 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
-import org.pah_monitoring.main.entities.dto.saving.users.DoctorSavingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.info.EmployeeInformationSavingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.info.UserSecurityInformationSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.adding.DoctorAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.editing.DoctorEditingDto;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.entities.users.Doctor;
@@ -62,64 +61,43 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Doctor add(DoctorSavingDto savingDto) throws DataSavingServiceException {
-
-        UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
-        securityInformationSavingDto.setId(null);
-
-        EmployeeInformationSavingDto employeeInformationSavingDto = savingDto.getEmployeeInformationSavingDto();
-        employeeInformationSavingDto.setId(null);
-
-        employeeInformationSavingDto.getUserInformationSavingDto().setId(null);
+    public Doctor add(DoctorAddingDto addingDto) throws DataSavingServiceException {
 
         try {
-            RegistrationSecurityCode code = codeService.findByStringUuid(savingDto.getCode());
+            RegistrationSecurityCode code = codeService.findByStringUuid(addingDto.getCode());
             return repository.save(
                     Doctor
                             .builder()
-                            .university(savingDto.getUniversity())
-                            .userSecurityInformation(securityInformationService.save(securityInformationSavingDto))
-                            .employeeInformation(employeeInformationService.save(employeeInformationSavingDto, code.getHospital()))
+                            .university(addingDto.getUniversity())
+                            .userSecurityInformation(securityInformationService.add(addingDto.getUserSecurityInformationAddingDto()))
+                            .employeeInformation(employeeInformationService.add(addingDto.getEmployeeInformationAddingDto(), code.getHospital()))
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
 
     }
 
     @Override
-    public Doctor edit(DoctorSavingDto savingDto) throws DataSearchingServiceException, DataSavingServiceException {
+    public Doctor edit(DoctorEditingDto editingDto) throws DataSearchingServiceException, DataSavingServiceException {
 
-        Doctor doctor = findById(savingDto.getId());
-
-        UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
-        securityInformationSavingDto.setId(doctor.getUserSecurityInformation().getId());
-
-        EmployeeInformationSavingDto employeeInformationSavingDto = savingDto.getEmployeeInformationSavingDto();
-        employeeInformationSavingDto.setId(doctor.getEmployeeInformation().getId());
-
-        employeeInformationSavingDto.getUserInformationSavingDto().setId(doctor.getEmployeeInformation().getUserInformation().getId());
-
+        Doctor doctor = findById(editingDto.getId());
         try {
             return repository.save(
                     Doctor
                             .builder()
-                            .userSecurityInformation(securityInformationService.save(securityInformationSavingDto))
-                            .employeeInformation(employeeInformationService.save(
-                                    employeeInformationSavingDto,
-                                    doctor.getEmployeeInformation().getHospital()
-                            ))
+                            .id(doctor.getId())
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(editingDto), e);
         }
 
     }
 
     @Override
-    public void checkCodeValidityForRegistration(DoctorSavingDto savingDto) throws DataValidationServiceException {
+    public void checkDataValidityForAdding(DoctorAddingDto savingDto) throws DataValidationServiceException {
 
         RegistrationSecurityCode code;
         try {
@@ -139,24 +117,32 @@ public class DoctorServiceImpl implements DoctorService {
             throw new DataValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.DOCTOR.getAlias()));
         }
 
-        if (codeService.isNotSuitableForEmail(code, savingDto.getUserSecurityInformationSavingDto().getEmail())) {
+        if (codeService.isNotSuitableForEmail(code, savingDto.getUserSecurityInformationAddingDto().getEmail())) {
             throw new DataValidationServiceException(
-                    "Код не предназначен для почты \"%s\"".formatted(savingDto.getUserSecurityInformationSavingDto().getEmail())
+                    "Код не предназначен для почты \"%s\"".formatted(savingDto.getUserSecurityInformationAddingDto().getEmail())
             );
         }
 
     }
 
     @Override
-    public void checkDataValidityForSaving(DoctorSavingDto savingDto, BindingResult bindingResult)
+    public void checkDataValidityForEditing(DoctorEditingDto editingDto) throws DataSearchingServiceException,
+            DataValidationServiceException {
+
+        // todo: later
+
+    }
+
+    @Override
+    public void checkDataValidityForSaving(DoctorAddingDto savingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
 
-        securityInformationService.checkDataValidityForSaving(savingDto.getUserSecurityInformationSavingDto(), bindingResult);
-        employeeInformationService.checkDataValidityForSaving(savingDto.getEmployeeInformationSavingDto(), bindingResult);
+        securityInformationService.checkDataValidityForSaving(savingDto.getUserSecurityInformationAddingDto(), bindingResult);
+        employeeInformationService.checkDataValidityForSaving(savingDto.getEmployeeInformationAddingDto(), bindingResult);
 
     }
 

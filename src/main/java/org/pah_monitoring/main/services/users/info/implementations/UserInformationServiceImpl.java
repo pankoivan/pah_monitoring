@@ -5,9 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
-import org.pah_monitoring.main.entities.dto.saving.users.info.UserInformationSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.info.adding.UserInformationAddingDto;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
+import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.users.info.UserInformationRepository;
 import org.pah_monitoring.main.services.users.info.interfaces.UserInformationService;
@@ -25,12 +26,18 @@ public class UserInformationServiceImpl implements UserInformationService {
     private UserInformationRepository repository;
 
     @Override
-    public UserInformation save(UserInformationSavingDto savingDto) throws DataSavingServiceException {
+    public UserInformation findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Общая информация с id \"%s\" не существует".formatted(id))
+        );
+    }
+
+    @Override
+    public UserInformation add(UserInformationAddingDto savingDto) throws DataSavingServiceException {
         try {
             return repository.save(
                     UserInformation
                             .builder()
-                            .id(savingDto.getId())
                             .name(savingDto.getName())
                             .lastname(savingDto.getLastname())
                             .patronymic(savingDto.getPatronymic())
@@ -45,7 +52,7 @@ public class UserInformationServiceImpl implements UserInformationService {
     }
 
     @Override
-    public void checkDataValidityForSaving(UserInformationSavingDto savingDto, BindingResult bindingResult)
+    public void checkDataValidityForSaving(UserInformationAddingDto savingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {

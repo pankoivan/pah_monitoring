@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities.dto.saving.users.info;
+package org.pah_monitoring.main.entities.dto.saving.users.info.editing;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -14,9 +14,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserInformationSavingDto {
+public class UserInformationEditingDto {
 
-    private Integer id;
+    Integer id;
 
     @Size(min = 2, max = 32, message = "Минимальная длина имени - 2 символа, максимальная - 32 символа")
     @NotEmpty(message = "Имя не должно быть пустым")

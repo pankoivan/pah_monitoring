@@ -5,9 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
-import org.pah_monitoring.main.entities.dto.saving.users.AdministratorSavingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.info.EmployeeInformationSavingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.info.UserSecurityInformationSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.adding.AdministratorAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.editing.AdministratorEditingDto;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.entities.users.Administrator;
@@ -62,63 +61,42 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     @Override
-    public Administrator add(AdministratorSavingDto savingDto) throws DataSavingServiceException {
-
-        UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
-        securityInformationSavingDto.setId(null);
-
-        EmployeeInformationSavingDto employeeInformationSavingDto = savingDto.getEmployeeInformationSavingDto();
-        employeeInformationSavingDto.setId(null);
-
-        employeeInformationSavingDto.getUserInformationSavingDto().setId(null);
+    public Administrator add(AdministratorAddingDto addingDto) throws DataSavingServiceException {
 
         try {
-            RegistrationSecurityCode code = codeService.findByStringUuid(savingDto.getCode());
+            RegistrationSecurityCode code = codeService.findByStringUuid(addingDto.getCode());
             return repository.save(
                     Administrator
                             .builder()
-                            .userSecurityInformation(securityInformationService.save(securityInformationSavingDto))
-                            .employeeInformation(employeeInformationService.save(employeeInformationSavingDto, code.getHospital()))
+                            .userSecurityInformation(securityInformationService.add(addingDto.getUserSecurityInformationAddingDto()))
+                            .employeeInformation(employeeInformationService.add(addingDto.getEmployeeInformationAddingDto(), code.getHospital()))
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
 
     }
 
     @Override
-    public Administrator edit(AdministratorSavingDto savingDto) throws DataSearchingServiceException, DataSavingServiceException {
+    public Administrator edit(AdministratorEditingDto editingDto) throws DataSearchingServiceException, DataSavingServiceException {
 
-        Administrator administrator = findById(savingDto.getId());
-
-        UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
-        securityInformationSavingDto.setId(administrator.getUserSecurityInformation().getId());
-
-        EmployeeInformationSavingDto employeeInformationSavingDto = savingDto.getEmployeeInformationSavingDto();
-        employeeInformationSavingDto.setId(administrator.getEmployeeInformation().getId());
-
-        employeeInformationSavingDto.getUserInformationSavingDto().setId(administrator.getEmployeeInformation().getUserInformation().getId());
-
+        Administrator administrator = findById(editingDto.getId());
         try {
             return repository.save(
                     Administrator
                             .builder()
-                            .userSecurityInformation(securityInformationService.save(securityInformationSavingDto))
-                            .employeeInformation(employeeInformationService.save(
-                                    employeeInformationSavingDto,
-                                    administrator.getEmployeeInformation().getHospital()
-                            ))
+                            .id(administrator.getId())
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(editingDto), e);
         }
 
     }
 
     @Override
-    public void checkCodeValidityForRegistration(AdministratorSavingDto savingDto) throws DataValidationServiceException {
+    public void checkDataValidityForAdding(AdministratorAddingDto savingDto) throws DataValidationServiceException {
 
         RegistrationSecurityCode code;
         try {
@@ -138,24 +116,32 @@ public class AdministratorServiceImpl implements AdministratorService {
             throw new DataValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.ADMINISTRATOR.getAlias()));
         }
 
-        if (codeService.isNotSuitableForEmail(code, savingDto.getUserSecurityInformationSavingDto().getEmail())) {
+        if (codeService.isNotSuitableForEmail(code, savingDto.getUserSecurityInformationAddingDto().getEmail())) {
             throw new DataValidationServiceException(
-                    "Код не предназначен для почты \"%s\"".formatted(savingDto.getUserSecurityInformationSavingDto().getEmail())
+                    "Код не предназначен для почты \"%s\"".formatted(savingDto.getUserSecurityInformationAddingDto().getEmail())
             );
         }
 
     }
 
     @Override
-    public void checkDataValidityForSaving(AdministratorSavingDto savingDto, BindingResult bindingResult)
+    public void checkDataValidityForEditing(AdministratorEditingDto administratorEditingDto) throws DataSearchingServiceException,
+            DataValidationServiceException {
+
+        // todo: later
+
+    }
+
+    @Override
+    public void checkDataValidityForSaving(AdministratorAddingDto savingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
 
-        securityInformationService.checkDataValidityForSaving(savingDto.getUserSecurityInformationSavingDto(), bindingResult);
-        employeeInformationService.checkDataValidityForSaving(savingDto.getEmployeeInformationSavingDto(), bindingResult);
+        securityInformationService.checkDataValidityForSaving(savingDto.getUserSecurityInformationAddingDto(), bindingResult);
+        employeeInformationService.checkDataValidityForSaving(savingDto.getEmployeeInformationAddingDto(), bindingResult);
 
     }
 

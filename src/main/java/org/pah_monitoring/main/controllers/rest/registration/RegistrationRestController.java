@@ -2,9 +2,9 @@ package org.pah_monitoring.main.controllers.rest.registration;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.entities.dto.saving.users.AdministratorSavingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.DoctorSavingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.PatientSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.adding.AdministratorAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.adding.DoctorAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.users.Administrator;
 import org.pah_monitoring.main.entities.users.Doctor;
 import org.pah_monitoring.main.entities.users.Patient;
@@ -44,10 +44,10 @@ public class RegistrationRestController {
     private final HospitalService hospitalService;
 
     @PostMapping("/admin")
-    public Administrator addAdmin(@RequestBody @Valid AdministratorSavingDto savingDto, BindingResult bindingResult) {
+    public Administrator addAdmin(@RequestBody @Valid AdministratorAddingDto savingDto, BindingResult bindingResult) {
         try {
             administratorService.checkDataValidityForSaving(savingDto, bindingResult);
-            administratorService.checkCodeValidityForRegistration(savingDto);
+            administratorService.checkDataValidityForAdding(savingDto);
             Administrator administrator = administratorService.add(savingDto);
             codeService.deleteByEmail(administrator.getUserSecurityInformation().getEmail());
             hospitalService.upgrade(administrator.getEmployeeInformation().getHospital());
@@ -62,10 +62,10 @@ public class RegistrationRestController {
     }
 
     @PostMapping("/doctor")
-    public Doctor addDoctor(@RequestBody @Valid DoctorSavingDto savingDto, BindingResult bindingResult) {
+    public Doctor addDoctor(@RequestBody @Valid DoctorAddingDto savingDto, BindingResult bindingResult) {
         try {
             doctorService.checkDataValidityForSaving(savingDto, bindingResult);
-            doctorService.checkCodeValidityForRegistration(savingDto);
+            doctorService.checkDataValidityForAdding(savingDto);
             Doctor doctor = doctorService.add(savingDto);
             codeService.deleteByEmail(doctor.getUserSecurityInformation().getEmail());
             return doctor;
@@ -79,10 +79,10 @@ public class RegistrationRestController {
     }
 
     @PostMapping("/patient")
-    public Patient addPatient(@RequestBody @Valid PatientSavingDto savingDto, BindingResult bindingResult) {
+    public Patient addPatient(@RequestBody @Valid PatientAddingDto savingDto, BindingResult bindingResult) {
         try {
             patientService.checkDataValidityForSaving(savingDto, bindingResult);
-            patientService.checkCodeValidityForRegistration(savingDto);
+            patientService.checkDataValidityForAdding(savingDto);
             Patient patient = patientService.add(savingDto);
             codeService.deleteByEmail(patient.getUserSecurityInformation().getEmail());
             return patient;

@@ -7,7 +7,7 @@ import org.pah_monitoring.main.services.validation.interfaces.UrlValidationServi
 
 import java.util.List;
 
-public interface UserService<T, M> extends UrlValidationService {
+public interface UserService<T, M, R> extends UrlValidationService {
 
     List<T> findAll();
 
@@ -17,8 +17,10 @@ public interface UserService<T, M> extends UrlValidationService {
 
     T add(M m) throws DataSavingServiceException;
 
-    T edit(M m) throws DataSearchingServiceException, DataSavingServiceException;
+    T edit(R r) throws DataSearchingServiceException, DataSavingServiceException;
 
-    void checkCodeValidityForRegistration(M m) throws DataValidationServiceException;
+    void checkDataValidityForAdding(M m) throws DataValidationServiceException;
+
+    void checkDataValidityForEditing(R r) throws DataSearchingServiceException, DataValidationServiceException;
 
 }

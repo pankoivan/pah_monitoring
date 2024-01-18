@@ -13,6 +13,6 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 
     Optional<UserDetails> findByUserSecurityInformationEmail(String email);
 
-    List<Administrator> findAllByEmployeeInformationHospitalId(Integer id);
+    List<Administrator> findAllByEmployeeInformationHospitalId(Integer hospitalId);
 
 }

@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities.dto.saving.users;
+package org.pah_monitoring.main.entities.dto.saving.users.users.adding;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -7,15 +7,13 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.pah_monitoring.main.entities.dto.saving.users.info.EmployeeInformationSavingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.info.UserSecurityInformationSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.info.adding.EmployeeInformationAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.info.adding.UserSecurityInformationAddingDto;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class DoctorSavingDto {
-
-    private Integer id;
+public class DoctorAddingDto {
 
     @Size(min = 3, max = 128, message = "Минимальная длина названия вуза - 3 символа, максимальная - 128 символов")
     @NotEmpty(message = "Название вуза не должно быть пустым")
@@ -23,10 +21,10 @@ public class DoctorSavingDto {
     private String university;
 
     @Valid
-    private UserSecurityInformationSavingDto userSecurityInformationSavingDto;
+    private UserSecurityInformationAddingDto userSecurityInformationAddingDto;
 
     @Valid
-    private EmployeeInformationSavingDto employeeInformationSavingDto;
+    private EmployeeInformationAddingDto employeeInformationAddingDto;
 
     private String code;
 

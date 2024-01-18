@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities.dto.saving.users.info;
+package org.pah_monitoring.main.entities.dto.saving.users.info.editing;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserSecurityInformationSavingDto {
+public class UserSecurityInformationEditingDto {
 
-    private Integer id;
+    Integer id;
 
     @Size(min = 8, max = 256, message = "Минимальная длина почты - 8 символов, максимальная - 256 символов")
     @NotEmpty(message = "Почта не должна быть пустой")

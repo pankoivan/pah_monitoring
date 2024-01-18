@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities.dto.saving.users.info;
+package org.pah_monitoring.main.entities.dto.saving.users.info.adding;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -11,9 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class EmployeeInformationSavingDto {
-
-    private Integer id;
+public class EmployeeInformationAddingDto {
 
     @Size(min = 4, max = 128, message = "Минимальная длина должности - 4 символа, максимальная - 128 символов")
     @NotEmpty(message = "Должность не должна быть пустой")
@@ -21,6 +19,6 @@ public class EmployeeInformationSavingDto {
     private String post;
 
     @Valid
-    private UserInformationSavingDto userInformationSavingDto;
+    private UserInformationAddingDto userInformationAddingDto;
 
 }
