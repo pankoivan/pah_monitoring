@@ -14,7 +14,6 @@ import org.pah_monitoring.main.entities.users.Patient;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.SecurityCodeValidationServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.users.PatientRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
@@ -66,31 +65,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient add(PatientSavingDto savingDto) throws SecurityCodeValidationServiceException, DataSavingServiceException {
-
-        RegistrationSecurityCode code;
-        try {
-            code = codeService.findByStringUuid(savingDto.getCode());
-        } catch (UuidUtilsException | DataSearchingServiceException e) {
-            throw new SecurityCodeValidationServiceException(e.getMessage(), e);
-        }
-
-        if (codeService.isExpired(code)) {
-            throw new SecurityCodeValidationServiceException(
-                    "Истёк срок действия кода. Код был действителен до %s"
-                            .formatted(DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(code.getExpirationDate()))
-            );
-        }
-
-        if (codeService.isNotSuitableForRole(code, Role.PATIENT)) {
-            throw new SecurityCodeValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.PATIENT.getAlias()));
-        }
-
-        if (codeService.isNotSuitableForEmail(code, savingDto.getUserSecurityInformationSavingDto().getEmail())) {
-            throw new SecurityCodeValidationServiceException(
-                    "Код не предназначен для почты \"%s\"".formatted(savingDto.getUserSecurityInformationSavingDto().getEmail())
-            );
-        }
+    public Patient add(PatientSavingDto savingDto) throws DataSavingServiceException {
 
         UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
         securityInformationSavingDto.setId(null);
@@ -99,6 +74,7 @@ public class PatientServiceImpl implements PatientService {
         userInformationSavingDto.setId(null);
 
         try {
+            RegistrationSecurityCode code = codeService.findByStringUuid(savingDto.getCode());
             return repository.save(
                     Patient
                             .builder()
@@ -135,6 +111,35 @@ public class PatientServiceImpl implements PatientService {
             );
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+        }
+
+    }
+
+    @Override
+    public void checkCodeValidityForRegistration(PatientSavingDto savingDto) throws DataValidationServiceException {
+
+        RegistrationSecurityCode code;
+        try {
+            code = codeService.findByStringUuid(savingDto.getCode());
+        } catch (UuidUtilsException | DataSearchingServiceException e) {
+            throw new DataValidationServiceException(e.getMessage(), e);
+        }
+
+        if (codeService.isExpired(code)) {
+            throw new DataValidationServiceException(
+                    "Истёк срок действия кода. Код был действителен до %s"
+                            .formatted(DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(code.getExpirationDate()))
+            );
+        }
+
+        if (codeService.isNotSuitableForRole(code, Role.PATIENT)) {
+            throw new DataValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.PATIENT.getAlias()));
+        }
+
+        if (codeService.isNotSuitableForEmail(code, savingDto.getUserSecurityInformationSavingDto().getEmail())) {
+            throw new DataValidationServiceException(
+                    "Код не предназначен для почты \"%s\"".formatted(savingDto.getUserSecurityInformationSavingDto().getEmail())
+            );
         }
 
     }

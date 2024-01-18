@@ -47,6 +47,7 @@ public class RegistrationRestController {
     public Administrator addAdmin(@RequestBody @Valid AdministratorSavingDto savingDto, BindingResult bindingResult) {
         try {
             administratorService.checkDataValidityForSaving(savingDto, bindingResult);
+            administratorService.checkCodeValidityForRegistration(savingDto);
             Administrator administrator = administratorService.add(savingDto);
             codeService.deleteByEmail(administrator.getUserSecurityInformation().getEmail());
             hospitalService.upgrade(administrator.getEmployeeInformation().getHospital());
@@ -64,6 +65,7 @@ public class RegistrationRestController {
     public Doctor addDoctor(@RequestBody @Valid DoctorSavingDto savingDto, BindingResult bindingResult) {
         try {
             doctorService.checkDataValidityForSaving(savingDto, bindingResult);
+            doctorService.checkCodeValidityForRegistration(savingDto);
             Doctor doctor = doctorService.add(savingDto);
             codeService.deleteByEmail(doctor.getUserSecurityInformation().getEmail());
             return doctor;
@@ -80,6 +82,7 @@ public class RegistrationRestController {
     public Patient addPatient(@RequestBody @Valid PatientSavingDto savingDto, BindingResult bindingResult) {
         try {
             patientService.checkDataValidityForSaving(savingDto, bindingResult);
+            patientService.checkCodeValidityForRegistration(savingDto);
             Patient patient = patientService.add(savingDto);
             codeService.deleteByEmail(patient.getUserSecurityInformation().getEmail());
             return patient;

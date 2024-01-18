@@ -14,7 +14,6 @@ import org.pah_monitoring.main.entities.users.Administrator;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.SecurityCodeValidationServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.users.AdministratorRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
@@ -63,31 +62,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     @Override
-    public Administrator add(AdministratorSavingDto savingDto) throws SecurityCodeValidationServiceException, DataSavingServiceException {
-
-        RegistrationSecurityCode code;
-        try {
-            code = codeService.findByStringUuid(savingDto.getCode());
-        } catch (UuidUtilsException | DataSearchingServiceException e) {
-            throw new SecurityCodeValidationServiceException(e.getMessage(), e);
-        }
-
-        if (codeService.isExpired(code)) {
-            throw new SecurityCodeValidationServiceException(
-                    "Истёк срок действия кода. Код был действителен до %s"
-                            .formatted(DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(code.getExpirationDate()))
-            );
-        }
-
-        if (codeService.isNotSuitableForRole(code, Role.ADMINISTRATOR)) {
-            throw new SecurityCodeValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.ADMINISTRATOR.getAlias()));
-        }
-
-        if (codeService.isNotSuitableForEmail(code, savingDto.getUserSecurityInformationSavingDto().getEmail())) {
-            throw new SecurityCodeValidationServiceException(
-                    "Код не предназначен для почты \"%s\"".formatted(savingDto.getUserSecurityInformationSavingDto().getEmail())
-            );
-        }
+    public Administrator add(AdministratorSavingDto savingDto) throws DataSavingServiceException {
 
         UserSecurityInformationSavingDto securityInformationSavingDto = savingDto.getUserSecurityInformationSavingDto();
         securityInformationSavingDto.setId(null);
@@ -98,6 +73,7 @@ public class AdministratorServiceImpl implements AdministratorService {
         employeeInformationSavingDto.getUserInformationSavingDto().setId(null);
 
         try {
+            RegistrationSecurityCode code = codeService.findByStringUuid(savingDto.getCode());
             return repository.save(
                     Administrator
                             .builder()
@@ -137,6 +113,35 @@ public class AdministratorServiceImpl implements AdministratorService {
             );
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+        }
+
+    }
+
+    @Override
+    public void checkCodeValidityForRegistration(AdministratorSavingDto savingDto) throws DataValidationServiceException {
+
+        RegistrationSecurityCode code;
+        try {
+            code = codeService.findByStringUuid(savingDto.getCode());
+        } catch (UuidUtilsException | DataSearchingServiceException e) {
+            throw new DataValidationServiceException(e.getMessage(), e);
+        }
+
+        if (codeService.isExpired(code)) {
+            throw new DataValidationServiceException(
+                    "Истёк срок действия кода. Код был действителен до %s"
+                            .formatted(DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(code.getExpirationDate()))
+            );
+        }
+
+        if (codeService.isNotSuitableForRole(code, Role.ADMINISTRATOR)) {
+            throw new DataValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.ADMINISTRATOR.getAlias()));
+        }
+
+        if (codeService.isNotSuitableForEmail(code, savingDto.getUserSecurityInformationSavingDto().getEmail())) {
+            throw new DataValidationServiceException(
+                    "Код не предназначен для почты \"%s\"".formatted(savingDto.getUserSecurityInformationSavingDto().getEmail())
+            );
         }
 
     }
