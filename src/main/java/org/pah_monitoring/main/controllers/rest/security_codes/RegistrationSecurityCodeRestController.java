@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/rest/security-codes")
-@PreAuthorize("permitAll()") // todo: remove
 public class RegistrationSecurityCodeRestController {
 
     private final RegistrationSecurityCodeService service;
@@ -44,11 +43,13 @@ public class RegistrationSecurityCodeRestController {
     private final HospitalService hospitalService;
 
     @PostMapping("/check") // todo: for all
+    @PreAuthorize("permitAll()")
     public TrueFalseResponse isCodeExists(@RequestBody CodeCheck codeCheck) {
         return new TrueFalseResponse(service.existsByStringUuid(codeCheck.code));
     }
 
     @PostMapping("/generate/by-main-admin") // todo: only for main admin
+    @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
     public RegistrationSecurityCode generateByMainAdmin(@RequestBody @Valid RegistrationSecurityCodeByMainAdminSavingDto savingDto,
                                                         BindingResult bindingResult) {
         try {
@@ -65,6 +66,7 @@ public class RegistrationSecurityCodeRestController {
     }
 
     @PostMapping("/generate/by-admin") // todo: only for admin
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     public RegistrationSecurityCode generateByAdmin(@RequestBody @Valid RegistrationSecurityCodeByAdminSavingDto savingDto,
                                                     BindingResult bindingResult) {
         try {
