@@ -3,11 +3,8 @@ package org.pah_monitoring.main.entities.hospitals;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.users.Patient;
-import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor

@@ -3,7 +3,7 @@ package org.pah_monitoring.main.entities.patient_additions;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.users.Patient;
+import org.pah_monitoring.main.entities.users.users.Patient;
 
 @NoArgsConstructor
 @AllArgsConstructor

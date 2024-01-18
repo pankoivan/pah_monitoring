@@ -1,17 +1,18 @@
-package org.pah_monitoring.main.entities.users;
+package org.pah_monitoring.main.entities.users.users;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.examinations.Examination;
-import org.pah_monitoring.main.entities.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
-import org.pah_monitoring.main.entities.patient_additions.Achievement;
-import org.pah_monitoring.main.entities.patient_additions.Medicine;
 import org.pah_monitoring.main.entities.users.inactivity.InactivePatient;
+import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
+import org.pah_monitoring.main.entities.users.users.common.HospitalEmployeeUser;
+import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -23,11 +24,11 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(of = "id")
-@Builder
+@SuperBuilder
 @JsonIncludeProperties("id")
 @Entity
-@Table(name = "patient")
-public class Patient implements UserDetails {
+@Table(name = "doctor")
+public class Doctor implements HospitalEmployeeUser, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,53 +40,38 @@ public class Patient implements UserDetails {
     private UserSecurityInformation userSecurityInformation;
 
     @OneToOne
-    @JoinColumn(name = "user_information_id")
-    private UserInformation userInformation;
+    @JoinColumn(name = "hospital_employee_information_id")
+    private EmployeeInformation employeeInformation;
 
     @ManyToOne
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id")
-    private Doctor doctor;
+    @OneToMany(mappedBy = "doctor")
+    private List<Patient> patients;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "doctor")
     private List<Examination> examinations;
 
-    @OneToMany(mappedBy = "patient")
-    private List<ExaminationSchedule> schedules;
-
-    @OneToMany(mappedBy = "patient")
-    private List<Medicine> medicines;
-
-    @ManyToMany
-    @JoinTable(
-            name = "patient_achievement",
-            joinColumns = @JoinColumn(name = "patient_id"),
-            inverseJoinColumns = @JoinColumn(name = "achievement_id")
-    )
-    private List<Achievement> achievements;
-
-    @OneToOne(mappedBy = "patient")
-    private InactivePatient inactivePatient;
+    @OneToMany(mappedBy = "author")
+    private List<InactivePatient> assignedInactivePatients;
 
     public Role getRole() {
-        return Role.PATIENT;
+        return Role.DOCTOR;
     }
 
     public boolean isActive() {
-        return inactivePatient == null;
+        return getEmployeeInformation().getDismissal() == null;
     }
 
     @Override
     public String getUsername() {
-        return userSecurityInformation.getEmail();
+        return getUserSecurityInformation().getEmail();
     }
 
     @Override
     public String getPassword() {
-        return userSecurityInformation.getPassword();
+        return getUserSecurityInformation().getPassword();
     }
 
     @Override
@@ -116,7 +102,7 @@ public class Patient implements UserDetails {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof Patient other))
+                || ((o instanceof Doctor other))
                 && (id != null)
                 && (id.equals(other.id));
     }
@@ -124,6 +110,11 @@ public class Patient implements UserDetails {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public UserInformation getUserInformation() {
+        return employeeInformation.getUserInformation();
     }
 
 }

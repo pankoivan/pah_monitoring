@@ -1,10 +1,10 @@
 package org.pah_monitoring.main.controllers.mvc;
 
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.entities.users.Administrator;
-import org.pah_monitoring.main.entities.users.Doctor;
-import org.pah_monitoring.main.entities.users.MainAdministrator;
-import org.pah_monitoring.main.entities.users.Patient;
+import org.pah_monitoring.main.entities.users.users.Administrator;
+import org.pah_monitoring.main.entities.users.users.Doctor;
+import org.pah_monitoring.main.entities.users.users.MainAdministrator;
+import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.services.main_admin_contacts.interfaces.MainAdminContactService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

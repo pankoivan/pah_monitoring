@@ -3,8 +3,8 @@ package org.pah_monitoring.main.entities.examinations;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.users.Doctor;
-import org.pah_monitoring.main.entities.users.Patient;
+import org.pah_monitoring.main.entities.users.users.Doctor;
+import org.pah_monitoring.main.entities.users.users.Patient;
 
 import java.time.LocalDateTime;
 

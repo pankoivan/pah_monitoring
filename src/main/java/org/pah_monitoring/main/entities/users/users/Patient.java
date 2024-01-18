@@ -1,14 +1,19 @@
-package org.pah_monitoring.main.entities.users;
+package org.pah_monitoring.main.entities.users.users;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.examinations.Examination;
+import org.pah_monitoring.main.entities.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
+import org.pah_monitoring.main.entities.patient_additions.Achievement;
+import org.pah_monitoring.main.entities.patient_additions.Medicine;
 import org.pah_monitoring.main.entities.users.inactivity.InactivePatient;
-import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
+import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
+import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,11 +25,11 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(of = "id")
-@Builder
+@SuperBuilder
 @JsonIncludeProperties("id")
 @Entity
-@Table(name = "doctor")
-public class Doctor implements UserDetails {
+@Table(name = "patient")
+public class Patient implements HospitalUser, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,38 +41,53 @@ public class Doctor implements UserDetails {
     private UserSecurityInformation userSecurityInformation;
 
     @OneToOne
-    @JoinColumn(name = "hospital_employee_information_id")
-    private EmployeeInformation employeeInformation;
+    @JoinColumn(name = "user_information_id")
+    private UserInformation userInformation;
 
     @ManyToOne
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
 
-    @OneToMany(mappedBy = "doctor")
-    private List<Patient> patients;
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "patient")
     private List<Examination> examinations;
 
-    @OneToMany(mappedBy = "author")
-    private List<InactivePatient> assignedInactivePatients;
+    @OneToMany(mappedBy = "patient")
+    private List<ExaminationSchedule> schedules;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Medicine> medicines;
+
+    @ManyToMany
+    @JoinTable(
+            name = "patient_achievement",
+            joinColumns = @JoinColumn(name = "patient_id"),
+            inverseJoinColumns = @JoinColumn(name = "achievement_id")
+    )
+    private List<Achievement> achievements;
+
+    @OneToOne(mappedBy = "patient")
+    private InactivePatient inactivePatient;
 
     public Role getRole() {
-        return Role.DOCTOR;
+        return Role.PATIENT;
     }
 
     public boolean isActive() {
-        return employeeInformation.getDismissal() == null;
+        return inactivePatient == null;
     }
 
     @Override
     public String getUsername() {
-        return userSecurityInformation.getEmail();
+        return getUserSecurityInformation().getEmail();
     }
 
     @Override
     public String getPassword() {
-        return userSecurityInformation.getPassword();
+        return getUserSecurityInformation().getPassword();
     }
 
     @Override
@@ -98,7 +118,7 @@ public class Doctor implements UserDetails {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof Doctor other))
+                || ((o instanceof Patient other))
                 && (id != null)
                 && (id.equals(other.id));
     }

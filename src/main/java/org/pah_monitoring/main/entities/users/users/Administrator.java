@@ -1,15 +1,18 @@
-package org.pah_monitoring.main.entities.users;
+package org.pah_monitoring.main.entities.users.users;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.users.inactivity.Dismissal;
 import org.pah_monitoring.main.entities.users.inactivity.SickLeave;
 import org.pah_monitoring.main.entities.users.inactivity.Vacation;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
+import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
+import org.pah_monitoring.main.entities.users.users.common.HospitalEmployeeUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,11 +24,11 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(of = "id")
-@Builder
+@SuperBuilder
 @JsonIncludeProperties("id")
 @Entity
 @Table(name = "administrator")
-public class Administrator implements UserDetails {
+public class Administrator implements HospitalEmployeeUser, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,17 +61,17 @@ public class Administrator implements UserDetails {
     }
 
     public boolean isActive() {
-        return employeeInformation.getDismissal() == null;
+        return getEmployeeInformation().getDismissal() == null;
     }
 
     @Override
     public String getUsername() {
-        return userSecurityInformation.getEmail();
+        return getUserSecurityInformation().getEmail();
     }
 
     @Override
     public String getPassword() {
-        return userSecurityInformation.getPassword();
+        return getUserSecurityInformation().getPassword();
     }
 
     @Override
@@ -107,6 +110,11 @@ public class Administrator implements UserDetails {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public UserInformation getUserInformation() {
+        return employeeInformation.getUserInformation();
     }
 
 }

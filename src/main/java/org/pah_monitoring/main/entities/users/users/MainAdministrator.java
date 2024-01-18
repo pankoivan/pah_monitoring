@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities.users;
+package org.pah_monitoring.main.entities.users.users;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
