@@ -27,11 +27,9 @@ public class MainMvcController {
         return switch (principal) {
             case MainAdministrator ignored -> "redirect:/hospitals";
 
-            case Administrator administrator -> "redirect:/hospitals/%s"
-                    .formatted(administrator.getHospital().getId());
+            case Administrator administrator -> "redirect:/hospitals/%s".formatted(administrator.getHospital().getId());
 
-            case Doctor doctor -> "redirect:/hospitals/%s/doctors/%s/patients"
-                    .formatted(doctor.getHospital().getId(), doctor.getId());
+            case Doctor doctor -> "redirect:/doctors/%s/patients".formatted(doctor.getId());
 
             case Patient ignored -> "redirect:/indicators";
 

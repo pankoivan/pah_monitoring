@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/rest/contacts")
-@PreAuthorize("permitAll()") // todo: only main admin
+@PreAuthorize("MAIN_ADMINISTRATOR()")
 public class MainAdminContactRestController {
 
     private final MainAdminContactService service;
