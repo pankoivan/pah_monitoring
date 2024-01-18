@@ -38,7 +38,7 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
     private HospitalService hospitalService;
 
     @Override
-    public RegistrationSecurityCode generate(RegistrationSecurityCodeByAdminSavingDto savingDto) throws DataSavingServiceException {
+    public RegistrationSecurityCode add(RegistrationSecurityCodeByAdminSavingDto savingDto) throws DataSavingServiceException {
         try {
             return repository.save(
                     RegistrationSecurityCode

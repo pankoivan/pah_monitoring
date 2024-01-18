@@ -54,7 +54,7 @@ public class RegistrationSecurityCodeRestController {
                                                         BindingResult bindingResult) {
         try {
             codeGeneratorByMainAdmin.checkDataValidityForSaving(savingDto, bindingResult);
-            RegistrationSecurityCode code = codeGeneratorByMainAdmin.generate(savingDto);
+            RegistrationSecurityCode code = codeGeneratorByMainAdmin.add(savingDto);
             emailService.send(code.getEmail(), code, false);
             hospitalService.upgrade(code.getHospital());
             return code;
@@ -71,7 +71,7 @@ public class RegistrationSecurityCodeRestController {
                                                     BindingResult bindingResult) {
         try {
             codeGeneratorByAdmin.checkDataValidityForSaving(savingDto, bindingResult);
-            RegistrationSecurityCode code = codeGeneratorByAdmin.generate(savingDto);
+            RegistrationSecurityCode code = codeGeneratorByAdmin.add(savingDto);
             emailService.send(code.getEmail(), code, false);
             return code;
         } catch (DataValidationServiceException e) {

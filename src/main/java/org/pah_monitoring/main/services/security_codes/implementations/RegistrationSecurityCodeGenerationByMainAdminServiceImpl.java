@@ -35,7 +35,7 @@ public class RegistrationSecurityCodeGenerationByMainAdminServiceImpl
     private HospitalRegistrationRequestService requestService;
 
     @Override
-    public RegistrationSecurityCode generate(RegistrationSecurityCodeByMainAdminSavingDto savingDto) throws DataSavingServiceException {
+    public RegistrationSecurityCode add(RegistrationSecurityCodeByMainAdminSavingDto savingDto) throws DataSavingServiceException {
         try {
             HospitalRegistrationRequest request = requestService.findById(savingDto.getHospitalRegistrationRequestId());
             return repository.save(

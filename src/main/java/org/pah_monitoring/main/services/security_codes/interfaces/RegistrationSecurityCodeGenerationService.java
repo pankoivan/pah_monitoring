@@ -6,6 +6,6 @@ import org.pah_monitoring.main.services.validation.interfaces.SavingValidationSe
 
 public interface RegistrationSecurityCodeGenerationService<T> extends SavingValidationService<T> {
 
-    RegistrationSecurityCode generate(T t) throws DataSavingServiceException;
+    RegistrationSecurityCode add(T t) throws DataSavingServiceException;
 
 }
