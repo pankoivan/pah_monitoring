@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalAddingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
@@ -68,19 +68,19 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public Hospital add(HospitalSavingDto savingDto) throws DataSavingServiceException {
+    public Hospital add(HospitalAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(
                     Hospital
                             .builder()
-                            .name(savingDto.getName())
-                            .oid(namesMap.get(savingDto.getName())) // todo: change in later versions
+                            .name(addingDto.getName())
+                            .oid(namesMap.get(addingDto.getName())) // todo: change in later versions
                             .currentState(Hospital.CurrentState.WAITING_CODE)
                             .date(LocalDateTime.now())
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
     }
 
@@ -95,16 +95,16 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public void checkDataValidityForSaving(HospitalSavingDto savingDto, BindingResult bindingResult) throws DataValidationServiceException {
+    public void checkDataValidityForSaving(HospitalAddingDto addingDto, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-        if (repository.existsByName(savingDto.getName())) {
-            throw new DataValidationServiceException("Медицинское учреждение \"%s\" уже существует".formatted(savingDto.getName()));
+        if (repository.existsByName(addingDto.getName())) {
+            throw new DataValidationServiceException("Медицинское учреждение \"%s\" уже существует".formatted(addingDto.getName()));
         }
         // todo: change in later versions
-        if (!names.contains(savingDto.getName())) {
-            throw new DataValidationServiceException("Медицинского учреждения \"%s\" нет в справочнике".formatted(savingDto.getName()));
+        if (!names.contains(addingDto.getName())) {
+            throw new DataValidationServiceException("Медицинского учреждения \"%s\" нет в справочнике".formatted(addingDto.getName()));
         }
     }
 

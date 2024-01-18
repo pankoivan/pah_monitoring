@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class HospitalRegistrationRequestSavingDto {
+public class HospitalRegistrationRequestAddingDto {
 
     @Size(min = 2, max = 32, message = "Минимальная длина имени - 2 символа, максимальная - 32 символа")
     @NotEmpty(message = "Имя не должно быть пустым")
@@ -47,6 +47,6 @@ public class HospitalRegistrationRequestSavingDto {
     private String comment;
 
     @Valid
-    private HospitalSavingDto hospitalSavingDto;
+    private HospitalAddingDto hospitalAddingDto;
 
 }

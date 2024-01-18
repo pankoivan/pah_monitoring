@@ -2,7 +2,7 @@ package org.pah_monitoring.main.controllers.rest.hospitals;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalRegistrationRequestSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalRegistrationRequestAddingDto;
 import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidationRestControllerException;
@@ -17,16 +17,16 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/rest/hospital-registration/requests")
-@PreAuthorize("permitAll()") // todo: remove
 public class HospitalRegistrationRestController {
 
     private final HospitalRegistrationRequestService service;
 
-    @PostMapping("/add") // todo: for all
-    public HospitalRegistrationRequest add(@RequestBody @Valid HospitalRegistrationRequestSavingDto savingDto, BindingResult bindingResult) {
+    @PostMapping("/add")
+    @PreAuthorize("permitAll()")
+    public HospitalRegistrationRequest add(@RequestBody @Valid HospitalRegistrationRequestAddingDto addingDto, BindingResult bindingResult) {
         try {
-            service.checkDataValidityForSaving(savingDto, bindingResult);
-            return service.add(savingDto);
+            service.checkDataValidityForSaving(addingDto, bindingResult);
+            return service.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -34,7 +34,8 @@ public class HospitalRegistrationRestController {
         }
     }
 
-    @PostMapping("/delete/{id}") // todo: only for main admin
+    @PostMapping("/delete/{id}")
+    @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
     public void delete(@PathVariable("id") String pathId) {
         try {
             int id = service.parsePathId(pathId);

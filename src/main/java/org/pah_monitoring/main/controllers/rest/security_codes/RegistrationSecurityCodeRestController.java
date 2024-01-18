@@ -67,11 +67,11 @@ public class RegistrationSecurityCodeRestController {
 
     @PostMapping("/generate/by-admin")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
-    public RegistrationSecurityCode generateByAdmin(@RequestBody @Valid RegistrationSecurityCodeByAdminAddingDto savingDto,
+    public RegistrationSecurityCode generateByAdmin(@RequestBody @Valid RegistrationSecurityCodeByAdminAddingDto addingDto,
                                                     BindingResult bindingResult) {
         try {
-            codeGeneratorByAdmin.checkDataValidityForSaving(savingDto, bindingResult);
-            RegistrationSecurityCode code = codeGeneratorByAdmin.add(savingDto);
+            codeGeneratorByAdmin.checkDataValidityForSaving(addingDto, bindingResult);
+            RegistrationSecurityCode code = codeGeneratorByAdmin.add(addingDto);
             emailMessageSender.send(code.getEmail(), code, false);
             return code;
         } catch (DataValidationServiceException e) {

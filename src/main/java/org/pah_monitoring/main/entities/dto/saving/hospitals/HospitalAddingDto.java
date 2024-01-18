@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class HospitalSavingDto {
+public class HospitalAddingDto {
 
     @Size(min = 12, max = 512, message = "Минимальная длина названия медицинского учреждения - 12 символов, максимальная - 512 символов")
     @NotEmpty(message = "Название медицинского учреждения не должно быть пустым")

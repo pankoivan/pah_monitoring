@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
-import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalRegistrationRequestSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalRegistrationRequestAddingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
@@ -47,25 +47,25 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     }
 
     @Override
-    public HospitalRegistrationRequest add(HospitalRegistrationRequestSavingDto savingDto) throws DataSavingServiceException {
+    public HospitalRegistrationRequest add(HospitalRegistrationRequestAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(
                     HospitalRegistrationRequest
                             .builder()
-                            .name(savingDto.getName())
-                            .lastname(savingDto.getLastname())
-                            .patronymic(savingDto.getPatronymic())
-                            .post(savingDto.getPost())
-                            .passport(savingDto.getPassport())
-                            .phoneNumber(PhoneNumberUtils.readable(savingDto.getPhoneNumber()))
-                            .email(savingDto.getEmail())
-                            .comment(savingDto.getComment())
+                            .name(addingDto.getName())
+                            .lastname(addingDto.getLastname())
+                            .patronymic(addingDto.getPatronymic())
+                            .post(addingDto.getPost())
+                            .passport(addingDto.getPassport())
+                            .phoneNumber(PhoneNumberUtils.readable(addingDto.getPhoneNumber()))
+                            .email(addingDto.getEmail())
+                            .comment(addingDto.getComment())
                             .date(LocalDateTime.now())
-                            .hospital(hospitalService.add(savingDto.getHospitalSavingDto()))
+                            .hospital(hospitalService.add(addingDto.getHospitalAddingDto()))
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
     }
 
@@ -80,45 +80,45 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     }
 
     @Override
-    public void checkDataValidityForSaving(HospitalRegistrationRequestSavingDto savingDto, BindingResult bindingResult)
+    public void checkDataValidityForSaving(HospitalRegistrationRequestAddingDto addingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-        if (repository.existsByPassport(savingDto.getPassport())) {
+        if (repository.existsByPassport(addingDto.getPassport())) {
             throw new DataValidationServiceException(
                     "Человек с паспортными данными \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
-                            .formatted(savingDto.getPassport())
+                            .formatted(addingDto.getPassport())
             );
         }
         try {
-            if (repository.existsByPhoneNumber(PhoneNumberUtils.readable(savingDto.getPhoneNumber()))) {
+            if (repository.existsByPhoneNumber(PhoneNumberUtils.readable(addingDto.getPhoneNumber()))) {
                 throw new DataValidationServiceException(
                         "Человек с номером телефона \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
-                                .formatted(savingDto.getPhoneNumber())
+                                .formatted(addingDto.getPhoneNumber())
                 );
             }
         } catch (PhoneNumberUtilsException e) {
             throw new DataValidationServiceException(e.getMessage(), e);
         }
-        if (repository.existsByEmail(savingDto.getEmail())) {
+        if (repository.existsByEmail(addingDto.getEmail())) {
             throw new DataValidationServiceException(
-                    "Почта \"%s\" уже указана в другой заявке".formatted(savingDto.getEmail())
+                    "Почта \"%s\" уже указана в другой заявке".formatted(addingDto.getEmail())
             );
         }
-        if (securityInformationService.existsByEmail(savingDto.getEmail())) {
+        if (securityInformationService.existsByEmail(addingDto.getEmail())) {
             throw new DataValidationServiceException(
-                    "Человек с почтой \"%s\" уже зарегистрирован в приложении".formatted(savingDto.getEmail())
+                    "Человек с почтой \"%s\" уже зарегистрирован в приложении".formatted(addingDto.getEmail())
             );
         }
-        if (securityCodeService.existsByEmail(savingDto.getEmail())) {
+        if (securityCodeService.existsByEmail(addingDto.getEmail())) {
             throw new DataValidationServiceException(
-                    "Человеку с почтой \"%s\" уже выдан код".formatted(savingDto.getEmail())
+                    "Человеку с почтой \"%s\" уже выдан код".formatted(addingDto.getEmail())
             );
         }
 
-        hospitalService.checkDataValidityForSaving(savingDto.getHospitalSavingDto(), bindingResult);
+        hospitalService.checkDataValidityForSaving(addingDto.getHospitalAddingDto(), bindingResult);
 
     }
 
