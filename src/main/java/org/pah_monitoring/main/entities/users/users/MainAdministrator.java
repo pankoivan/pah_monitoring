@@ -6,6 +6,7 @@ import lombok.*;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
+import org.pah_monitoring.main.entities.users.users.common.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,7 +22,7 @@ import java.util.List;
 @JsonIncludeProperties("id")
 @Entity
 @Table(name = "main_administrator")
-public class MainAdministrator implements UserDetails {
+public class MainAdministrator implements User, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
