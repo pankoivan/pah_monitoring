@@ -1,8 +1,6 @@
 package org.pah_monitoring.main.services.security_codes.implementations;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByMainAdminAddingDto;
 import org.pah_monitoring.main.entities.enums.Role;
@@ -22,15 +20,13 @@ import org.springframework.validation.BindingResult;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
+@RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("codeGeneratorByMainAdmin")
 public class RegistrationSecurityCodeGenerationByMainAdminServiceImpl
         implements RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByMainAdminAddingDto> {
 
-    private RegistrationSecurityCodeRepository repository;
+    private final RegistrationSecurityCodeRepository repository;
 
     private HospitalRegistrationRequestService requestService;
 
@@ -70,7 +66,7 @@ public class RegistrationSecurityCodeGenerationByMainAdminServiceImpl
 
         if (request.getHospital().getCurrentState() != Hospital.CurrentState.WAITING_CODE) {
             throw new DataValidationServiceException(
-                    "Для медицинского учреждения \"%s\" уже был сгенерирован код, или оно уже зарегистрировано"
+                    "Для медицинского учреждения \"%s\" уже сгенерирован код, или оно уже зарегистрировано"
                             .formatted(request.getHospital().getName())
             );
         }

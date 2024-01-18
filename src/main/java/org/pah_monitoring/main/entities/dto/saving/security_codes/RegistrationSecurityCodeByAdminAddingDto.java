@@ -14,12 +14,12 @@ import org.pah_monitoring.main.entities.enums.Role;
 @Data
 public class RegistrationSecurityCodeByAdminAddingDto {
 
+    Role role;
+
     @Size(min = 8, max = 256, message = "Минимальная длина почты - 8 символов, максимальная - 256 символов")
     @NotEmpty(message = "Почта не должна быть пустой")
     @NotBlank(message = "Почта не должна состоять только из пробельных символов")
     String email;
-
-    Role role;
 
     ExpirationDate expirationDate;
 

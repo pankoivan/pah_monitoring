@@ -5,6 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.AdministratorAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.DoctorAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.editing.AdministratorEditingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.editing.DoctorEditingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.saving.AdministratorSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.saving.DoctorSavingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.entities.users.users.Patient;
@@ -17,9 +23,8 @@ import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
-import org.pah_monitoring.main.services.users.users.interfaces.AdministratorService;
-import org.pah_monitoring.main.services.users.users.interfaces.DoctorService;
-import org.pah_monitoring.main.services.users.users.interfaces.PatientService;
+import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,11 +38,14 @@ import org.springframework.web.bind.annotation.RestController;
 @PreAuthorize("permitAll()")
 public class RegistrationRestController {
 
-    private final AdministratorService administratorService;
+    @Qualifier("administratorService")
+    private final HospitalUserService<Administrator, AdministratorAddingDto, AdministratorEditingDto, AdministratorSavingDto> administratorService;
 
-    private final DoctorService doctorService;
+    @Qualifier("doctorService")
+    private final HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> doctorService;
 
-    private final PatientService patientService;
+    @Qualifier("patientService")
+    private final HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
     private final RegistrationSecurityCodeService codeService;
 

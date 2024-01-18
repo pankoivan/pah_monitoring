@@ -1,57 +1,50 @@
 package org.pah_monitoring.main.services.users.users.implementations;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
+import org.pah_monitoring.main.entities.dto.saving.users.users.adding.DoctorAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.editing.DoctorEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.saving.DoctorSavingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
+import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
-import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.users.PatientRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
-import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserInformationService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
-import org.pah_monitoring.main.services.users.users.interfaces.DoctorService;
-import org.pah_monitoring.main.services.users.users.interfaces.PatientService;
+import org.pah_monitoring.main.services.users.users.implementations.common.AbstractPatientServiceImpl;
+import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
+@RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
-public class PatientServiceImpl implements PatientService {
+@Service("patientService")
+public class PatientServiceImpl extends AbstractPatientServiceImpl {
 
-    private PatientRepository repository;
+    private final PatientRepository repository;
 
     private UserSecurityInformationService securityInformationService;
 
     private UserInformationService userInformationService;
 
-    private RegistrationSecurityCodeService codeService;
-
     private HospitalService hospitalService;
 
-    private DoctorService doctorService;
-
-    @Override
-    public List<Patient> findAllByDoctorId(Integer doctorId) {
-        return repository.findAllByDoctorId(doctorId);
-    }
+    @Qualifier("doctorService")
+    private HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> doctorService;
 
     @Override
     public List<Patient> findAll() {
@@ -67,7 +60,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient findByIdWithAccessCheck(Integer id) throws DataSearchingServiceException, NotEnoughRightsServiceException {
-        return findById(id);
+        return accessCheck(findById(id));
     }
 
     @Override
@@ -76,10 +69,18 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public List<Patient> findAllByDoctorIdWithAccessCheck(Integer doctorId)
+            throws NotEnoughRightsServiceException, DataSearchingServiceException {
+
+        return patientsAccessCheck(doctorService.findById(doctorId));
+
+    }
+
+    @Override
     public Patient add(PatientAddingDto addingDto) throws DataSavingServiceException {
 
         try {
-            RegistrationSecurityCode code = codeService.findByStringUuid(addingDto.getCode());
+            RegistrationSecurityCode code = getCodeService().findByStringUuid(addingDto.getCode());
             return repository.save(
                     Patient
                             .builder()
@@ -112,40 +113,20 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void checkDataValidityForAdding(PatientAddingDto savingDto, BindingResult bindingResult)
+    public void checkDataValidityForAdding(PatientAddingDto addingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
-        RegistrationSecurityCode code;
-        try {
-            code = codeService.findByStringUuid(savingDto.getCode());
-        } catch (UuidUtilsException | DataSearchingServiceException e) {
-            throw new DataValidationServiceException(e.getMessage(), e);
-        }
+        super.checkDataValidityForAdding(addingDto, bindingResult);
 
-        if (codeService.isExpired(code)) {
-            throw new DataValidationServiceException(
-                    "Истёк срок действия кода. Код был действителен до %s"
-                            .formatted(DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(code.getExpirationDate()))
-            );
-        }
+        checkDataValidityForSaving(addingDto, bindingResult);
 
-        if (codeService.isNotSuitableForRole(code, Role.PATIENT)) {
-            throw new DataValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.PATIENT.getAlias()));
-        }
-
-        if (codeService.isNotSuitableForEmail(code, savingDto.getUserSecurityInformationAddingDto().getEmail())) {
-            throw new DataValidationServiceException(
-                    "Код не предназначен для почты \"%s\"".formatted(savingDto.getUserSecurityInformationAddingDto().getEmail())
-            );
-        }
-
-        securityInformationService.checkDataValidityForSaving(savingDto.getUserSecurityInformationAddingDto(), bindingResult);
-        userInformationService.checkDataValidityForSaving(savingDto.getUserInformationAddingDto(), bindingResult);
+        securityInformationService.checkDataValidityForSaving(addingDto.getUserSecurityInformationAddingDto(), bindingResult);
+        userInformationService.checkDataValidityForSaving(addingDto.getUserInformationAddingDto(), bindingResult);
 
     }
 
     @Override
-    public void checkDataValidityForEditing(PatientEditingDto patientEditingDto, BindingResult bindingResult)
+    public void checkDataValidityForEditing(PatientEditingDto editingDto, BindingResult bindingResult)
             throws DataSearchingServiceException, DataValidationServiceException {
 
         // todo: later
@@ -159,6 +140,29 @@ public class PatientServiceImpl implements PatientService {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
+
+    }
+
+    @Override
+    protected Role getRole() {
+        return Role.PATIENT;
+    }
+
+    private List<Patient> patientsAccessCheck(Doctor doctor) throws NotEnoughRightsServiceException {
+
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof Doctor extractedDoctor) {
+            if (extractedDoctor.equals(doctor)) {
+                return doctor.getPatients();
+            } else {
+                throw new NotEnoughRightsServiceException(
+                        "Недостаточно прав для получения списка пациентов врача с id \"%s\"".formatted(doctor.getId())
+                );
+            }
+        }
+
+        throw new NotEnoughRightsServiceException(
+                "Недостаточно прав для получения списка пациентов врача с id \"%s\"".formatted(doctor.getId())
+        );
 
     }
 

@@ -2,28 +2,22 @@ package org.pah_monitoring.main.services.users.users.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.AdministratorAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.AdministratorEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.AdministratorSavingDto;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.entities.users.users.Administrator;
-import org.pah_monitoring.main.entities.users.users.MainAdministrator;
-import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
-import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.users.AdministratorRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
-import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformationService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
-import org.pah_monitoring.main.services.users.users.interfaces.AdministratorService;
+import org.pah_monitoring.main.services.users.users.implementations.common.AbstractHospitalUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -31,16 +25,15 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
-public class AdministratorServiceImpl implements AdministratorService {
+@Service("administratorService")
+public class AdministratorServiceImpl extends
+        AbstractHospitalUserServiceImpl<Administrator, AdministratorAddingDto, AdministratorEditingDto, AdministratorSavingDto> {
 
     private final AdministratorRepository repository;
 
     private UserSecurityInformationService securityInformationService;
 
     private EmployeeInformationService employeeInformationService;
-
-    private RegistrationSecurityCodeService codeService;
 
     private HospitalService hospitalService;
 
@@ -70,7 +63,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     public Administrator add(AdministratorAddingDto addingDto) throws DataSavingServiceException {
 
         try {
-            RegistrationSecurityCode code = codeService.findByStringUuid(addingDto.getCode());
+            RegistrationSecurityCode code = getCodeService().findByStringUuid(addingDto.getCode());
             return repository.save(
                     Administrator
                             .builder()
@@ -103,40 +96,20 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     @Override
-    public void checkDataValidityForAdding(AdministratorAddingDto savingDto, BindingResult bindingResult)
+    public void checkDataValidityForAdding(AdministratorAddingDto addingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
-        RegistrationSecurityCode code;
-        try {
-            code = codeService.findByStringUuid(savingDto.getCode());
-        } catch (UuidUtilsException | DataSearchingServiceException e) {
-            throw new DataValidationServiceException(e.getMessage(), e);
-        }
+        super.checkDataValidityForAdding(addingDto, bindingResult);
 
-        if (codeService.isExpired(code)) {
-            throw new DataValidationServiceException(
-                    "Истёк срок действия кода. Код был действителен до %s"
-                            .formatted(DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(code.getExpirationDate()))
-            );
-        }
+        checkDataValidityForSaving(addingDto, bindingResult);
 
-        if (codeService.isNotSuitableForRole(code, Role.ADMINISTRATOR)) {
-            throw new DataValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.ADMINISTRATOR.getAlias()));
-        }
-
-        if (codeService.isNotSuitableForEmail(code, savingDto.getUserSecurityInformationAddingDto().getEmail())) {
-            throw new DataValidationServiceException(
-                    "Код не предназначен для почты \"%s\"".formatted(savingDto.getUserSecurityInformationAddingDto().getEmail())
-            );
-        }
-
-        securityInformationService.checkDataValidityForSaving(savingDto.getUserSecurityInformationAddingDto(), bindingResult);
-        employeeInformationService.checkDataValidityForSaving(savingDto.getEmployeeInformationAddingDto(), bindingResult);
+        securityInformationService.checkDataValidityForSaving(addingDto.getUserSecurityInformationAddingDto(), bindingResult);
+        employeeInformationService.checkDataValidityForSaving(addingDto.getEmployeeInformationAddingDto(), bindingResult);
 
     }
 
     @Override
-    public void checkDataValidityForEditing(AdministratorEditingDto administratorEditingDto, BindingResult bindingResult)
+    public void checkDataValidityForEditing(AdministratorEditingDto editingDto, BindingResult bindingResult)
             throws DataSearchingServiceException, DataValidationServiceException {
 
         // todo: later
@@ -153,26 +126,9 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     }
 
-    private Administrator accessCheck(Administrator administrator) throws NotEnoughRightsServiceException {
-
-        switch (SecurityContextHolder.getContext().getAuthentication().getPrincipal()) {
-            case MainAdministrator ignored -> {
-                return administrator;
-            }
-            case HospitalUser hospitalUser -> {
-                if (hospitalUser.getHospital().equals(administrator.getHospital())) {
-                    return administrator;
-                } else {
-                    throw new NotEnoughRightsServiceException(
-                            "Недостаточно прав для получения информации о пользователе с id \"%s\"".formatted(administrator.getId())
-                    );
-                }
-            }
-            default -> throw new NotEnoughRightsServiceException(
-                    "Недостаточно прав для получения информации о пользователе с id \"%s\"".formatted(administrator.getId())
-            );
-        }
-
+    @Override
+    protected Role getRole() {
+        return Role.ADMINISTRATOR;
     }
 
 }

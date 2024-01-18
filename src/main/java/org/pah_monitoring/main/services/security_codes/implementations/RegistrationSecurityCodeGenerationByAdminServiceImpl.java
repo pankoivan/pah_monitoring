@@ -1,8 +1,6 @@
 package org.pah_monitoring.main.services.security_codes.implementations;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.utils.AuthenticationUtils;
 import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByAdminAddingDto;
@@ -12,7 +10,7 @@ import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.security_codes.RegistrationSecurityCodeRepository;
-import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
+import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeGenerationService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +21,17 @@ import org.springframework.validation.BindingResult;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
+@RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("codeGeneratorByAdmin")
 public class RegistrationSecurityCodeGenerationByAdminServiceImpl
         implements RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByAdminAddingDto> {
 
-    private RegistrationSecurityCodeRepository repository;
+    private final RegistrationSecurityCodeRepository repository;
 
     private UserSecurityInformationService securityInformationService;
 
-    private HospitalService hospitalService;
+    private HospitalRegistrationRequestService requestService;
 
     @Override
     public RegistrationSecurityCode add(RegistrationSecurityCodeByAdminAddingDto addingDto) throws DataSavingServiceException {
@@ -72,6 +68,11 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
         }
         if (securityInformationService.existsByEmail(addingDto.getEmail())) {
             throw new DataValidationServiceException("Пользователь с почтой \"%s\" уже зарегистрирован".formatted(addingDto.getEmail()));
+        }
+        if (requestService.existsByEmail(addingDto.getEmail())) {
+            throw new DataValidationServiceException(
+                    "Почта \"%s\" указана в заявке на регистрацию медицинского учреждения".formatted(addingDto.getEmail())
+            );
         }
         if (addingDto.getRole() == Role.MAIN_ADMINISTRATOR) {
             throw new DataValidationServiceException(

@@ -1,12 +1,16 @@
 package org.pah_monitoring.main.controllers.mvc.hospitals.users;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.pah_monitoring.main.entities.dto.saving.users.users.adding.AdministratorAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.editing.AdministratorEditingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.saving.AdministratorSavingDto;
+import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
-import org.pah_monitoring.main.services.users.users.interfaces.AdministratorService;
+import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @PreAuthorize("permitAll()") // todo: for main admin and people with hospital id = id
 public class HospitalAdministratorMvcController {
 
-    private final AdministratorService service;
+    @Qualifier("administratorService")
+    private final HospitalUserService<Administrator, AdministratorAddingDto, AdministratorEditingDto, AdministratorSavingDto> service;
 
     private final HospitalService hospitalService;
 

@@ -1,10 +1,7 @@
 package org.pah_monitoring.main.services.users.users.implementations;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.DoctorAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.DoctorEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.DoctorSavingDto;
@@ -15,33 +12,28 @@ import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
-import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.users.DoctorRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
-import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformationService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
-import org.pah_monitoring.main.services.users.users.interfaces.DoctorService;
+import org.pah_monitoring.main.services.users.users.implementations.common.AbstractHospitalUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
+@RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
-public class DoctorServiceImpl implements DoctorService {
+@Service("doctorService")
+public class DoctorServiceImpl extends
+        AbstractHospitalUserServiceImpl<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> {
 
-    private DoctorRepository repository;
+    private final DoctorRepository repository;
 
     private UserSecurityInformationService securityInformationService;
 
     private EmployeeInformationService employeeInformationService;
-
-    private RegistrationSecurityCodeService codeService;
 
     private HospitalService hospitalService;
 
@@ -59,7 +51,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public Doctor findByIdWithAccessCheck(Integer id) throws DataSearchingServiceException, NotEnoughRightsServiceException {
-        return findById(id);
+        return accessCheck(findById(id));
     }
 
     @Override
@@ -71,7 +63,7 @@ public class DoctorServiceImpl implements DoctorService {
     public Doctor add(DoctorAddingDto addingDto) throws DataSavingServiceException {
 
         try {
-            RegistrationSecurityCode code = codeService.findByStringUuid(addingDto.getCode());
+            RegistrationSecurityCode code = getCodeService().findByStringUuid(addingDto.getCode());
             return repository.save(
                     Doctor
                             .builder()
@@ -104,35 +96,15 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public void checkDataValidityForAdding(DoctorAddingDto savingDto, BindingResult bindingResult)
+    public void checkDataValidityForAdding(DoctorAddingDto addingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
-        RegistrationSecurityCode code;
-        try {
-            code = codeService.findByStringUuid(savingDto.getCode());
-        } catch (UuidUtilsException | DataSearchingServiceException e) {
-            throw new DataValidationServiceException(e.getMessage(), e);
-        }
+        super.checkDataValidityForAdding(addingDto, bindingResult);
 
-        if (codeService.isExpired(code)) {
-            throw new DataValidationServiceException(
-                    "Истёк срок действия кода. Код был действителен до %s"
-                            .formatted(DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(code.getExpirationDate()))
-            );
-        }
+        checkDataValidityForSaving(addingDto, bindingResult);
 
-        if (codeService.isNotSuitableForRole(code, Role.DOCTOR)) {
-            throw new DataValidationServiceException("Код не предназначен для роли \"%s\"".formatted(Role.DOCTOR.getAlias()));
-        }
-
-        if (codeService.isNotSuitableForEmail(code, savingDto.getUserSecurityInformationAddingDto().getEmail())) {
-            throw new DataValidationServiceException(
-                    "Код не предназначен для почты \"%s\"".formatted(savingDto.getUserSecurityInformationAddingDto().getEmail())
-            );
-        }
-
-        securityInformationService.checkDataValidityForSaving(savingDto.getUserSecurityInformationAddingDto(), bindingResult);
-        employeeInformationService.checkDataValidityForSaving(savingDto.getEmployeeInformationAddingDto(), bindingResult);
+        securityInformationService.checkDataValidityForSaving(addingDto.getUserSecurityInformationAddingDto(), bindingResult);
+        employeeInformationService.checkDataValidityForSaving(addingDto.getEmployeeInformationAddingDto(), bindingResult);
 
     }
 
@@ -152,6 +124,11 @@ public class DoctorServiceImpl implements DoctorService {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
 
+    }
+
+    @Override
+    protected Role getRole() {
+        return Role.DOCTOR;
     }
 
 }

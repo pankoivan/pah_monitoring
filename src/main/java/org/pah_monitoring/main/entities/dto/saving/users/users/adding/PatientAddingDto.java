@@ -5,11 +5,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.pah_monitoring.main.entities.dto.saving.users.info.adding.UserInformationAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.info.adding.UserSecurityInformationAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.common.HospitalUserAddingInformation;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class PatientAddingDto extends PatientSavingDto {
+public class PatientAddingDto extends PatientSavingDto implements HospitalUserAddingInformation {
 
     @Valid
     private UserSecurityInformationAddingDto userSecurityInformationAddingDto;

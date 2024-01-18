@@ -1,8 +1,6 @@
 package org.pah_monitoring.main.services.auxiliary.email.implementations;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.auxiliary.text.ApplicationNameText;
@@ -17,18 +15,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@RequiredArgsConstructor
+@Setter(onMethod = @__(@Autowired))
 @Component("codeEmailSender")
 public class RegistrationSecurityCodeEmailServiceImpl implements EmailService<RegistrationSecurityCode> {
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
-    @Autowired
-    @Value("${spring.mail.username}")
+    @Setter(onMethod = @__(@Value("${spring.mail.username}")))
     private String applicationEmail;
 
     @Override

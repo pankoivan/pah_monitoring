@@ -1,8 +1,6 @@
 package org.pah_monitoring.main.services.hospitals.implementations;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalRegistrationRequestAddingDto;
@@ -24,20 +22,23 @@ import org.springframework.validation.BindingResult;
 
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
+@RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service
 public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrationRequestService {
 
-    private HospitalRegistrationRequestRepository repository;
+    private final HospitalRegistrationRequestRepository repository;
 
     private HospitalService hospitalService;
 
     private UserSecurityInformationService securityInformationService;
 
     private RegistrationSecurityCodeService securityCodeService;
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
+    }
 
     @Override
     public HospitalRegistrationRequest findById(Integer id) throws DataSearchingServiceException {

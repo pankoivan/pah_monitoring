@@ -1,9 +1,7 @@
 package org.pah_monitoring.main.services.security_codes.implementations;
 
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.utils.UuidUtils;
 import org.pah_monitoring.main.entities.enums.Role;
@@ -19,14 +17,12 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
+@RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service
 public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurityCodeService {
 
-    private RegistrationSecurityCodeRepository repository;
+    private final RegistrationSecurityCodeRepository repository;
 
     @Override
     public boolean isExpired(RegistrationSecurityCode code) {

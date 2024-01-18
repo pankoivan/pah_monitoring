@@ -4,12 +4,13 @@ import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
+import org.pah_monitoring.main.services.validation.interfaces.SavingValidationService;
 import org.pah_monitoring.main.services.validation.interfaces.UrlValidationService;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
-public interface UserService<T, M, R> extends UrlValidationService {
+public interface HospitalUserService<T, M, R, N> extends UrlValidationService, SavingValidationService<N> {
 
     List<T> findAll();
 

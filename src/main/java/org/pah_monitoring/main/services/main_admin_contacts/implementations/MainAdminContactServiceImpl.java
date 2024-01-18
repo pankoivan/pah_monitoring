@@ -1,8 +1,6 @@
 package org.pah_monitoring.main.services.main_admin_contacts.implementations;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.QuantityRestrictionConstants;
 import org.pah_monitoring.main.entities.dto.saving.main_admin_contacts.MainAdminContactSavingDto;
@@ -20,14 +18,12 @@ import org.springframework.validation.BindingResult;
 import java.util.List;
 import java.util.Optional;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
+@RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service
 public class MainAdminContactServiceImpl implements MainAdminContactService {
 
-    private MainAdminContactRepository repository;
+    private final MainAdminContactRepository repository;
 
     @Override
     public List<MainAdminContact> findAll() {
