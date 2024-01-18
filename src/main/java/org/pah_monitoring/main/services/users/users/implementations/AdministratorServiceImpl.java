@@ -9,9 +9,12 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.saving.Administra
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.entities.users.users.Administrator;
+import org.pah_monitoring.main.entities.users.users.MainAdministrator;
+import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.users.AdministratorRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
@@ -20,6 +23,7 @@ import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformatio
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
 import org.pah_monitoring.main.services.users.users.interfaces.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -50,6 +54,11 @@ public class AdministratorServiceImpl implements AdministratorService {
         return repository.findById(id).orElseThrow(
                 () -> new DataSearchingServiceException("Администратор с id \"%s\" не существует".formatted(id))
         );
+    }
+
+    @Override
+    public Administrator findByIdWithAccessCheck(Integer id) throws DataSearchingServiceException, NotEnoughRightsServiceException {
+        return accessCheck(findById(id));
     }
 
     @Override
@@ -140,6 +149,28 @@ public class AdministratorServiceImpl implements AdministratorService {
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+
+    }
+
+    private Administrator accessCheck(Administrator administrator) throws NotEnoughRightsServiceException {
+
+        switch (SecurityContextHolder.getContext().getAuthentication().getPrincipal()) {
+            case MainAdministrator ignored -> {
+                return administrator;
+            }
+            case HospitalUser hospitalUser -> {
+                if (hospitalUser.getHospital().equals(administrator.getHospital())) {
+                    return administrator;
+                } else {
+                    throw new NotEnoughRightsServiceException(
+                            "Недостаточно прав для получения информации о пользователе с id \"%s\"".formatted(administrator.getId())
+                    );
+                }
+            }
+            default -> throw new NotEnoughRightsServiceException(
+                    "Недостаточно прав для получения информации о пользователе с id \"%s\"".formatted(administrator.getId())
+            );
         }
 
     }

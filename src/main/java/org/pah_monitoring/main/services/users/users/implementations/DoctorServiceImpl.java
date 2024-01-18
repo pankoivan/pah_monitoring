@@ -14,6 +14,7 @@ import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.users.DoctorRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
@@ -54,6 +55,11 @@ public class DoctorServiceImpl implements DoctorService {
         return repository.findById(id).orElseThrow(
                 () -> new DataSearchingServiceException("Врач с id \"%s\" не существует".formatted(id))
         );
+    }
+
+    @Override
+    public Doctor findByIdWithAccessCheck(Integer id) throws DataSearchingServiceException, NotEnoughRightsServiceException {
+        return findById(id);
     }
 
     @Override

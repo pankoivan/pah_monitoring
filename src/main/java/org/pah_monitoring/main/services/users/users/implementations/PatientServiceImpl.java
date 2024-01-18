@@ -14,6 +14,7 @@ import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.users.PatientRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
@@ -62,6 +63,11 @@ public class PatientServiceImpl implements PatientService {
         return repository.findById(id).orElseThrow(
                 () -> new DataSearchingServiceException("Пациент с id \"%s\" не существует".formatted(id))
         );
+    }
+
+    @Override
+    public Patient findByIdWithAccessCheck(Integer id) throws DataSearchingServiceException, NotEnoughRightsServiceException {
+        return findById(id);
     }
 
     @Override
