@@ -104,17 +104,17 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
         }
         if (repository.existsByEmail(savingDto.getEmail())) {
             throw new DataValidationServiceException(
-                    "Почта \"%s\" уже была указана в другой заявке".formatted(savingDto.getEmail())
+                    "Почта \"%s\" уже указана в другой заявке".formatted(savingDto.getEmail())
             );
         }
         if (securityInformationService.existsByEmail(savingDto.getEmail())) {
             throw new DataValidationServiceException(
-                    "Человек с почтой \"%s\" уже зарегистрирован в приложении".formatted(savingDto.getPhoneNumber())
+                    "Человек с почтой \"%s\" уже зарегистрирован в приложении".formatted(savingDto.getEmail())
             );
         }
         if (securityCodeService.existsByEmail(savingDto.getEmail())) {
             throw new DataValidationServiceException(
-                    "Человеку с почтой \"%s\" уже был выдан код".formatted(savingDto.getPhoneNumber())
+                    "Человеку с почтой \"%s\" уже выдан код".formatted(savingDto.getEmail())
             );
         }
 
