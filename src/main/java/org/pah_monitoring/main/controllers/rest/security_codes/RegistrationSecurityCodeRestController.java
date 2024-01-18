@@ -38,24 +38,24 @@ public class RegistrationSecurityCodeRestController {
     private final RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByAdminSavingDto> codeGeneratorByAdmin;
 
     @Qualifier("codeEmailSender")
-    private final EmailService<RegistrationSecurityCode> emailService;
+    private final EmailService<RegistrationSecurityCode> emailMessageSender;
 
     private final HospitalService hospitalService;
 
-    @PostMapping("/check") // todo: for all
+    @PostMapping("/check")
     @PreAuthorize("permitAll()")
-    public TrueFalseResponse isCodeExists(@RequestBody CodeCheck codeCheck) {
-        return new TrueFalseResponse(service.existsByStringUuid(codeCheck.code));
+    public TrueFalseResponse check(@RequestBody CodeCheckRequest codeCheckRequest) {
+        return new TrueFalseResponse(service.existsByStringUuid(codeCheckRequest.code));
     }
 
-    @PostMapping("/generate/by-main-admin") // todo: only for main admin
+    @PostMapping("/generate/by-main-admin")
     @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
     public RegistrationSecurityCode generateByMainAdmin(@RequestBody @Valid RegistrationSecurityCodeByMainAdminSavingDto savingDto,
                                                         BindingResult bindingResult) {
         try {
             codeGeneratorByMainAdmin.checkDataValidityForSaving(savingDto, bindingResult);
             RegistrationSecurityCode code = codeGeneratorByMainAdmin.add(savingDto);
-            emailService.send(code.getEmail(), code, false);
+            emailMessageSender.send(code.getEmail(), code, false);
             hospitalService.upgrade(code.getHospital());
             return code;
         } catch (DataValidationServiceException e) {
@@ -65,14 +65,14 @@ public class RegistrationSecurityCodeRestController {
         }
     }
 
-    @PostMapping("/generate/by-admin") // todo: only for admin
+    @PostMapping("/generate/by-admin")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
     public RegistrationSecurityCode generateByAdmin(@RequestBody @Valid RegistrationSecurityCodeByAdminSavingDto savingDto,
                                                     BindingResult bindingResult) {
         try {
             codeGeneratorByAdmin.checkDataValidityForSaving(savingDto, bindingResult);
             RegistrationSecurityCode code = codeGeneratorByAdmin.add(savingDto);
-            emailService.send(code.getEmail(), code, false);
+            emailMessageSender.send(code.getEmail(), code, false);
             return code;
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
@@ -82,7 +82,7 @@ public class RegistrationSecurityCodeRestController {
     }
 
     @NoArgsConstructor @AllArgsConstructor @Data
-    public static class CodeCheck {
+    public static class CodeCheckRequest {
         private String code;
     }
 
