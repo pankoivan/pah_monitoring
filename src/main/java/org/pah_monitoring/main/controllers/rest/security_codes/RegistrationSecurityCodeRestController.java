@@ -49,8 +49,8 @@ public class RegistrationSecurityCodeRestController {
     private HospitalService hospitalService;
 
     @PostMapping("/check") // todo: for all
-    public TrueFalseEntity isCodeExists(@RequestBody CheckCode checkCode) {
-        return new TrueFalseEntity(service.existsByStringUuid(checkCode.code));
+    public TrueFalseResponse isCodeExists(@RequestBody CodeCheck codeCheck) {
+        return new TrueFalseResponse(service.existsByStringUuid(codeCheck.code));
     }
 
     @PostMapping("/generate/by-main-admin") // todo: only for main admin
@@ -84,22 +84,14 @@ public class RegistrationSecurityCodeRestController {
         }
     }
 
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Data
-    public static class CheckCode {
-
+    @NoArgsConstructor @AllArgsConstructor @Data
+    public static class CodeCheck {
         private String code;
-
     }
 
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Data
-    public static class TrueFalseEntity {
-
+    @NoArgsConstructor @AllArgsConstructor @Data
+    public static class TrueFalseResponse {
         private boolean isTrue;
-
     }
 
 }

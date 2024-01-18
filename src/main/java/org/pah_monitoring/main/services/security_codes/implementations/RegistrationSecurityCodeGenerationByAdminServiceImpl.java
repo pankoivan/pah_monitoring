@@ -75,7 +75,9 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
             throw new DataValidationServiceException("Пользователь с почтой \"%s\" уже зарегистрирован".formatted(savingDto.getEmail()));
         }
         if (savingDto.getRole() == Role.MAIN_ADMINISTRATOR) {
-            throw new DataValidationServiceException("Для роли \"%s\" не предусмотрена генерация кода".formatted(savingDto.getEmail()));
+            throw new DataValidationServiceException(
+                    "Для роли \"%s\" не предусмотрена генерация кода".formatted(Role.MAIN_ADMINISTRATOR.getAlias())
+            );
         }
 
     }

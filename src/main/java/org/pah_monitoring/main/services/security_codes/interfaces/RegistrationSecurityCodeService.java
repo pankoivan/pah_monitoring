@@ -24,6 +24,8 @@ public interface RegistrationSecurityCodeService {
 
     boolean existsByStringUuid(String stringUuid);
 
+    boolean existsByEmail(String email);
+
     void deleteByEmail(String email) throws DataSearchingServiceException, DataDeletionServiceException;
 
 }

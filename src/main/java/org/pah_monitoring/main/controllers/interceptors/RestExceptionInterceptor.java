@@ -32,15 +32,10 @@ public class RestExceptionInterceptor {
         return new ResponseEntity<>(json, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Data
+    @NoArgsConstructor @AllArgsConstructor @Data
     public static class ExceptionEntity {
-
         private Integer errorStatusCode;
-
         private String errorDescription;
-
     }
 
 }

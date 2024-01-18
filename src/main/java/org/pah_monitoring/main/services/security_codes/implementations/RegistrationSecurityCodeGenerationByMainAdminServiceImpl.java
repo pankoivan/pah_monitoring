@@ -70,7 +70,8 @@ public class RegistrationSecurityCodeGenerationByMainAdminServiceImpl
 
         if (request.getHospital().getCurrentState() != Hospital.CurrentState.WAITING_CODE) {
             throw new DataValidationServiceException(
-                    "Для медицинского учреждения \"%s\" уже был сгенерирован код".formatted(request.getHospital().getName())
+                    "Для медицинского учреждения \"%s\" уже был сгенерирован код, или оно уже зарегистрировано"
+                            .formatted(request.getHospital().getName())
             );
         }
 

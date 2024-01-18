@@ -72,11 +72,16 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
         }
     }
 
+    @Override
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
+    }
+
     @Transactional
     @Override
     public void deleteByEmail(String email) throws DataSearchingServiceException, DataDeletionServiceException {
         if (repository.findByEmail(email).isEmpty()) {
-            throw new DataSearchingServiceException("Для почты \"%s\" не существует кода".formatted(email));
+            throw new DataSearchingServiceException("Не существует кода, связанного с почтой \"%s\"".formatted(email));
         }
         try {
             repository.deleteByEmail(email);
