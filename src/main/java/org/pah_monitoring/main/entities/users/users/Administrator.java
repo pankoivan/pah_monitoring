@@ -3,7 +3,6 @@ package org.pah_monitoring.main.entities.users.users;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.users.inactivity.Dismissal;
@@ -24,7 +23,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(of = "id")
-@SuperBuilder
+@Builder
 @JsonIncludeProperties("id")
 @Entity
 @Table(name = "administrator")

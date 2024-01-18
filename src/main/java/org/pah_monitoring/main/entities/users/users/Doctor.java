@@ -3,7 +3,6 @@ package org.pah_monitoring.main.entities.users.users;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.examinations.Examination;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
@@ -12,7 +11,6 @@ import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.entities.users.users.common.HospitalEmployeeUser;
-import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,7 +22,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(of = "id")
-@SuperBuilder
+@Builder
 @JsonIncludeProperties("id")
 @Entity
 @Table(name = "doctor")
