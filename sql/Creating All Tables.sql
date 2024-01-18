@@ -75,7 +75,6 @@ CREATE TABLE IF NOT EXISTS hospital_employee_information
 (
 	id SERIAL PRIMARY KEY,
 	user_information_id INT REFERENCES user_information (id) UNIQUE NOT NULL,
-	hospital_id INT REFERENCES hospital (id) NOT NULL,
 	post VARCHAR (128) NOT NULL
 );
 
@@ -94,7 +93,8 @@ CREATE TABLE IF NOT EXISTS administrator
 (
 	id SERIAL PRIMARY KEY,
 	user_security_information_id INT REFERENCES user_security_information (id) UNIQUE NOT NULL,
-	hospital_employee_information_id INT REFERENCES hospital_employee_information (id) UNIQUE NOT NULL
+	hospital_employee_information_id INT REFERENCES hospital_employee_information (id) UNIQUE NOT NULL,
+	hospital_id INT REFERENCES hospital (id) NOT NULL
 );
 
 /* Врачи (10) */
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS doctor
 	id SERIAL PRIMARY KEY,
 	user_security_information_id INT REFERENCES user_security_information (id) UNIQUE NOT NULL,
 	hospital_employee_information_id INT REFERENCES hospital_employee_information (id) UNIQUE NOT NULL,
-	university VARCHAR (256)
+	hospital_id INT REFERENCES hospital (id) NOT NULL
 );
 
 /* Больничные сотрудников медицинских учреждений (11) */
@@ -155,8 +155,8 @@ CREATE TABLE IF NOT EXISTS patient
 	id SERIAL PRIMARY KEY,
 	user_security_information_id INT REFERENCES user_security_information (id) UNIQUE NOT NULL,
 	user_information_id INT REFERENCES user_information (id) UNIQUE NOT NULL,
-	doctor_id INT REFERENCES doctor (id),
-	hospital_id INT REFERENCES hospital (id) NOT NULL
+	hospital_id INT REFERENCES hospital (id) NOT NULL,
+	doctor_id INT REFERENCES doctor (id)
 );
 
 /* Неактивные пациенты (15) */
