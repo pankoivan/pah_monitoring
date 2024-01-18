@@ -1,16 +1,15 @@
 package org.pah_monitoring.main.entities.dto.saving.users.users.adding;
 
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 import org.pah_monitoring.main.entities.dto.saving.users.info.adding.EmployeeInformationAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.info.adding.UserSecurityInformationAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.saving.AdministratorSavingDto;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
-public class AdministratorAddingDto {
+@EqualsAndHashCode(callSuper = true)
+public class AdministratorAddingDto extends AdministratorSavingDto {
 
     @Valid
     private UserSecurityInformationAddingDto userSecurityInformationAddingDto;

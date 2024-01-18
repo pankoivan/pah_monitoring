@@ -1,22 +1,13 @@
 package org.pah_monitoring.main.entities.dto.saving.users.info.adding;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import org.pah_monitoring.main.entities.dto.saving.users.info.saving.EmployeeInformationSavingDto;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
-public class EmployeeInformationAddingDto {
-
-    @Size(min = 4, max = 128, message = "Минимальная длина должности - 4 символа, максимальная - 128 символов")
-    @NotEmpty(message = "Должность не должна быть пустой")
-    @NotBlank(message = "Должность не должна состоять только из пробельных символов")
-    private String post;
+@EqualsAndHashCode(callSuper = true)
+public class EmployeeInformationAddingDto extends EmployeeInformationSavingDto {
 
     @Valid
     private UserInformationAddingDto userInformationAddingDto;

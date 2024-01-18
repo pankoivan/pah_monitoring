@@ -4,16 +4,15 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 import org.pah_monitoring.main.entities.dto.saving.users.info.adding.EmployeeInformationAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.info.adding.UserSecurityInformationAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.saving.DoctorSavingDto;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
-public class DoctorAddingDto {
+@EqualsAndHashCode(callSuper = true)
+public class DoctorAddingDto extends DoctorSavingDto {
 
     @Size(min = 3, max = 128, message = "Минимальная длина названия вуза - 3 символа, максимальная - 128 символов")
     @NotEmpty(message = "Название вуза не должно быть пустым")

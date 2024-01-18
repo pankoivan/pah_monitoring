@@ -1,13 +1,12 @@
 package org.pah_monitoring.main.entities.dto.saving.users.users.editing;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import org.pah_monitoring.main.entities.dto.saving.users.users.saving.AdministratorSavingDto;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
-public class PatientEditingDto {
+@EqualsAndHashCode(callSuper = true)
+public class PatientEditingDto extends AdministratorSavingDto {
 
     Integer id;
 
