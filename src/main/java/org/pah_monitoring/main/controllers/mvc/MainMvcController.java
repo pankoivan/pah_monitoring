@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.controllers.mvc;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.entities.users.users.MainAdministrator;
@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/")
 @PreAuthorize("permitAll()")

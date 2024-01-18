@@ -1,8 +1,6 @@
 package org.pah_monitoring.main.services.users.users.implementations;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.AdministratorAddingDto;
@@ -27,14 +25,12 @@ import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
+@RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service
 public class AdministratorServiceImpl implements AdministratorService {
 
-    private AdministratorRepository repository;
+    private final AdministratorRepository repository;
 
     private UserSecurityInformationService securityInformationService;
 

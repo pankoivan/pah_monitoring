@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByAdminSavingDto;
 import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByMainAdminSavingDto;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
@@ -15,7 +16,6 @@ import org.pah_monitoring.main.services.auxiliary.email.interfaces.EmailService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeGenerationService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -24,29 +24,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@NoArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/rest/security-codes")
 @PreAuthorize("permitAll()") // todo: remove
 public class RegistrationSecurityCodeRestController {
 
-    @Autowired
-    private RegistrationSecurityCodeService service;
+    private final RegistrationSecurityCodeService service;
 
-    @Autowired
     @Qualifier("codeGeneratorByMainAdmin")
-    private RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByMainAdminSavingDto> codeGeneratorByMainAdmin;
+    private final RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByMainAdminSavingDto> codeGeneratorByMainAdmin;
 
-    @Autowired
     @Qualifier("codeGeneratorByAdmin")
-    private RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByAdminSavingDto> codeGeneratorByAdmin;
+    private final RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByAdminSavingDto> codeGeneratorByAdmin;
 
-    @Autowired
     @Qualifier("codeEmailSender")
-    private EmailService<RegistrationSecurityCode> emailService;
+    private final EmailService<RegistrationSecurityCode> emailService;
 
-    @Autowired
-    private HospitalService hospitalService;
+    private final HospitalService hospitalService;
 
     @PostMapping("/check") // todo: for all
     public TrueFalseResponse isCodeExists(@RequestBody CodeCheck codeCheck) {

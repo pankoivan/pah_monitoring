@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc.hospitals;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.enums.ExpirationDate;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/hospital-registration")
 @PreAuthorize("permitAll()") // todo: remove

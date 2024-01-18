@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.controllers.rest.registration;
 
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.AdministratorAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.DoctorAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/rest/registration")
 @PreAuthorize("permitAll()")

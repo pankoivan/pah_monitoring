@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc.users;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/doctors")
 @PreAuthorize("permitAll()") // todo: only for main admin
