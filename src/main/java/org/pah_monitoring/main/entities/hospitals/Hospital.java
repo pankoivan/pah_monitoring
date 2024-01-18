@@ -38,11 +38,11 @@ public class Hospital {
     @Column(name = "current_state")
     private CurrentState currentState;
 
-    @OneToMany(mappedBy = "hospital")
+    /*@OneToMany(mappedBy = "hospital")
     private List<EmployeeInformation> employees;
 
     @OneToMany(mappedBy = "hospital")
-    private List<Patient> patients;
+    private List<Patient> patients;*/
 
     @OneToOne(mappedBy = "hospital")
     private HospitalRegistrationRequest request;

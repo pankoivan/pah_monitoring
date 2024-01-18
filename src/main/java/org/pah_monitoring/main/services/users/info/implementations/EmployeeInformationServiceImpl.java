@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.entities.dto.saving.users.info.adding.EmployeeInformationAddingDto;
-import org.pah_monitoring.main.entities.hospitals.Hospital;
+import org.pah_monitoring.main.entities.dto.saving.users.info.editing.EmployeeInformationEditingDto;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
@@ -36,19 +36,47 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
     }
 
     @Override
-    public EmployeeInformation add(EmployeeInformationAddingDto savingDto, Hospital hospital) throws DataSavingServiceException {
+    public EmployeeInformation add(EmployeeInformationAddingDto savingDto) throws DataSavingServiceException {
+
         try {
             return repository.save(
                     EmployeeInformation
                             .builder()
                             .post(savingDto.getPost())
-                            .hospital(hospital)
                             .userInformation(userInformationService.add(savingDto.getUserInformationAddingDto()))
                             .build()
             );
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
         }
+
+    }
+
+    @Override
+    public EmployeeInformation edit(EmployeeInformationEditingDto editingDto)
+            throws DataSearchingServiceException, DataSavingServiceException {
+
+        EmployeeInformation employeeInformation = findById(editingDto.getId());
+        try {
+            return repository.save(
+                    EmployeeInformation
+                            .builder()
+                            .id(employeeInformation.getId())
+                            .post(editingDto.getPost())
+                            .build()
+            );
+        } catch (Exception e) {
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(editingDto), e);
+        }
+
+    }
+
+    @Override
+    public void checkDataValidityForEditing(EmployeeInformationEditingDto editingDto, BindingResult bindingResult)
+            throws DataSearchingServiceException, DataValidationServiceException {
+
+        // todo: later
+
     }
 
     @Override

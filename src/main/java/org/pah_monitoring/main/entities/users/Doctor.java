@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.examinations.Examination;
+import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.users.inactivity.InactivePatient;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
@@ -18,9 +19,9 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(of = {"id", "university"})
+@ToString(of = "id")
 @Builder
-@JsonIncludeProperties({"id", "university"})
+@JsonIncludeProperties("id")
 @Entity
 @Table(name = "doctor")
 public class Doctor implements UserDetails {
@@ -30,9 +31,6 @@ public class Doctor implements UserDetails {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "university")
-    private String university;
-
     @OneToOne
     @JoinColumn(name = "user_security_information_id")
     private UserSecurityInformation userSecurityInformation;
@@ -40,6 +38,10 @@ public class Doctor implements UserDetails {
     @OneToOne
     @JoinColumn(name = "hospital_employee_information_id")
     private EmployeeInformation employeeInformation;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital_id")
+    private Hospital hospital;
 
     @OneToMany(mappedBy = "doctor")
     private List<Patient> patients;

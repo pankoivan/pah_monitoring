@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.entities.dto.saving.users.info.adding.UserInformationAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.info.editing.UserInformationEditingDto;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
@@ -49,6 +50,38 @@ public class UserInformationServiceImpl implements UserInformationService {
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
         }
+    }
+
+    @Override
+    public UserInformation edit(UserInformationEditingDto editingDto)
+            throws DataSearchingServiceException, DataSavingServiceException {
+
+        UserInformation userInformation = findById(editingDto.getId());
+        try {
+            return repository.save(
+                    UserInformation
+                            .builder()
+                            .id(userInformation.getId())
+                            .name(editingDto.getName())
+                            .lastname(editingDto.getLastname())
+                            .patronymic(editingDto.getPatronymic())
+                            .gender(editingDto.getGender())
+                            .birthdate(editingDto.getBirthdate())
+                            .phoneNumber(PhoneNumberUtils.readable(editingDto.getPhoneNumber()))
+                            .build()
+            );
+        } catch (Exception e) {
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(editingDto), e);
+        }
+
+    }
+
+    @Override
+    public void checkDataValidityForEditing(UserInformationEditingDto editingDto, BindingResult bindingResult)
+            throws DataSearchingServiceException, DataValidationServiceException {
+
+        // todo: later
+
     }
 
     @Override

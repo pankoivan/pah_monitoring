@@ -28,10 +28,10 @@ public class MainMvcController {
             case MainAdministrator ignored -> "redirect:/hospitals";
 
             case Administrator administrator -> "redirect:/hospitals/%s"
-                    .formatted(administrator.getEmployeeInformation().getHospital().getId());
+                    .formatted(administrator.getHospital().getId());
 
             case Doctor doctor -> "redirect:/hospitals/%s/doctors/%s/patients"
-                    .formatted(doctor.getEmployeeInformation().getHospital().getId(), doctor.getId());
+                    .formatted(doctor.getHospital().getId(), doctor.getId());
 
             case Patient ignored -> "redirect:/indicators";
 

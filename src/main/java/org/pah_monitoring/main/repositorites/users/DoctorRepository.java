@@ -13,6 +13,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Integer> {
 
     Optional<UserDetails> findByUserSecurityInformationEmail(String email);
 
-    List<Doctor> findAllByEmployeeInformationHospitalId(Integer hospitalId);
+    List<Doctor> findAllByHospitalId(Integer hospitalId);
 
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.entities.dto.saving.users.info.adding.UserSecurityInformationAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.info.editing.UserSecurityInformationEditingDto;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
@@ -53,6 +54,34 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
         }
+
+    }
+
+    @Override
+    public UserSecurityInformation edit(UserSecurityInformationEditingDto editingDto)
+            throws DataSearchingServiceException, DataSavingServiceException {
+
+        UserSecurityInformation securityInformation = findById(editingDto.getId());
+        try {
+            return repository.save(
+                    UserSecurityInformation
+                            .builder()
+                            .id(securityInformation.getId())
+                            .email(editingDto.getEmail())
+                            .password(passwordEncoder.encode(editingDto.getPassword()))
+                            .build()
+            );
+        } catch (Exception e) {
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(editingDto), e);
+        }
+
+    }
+
+    @Override
+    public void checkDataValidityForEditing(UserSecurityInformationEditingDto editingDto, BindingResult bindingResult)
+            throws DataSearchingServiceException, DataValidationServiceException {
+
+        // todo: later
 
     }
 

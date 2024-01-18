@@ -44,13 +44,12 @@ public class RegistrationRestController {
     private final HospitalService hospitalService;
 
     @PostMapping("/admin")
-    public Administrator addAdmin(@RequestBody @Valid AdministratorAddingDto savingDto, BindingResult bindingResult) {
+    public Administrator addAdmin(@RequestBody @Valid AdministratorAddingDto addingDto, BindingResult bindingResult) {
         try {
-            administratorService.checkDataValidityForSaving(savingDto, bindingResult);
-            administratorService.checkDataValidityForAdding(savingDto);
-            Administrator administrator = administratorService.add(savingDto);
+            administratorService.checkDataValidityForAdding(addingDto, bindingResult);
+            Administrator administrator = administratorService.add(addingDto);
             codeService.deleteByEmail(administrator.getUserSecurityInformation().getEmail());
-            hospitalService.upgrade(administrator.getEmployeeInformation().getHospital());
+            hospitalService.upgrade(administrator.getHospital());
             return administrator;
         } catch (DataValidationServiceException | DataSearchingServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
@@ -62,11 +61,10 @@ public class RegistrationRestController {
     }
 
     @PostMapping("/doctor")
-    public Doctor addDoctor(@RequestBody @Valid DoctorAddingDto savingDto, BindingResult bindingResult) {
+    public Doctor addDoctor(@RequestBody @Valid DoctorAddingDto addingDto, BindingResult bindingResult) {
         try {
-            doctorService.checkDataValidityForSaving(savingDto, bindingResult);
-            doctorService.checkDataValidityForAdding(savingDto);
-            Doctor doctor = doctorService.add(savingDto);
+            doctorService.checkDataValidityForAdding(addingDto, bindingResult);
+            Doctor doctor = doctorService.add(addingDto);
             codeService.deleteByEmail(doctor.getUserSecurityInformation().getEmail());
             return doctor;
         } catch (DataValidationServiceException | DataSearchingServiceException e) {
@@ -79,11 +77,10 @@ public class RegistrationRestController {
     }
 
     @PostMapping("/patient")
-    public Patient addPatient(@RequestBody @Valid PatientAddingDto savingDto, BindingResult bindingResult) {
+    public Patient addPatient(@RequestBody @Valid PatientAddingDto addingDto, BindingResult bindingResult) {
         try {
-            patientService.checkDataValidityForSaving(savingDto, bindingResult);
-            patientService.checkDataValidityForAdding(savingDto);
-            Patient patient = patientService.add(savingDto);
+            patientService.checkDataValidityForAdding(addingDto, bindingResult);
+            Patient patient = patientService.add(addingDto);
             codeService.deleteByEmail(patient.getUserSecurityInformation().getEmail());
             return patient;
         } catch (DataValidationServiceException | DataSearchingServiceException e) {

@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.entities.users.Patient;
@@ -105,7 +106,8 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void checkDataValidityForAdding(PatientAddingDto savingDto) throws DataValidationServiceException {
+    public void checkDataValidityForAdding(PatientAddingDto savingDto, BindingResult bindingResult)
+            throws DataValidationServiceException {
 
         RegistrationSecurityCode code;
         try {
@@ -131,26 +133,26 @@ public class PatientServiceImpl implements PatientService {
             );
         }
 
+        securityInformationService.checkDataValidityForSaving(savingDto.getUserSecurityInformationAddingDto(), bindingResult);
+        userInformationService.checkDataValidityForSaving(savingDto.getUserInformationAddingDto(), bindingResult);
+
     }
 
     @Override
-    public void checkDataValidityForEditing(PatientEditingDto patientEditingDto) throws DataSearchingServiceException,
-            DataValidationServiceException {
+    public void checkDataValidityForEditing(PatientEditingDto patientEditingDto, BindingResult bindingResult)
+            throws DataSearchingServiceException, DataValidationServiceException {
 
         // todo: later
 
     }
 
     @Override
-    public void checkDataValidityForSaving(PatientAddingDto savingDto, BindingResult bindingResult)
+    public void checkDataValidityForSaving(PatientSavingDto savingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-
-        securityInformationService.checkDataValidityForSaving(savingDto.getUserSecurityInformationAddingDto(), bindingResult);
-        userInformationService.checkDataValidityForSaving(savingDto.getUserInformationAddingDto(), bindingResult);
 
     }
 

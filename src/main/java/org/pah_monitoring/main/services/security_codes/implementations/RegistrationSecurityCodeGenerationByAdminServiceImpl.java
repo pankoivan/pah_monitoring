@@ -51,8 +51,7 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
                                     AuthenticationUtils.extractCurrentUser(
                                             SecurityContextHolder.getContext().getAuthentication(),
                                             Administrator.class
-                                    ).getEmployeeInformation()
-                                            .getHospital()
+                                    ).getHospital()
                             )
                             .build()
             );

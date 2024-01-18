@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.Role;
+import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.users.inactivity.Dismissal;
 import org.pah_monitoring.main.entities.users.inactivity.SickLeave;
 import org.pah_monitoring.main.entities.users.inactivity.Vacation;
@@ -38,6 +39,10 @@ public class Administrator implements UserDetails {
     @OneToOne
     @JoinColumn(name = "hospital_employee_information_id")
     private EmployeeInformation employeeInformation;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital_id")
+    private Hospital hospital;
 
     @OneToMany(mappedBy = "author")
     private List<Vacation> assignedVacations;
