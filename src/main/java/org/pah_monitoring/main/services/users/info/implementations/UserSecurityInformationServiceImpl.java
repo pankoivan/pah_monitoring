@@ -12,6 +12,8 @@ import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.users.info.UserSecurityInformationRepository;
+import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
+import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +31,10 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
     private final UserSecurityInformationRepository repository;
 
     private final PasswordEncoder passwordEncoder;
+
+    private RegistrationSecurityCodeService codeService;
+
+    private HospitalRegistrationRequestService requestService;
 
     @Override
     public boolean existsByEmail(String email) {
@@ -117,6 +123,19 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
         Optional<UserSecurityInformation> securityInformation = repository.findByEmail(editingDto.getEmail());
         if (securityInformation.isPresent() && !securityInformation.get().getId().equals(editingDto.getId())) {
             throw new DataValidationServiceException("Почта \"%s\" уже занята".formatted(editingDto.getEmail()));
+        }
+
+        if (codeService.existsByEmail(editingDto.getEmail())) {
+            throw new DataValidationServiceException(
+                    "Нельзя сменить почту на \"%s\", так как для этой почты был сгенерирован код для другого человека"
+                            .formatted(editingDto.getEmail()));
+        }
+
+        if (requestService.existsByEmail(editingDto.getEmail())) {
+            throw new DataValidationServiceException(
+                    "Нельзя сменить почту на \"%s\", так как она указана в заявке на регистрацию медицинского учреждения"
+                            .formatted(editingDto.getEmail())
+            );
         }
 
     }
