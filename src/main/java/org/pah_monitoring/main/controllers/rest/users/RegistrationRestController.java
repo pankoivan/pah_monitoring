@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.controllers.rest.registration;
+package org.pah_monitoring.main.controllers.rest.users;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
