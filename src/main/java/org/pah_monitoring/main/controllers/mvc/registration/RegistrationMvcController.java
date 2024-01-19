@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.controllers.mvc.registration;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;

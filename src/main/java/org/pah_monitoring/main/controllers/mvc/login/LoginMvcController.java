@@ -1,10 +1,9 @@
 package org.pah_monitoring.main.controllers.mvc.login;
 
 import lombok.RequiredArgsConstructor;
+import org.pah_monitoring.main.entities.users.users.common.User;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginMvcController {
 
     @GetMapping
-    public String getLogin(@AuthenticationPrincipal Object principal) {
-        return "login"; // todo: add redirect if anonymous
+    public String getLogin(Authentication authentication) {
+        if (authentication instanceof User) {
+            return "redirect:/";
+        }
+        return "login";
     }
 
 }

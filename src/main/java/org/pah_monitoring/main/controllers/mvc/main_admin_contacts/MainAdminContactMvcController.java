@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.controllers.mvc.main_admin_contacts;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.services.main_admin_contacts.interfaces.MainAdminContactService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/contacts")
-@PreAuthorize("permitAll()") // todo: only for main admin
+@PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
 public class MainAdminContactMvcController {
 
     private final MainAdminContactService service;
