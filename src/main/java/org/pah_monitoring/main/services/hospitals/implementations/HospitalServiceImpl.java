@@ -4,12 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalAddingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
+import org.pah_monitoring.main.entities.users.users.MainAdministrator;
+import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.hospitals.HospitalRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -44,23 +48,38 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
+    public void checkHospitalCurrentState(Hospital requestedHospital) throws DataValidationServiceException {
+        if (requestedHospital.getCurrentState() != Hospital.CurrentState.REGISTERED) {
+            throw new DataValidationServiceException(("Невозможно получить информацию о медицинском учреждении \"%s\", " +
+                    "так как оно в данный момент ещё не зарегистрировано, а только ожидает выдачи кода или регистрации администратора")
+                    .formatted(requestedHospital.getName())
+            );
+        }
+    }
+
+    @Override
+    public void checkAccessForObtainingHospital(Hospital requestedHospital) throws NotEnoughRightsServiceException {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (
+                (principal instanceof MainAdministrator) ||
+                        ((principal instanceof HospitalUser hospitalUser && hospitalUser.getHospital().equals(requestedHospital)))
+        ) {
+            return;
+        }
+
+        throw new NotEnoughRightsServiceException(
+                "Недостаточно прав для получения информации о медицинском учреждении с id \"%s\"".formatted(requestedHospital.getId())
+        );
+
+    }
+
+    @Override
     public Hospital findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
                 () -> new DataSearchingServiceException("Медицинское учреждение с id \"%s\" не существует".formatted(id))
         );
-    }
-
-    @Override
-    public Hospital findByIdWithCurrentStateCheck(Integer id) throws DataSearchingServiceException, DataValidationServiceException {
-        Hospital hospital = findById(id);
-        if (hospital.getCurrentState() == Hospital.CurrentState.REGISTERED) {
-            return hospital;
-        } else {
-            throw new DataValidationServiceException(("Невозможно получить информацию о медицинском учреждении \"%s\", " +
-                    "так как оно в данный момент ещё не зарегистрировано, а только ожидает выдачи кода или регистрации администратора")
-                            .formatted(hospital.getName())
-            );
-        }
     }
 
     @Override

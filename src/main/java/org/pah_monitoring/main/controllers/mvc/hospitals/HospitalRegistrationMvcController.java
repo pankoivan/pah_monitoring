@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.controllers.mvc.hospitals;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.enums.ExpirationDate;
 import org.pah_monitoring.main.entities.enums.Role;
@@ -18,17 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/hospital-registration")
-@PreAuthorize("permitAll()") // todo: remove
 public class HospitalRegistrationMvcController {
 
     private final HospitalRegistrationRequestService service;
 
-    @GetMapping("/form") // todo: for all
+    @GetMapping("/form")
+    @PreAuthorize("permitAll()")
     public String getForm() {
         return "hospitals/hospital-registration-form";
     }
 
-    @GetMapping("/requests/{id}") // todo: only for main admin
+    @GetMapping("/requests/{id}")
+    @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
     public String getRequest(Model model, @PathVariable("id") String pathId) {
         try {
             model.addAttribute("request", service.findById(service.parsePathId(pathId)));
