@@ -3,6 +3,7 @@ package org.pah_monitoring.main.controllers.interceptors;
 import org.pah_monitoring.auxiliary.text.HttpErrorText;
 import org.pah_monitoring.main.exceptions.common.CheckedException;
 import org.pah_monitoring.main.exceptions.common.UncheckedException;
+import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.access.AccessDeniedException;
@@ -38,7 +39,11 @@ public class GlobalExceptionInterceptor {
         return "errors/error";
     }
 
-    @ExceptionHandler({AccessDeniedException.class, HttpClientErrorException.Forbidden.class})
+    @ExceptionHandler({
+            AccessDeniedException.class,
+            HttpClientErrorException.Forbidden.class,
+            NotEnoughRightsMvcControllerException.class
+    })
     public String error403(Model model) {
         addToModel(model, HttpErrorText.title403, HttpErrorText.text403);
         return "errors/error";
