@@ -41,7 +41,9 @@ public class DoctorMvcController {
     @PreAuthorize("isAuthenticated()")
     public String getDoctor(Model model, @PathVariable("id") String pathId) {
         try {
-            model.addAttribute("doctor", service.findByIdWithAccessCheck(service.parsePathId(pathId)));
+            Doctor doctor = service.findById(service.parsePathId(pathId));
+            service.checkAccessForObtainingUser(doctor);
+            model.addAttribute("doctor", doctor);
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
@@ -51,12 +53,14 @@ public class DoctorMvcController {
     }
 
     @GetMapping("/{id}/patients")
-    @PreAuthorize("hasAnyRole('MAIN_ADMINISTRATOR', 'DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMINISTRATOR', 'DOCTOR')")
     public String getDoctorPatients(Model model, @PathVariable("id") String pathId) {
         try {
+            Doctor doctor = service.findById(service.parsePathId(pathId));
+            patientService.checkAccessForObtainingDoctorPatients(doctor);
             model.addAttribute(
                     "doctorPatients",
-                    patientService.findAllByDoctorIdWithAccessCheck(service.parsePathId(pathId))
+                    patientService.findAllByDoctorId(doctor.getId())
             );
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);

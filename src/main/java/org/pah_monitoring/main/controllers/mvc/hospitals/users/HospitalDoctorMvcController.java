@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.DoctorAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.DoctorEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.DoctorSavingDto;
+import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.users.users.Doctor;
+import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
+import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
@@ -21,20 +24,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/hospitals/{hospitalId}/doctors")
-@PreAuthorize("permitAll()") // todo: for main admin and people with hospital id = id
+@PreAuthorize("isAuthenticated()")
 public class HospitalDoctorMvcController {
+
+    private final HospitalService hospitalService;
 
     @Qualifier("doctorService")
     private final HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> service;
 
-    private final HospitalService hospitalService;
-
     @GetMapping
-    public String getDoctors(Model model, @PathVariable("hospitalId") String pathHospitalId) {
+    public String getHospitalDoctors(Model model, @PathVariable("hospitalId") String pathHospitalId) {
         try {
-            model.addAttribute("doctors", service.findAllByHospitalId(hospitalService.parsePathId(pathHospitalId)));
+            Hospital hospital = hospitalService.findById(hospitalService.parsePathId(pathHospitalId));
+            service.checkAccessForObtainingHospitalUsers(hospital);
+            model.addAttribute("hospitalDoctors", service.findAllByHospitalId(hospital.getId()));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
         }
         return "users/doctors";
     }

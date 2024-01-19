@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.services.users.users.interfaces.common;
 
+import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
@@ -14,18 +15,22 @@ public interface HospitalUserService<T, M, R, N> extends UrlValidationService, S
 
     List<T> findAll();
 
+    void checkAccessForObtainingUser(T requestedUser) throws NotEnoughRightsServiceException;
+
     T findById(Integer id) throws DataSearchingServiceException;
 
-    T findByIdWithAccessCheck(Integer id) throws DataSearchingServiceException, NotEnoughRightsServiceException;
+    void checkAccessForObtainingHospitalUsers(Hospital requestedHospital) throws NotEnoughRightsServiceException;
 
-    List<T> findAllByHospitalId(Integer id) throws DataSearchingServiceException;
+    List<T> findAllByHospitalId(Integer hospitalId) throws DataSearchingServiceException;
 
-    T add(M m) throws DataSavingServiceException;
+    T add(M addingDto) throws DataSavingServiceException;
 
-    T edit(R r) throws DataSearchingServiceException, DataSavingServiceException;
+    T edit(R editingDto) throws DataSearchingServiceException, DataSavingServiceException;
 
-    void checkDataValidityForAdding(M m, BindingResult bindingResult) throws DataValidationServiceException;
+    void checkDataValidityForAdding(M addingDto, BindingResult bindingResult) throws DataValidationServiceException;
 
-    void checkDataValidityForEditing(R r, BindingResult bindingResult) throws DataSearchingServiceException, DataValidationServiceException;
+    void checkAccessForEditing(T requestedEditingUser) throws NotEnoughRightsServiceException;
+
+    void checkDataValidityForEditing(R editingDto, BindingResult bindingResult) throws DataSearchingServiceException, DataValidationServiceException;
 
 }

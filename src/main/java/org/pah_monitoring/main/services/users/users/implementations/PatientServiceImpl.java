@@ -10,6 +10,7 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.saving.DoctorSavi
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
+import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
@@ -47,6 +48,29 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
     private HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> doctorService;
 
     @Override
+    public void checkAccessForObtainingDoctorPatients(Doctor requestedDoctor) throws NotEnoughRightsServiceException {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (
+                ((principal instanceof Administrator administrator) && administrator.getHospital().equals(requestedDoctor.getHospital())) ||
+                        ((principal instanceof Doctor doctor) && (doctor.equals(requestedDoctor)))
+        ) {
+            return;
+        }
+
+        throw new NotEnoughRightsServiceException(
+                "Недостаточно прав для получения списка пациентов врача с id \"%s\"".formatted(requestedDoctor.getId())
+        );
+
+    }
+
+    @Override
+    public List<Patient> findAllByDoctorId(Integer doctorId) throws DataSearchingServiceException {
+        return doctorService.findById(doctorId).getPatients();
+    }
+
+    @Override
     public List<Patient> findAll() {
         return repository.findAll();
     }
@@ -59,21 +83,8 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
     }
 
     @Override
-    public Patient findByIdWithAccessCheck(Integer id) throws DataSearchingServiceException, NotEnoughRightsServiceException {
-        return accessCheck(findById(id));
-    }
-
-    @Override
     public List<Patient> findAllByHospitalId(Integer id) throws DataSearchingServiceException {
         return repository.findAllByHospitalId(hospitalService.findById(id).getId());
-    }
-
-    @Override
-    public List<Patient> findAllByDoctorIdWithAccessCheck(Integer doctorId)
-            throws NotEnoughRightsServiceException, DataSearchingServiceException {
-
-        return patientsAccessCheck(doctorService.findById(doctorId));
-
     }
 
     @Override
@@ -96,10 +107,10 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
     }
 
     @Override
-    public Patient edit(PatientEditingDto savingDto) throws DataSearchingServiceException, DataSavingServiceException {
+    public Patient edit(PatientEditingDto savingDto) throws DataSavingServiceException {
 
-        Patient patient = findById(savingDto.getId());
         try {
+            Patient patient = findById(savingDto.getId());
             return repository.save(
                     Patient
                             .builder()
@@ -129,7 +140,9 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
     public void checkDataValidityForEditing(PatientEditingDto editingDto, BindingResult bindingResult)
             throws DataSearchingServiceException, DataValidationServiceException {
 
-        // todo: later
+        findById(editingDto.getId());
+
+        checkDataValidityForSaving(editingDto, bindingResult);
 
     }
 
@@ -146,24 +159,6 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
     @Override
     protected Role getRole() {
         return Role.PATIENT;
-    }
-
-    private List<Patient> patientsAccessCheck(Doctor doctor) throws NotEnoughRightsServiceException {
-
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof Doctor extractedDoctor) {
-            if (extractedDoctor.equals(doctor)) {
-                return doctor.getPatients();
-            } else {
-                throw new NotEnoughRightsServiceException(
-                        "Недостаточно прав для получения списка пациентов врача с id \"%s\"".formatted(doctor.getId())
-                );
-            }
-        }
-
-        throw new NotEnoughRightsServiceException(
-                "Недостаточно прав для получения списка пациентов врача с id \"%s\"".formatted(doctor.getId())
-        );
-
     }
 
 }

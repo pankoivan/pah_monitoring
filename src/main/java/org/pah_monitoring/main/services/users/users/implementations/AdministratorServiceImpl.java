@@ -11,7 +11,6 @@ import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.users.AdministratorRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformationService;
@@ -50,11 +49,6 @@ public class AdministratorServiceImpl extends
     }
 
     @Override
-    public Administrator findByIdWithAccessCheck(Integer id) throws DataSearchingServiceException, NotEnoughRightsServiceException {
-        return accessCheck(findById(id));
-    }
-
-    @Override
     public List<Administrator> findAllByHospitalId(Integer id) throws DataSearchingServiceException {
         return repository.findAllByHospitalId(hospitalService.findById(id).getId());
     }
@@ -79,10 +73,10 @@ public class AdministratorServiceImpl extends
     }
 
     @Override
-    public Administrator edit(AdministratorEditingDto editingDto) throws DataSearchingServiceException, DataSavingServiceException {
+    public Administrator edit(AdministratorEditingDto editingDto) throws DataSavingServiceException {
 
-        Administrator administrator = findById(editingDto.getId());
         try {
+            Administrator administrator = findById(editingDto.getId());
             return repository.save(
                     Administrator
                             .builder()
@@ -112,7 +106,9 @@ public class AdministratorServiceImpl extends
     public void checkDataValidityForEditing(AdministratorEditingDto editingDto, BindingResult bindingResult)
             throws DataSearchingServiceException, DataValidationServiceException {
 
-        // todo: later
+        findById(editingDto.getId());
+
+        checkDataValidityForSaving(editingDto, bindingResult);
 
     }
 

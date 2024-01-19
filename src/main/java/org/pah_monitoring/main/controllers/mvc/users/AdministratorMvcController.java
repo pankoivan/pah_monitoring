@@ -38,7 +38,9 @@ public class AdministratorMvcController {
     @PreAuthorize("isAuthenticated()")
     public String getAdmin(Model model, @PathVariable("id") String pathId) {
         try {
-            model.addAttribute("admin", service.findByIdWithAccessCheck(service.parsePathId(pathId)));
+            Administrator administrator = service.findById(service.parsePathId(pathId));
+            service.checkAccessForObtainingUser(administrator);
+            model.addAttribute("admin", administrator);
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {

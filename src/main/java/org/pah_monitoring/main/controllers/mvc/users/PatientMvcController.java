@@ -38,7 +38,9 @@ public class PatientMvcController {
     @PreAuthorize("isAuthenticated()")
     public String getPatient(Model model, @PathVariable("id") String pathId) {
         try {
-            model.addAttribute("patient", service.findByIdWithAccessCheck(service.parsePathId(pathId)));
+            Patient patient = service.findById(service.parsePathId(pathId));
+            service.checkAccessForObtainingUser(patient);
+            model.addAttribute("patient", patient);
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {

@@ -5,8 +5,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.dto.saving.users.users.common.HospitalUserAddingInformation;
+import org.pah_monitoring.main.entities.dto.saving.users.users.common.HospitalUserEditingInformation;
 import org.pah_monitoring.main.entities.enums.Role;
+import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
+import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.entities.users.users.MainAdministrator;
 import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
@@ -22,8 +25,9 @@ import org.springframework.validation.BindingResult;
 @NoArgsConstructor
 @Getter
 @Setter(onMethod = @__(@Autowired))
-public abstract class AbstractHospitalUserServiceImpl<T extends HospitalUser, M extends HospitalUserAddingInformation, R, N> implements
-        HospitalUserService<T, M, R, N> {
+public abstract class AbstractHospitalUserServiceImpl
+        <T extends HospitalUser, M extends HospitalUserAddingInformation, R extends HospitalUserEditingInformation, N>
+        implements HospitalUserService<T, M, R, N> {
 
     private RegistrationSecurityCodeService codeService;
 
@@ -56,25 +60,59 @@ public abstract class AbstractHospitalUserServiceImpl<T extends HospitalUser, M 
 
     }
 
-    protected T accessCheck(T requestedUser) throws NotEnoughRightsServiceException {
+    @Override
+    public void checkAccessForObtainingUser(T requestedUser) throws NotEnoughRightsServiceException {
 
-        switch (SecurityContextHolder.getContext().getAuthentication().getPrincipal()) {
-            case MainAdministrator ignored -> {
-                return requestedUser;
-            }
-            case HospitalUser hospitalUser -> {
-                if (hospitalUser.getHospital().equals(requestedUser.getHospital())) {
-                    return requestedUser;
-                } else {
-                    throw new NotEnoughRightsServiceException(
-                            "Недостаточно прав для получения информации о пользователе с id \"%s\"".formatted(requestedUser.getId())
-                    );
-                }
-            }
-            default -> throw new NotEnoughRightsServiceException(
-                    "Недостаточно прав для получения информации о пользователе с id \"%s\"".formatted(requestedUser.getId())
-            );
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (
+                (principal instanceof MainAdministrator) ||
+                        ((principal instanceof HospitalUser hospitalUser && hospitalUser.getHospital().equals(requestedUser.getHospital())))
+        ) {
+            return;
         }
+
+        throw new NotEnoughRightsServiceException(
+                "Недостаточно прав для получения информации о пользователе с id \"%s\"".formatted(requestedUser.getId())
+        );
+
+    }
+
+    @Override
+    public void checkAccessForObtainingHospitalUsers(Hospital requestedHospital) throws NotEnoughRightsServiceException {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (
+                (principal instanceof MainAdministrator) ||
+                        ((principal instanceof HospitalUser hospitalUser && hospitalUser.getHospital().equals(requestedHospital)))
+        ) {
+            return;
+        }
+
+        throw new NotEnoughRightsServiceException(
+                "Недостаточно прав для получения информации о пользователях в медицинском учреждении с id \"%s\""
+                        .formatted(requestedHospital.getId())
+        );
+
+    }
+
+    @Override
+    public void checkAccessForEditing(T requestedEditingUser) throws NotEnoughRightsServiceException {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (
+                ((principal instanceof Administrator administrator && administrator.getHospital().equals(requestedEditingUser.getHospital()))) ||
+                        ((principal instanceof HospitalUser hospitalUser) && hospitalUser.getId().equals(requestedEditingUser.getId()))
+
+        ) {
+            return;
+        }
+
+        throw new NotEnoughRightsServiceException(
+                "Недостаточно прав для редактирования пользователя с id \"%s\"".formatted(requestedEditingUser.getId())
+        );
 
     }
 

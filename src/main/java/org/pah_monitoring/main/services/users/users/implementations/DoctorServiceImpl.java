@@ -11,7 +11,6 @@ import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.users.DoctorRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformationService;
@@ -50,11 +49,6 @@ public class DoctorServiceImpl extends
     }
 
     @Override
-    public Doctor findByIdWithAccessCheck(Integer id) throws DataSearchingServiceException, NotEnoughRightsServiceException {
-        return accessCheck(findById(id));
-    }
-
-    @Override
     public List<Doctor> findAllByHospitalId(Integer id) throws DataSearchingServiceException {
         return repository.findAllByHospitalId(hospitalService.findById(id).getId());
     }
@@ -81,8 +75,8 @@ public class DoctorServiceImpl extends
     @Override
     public Doctor edit(DoctorEditingDto editingDto) throws DataSearchingServiceException, DataSavingServiceException {
 
-        Doctor doctor = findById(editingDto.getId());
         try {
+            Doctor doctor = findById(editingDto.getId());
             return repository.save(
                     Doctor
                             .builder()
@@ -112,7 +106,9 @@ public class DoctorServiceImpl extends
     public void checkDataValidityForEditing(DoctorEditingDto editingDto, BindingResult bindingResult)
             throws DataSearchingServiceException, DataValidationServiceException {
 
-        // todo: later
+        findById(editingDto.getId());
+
+        checkDataValidityForSaving(editingDto, bindingResult);
 
     }
 
