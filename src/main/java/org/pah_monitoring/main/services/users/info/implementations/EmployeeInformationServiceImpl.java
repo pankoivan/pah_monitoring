@@ -89,6 +89,16 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
     }
 
     @Override
+    public void checkDataValidityForAdding(EmployeeInformationAddingDto addingDto, BindingResult bindingResult)
+            throws DataValidationServiceException {
+
+        checkDataValidityForSaving(addingDto, bindingResult);
+
+        userInformationService.checkDataValidityForSaving(addingDto.getUserInformationAddingDto(), bindingResult);
+
+    }
+
+    @Override
     public void checkDataValidityForEditing(EmployeeInformationEditingDto editingDto, BindingResult bindingResult)
             throws DataSearchingServiceException, DataValidationServiceException {
 
@@ -105,8 +115,6 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-
-        // todo: check user info
 
     }
 

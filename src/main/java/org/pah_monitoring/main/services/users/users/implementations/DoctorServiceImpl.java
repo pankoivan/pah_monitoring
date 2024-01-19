@@ -73,7 +73,7 @@ public class DoctorServiceImpl extends
     }
 
     @Override
-    public Doctor edit(DoctorEditingDto editingDto) throws DataSearchingServiceException, DataSavingServiceException {
+    public Doctor edit(DoctorEditingDto editingDto) throws DataSavingServiceException {
 
         try {
             Doctor doctor = findById(editingDto.getId());
@@ -98,7 +98,7 @@ public class DoctorServiceImpl extends
         checkDataValidityForSaving(addingDto, bindingResult);
 
         securityInformationService.checkDataValidityForSaving(addingDto.getUserSecurityInformationAddingDto(), bindingResult);
-        employeeInformationService.checkDataValidityForSaving(addingDto.getEmployeeInformationAddingDto(), bindingResult);
+        employeeInformationService.checkDataValidityForAdding(addingDto.getEmployeeInformationAddingDto(), bindingResult);
 
     }
 

@@ -95,9 +95,9 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
             return repository.save(
                     Patient
                             .builder()
-                            .hospital(code.getHospital())
                             .userSecurityInformation(securityInformationService.add(addingDto.getUserSecurityInformationAddingDto()))
                             .userInformation(userInformationService.add(addingDto.getUserInformationAddingDto()))
+                            .hospital(code.getHospital())
                             .build()
             );
         } catch (Exception e) {
