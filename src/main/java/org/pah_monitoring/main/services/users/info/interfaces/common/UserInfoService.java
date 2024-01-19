@@ -3,16 +3,20 @@ package org.pah_monitoring.main.services.users.info.interfaces.common;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
+import org.pah_monitoring.main.services.validation.interfaces.SavingValidationService;
 import org.springframework.validation.BindingResult;
 
-public interface UserInfoService<T, M, R> {
+public interface UserInfoService<T, M, R, N> extends SavingValidationService<N> {
 
     T findById(Integer id) throws DataSearchingServiceException;
 
-    T add(M m) throws DataSavingServiceException;
+    T add(M addingDto) throws DataSavingServiceException;
 
-    T edit(R r) throws DataSearchingServiceException, DataSavingServiceException;
+    void checkAccessForEditing(T requestedEditingInfo) throws NotEnoughRightsServiceException;
 
-    void checkDataValidityForEditing(R r, BindingResult bindingResult) throws DataSearchingServiceException, DataValidationServiceException;
+    T edit(R editingDto) throws DataSavingServiceException;
+
+    void checkDataValidityForEditing(R editingDto, BindingResult bindingResult) throws DataSearchingServiceException, DataValidationServiceException;
 
 }
