@@ -96,10 +96,16 @@ public class UserInformationServiceImpl implements UserInformationService {
     }
 
     @Override
-    public void checkDataValidityForEditing(UserInformationEditingDto editingDto, BindingResult bindingResult)
-            throws DataSearchingServiceException, DataValidationServiceException {
+    public void checkDataValidityForAdding(UserInformationAddingDto addingDto, BindingResult bindingResult)
+            throws DataValidationServiceException {
 
-        findById(editingDto.getId());
+        checkDataValidityForSaving(addingDto, bindingResult);
+
+    }
+
+    @Override
+    public void checkDataValidityForEditing(UserInformationEditingDto editingDto, BindingResult bindingResult)
+            throws DataValidationServiceException {
 
         checkDataValidityForSaving(editingDto, bindingResult);
 

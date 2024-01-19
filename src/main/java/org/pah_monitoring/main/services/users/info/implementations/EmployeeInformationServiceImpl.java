@@ -94,15 +94,13 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
 
         checkDataValidityForSaving(addingDto, bindingResult);
 
-        userInformationService.checkDataValidityForSaving(addingDto.getUserInformationAddingDto(), bindingResult);
+        userInformationService.checkDataValidityForAdding(addingDto.getUserInformationAddingDto(), bindingResult);
 
     }
 
     @Override
     public void checkDataValidityForEditing(EmployeeInformationEditingDto editingDto, BindingResult bindingResult)
-            throws DataSearchingServiceException, DataValidationServiceException {
-
-        findById(editingDto.getId());
+            throws DataValidationServiceException {
 
         checkDataValidityForSaving(editingDto, bindingResult);
 

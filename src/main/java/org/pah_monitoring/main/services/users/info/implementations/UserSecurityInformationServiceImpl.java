@@ -19,6 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service
@@ -95,12 +97,27 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
     }
 
     @Override
-    public void checkDataValidityForEditing(UserSecurityInformationEditingDto editingDto, BindingResult bindingResult)
-            throws DataSearchingServiceException, DataValidationServiceException {
+    public void checkDataValidityForAdding(UserSecurityInformationAddingDto addingDto, BindingResult bindingResult)
+            throws DataValidationServiceException {
 
-        findById(editingDto.getId());
+        checkDataValidityForSaving(addingDto, bindingResult);
+
+        if (repository.existsByEmail(addingDto.getEmail())) {
+            throw new DataValidationServiceException("Почта \"%s\" уже занята".formatted(addingDto.getEmail()));
+        }
+
+    }
+
+    @Override
+    public void checkDataValidityForEditing(UserSecurityInformationEditingDto editingDto, BindingResult bindingResult)
+            throws DataValidationServiceException {
 
         checkDataValidityForSaving(editingDto, bindingResult);
+
+        Optional<UserSecurityInformation> securityInformation = repository.findByEmail(editingDto.getEmail());
+        if (securityInformation.isPresent() && !securityInformation.get().getId().equals(editingDto.getId())) {
+            throw new DataValidationServiceException("Почта \"%s\" уже занята".formatted(editingDto.getEmail()));
+        }
 
     }
 
@@ -110,9 +127,6 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
-        }
-        if (repository.existsByEmail(savingDto.getEmail())) {
-            throw new DataValidationServiceException("Почта \"%s\" уже занята".formatted(savingDto.getEmail()));
         }
 
     }

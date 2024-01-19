@@ -17,6 +17,8 @@ public interface UserInfoService<T, M, R, N> extends SavingValidationService<N> 
 
     T edit(R editingDto) throws DataSavingServiceException;
 
-    void checkDataValidityForEditing(R editingDto, BindingResult bindingResult) throws DataSearchingServiceException, DataValidationServiceException;
+    void checkDataValidityForAdding(M addingDto, BindingResult bindingResult) throws DataValidationServiceException;
+
+    void checkDataValidityForEditing(R editingDto, BindingResult bindingResult) throws DataValidationServiceException;
 
 }
