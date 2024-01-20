@@ -81,7 +81,7 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     }
 
     @Override
-    public void checkDataValidityForSaving(HospitalRegistrationRequestAddingDto addingDto, BindingResult bindingResult)
+    public void checkDataValidityForAdding(HospitalRegistrationRequestAddingDto addingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {
@@ -119,7 +119,7 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
             );
         }
 
-        hospitalService.checkDataValidityForSaving(addingDto.getHospitalAddingDto(), bindingResult);
+        hospitalService.checkDataValidityForAdding(addingDto.getHospitalAddingDto(), bindingResult);
 
     }
 

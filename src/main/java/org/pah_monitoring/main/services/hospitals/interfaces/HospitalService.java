@@ -6,12 +6,12 @@ import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
-import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataSavingValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataAddingValidationService;
 import org.pah_monitoring.main.services.validation.interfaces.url.UrlValidationService;
 
 import java.util.List;
 
-public interface HospitalService extends DataSavingValidationService<HospitalAddingDto>, UrlValidationService {
+public interface HospitalService extends DataAddingValidationService<HospitalAddingDto>, UrlValidationService {
 
     List<Hospital> findAll();
 
@@ -25,6 +25,6 @@ public interface HospitalService extends DataSavingValidationService<HospitalAdd
 
     void checkAccessRightsForObtainingAll() throws NotEnoughRightsServiceException;
 
-    void checkAccessRightsForObtainingHospital(Hospital requestedHospital) throws NotEnoughRightsServiceException;
+    void checkAccessRightsForObtainingConcrete(Hospital requestedHospital) throws NotEnoughRightsServiceException;
 
 }

@@ -82,7 +82,7 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public void checkDataValidityForSaving(HospitalAddingDto addingDto, BindingResult bindingResult) throws DataValidationServiceException {
+    public void checkDataValidityForAdding(HospitalAddingDto addingDto, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
@@ -113,7 +113,7 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public void checkAccessRightsForObtainingHospital(Hospital requestedHospital) throws NotEnoughRightsServiceException {
+    public void checkAccessRightsForObtainingConcrete(Hospital requestedHospital) throws NotEnoughRightsServiceException {
         if (!(
                 checkService.isMainAdministrator() ||
                 checkService.isHospitalUserFromSameHospital(requestedHospital)

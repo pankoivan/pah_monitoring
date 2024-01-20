@@ -7,10 +7,10 @@ import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.services.validation.interfaces.data.DataDeletionValidationService;
-import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataSavingValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataAddingValidationService;
 import org.pah_monitoring.main.services.validation.interfaces.url.UrlValidationService;
 
-public interface HospitalRegistrationRequestService extends DataSavingValidationService<HospitalRegistrationRequestAddingDto>,
+public interface HospitalRegistrationRequestService extends DataAddingValidationService<HospitalRegistrationRequestAddingDto>,
         DataDeletionValidationService<HospitalRegistrationRequest>, UrlValidationService {
 
     boolean existsByEmail(String email);

@@ -38,7 +38,7 @@ public class HospitalMvcController {
         try {
             Hospital hospital = service.findById(service.parsePathId(pathId));
             service.checkHospitalCurrentState(hospital);
-            service.checkAccessRightsForObtainingHospital(hospital);
+            service.checkAccessRightsForObtainingConcrete(hospital);
             model.addAttribute("hospital", hospital);
             return "hospitals/hospital";
         } catch (UrlValidationServiceException | DataSearchingServiceException | DataValidationServiceException e) {

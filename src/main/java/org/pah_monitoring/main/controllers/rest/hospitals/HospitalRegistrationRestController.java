@@ -25,7 +25,7 @@ public class HospitalRegistrationRestController {
     @PreAuthorize("permitAll()")
     public HospitalRegistrationRequest add(@RequestBody @Valid HospitalRegistrationRequestAddingDto addingDto, BindingResult bindingResult) {
         try {
-            service.checkDataValidityForSaving(addingDto, bindingResult);
+            service.checkDataValidityForAdding(addingDto, bindingResult);
             return service.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
