@@ -16,7 +16,7 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 
     Optional<User> findByUserSecurityInformationId(Integer id);
 
-    Optional<User> findByUserInformationId(Integer id);
+    Optional<User> findByEmployeeInformationUserInformationId(Integer id);
 
     Optional<User> findByEmployeeInformationId(Integer id);
 

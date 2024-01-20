@@ -47,8 +47,8 @@ public class UserSearchingServiceImpl implements UserSearchingService {
     public User findUserByUserInformationId(Integer id) throws DataSearchingServiceException {
         return Stream.of(
                         mainAdministratorRepository.findByUserInformationId(id).orElse(null),
-                        administratorRepository.findByUserInformationId(id).orElse(null),
-                        doctorRepository.findByUserInformationId(id).orElse(null),
+                        administratorRepository.findByEmployeeInformationUserInformationId(id).orElse(null),
+                        doctorRepository.findByEmployeeInformationUserInformationId(id).orElse(null),
                         patientRepository.findByUserInformationId(id).orElse(null)
                 )
                 .filter(Objects::nonNull)
