@@ -14,7 +14,6 @@ import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/hospitals/{hospitalId}/admins")
-@PreAuthorize("isAuthenticated()")
 public class HospitalAdministratorMvcController {
 
     private final HospitalService hospitalService;
@@ -36,14 +34,14 @@ public class HospitalAdministratorMvcController {
     public String getHospitalAdmins(Model model, @PathVariable("hospitalId") String pathHospitalId) {
         try {
             Hospital hospital = hospitalService.findById(hospitalService.parsePathId(pathHospitalId));
-            service.checkAccessForObtainingHospitalUsers(hospital);
-            model.addAttribute("hospitalAdmins", service.findAllByHospitalId(hospital.getId()));
+            service.checkAccessRightsForObtainingAllInHospital(hospital);
+            model.addAttribute("admins", service.findAllByHospitalId(hospital.getId()));
+            return "users/admins";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
         }
-        return "users/admins";
     }
 
 }

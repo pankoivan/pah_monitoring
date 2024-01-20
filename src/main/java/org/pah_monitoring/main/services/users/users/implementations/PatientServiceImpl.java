@@ -10,13 +10,11 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.saving.DoctorSavi
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
-import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.users.PatientRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserInformationService;
@@ -25,7 +23,6 @@ import org.pah_monitoring.main.services.users.users.implementations.common.Abstr
 import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -46,24 +43,6 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
 
     @Qualifier("doctorService")
     private HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> doctorService;
-
-    @Override
-    public void checkAccessForObtainingDoctorPatients(Doctor requestedDoctor) throws NotEnoughRightsServiceException {
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (
-                ((principal instanceof Administrator administrator) && administrator.getHospital().equals(requestedDoctor.getHospital())) ||
-                        ((principal instanceof Doctor doctor) && (doctor.equals(requestedDoctor)))
-        ) {
-            return;
-        }
-
-        throw new NotEnoughRightsServiceException(
-                "Недостаточно прав для получения списка пациентов врача с id \"%s\"".formatted(requestedDoctor.getId())
-        );
-
-    }
 
     @Override
     public List<Patient> findAllByDoctorId(Integer doctorId) throws DataSearchingServiceException {
@@ -131,8 +110,8 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
 
         checkDataValidityForSaving(addingDto, bindingResult);
 
-        securityInformationService.checkDataValidityForSaving(addingDto.getUserSecurityInformationAddingDto(), bindingResult);
-        userInformationService.checkDataValidityForSaving(addingDto.getUserInformationAddingDto(), bindingResult);
+        securityInformationService.checkDataValidityForAdding(addingDto.getUserSecurityInformationAddingDto(), bindingResult);
+        userInformationService.checkDataValidityForAdding(addingDto.getUserInformationAddingDto(), bindingResult);
 
     }
 

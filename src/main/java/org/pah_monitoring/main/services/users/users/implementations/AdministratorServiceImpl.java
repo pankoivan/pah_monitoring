@@ -97,7 +97,7 @@ public class AdministratorServiceImpl extends
 
         checkDataValidityForSaving(addingDto, bindingResult);
 
-        securityInformationService.checkDataValidityForSaving(addingDto.getUserSecurityInformationAddingDto(), bindingResult);
+        securityInformationService.checkDataValidityForAdding(addingDto.getUserSecurityInformationAddingDto(), bindingResult);
         employeeInformationService.checkDataValidityForAdding(addingDto.getEmployeeInformationAddingDto(), bindingResult);
 
     }

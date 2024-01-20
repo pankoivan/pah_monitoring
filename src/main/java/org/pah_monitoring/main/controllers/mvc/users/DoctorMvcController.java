@@ -13,7 +13,6 @@ import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
 import org.pah_monitoring.main.services.users.users.implementations.common.AbstractPatientServiceImpl;
 import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,43 +30,42 @@ public class DoctorMvcController {
     private final AbstractPatientServiceImpl patientService;
 
     @GetMapping
-    @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
     public String getDoctors(Model model) {
-        model.addAttribute("doctors", service.findAll());
-        return "users/doctors";
+        try {
+            service.checkAccessRightsForObtainingAll();
+            model.addAttribute("doctors", service.findAll());
+            return "users/doctors";
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
+        }
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("isAuthenticated()")
     public String getDoctor(Model model, @PathVariable("id") String pathId) {
         try {
             Doctor doctor = service.findById(service.parsePathId(pathId));
-            service.checkAccessForObtainingUser(doctor);
+            service.checkAccessRightsForObtainingConcrete(doctor);
             model.addAttribute("doctor", doctor);
+            return "users/profiles/doctor-profile";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
         }
-        return "users/profiles/doctor-profile";
     }
 
     @GetMapping("/{id}/patients")
-    @PreAuthorize("hasAnyRole('ADMINISTRATOR', 'DOCTOR')")
     public String getDoctorPatients(Model model, @PathVariable("id") String pathId) {
         try {
             Doctor doctor = service.findById(service.parsePathId(pathId));
-            patientService.checkAccessForObtainingDoctorPatients(doctor);
-            model.addAttribute(
-                    "doctorPatients",
-                    patientService.findAllByDoctorId(doctor.getId())
-            );
+            patientService.checkAccessRightsForObtainingDoctorPatients(doctor);
+            model.addAttribute("patients", patientService.findAllByDoctorId(doctor.getId()));
+            return "users/patients";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
         }
-        return "users/patients";
     }
 
 }
