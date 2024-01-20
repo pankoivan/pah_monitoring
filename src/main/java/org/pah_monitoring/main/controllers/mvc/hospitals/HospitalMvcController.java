@@ -9,7 +9,6 @@ import org.pah_monitoring.main.exceptions.service.DataValidationServiceException
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,26 +23,29 @@ public class HospitalMvcController {
     private final HospitalService service;
 
     @GetMapping
-    @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
     public String getHospitals(Model model) {
-        model.addAttribute("hospitals", service.findAll());
-        return "hospitals/hospitals";
+        try {
+            service.checkAccessRightsForObtainingAll();
+            model.addAttribute("hospitals", service.findAll());
+            return "hospitals/hospitals";
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
+        }
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("isAuthenticated()")
     public String getHospital(Model model, @PathVariable("id") String pathId) {
         try {
             Hospital hospital = service.findById(service.parsePathId(pathId));
             service.checkHospitalCurrentState(hospital);
-            service.checkAccessForObtainingHospital(hospital);
+            service.checkAccessRightsForObtainingHospital(hospital);
             model.addAttribute("hospital", hospital);
+            return "hospitals/hospital";
         } catch (UrlValidationServiceException | DataSearchingServiceException | DataValidationServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
         }
-        return "hospitals/hospital";
     }
 
 }

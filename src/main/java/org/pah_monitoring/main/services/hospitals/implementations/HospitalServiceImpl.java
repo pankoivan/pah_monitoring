@@ -4,16 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalAddingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
-import org.pah_monitoring.main.entities.users.users.MainAdministrator;
-import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.hospitals.HospitalRepository;
+import org.pah_monitoring.main.services.auxiliary.auth.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -42,37 +40,11 @@ public class HospitalServiceImpl implements HospitalService {
 
     private final HospitalRepository repository;
 
+    private AccessRightsCheckService checkService;
+
     @Override
     public List<Hospital> findAll() {
         return repository.findAll();
-    }
-
-    @Override
-    public void checkHospitalCurrentState(Hospital requestedHospital) throws DataValidationServiceException {
-        if (requestedHospital.getCurrentState() != Hospital.CurrentState.REGISTERED) {
-            throw new DataValidationServiceException(("Невозможно получить информацию о медицинском учреждении \"%s\", " +
-                    "так как оно в данный момент ещё не зарегистрировано, а только ожидает выдачи кода или регистрации администратора")
-                    .formatted(requestedHospital.getName())
-            );
-        }
-    }
-
-    @Override
-    public void checkAccessForObtainingHospital(Hospital requestedHospital) throws NotEnoughRightsServiceException {
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (
-                (principal instanceof MainAdministrator) ||
-                        ((principal instanceof HospitalUser hospitalUser && hospitalUser.getHospital().equals(requestedHospital)))
-        ) {
-            return;
-        }
-
-        throw new NotEnoughRightsServiceException(
-                "Недостаточно прав для получения информации о медицинском учреждении с id \"%s\"".formatted(requestedHospital.getId())
-        );
-
     }
 
     @Override
@@ -120,6 +92,33 @@ public class HospitalServiceImpl implements HospitalService {
         // todo: change in later versions
         if (!names.contains(addingDto.getName())) {
             throw new DataValidationServiceException("Медицинского учреждения \"%s\" нет в справочнике".formatted(addingDto.getName()));
+        }
+    }
+
+    @Override
+    public void checkHospitalCurrentState(Hospital requestedHospital) throws DataValidationServiceException {
+        if (requestedHospital.getCurrentState() != Hospital.CurrentState.REGISTERED) {
+            throw new DataValidationServiceException(("Невозможно получить информацию о медицинском учреждении \"%s\", " +
+                    "так как оно в данный момент ещё не зарегистрировано, а только ожидает выдачи кода или регистрации администратора")
+                    .formatted(requestedHospital.getName())
+            );
+        }
+    }
+
+    @Override
+    public void checkAccessRightsForObtainingAll() throws NotEnoughRightsServiceException {
+        if (!checkService.isMainAdministrator()) {
+            throw new NotEnoughRightsServiceException("Недостаточно прав");
+        }
+    }
+
+    @Override
+    public void checkAccessRightsForObtainingHospital(Hospital requestedHospital) throws NotEnoughRightsServiceException {
+        if (!(
+                checkService.isMainAdministrator() ||
+                checkService.isHospitalUserFromSameHospital(requestedHospital)
+        )) {
+            throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
     }
 

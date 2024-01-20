@@ -15,14 +15,16 @@ public interface HospitalService extends DataSavingValidationService<HospitalAdd
 
     List<Hospital> findAll();
 
-    void checkHospitalCurrentState(Hospital requestedHospital) throws DataValidationServiceException;
-
-    void checkAccessForObtainingHospital(Hospital requestedHospital) throws NotEnoughRightsServiceException;
-
     Hospital findById(Integer id) throws DataSearchingServiceException;
 
     Hospital add(HospitalAddingDto addingDto) throws DataSavingServiceException;
 
     void upgrade(Hospital hospital);
+
+    void checkHospitalCurrentState(Hospital requestedHospital) throws DataValidationServiceException;
+
+    void checkAccessRightsForObtainingAll() throws NotEnoughRightsServiceException;
+
+    void checkAccessRightsForObtainingHospital(Hospital requestedHospital) throws NotEnoughRightsServiceException;
 
 }
