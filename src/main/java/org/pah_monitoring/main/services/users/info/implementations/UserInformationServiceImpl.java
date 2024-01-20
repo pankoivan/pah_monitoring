@@ -7,15 +7,16 @@ import org.pah_monitoring.main.entities.dto.saving.users.info.adding.UserInforma
 import org.pah_monitoring.main.entities.dto.saving.users.info.editing.UserInformationEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.info.saving.UserInformationSavingDto;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
+import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
 import org.pah_monitoring.main.entities.users.users.common.User;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.users.info.UserInformationRepository;
+import org.pah_monitoring.main.services.auxiliary.auth.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -26,6 +27,8 @@ public class UserInformationServiceImpl implements UserInformationService {
 
     private final UserInformationRepository repository;
 
+    private AccessRightsCheckService checkService;
+
     @Override
     public UserInformation findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
@@ -34,41 +37,23 @@ public class UserInformationServiceImpl implements UserInformationService {
     }
 
     @Override
-    public UserInformation add(UserInformationAddingDto savingDto) throws DataSavingServiceException {
+    public UserInformation add(UserInformationAddingDto addingDto) throws DataSavingServiceException {
 
         try {
             return repository.save(
                     UserInformation
                             .builder()
-                            .name(savingDto.getName())
-                            .lastname(savingDto.getLastname())
-                            .patronymic(savingDto.getPatronymic())
-                            .gender(savingDto.getGender())
-                            .birthdate(savingDto.getBirthdate())
-                            .phoneNumber(PhoneNumberUtils.readable(savingDto.getPhoneNumber()))
+                            .name(addingDto.getName())
+                            .lastname(addingDto.getLastname())
+                            .patronymic(addingDto.getPatronymic())
+                            .gender(addingDto.getGender())
+                            .birthdate(addingDto.getBirthdate())
+                            .phoneNumber(PhoneNumberUtils.readable(addingDto.getPhoneNumber()))
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
-
-    }
-
-    @Override
-    public void checkAccessForEditing(UserInformation requestedEditingInfo) throws NotEnoughRightsServiceException {
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (
-                (principal instanceof User user) && (user.getUserSecurityInformation().getId().equals(requestedEditingInfo.getId()))
-            // todo: allow admin to edit user-info in same hospital
-        ) {
-            return;
-        }
-
-        throw new NotEnoughRightsServiceException(
-                "Недостаточно прав для редактирования общей информации с id \"%s\"".formatted(requestedEditingInfo.getId())
-        );
 
     }
 
@@ -117,6 +102,21 @@ public class UserInformationServiceImpl implements UserInformationService {
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+
+    }
+
+    @Override
+    public void checkAccessRightsForEditing(User userWithRequestedEditingInfo) throws NotEnoughRightsServiceException {
+
+        // todo: later
+
+        if (!(
+                checkService.isSameUser(userWithRequestedEditingInfo) ||
+                        checkService.isAdministratorFromSameHospital(((HospitalUser) userWithRequestedEditingInfo).getHospital())
+
+        )) {
+            throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
 
     }

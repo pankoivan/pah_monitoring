@@ -15,10 +15,10 @@ import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
+import org.pah_monitoring.main.services.auxiliary.users.interfaces.UserSearchingService;
 import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformationService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserInformationService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/rest/user-info-editing")
-@PreAuthorize("isAuthenticated()")
 public class UserInfoEditingRestController {
 
     private final UserSecurityInformationService securityInformationService;
@@ -37,12 +36,13 @@ public class UserInfoEditingRestController {
 
     private final EmployeeInformationService employeeInformationService;
 
+    private final UserSearchingService userSearchingService;
+
     @PostMapping("/security-user-info")
     public UserSecurityInformation editSecurityUserInfo(@RequestBody @Valid UserSecurityInformationEditingDto editingDto,
                                                         BindingResult bindingResult) {
         try {
-            UserSecurityInformation securityInformation = securityInformationService.findById(editingDto.getId());
-            securityInformationService.checkAccessForEditing(securityInformation);
+            securityInformationService.checkAccessRightsForEditing(userSearchingService.findUserByUserSecurityInformationId(editingDto.getId()));
             securityInformationService.checkDataValidityForEditing(editingDto, bindingResult);
             return securityInformationService.edit(editingDto);
         } catch (DataValidationServiceException | DataSearchingServiceException e) {
@@ -58,8 +58,7 @@ public class UserInfoEditingRestController {
     public UserInformation editCommonUserInfo(@RequestBody @Valid UserInformationEditingDto editingDto,
                                               BindingResult bindingResult) {
         try {
-            UserInformation userInformation = userInformationService.findById(editingDto.getId());
-            userInformationService.checkAccessForEditing(userInformation);
+            userInformationService.checkAccessRightsForEditing(userSearchingService.findUserByUserInformationId(editingDto.getId()));
             userInformationService.checkDataValidityForEditing(editingDto, bindingResult);
             return userInformationService.edit(editingDto);
         } catch (DataValidationServiceException | DataSearchingServiceException e) {
@@ -75,8 +74,7 @@ public class UserInfoEditingRestController {
     public EmployeeInformation editHospitalEmployeeInfo(@RequestBody @Valid EmployeeInformationEditingDto editingDto,
                                                         BindingResult bindingResult) {
         try {
-            EmployeeInformation employeeInformation = employeeInformationService.findById(editingDto.getId());
-            employeeInformationService.checkAccessForEditing(employeeInformation);
+            employeeInformationService.checkAccessRightsForEditing(userSearchingService.findUserByEmployeeInformationId(editingDto.getId()));
             employeeInformationService.checkDataValidityForEditing(editingDto, bindingResult);
             return employeeInformationService.edit(editingDto);
         } catch (DataValidationServiceException | DataSearchingServiceException e) {

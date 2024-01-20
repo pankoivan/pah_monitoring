@@ -6,17 +6,18 @@ import org.pah_monitoring.main.entities.dto.saving.users.info.adding.UserSecurit
 import org.pah_monitoring.main.entities.dto.saving.users.info.editing.UserSecurityInformationEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.info.saving.UserSecurityInformationSavingDto;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
+import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
 import org.pah_monitoring.main.entities.users.users.common.User;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.users.info.UserSecurityInformationRepository;
+import org.pah_monitoring.main.services.auxiliary.auth.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -36,6 +37,8 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
 
     private HospitalRegistrationRequestService requestService;
 
+    private AccessRightsCheckService checkService;
+
     @Override
     public boolean existsByEmail(String email) {
         return repository.existsByEmail(email);
@@ -49,37 +52,19 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
     }
 
     @Override
-    public UserSecurityInformation add(UserSecurityInformationAddingDto savingDto) throws DataSavingServiceException {
+    public UserSecurityInformation add(UserSecurityInformationAddingDto addingDto) throws DataSavingServiceException {
 
         try {
             return repository.save(
                     UserSecurityInformation
                             .builder()
-                            .email(savingDto.getEmail())
-                            .password(passwordEncoder.encode(savingDto.getPassword()))
+                            .email(addingDto.getEmail())
+                            .password(passwordEncoder.encode(addingDto.getPassword()))
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
-
-    }
-
-    @Override
-    public void checkAccessForEditing(UserSecurityInformation requestedEditingInfo) throws NotEnoughRightsServiceException {
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (
-                (principal instanceof User user) && (user.getUserSecurityInformation().getId().equals(requestedEditingInfo.getId()))
-            // todo: allow admin to edit user-info in same hospital
-        ) {
-            return;
-        }
-
-        throw new NotEnoughRightsServiceException(
-                "Недостаточно прав для редактирования логин-информации с id \"%s\"".formatted(requestedEditingInfo.getId())
-        );
 
     }
 
@@ -146,6 +131,21 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+
+    }
+
+    @Override
+    public void checkAccessRightsForEditing(User userWithRequestedEditingInfo) throws NotEnoughRightsServiceException {
+
+        // todo: later
+
+        if (!(
+                checkService.isSameUser(userWithRequestedEditingInfo) ||
+                        checkService.isAdministratorFromSameHospital(((HospitalUser) userWithRequestedEditingInfo).getHospital())
+
+        )) {
+            throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
 
     }

@@ -6,16 +6,17 @@ import org.pah_monitoring.main.entities.dto.saving.users.info.adding.EmployeeInf
 import org.pah_monitoring.main.entities.dto.saving.users.info.editing.EmployeeInformationEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.info.saving.EmployeeInformationSavingDto;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
+import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
 import org.pah_monitoring.main.entities.users.users.common.User;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.users.info.EmployeeInformationRepository;
+import org.pah_monitoring.main.services.auxiliary.auth.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformationService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -28,45 +29,29 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
 
     private UserInformationService userInformationService;
 
+    private AccessRightsCheckService checkService;
+
     @Override
     public EmployeeInformation findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Логин-информация с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Рабочая информация с id \"%s\" не существует".formatted(id))
         );
     }
 
     @Override
-    public EmployeeInformation add(EmployeeInformationAddingDto savingDto) throws DataSavingServiceException {
+    public EmployeeInformation add(EmployeeInformationAddingDto addingDto) throws DataSavingServiceException {
 
         try {
             return repository.save(
                     EmployeeInformation
                             .builder()
-                            .post(savingDto.getPost())
-                            .userInformation(userInformationService.add(savingDto.getUserInformationAddingDto()))
+                            .post(addingDto.getPost())
+                            .userInformation(userInformationService.add(addingDto.getUserInformationAddingDto()))
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
-
-    }
-
-    @Override
-    public void checkAccessForEditing(EmployeeInformation requestedEditingInfo) throws NotEnoughRightsServiceException {
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (
-                (principal instanceof User user) && (user.getUserSecurityInformation().getId().equals(requestedEditingInfo.getId()))
-            // todo: allow admin to edit user-info in same hospital
-        ) {
-            return;
-        }
-
-        throw new NotEnoughRightsServiceException(
-                "Недостаточно прав для редактирования рабочей информации с id \"%s\"".formatted(requestedEditingInfo.getId())
-        );
 
     }
 
@@ -112,6 +97,21 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+
+    }
+
+    @Override
+    public void checkAccessRightsForEditing(User userWithRequestedEditingInfo) throws NotEnoughRightsServiceException {
+
+        // todo: later
+
+        if (!(
+                checkService.isSameUser(userWithRequestedEditingInfo) ||
+                        checkService.isAdministratorFromSameHospital(((HospitalUser) userWithRequestedEditingInfo).getHospital())
+
+        )) {
+            throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
 
     }

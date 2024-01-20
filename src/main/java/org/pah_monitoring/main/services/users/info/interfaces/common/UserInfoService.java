@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.services.users.info.interfaces.common;
 
+import org.pah_monitoring.main.entities.users.users.common.User;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
@@ -13,12 +14,12 @@ public interface UserInfoService<T, M, R, N> extends DataSavingValidationService
 
     T add(M addingDto) throws DataSavingServiceException;
 
-    void checkAccessForEditing(T requestedEditingInfo) throws NotEnoughRightsServiceException;
-
     T edit(R editingDto) throws DataSavingServiceException;
 
     void checkDataValidityForAdding(M addingDto, BindingResult bindingResult) throws DataValidationServiceException;
 
     void checkDataValidityForEditing(R editingDto, BindingResult bindingResult) throws DataValidationServiceException;
+
+    void checkAccessRightsForEditing(User userWithRequestedEditingInfo) throws NotEnoughRightsServiceException;
 
 }
