@@ -6,12 +6,10 @@ import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalRegistrationRequestAddingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
-import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
-import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
-import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
-import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.*;
 import org.pah_monitoring.main.exceptions.utils.PhoneNumberUtilsException;
 import org.pah_monitoring.main.repositorites.hospitals.HospitalRegistrationRequestRepository;
+import org.pah_monitoring.main.services.auxiliary.auth.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
@@ -34,6 +32,8 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     private UserSecurityInformationService securityInformationService;
 
     private RegistrationSecurityCodeService securityCodeService;
+
+    private AccessRightsCheckService checkService;
 
     @Override
     public boolean existsByEmail(String email) {
@@ -130,6 +130,13 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
                     "Медицинское учреждение \"%s\" не может быть удалено, так как заявка на его регистрацию была подтверждена"
                             .formatted(request.getHospital().getName())
             );
+        }
+    }
+
+    @Override
+    public void checkAccessRightsForObtainingConcrete(HospitalRegistrationRequest requestedRequest) throws NotEnoughRightsServiceException {
+        if (!checkService.isMainAdministrator()) {
+            throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
     }
 
