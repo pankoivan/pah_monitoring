@@ -1,17 +1,22 @@
 package org.pah_monitoring.main.services.users.users.interfaces.common;
 
+import org.pah_monitoring.main.entities.dto.saving.users.users.common.HospitalUserAddingInfo;
+import org.pah_monitoring.main.entities.dto.saving.users.users.common.HospitalUserEditingInfo;
+import org.pah_monitoring.main.entities.dto.saving.users.users.common.HospitalUserSavingInfo;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
+import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
-import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
-import org.pah_monitoring.main.services.validation.interfaces.SavingValidationService;
-import org.pah_monitoring.main.services.validation.interfaces.UrlValidationService;
-import org.springframework.validation.BindingResult;
+import org.pah_monitoring.main.services.validation.interfaces.saving.AddingValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.saving.EditingValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.saving.SavingValidationService;
 
 import java.util.List;
 
-public interface HospitalUserService<T, M, R, N> extends UrlValidationService, SavingValidationService<N> {
+public interface HospitalUserService
+        <T extends HospitalUser, M extends HospitalUserAddingInfo, R extends HospitalUserEditingInfo, N extends HospitalUserSavingInfo>
+        extends AddingValidationService<M>, EditingValidationService<R>, SavingValidationService<N> {
 
     List<T> findAll();
 
@@ -27,10 +32,6 @@ public interface HospitalUserService<T, M, R, N> extends UrlValidationService, S
 
     T edit(R editingDto) throws DataSearchingServiceException, DataSavingServiceException;
 
-    void checkDataValidityForAdding(M addingDto, BindingResult bindingResult) throws DataValidationServiceException;
-
     void checkAccessForEditing(T requestedEditingUser) throws NotEnoughRightsServiceException;
-
-    void checkDataValidityForEditing(R editingDto, BindingResult bindingResult) throws DataSearchingServiceException, DataValidationServiceException;
 
 }

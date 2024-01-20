@@ -4,7 +4,7 @@ import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
-import org.pah_monitoring.main.services.validation.interfaces.SavingValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.saving.SavingValidationService;
 import org.springframework.validation.BindingResult;
 
 public interface UserInfoService<T, M, R, N> extends SavingValidationService<N> {

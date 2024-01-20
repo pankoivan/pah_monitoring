@@ -5,7 +5,7 @@ import org.pah_monitoring.main.entities.main_admin_contacts.MainAdminContact;
 import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
-import org.pah_monitoring.main.services.validation.interfaces.SavingValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.saving.SavingValidationService;
 import org.pah_monitoring.main.services.validation.interfaces.UrlValidationService;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.entities.dto.saving.users.users.common;
 
-public interface HospitalUserEditingInformation {
+public interface HospitalUserEditingInfo {
 
     Integer getId();
 

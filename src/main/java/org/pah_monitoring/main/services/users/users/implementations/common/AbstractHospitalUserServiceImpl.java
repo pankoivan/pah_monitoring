@@ -4,8 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
-import org.pah_monitoring.main.entities.dto.saving.users.users.common.HospitalUserAddingInformation;
-import org.pah_monitoring.main.entities.dto.saving.users.users.common.HospitalUserEditingInformation;
+import org.pah_monitoring.main.entities.dto.saving.users.users.common.HospitalUserAddingInfo;
+import org.pah_monitoring.main.entities.dto.saving.users.users.common.HospitalUserEditingInfo;
+import org.pah_monitoring.main.entities.dto.saving.users.users.common.HospitalUserSavingInfo;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
@@ -26,7 +27,7 @@ import org.springframework.validation.BindingResult;
 @Getter
 @Setter(onMethod = @__(@Autowired))
 public abstract class AbstractHospitalUserServiceImpl
-        <T extends HospitalUser, M extends HospitalUserAddingInformation, R extends HospitalUserEditingInformation, N>
+        <T extends HospitalUser, M extends HospitalUserAddingInfo, R extends HospitalUserEditingInfo, N extends HospitalUserSavingInfo>
         implements HospitalUserService<T, M, R, N> {
 
     private RegistrationSecurityCodeService codeService;
