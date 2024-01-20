@@ -5,12 +5,12 @@ import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
-import org.pah_monitoring.main.services.validation.interfaces.DeletionValidationService;
-import org.pah_monitoring.main.services.validation.interfaces.saving.SavingValidationService;
-import org.pah_monitoring.main.services.validation.interfaces.UrlValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.data.DataDeletionValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataSavingValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.url.UrlValidationService;
 
-public interface HospitalRegistrationRequestService extends SavingValidationService<HospitalRegistrationRequestAddingDto>,
-        DeletionValidationService<HospitalRegistrationRequest>, UrlValidationService {
+public interface HospitalRegistrationRequestService extends DataSavingValidationService<HospitalRegistrationRequestAddingDto>,
+        DataDeletionValidationService<HospitalRegistrationRequest>, UrlValidationService {
 
     boolean existsByEmail(String email);
 

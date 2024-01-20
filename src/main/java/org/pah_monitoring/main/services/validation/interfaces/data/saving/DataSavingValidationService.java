@@ -1,9 +1,9 @@
-package org.pah_monitoring.main.services.validation.interfaces.saving;
+package org.pah_monitoring.main.services.validation.interfaces.data.saving;
 
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.springframework.validation.BindingResult;
 
-public interface SavingValidationService<T> extends BindingResultMessagesService {
+public interface DataSavingValidationService<T> extends DataValidationBindingResultMessageService {
 
     void checkDataValidityForSaving(T savingDto, BindingResult bindingResult) throws DataValidationServiceException;
 

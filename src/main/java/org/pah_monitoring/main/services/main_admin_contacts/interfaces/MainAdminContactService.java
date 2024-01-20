@@ -5,12 +5,12 @@ import org.pah_monitoring.main.entities.main_admin_contacts.MainAdminContact;
 import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
-import org.pah_monitoring.main.services.validation.interfaces.saving.SavingValidationService;
-import org.pah_monitoring.main.services.validation.interfaces.UrlValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataSavingValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.url.UrlValidationService;
 
 import java.util.List;
 
-public interface MainAdminContactService extends SavingValidationService<MainAdminContactSavingDto>, UrlValidationService {
+public interface MainAdminContactService extends DataSavingValidationService<MainAdminContactSavingDto>, UrlValidationService {
 
     List<MainAdminContact> findAll();
 

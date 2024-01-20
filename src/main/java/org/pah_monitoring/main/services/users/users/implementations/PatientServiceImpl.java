@@ -138,9 +138,7 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
 
     @Override
     public void checkDataValidityForEditing(PatientEditingDto editingDto, BindingResult bindingResult)
-            throws DataSearchingServiceException, DataValidationServiceException {
-
-        findById(editingDto.getId());
+            throws DataValidationServiceException {
 
         checkDataValidityForSaving(editingDto, bindingResult);
 

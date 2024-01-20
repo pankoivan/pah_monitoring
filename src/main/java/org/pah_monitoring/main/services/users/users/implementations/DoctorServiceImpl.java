@@ -104,9 +104,7 @@ public class DoctorServiceImpl extends
 
     @Override
     public void checkDataValidityForEditing(DoctorEditingDto editingDto, BindingResult bindingResult)
-            throws DataSearchingServiceException, DataValidationServiceException {
-
-        findById(editingDto.getId());
+            throws DataValidationServiceException {
 
         checkDataValidityForSaving(editingDto, bindingResult);
 

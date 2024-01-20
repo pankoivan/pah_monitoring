@@ -1,11 +1,11 @@
-package org.pah_monitoring.main.services.validation.interfaces.saving;
+package org.pah_monitoring.main.services.validation.interfaces.data.saving;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
 import java.util.List;
 
-public interface BindingResultMessagesService {
+public interface DataValidationBindingResultMessageService {
 
     default String bindingResultAnyErrorMessage(BindingResult bindingResult) {
         return bindingResult.getAllErrors()

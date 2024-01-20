@@ -104,9 +104,7 @@ public class AdministratorServiceImpl extends
 
     @Override
     public void checkDataValidityForEditing(AdministratorEditingDto editingDto, BindingResult bindingResult)
-            throws DataSearchingServiceException, DataValidationServiceException {
-
-        findById(editingDto.getId());
+            throws DataValidationServiceException {
 
         checkDataValidityForSaving(editingDto, bindingResult);
 

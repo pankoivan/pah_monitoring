@@ -8,15 +8,15 @@ import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
-import org.pah_monitoring.main.services.validation.interfaces.saving.AddingValidationService;
-import org.pah_monitoring.main.services.validation.interfaces.saving.EditingValidationService;
-import org.pah_monitoring.main.services.validation.interfaces.saving.SavingValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataAddingValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataEditingValidationService;
+import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataSavingValidationService;
 
 import java.util.List;
 
 public interface HospitalUserService
         <T extends HospitalUser, M extends HospitalUserAddingInfo, R extends HospitalUserEditingInfo, N extends HospitalUserSavingInfo>
-        extends AddingValidationService<M>, EditingValidationService<R>, SavingValidationService<N> {
+        extends DataAddingValidationService<M>, DataEditingValidationService<R>, DataSavingValidationService<N> {
 
     List<T> findAll();
 
