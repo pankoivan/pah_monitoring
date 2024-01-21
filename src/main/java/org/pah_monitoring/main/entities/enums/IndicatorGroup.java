@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public enum IndicatorGroup {
 
-    SPIROMETRY("Спирометрия + DLCO", "spirometry_and_DLCO"),
+    SPIROMETRY("Спирометрия", "spirometry"),
 
     WALK_TEST("Т6МХ", "walk_test"),
 
