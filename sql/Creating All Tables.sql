@@ -351,8 +351,9 @@ CREATE TABLE IF NOT EXISTS examination_schedule
     id SERIAL PRIMARY KEY,
     patient_id INT REFERENCES patient (id) NOT NULL,
     indicators_group VARCHAR (32) NOT NULL,
-    times VARCHAR (8) NOT NULL,
-	period VARCHAR (16) NOT NULL
+    schedule VARCHAR (24) NOT NULL,
+	
+	CONSTRAINT examination_schedule__patient_and_indicators_group_unique UNIQUE (patient_id, indicators_group)
 );
 
 /* Лекарства для пациентов (32) */
@@ -397,7 +398,7 @@ CREATE TABLE IF NOT EXISTS user_message
 	author_id INT REFERENCES user_information (id) NOT NULL,
 	message_text TEXT NOT NULL,
 	date TIMESTAMP NOT NULL,
-	editing_date TIMESTAMP
+	editing_date TIMESTAMP,
 
 	CONSTRAINT user_message__recipient_and_author_are_not_equal CHECK (recipient_id != author_id)
 );
