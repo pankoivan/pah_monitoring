@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class InactivePatientAddingDto extends InactivityAddingDto {
+public class PatientInactivityAddingDto extends InactivityAddingDto {
 
     @NotNull(message = "Дата не должна отсутствовать")
     private LocalDate date;
