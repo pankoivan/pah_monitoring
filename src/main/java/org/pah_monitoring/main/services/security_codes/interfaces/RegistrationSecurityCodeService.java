@@ -2,8 +2,8 @@ package org.pah_monitoring.main.services.security_codes.interfaces;
 
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
-import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
-import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 
 import java.util.UUID;

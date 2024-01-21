@@ -8,9 +8,9 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEd
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.users.inactivity.PatientInactivity;
 import org.pah_monitoring.main.entities.users.users.Patient;
-import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
-import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.users.inactivity.InactivePatientRepository;
 import org.pah_monitoring.main.services.auxiliary.auth.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.auxiliary.auth.interfaces.CurrentUserExtractionService;

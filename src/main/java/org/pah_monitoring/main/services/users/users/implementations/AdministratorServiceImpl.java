@@ -8,9 +8,9 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.saving.Administra
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.entities.users.users.Administrator;
-import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
-import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
-import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.users.users.AdministratorRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformationService;

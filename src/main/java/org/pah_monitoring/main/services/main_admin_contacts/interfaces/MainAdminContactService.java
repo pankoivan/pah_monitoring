@@ -2,9 +2,9 @@ package org.pah_monitoring.main.services.main_admin_contacts.interfaces;
 
 import org.pah_monitoring.main.entities.dto.saving.main_admin_contacts.MainAdminContactSavingDto;
 import org.pah_monitoring.main.entities.main_admin_contacts.MainAdminContact;
-import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
-import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
-import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataSavingValidationService;
 import org.pah_monitoring.main.services.validation.interfaces.url.UrlValidationService;
 

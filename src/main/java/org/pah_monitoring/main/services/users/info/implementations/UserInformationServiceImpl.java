@@ -9,10 +9,10 @@ import org.pah_monitoring.main.entities.dto.saving.users.info.saving.UserInforma
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.users.common.interfaces.HospitalUser;
 import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
-import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
-import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
-import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.users.info.UserInformationRepository;
 import org.pah_monitoring.main.services.auxiliary.auth.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserInformationService;

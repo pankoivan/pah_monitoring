@@ -7,9 +7,9 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.saving.DoctorSavi
 import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
-import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
-import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
-import org.pah_monitoring.main.exceptions.service.UrlValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
+import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.services.users.users.implementations.common.AbstractPatientServiceImpl;
 import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;

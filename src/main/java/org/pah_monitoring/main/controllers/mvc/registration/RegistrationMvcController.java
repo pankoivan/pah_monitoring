@@ -3,7 +3,7 @@ package org.pah_monitoring.main.controllers.mvc.registration;
 import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
-import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.springframework.security.access.prepost.PreAuthorize;

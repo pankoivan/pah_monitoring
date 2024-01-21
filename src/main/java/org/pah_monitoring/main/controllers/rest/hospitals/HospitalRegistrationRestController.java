@@ -8,7 +8,11 @@ import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValida
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataDeletionRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
-import org.pah_monitoring.main.exceptions.service.*;
+import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
+import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
