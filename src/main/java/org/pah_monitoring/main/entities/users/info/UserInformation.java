@@ -3,6 +3,7 @@ package org.pah_monitoring.main.entities.users.info;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.enums.Gender;
 import org.pah_monitoring.main.entities.users.messages.UserMessage;
 
@@ -18,7 +19,7 @@ import java.util.List;
 @JsonIgnoreProperties({"sentMessages", "receivedMessages"})
 @Entity
 @Table(name = "user_information")
-public class UserInformation {
+public class UserInformation implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

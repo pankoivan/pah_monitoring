@@ -4,7 +4,7 @@ import org.pah_monitoring.main.entities.dto.saving.users.messages.UserMessageAdd
 import org.pah_monitoring.main.entities.dto.saving.users.messages.UserMessageEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.messages.UserMessageSavingDto;
 import org.pah_monitoring.main.entities.users.messages.UserMessage;
-import org.pah_monitoring.main.entities.users.users.common.User;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
 import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;

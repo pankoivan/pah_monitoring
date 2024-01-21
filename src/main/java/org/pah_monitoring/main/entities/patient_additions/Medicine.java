@@ -3,6 +3,7 @@ package org.pah_monitoring.main.entities.patient_additions;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
 @NoArgsConstructor
@@ -14,7 +15,7 @@ import org.pah_monitoring.main.entities.users.users.Patient;
 @JsonIgnoreProperties("patient")
 @Entity
 @Table(name = "medicine")
-public class Medicine {
+public class Medicine implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

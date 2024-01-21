@@ -7,8 +7,8 @@ import org.pah_monitoring.main.entities.dto.saving.users.info.adding.UserInforma
 import org.pah_monitoring.main.entities.dto.saving.users.info.editing.UserInformationEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.info.saving.UserInformationSavingDto;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
-import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
-import org.pah_monitoring.main.entities.users.users.common.User;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.HospitalUser;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;

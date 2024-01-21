@@ -6,9 +6,9 @@ import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.entities.users.users.MainAdministrator;
 import org.pah_monitoring.main.entities.users.users.Patient;
-import org.pah_monitoring.main.entities.users.users.common.HospitalEmployeeUser;
-import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
-import org.pah_monitoring.main.entities.users.users.common.User;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.HospitalEmployee;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.HospitalUser;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
 import org.pah_monitoring.main.services.auxiliary.auth.interfaces.CurrentUserExtractionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,8 +32,8 @@ public class CurrentUserExtractionServiceImpl implements CurrentUserExtractionSe
     }
 
     @Override
-    public HospitalEmployeeUser hospitalEmployeeUser() throws NullPointerException,  ClassCastException {
-        return (HospitalEmployeeUser) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    public HospitalEmployee hospitalEmployeeUser() throws NullPointerException,  ClassCastException {
+        return (HospitalEmployee) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 
     @Override

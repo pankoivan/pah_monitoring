@@ -2,6 +2,7 @@ package org.pah_monitoring.main.entities.main_admin_contacts;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,7 +12,7 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "main_admin_contact")
-public class MainAdminContact {
+public class MainAdminContact implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

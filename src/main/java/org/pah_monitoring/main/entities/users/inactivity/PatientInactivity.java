@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.entities.users.users.Patient;
+import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 
 import java.time.LocalDate;
 
@@ -16,8 +17,8 @@ import java.time.LocalDate;
 @Builder
 @JsonIgnoreProperties({"patient", "author"})
 @Entity
-@Table(name = "inactive_patient")
-public class InactivePatient {
+@Table(name = "patient_inactivity")
+public class PatientInactivity implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +42,7 @@ public class InactivePatient {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof InactivePatient other))
+                || ((o instanceof PatientInactivity other))
                 && (id != null)
                 && (id.equals(other.id));
     }

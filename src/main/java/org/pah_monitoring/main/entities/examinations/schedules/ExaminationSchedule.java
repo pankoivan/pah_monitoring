@@ -3,7 +3,8 @@ package org.pah_monitoring.main.entities.examinations.schedules;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.enums.IndicatorsGroup;
+import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
+import org.pah_monitoring.main.entities.enums.IndicatorGroup;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
 @NoArgsConstructor
@@ -15,7 +16,7 @@ import org.pah_monitoring.main.entities.users.users.Patient;
 @JsonIgnoreProperties("patient")
 @Entity
 @Table(name = "examination_schedule")
-public class ExaminationSchedule {
+public class ExaminationSchedule implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +25,7 @@ public class ExaminationSchedule {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "indicators_group")
-    private IndicatorsGroup indicatorsGroup;
+    private IndicatorGroup indicatorGroup;
 
     @Column(name = "schedule")
     private String schedule;

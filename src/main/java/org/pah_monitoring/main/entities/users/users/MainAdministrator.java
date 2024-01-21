@@ -6,7 +6,7 @@ import lombok.*;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
-import org.pah_monitoring.main.entities.users.users.common.User;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

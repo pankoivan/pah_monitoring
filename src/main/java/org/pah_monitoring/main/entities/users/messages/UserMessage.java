@@ -3,6 +3,7 @@ package org.pah_monitoring.main.entities.users.messages;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties({"recipient", "author"})
 @Entity
 @Table(name = "user_message")
-public class UserMessage {
+public class UserMessage implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

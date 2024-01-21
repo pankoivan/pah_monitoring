@@ -3,19 +3,34 @@ package org.pah_monitoring.main.entities.hospitals;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.users.users.Administrator;
+import org.pah_monitoring.main.entities.users.users.Doctor;
+import org.pah_monitoring.main.entities.users.users.Patient;
+import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"employees", "patients", "request"})
+@ToString(exclude = {
+        "administrators",
+        "doctors",
+        "patients",
+        "request"
+})
 @Builder
-@JsonIgnoreProperties({"employees", "patients", "request"})
+@JsonIgnoreProperties({
+        "administrators",
+        "doctors",
+        "patients",
+        "request"
+})
 @Entity
 @Table(name = "hospital")
-public class Hospital {
+public class Hospital implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,11 +50,14 @@ public class Hospital {
     @Column(name = "current_state")
     private CurrentState currentState;
 
-    /*@OneToMany(mappedBy = "hospital")
-    private List<EmployeeInformation> employees;
+    @OneToMany(mappedBy = "hospital")
+    private List<Administrator> administrators;
 
     @OneToMany(mappedBy = "hospital")
-    private List<Patient> patients;*/
+    private List<Doctor> doctors;
+
+    @OneToMany(mappedBy = "hospital")
+    private List<Patient> patients;
 
     @OneToOne(mappedBy = "hospital")
     private HospitalRegistrationRequest request;

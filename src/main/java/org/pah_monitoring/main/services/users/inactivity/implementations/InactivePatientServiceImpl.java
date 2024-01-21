@@ -6,7 +6,7 @@ import org.pah_monitoring.main.entities.dto.saving.users.inactivity.adding.Inact
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
-import org.pah_monitoring.main.entities.users.inactivity.InactivePatient;
+import org.pah_monitoring.main.entities.users.inactivity.PatientInactivity;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
@@ -38,10 +38,10 @@ public class InactivePatientServiceImpl implements InactivePatientService {
     private AccessRightsCheckService checkService;
 
     @Override
-    public InactivePatient add(InactivePatientAddingDto addingDto) throws DataSavingServiceException {
+    public PatientInactivity add(InactivePatientAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(
-              InactivePatient
+              PatientInactivity
                       .builder()
                       .patient(patientService.findById(addingDto.getToWhomId()))
                       .author(extractionService.doctor())

@@ -1,9 +1,11 @@
-package org.pah_monitoring.main.entities.examinations.by_inputs;
+package org.pah_monitoring.main.entities.examinations.indicators.by_inputs;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.examinations.Examination;
+import org.pah_monitoring.main.entities.enums.IndicatorGroup;
+import org.pah_monitoring.main.entities.examinations.examinations.Examination;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,7 +16,7 @@ import org.pah_monitoring.main.entities.examinations.Examination;
 @JsonIgnoreProperties("examination")
 @Entity
 @Table(name = "cough")
-public class Cough {
+public class Cough implements Indicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +53,11 @@ public class Cough {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public IndicatorGroup getIndicatorGroup() {
+        return IndicatorGroup.COUGH;
     }
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)

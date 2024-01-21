@@ -1,9 +1,11 @@
-package org.pah_monitoring.main.entities.examinations.by_inputs;
+package org.pah_monitoring.main.entities.examinations.indicators.by_inputs;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.examinations.Examination;
+import org.pah_monitoring.main.entities.enums.IndicatorGroup;
+import org.pah_monitoring.main.entities.examinations.examinations.Examination;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,7 +16,7 @@ import org.pah_monitoring.main.entities.examinations.Examination;
 @JsonIgnoreProperties("examination")
 @Entity
 @Table(name = "functional_class")
-public class FunctionalClass {
+public class FunctionalClass implements Indicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +44,11 @@ public class FunctionalClass {
         return getClass().hashCode();
     }
 
+    @Override
+    public IndicatorGroup getIndicatorGroup() {
+        return IndicatorGroup.FUNCTIONAL_CLASS;
+    }
+
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
     public enum FunctionalClassNumber {
@@ -52,7 +59,7 @@ public class FunctionalClass {
 
         III("ФК 3"),
 
-        IV("ФК 3");
+        IV("ФК 4");
 
         private final String alias;
 

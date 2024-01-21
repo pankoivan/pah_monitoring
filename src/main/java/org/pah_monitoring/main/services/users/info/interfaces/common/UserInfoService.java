@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.services.users.info.interfaces.common;
 
-import org.pah_monitoring.main.entities.users.users.common.User;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;

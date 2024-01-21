@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.Role;
-import org.pah_monitoring.main.entities.examinations.Examination;
+import org.pah_monitoring.main.entities.examinations.examinations.Examination;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
-import org.pah_monitoring.main.entities.users.inactivity.InactivePatient;
+import org.pah_monitoring.main.entities.users.inactivity.PatientInactivity;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
-import org.pah_monitoring.main.entities.users.users.common.HospitalEmployeeUser;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.HospitalEmployee;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -26,7 +26,7 @@ import java.util.List;
 @JsonIncludeProperties("id")
 @Entity
 @Table(name = "doctor")
-public class Doctor implements HospitalEmployeeUser, UserDetails {
+public class Doctor implements HospitalEmployee, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,24 +52,24 @@ public class Doctor implements HospitalEmployeeUser, UserDetails {
     private List<Examination> examinations;
 
     @OneToMany(mappedBy = "author")
-    private List<InactivePatient> assignedInactivePatients;
+    private List<PatientInactivity> assignedPatientInactivities;
 
     public Role getRole() {
         return Role.DOCTOR;
     }
 
     public boolean isActive() {
-        return getEmployeeInformation().getDismissal() == null;
+        return employeeInformation.getDismissal() == null;
     }
 
     @Override
     public String getUsername() {
-        return getUserSecurityInformation().getEmail();
+        return userSecurityInformation.getEmail();
     }
 
     @Override
     public String getPassword() {
-        return getUserSecurityInformation().getPassword();
+        return userSecurityInformation.getPassword();
     }
 
     @Override

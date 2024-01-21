@@ -3,6 +3,7 @@ package org.pah_monitoring.main.entities.security_codes;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 
@@ -18,7 +19,7 @@ import java.util.UUID;
 @JsonIgnoreProperties("hospital")
 @Entity
 @Table(name = "registration_security_code")
-public class RegistrationSecurityCode {
+public class RegistrationSecurityCode implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

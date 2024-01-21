@@ -11,7 +11,7 @@ import org.pah_monitoring.main.entities.users.inactivity.Vacation;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
-import org.pah_monitoring.main.entities.users.users.common.HospitalEmployeeUser;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.HospitalEmployee;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -27,7 +27,7 @@ import java.util.List;
 @JsonIncludeProperties("id")
 @Entity
 @Table(name = "administrator")
-public class Administrator implements HospitalEmployeeUser, UserDetails {
+public class Administrator implements HospitalEmployee, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,17 +60,17 @@ public class Administrator implements HospitalEmployeeUser, UserDetails {
     }
 
     public boolean isActive() {
-        return getEmployeeInformation().getDismissal() == null;
+        return employeeInformation.getDismissal() == null;
     }
 
     @Override
     public String getUsername() {
-        return getUserSecurityInformation().getEmail();
+        return userSecurityInformation.getEmail();
     }
 
     @Override
     public String getPassword() {
-        return getUserSecurityInformation().getPassword();
+        return userSecurityInformation.getPassword();
     }
 
     @Override

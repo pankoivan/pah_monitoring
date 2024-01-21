@@ -1,9 +1,11 @@
-package org.pah_monitoring.main.entities.examinations.by_inputs;
+package org.pah_monitoring.main.entities.examinations.indicators.by_inputs;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.examinations.Examination;
+import org.pah_monitoring.main.entities.enums.IndicatorGroup;
+import org.pah_monitoring.main.entities.examinations.examinations.Examination;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,8 +15,8 @@ import org.pah_monitoring.main.entities.examinations.Examination;
 @Builder
 @JsonIgnoreProperties("examination")
 @Entity
-@Table(name = "spirometry_and_DLCO")
-public class SpirometryAndDlco {
+@Table(name = "spirometry")
+public class Spirometry implements Indicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,9 +35,6 @@ public class SpirometryAndDlco {
     @Column(name = "VFE1")
     private Double vfe1;
 
-    @Column(name = "DLCO")
-    private Double dlco;
-
     @OneToOne
     @JoinColumn(name = "examination_id")
     private Examination examination;
@@ -43,7 +42,7 @@ public class SpirometryAndDlco {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof SpirometryAndDlco other))
+                || ((o instanceof Spirometry other))
                 && (id != null)
                 && (id.equals(other.id));
     }
@@ -51,6 +50,11 @@ public class SpirometryAndDlco {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public IndicatorGroup getIndicatorGroup() {
+        return IndicatorGroup.SPIROMETRY;
     }
 
 }

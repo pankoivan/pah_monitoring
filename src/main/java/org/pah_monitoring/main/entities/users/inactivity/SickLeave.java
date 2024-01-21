@@ -3,8 +3,9 @@ package org.pah_monitoring.main.entities.users.inactivity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
+import org.pah_monitoring.main.entities.users.users.Administrator;
+import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 
 import java.time.LocalDate;
 
@@ -17,7 +18,7 @@ import java.time.LocalDate;
 @JsonIgnoreProperties({"employee", "author"})
 @Entity
 @Table(name = "sick_leave")
-public class SickLeave {
+public class SickLeave implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

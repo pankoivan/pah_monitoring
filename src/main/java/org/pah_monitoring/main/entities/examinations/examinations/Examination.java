@@ -1,8 +1,9 @@
-package org.pah_monitoring.main.entities.examinations;
+package org.pah_monitoring.main.entities.examinations.examinations;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @JsonIncludeProperties({"id", "date"})
 @Entity
 @Table(name = "examination")
-public class Examination {
+public class Examination implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

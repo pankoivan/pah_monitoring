@@ -4,9 +4,9 @@ import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.entities.users.users.MainAdministrator;
 import org.pah_monitoring.main.entities.users.users.Patient;
-import org.pah_monitoring.main.entities.users.users.common.HospitalEmployeeUser;
-import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
-import org.pah_monitoring.main.entities.users.users.common.User;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.HospitalEmployee;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.HospitalUser;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
 
 public interface CurrentUserExtractionService {
 
@@ -14,7 +14,7 @@ public interface CurrentUserExtractionService {
 
     HospitalUser hospitalUser() throws NullPointerException, ClassCastException;
 
-    HospitalEmployeeUser hospitalEmployeeUser() throws NullPointerException, ClassCastException;
+    HospitalEmployee hospitalEmployeeUser() throws NullPointerException, ClassCastException;
 
     MainAdministrator mainAdministrator() throws NullPointerException, ClassCastException;
 

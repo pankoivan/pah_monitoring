@@ -6,9 +6,9 @@ import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public enum IndicatorsGroup {
+public enum IndicatorGroup {
 
-    SPIROMETRY_AND_DLCO("Спирометрия + DLCO", "spirometry_and_DLCO"),
+    SPIROMETRY("Спирометрия + DLCO", "spirometry_and_DLCO"),
 
     WALK_TEST("Т6МХ", "walk_test"),
 
@@ -34,17 +34,17 @@ public enum IndicatorsGroup {
 
     FUNCTIONAL_CLASS("Функциональный класс", "functional_class"),
 
-    ANALYSIS_BLOOD_TEST("Развёрнутый анализ крови", "analysis_file"),
+    BLOOD_TEST("Развёрнутый анализ крови", "analysis_file"),
 
-    ANALYSIS_ELECTROCARDIOGRAPHY("Электрокардиография", "analysis_file"),
+    ELECTROCARDIOGRAPHY("Электрокардиография", "analysis_file"),
 
-    ANALYSIS_RADIOGRAPHY("Рентгенография органов грудной клетки", "analysis_file"),
+    RADIOGRAPHY("Рентгенография органов грудной клетки", "analysis_file"),
 
-    ANALYSIS_ECHOCARDIOGRAPHY("Эхокардиография", "analysis_file"),
+    ECHOCARDIOGRAPHY("Эхокардиография", "analysis_file"),
 
-    ANALYSIS_COMPUTED_TOMOGRAPHY("Компьютерная томография органов грудной клетки", "analysis_file"),
+    COMPUTED_TOMOGRAPHY("Компьютерная томография органов грудной клетки", "analysis_file"),
 
-    ANALYSIS_CATHETERIZATION("Катетеризация правых отделов сердца", "analysis_file");
+    CATHETERIZATION("Катетеризация правых отделов сердца", "analysis_file");
 
     private final String alias;
 

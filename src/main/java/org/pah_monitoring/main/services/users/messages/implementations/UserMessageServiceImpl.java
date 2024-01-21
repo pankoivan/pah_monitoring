@@ -8,8 +8,8 @@ import org.pah_monitoring.main.entities.dto.saving.users.messages.UserMessageSav
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.messages.UserMessage;
 import org.pah_monitoring.main.entities.users.users.Administrator;
-import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
-import org.pah_monitoring.main.entities.users.users.common.User;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.HospitalUser;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
 import org.pah_monitoring.main.exceptions.service.*;
 import org.pah_monitoring.main.repositorites.users.messages.UserMessageRepository;
 import org.pah_monitoring.main.services.auxiliary.auth.interfaces.AccessRightsCheckService;

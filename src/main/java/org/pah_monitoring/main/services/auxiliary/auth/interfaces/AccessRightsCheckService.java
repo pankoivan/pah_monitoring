@@ -2,7 +2,7 @@ package org.pah_monitoring.main.services.auxiliary.auth.interfaces;
 
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.users.users.Patient;
-import org.pah_monitoring.main.entities.users.users.common.User;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
 
 public interface AccessRightsCheckService {
 

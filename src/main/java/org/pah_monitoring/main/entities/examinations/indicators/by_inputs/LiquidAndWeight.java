@@ -1,9 +1,11 @@
-package org.pah_monitoring.main.entities.examinations.by_inputs;
+package org.pah_monitoring.main.entities.examinations.indicators.by_inputs;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.examinations.Examination;
+import org.pah_monitoring.main.entities.enums.IndicatorGroup;
+import org.pah_monitoring.main.entities.examinations.examinations.Examination;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,31 +15,19 @@ import org.pah_monitoring.main.entities.examinations.Examination;
 @Builder
 @JsonIgnoreProperties("examination")
 @Entity
-@Table(name = "physical_changes")
-public class PhysicalChanges {
+@Table(name = "liquid_and_weight")
+public class LiquidAndWeight implements Indicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "acrocyanosis")
-    private Boolean acrocyanosis;
+    @Column(name = "liquid")
+    private Double liquid;
 
-    @Column(name = "fingers_phalanges")
-    private Boolean fingersPhalanges;
-
-    @Column(name = "nails")
-    private Boolean nails;
-
-    @Column(name = "chest")
-    private Boolean chest;
-
-    @Column(name = "neck_veins")
-    private Boolean neckVeins;
-
-    @Column(name = "lower_extremities")
-    private Boolean lowerExtremities;
+    @Column(name = "weight")
+    private Double weight;
 
     @OneToOne
     @JoinColumn(name = "examination_id")
@@ -46,7 +36,7 @@ public class PhysicalChanges {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof PhysicalChanges other))
+                || ((o instanceof LiquidAndWeight other))
                 && (id != null)
                 && (id.equals(other.id));
     }
@@ -54,6 +44,11 @@ public class PhysicalChanges {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public IndicatorGroup getIndicatorGroup() {
+        return IndicatorGroup.LIQUID_AND_WEIGHT;
     }
 
 }

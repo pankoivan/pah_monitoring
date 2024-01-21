@@ -3,6 +3,7 @@ package org.pah_monitoring.main.entities.users.info;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.users.inactivity.Dismissal;
 import org.pah_monitoring.main.entities.users.inactivity.SickLeave;
 import org.pah_monitoring.main.entities.users.inactivity.Vacation;
@@ -18,7 +19,7 @@ import java.util.List;
 @JsonIncludeProperties({"id", "post"})
 @Entity
 @Table(name = "hospital_employee_information")
-public class EmployeeInformation {
+public class EmployeeInformation implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS hospital_registration_request
 	passport VARCHAR (12) UNIQUE NOT NULL,
 	phone_number VARCHAR (24) UNIQUE NOT NULL,
 	email VARCHAR (256) UNIQUE NOT NULL,
-	comment VARCHAR (512),
+	comment TEXT NOT NULL,
 	date TIMESTAMP NOT NULL
 );
 
@@ -41,8 +41,8 @@ CREATE TABLE IF NOT EXISTS registration_security_code
 (
 	id SERIAL PRIMARY KEY,
 	hospital_id INT REFERENCES hospital (id) NOT NULL,
-	role VARCHAR (24) NOT NULL,
 	code UUID UNIQUE NOT NULL,
+	role VARCHAR (24) NOT NULL,
 	email VARCHAR (256) UNIQUE NOT NULL,
 	expiration_date TIMESTAMP NOT NULL
 );
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS sick_leave
 	author_id INT REFERENCES administrator (id) NOT NULL,
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL,
-	comment TEXT,
+	comment TEXT NOT NULL,
 	
 	CONSTRAINT sick_leave__hospital_employee_and_author_are_not_equal CHECK (hospital_employee_information_id != author_id)
 );
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS vacation
 	author_id INT REFERENCES administrator (id) NOT NULL,
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL,
-	comment TEXT,
+	comment TEXT NOT NULL,
 	
 	CONSTRAINT vacation__hospital_employee_and_author_are_not_equal CHECK (hospital_employee_information_id != author_id)
 );
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS dismissal
 	hospital_employee_information_id INT REFERENCES hospital_employee_information (id) UNIQUE NOT NULL,
 	author_id INT REFERENCES administrator (id) NOT NULL,
 	date DATE NOT NULL,
-	comment TEXT,
+	comment TEXT NOT NULL,
 	
 	CONSTRAINT dismissal__hospital_employee_and_author_are_not_equal CHECK (hospital_employee_information_id != author_id)
 );
@@ -161,13 +161,13 @@ CREATE TABLE IF NOT EXISTS patient
 
 /* Неактивные пациенты (15) */
 
-CREATE TABLE IF NOT EXISTS inactive_patient
+CREATE TABLE IF NOT EXISTS patient_inactivity
 (
 	id SERIAL PRIMARY KEY,
 	patient_id INT REFERENCES patient (id) UNIQUE NOT NULL,
 	author_id INT REFERENCES doctor (id) NOT NULL,
 	date DATE NOT NULL,
-	comment TEXT
+	comment TEXT NOT NULL
 );
 
 /* Наблюдения (16) */

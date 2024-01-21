@@ -56,7 +56,7 @@ public class ExaminationScheduleServiceImpl implements ExaminationScheduleServic
                     ExaminationSchedule
                             .builder()
                             .patient(patientService.findById(addingDto.getPatientId()))
-                            .indicatorsGroup(addingDto.getIndicatorsGroup())
+                            .indicatorGroup(addingDto.getIndicatorGroup())
                             .schedule(addingDto.getSchedule())
                             .build()
             );
@@ -74,7 +74,7 @@ public class ExaminationScheduleServiceImpl implements ExaminationScheduleServic
                             .builder()
                             .id(schedule.getId())
                             .patient(schedule.getPatient())
-                            .indicatorsGroup(schedule.getIndicatorsGroup())
+                            .indicatorGroup(schedule.getIndicatorGroup())
                             .schedule(editingDto.getSchedule())
                             .build()
             );

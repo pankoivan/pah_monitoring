@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.entities.dto.saving.users.inactivity.adding.SickLeaveAddingDto;
 import org.pah_monitoring.main.entities.users.inactivity.SickLeave;
-import org.pah_monitoring.main.entities.users.users.common.HospitalEmployeeUser;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.HospitalEmployee;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.NotEnoughRightsServiceException;
@@ -66,7 +66,7 @@ public class SickLeaveServiceImpl implements SickLeaveService {
     }
 
     @Override
-    public void checkAccessRightsForAdding(HospitalEmployeeUser hospitalEmployee) throws NotEnoughRightsServiceException {
+    public void checkAccessRightsForAdding(HospitalEmployee hospitalEmployee) throws NotEnoughRightsServiceException {
         if (!checkService.isAdministratorFromSameHospital(hospitalEmployee.getHospital())) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
