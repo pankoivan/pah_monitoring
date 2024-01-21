@@ -5,13 +5,16 @@ import lombok.Setter;
 import org.pah_monitoring.main.entities.dto.saving.users.messages.UserMessageAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.messages.UserMessageEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.messages.UserMessageSavingDto;
+import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.messages.UserMessage;
-import org.pah_monitoring.main.exceptions.service.DataDeletionServiceException;
-import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
-import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
-import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
+import org.pah_monitoring.main.entities.users.users.Administrator;
+import org.pah_monitoring.main.entities.users.users.common.HospitalUser;
+import org.pah_monitoring.main.entities.users.users.common.User;
+import org.pah_monitoring.main.exceptions.service.*;
 import org.pah_monitoring.main.repositorites.users.messages.UserMessageRepository;
+import org.pah_monitoring.main.services.auxiliary.auth.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.auxiliary.auth.interfaces.CurrentUserExtractionService;
+import org.pah_monitoring.main.services.auxiliary.users.interfaces.UserSearchingService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserInformationService;
 import org.pah_monitoring.main.services.users.messages.interfaces.UserMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
@@ -27,15 +32,43 @@ public class UserMessageServiceImpl implements UserMessageService {
 
     private final UserMessageRepository repository;
 
+    private UserInformationService userInformationService;
+
     private CurrentUserExtractionService extractionService;
 
-    private UserInformationService userInformationService;
+    private AccessRightsCheckService checkService;
+
+    private UserSearchingService searchingService;
 
     @Override
     public UserMessage findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
                 () -> new DataSearchingServiceException("Сообщение с id \"%s\" не существует".formatted(id))
         );
+    }
+
+    @Override
+    public List<User> findAllRecipients() throws DataSearchingServiceException {
+
+        List<UserInformation> userInfoRecipients = repository.findAllByAuthorId(extractionService.user().getUserInformation().getId())
+                .stream()
+                .map(UserMessage::getRecipient)
+                .distinct()
+                .toList();
+
+        List<User> usersRecipients = new ArrayList<>();
+
+        for (UserInformation info : userInfoRecipients) {
+            usersRecipients.add(searchingService.findUserByUserInformationId(info.getId()));
+        }
+
+        return usersRecipients;
+
+    }
+
+    @Override
+    public List<UserMessage> findDialogueByRecipientId(Integer recipientId) {
+        return repository.findAllByAuthorIdAndRecipientId(extractionService.user().getUserInformation().getId(), recipientId);
     }
 
     @Override
@@ -99,6 +132,33 @@ public class UserMessageServiceImpl implements UserMessageService {
     public void checkDataValidityForSaving(UserMessageSavingDto savingDto, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+    }
+
+    @Override
+    public void checkAccessRightsForAdding(User recipient) throws NotEnoughRightsServiceException {
+
+        // todo: later
+
+        if (!(
+                checkService.isMainAdministrator() && recipient instanceof Administrator ||
+                checkService.isHospitalUserFromSameHospital(((HospitalUser) recipient).getHospital())
+        )) {
+            throw new NotEnoughRightsServiceException("Недостаточно прав");
+        }
+    }
+
+    @Override
+    public void checkAccessRightsForEditing(User author) throws NotEnoughRightsServiceException {
+        if (!checkService.isSameUser(author)) {
+            throw new NotEnoughRightsServiceException("Недостаточно прав");
+        }
+    }
+
+    @Override
+    public void checkAccessRightsForDeleting(User author) throws NotEnoughRightsServiceException {
+        if (!checkService.isSameUser(author)) {
+            throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
     }
 
