@@ -10,9 +10,9 @@ import lombok.Data;
 public class UserMessageSavingDto {
 
     @Size(max = 1024, message = "Максимальная длина сообщения - 1024 символа")
+    @NotNull(message = "Сообщение не должно отсутствовать")
     @NotEmpty(message = "Сообщение не должно быть пустым")
     @NotBlank(message = "Сообщение не должно состоять только из пробельных символов")
-    @NotNull(message = "Сообщение не должно отсутствовать")
     private String text;
 
 }

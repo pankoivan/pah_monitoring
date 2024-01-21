@@ -2,7 +2,7 @@ package org.pah_monitoring.main.services.users.inactivity.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.dto.saving.users.inactivity.adding.InactivePatientAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.users.inactivity.InactivePatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;

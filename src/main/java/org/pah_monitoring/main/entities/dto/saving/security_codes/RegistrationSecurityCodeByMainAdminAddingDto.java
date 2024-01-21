@@ -1,17 +1,16 @@
 package org.pah_monitoring.main.entities.dto.saving.security_codes;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.pah_monitoring.main.entities.enums.ExpirationDate;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class RegistrationSecurityCodeByMainAdminAddingDto {
 
+    @NotNull(message = "Идентификатор запроса не должен отсутствовать")
     Integer hospitalRegistrationRequestId;
 
+    @NotNull(message = "Срок действия не должен отсутствовать")
     ExpirationDate expirationDate;
 
 }

@@ -1,9 +1,6 @@
 package org.pah_monitoring.main.entities.dto.saving.users.info.saving;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.pah_monitoring.main.entities.enums.Gender;
 
@@ -13,16 +10,20 @@ import java.time.LocalDate;
 public class UserInformationSavingDto {
 
     @Size(min = 2, max = 32, message = "Минимальная длина имени - 2 символа, максимальная - 32 символа")
+    @NotNull(message = "Имя не должно отсутствовать")
     @NotEmpty(message = "Имя не должно быть пустым")
     @NotBlank(message = "Имя не должно состоять только из пробельных символов")
     private String name;
 
     @Size(min = 2, max = 64, message = "Минимальная длина фамилии - 2 символа, максимальная - 64 символа")
+    @NotNull(message = "Фамилия не должна отсутствовать")
     @NotEmpty(message = "Фамилия не должна быть пустой")
     @NotBlank(message = "Фамилия не должна состоять только из пробельных символов")
     private String lastname;
 
     @Size(max = 32, message = "Максимальная длина отчества - 32 символа")
+    @NotNull(message = "Отчество должно присутствовать хотя бы в виде пустой строки")
+    @NotBlank(message = "Отчество не должно состоять только из пробельных символов")
     private String patronymic;
 
     private Gender gender;
@@ -30,6 +31,7 @@ public class UserInformationSavingDto {
     private LocalDate birthdate;
 
     @Pattern(regexp = "^\\d{11}$", message = "Для номера телефона используйте только подряд идущие цифры от 0 до 9. Пример: 89112345129")
+    @NotNull(message = "Номер телефона не должен отсутствовать")
     private String phoneNumber;
 
 }
