@@ -49,14 +49,14 @@ public class SecurityConfig {
                         AbstractHttpConfigurer::disable
                 )
                 .formLogin(form -> form
-                        .loginPage("/auth/login")
-                        .loginProcessingUrl("/auth/login/processing")
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login/processing")
                         .defaultSuccessUrl("/")
-                        .failureUrl("/auth/login?error")
+                        .failureUrl("/login?error")
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/auth/logout")
-                        .logoutSuccessUrl("/auth/login?logout")
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
                 );
         return http.build();
     }
