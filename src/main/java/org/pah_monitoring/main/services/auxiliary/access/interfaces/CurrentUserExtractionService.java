@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.services.auxiliary.auth.interfaces;
+package org.pah_monitoring.main.services.auxiliary.access.interfaces;
 
 import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.entities.users.users.Doctor;
@@ -14,7 +14,7 @@ public interface CurrentUserExtractionService {
 
     HospitalUser hospitalUser() throws NullPointerException, ClassCastException;
 
-    HospitalEmployee hospitalEmployeeUser() throws NullPointerException, ClassCastException;
+    HospitalEmployee hospitalEmployee() throws NullPointerException, ClassCastException;
 
     MainAdministrator mainAdministrator() throws NullPointerException, ClassCastException;
 

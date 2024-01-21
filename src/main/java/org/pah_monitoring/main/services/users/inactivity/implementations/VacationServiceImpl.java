@@ -9,8 +9,8 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.users.inactivity.VacationRepository;
-import org.pah_monitoring.main.services.auxiliary.auth.interfaces.AccessRightsCheckService;
-import org.pah_monitoring.main.services.auxiliary.auth.interfaces.CurrentUserExtractionService;
+import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
+import org.pah_monitoring.main.services.auxiliary.access.interfaces.CurrentUserExtractionService;
 import org.pah_monitoring.main.services.users.inactivity.interfaces.VacationService;
 import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformationService;
 import org.springframework.beans.factory.annotation.Autowired;

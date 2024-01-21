@@ -1,12 +1,13 @@
-package org.pah_monitoring.main.services.auxiliary.auth.implementations;
+package org.pah_monitoring.main.services.auxiliary.access.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
+import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
-import org.pah_monitoring.main.services.auxiliary.auth.interfaces.AccessRightsCheckService;
-import org.pah_monitoring.main.services.auxiliary.auth.interfaces.CurrentUserExtractionService;
+import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
+import org.pah_monitoring.main.services.auxiliary.access.interfaces.CurrentUserExtractionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +61,7 @@ public class AccessRightsCheckServiceImpl implements AccessRightsCheckService {
     @Override
     public boolean isSameUser(User user) {
         try {
-            if (!userExtractionService.user().getId().equals(user.getId())) {
+            if (!userExtractionService.user().getUserInformation().equals(user.getUserInformation())) {
                 return false;
             }
         } catch (NullPointerException | ClassCastException e) {
@@ -69,17 +70,17 @@ public class AccessRightsCheckServiceImpl implements AccessRightsCheckService {
         return true;
     }
 
-    /*@Override
+    @Override
     public boolean isSameDoctor(Doctor doctor) {
         try {
-            if (!userExtractionService.doctor().getId().equals(doctor.getId())) {
+            if (!userExtractionService.doctor().equals(doctor)) {
                 return false;
             }
         } catch (NullPointerException | ClassCastException e) {
             return false;
         }
         return true;
-    }*/
+    }
 
     @Override
     public boolean isHospitalUserFromSameHospital(Hospital hospital) {

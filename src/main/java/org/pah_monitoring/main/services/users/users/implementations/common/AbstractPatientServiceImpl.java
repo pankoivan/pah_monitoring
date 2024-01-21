@@ -8,8 +8,8 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEd
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.entities.users.users.Patient;
-import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public abstract class AbstractPatientServiceImpl extends
 
     public void checkAccessRightsForObtainingDoctorPatients(Doctor requestedDoctor) throws NotEnoughRightsServiceException {
         if (!(
-                getCheckService().isSameUser(requestedDoctor) ||
+                getCheckService().isSameDoctor(requestedDoctor) ||
                 getCheckService().isAdministratorFromSameHospital(requestedDoctor.getHospital())
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");

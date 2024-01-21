@@ -1,6 +1,7 @@
-package org.pah_monitoring.main.services.auxiliary.auth.interfaces;
+package org.pah_monitoring.main.services.auxiliary.access.interfaces;
 
 import org.pah_monitoring.main.entities.hospitals.Hospital;
+import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
 
@@ -16,7 +17,7 @@ public interface AccessRightsCheckService {
 
     boolean isSameUser(User user);
 
-    /*boolean isSameDoctor(Doctor requestedDoctor);*/
+    boolean isSameDoctor(Doctor doctor);
 
     boolean isHospitalUserFromSameHospital(Hospital hospital);
 

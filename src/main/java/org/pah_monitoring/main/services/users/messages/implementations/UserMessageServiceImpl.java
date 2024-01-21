@@ -16,8 +16,8 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.users.messages.UserMessageRepository;
-import org.pah_monitoring.main.services.auxiliary.auth.interfaces.AccessRightsCheckService;
-import org.pah_monitoring.main.services.auxiliary.auth.interfaces.CurrentUserExtractionService;
+import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
+import org.pah_monitoring.main.services.auxiliary.access.interfaces.CurrentUserExtractionService;
 import org.pah_monitoring.main.services.auxiliary.users.interfaces.UserSearchingService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserInformationService;
 import org.pah_monitoring.main.services.users.messages.interfaces.UserMessageService;
