@@ -24,7 +24,7 @@ public abstract class AbstractPatientServiceImpl extends
 
     public void checkAccessRightsForObtainingDoctorPatients(Doctor requestedDoctor) throws NotEnoughRightsServiceException {
         if (!(
-                getCheckService().isSameDoctor(requestedDoctor) ||
+                getCheckService().isSameUser(requestedDoctor) ||
                 getCheckService().isAdministratorFromSameHospital(requestedDoctor.getHospital())
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
