@@ -7,6 +7,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class UserMessageEditingDto extends UserMessageSavingDto {
 
-    Integer messageId;
+    Integer id;
 
 }

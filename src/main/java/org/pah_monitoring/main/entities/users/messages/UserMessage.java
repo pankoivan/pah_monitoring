@@ -29,6 +29,9 @@ public class UserMessage {
     @Column(name = "date")
     private LocalDateTime date;
 
+    @Column(name = "editing_date")
+    private LocalDateTime editingDate;
+
     @ManyToOne
     @JoinColumn(name = "recipient_id")
     private UserInformation recipient;
