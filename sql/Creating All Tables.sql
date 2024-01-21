@@ -397,6 +397,7 @@ CREATE TABLE IF NOT EXISTS user_message
 	author_id INT REFERENCES user_information (id) NOT NULL,
 	message_text TEXT NOT NULL,
 	date TIMESTAMP NOT NULL,
+	editing_date TIMESTAMP
 
 	CONSTRAINT user_message__recipient_and_author_are_not_equal CHECK (recipient_id != author_id)
 );
