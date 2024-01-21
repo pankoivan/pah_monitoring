@@ -11,7 +11,7 @@ import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.exceptions.service.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.DataValidationServiceException;
-import org.pah_monitoring.main.repositorites.users.DoctorRepository;
+import org.pah_monitoring.main.repositorites.users.users.DoctorRepository;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformationService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
