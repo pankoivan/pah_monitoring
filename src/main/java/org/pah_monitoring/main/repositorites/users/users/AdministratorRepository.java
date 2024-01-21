@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.repositorites.users.users;
 
 import org.pah_monitoring.main.entities.users.users.Administrator;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.HospitalEmployee;
 import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +19,7 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 
     Optional<User> findByEmployeeInformationUserInformationId(Integer id);
 
-    Optional<User> findByEmployeeInformationId(Integer id);
+    Optional<HospitalEmployee> findByEmployeeInformationId(Integer id);
 
     List<Administrator> findAllByHospitalId(Integer hospitalId);
 

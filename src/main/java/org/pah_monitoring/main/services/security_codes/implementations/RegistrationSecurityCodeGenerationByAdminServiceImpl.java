@@ -2,19 +2,17 @@ package org.pah_monitoring.main.services.security_codes.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.auxiliary.utils.AuthenticationUtils;
 import org.pah_monitoring.main.entities.dto.saving.security_codes.RegistrationSecurityCodeByAdminAddingDto;
 import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
-import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.security_codes.RegistrationSecurityCodeRepository;
+import org.pah_monitoring.main.services.auxiliary.access.interfaces.CurrentUserExtractionService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeGenerationService;
 import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -33,6 +31,8 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
 
     private HospitalRegistrationRequestService requestService;
 
+    private CurrentUserExtractionService extractionService;
+
     @Override
     public RegistrationSecurityCode add(RegistrationSecurityCodeByAdminAddingDto addingDto) throws DataSavingServiceException {
         try {
@@ -43,12 +43,7 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
                             .role(addingDto.getRole())
                             .email(addingDto.getEmail())
                             .expirationDate(LocalDateTime.now().plusDays(addingDto.getExpirationDate().getDays()))
-                            .hospital(
-                                    AuthenticationUtils.extractCurrentUser(
-                                            SecurityContextHolder.getContext().getAuthentication(),
-                                            Administrator.class
-                                    ).getHospital()
-                            )
+                            .hospital(extractionService.administrator().getHospital())
                             .build()
             );
         } catch (Exception e) {

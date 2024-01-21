@@ -34,7 +34,7 @@ public class SickLeaveServiceImpl implements SickLeaveService {
 
     @Override
     public List<SickLeave> findAllByEmployeeInformationId(Integer id) {
-        return null;
+        return repository.findAllByEmployeeId(id);
     }
 
     @Override

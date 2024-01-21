@@ -34,7 +34,7 @@ public class VacationServiceImpl implements VacationService {
 
     @Override
     public List<Vacation> findAllByEmployeeInformationId(Integer id) {
-        return null;
+        return repository.findAllByEmployeeId(id);
     }
 
     @Override

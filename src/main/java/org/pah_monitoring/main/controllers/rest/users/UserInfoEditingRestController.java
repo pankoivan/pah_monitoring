@@ -74,7 +74,7 @@ public class UserInfoEditingRestController {
     public EmployeeInformation editHospitalEmployeeInfo(@RequestBody @Valid EmployeeInformationEditingDto editingDto,
                                                         BindingResult bindingResult) {
         try {
-            employeeInformationService.checkAccessRightsForEditing(userSearchingService.findUserByEmployeeInformationId(editingDto.getId()));
+            employeeInformationService.checkAccessRightsForEditing(userSearchingService.findHospitalEmployeeByEmployeeInformationId(editingDto.getId()));
             employeeInformationService.checkDataValidityForEditing(editingDto, bindingResult);
             return employeeInformationService.edit(editingDto);
         } catch (DataValidationServiceException | DataSearchingServiceException e) {

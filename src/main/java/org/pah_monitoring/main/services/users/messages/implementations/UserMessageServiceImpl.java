@@ -141,9 +141,6 @@ public class UserMessageServiceImpl implements UserMessageService {
 
     @Override
     public void checkAccessRightsForAdding(User recipient) throws NotEnoughRightsServiceException {
-
-        // todo: later
-
         if (!(
                 checkService.isMainAdministrator() && recipient instanceof Administrator ||
                 checkService.isHospitalUserFromSameHospital(((HospitalUser) recipient).getHospital())

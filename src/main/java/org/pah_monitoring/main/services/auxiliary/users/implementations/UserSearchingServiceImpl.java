@@ -2,6 +2,7 @@ package org.pah_monitoring.main.services.auxiliary.users.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.main.entities.users.users.common.interfaces.HospitalEmployee;
 import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.users.users.AdministratorRepository;
@@ -59,7 +60,7 @@ public class UserSearchingServiceImpl implements UserSearchingService {
     }
 
     @Override
-    public User findUserByEmployeeInformationId(Integer id) throws DataSearchingServiceException {
+    public HospitalEmployee findHospitalEmployeeByEmployeeInformationId(Integer id) throws DataSearchingServiceException {
         return Stream.of(
                         administratorRepository.findByEmployeeInformationId(id).orElse(null),
                         doctorRepository.findByEmployeeInformationId(id).orElse(null)
