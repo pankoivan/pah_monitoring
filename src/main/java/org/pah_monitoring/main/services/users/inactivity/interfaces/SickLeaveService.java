@@ -1,5 +1,9 @@
 package org.pah_monitoring.main.services.users.inactivity.interfaces;
 
-public interface SickLeaveService {
+import org.pah_monitoring.main.entities.dto.saving.users.inactivity.adding.SickLeaveAddingDto;
+import org.pah_monitoring.main.entities.users.inactivity.SickLeave;
+import org.pah_monitoring.main.services.users.inactivity.interfaces.common.HospitalEmployeeInactivityService;
+
+public interface SickLeaveService extends HospitalEmployeeInactivityService<SickLeave, SickLeaveAddingDto> {
 
 }
