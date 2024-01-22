@@ -180,7 +180,7 @@ CREATE TABLE IF NOT EXISTS examination
 	date TIMESTAMP NOT NULL
 );
 
-/* Группа показателей: "Спирометрия + DLCO" (17) */
+/* Группа показателей: "Спирометрия" (17) */
 
 CREATE TABLE IF NOT EXISTS spirometry
 (
