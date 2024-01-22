@@ -2,8 +2,8 @@ package org.pah_monitoring.main.services.examinations.indicators.by_inputs.imple
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_inputs.ChestPainAddingDto;
-import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.ChestPain;
+import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_inputs.SpirometryAddingDto;
+import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.Spirometry;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.services.examinations.indicators.by_inputs.implementations.common.AbstractIndicatorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +14,18 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service
-public class ChestPainServiceImpl extends AbstractIndicatorServiceImpl<ChestPain, ChestPainAddingDto> {
+public class SpirometryServiceImpl extends AbstractIndicatorServiceImpl<Spirometry, SpirometryAddingDto> {
 
     @Override
-    public ChestPain add(ChestPainAddingDto addingDto) throws DataSavingServiceException {
+    public Spirometry add(SpirometryAddingDto addingDto) throws DataSavingServiceException {
         try {
             return getRepository().save(
-                    ChestPain
+                    Spirometry
                             .builder()
-                            .type(addingDto.getType())
-                            .duration(addingDto.getDuration())
-                            .nitroglycerin(addingDto.getNitroglycerin())
+                            .vlc(addingDto.getVlc())
+                            .avlc(addingDto.getAvlc())
+                            .rlv(addingDto.getRlv())
+                            .vfe1(addingDto.getVfe1())
                             .date(LocalDateTime.now())
                             .patient(getExtractionService().patient())
                             .build()
