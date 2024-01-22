@@ -103,17 +103,13 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
 
     @Override
     public void checkAccessRightsForEditing(User userWithRequestedEditingInfo) throws NotEnoughRightsServiceException {
-
-        // todo: later
-
         if (!(
                 checkService.isSameUser(userWithRequestedEditingInfo) ||
-                        checkService.isAdministratorFromSameHospital(((HospitalUser) userWithRequestedEditingInfo).getHospital())
+                checkService.isAdministratorFromSameHospital(((HospitalUser) userWithRequestedEditingInfo).getHospital())
 
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
-
     }
 
 }
