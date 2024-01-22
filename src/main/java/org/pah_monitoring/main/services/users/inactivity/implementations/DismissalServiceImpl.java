@@ -25,7 +25,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
@@ -45,11 +44,6 @@ public class DismissalServiceImpl implements DismissalService {
     private AccessRightsCheckService checkService;
 
     private UserSearchingService searchingService;
-
-    @Override
-    public List<Dismissal> findAllByEmployeeInformationId(Integer id) {
-        return null; // todo: possibly change
-    }
 
     @Override
     public Dismissal add(DismissalAddingDto addingDto) throws DataSavingServiceException {
