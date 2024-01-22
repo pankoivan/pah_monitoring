@@ -23,16 +23,16 @@ public class Spirometry implements Indicator {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "VLC")
+    @Column(name = "vlc")
     private Double vlc;
 
-    @Column(name = "AVLC")
+    @Column(name = "avlc")
     private Double avlc;
 
-    @Column(name = "RLV")
+    @Column(name = "rlv")
     private Double rlv;
 
-    @Column(name = "VFE1")
+    @Column(name = "vfe1")
     private Double vfe1;
 
     @OneToOne

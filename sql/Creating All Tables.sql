@@ -182,15 +182,14 @@ CREATE TABLE IF NOT EXISTS examination
 
 /* Группа показателей: "Спирометрия + DLCO" (17) */
 
-CREATE TABLE IF NOT EXISTS spirometry_and_DLCO
+CREATE TABLE IF NOT EXISTS spirometry
 (
 	id SERIAL PRIMARY KEY,
 	examination_id INT REFERENCES examination (id) UNIQUE NOT NULL,
-	VLC REAL NOT NULL,
-	AVLC REAL NOT NULL,
-	RLV REAL NOT NULL,
-	VFE1 REAL NOT NULL,
-	DLCO REAL NOT NULL
+	vcl REAL NOT NULL,
+	avlc REAL NOT NULL,
+	rlv REAL NOT NULL,
+	vfe1 REAL NOT NULL
 );
 
 /* Группа показателей: "Пульсоксиметрия" (18) */
