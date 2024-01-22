@@ -19,6 +19,8 @@ public interface AccessRightsCheckService {
 
     boolean isSameDoctor(Doctor doctor);
 
+    boolean isSamePatient(Patient patient);
+
     boolean isHospitalUserFromSameHospital(Hospital hospital);
 
     boolean isAdministratorFromSameHospital(Hospital hospital);

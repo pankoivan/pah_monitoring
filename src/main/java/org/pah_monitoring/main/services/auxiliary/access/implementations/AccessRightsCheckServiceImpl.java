@@ -83,6 +83,18 @@ public class AccessRightsCheckServiceImpl implements AccessRightsCheckService {
     }
 
     @Override
+    public boolean isSamePatient(Patient patient) {
+        try {
+            if (!userExtractionService.patient().equals(patient)) {
+                return false;
+            }
+        } catch (NullPointerException | ClassCastException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public boolean isHospitalUserFromSameHospital(Hospital hospital) {
         try {
             if (!userExtractionService.hospitalUser().getHospital().equals(hospital)) {
