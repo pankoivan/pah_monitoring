@@ -9,7 +9,7 @@ import org.pah_monitoring.main.entities.dto.saving.users.info.saving.UserInforma
 @EqualsAndHashCode(callSuper = true)
 public class UserInformationEditingDto extends UserInformationSavingDto {
 
-    @NotNull(message = "Идентификатор не должен отсутствовать")
+    @NotNull(message = "Поле \"id\" не должно отсутствовать")
     Integer id;
 
 }

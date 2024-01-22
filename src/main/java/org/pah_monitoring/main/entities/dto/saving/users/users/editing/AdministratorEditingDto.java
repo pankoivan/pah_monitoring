@@ -10,7 +10,7 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.saving.Administra
 @EqualsAndHashCode(callSuper = true)
 public class AdministratorEditingDto extends AdministratorSavingDto implements HospitalUserEditingInfo {
 
-    @NotNull(message = "Идентификатор не должен отсутствовать")
+    @NotNull(message = "Поле \"id\" не должно отсутствовать")
     Integer id;
 
 }

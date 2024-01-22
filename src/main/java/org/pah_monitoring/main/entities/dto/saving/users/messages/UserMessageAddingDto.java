@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class UserMessageAddingDto extends UserMessageSavingDto {
 
-    @NotNull(message = "Идентификатор получателя не должен отсутствовать")
+    @NotNull(message = "Поле \"recipientId\" не должно отсутствовать")
     Integer recipientId;
 
 }

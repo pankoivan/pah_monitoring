@@ -10,7 +10,7 @@ import lombok.Data;
 public class EmployeeInformationSavingDto {
 
     @Size(min = 4, max = 128, message = "Минимальная длина должности - 4 символа, максимальная - 128 символов")
-    @NotNull(message = "Должность не должна отсутствовать")
+    @NotNull(message = "Поле \"post\" не должно отсутствовать")
     @NotEmpty(message = "Должность не должна быть пустой")
     @NotBlank(message = "Должность не должна состоять только из пробельных символов")
     private String post;

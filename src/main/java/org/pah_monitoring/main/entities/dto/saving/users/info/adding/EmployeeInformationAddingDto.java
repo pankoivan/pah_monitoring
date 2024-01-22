@@ -11,7 +11,7 @@ import org.pah_monitoring.main.entities.dto.saving.users.info.saving.EmployeeInf
 public class EmployeeInformationAddingDto extends EmployeeInformationSavingDto {
 
     @Valid
-    @NotNull(message = "Общая информация не должна отсутствовать")
+    @NotNull(message = "Поле \"userInformationAddingDto\" не должно отсутствовать")
     private UserInformationAddingDto userInformationAddingDto;
 
 }

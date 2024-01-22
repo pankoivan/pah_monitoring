@@ -10,7 +10,7 @@ import lombok.Data;
 public class ExaminationScheduleSavingDto {
 
     @Size(min = 5, max = 24, message = "Минимальная длина расписания - 5 символов, максимальная - 24 символа")
-    @NotNull(message = "Расписание не должно отсутствовать")
+    @NotNull(message = "Поле \"schedule\" не должно отсутствовать")
     @NotEmpty(message = "Расписание не должно быть пустым")
     @NotBlank(message = "Расписание не должно состоять только из пробельных символов")
     private String schedule;

@@ -11,10 +11,10 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class SickLeaveAddingDto extends InactivityAddingDto {
 
-    @NotNull(message = "Дата начала не должна отсутствовать")
+    @NotNull(message = "Поле \"startDate\" не должно отсутствовать")
     private LocalDate startDate;
 
-    @NotNull(message = "Дата окончания не должна отсутствовать")
+    @NotNull(message = "Поле \"endDate\" не должно отсутствовать")
     private LocalDate endDate;
 
 }

@@ -14,14 +14,14 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.saving.Administra
 public class AdministratorAddingDto extends AdministratorSavingDto implements HospitalUserAddingInfo {
 
     @Valid
-    @NotNull(message = "Логин-информация не должна отсутствовать")
+    @NotNull(message = "Поле \"userSecurityInformationAddingDto\" не должно отсутствовать")
     private UserSecurityInformationAddingDto userSecurityInformationAddingDto;
 
     @Valid
-    @NotNull(message = "Рабочая информация не должна отсутствовать")
+    @NotNull(message = "Поле \"employeeInformationAddingDto\" не должно отсутствовать")
     private EmployeeInformationAddingDto employeeInformationAddingDto;
 
-    @NotNull(message = "Код не должен отсутствовать")
+    @NotNull(message = "Поле \"code\" не должно отсутствовать")
     private String code;
 
 }

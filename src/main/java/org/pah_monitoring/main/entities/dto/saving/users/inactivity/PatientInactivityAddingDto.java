@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class PatientInactivityAddingDto extends InactivityAddingDto {
 
-    @NotNull(message = "Дата не должна отсутствовать")
+    @NotNull(message = "Поле \"date\" не должно отсутствовать")
     private LocalDate date;
 
 }

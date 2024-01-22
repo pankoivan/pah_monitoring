@@ -10,13 +10,13 @@ import lombok.Data;
 public class UserSecurityInformationSavingDto {
 
     @Size(min = 8, max = 256, message = "Минимальная длина почты - 8 символов, максимальная - 256 символов")
-    @NotNull(message = "Почта не должна отсутствовать")
+    @NotNull(message = "Поле \"email\" не должно отсутствовать")
     @NotEmpty(message = "Почта не должна быть пустой")
     @NotBlank(message = "Почта не должна состоять только из пробельных символов")
     private String email;
 
     @Size(min = 3, max = 63, message = "Минимальная длина пароля - 3 символа, максимальная - 63 символа")
-    @NotNull(message = "Пароль не должен отсутствовать")
+    @NotNull(message = "Поле \"password\" не должно отсутствовать")
     @NotEmpty(message = "Пароль не должен быть пустым")
     @NotBlank(message = "Пароль не должен состоять только из пробельных символов")
     private String password;

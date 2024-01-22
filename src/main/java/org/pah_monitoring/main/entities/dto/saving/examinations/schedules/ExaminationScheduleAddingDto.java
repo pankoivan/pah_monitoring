@@ -9,10 +9,10 @@ import org.pah_monitoring.main.entities.enums.IndicatorGroup;
 @EqualsAndHashCode(callSuper = true)
 public class ExaminationScheduleAddingDto extends ExaminationScheduleSavingDto {
 
-    @NotNull(message = "Идентификатор пациента не должен отсутствовать")
+    @NotNull(message = "Поле \"patientId\" не должно отсутствовать")
     Integer patientId;
 
-    @NotNull(message = "Группа показателей не должна отсутствовать")
+    @NotNull(message = "Поле \"indicatorGroup\" не должно отсутствовать")
     IndicatorGroup indicatorGroup;
 
 }

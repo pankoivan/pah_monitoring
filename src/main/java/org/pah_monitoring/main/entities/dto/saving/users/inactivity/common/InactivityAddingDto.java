@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 public class InactivityAddingDto {
 
-    @NotNull(message = "Идентификатор адресата не должен отсутствовать")
+    @NotNull(message = "Поле \"toWhomId\" не должно отсутствовать")
     private Integer toWhomId;
 
     @Size(max = 1024, message = "Максимальная длина комментария - 1024 символа")
-    @NotNull(message = "Комментарий должен присутствовать хотя бы в виде пустой строки")
+    @NotNull(message = "Поле \"comment\" не должно отсутствовать")
     @NotBlank(message = "Комментарий не должен состоять только из пробельных символов")
     private String comment;
 

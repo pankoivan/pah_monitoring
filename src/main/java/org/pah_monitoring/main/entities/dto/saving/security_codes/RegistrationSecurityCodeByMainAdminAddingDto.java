@@ -7,10 +7,10 @@ import org.pah_monitoring.main.entities.enums.ExpirationDate;
 @Data
 public class RegistrationSecurityCodeByMainAdminAddingDto {
 
-    @NotNull(message = "Идентификатор запроса не должен отсутствовать")
+    @NotNull(message = "Поле \"hospitalRegistrationRequestId\" не должно отсутствовать")
     Integer hospitalRegistrationRequestId;
 
-    @NotNull(message = "Срок действия не должен отсутствовать")
+    @NotNull(message = "Поле \"expirationDate\" не должно отсутствовать")
     ExpirationDate expirationDate;
 
 }

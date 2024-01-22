@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class ExaminationScheduleEditingDto extends ExaminationScheduleSavingDto {
 
-    @NotNull(message = "Идентификатор не должен отсутствовать")
+    @NotNull(message = "Поле \"id\" не должно отсутствовать")
     Integer id;
 
 }
