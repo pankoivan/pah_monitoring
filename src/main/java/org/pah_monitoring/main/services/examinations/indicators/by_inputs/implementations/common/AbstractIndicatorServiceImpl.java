@@ -12,7 +12,8 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.common.IndicatorRepository;
 import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
-import org.pah_monitoring.main.services.examinations.indicators.by_inputs.common.IndicatorService;
+import org.pah_monitoring.main.services.auxiliary.access.interfaces.CurrentUserExtractionService;
+import org.pah_monitoring.main.services.examinations.indicators.by_inputs.interfaces.common.IndicatorService;
 import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,6 +27,8 @@ import java.util.List;
 public abstract class AbstractIndicatorServiceImpl<T, M> implements IndicatorService<T, M> {
 
     private IndicatorRepository<T> repository;
+
+    private CurrentUserExtractionService extractionService;
 
     private AccessRightsCheckService checkService;
 
@@ -41,6 +44,14 @@ public abstract class AbstractIndicatorServiceImpl<T, M> implements IndicatorSer
     public void checkDataValidityForAdding(M addingDto, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+        if (extractionService.patient().getDoctor() == null) {
+            throw new DataValidationServiceException("""
+                        Вы не можете отправлять результаты наблюдений, так как на данный момент за вами не закреплён ни\
+                         один врач. Ожидайте, пока администраторы назначат вам какого-нибудь врача, или обратитесь к ним\
+                         посредством личных сообщений в случае долгого ожидания
+                        """
+            );
         }
     }
 

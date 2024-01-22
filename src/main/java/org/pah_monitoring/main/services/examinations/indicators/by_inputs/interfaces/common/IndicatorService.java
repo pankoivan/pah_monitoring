@@ -1,7 +1,8 @@
-package org.pah_monitoring.main.services.examinations.indicators.by_inputs.common;
+package org.pah_monitoring.main.services.examinations.indicators.by_inputs.interfaces.common;
 
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataAddingValidationService;
 
@@ -11,7 +12,7 @@ public interface IndicatorService<T, M> extends DataAddingValidationService<M> {
 
     List<T> findAllByPatientId(Integer id) throws DataSearchingServiceException;
 
-    T add(M addingDto);
+    T add(M addingDto) throws DataSavingServiceException;
 
     void checkAccessRightsForObtainingAllByPatientId(Patient patient) throws NotEnoughRightsServiceException;
 
