@@ -9,18 +9,24 @@ import org.pah_monitoring.main.services.examinations.indicators.by_inputs.implem
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service
 public class AscitesServiceImpl extends AbstractIndicatorServiceImpl<Ascites, AscitesAddingDto> {
 
     @Override
-    public Ascites add(AscitesAddingDto addingDto) {
+    public Ascites add(AscitesAddingDto addingDto) throws DataSavingServiceException {
         try {
             return getRepository().save(
                     Ascites
                             .builder()
-
+                            .liquidAmount(addingDto.getLiquidAmount())
+                            .contentInfection(addingDto.getContentInfection())
+                            .responseToDrugTherapy(addingDto.getResponseToDrugTherapy())
+                            .date(LocalDateTime.now())
+                            .patient(getExtractionService().patient())
                             .build()
             );
         } catch (Exception e) {
