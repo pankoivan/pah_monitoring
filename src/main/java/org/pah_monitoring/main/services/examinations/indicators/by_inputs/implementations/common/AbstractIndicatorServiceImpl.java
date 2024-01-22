@@ -10,7 +10,7 @@ import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.repositorites.examinations.indicators.by_inputs.common.IndicatorRepository;
+import org.pah_monitoring.main.repositorites.examinations.indicators.common.IndicatorRepository;
 import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.examinations.indicators.by_inputs.common.IndicatorService;
 import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;

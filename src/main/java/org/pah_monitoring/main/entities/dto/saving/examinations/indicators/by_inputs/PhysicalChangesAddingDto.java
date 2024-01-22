@@ -6,22 +6,22 @@ import lombok.Data;
 @Data
 public class PhysicalChangesAddingDto {
 
-    @NotNull(message = "Поле не должно отсутствовать")
+    @NotNull(message = "Поле \"acrocyanosis\" не должно отсутствовать")
     private Boolean acrocyanosis;
 
-    @NotNull(message = "Поле не должно отсутствовать")
+    @NotNull(message = "Поле \"fingersPhalanges\" не должно отсутствовать")
     private Boolean fingersPhalanges;
 
-    @NotNull(message = "Поле не должно отсутствовать")
+    @NotNull(message = "Поле \"nails\" не должно отсутствовать")
     private Boolean nails;
 
-    @NotNull(message = "Поле не должно отсутствовать")
+    @NotNull(message = "Поле \"chest\" не должно отсутствовать")
     private Boolean chest;
 
-    @NotNull(message = "Поле не должно отсутствовать")
+    @NotNull(message = "Поле \"neckVeins\" не должно отсутствовать")
     private Boolean neckVeins;
 
-    @NotNull(message = "Поле не должно отсутствовать")
+    @NotNull(message = "Поле \"lowerExtremities\" не должно отсутствовать")
     private Boolean lowerExtremities;
 
 }

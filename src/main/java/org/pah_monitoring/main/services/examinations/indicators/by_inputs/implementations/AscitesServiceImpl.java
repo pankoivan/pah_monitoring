@@ -17,7 +17,12 @@ public class AscitesServiceImpl extends AbstractIndicatorServiceImpl<Ascites, As
     @Override
     public Ascites add(AscitesAddingDto addingDto) {
         try {
+            return getRepository().save(
+                    Ascites
+                            .builder()
 
+                            .build()
+            );
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }

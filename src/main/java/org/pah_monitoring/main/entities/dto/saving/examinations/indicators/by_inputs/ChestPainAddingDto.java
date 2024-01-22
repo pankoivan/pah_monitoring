@@ -8,13 +8,13 @@ import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.ChestP
 @Data
 public class ChestPainAddingDto {
 
-    @NotNull(message = "Поле не должно отсутствовать")
+    @NotNull(message = "Поле \"type\" не должно отсутствовать")
     private ChestPain.Type type;
 
-    @NotNull(message = "Поле не должно отсутствовать")
+    @NotNull(message = "Поле \"duration\" не должно отсутствовать")
     private EventDuration duration;
 
-    @NotNull(message = "Поле не должно отсутствовать")
+    @NotNull(message = "Поле \"nitroglycerin\" не должно отсутствовать")
     private ChestPain.Nitroglycerin nitroglycerin;
 
 }

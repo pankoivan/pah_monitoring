@@ -7,7 +7,7 @@ import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.Functi
 @Data
 public class FunctionalClassAddingDto {
 
-    @NotNull(message = "Поле не должно отсутствовать")
+    @NotNull(message = "Поле \"functionalClassNumber\" не должно отсутствовать")
     private FunctionalClass.FunctionalClassNumber functionalClassNumber;
 
 }

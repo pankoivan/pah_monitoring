@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.repositorites.examinations.indicators.by_inputs.common;
+package org.pah_monitoring.main.repositorites.examinations.indicators.common;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
