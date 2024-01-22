@@ -4,7 +4,11 @@ import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.ChestP
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ChestPainRepository extends JpaRepository<ChestPain, Integer> {
+
+    List<ChestPain> findAllByPatientId(Integer id);
 
 }
