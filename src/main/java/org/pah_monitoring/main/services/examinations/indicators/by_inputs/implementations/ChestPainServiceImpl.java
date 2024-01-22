@@ -6,6 +6,8 @@ import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_in
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.ChestPainGraphicsDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.ChestPainTablesDto;
 import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.ChestPain;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
@@ -23,7 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("chestPainService")
-public class ChestPainServiceImpl extends AbstractIndicatorServiceImpl<ChestPain, ChestPainAddingDto> {
+public class ChestPainServiceImpl extends AbstractIndicatorServiceImpl
+        <ChestPain, ChestPainAddingDto, ChestPainTablesDto, ChestPainGraphicsDto> {
 
     private final ChestPainRepository repository;
 
@@ -51,6 +54,20 @@ public class ChestPainServiceImpl extends AbstractIndicatorServiceImpl<ChestPain
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
+    }
+
+    @Override
+    protected ChestPainTablesDto toTablesDto(ChestPain chestPain) {
+        return ChestPainTablesDto
+                .builder()
+                .build();
+    }
+
+    @Override
+    protected ChestPainGraphicsDto toGraphicsDto(ChestPain chestPain) {
+        return ChestPainGraphicsDto
+                .builder()
+                .build();
     }
 
 }

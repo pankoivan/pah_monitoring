@@ -6,6 +6,8 @@ import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_in
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.PulseOximetryGraphicsDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.PulseOximetryTablesDto;
 import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.PulseOximetry;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
@@ -23,7 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("pulseOximetryService")
-public class PulseOximetryServiceImpl extends AbstractIndicatorServiceImpl<PulseOximetry, PulseOximetryAddingDto> {
+public class PulseOximetryServiceImpl extends AbstractIndicatorServiceImpl
+        <PulseOximetry, PulseOximetryAddingDto, PulseOximetryTablesDto, PulseOximetryGraphicsDto> {
 
     private final PulseOximetryRepository repository;
 
@@ -51,6 +54,20 @@ public class PulseOximetryServiceImpl extends AbstractIndicatorServiceImpl<Pulse
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
+    }
+
+    @Override
+    protected PulseOximetryTablesDto toTablesDto(PulseOximetry pulseOximetry) {
+        return PulseOximetryTablesDto
+                .builder()
+                .build();
+    }
+
+    @Override
+    protected PulseOximetryGraphicsDto toGraphicsDto(PulseOximetry pulseOximetry) {
+        return PulseOximetryGraphicsDto
+                .builder()
+                .build();
     }
 
 }

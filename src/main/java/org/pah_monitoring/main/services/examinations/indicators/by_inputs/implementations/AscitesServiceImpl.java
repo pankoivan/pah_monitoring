@@ -6,6 +6,8 @@ import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_in
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.AscitesGraphicsDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.AscitesTablesDto;
 import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.Ascites;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
@@ -23,7 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("ascitesService")
-public class AscitesServiceImpl extends AbstractIndicatorServiceImpl<Ascites, AscitesAddingDto> {
+public class AscitesServiceImpl extends AbstractIndicatorServiceImpl
+        <Ascites, AscitesAddingDto, AscitesTablesDto, AscitesGraphicsDto> {
 
     private final AscitesRepository repository;
 
@@ -51,6 +54,20 @@ public class AscitesServiceImpl extends AbstractIndicatorServiceImpl<Ascites, As
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
+    }
+
+    @Override
+    protected AscitesTablesDto toTablesDto(Ascites ascites) {
+        return AscitesTablesDto
+                .builder()
+                .build();
+    }
+
+    @Override
+    protected AscitesGraphicsDto toGraphicsDto(Ascites ascites) {
+        return AscitesGraphicsDto
+                .builder()
+                .build();
     }
 
 }

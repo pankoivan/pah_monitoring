@@ -8,6 +8,12 @@ import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_in
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.PressureGraphicsDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.PulseOximetryGraphicsDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.WalkTestGraphicsDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.PressureTablesDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.PulseOximetryTablesDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.WalkTestTablesDto;
 import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.Pressure;
 import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.PulseOximetry;
 import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.WalkTest;
@@ -29,7 +35,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("walkTestService")
-public class WalkTestServiceImpl extends AbstractIndicatorServiceImpl<WalkTest, WalkTestAddingDto> {
+public class WalkTestServiceImpl extends AbstractIndicatorServiceImpl
+        <WalkTest, WalkTestAddingDto, WalkTestTablesDto, WalkTestGraphicsDto> {
 
     private final WalkTestRepository repository;
 
@@ -37,10 +44,12 @@ public class WalkTestServiceImpl extends AbstractIndicatorServiceImpl<WalkTest, 
     private HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
     @Qualifier("pulseOximetryService")
-    private AbstractIndicatorServiceImpl<PulseOximetry, PulseOximetryAddingDto> pulseOximetryService;
+    private AbstractIndicatorServiceImpl<PulseOximetry, PulseOximetryAddingDto, PulseOximetryTablesDto, PulseOximetryGraphicsDto>
+            pulseOximetryService;
 
     @Qualifier("pressureService")
-    private AbstractIndicatorServiceImpl<Pressure, PressureAddingDto> pressureService;
+    private AbstractIndicatorServiceImpl<Pressure, PressureAddingDto, PressureTablesDto, PressureGraphicsDto>
+            pressureService;
 
     @Override
     public List<WalkTest> findAllByPatientId(Integer id) throws DataSearchingServiceException {
@@ -78,6 +87,20 @@ public class WalkTestServiceImpl extends AbstractIndicatorServiceImpl<WalkTest, 
         pulseOximetryService.checkDataValidityForAdding(addingDto.getPulseOximetryAfter(), bindingResult);
         pressureService.checkDataValidityForAdding(addingDto.getPressureBefore(), bindingResult);
         pressureService.checkDataValidityForAdding(addingDto.getPressureAfter(), bindingResult);
+    }
+
+    @Override
+    protected WalkTestTablesDto toTablesDto(WalkTest walkTest) {
+        return WalkTestTablesDto
+                .builder()
+                .build();
+    }
+
+    @Override
+    protected WalkTestGraphicsDto toGraphicsDto(WalkTest walkTest) {
+        return WalkTestGraphicsDto
+                .builder()
+                .build();
     }
 
 }

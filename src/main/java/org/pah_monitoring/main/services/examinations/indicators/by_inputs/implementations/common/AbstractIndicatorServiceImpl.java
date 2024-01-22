@@ -12,14 +12,32 @@ import org.pah_monitoring.main.services.examinations.indicators.by_inputs.interf
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Getter
 @Setter(onMethod = @__(@Autowired))
-public abstract class AbstractIndicatorServiceImpl<T, M> implements IndicatorService<T, M> {
+public abstract class AbstractIndicatorServiceImpl<T, M, N, R> implements IndicatorService<T, M, N, R> {
 
     private CurrentUserExtractionService extractionService;
 
     private AccessRightsCheckService checkService;
+
+    @Override
+    public List<N> forTables(List<T> list) {
+        return list
+                .stream()
+                .map(this::toTablesDto)
+                .toList();
+    }
+
+    @Override
+    public List<R> forGraphics(List<T> list) {
+        return list
+                .stream()
+                .map(this::toGraphicsDto)
+                .toList();
+    }
 
     @Override
     public void checkDataValidityForAdding(M addingDto, BindingResult bindingResult) throws DataValidationServiceException {
@@ -28,10 +46,10 @@ public abstract class AbstractIndicatorServiceImpl<T, M> implements IndicatorSer
         }
         if (extractionService.patient().getDoctor() == null) {
             throw new DataValidationServiceException("""
-                        Вы не можете отправлять результаты наблюдений, так как на данный момент за вами не закреплён ни\
-                         один врач. Ожидайте, пока администраторы назначат вам какого-нибудь врача, или обратитесь к ним\
-                         посредством личных сообщений в случае долгого ожидания
-                        """
+                    Вы не можете отправлять результаты наблюдений, так как на данный момент за вами не закреплён ни\
+                     один врач. Ожидайте, пока администраторы назначат вам какого-нибудь врача, или обратитесь к ним\
+                     посредством личных сообщений в случае долгого ожидания
+                    """
             );
         }
     }
@@ -40,7 +58,7 @@ public abstract class AbstractIndicatorServiceImpl<T, M> implements IndicatorSer
     public void checkAccessRightsForObtainingAllByPatientId(Patient patient) throws NotEnoughRightsServiceException {
         if (!(
                 checkService.isSamePatient(patient) ||
-                checkService.isOwnDoctor(patient)
+                        checkService.isOwnDoctor(patient)
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
@@ -52,5 +70,9 @@ public abstract class AbstractIndicatorServiceImpl<T, M> implements IndicatorSer
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
     }
+
+    protected abstract N toTablesDto(T entity);
+
+    protected abstract R toGraphicsDto(T entity);
 
 }

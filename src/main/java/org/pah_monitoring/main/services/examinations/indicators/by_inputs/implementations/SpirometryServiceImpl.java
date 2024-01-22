@@ -6,6 +6,8 @@ import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_in
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.SpirometryGraphicsDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.SpirometryTablesDto;
 import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.Spirometry;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
@@ -23,7 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("spirometryService")
-public class SpirometryServiceImpl extends AbstractIndicatorServiceImpl<Spirometry, SpirometryAddingDto> {
+public class SpirometryServiceImpl extends AbstractIndicatorServiceImpl
+        <Spirometry, SpirometryAddingDto, SpirometryTablesDto, SpirometryGraphicsDto> {
 
     private final SpirometryRepository repository;
 
@@ -52,6 +55,20 @@ public class SpirometryServiceImpl extends AbstractIndicatorServiceImpl<Spiromet
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
+    }
+
+    @Override
+    protected SpirometryTablesDto toTablesDto(Spirometry spirometry) {
+        return SpirometryTablesDto
+                .builder()
+                .build();
+    }
+
+    @Override
+    protected SpirometryGraphicsDto toGraphicsDto(Spirometry spirometry) {
+        return SpirometryGraphicsDto
+                .builder()
+                .build();
     }
 
 }

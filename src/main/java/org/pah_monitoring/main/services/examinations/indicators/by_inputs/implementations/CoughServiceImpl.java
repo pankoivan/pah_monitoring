@@ -6,6 +6,8 @@ import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_in
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.CoughGraphicsDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.CoughTablesDto;
 import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.Cough;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
@@ -23,7 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("coughService")
-public class CoughServiceImpl extends AbstractIndicatorServiceImpl<Cough, CoughAddingDto> {
+public class CoughServiceImpl extends AbstractIndicatorServiceImpl
+        <Cough, CoughAddingDto, CoughTablesDto, CoughGraphicsDto> {
 
     private final CoughRepository repository;
 
@@ -52,6 +55,20 @@ public class CoughServiceImpl extends AbstractIndicatorServiceImpl<Cough, CoughA
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
+    }
+
+    @Override
+    protected CoughTablesDto toTablesDto(Cough cough) {
+        return CoughTablesDto
+                .builder()
+                .build();
+    }
+
+    @Override
+    protected CoughGraphicsDto toGraphicsDto(Cough cough) {
+        return CoughGraphicsDto
+                .builder()
+                .build();
     }
 
 }

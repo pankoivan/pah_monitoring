@@ -6,6 +6,8 @@ import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_in
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.LiquidAndWeightGraphicsDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.LiquidAndWeightTablesDto;
 import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.LiquidAndWeight;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
@@ -23,7 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("liquidAndWeightService")
-public class LiquidAndWeightServiceImpl extends AbstractIndicatorServiceImpl<LiquidAndWeight, LiquidAndWeightAddingDto> {
+public class LiquidAndWeightServiceImpl extends AbstractIndicatorServiceImpl
+        <LiquidAndWeight, LiquidAndWeightAddingDto, LiquidAndWeightTablesDto, LiquidAndWeightGraphicsDto> {
 
     private final LiquidAndWeightRepository repository;
 
@@ -50,6 +53,20 @@ public class LiquidAndWeightServiceImpl extends AbstractIndicatorServiceImpl<Liq
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
+    }
+
+    @Override
+    protected LiquidAndWeightTablesDto toTablesDto(LiquidAndWeight liquidAndWeight) {
+        return LiquidAndWeightTablesDto
+                .builder()
+                .build();
+    }
+
+    @Override
+    protected LiquidAndWeightGraphicsDto toGraphicsDto(LiquidAndWeight liquidAndWeight) {
+        return LiquidAndWeightGraphicsDto
+                .builder()
+                .build();
     }
 
 }

@@ -6,6 +6,8 @@ import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_in
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.PressureGraphicsDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.PressureTablesDto;
 import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.Pressure;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
@@ -23,7 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("pressureService")
-public class PressureServiceImpl extends AbstractIndicatorServiceImpl<Pressure, PressureAddingDto> {
+public class PressureServiceImpl extends AbstractIndicatorServiceImpl
+        <Pressure, PressureAddingDto, PressureTablesDto, PressureGraphicsDto> {
 
     private final PressureRepository repository;
 
@@ -51,6 +54,20 @@ public class PressureServiceImpl extends AbstractIndicatorServiceImpl<Pressure, 
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
+    }
+
+    @Override
+    protected PressureTablesDto toTablesDto(Pressure pressure) {
+        return PressureTablesDto
+                .builder()
+                .build();
+    }
+
+    @Override
+    protected PressureGraphicsDto toGraphicsDto(Pressure pressure) {
+        return PressureGraphicsDto
+                .builder()
+                .build();
     }
 
 }

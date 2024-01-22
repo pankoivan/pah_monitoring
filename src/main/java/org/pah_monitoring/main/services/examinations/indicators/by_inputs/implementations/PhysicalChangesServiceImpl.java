@@ -6,6 +6,8 @@ import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_in
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.PhysicalChangesGraphicsDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.PhysicalChangesTablesDto;
 import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.PhysicalChanges;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
@@ -23,7 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("physicalChangesService")
-public class PhysicalChangesServiceImpl extends AbstractIndicatorServiceImpl<PhysicalChanges, PhysicalChangesAddingDto> {
+public class PhysicalChangesServiceImpl extends AbstractIndicatorServiceImpl
+        <PhysicalChanges, PhysicalChangesAddingDto, PhysicalChangesTablesDto, PhysicalChangesGraphicsDto> {
 
     private final PhysicalChangesRepository repository;
 
@@ -54,6 +57,20 @@ public class PhysicalChangesServiceImpl extends AbstractIndicatorServiceImpl<Phy
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
+    }
+
+    @Override
+    protected PhysicalChangesTablesDto toTablesDto(PhysicalChanges physicalChanges) {
+        return PhysicalChangesTablesDto
+                .builder()
+                .build();
+    }
+
+    @Override
+    protected PhysicalChangesGraphicsDto toGraphicsDto(PhysicalChanges physicalChanges) {
+        return PhysicalChangesGraphicsDto
+                .builder()
+                .build();
     }
 
 }

@@ -8,9 +8,13 @@ import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataAd
 
 import java.util.List;
 
-public interface IndicatorService<T, M> extends DataAddingValidationService<M> {
+public interface IndicatorService<T, M, N, R> extends DataAddingValidationService<M> {
 
     List<T> findAllByPatientId(Integer id) throws DataSearchingServiceException;
+
+    List<N> forTables(List<T> list);
+
+    List<R> forGraphics(List<T> list);
 
     T add(M addingDto) throws DataSavingServiceException;
 

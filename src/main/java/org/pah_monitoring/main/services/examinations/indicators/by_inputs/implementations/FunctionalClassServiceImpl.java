@@ -6,6 +6,8 @@ import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_in
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.FunctionalClassGraphicsDto;
+import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.FunctionalClassTablesDto;
 import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.FunctionalClass;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
@@ -23,7 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("functionalClassService")
-public class FunctionalClassServiceImpl extends AbstractIndicatorServiceImpl<FunctionalClass, FunctionalClassAddingDto> {
+public class FunctionalClassServiceImpl extends AbstractIndicatorServiceImpl
+        <FunctionalClass, FunctionalClassAddingDto, FunctionalClassTablesDto, FunctionalClassGraphicsDto> {
 
     private final FunctionalClassRepository repository;
 
@@ -49,6 +52,20 @@ public class FunctionalClassServiceImpl extends AbstractIndicatorServiceImpl<Fun
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
+    }
+
+    @Override
+    protected FunctionalClassTablesDto toTablesDto(FunctionalClass functionalClass) {
+        return FunctionalClassTablesDto
+                .builder()
+                .build();
+    }
+
+    @Override
+    protected FunctionalClassGraphicsDto toGraphicsDto(FunctionalClass functionalClass) {
+        return FunctionalClassGraphicsDto
+                .builder()
+                .build();
     }
 
 }
