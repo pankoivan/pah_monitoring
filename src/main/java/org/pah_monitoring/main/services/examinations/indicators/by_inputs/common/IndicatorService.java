@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface IndicatorService<T, M> extends DataAddingValidationService<M> {
 
-    T findById(Integer id);
-
     List<T> findAllByPatientId(Integer id) throws DataSearchingServiceException;
 
     T add(M addingDto);
