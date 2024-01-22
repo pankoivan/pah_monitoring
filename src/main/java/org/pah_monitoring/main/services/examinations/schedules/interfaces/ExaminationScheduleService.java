@@ -5,9 +5,9 @@ import org.pah_monitoring.main.entities.dto.saving.examinations.schedules.Examin
 import org.pah_monitoring.main.entities.dto.saving.examinations.schedules.ExaminationScheduleSavingDto;
 import org.pah_monitoring.main.entities.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.users.users.Patient;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
-import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataAddingValidationService;
 import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataEditingValidationService;
 import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataSavingValidationService;
@@ -20,7 +20,7 @@ public interface ExaminationScheduleService extends
 
     ExaminationSchedule findById(Integer id) throws DataSearchingServiceException;
 
-    List<ExaminationSchedule> findAllByPatientId(Integer patientId);
+    List<ExaminationSchedule> findAllByPatientId(Integer patientId) throws DataSearchingServiceException;
 
     ExaminationSchedule add(ExaminationScheduleAddingDto addingDto) throws DataSavingServiceException;
 
