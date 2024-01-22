@@ -22,7 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("faintingService")
 public class FaintingServiceImpl extends AbstractIndicatorServiceImpl<Fainting, FaintingAddingDto> {
 
     private final FaintingRepository repository;

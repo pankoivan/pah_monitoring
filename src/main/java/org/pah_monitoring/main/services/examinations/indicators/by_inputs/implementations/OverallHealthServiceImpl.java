@@ -22,7 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("overallHealthService")
 public class OverallHealthServiceImpl extends AbstractIndicatorServiceImpl<OverallHealth, OverallHealthAddingDto> {
 
     private final OverallHealthRepository repository;

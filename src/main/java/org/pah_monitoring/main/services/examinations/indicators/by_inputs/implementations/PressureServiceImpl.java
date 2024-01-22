@@ -22,7 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("pressureService")
 public class PressureServiceImpl extends AbstractIndicatorServiceImpl<Pressure, PressureAddingDto> {
 
     private final PressureRepository repository;

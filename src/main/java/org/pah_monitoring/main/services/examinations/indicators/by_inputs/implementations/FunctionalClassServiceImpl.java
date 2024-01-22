@@ -22,7 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("functionalClassService")
 public class FunctionalClassServiceImpl extends AbstractIndicatorServiceImpl<FunctionalClass, FunctionalClassAddingDto> {
 
     private final FunctionalClassRepository repository;

@@ -22,7 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("pulseOximetryService")
 public class PulseOximetryServiceImpl extends AbstractIndicatorServiceImpl<PulseOximetry, PulseOximetryAddingDto> {
 
     private final PulseOximetryRepository repository;

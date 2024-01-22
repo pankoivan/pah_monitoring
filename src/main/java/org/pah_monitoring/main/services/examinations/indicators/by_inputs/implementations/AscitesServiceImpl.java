@@ -22,7 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("ascitesService")
 public class AscitesServiceImpl extends AbstractIndicatorServiceImpl<Ascites, AscitesAddingDto> {
 
     private final AscitesRepository repository;

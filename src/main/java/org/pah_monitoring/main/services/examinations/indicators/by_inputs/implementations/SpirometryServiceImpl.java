@@ -22,7 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("spirometryService")
 public class SpirometryServiceImpl extends AbstractIndicatorServiceImpl<Spirometry, SpirometryAddingDto> {
 
     private final SpirometryRepository repository;

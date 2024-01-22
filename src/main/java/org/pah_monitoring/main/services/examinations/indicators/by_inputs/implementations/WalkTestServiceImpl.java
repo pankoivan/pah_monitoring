@@ -28,7 +28,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("walkTestService")
 public class WalkTestServiceImpl extends AbstractIndicatorServiceImpl<WalkTest, WalkTestAddingDto> {
 
     private final WalkTestRepository repository;

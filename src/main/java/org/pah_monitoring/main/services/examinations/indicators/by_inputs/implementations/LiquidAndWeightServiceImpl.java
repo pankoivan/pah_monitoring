@@ -22,7 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("liquidAndWeightService")
 public class LiquidAndWeightServiceImpl extends AbstractIndicatorServiceImpl<LiquidAndWeight, LiquidAndWeightAddingDto> {
 
     private final LiquidAndWeightRepository repository;

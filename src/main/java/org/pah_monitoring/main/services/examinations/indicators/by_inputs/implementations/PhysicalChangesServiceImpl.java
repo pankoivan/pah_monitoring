@@ -22,7 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("physicalChangesService")
 public class PhysicalChangesServiceImpl extends AbstractIndicatorServiceImpl<PhysicalChanges, PhysicalChangesAddingDto> {
 
     private final PhysicalChangesRepository repository;

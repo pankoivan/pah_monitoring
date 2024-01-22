@@ -22,7 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("chestPainService")
 public class ChestPainServiceImpl extends AbstractIndicatorServiceImpl<ChestPain, ChestPainAddingDto> {
 
     private final ChestPainRepository repository;

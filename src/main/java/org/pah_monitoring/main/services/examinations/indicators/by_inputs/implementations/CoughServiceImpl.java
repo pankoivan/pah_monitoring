@@ -22,7 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("coughService")
 public class CoughServiceImpl extends AbstractIndicatorServiceImpl<Cough, CoughAddingDto> {
 
     private final CoughRepository repository;

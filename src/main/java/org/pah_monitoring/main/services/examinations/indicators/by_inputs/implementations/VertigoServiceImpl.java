@@ -22,7 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("vertigoService")
 public class VertigoServiceImpl extends AbstractIndicatorServiceImpl<Vertigo, VertigoAddingDto> {
 
     private final VertigoRepository repository;
