@@ -4,16 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.IndicatorGroup;
-import org.pah_monitoring.main.entities.examinations.examinations.Examination;
 import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
+import org.pah_monitoring.main.entities.users.users.Patient;
+
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = "examination")
+@ToString(exclude = "patient")
 @Builder
-@JsonIgnoreProperties("examination")
+@JsonIgnoreProperties("patient")
 @Entity
 @Table(name = "pulse_oximetry")
 public class PulseOximetry implements Indicator {
@@ -32,9 +34,12 @@ public class PulseOximetry implements Indicator {
     @Column(name = "during_exercise")
     private Boolean duringExercise;
 
+    @Column(name = "date")
+    private LocalDateTime date;
+
     @ManyToOne
-    @JoinColumn(name = "examination_id")
-    private Examination examination;
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
 
     @Override
     public boolean equals(Object o) {

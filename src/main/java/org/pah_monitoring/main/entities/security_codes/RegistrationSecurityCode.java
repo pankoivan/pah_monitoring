@@ -26,15 +26,15 @@ public class RegistrationSecurityCode implements BaseEntity {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "code")
-    private UUID code;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "code")
+    private UUID code;
 
     @Column(name = "expiration_date")
     private LocalDateTime expirationDate;

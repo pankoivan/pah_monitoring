@@ -5,16 +5,18 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.EventDuration;
 import org.pah_monitoring.main.entities.enums.IndicatorGroup;
-import org.pah_monitoring.main.entities.examinations.examinations.Examination;
 import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
+import org.pah_monitoring.main.entities.users.users.Patient;
+
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = "examination")
+@ToString(exclude = "patient")
 @Builder
-@JsonIgnoreProperties("examination")
+@JsonIgnoreProperties("patient")
 @Entity
 @Table(name = "fainting")
 public class Fainting implements Indicator {
@@ -31,9 +33,12 @@ public class Fainting implements Indicator {
     @Column(name = "during_exercise")
     private Boolean duringExercise;
 
-    @OneToOne
-    @JoinColumn(name = "examination_id")
-    private Examination examination;
+    @Column(name = "date")
+    private LocalDateTime date;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
 
     @Override
     public boolean equals(Object o) {

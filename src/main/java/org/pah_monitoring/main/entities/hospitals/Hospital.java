@@ -3,10 +3,10 @@ package org.pah_monitoring.main.entities.hospitals;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.entities.users.users.Doctor;
 import org.pah_monitoring.main.entities.users.users.Patient;
-import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,12 +43,12 @@ public class Hospital implements BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "date")
-    private LocalDateTime date;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "current_state")
     private CurrentState currentState;
+
+    @Column(name = "date")
+    private LocalDateTime date;
 
     @OneToMany(mappedBy = "hospital")
     private List<Administrator> administrators;

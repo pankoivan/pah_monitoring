@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.IndicatorGroup;
-import org.pah_monitoring.main.entities.examinations.examinations.Examination;
 import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
+import org.pah_monitoring.main.entities.users.users.Patient;
+
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,7 +18,7 @@ import org.pah_monitoring.main.entities.examinations.indicators.common.interface
         "pulseOximetryAfter",
         "pressureBefore",
         "pressureAfter",
-        "examination",
+        "patient",
 })
 @Builder
 @JsonIgnoreProperties({
@@ -24,7 +26,7 @@ import org.pah_monitoring.main.entities.examinations.indicators.common.interface
         "pulseOximetryAfter",
         "pressureBefore",
         "pressureAfter",
-        "examination",
+        "patient",
 })
 @Entity
 @Table(name = "walk_test")
@@ -67,9 +69,12 @@ public class WalkTest implements Indicator {
     @JoinColumn(name = "pressure_id_after")
     private Pressure pressureAfter;
 
-    @OneToOne
-    @JoinColumn(name = "examination_id")
-    private Examination examination;
+    @Column(name = "date")
+    private LocalDateTime date;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
 
     @Override
     public boolean equals(Object o) {

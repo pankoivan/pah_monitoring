@@ -3,9 +3,9 @@ package org.pah_monitoring.main.entities.users.inactivity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.users.users.Administrator;
-import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 
 import java.time.LocalDate;
 
@@ -25,14 +25,14 @@ public class SickLeave implements BaseEntity {
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "comment")
+    private String comment;
+
     @Column(name = "start_date")
     private LocalDate startDate;
 
     @Column(name = "end_date")
     private LocalDate endDate;
-
-    @Column(name = "comment")
-    private String comment;
 
     @ManyToOne
     @JoinColumn(name = "hospital_employee_information_id")

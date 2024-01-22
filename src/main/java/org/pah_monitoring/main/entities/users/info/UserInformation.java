@@ -35,15 +35,15 @@ public class UserInformation implements BaseEntity {
     @Column(name = "patronymic")
     private String patronymic;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     private Gender gender;
 
     @Column(name = "birthdate")
     private LocalDate birthdate;
-
-    @Column(name = "phone_number")
-    private String phoneNumber;
 
     @OneToMany(mappedBy = "author")
     private List<UserMessage> sentMessages;

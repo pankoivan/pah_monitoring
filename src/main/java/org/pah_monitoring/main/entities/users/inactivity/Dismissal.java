@@ -3,9 +3,9 @@ package org.pah_monitoring.main.entities.users.inactivity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.users.users.Administrator;
-import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 
 import java.time.LocalDate;
 
@@ -25,11 +25,11 @@ public class Dismissal implements BaseEntity {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "date")
-    private LocalDate date;
-
     @Column(name = "comment")
     private String comment;
+
+    @Column(name = "date")
+    private LocalDate date;
 
     @OneToOne
     @JoinColumn(name = "hospital_employee_information_id")

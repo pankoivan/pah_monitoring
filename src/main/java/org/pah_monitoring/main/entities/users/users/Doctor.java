@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.Role;
-import org.pah_monitoring.main.entities.examinations.examinations.Examination;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.users.inactivity.PatientInactivity;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
@@ -47,9 +46,6 @@ public class Doctor implements HospitalEmployee, UserDetails {
 
     @OneToMany(mappedBy = "doctor")
     private List<Patient> patients;
-
-    @OneToMany(mappedBy = "doctor")
-    private List<Examination> examinations;
 
     @OneToMany(mappedBy = "author")
     private List<PatientInactivity> assignedPatientInactivities;
