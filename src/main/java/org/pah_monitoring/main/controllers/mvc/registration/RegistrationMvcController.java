@@ -2,6 +2,7 @@ package org.pah_monitoring.main.controllers.mvc.registration;
 
 import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.enums.Gender;
+import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -29,14 +30,11 @@ public class RegistrationMvcController {
             model.addAttribute("hospitalName", code.getHospital().getName());
             model.addAttribute("role", code.getRole().getAlias());
             model.addAttribute("genders", Gender.values());
-            return switch (code.getRole()) {
-                case ADMINISTRATOR -> "registration/admin-registration";
-                case DOCTOR -> "registration/doctor-registration";
-                case PATIENT -> "registration/patient-registration";
-                default -> throw new UrlValidationMvcControllerException(
-                        "Для роли \"%s\" не предусмотрена генерация кодов регистрации".formatted(code.getRole().getAlias())
-                );
-            };
+            model.addAttribute(
+                    "isEmployee",
+                    code.getRole() == Role.ADMINISTRATOR || code.getRole() == Role.DOCTOR
+            );
+            return "registration/registration";
         } catch (UuidUtilsException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }

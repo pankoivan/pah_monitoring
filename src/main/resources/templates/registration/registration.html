@@ -7,9 +7,9 @@
         <title>Регистрация</title>
         <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
         <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
-        <link rel="apple-touch-icon" sizes="180x180" href="../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
-        <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
-        <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
     </head>
 
     <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
@@ -23,13 +23,13 @@
                     Регистрация от имени медицинского учреждения
                     <span th:text="'&quot;' + ${hospitalName} + '&quot;'" class="fw-bold">"Национальный медицинский исследовательский центр имени В. А. Алмазова"</span>
                     на роль
-                    <span th:text="'&quot;' + ${role} + '&quot;'" class="fw-bold">"Администратор"</span>
+                    <span id="role" th:text="'&quot;' + ${role} + '&quot;'" class="fw-bold">"Администратор"</span>
                 </h1>
             </div>
 
             <div class="row mb-5">
                 <div class="col-12">
-                    <form action="#" th:action="@{/rest/registration/administrator}" method="post" class="bg-dark border border-dark rounded text-gray-300 fs-5 p-3" id="admin-registration-form">
+                    <form action="#" th:action="@{/rest/registration}" method="post" class="bg-dark border border-dark rounded text-gray-300 fs-5 p-3" id="user-registration-form">
                         <h2 class="fs-4">Регистрация</h2>
                         <hr class="text-white" />
                         <div class="mb-3">
@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" th:if="${isEmployee}">
                             <p class="form-label">Рабочая информация</p>
                             <div class="border border-secondary rounded p-2" id="employee-info">
                                 <div class="mb-3 m-1">
@@ -112,7 +112,7 @@
 
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
 
-        <script src="../../static/js/registration/admin-registration.js" th:src="@{/js/registration/admin-registration.js}"></script>
+        <script src="../../static/js/registration/registration.js" th:src="@{/js/registration/registration.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>

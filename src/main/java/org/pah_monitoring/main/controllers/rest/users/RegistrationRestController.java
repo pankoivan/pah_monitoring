@@ -2,7 +2,6 @@ package org.pah_monitoring.main.controllers.rest.users;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.AdministratorAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.DoctorAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
@@ -55,7 +54,6 @@ public class RegistrationRestController {
     @PostMapping("/admin")
     public Administrator addAdmin(@RequestBody @Valid AdministratorAddingDto addingDto, BindingResult bindingResult) {
         try {
-            System.out.println(addingDto);
             administratorService.checkDataValidityForAdding(addingDto, bindingResult);
             Administrator administrator = administratorService.add(addingDto);
             codeService.deleteByEmail(administrator.getUserSecurityInformation().getEmail());
