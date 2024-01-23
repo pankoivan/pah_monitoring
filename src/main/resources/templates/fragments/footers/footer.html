@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Футер</title>
+    </head>
+    <body>
+        <footer class="container-fluid bg-dark" th:fragment="footer">
+            <div class="container p-2">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+                    <div class="text-secondary text-center text-md-start m-2 m-md-0">
+                        <p class="mb-1">Приложение для мониторинга состояния здоровья пациентов с ЛАГ</p>
+                        <p class="mb-1">2023/2024 год</p>
+                    </div>
+                    <div class="m-2 m-md-0">
+                        <a href="#" th:href="@{/}">
+                            <img src="../../../static/img/main.png" th:src="@{/static/img/main.png}" alt="Главная" width="64" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
