@@ -23,7 +23,6 @@ public class UserInformationSavingDto {
 
     @Size(max = 32, message = "Максимальная длина отчества - 32 символа")
     @NotNull(message = "Поле \"patronymic\" не должно отсутствовать")
-    @NotBlank(message = "Отчество не должно состоять только из пробельных символов")
     private String patronymic;
 
     private Gender gender;

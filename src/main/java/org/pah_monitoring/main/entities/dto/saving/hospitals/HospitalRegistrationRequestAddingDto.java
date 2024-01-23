@@ -21,7 +21,6 @@ public class HospitalRegistrationRequestAddingDto {
 
     @Size(max = 32, message = "Максимальная длина отчества - 32 символа")
     @NotNull(message = "Поле \"patronymic\" не должно отсутствовать")
-    @NotBlank(message = "Отчество не должно состоять только из пробельных символов")
     private String patronymic;
 
     @Size(min = 4, max = 128, message = "Минимальная длина должности - 4 символа, максимальная - 128 символов")
