@@ -7,12 +7,16 @@
         <title>Регистрация</title>
         <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
         <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
     </head>
 
     <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
-        <!-- Основная часть страницы -->
+        <!---->
+        <div th:replace="~{/fragments/headers/anon-header :: anon-header}"></div>
+
         <div class="container my-5">
-            <!-- Заголовок с названием медицинского учреждения и ролью пользователя -->
             <div class="row text-center mb-5">
                 <h1 class="text-secondary fs-2 word-wrap">
                     Регистрация от имени медицинского учреждения
@@ -21,7 +25,7 @@
                     <span th:text="'&quot;' + ${role} + '&quot;'" class="fw-bold">"Администратор"</span>
                 </h1>
             </div>
-            <!-- Форма регистрации в приложении -->
+
             <div class="row mb-5">
                 <div class="col-12">
                     <form action="#" th:action="@{/rest/registration/administrator}" method="post" class="bg-gray-200 border border-dark rounded text-secondary fs-5 p-3" id="admin-registration-form">
@@ -92,17 +96,20 @@
                     </form>
                 </div>
             </div>
-            <!-- Ссылка на главную страницу -->
+
             <div class="row text-center">
-                <div class="col-12">
-                    <a href="#" th:href="@{/}" class="text-secondary fs-4">Вернуться на главную</a>
+                <div class="col-12 mx-auto">
+                    <a href="#" th:href="@{/}" class="text-dark fs-4">Вернуться на главную</a>
                 </div>
             </div>
         </div>
-        <!-- Модальное окно для сообщений об ошибке -->
+
         <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
-        <!-- Модальное окно для сообщений успехе -->
+
         <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
+
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+
         <!-- Скрипты -->
         <script src="../../static/js/registration/admin-registration.js" th:src="@{/js/registration/admin-registration.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
