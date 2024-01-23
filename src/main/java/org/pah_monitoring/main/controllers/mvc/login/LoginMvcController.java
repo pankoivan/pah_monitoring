@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
+@Controller
 @RequestMapping("/login")
 @PreAuthorize("permitAll()")
 public class LoginMvcController {
