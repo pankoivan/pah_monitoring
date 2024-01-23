@@ -7,21 +7,24 @@
         <title>Главная</title>
         <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
         <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
     </head>
 
-    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
-        <!-- Основная часть страницы -->
-        <div class="container my-5">
-            <!-- Заголовок -->
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{/fragments/headers/anon-header :: anon-header}"></div>
+
+        <div class="container text-dark my-5">
             <div class="row text-center mb-2">
                 <div class="col-12">
-                    <h1 class="text-secondary fs-2">Приложение для мониторинга состояния здоровья пациентов с ЛАГ</h1>
+                    <h1 class="fs-2">Приложение для мониторинга состояния здоровья пациентов с ЛАГ</h1>
                 </div>
             </div>
-            <!-- Описание -->
             <div class="row mb-5">
                 <div class="col-12">
-                    <div class="text-secondary fs-5">
+                    <div class="fs-5">
                         <p>
                             В целом, конечно, постоянный количественный рост и сфера нашей активности влечет за собой процесс внедрения и модернизации глубокомысленных рассуждений. Но стремящиеся вытеснить традиционное производство, нанотехнологии
                             неоднозначны и будут заблокированы в рамках своих собственных рациональных ограничений.
@@ -34,19 +37,12 @@
                             Имеется спорная точка зрения, гласящая примерно следующее: некоторые особенности внутренней политики призывают нас к новым свершениям, которые, в свою очередь, должны быть преданы социально-демократической анафеме. Прежде
                             всего, начало повседневной работы по формированию позиции требует от нас анализа поставленных обществом задач.
                         </p>
-                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
-                            <a href="#" th:href="@{/login}" class="btn btn-primary m-2">Войти</a>
-                            <button class="btn btn-success m-2" data-bs-toggle="modal" data-bs-target="#code-input-modal">Зарегистрироваться</button>
-                            <a href="#" th:href="@{/hospital-registration/form}" class="btn btn-warning m-2">Подать заявку</a>
-                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Заголовок контактов главного администратора -->
             <div class="row mb-3">
-                <h2 class="text-secondary text-center fs-2">Контакты главного администратора</h2>
+                <h2 class="text-center fs-2">Контакты главного администратора</h2>
             </div>
-            <!-- Список контактов главного администратора -->
             <div class="row">
                 <div class="col-12">
                     <div th:each="each, status : ${contacts}" class="text-start" th:classappend="${!status.last} ? 'mb-2'">
@@ -56,14 +52,13 @@
                     </div>
                 </div>
             </div>
-            <!-- Сообщение об отсутствии контактов -->
             <div class="row" th:if="${contacts.empty}" id="empty-contacts-message">
                 <div class="col-12">
                     <div class="text-secondary text-center fst-italic fs-4">К сожалению, список контактов главного администратора пока пуст</div>
                 </div>
             </div>
         </div>
-        <!-- Модальное окно для ввода кода регистрации -->
+
         <div class="modal fade" id="code-input-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -91,8 +86,11 @@
                 </div>
             </div>
         </div>
-        <!-- Скрипты -->
+
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+
         <script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
         <script src="../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
     </body>
 </html>

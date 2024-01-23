@@ -11,13 +11,13 @@
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-sm-between">
                     <div class="m-2 m-sm-0">
                         <a href="#" th:href="@{/}">
-                            <img src="../../../static/img/main.png" th:src="@{/static/img/main.png}" alt="Главная" width="56" />
+                            <img src="../../../static/img/main.png" th:src="@{/img/main.png}" alt="Главная" width="56" />
                         </a>
                     </div>
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-sm-between m-2 m-sm-0">
-                        <button type="button" class="btn btn-primary m-2">Войти</button>
-                        <button type="button" class="btn btn-warning m-2">Зарегистрироваться</button>
-                        <button type="button" class="btn btn-success m-2">Подать заявку</button>
+                        <a href="/login" th:href="@{/login}" class="btn btn-primary m-2">Войти</a>
+                        <button type="button" class="btn btn-warning m-2" data-bs-toggle="modal" data-bs-target="#code-input-modal">Зарегистрироваться</button>
+                        <a href="/registration-request/form" th:href="@{/registration-request/form}" class="btn btn-success m-2">Подать заявку</a>
                     </div>
                 </div>
             </div>
