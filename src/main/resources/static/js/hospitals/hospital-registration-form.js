@@ -37,7 +37,7 @@ function fetchSave(data) {
             }
         })
         .catch((error) => {
-            console.error("Ошибка при сохранении заявки", error);
+            console.error("Произошла ошибка, для которой не предусмотрено никаких действий", error);
         });
 }
 

@@ -21,7 +21,7 @@ function fetchCheck(data) {
         .then((response) => {
             if (response.ok) {
                 response.json().then((responseJson) => {
-                    if (responseJson.isTrue) {
+                    if (responseJson.true) {
                         redirectRegistrationPage(data.code);
                     } else {
                         showErrorMessage();

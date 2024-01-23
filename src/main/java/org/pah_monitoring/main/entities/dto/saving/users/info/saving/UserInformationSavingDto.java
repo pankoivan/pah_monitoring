@@ -2,11 +2,13 @@ package org.pah_monitoring.main.entities.dto.saving.users.info.saving;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.ToString;
 import org.pah_monitoring.main.entities.enums.Gender;
 
 import java.time.LocalDate;
 
 @Data
+@ToString(callSuper = true)
 public class UserInformationSavingDto {
 
     @Size(min = 2, max = 32, message = "Минимальная длина имени - 2 символа, максимальная - 32 символа")

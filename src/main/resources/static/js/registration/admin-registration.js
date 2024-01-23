@@ -4,29 +4,29 @@ adminRegistrationForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     let data = {
-        userSecurityInformationSavingDto: {
+        userSecurityInformationAddingDto: {
             email: adminRegistrationForm.querySelector('input[name="email"]').value,
             password: adminRegistrationForm.querySelector('input[name="password"]').value,
         },
-        employeeInformationSavingDto: {
+        employeeInformationAddingDto: {
             post: adminRegistrationForm.querySelector('input[name="post"]').value,
-            userInformationSavingDto: {
+            userInformationAddingDto: {
                 name: adminRegistrationForm.querySelector('input[name="name"]').value,
                 lastname: adminRegistrationForm.querySelector('input[name="lastname"]').value,
                 patronymic: adminRegistrationForm.querySelector('input[name="patronymic"]').value,
-                gender: adminRegistrationForm.querySelector('input[name="gender"]:checked').value,
+                gender: adminRegistrationForm.querySelector('input[name="gender"]:checked') ? adminRegistrationForm.querySelector('input[name="gender"]:checked').value : null,
                 birthdate: adminRegistrationForm.querySelector('input[name="birthdate"]').value,
                 phoneNumber: adminRegistrationForm.querySelector('input[name="phoneNumber"]').value,
             },
         },
-        code: new URLSearchParams(window.location.search).urlParams.get("code"),
+        code: new URLSearchParams(window.location.search).get("code"),
     };
 
     fetchSave(data);
 });
 
 function fetchSave(data) {
-    fetch("http://localhost:8080/rest/registration/administrator", {
+    fetch("http://localhost:8080/rest/registration/admin", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -35,16 +35,10 @@ function fetchSave(data) {
     })
         .then((response) => {
             if (response.ok) {
-                response.json().then((responseJson) => {
-                    if (responseJson.isTrue) {
-                        hospitalRegistrationForm.reset();
-                        showModalSuccess(response);
-                    } else {
-                        showModalError(responseJson);
-                    }
-                });
+                adminRegistrationForm.reset();
+                showModalSuccess(response);
             } else {
-                console.error("На сервере произошла ошибка, для которой здесь не предусмотрено никаких действий");
+                showModalError(response);
             }
         })
         .catch((error) => {
@@ -73,7 +67,7 @@ function fillSuccessModalText(responseJson) {
 
     let fullname = document.createElement("span");
     fullname.className = "fw-bold";
-    fullname.innerText = ` ${responseJson.lastname} ${responseJson.name} ${responseJson.patronymic} `;
+    fullname.innerText = responseJson.patronymic != "" ? ` ${responseJson.lastname} ${responseJson.name} ${responseJson.patronymic}` : ` ${responseJson.lastname} ${responseJson.name}`;
 
     let link = document.createElement("a");
     link.href = "/login";

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.pah_monitoring.main.entities.dto.saving.users.info.adding.EmployeeInformationAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.info.adding.UserSecurityInformationAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.common.HospitalUserAddingInfo;
@@ -11,6 +12,7 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.saving.Administra
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class AdministratorAddingDto extends AdministratorSavingDto implements HospitalUserAddingInfo {
 
     @Valid

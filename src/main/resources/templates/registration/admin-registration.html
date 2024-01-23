@@ -12,13 +12,14 @@
         <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
     </head>
 
-    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
         <!---->
         <div th:replace="~{/fragments/headers/anon-header :: anon-header}"></div>
 
         <div class="container my-5">
+            <!---->
             <div class="row text-center mb-5">
-                <h1 class="text-secondary fs-2 word-wrap">
+                <h1 class="text-dark fs-2 word-wrap">
                     Регистрация от имени медицинского учреждения
                     <span th:text="'&quot;' + ${hospitalName} + '&quot;'" class="fw-bold">"Национальный медицинский исследовательский центр имени В. А. Алмазова"</span>
                     на роль
@@ -28,25 +29,34 @@
 
             <div class="row mb-5">
                 <div class="col-12">
-                    <form action="#" th:action="@{/rest/registration/administrator}" method="post" class="bg-gray-200 border border-dark rounded text-secondary fs-5 p-3" id="admin-registration-form">
+                    <form action="#" th:action="@{/rest/registration/administrator}" method="post" class="bg-dark border border-dark rounded text-gray-300 fs-5 p-3" id="admin-registration-form">
                         <h2 class="fs-4">Регистрация</h2>
-                        <hr class="text-dark" />
+                        <hr class="text-white" />
                         <div class="mb-3">
                             <p class="form-label">Логин-информация</p>
-                            <div class="border border-dark rounded p-2" id="login-info">
+                            <div class="border border-secondary rounded p-2" id="login-info">
                                 <div class="mb-2 m-1">
                                     <label for="email" class="form-label">Почта <span class="text-danger fs-6"> *</span></label>
                                     <input type="email" name="email" id="email" class="form-control" placeholder="example@mail.com" />
                                 </div>
-                                <div class="mb-2 m-1">
+                                <div class="mb-3 m-1">
                                     <label for="password" class="form-label">Пароль <span class="text-danger fs-6"> *</span></label>
                                     <input type="password" name="password" id="password" class="form-control" placeholder="@strong!Password123@" />
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <p class="form-label">Основная информация</p>
-                            <div class="border border-dark rounded p-2" id="main-info">
+                            <p class="form-label">Рабочая информация</p>
+                            <div class="border border-secondary rounded p-2" id="employee-info">
+                                <div class="mb-3 m-1">
+                                    <label for="post" class="form-label">Должность <span class="text-danger fs-6"> *</span></label>
+                                    <input type="text" name="post" id="post" class="form-control" placeholder="Секретарь" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <p class="form-label">Общая информация</p>
+                            <div class="border border-secondary rounded p-2" id="general-info">
                                 <div class="mb-2">
                                     <div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
                                         <div class="flex-grow-1 m-1">
@@ -63,35 +73,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-2 m-1">
+                                <div class="mb-3 m-1">
                                     <label for="phone-number" class="form-label">Номер телефона <span class="text-danger fs-6"> *</span></label>
                                     <input type="text" name="phoneNumber" id="phone-number" class="form-control" placeholder="89212345901" />
                                 </div>
                                 <div class="mb-2 m-1">
-                                    <label for="post" class="form-label">Должность <span class="text-danger fs-6"> *</span></label>
-                                    <input type="text" name="post" id="post" class="form-control" placeholder="Секретарь" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-4">
-                            <p class="form-label">Дополнительная информация</p>
-                            <div class="border border-dark rounded p-3" id="additional-info">
-                                <div class="mb-3">
                                     <p class="form-label">Пол</p>
                                     <div class="form-check" th:each="each, status : ${genders}" id="gender">
                                         <div>
-                                            <label class="form-check-label" th:for="'gender-radio-' + ${status.index}"> Пол </label>
+                                            <label class="form-check-label" th:for="'gender-radio-' + ${status.index}"></label>
                                             <input th:id="'gender-radio-' + ${status.index}" type="radio" class="form-check-input" th:text="${each.alias}" th:value="${each}" name="gender" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-2">
+                                <div class="mb-3 m-1">
                                     <label for="birthdate" class="form-label">Дата рождения</label>
                                     <input type="date" name="birthdate" id="birthdate" class="form-control" />
                                 </div>
                             </div>
                         </div>
-                        <hr class="text-dark" />
+                        <hr class="text-white mt-4" />
                         <button type="submit" class="btn btn-lg btn-primary my-1">Зарегистрироваться</button>
                     </form>
                 </div>
@@ -102,6 +103,7 @@
                     <a href="#" th:href="@{/}" class="text-dark fs-4">Вернуться на главную</a>
                 </div>
             </div>
+            <!---->
         </div>
 
         <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
@@ -110,8 +112,8 @@
 
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
 
-        <!-- Скрипты -->
         <script src="../../static/js/registration/admin-registration.js" th:src="@{/js/registration/admin-registration.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
     </body>
 </html>
