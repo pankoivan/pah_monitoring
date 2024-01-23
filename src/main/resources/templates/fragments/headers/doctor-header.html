@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Заголовок для главного администратора</title>
+    </head>
+    <body>
+        <header class="container-fluid bg-dark" th:fragment="doctor-header">
+            <div class="container p-2">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-xl-between">
+                    <div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
+                        <div class="m-2 my-xl-0">
+                            <a href="#" th:href="@{/}">
+                                <img src="../../../static/img/main.png" th:src="@{/img/main.png}" alt="Главная" width="56" />
+                            </a>
+                        </div>
+                        <nav class="m-2 my-xl-0">
+                            <ul class="nav justify-content-center">
+                                <li>
+                                    <a href="#" th:href="@{/hospitals}" class="nav-link text-secondary">Медицинское учреждение</a>
+                                </li>
+                                <li>
+                                    <a href="#" th:href="@{/contacts}" class="nav-link text-secondary">Свои пациенты</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="m-2 my-xl-0">
+                        <div class="dropdown">
+                            <a aria-expanded="false" href="#" id="user" class="nav-link text-secondary break-all d-block" data-bs-toggle="dropdown">Иванов Иван</a>
+                            <ul aria-labelledby="user" class="dropdown-menu text-small">
+                                <li>
+                                    <a class="dropdown-item" href="#" th:href="${profileLink}">Профиль</a>
+                                </li>
+                                <hr class="dropdown-divider" />
+                                <li>
+                                    <a class="dropdown-item" href="#" th:href="@{/messages}">Сообщения</a>
+                                </li>
+                                <hr class="dropdown-divider" />
+                                <li>
+                                    <form action="#" th:action="@{/logout}" method="post">
+                                        <button type="submit" class="dropdown-item">Выйти</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </body>
+</html>
