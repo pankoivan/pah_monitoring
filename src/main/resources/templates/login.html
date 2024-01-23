@@ -7,12 +7,16 @@
         <title>Вход</title>
         <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
         <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
     </head>
 
-    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
-        <!-- Основная часть страницы -->
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{/fragments/headers/anon-header :: anon-header}"></div>
+
         <div class="container">
-            <!-- Сообщение о выходе из аккаунта -->
             <div th:if="${param.logout}" class="row mb-5">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
                     <div class="text-center fs-4 info-block rounded h-100">
@@ -20,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Сообщение об ошибке входа -->
+
             <div th:if="${param.error}" class="row mb-5">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
                     <div class="text-center fs-4 danger-block rounded h-100">
@@ -28,13 +32,13 @@
                     </div>
                 </div>
             </div>
-            <!-- Форма входа в приложение -->
+
             <div class="row mb-5">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
-                    <form action="#" th:action="@{/login/processing}" method="post" class="bg-gray-200 border rounded text-secondary fs-5 p-3">
-                        <h2 class="text-secondary fs-4">Вход</h2>
-                        <hr />
-                        <div class="mb-2">
+                    <form action="#" th:action="@{/login/processing}" method="post" class="bg-dark border rounded text-gray-300 fs-5 p-3">
+                        <h2 class="fs-4">Вход</h2>
+                        <hr class="text-white" />
+                        <div class="mb-3">
                             <label for="email" class="form-label">Почта</label>
                             <input type="email" name="email" id="email" class="form-control" />
                         </div>
@@ -42,17 +46,20 @@
                             <label for="password" class="form-label">Пароль</label>
                             <input type="password" name="password" id="password" class="form-control" />
                         </div>
-                        <hr />
-                        <button type="submit" class="text-center btn btn-lg btn-primary mt-1">Войти</button>
+                        <hr class="text-white" />
+                        <button type="submit" class="text-center btn btn-lg btn-primary my-1">Войти</button>
                     </form>
                 </div>
             </div>
-            <!-- Ссылка на главную страницу -->
+
             <div class="row text-center">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
-                    <a href="#" th:href="@{/}" class="text-secondary fs-4">Вернуться на главную</a>
+                    <a href="#" th:href="@{/}" class="text-dark fs-4">Вернуться на главную</a>
                 </div>
             </div>
         </div>
+
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
     </body>
 </html>
