@@ -1,23 +1,15 @@
-/* Цвет фона всего приложения */
-
 .bg-main {
     background-color: var(--bs-gray-100);
 }
-
-/* Остальные фоновые цвета */
 
 .bg-gray-200 {
     background-color: var(--bs-gray-200);
 }
 
-/* Перенос непрерывного длинного слова на новую строку */
-
 .break-all {
     word-wrap: break-word;
     word-break: break-all;
 }
-
-/* Переопределение цветов стандартного модального окна под стиль "danger" */
 
 .modal-overriden-danger {
     --bs-modal-bg: var(--bs-danger-bg-subtle);
@@ -27,8 +19,6 @@
     --bs-modal-footer-border-color: var(--bs-danger-border-subtle);
 }
 
-/* Переопределение цветов стандартного модального окна под стиль "success" */
-
 .modal-overriden-success {
     --bs-modal-bg: var(--bs-success-bg-subtle);
     --bs-modal-color: var(--bs-success-text-emphasis);
@@ -37,15 +27,11 @@
     --bs-modal-footer-border-color: var(--bs-success-border-subtle);
 }
 
-/* Информационный блок под стиль "info" */
-
 .info-block {
     background-color: var(--bs-primary-bg-subtle);
     color: var(--bs-primary-text-emphasis);
     border-color: var(--bs-primary-border-subtle);
 }
-
-/* Информационный блок под стиль "danger" */
 
 .danger-block {
     background-color: var(--bs-danger-bg-subtle);
