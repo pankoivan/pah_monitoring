@@ -103,21 +103,21 @@
                         <form action="#" th:action="@{/rest/security-codes/generate/by-main-admin}" class="border rounded text-secondary fs-5 p-3" id="code-generation-form">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Медицинское учреждение</label>
-                                <input type="text" name="name" id="name" class="form-control" disabled th:value="${request.hospital.name}" />
+                                <input type="text" name="name" class="form-control" disabled th:value="${request.hospital.name}" />
                             </div>
                             <div class="mb-3">
                                 <label for="oid" class="form-label">OID</label>
-                                <input type="text" name="oid" id="oid" class="form-control" disabled th:value="${request.hospital.oid}" />
+                                <input type="text" name="oid" class="form-control" disabled th:value="${request.hospital.oid}" />
                             </div>
                             <div class="mb-3">
                                 <label for="role" class="form-label">Роль</label>
-                                <select name="role" id="role" class="form-select" disabled>
+                                <select name="role" class="form-select" disabled>
                                     <option th:text="${role.alias}">Администратор</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Почта</label>
-                                <input type="email" name="email" id="email" class="form-control" disabled th:value="${request.email}" />
+                                <input type="email" name="email" class="form-control" disabled th:value="${request.email}" />
                             </div>
                             <div class="mb-4">
                                 <label for="expiration-date" class="form-label">Срок действия кода</label>
