@@ -1,0 +1,167 @@
+<!--<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Медицинские учреждения</title>
+        <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
+        <div class="container text-secondary">
+            <div th:each="each : ${hospitals}" class="d-flex position-relative row mb-3">
+                <div class="col-12">
+                    <div class="border rounded p-2">
+                        <div class="text-center mb-2 m-1">
+                            <h2 class="fs-4 mb-2" th:text="${each.name}">Национальный медицинский исследовательский центр имени В. А. Алмазова</h2>
+                            <div th:switch="${#strings.toString(each.currentState)}">
+                                <p th:case="'WAITING_CODE'" class="text-danger fs-5">Ожидает выдачу кода</p>
+                                <p th:case="'WAITING_REGISTRATION'" class="text-warning fs-5">Ожидает регистрации администратора</p>
+                                <p th:case="'REGISTERED'" class="text-success fs-5">Зарегистрировано</p>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-center justify-content-md-between">
+                            <h3 class="fs-4 mb-1 m-1">OID: <span th:text="${each.oid}">1.232.345.7665.123.5</span></h3>
+                            <div th:switch="${#strings.toString(each.currentState)}">
+                                <p th:case="'WAITING_CODE'" class="fs-5 mb-1 m-1">
+                                    <a href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" class="stretched-link text-decoration-none text-danger">
+                                        Дата подачи заявки:
+                                        <span th:text="${each.request.date}">25-12-2019 19:11:43</span>
+                                    </a>
+                                </p>
+                                <p th:case="'WAITING_REGISTRATION'" class="fs-5 mb-1 m-1">
+                                    <a href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" class="stretched-link text-decoration-none text-warning">
+                                        Дата подачи заявки:
+                                        <span th:text="${each.request.date}">25-12-2019 19:11:43</span>
+                                    </a>
+                                </p>
+                                <p th:case="'REGISTERED'" class="text-success fs-5 mb-1 m-1">
+                                    <a href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" class="stretched-link text-decoration-none text-success">
+                                        Дата регистрации:
+                                        <span th:text="${each.date}">25-12-2019 19:11:43 </span>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>-->
+
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Медицинские учреждения</title>
+        <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
+        <div class="container text-secondary my-5">
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <h1 class="fs-2 word-wrap">Список пользователей</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-start">
+                        <p class="fs-4 mb-0">
+                            <abbr class="text-decoration-none" title="Главный секретарь медицинского учреждения">
+                                <svg class="mb-2" width="28px" height="28px" viewBox="0 -8 72 72" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <style>
+                                            .cls-1 {
+                                                fill: #010002;
+                                            }
+                                        </style>
+                                    </defs>
+                                    <title>Дежурный секретарь медицинского учреждения "фвдаловадлфовыалвыфоафлвыждао"</title>
+                                    <path
+                                        class="cls-1"
+                                        d="M61.39,49.89A25.7,25.7,0,0,0,47.86,30.44c-3,3-7.23,19.66-11.86,19.66S27.18,33.48,24.14,30.44A25.7,25.7,0,0,0,10.61,49.89,1.71,1.71,0,0,0,11,51.27a2.15,2.15,0,0,0,1.6.7H59.37a2.15,2.15,0,0,0,1.6-.7A1.71,1.71,0,0,0,61.39,49.89ZM54,43.44H47.24V42H54Z"
+                                    />
+                                    <path class="cls-1" d="M25.47,28.6c.27.28.56.56.85.82a14.45,14.45,0,0,0,19.36,0c.29-.26.58-.54.85-.82s.54-.58.79-.89a14.55,14.55,0,1,0-22.64,0C24.93,28,25.19,28.31,25.47,28.6Z" />
+                                    <path class="cls-1" d="M37.52,36.55a.4.4,0,0,1-.4.4H34.88a.4.4,0,0,1-.4-.4V34.3a.39.39,0,0,1,.4-.39h2.24a.39.39,0,0,1,.4.39Z" />
+                                    <polyline class="cls-1" points="34.35 37.87 37.56 37.87 39.08 50.62 32.81 50.62" />
+                                </svg>
+                            </abbr>
+                            <span>Иванов Сергей Петрович</span>
+                        </p>
+                        <p class="fs-5 mb-1">+7 (912) 123-90-56</p>
+                        <p class="fs-5 mb-0"><abbr class="text-decoration-none" title="Главный секретарь">Администратор</abbr></p>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-start">
+                        <p class="fs-4 mb-0">
+                            <svg class="mb-2" width="28px" height="28px" viewBox="0 -8 72 72" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <style>
+                                        .cls-1 {
+                                            fill: #010002;
+                                        }
+                                    </style>
+                                </defs>
+                                <title>user-suit</title>
+                                <path
+                                    class="cls-1"
+                                    d="M61.39,49.89A25.7,25.7,0,0,0,47.86,30.44c-3,3-7.23,19.66-11.86,19.66S27.18,33.48,24.14,30.44A25.7,25.7,0,0,0,10.61,49.89,1.71,1.71,0,0,0,11,51.27a2.15,2.15,0,0,0,1.6.7H59.37a2.15,2.15,0,0,0,1.6-.7A1.71,1.71,0,0,0,61.39,49.89ZM54,43.44H47.24V42H54Z"
+                                />
+                                <path class="cls-1" d="M25.47,28.6c.27.28.56.56.85.82a14.45,14.45,0,0,0,19.36,0c.29-.26.58-.54.85-.82s.54-.58.79-.89a14.55,14.55,0,1,0-22.64,0C24.93,28,25.19,28.31,25.47,28.6Z" />
+                                <path class="cls-1" d="M37.52,36.55a.4.4,0,0,1-.4.4H34.88a.4.4,0,0,1-.4-.4V34.3a.39.39,0,0,1,.4-.39h2.24a.39.39,0,0,1,.4.39Z" />
+                                <polyline class="cls-1" points="34.35 37.87 37.56 37.87 39.08 50.62 32.81 50.62" />
+                            </svg>
+                            <span>Козлов Геннадий Викторович</span>
+                        </p>
+                        <p class="fs-5 mb-1">+7 (912) 123-90-56</p>
+                        <p class="fs-5 mb-0"><abbr class="text-decoration-none" title="Врач-пульмонолог высшей категории">Врач</abbr></p>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-start">
+                        <p class="fs-4 mb-0">
+                            <svg class="mb-2" width="28px" height="28px" viewBox="0 -8 72 72" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <style>
+                                        .cls-1 {
+                                            fill: #010002;
+                                        }
+                                    </style>
+                                </defs>
+                                <title>user-suit</title>
+                                <path
+                                    class="cls-1"
+                                    d="M61.39,49.89A25.7,25.7,0,0,0,47.86,30.44c-3,3-7.23,19.66-11.86,19.66S27.18,33.48,24.14,30.44A25.7,25.7,0,0,0,10.61,49.89,1.71,1.71,0,0,0,11,51.27a2.15,2.15,0,0,0,1.6.7H59.37a2.15,2.15,0,0,0,1.6-.7A1.71,1.71,0,0,0,61.39,49.89ZM54,43.44H47.24V42H54Z"
+                                />
+                                <path class="cls-1" d="M25.47,28.6c.27.28.56.56.85.82a14.45,14.45,0,0,0,19.36,0c.29-.26.58-.54.85-.82s.54-.58.79-.89a14.55,14.55,0,1,0-22.64,0C24.93,28,25.19,28.31,25.47,28.6Z" />
+                                <path class="cls-1" d="M37.52,36.55a.4.4,0,0,1-.4.4H34.88a.4.4,0,0,1-.4-.4V34.3a.39.39,0,0,1,.4-.39h2.24a.39.39,0,0,1,.4.39Z" />
+                                <polyline class="cls-1" points="34.35 37.87 37.56 37.87 39.08 50.62 32.81 50.62" />
+                            </svg>
+                            <span>Львов Георгий Казимирович</span>
+                        </p>
+                        <p class="fs-5 mb-1">+7 (912) 123-90-56</p>
+                        <p class="fs-5 mb-0">Пациент</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
