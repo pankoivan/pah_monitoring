@@ -109,8 +109,9 @@ function fillSuccessModalText(responseJson) {
     fullname.innerText = responseJson.patronymic != "" ? ` ${responseJson.lastname} ${responseJson.name} ${responseJson.patronymic}` : ` ${responseJson.lastname} ${responseJson.name}`;
 
     let link = document.createElement("a");
-    link.href = "/login";
+    link.className = "href-success";
     link.textContent = "войти";
+    link.href = "/login";
 
     let login = document.createElement("span");
     login.appendChild(document.createTextNode("Теперь вы можете "));
