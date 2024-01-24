@@ -6,7 +6,6 @@ import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalRegistrationRequestAddingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
-import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -134,13 +133,6 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
                     "Медицинское учреждение \"%s\" не может быть удалено, так как заявка на его регистрацию была подтверждена"
                             .formatted(request.getHospital().getName())
             );
-        }
-    }
-
-    @Override
-    public void checkAccessRightsForObtainingConcrete(HospitalRegistrationRequest requestedRequest) throws NotEnoughRightsServiceException {
-        if (!checkService.isMainAdministrator()) {
-            throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
     }
 

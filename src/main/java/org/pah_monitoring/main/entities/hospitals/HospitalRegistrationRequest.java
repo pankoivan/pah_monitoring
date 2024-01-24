@@ -2,6 +2,7 @@ package org.pah_monitoring.main.entities.hospitals;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 
 import java.time.LocalDateTime;
@@ -51,6 +52,10 @@ public class HospitalRegistrationRequest implements BaseEntity {
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
+
+    public String getFormattedDate() {
+        return DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(date);
+    }
 
     @Override
     public boolean equals(Object o) {

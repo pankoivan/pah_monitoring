@@ -3,6 +3,7 @@ package org.pah_monitoring.main.entities.hospitals;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.entities.users.users.Doctor;
@@ -61,6 +62,10 @@ public class Hospital implements BaseEntity {
 
     @OneToOne(mappedBy = "hospital")
     private HospitalRegistrationRequest request;
+
+    public String getFormattedDate() {
+        return DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(date);
+    }
 
     @Override
     public boolean equals(Object o) {

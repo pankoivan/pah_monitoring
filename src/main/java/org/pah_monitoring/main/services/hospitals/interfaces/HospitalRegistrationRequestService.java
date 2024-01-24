@@ -5,7 +5,6 @@ import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
-import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.services.validation.interfaces.data.DataDeletionValidationService;
 import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataAddingValidationService;
 import org.pah_monitoring.main.services.validation.interfaces.url.UrlValidationService;
@@ -20,7 +19,5 @@ public interface HospitalRegistrationRequestService extends DataAddingValidation
     HospitalRegistrationRequest add(HospitalRegistrationRequestAddingDto addingDto) throws DataSavingServiceException;
 
     void deleteById(Integer id) throws DataSearchingServiceException, DataDeletionServiceException;
-
-    void checkAccessRightsForObtainingConcrete(HospitalRegistrationRequest requestedRequest) throws NotEnoughRightsServiceException;
 
 }
