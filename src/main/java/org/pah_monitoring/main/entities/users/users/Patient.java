@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.entities.users.users;
 
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.Role;
@@ -24,7 +23,6 @@ import java.util.List;
 @Setter
 @ToString(of = "id")
 @Builder
-@JsonIncludeProperties("id")
 @Entity
 @Table(name = "patient")
 public class Patient implements HospitalUser, UserDetails {

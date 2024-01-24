@@ -31,7 +31,7 @@ userRegistrationForm.addEventListener("submit", function (event) {
                 password: password,
             },
             employeeInformationAddingDto: {
-                post: userRegistrationForm.querySelector('input[name="post"]').value,
+                post: post,
                 userInformationAddingDto: {
                     name: name,
                     lastname: lastname,
