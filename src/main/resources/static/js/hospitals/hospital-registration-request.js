@@ -57,12 +57,20 @@ function showModalErrorForCodeGeneration(response) {
 function fillSuccessModalTextForCodeGeneration() {
     let successModalText = document.getElementById("success-modal-text");
 
-    successModalText.textContent = "Код был успешно сгенерирован. Теперь данное медицинское учреждение переходит в состояние ожидания регистрации администратора";
+    successModalText.textContent = "";
 
-    successModalText.appendChild(document.createTextNode("Код был успешно сгенерирован. Теперь данное медицинское учреждение переходит в состояние ожидания регистрации администратора."));
+    let toHospitals = document.createElement("a");
+    toHospitals.className = "href-success";
+    toHospitals.innerText = "Вернуться к списку медицинских учреждений.";
+    toHospitals.href = "/hospitals";
+
+    successModalText.appendChild(document.createTextNode("Код был успешно сгенерирован. Данное медицинское учреждение переходит в состояние ожидания регистрации администратора."));
     successModalText.appendChild(document.createElement("br"));
     successModalText.appendChild(document.createElement("br"));
-    successModalText.appendChild(document.createTextNode("После успешной регистрации администратора медицинское учреждение будет успешно зарегистрировано в приложении."));
+    successModalText.appendChild(document.createTextNode("После регистрации администратора оно будет зарегистрировано в приложении."));
+    successModalText.appendChild(document.createElement("br"));
+    successModalText.appendChild(document.createElement("br"));
+    successModalText.appendChild(toHospitals);
 }
 
 /* Для удаления заявки */
@@ -73,7 +81,6 @@ document.getElementById("decline-request").addEventListener("click", function (e
 });
 
 function fetchDelete() {
-    console.log("AAAAAAAAAAAAAAAAAAAAA");
     fetch("http://localhost:8080/rest/hospital-registration/requests/delete/" + requestId, {
         method: "POST",
         headers: {
@@ -109,11 +116,25 @@ function fillSuccessModalTextForRequestRejecting() {
 
     successModalText.textContent = "";
 
-    let toRequests = document.createElement("a");
-    toRequests.innerText = "К странице заявок.";
+    let toHospitals = document.createElement("a");
+    toHospitals.className = "href-success";
+    toHospitals.innerText = "Вернуться к списку медицинских учреждений.";
+    toHospitals.href = "/hospitals";
 
     successModalText.appendChild(document.createTextNode("Заявка на регистрацию этого медицинского учреждения была успешно отклонена."));
     successModalText.appendChild(document.createElement("br"));
     successModalText.appendChild(document.createElement("br"));
-    successModalText.appendChild(toRequests);
+    successModalText.appendChild(toHospitals);
 }
+
+/* Для закрытия окон */
+
+document.getElementById("success-modal-close-1").addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location.href = "/hospitals";
+});
+
+document.getElementById("success-modal-close-2").addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location.href = "/hospitals";
+});

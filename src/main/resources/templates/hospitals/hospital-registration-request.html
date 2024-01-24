@@ -49,7 +49,7 @@
                             <input th:value="${request.hospital.name}" type="text" name="hospitalName" id="hospital-name" class="form-control" placeholder="Национальный медицинский исследовательский центр имени В. А. Алмазова" disabled />
                         </div>
                         <div class="m-1 mb-3">
-                            <label for="hospital-name" class="form-label">OID этого медицинского учреждения</label>
+                            <label for="hospital-oid" class="form-label">OID этого медицинского учреждения</label>
                             <input th:value="${request.hospital.oid}" type="text" name="hospitalOid" id="hospital-oid" class="form-control" placeholder="1.23.49.123.4583" disabled />
                         </div>
                         <div class="m-1 mb-3">
@@ -102,22 +102,22 @@
                     <div class="modal-body fs-5" id="code-generation-modal-text">
                         <form action="#" th:action="@{/rest/security-codes/generate/by-main-admin}" class="border rounded text-secondary fs-5 p-3" id="code-generation-form">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Медицинское учреждение</label>
-                                <input type="text" name="name" class="form-control" disabled th:value="${request.hospital.name}" />
+                                <label for="name-code" class="form-label">Медицинское учреждение</label>
+                                <input type="text" name="name" id="name-code" class="form-control" disabled th:value="${request.hospital.name}" />
                             </div>
                             <div class="mb-3">
-                                <label for="oid" class="form-label">OID</label>
-                                <input type="text" name="oid" class="form-control" disabled th:value="${request.hospital.oid}" />
+                                <label for="oid-code" class="form-label">OID</label>
+                                <input type="text" name="oid" id="oid-code" class="form-control" disabled th:value="${request.hospital.oid}" />
                             </div>
                             <div class="mb-3">
-                                <label for="role" class="form-label">Роль</label>
-                                <select name="role" class="form-select" disabled>
+                                <label for="role-code" class="form-label">Роль</label>
+                                <select name="role" id="role-code" class="form-select" disabled>
                                     <option th:text="${role.alias}">Администратор</option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">Почта</label>
-                                <input type="email" name="email" class="form-control" disabled th:value="${request.email}" />
+                                <label for="email-code" class="form-label">Почта</label>
+                                <input type="email" name="email" id="email-code" class="form-control" disabled th:value="${request.email}" />
                             </div>
                             <div class="mb-4">
                                 <label for="expiration-date" class="form-label">Срок действия кода</label>

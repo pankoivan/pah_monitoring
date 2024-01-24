@@ -15,9 +15,18 @@
     word-break: break-all;
 }
 
+.href-success {
+    color: var(--bs-success-text-emphasis);
+}
+
+.href-danger {
+    color: var(--bs-danger-text-emphasis);
+}
+
 .modal-overriden-danger {
     --bs-modal-bg: var(--bs-danger-bg-subtle);
     --bs-modal-color: var(--bs-danger-text-emphasis);
+    --bs-modal-link-color: var(--bs-danger-text-emphasis);
     --bs-modal-border-color: var(--bs-danger-border-subtle);
     --bs-modal-header-border-color: var(--bs-danger-border-subtle);
     --bs-modal-footer-border-color: var(--bs-danger-border-subtle);
@@ -26,6 +35,7 @@
 .modal-overriden-success {
     --bs-modal-bg: var(--bs-success-bg-subtle);
     --bs-modal-color: var(--bs-success-text-emphasis);
+    --bs-modal-link-color: var(--bs-success-text-emphasis);
     --bs-modal-border-color: var(--bs-success-border-subtle);
     --bs-modal-header-border-color: var(--bs-success-border-subtle);
     --bs-modal-footer-border-color: var(--bs-success-border-subtle);
