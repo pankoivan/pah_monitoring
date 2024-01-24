@@ -1,5 +1,39 @@
 const hospitalRegistrationForm = document.getElementById("hospital-registration-form");
 
+document.getElementById("hospital-name").addEventListener("input", function (event) {
+    console.log("aaa");
+    fetchGet();
+});
+
+function fetchGet() {
+    fetch("http://localhost:8080/byb", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((response) => {
+            if (response.ok) {
+                response.json().then((responseJson) => {
+                    hospitals = document.getElementById("hospitals");
+                    while (hospitals.firstChild) {
+                        hospitals.removeChild(hospitals.firstChild);
+                    }
+                    responseJson.forEach((element) => {
+                        hospital = document.createElement("option");
+                        hospital.value = element.bybString;
+                        hospitals.appendChild(hospital);
+                    });
+                });
+            } else {
+                console.error("На сервере произошла ошибка, для которой здесь не предусмотрено никаких действий", error);
+            }
+        })
+        .catch((error) => {
+            console.error("Произошла ошибка, для которой не предусмотрено никаких действий", error);
+        });
+}
+
 hospitalRegistrationForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
