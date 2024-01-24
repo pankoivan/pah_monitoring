@@ -34,6 +34,7 @@ public class HospitalRegistrationMvcController {
         try {
             HospitalRegistrationRequest request = service.findById(service.parsePathId(pathId));
             model.addAttribute("request", request);
+            model.addAttribute("commentExists", !request.getComment().isEmpty());
             model.addAttribute("role", Role.ADMINISTRATOR);
             model.addAttribute("expirationDateList", ExpirationDate.values());
             return "hospitals/hospital-registration-request";
