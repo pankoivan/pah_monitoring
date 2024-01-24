@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Регистрация медицинского учреждения</title>
+        <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
+        <!---->
+        <div th:replace="~{/fragments/headers/anon-header :: anon-header}"></div>
+
+        <div class="container my-5">
+            <!---->
+            <div class="row text-center mb-5">
+                <div class="col-12 col-md-10 col-md-8 mx-auto">
+                    <h1 class="text-dark fs-2 word-wrap">
+                        Генерация кодов для регистрации сотрудников и пациентов медицинского учреждения
+                        <span th:text="'&quot;' + ${admin.hospital.name} + '&quot;'" class="fw-bold">"Национальный медицинский исследовательский центр имени В. А. Алмазова"</span>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-10 col-md-8 mx-auto">
+                    <form action="#" th:action="@{/rest/security-codes/generate/by-admin}" class="bg-dark border rounded text-gray-300 fs-5 p-3" id="code-generation-form">
+                        <div class="mb-3">
+                            <label for="name-code" class="form-label">Медицинское учреждение</label>
+                            <input type="text" name="name" id="name-code" class="form-control" disabled th:value="${admin.hospital.name}" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="role-code" class="form-label">Роль</label>
+                            <select name="role" id="role-code" class="form-select">
+                                <option th:each="each : ${roles}" th:text="${each.alias}" th:value="${each}">Пациент</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email-code" class="form-label">Почта</label>
+                            <input type="email" name="email" id="email-code" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="expiration-date" class="form-label">Срок действия кода</label>
+                            <select name="expirationDate" id="expiration-date" class="form-select">
+                                <option th:each="each : ${expirationDateList}" th:text="${each.alias}" th:value="${each}">1 день</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary my-3">Сгенерировать код</button>
+                    </form>
+                </div>
+            </div>
+            <!---->
+        </div>
+
+        <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
+
+        <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
+
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+
+        <script src="../static/js/hospitals/admin-code-gen.js" th:src="@{/js/hospitals/admin-code-gen.js}"></script>
+        <script src="../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
+    </body>
+</html>
