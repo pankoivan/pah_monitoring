@@ -27,7 +27,7 @@ public class Temp {
 
     @GetMapping
     public List<RegistryHospital> get() throws RestClientServiceException {
-        return service.search("Алм");
+        return service.search("алм");
     }
 
     @NoArgsConstructor

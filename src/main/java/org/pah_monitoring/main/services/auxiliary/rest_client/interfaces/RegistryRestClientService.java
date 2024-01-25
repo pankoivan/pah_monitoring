@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface RegistryRestClientService {
 
-    public List<RegistryHospital> search(String search) throws RestClientServiceException;
+    boolean contains(String search) throws RestClientServiceException;
+
+    List<RegistryHospital> search(String search) throws RestClientServiceException;
 
 }

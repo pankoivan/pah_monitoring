@@ -32,6 +32,11 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     @Value("${my.registry-api.token}")
     private final String token;
 
+    @Override
+    public boolean contains(String search) throws RestClientServiceException {
+        return !search(search).isEmpty();
+    }
+
     public List<RegistryHospital> search(String search) throws RestClientServiceException {
 
         return getRegistryHospitalList()
@@ -60,7 +65,7 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     private boolean matches(String search, List<Pair> registryHospital) {
 
         for (Pair pair : registryHospital) {
-            if (pair.isNameFull() && pair.value.contains(search)) {
+            if (pair.isNameFull() && pair.value.toLowerCase().contains(search.toLowerCase())) {
                 return true;
             }
         }
