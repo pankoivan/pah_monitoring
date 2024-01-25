@@ -14,7 +14,6 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,35 +34,46 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
 
     public List<RegistryHospital> search(String search) throws ApiClientServiceException {
 
-        List<List<Pair>> registryHospitalList = getList();
-
-        List<RegistryHospital> responseRegistryHospitalList = new ArrayList<>();
-
-        for (var registryHospital : registryHospitalList) {
-
-            RegistryHospital responseRegistryHospital = new RegistryHospital();
-            for (Pair pair : registryHospital) {
-                if (pair.getColumn().equals("nameFull") && pair.getValue().contains(search)) {
-                    responseRegistryHospital.setName(pair.getValue());
-                }
-                if (pair.getColumn().equals("oid")) {
-                    responseRegistryHospital.setOid(pair.getValue());
-                }
-            }
-            responseRegistryHospitalList.add(responseRegistryHospital);
-
-        }
-
-        return responseRegistryHospitalList;
+        return getRegistryHospitalList()
+                .stream()
+                .filter(rh -> matches(search, rh))
+                .map(this::toResponseRegistryHospital)
+                .toList();
 
     }
 
-    public List<List<Pair>> getList() throws ApiClientServiceException {
+    private RegistryHospital toResponseRegistryHospital(List<Pair> registryHospital) {
+
+        RegistryHospital responseRegistryHospital = new RegistryHospital();
+        for (Pair pair : registryHospital) {
+            if (pair.isNameFull()) {
+                responseRegistryHospital.setName(pair.value);
+            }
+            if (pair.isOid()) {
+                responseRegistryHospital.setOid(pair.value);
+            }
+        }
+        return responseRegistryHospital;
+
+    }
+
+    private boolean matches(String search, List<Pair> registryHospital) {
+
+        for (Pair pair : registryHospital) {
+            if (pair.isNameFull() && pair.value.contains(search)) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    private List<List<Pair>> getRegistryHospitalList() throws ApiClientServiceException {
 
         List<List<Pair>> list = new ArrayList<>();
 
         int total = getBaseResponse(1, 1).total;
-        for (int i = 1; list.size() < 200; ++i) {
+        for (int i = 1; list.size() < total; ++i) {
             list.addAll(getBaseResponse(200, i).list);
         }
 
@@ -99,9 +109,15 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     }
 
     @NoArgsConstructor @AllArgsConstructor @Data
-    public static class Pair {
+    private static class Pair {
         String column;
         String value;
+        public boolean isNameFull() {
+            return column.equals("nameFull");
+        }
+        public boolean isOid() {
+            return column.equals("oid");
+        }
     }
 
 }
