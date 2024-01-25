@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.exceptions.service.api_client;
+package org.pah_monitoring.main.exceptions.service.rest_client;
 
 import org.pah_monitoring.main.exceptions.service.common.ServiceException;
 

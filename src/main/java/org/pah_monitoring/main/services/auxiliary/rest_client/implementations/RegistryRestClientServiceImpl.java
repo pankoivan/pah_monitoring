@@ -2,8 +2,8 @@ package org.pah_monitoring.main.services.auxiliary.rest_client.implementations;
 
 import lombok.*;
 import org.pah_monitoring.auxiliary.utils.UrlUtils;
-import org.pah_monitoring.main.entities.api_client.RegistryHospital;
-import org.pah_monitoring.main.exceptions.service.api_client.RestClientServiceException;
+import org.pah_monitoring.main.entities.rest_client.RegistryHospital;
+import org.pah_monitoring.main.exceptions.service.rest_client.RestClientServiceException;
 import org.pah_monitoring.main.exceptions.utils.UrlUtilsException;
 import org.pah_monitoring.main.services.auxiliary.rest_client.interfaces.RegistryRestClientService;
 import org.springframework.beans.factory.annotation.Autowired;
