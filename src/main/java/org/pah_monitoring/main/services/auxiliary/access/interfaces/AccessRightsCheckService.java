@@ -7,6 +7,8 @@ import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
 
 public interface AccessRightsCheckService {
 
+    boolean isAnonymous();
+
     boolean isMainAdministrator();
 
     boolean isAdministrator();

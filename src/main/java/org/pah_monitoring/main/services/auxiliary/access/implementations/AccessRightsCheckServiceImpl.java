@@ -9,6 +9,9 @@ import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
 import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.auxiliary.access.interfaces.CurrentUserExtractionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -17,6 +20,12 @@ import org.springframework.stereotype.Service;
 public class AccessRightsCheckServiceImpl implements AccessRightsCheckService {
 
     private CurrentUserExtractionService userExtractionService;
+
+    @Override
+    public boolean isAnonymous() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication == null || authentication.getPrincipal() instanceof AnonymousAuthenticationToken;
+    }
 
     @Override
     public boolean isMainAdministrator() {
