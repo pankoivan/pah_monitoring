@@ -5,14 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.api_client.RegistryHospital;
-import org.pah_monitoring.main.exceptions.service.api_client.ApiClientServiceException;
-import org.pah_monitoring.main.exceptions.utils.UrlUtilsException;
+import org.pah_monitoring.main.exceptions.service.api_client.RestClientServiceException;
 import org.pah_monitoring.main.services.auxiliary.rest_client.implementations.RegistryRestClientServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,7 +26,7 @@ public class Temp {
     }*/
 
     @GetMapping
-    public List<RegistryHospital> get() throws ApiClientServiceException {
+    public List<RegistryHospital> get() throws RestClientServiceException {
         return service.search("Алм");
     }
 

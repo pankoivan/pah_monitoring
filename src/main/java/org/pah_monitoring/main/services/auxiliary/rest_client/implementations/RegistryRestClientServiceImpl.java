@@ -3,7 +3,7 @@ package org.pah_monitoring.main.services.auxiliary.rest_client.implementations;
 import lombok.*;
 import org.pah_monitoring.auxiliary.utils.UrlUtils;
 import org.pah_monitoring.main.entities.api_client.RegistryHospital;
-import org.pah_monitoring.main.exceptions.service.api_client.ApiClientServiceException;
+import org.pah_monitoring.main.exceptions.service.api_client.RestClientServiceException;
 import org.pah_monitoring.main.exceptions.utils.UrlUtilsException;
 import org.pah_monitoring.main.services.auxiliary.rest_client.interfaces.RegistryRestClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     @Value("${my.registry-api.token}")
     private final String token;
 
-    public List<RegistryHospital> search(String search) throws ApiClientServiceException {
+    public List<RegistryHospital> search(String search) throws RestClientServiceException {
 
         return getRegistryHospitalList()
                 .stream()
@@ -68,7 +68,7 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
 
     }
 
-    private List<List<Pair>> getRegistryHospitalList() throws ApiClientServiceException {
+    private List<List<Pair>> getRegistryHospitalList() throws RestClientServiceException {
 
         List<List<Pair>> list = new ArrayList<>();
 
@@ -80,7 +80,7 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
         return list;
     }
 
-    private BaseResponse getBaseResponse(Integer onPage, Integer page) throws ApiClientServiceException {
+    private BaseResponse getBaseResponse(Integer onPage, Integer page) throws RestClientServiceException {
 
         try {
 
@@ -97,7 +97,7 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
             return restTemplate.exchange(request, BaseResponse.class).getBody();
 
         } catch (UrlUtilsException | RestClientException e) {
-            throw new ApiClientServiceException("Произошла ошибка при REST-взаимодействии с API реестра", e);
+            throw new RestClientServiceException("Произошла ошибка при REST-взаимодействии с API реестра", e);
         }
 
     }
