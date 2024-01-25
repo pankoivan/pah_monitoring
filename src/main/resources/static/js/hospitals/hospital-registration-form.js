@@ -1,16 +1,20 @@
 const hospitalRegistrationForm = document.getElementById("hospital-registration-form");
 
-document.getElementById("hospital-name").addEventListener("input", function (event) {
-    console.log("aaa");
-    fetchGet();
+document.getElementById("hospital-name").addEventListener("input", function () {
+    let data = {
+        search: hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value,
+    };
+
+    fetchSearch(data);
 });
 
-function fetchGet() {
-    fetch("http://localhost:8080/byb", {
-        method: "GET",
+function fetchSearch(data) {
+    fetch("http://localhost:8080/rest/client/registry/search", {
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
+        body: JSON.stringify(data),
     })
         .then((response) => {
             if (response.ok) {
@@ -19,9 +23,9 @@ function fetchGet() {
                     while (hospitals.firstChild) {
                         hospitals.removeChild(hospitals.firstChild);
                     }
-                    responseJson.forEach((element) => {
+                    responseJson.forEach((registryHospital) => {
                         hospital = document.createElement("option");
-                        hospital.value = element.bybString;
+                        hospital.value = registryHospital.name;
                         hospitals.appendChild(hospital);
                     });
                 });
