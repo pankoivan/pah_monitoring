@@ -1,6 +1,8 @@
 package org.pah_monitoring.main.services.auxiliary.rest_client.implementations;
 
 import lombok.*;
+import org.pah_monitoring.auxiliary.utils.UrlUtils;
+import org.pah_monitoring.main.exceptions.utils.UrlUtilsException;
 import org.pah_monitoring.main.services.auxiliary.rest_client.interfaces.RegistryRestClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,21 +24,20 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     @Value("${my.registry-api.base-url}")
     private final String baseUrl;
 
+    @Value("${my.registry-api.registry-identifier}")
+    private final String identifier;
+
     @Value("${my.registry-api.token}")
     private final String token;
 
-    public Response exchange() {
+    private BaseResponse exchange(Integer page, Integer onPage) throws UrlUtilsException {
 
         RequestEntity<Void> request = RequestEntity
-                .get(baseUrl + "&userKey=" + token)
-                //.header("userKey", token)
+                .get(UrlUtils.buildUrlWithGetParameters(baseUrl, "identifier", identifier, "userKey", token))
                 .build();
 
-        System.out.println(baseUrl);
-        System.out.println(token);
-
         try {
-            return restTemplate.exchange(request, Response.class).getBody();
+            return restTemplate.exchange(request, BaseResponse.class).getBody();
         } catch (RestClientException e) {
             e.printStackTrace();
             return null;
@@ -45,7 +46,8 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     }
 
     @NoArgsConstructor @AllArgsConstructor @Data
-    public static class Response {
+    private static class BaseResponse {
+        private Integer total;
         private List<List<HashMap<String, String>>> list;
     }
 

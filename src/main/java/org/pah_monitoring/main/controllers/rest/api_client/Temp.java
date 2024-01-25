@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.pah_monitoring.main.exceptions.utils.UrlUtilsException;
 import org.pah_monitoring.main.services.auxiliary.rest_client.implementations.RegistryRestClientServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class Temp {
     }*/
 
     @GetMapping
-    public RegistryRestClientServiceImpl.Response get() {
+    public RegistryRestClientServiceImpl.BaseResponse get() throws UrlUtilsException {
         return service.exchange();
     }
 
