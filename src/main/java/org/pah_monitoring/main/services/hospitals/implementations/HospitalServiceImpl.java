@@ -4,12 +4,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalAddingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
+import org.pah_monitoring.main.entities.rest_client.RegistryHospital;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
+import org.pah_monitoring.main.exceptions.service.rest_client.RestClientServiceException;
 import org.pah_monitoring.main.repositorites.hospitals.HospitalRepository;
 import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
+import org.pah_monitoring.main.services.auxiliary.rest_client.interfaces.RegistryRestClientService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,30 +20,17 @@ import org.springframework.validation.BindingResult;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service
 public class HospitalServiceImpl implements HospitalService {
 
-    // todo: remove in later versions
-
-    private static final List<String> names = List.of(
-            "Медицинское учреждение 1",
-            "Медицинское учреждение 2",
-            "Медицинское учреждение 3"
-    );
-
-    public static final Map<String, String> namesMap = Map.of(
-            "Медицинское учреждение 1", "OID для медицинского учреждения 1",
-            "Медицинское учреждение 2", "OID для медицинского учреждения 2",
-            "Медицинское учреждение 3", "OID для медицинского учреждения 3"
-    );
-
     private final HospitalRepository repository;
 
     private AccessRightsCheckService checkService;
+
+    private RegistryRestClientService registryRestClientService;
 
     @Override
     public List<Hospital> findAll() {
@@ -57,11 +47,13 @@ public class HospitalServiceImpl implements HospitalService {
     @Override
     public Hospital add(HospitalAddingDto addingDto) throws DataSavingServiceException {
         try {
+            // todo: make cache for all Hospitals in registryService
+            RegistryHospital registryHospital = registryRestClientService.selected(addingDto.getName()).orElseThrow();
             return repository.save(
                     Hospital
                             .builder()
-                            .name(addingDto.getName())
-                            .oid(namesMap.get(addingDto.getName())) // todo: change in later versions
+                            .name(registryHospital.getName())
+                            .oid(registryHospital.getOid())
                             .currentState(Hospital.CurrentState.WAITING_CODE)
                             .date(LocalDateTime.now())
                             .build()
@@ -89,9 +81,12 @@ public class HospitalServiceImpl implements HospitalService {
         if (repository.existsByName(addingDto.getName())) {
             throw new DataValidationServiceException("Медицинское учреждение \"%s\" уже существует".formatted(addingDto.getName()));
         }
-        // todo: change in later versions
-        if (!names.contains(addingDto.getName())) {
-            throw new DataValidationServiceException("Медицинского учреждения \"%s\" нет в справочнике".formatted(addingDto.getName()));
+        try {
+            if (registryRestClientService.selected(addingDto.getName()).isEmpty()) {
+                throw new DataValidationServiceException("Медицинского учреждения \"%s\" нет в справочнике".formatted(addingDto.getName()));
+            }
+        } catch (RestClientServiceException e) {
+            throw new DataValidationServiceException(e.getMessage(), e);
         }
     }
 

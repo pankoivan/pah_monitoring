@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
@@ -33,8 +34,10 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     private final String token;
 
     @Override
-    public boolean contains(String search) throws RestClientServiceException {
-        return !search(search).isEmpty();
+    public Optional<RegistryHospital> selected(String selected) throws RestClientServiceException {
+        return search(selected)
+                .stream()
+                .findFirst();
     }
 
     public List<RegistryHospital> search(String search) throws RestClientServiceException {
