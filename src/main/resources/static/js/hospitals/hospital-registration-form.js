@@ -1,11 +1,16 @@
 const hospitalRegistrationForm = document.getElementById("hospital-registration-form");
 
-document.getElementById("hospital-name").addEventListener("input", function () {
-    let data = {
-        search: hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value,
-    };
+let timerId;
 
-    fetchSearch(data);
+hospitalRegistrationForm.querySelector('input[name="hospitalName"]').addEventListener("input", function () {
+    clearTimeout(timerId);
+
+    timerId = setTimeout(function () {
+        let data = {
+            search: hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value,
+        };
+        fetchSearch(data);
+    }, 800);
 });
 
 function fetchSearch(data) {
@@ -19,14 +24,10 @@ function fetchSearch(data) {
         .then((response) => {
             if (response.ok) {
                 response.json().then((responseJson) => {
-                    hospitals = document.getElementById("hospitals");
-                    while (hospitals.firstChild) {
-                        hospitals.removeChild(hospitals.firstChild);
-                    }
+                    let hospitals = document.getElementById("hospitals");
+                    clearListbox(hospitals);
                     responseJson.forEach((registryHospital) => {
-                        hospital = document.createElement("option");
-                        hospital.value = registryHospital.name;
-                        hospitals.appendChild(hospital);
+                        appendListBoxItem(registryHospital, hospitals);
                     });
                 });
             } else {
@@ -36,6 +37,25 @@ function fetchSearch(data) {
         .catch((error) => {
             console.error("Произошла ошибка, для которой не предусмотрено никаких действий", error);
         });
+}
+
+function clearListbox(hospitals) {
+    while (hospitals.firstChild) {
+        hospitals.removeChild(hospitals.firstChild);
+    }
+}
+
+function appendListBoxItem(registryHospital, hospitals) {
+    let hospital = document.createElement("a");
+    hospital.className = "list-group-item list-group-item-action fs-6";
+    hospital.href = "#";
+    hospital.innerText = registryHospital.name;
+    hospital.addEventListener("click", function (event) {
+        event.preventDefault();
+        hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value = this.textContent;
+        clearListbox(hospitals);
+    });
+    hospitals.appendChild(hospital);
 }
 
 hospitalRegistrationForm.addEventListener("submit", function (event) {
