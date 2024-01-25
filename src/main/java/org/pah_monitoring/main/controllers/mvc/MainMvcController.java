@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc;
 
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.services.auxiliary.redirect.interfaces.RedirectService;
+import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.RedirectService;
 import org.pah_monitoring.main.services.main_admin_contacts.interfaces.MainAdminContactService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

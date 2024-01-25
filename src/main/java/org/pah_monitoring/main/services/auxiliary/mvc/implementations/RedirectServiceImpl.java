@@ -1,10 +1,10 @@
-package org.pah_monitoring.main.services.auxiliary.redirect.implementations;
+package org.pah_monitoring.main.services.auxiliary.mvc.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.auxiliary.access.interfaces.CurrentUserExtractionService;
-import org.pah_monitoring.main.services.auxiliary.redirect.interfaces.RedirectService;
+import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.RedirectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

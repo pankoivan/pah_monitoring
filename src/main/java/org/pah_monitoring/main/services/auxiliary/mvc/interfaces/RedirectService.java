@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.services.auxiliary.redirect.interfaces;
+package org.pah_monitoring.main.services.auxiliary.mvc.interfaces;
 
 public interface RedirectService {
 
