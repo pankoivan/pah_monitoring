@@ -1,9 +1,8 @@
 package org.pah_monitoring.main.controllers.mvc.login;
 
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
+import org.pah_monitoring.main.services.auxiliary.redirect.interfaces.RedirectService;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @PreAuthorize("permitAll()")
 public class LoginMvcController {
 
+    private final RedirectService redirectService;
+
     @GetMapping
-    public String getLogin(Authentication authentication) {
-        if (authentication instanceof User) {
-            return "redirect:/";
+    public String getLogin() {
+        if (redirectService.checkNotAnonymousUserRedirect()) {
+            return redirectService.notAnonymousUserRedirect();
         }
         return "login";
     }

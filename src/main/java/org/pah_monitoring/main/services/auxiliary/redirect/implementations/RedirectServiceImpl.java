@@ -30,9 +30,21 @@ public class RedirectServiceImpl implements RedirectService {
             return "redirect:/hospitals/%s".formatted(extractionService.administrator().getHospital().getId());
         } else if (checkService.isDoctor()) {
             return "redirect:/doctors/%s/patients".formatted(extractionService.doctor().getId());
-        } else { // todo: maybe change to else-if
+        } else if (checkService.isPatient()) {
             return "redirect:/indicators";
+        } else {
+            return "redirect:/login";
         }
+    }
+
+    @Override
+    public boolean checkNotAnonymousUserRedirect() {
+        return !checkService.isAnonymous();
+    }
+
+    @Override
+    public String notAnonymousUserRedirect() {
+        return "redirect:/";
     }
 
 }

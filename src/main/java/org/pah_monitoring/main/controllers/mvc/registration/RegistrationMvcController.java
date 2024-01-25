@@ -7,6 +7,7 @@ import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
+import org.pah_monitoring.main.services.auxiliary.redirect.interfaces.RedirectService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,13 @@ public class RegistrationMvcController {
 
     private final RegistrationSecurityCodeService service;
 
+    private final RedirectService redirectService;
+
     @GetMapping
     public String getPage(Model model, @RequestParam(value = "code", required = false) String stringCode) {
+        if (redirectService.checkNotAnonymousUserRedirect()) {
+            return redirectService.notAnonymousUserRedirect();
+        }
         try {
             RegistrationSecurityCode code = service.findByStringUuid(stringCode);
             model.addAttribute("hospitalName", code.getHospital().getName());

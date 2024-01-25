@@ -6,4 +6,8 @@ public interface RedirectService {
 
     String mainRedirect();
 
+    boolean checkNotAnonymousUserRedirect();
+
+    String notAnonymousUserRedirect();
+
 }
