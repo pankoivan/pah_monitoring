@@ -24,7 +24,7 @@ public class AccessRightsCheckServiceImpl implements AccessRightsCheckService {
     @Override
     public boolean isAnonymous() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication == null || authentication.getPrincipal() instanceof AnonymousAuthenticationToken;
+        return authentication == null || authentication instanceof AnonymousAuthenticationToken;
     }
 
     @Override
