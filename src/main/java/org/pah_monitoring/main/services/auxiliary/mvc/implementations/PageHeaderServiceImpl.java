@@ -21,21 +21,26 @@ public class PageHeaderServiceImpl implements PageHeaderService {
     @Override
     public void addHeader(Model model) {
         if (checkService.isMainAdministrator()) {
-            model.addAttribute("headerFolder", "fragments/main-admin-header");
-            model.addAttribute("headerName", "main-admin-header");
+            addHeaderAndUser(model, "fragments/main-admin-header", "main-admin-header");
         } else if (checkService.isAdministrator()) {
-            model.addAttribute("headerFolder", "fragments/admin-header");
-            model.addAttribute("headerName", "admin-header");
+            addHeaderAndUser(model, "fragments/admin-header", "admin-header");
         } else if (checkService.isDoctor()) {
-            model.addAttribute("headerFolder", "fragments/doctor-header");
-            model.addAttribute("headerName", "doctor-header");
+            addHeaderAndUser(model, "fragments/doctor-header", "doctor-header");
         } else if (checkService.isPatient()) {
-            model.addAttribute("headerFolder", "fragments/patient-header");
-            model.addAttribute("headerName", "patient-header");
+            addHeaderAndUser(model, "fragments/patient-header", "patient-header");
         } else {
-            model.addAttribute("headerFolder", "fragments/anon-header");
-            model.addAttribute("headerName", "anon-header");
+            addHeader(model, "fragments/anon-header", "anon-header");
         }
+    }
+
+    private void addHeader(Model model, String headerFolder, String headerName) {
+        model.addAttribute("headerFolder", headerFolder);
+        model.addAttribute("headerName", headerName);
+    }
+
+    private void addHeaderAndUser(Model model, String headerFolder, String headerName) {
+        addHeader(model, headerFolder, headerName);
+        model.addAttribute("currentUser", extractionService.user());
     }
 
 }
