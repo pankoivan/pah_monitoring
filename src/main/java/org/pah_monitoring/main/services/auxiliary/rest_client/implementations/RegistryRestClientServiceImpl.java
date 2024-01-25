@@ -38,11 +38,17 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     }
 
     public List<RegistryHospital> search(String search) throws RestClientServiceException {
+        return search(search, 15);
+    }
+
+    @Override
+    public List<RegistryHospital> search(String search, int limit) throws RestClientServiceException {
 
         return getRegistryHospitalList()
                 .stream()
                 .filter(rh -> matches(search, rh))
                 .map(this::toResponseRegistryHospital)
+                .limit(limit)
                 .toList();
 
     }

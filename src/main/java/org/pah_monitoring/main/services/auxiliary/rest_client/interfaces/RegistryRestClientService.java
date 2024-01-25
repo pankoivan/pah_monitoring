@@ -11,4 +11,6 @@ public interface RegistryRestClientService {
 
     List<RegistryHospital> search(String search) throws RestClientServiceException;
 
+    List<RegistryHospital> search(String search, int limit) throws RestClientServiceException;
+
 }
