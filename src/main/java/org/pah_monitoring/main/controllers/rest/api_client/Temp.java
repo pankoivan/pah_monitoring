@@ -3,20 +3,27 @@ package org.pah_monitoring.main.controllers.rest.api_client;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.pah_monitoring.main.services.auxiliary.rest_client.implementations.RegistryRestClientServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.stream.IntStream;
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/byb")
 public class Temp {
 
-    @GetMapping
+    private final RegistryRestClientServiceImpl service;
+
+    /*@GetMapping
     public List<Byb> get() {
         return IntStream.range(0, 10).mapToObj(i -> new Byb("Hello" + i)).toList();
+    }*/
+
+    @GetMapping
+    public RegistryRestClientServiceImpl.Response get() {
+        return service.exchange();
     }
 
     @NoArgsConstructor
