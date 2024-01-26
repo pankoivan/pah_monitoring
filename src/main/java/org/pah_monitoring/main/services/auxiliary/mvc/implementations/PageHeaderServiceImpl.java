@@ -21,15 +21,15 @@ public class PageHeaderServiceImpl implements PageHeaderService {
     @Override
     public void addHeader(Model model) {
         if (checkService.isMainAdministrator()) {
-            addHeaderAndUser(model, "fragments/main-admin-header", "main-admin-header");
+            addHeaderAndUser(model, "fragments/headers/main-admin-header", "main-admin-header");
         } else if (checkService.isAdministrator()) {
-            addHeaderAndUser(model, "fragments/admin-header", "admin-header");
+            addHeaderAndUser(model, "fragments/headers/admin-header", "admin-header");
         } else if (checkService.isDoctor()) {
-            addHeaderAndUser(model, "fragments/doctor-header", "doctor-header");
+            addHeaderAndUser(model, "fragments/headers/doctor-header", "doctor-header");
         } else if (checkService.isPatient()) {
-            addHeaderAndUser(model, "fragments/patient-header", "patient-header");
+            addHeaderAndUser(model, "fragments/headers/patient-header", "patient-header");
         } else {
-            addHeader(model, "fragments/anon-header", "anon-header");
+            addHeader(model, "fragments/headers/anon-header", "anon-header");
         }
     }
 
