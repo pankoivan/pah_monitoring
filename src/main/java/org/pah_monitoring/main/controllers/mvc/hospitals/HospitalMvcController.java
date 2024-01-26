@@ -8,6 +8,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,10 +27,13 @@ public class HospitalMvcController {
 
     private final PageHeaderService pageHeaderService;
 
+    private final AccessRightsCheckService checkService;
+
     @GetMapping
     @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
     public String getHospitals(Model model) {
         model.addAttribute("hospitals", service.findAll());
+        model.addAttribute("isMainAdmin", checkService.isMainAdministrator());
         pageHeaderService.addHeader(model);
         return "hospitals/hospitals";
     }

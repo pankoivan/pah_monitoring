@@ -11,6 +11,7 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,13 +31,19 @@ public class HospitalAdministratorMvcController {
     @Qualifier("administratorService")
     private final HospitalUserService<Administrator, AdministratorAddingDto, AdministratorEditingDto, AdministratorSavingDto> service;
 
+    private final PageHeaderService pageHeaderService;
+
     @GetMapping
     public String getHospitalAdmins(Model model, @PathVariable("hospitalId") String pathHospitalId) {
         try {
             Hospital hospital = hospitalService.findById(hospitalService.parsePathId(pathHospitalId));
             service.checkAccessRightsForObtainingAllInHospital(hospital);
-            model.addAttribute("admins", service.findAllByHospitalId(hospital.getId()));
-            return "users/admins";
+            model.addAttribute("users", service.findAllByHospitalId(hospital.getId()));
+            model.addAttribute("title", "Администраторы");
+            model.addAttribute("usersListDescription", "Список администраторов");
+            model.addAttribute("emptyUsersListMessage", "Список администраторов пуст");
+            pageHeaderService.addHeader(model);
+            return "users/users";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {

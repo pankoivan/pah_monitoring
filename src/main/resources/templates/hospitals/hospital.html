@@ -56,7 +56,7 @@
             </div>
             <hr class="mb-5" />
             <!---->
-            <div class="row mb-5">
+            <div class="row" th:classappend="${isMainAdmin} ? 'mb-5'">
                 <div class="col-12">
                     <div class="mb-3">
                         <a href="#" th:href="@{/hospitals/__${hospital.id}__/patients}" class="text-secondary fs-4">Пациенты</a>
@@ -68,14 +68,14 @@
                     </ul>
                 </div>
             </div>
-            <hr class="mb-5" />
-            <div class="row mb-5">
-                <div class="col-12">
+            <hr class="mb-5" th:if="${isMainAdmin}" />
+            <div class="row">
+                <div class="col-12" th:if="${isMainAdmin}">
                     <div class="mb-3">
-                        <a href="#" class="text-secondary fs-4">Заявка</a>
+                        <a href="#" th:href="@{/hospital-registration/requests/__${hospital.request.id}__}" class="text-secondary fs-4">Заявка</a>
                     </div>
                     <p class="fs-5 mb-1">Заявка на регистрацию медицинского учреждения была подана <span th:text="${hospital.request.formattedDate}">19-09-2022 в 16:54:12</span></p>
-                    <p class="fs-5 mb-0"><span th:text="${hospital.formattedDate}">19-09-2022 в 16:54:12</span></p>
+                    <p class="fs-5 mb-0"><span th:text="'Оно было зарегистрировано ' + ${hospital.formattedDate}">19-09-2022 в 16:54:12</span></p>
                 </div>
             </div>
             <!---->
