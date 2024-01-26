@@ -5,11 +5,11 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title th:text="${title}">Пользователь</title>
-        <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
-        <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
-        <link rel="apple-touch-icon" sizes="180x180" href="../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
-        <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
-        <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+        <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
     </head>
 
     <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
@@ -58,7 +58,47 @@
                 </div>
             </div>
             <!---->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="fs-4 text-success">Активность</h3>
+                    <p class="text-success mb-0">На текущий момент этот пользователь активен</p>
+                </div>
+            </div>
+            <!---->
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="fs-4">Лечащий врач</h3>
+                    <p class="mb-0"><a href="#" class="text-secondary">Дачников Пётр Аркадьевич</a></p>
+                </div>
+            </div>
+            <hr class="my-5" />
+            <!---->
+            <!--<div class="row">
+                <button type="button" class="btn btn-primary mb-2">Написать сообщение</button>
+                <button type="button" class="btn btn-secondary mb-2">Закрепить за врачом</button>
+                <button type="button" class="btn btn-success mb-2">Отправить в отпуск</button>
+                <button type="button" class="btn btn-warning mb-2">Отправить на больничный</button>
+                <button type="button" class="btn btn-danger mb-2">Уволить</button>
+                <button type="button" class="btn btn-danger">Сделать неактивным</button>
+            </div>-->
+            <p class="d-inline-flex gap-1">
+                <button class="btn btn-primary m-1">Написать сообщение</button>
+                <button class="btn btn-primary m-1" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Остальные действия</button>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <div>
+                        <button type="button" class="btn btn-secondary mb-2">Закрепить за врачом</button>
+                        <button type="button" class="btn btn-success mb-2">Отправить в отпуск</button>
+                        <button type="button" class="btn btn-warning mb-2">Отправить на больничный</button>
+                        <button type="button" class="btn btn-danger mb-2">Уволить</button>
+                        <button type="button" class="btn btn-danger mb-2">Сделать неактивным</button>
+                    </div>
+                </div>
+            </div>
+            <!---->
         </div>
         <!---->
+        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
     </body>
 </html>
