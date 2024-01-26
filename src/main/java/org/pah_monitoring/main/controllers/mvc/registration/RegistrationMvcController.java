@@ -7,6 +7,7 @@ import org.pah_monitoring.main.entities.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
+import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.RedirectService;
 import org.pah_monitoring.main.services.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +27,8 @@ public class RegistrationMvcController {
 
     private final RedirectService redirectService;
 
+    private final PageHeaderService pageHeaderService;
+
     @GetMapping
     public String getPage(Model model, @RequestParam(value = "code", required = false) String stringCode) {
         if (redirectService.checkNotAnonymousUserRedirect()) {
@@ -33,13 +36,13 @@ public class RegistrationMvcController {
         }
         try {
             RegistrationSecurityCode code = service.findByStringUuid(stringCode);
-            model.addAttribute("hospitalName", code.getHospital().getName());
-            model.addAttribute("role", code.getRole().getAlias());
+            model.addAttribute("code", code);
             model.addAttribute("genders", Gender.values());
             model.addAttribute(
                     "isEmployee",
                     code.getRole() == Role.ADMINISTRATOR || code.getRole() == Role.DOCTOR
             );
+            pageHeaderService.addHeader(model);
             return "registration/registration";
         } catch (UuidUtilsException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
