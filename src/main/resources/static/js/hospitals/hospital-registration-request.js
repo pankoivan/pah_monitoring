@@ -132,13 +132,15 @@ function fillSuccessModalTextForRequestRejecting() {
 
     let toHospitals = document.createElement("a");
     toHospitals.className = "href-success";
-    toHospitals.innerText = "Вернуться к списку медицинских учреждений.";
+    toHospitals.innerText = "списку медицинских учреждений";
     toHospitals.href = "/hospitals";
 
     successModalText.appendChild(document.createTextNode("Заявка на регистрацию этого медицинского учреждения была успешно отклонена."));
     successModalText.appendChild(document.createElement("br"));
     successModalText.appendChild(document.createElement("br"));
+    successModalText.appendChild(document.createTextNode("Вернуться к "));
     successModalText.appendChild(toHospitals);
+    successModalText.appendChild(document.createTextNode("."));
 }
 
 /* Для закрытия окон */
