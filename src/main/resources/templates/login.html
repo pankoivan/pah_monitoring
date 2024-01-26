@@ -14,9 +14,9 @@
 
     <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
         <!---->
-        <div th:replace="~{/fragments/headers/anon-header :: anon-header}"></div>
-
-        <div class="container my-5">
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary my-5">
             <!---->
             <div th:if="${param.logout}" class="row mb-5">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
             </div>
-
+            <!---->
             <div th:if="${param.error}" class="row mb-5">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
                     <div class="text-center fs-4 danger-block rounded h-100">
@@ -33,12 +33,12 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row mb-5">
+            <!---->
+            <div class="row">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
-                    <form action="#" th:action="@{/login/processing}" method="post" class="bg-dark border rounded text-gray-300 fs-5 p-3">
+                    <form action="#" th:action="@{/login/processing}" method="post" class="bg-gray-200 border rounded fs-5 p-3">
                         <h2 class="fs-4">Вход</h2>
-                        <hr class="text-white" />
+                        <hr />
                         <div class="mb-3">
                             <label for="email" class="form-label">Почта</label>
                             <input type="email" name="email" id="email" class="form-control" placeholder="some@someEmail" />
@@ -47,24 +47,17 @@
                             <label for="password" class="form-label">Пароль</label>
                             <input type="password" name="password" id="password" class="form-control" placeholder="12someStrong!password89" />
                         </div>
-                        <hr class="text-white" />
+                        <hr />
                         <button type="submit" class="text-center btn btn-lg btn-primary my-1">Войти</button>
                     </form>
                 </div>
             </div>
-
-            <div class="row text-center">
-                <div class="col-12 col-md-9 col-lg-6 mx-auto">
-                    <a href="#" th:href="@{/}" class="text-dark fs-4">Вернуться на главную</a>
-                </div>
-            </div>
             <!---->
         </div>
-
+        <!---->
         <div th:replace="~{/fragments/modal/code-input-modal :: code-input-modal}"></div>
-
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
-
+        <!---->
         <script src="../static/js/code-check.js" th:src="@{/js/code-check.js}"></script>
         <script src="../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
