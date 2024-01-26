@@ -101,13 +101,6 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public void checkAccessRightsForObtainingAll() throws NotEnoughRightsServiceException {
-        if (!checkService.isMainAdministrator()) {
-            throw new NotEnoughRightsServiceException("Недостаточно прав");
-        }
-    }
-
-    @Override
     public void checkAccessRightsForObtainingConcrete(Hospital requestedHospital) throws NotEnoughRightsServiceException {
         if (!(
                 checkService.isMainAdministrator() ||

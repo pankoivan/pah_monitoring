@@ -8,7 +8,9 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,23 +24,24 @@ public class HospitalMvcController {
 
     private final HospitalService service;
 
+    private final PageHeaderService pageHeaderService;
+
     @GetMapping
+    @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
     public String getHospitals(Model model) {
-        try {
-            service.checkAccessRightsForObtainingAll();
-            model.addAttribute("hospitals", service.findAll());
-            return "hospitals/hospitals";
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
+        model.addAttribute("hospitals", service.findAll());
+        pageHeaderService.addHeader(model);
+        return "hospitals/hospitals";
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     public String getHospital(Model model, @PathVariable("id") String pathId) {
         try {
             Hospital hospital = service.findById(service.parsePathId(pathId));
             service.checkHospitalCurrentState(hospital);
             service.checkAccessRightsForObtainingConcrete(hospital);
+            pageHeaderService.addHeader(model);
             model.addAttribute("hospital", hospital);
             return "hospitals/hospital";
         } catch (UrlValidationServiceException | DataSearchingServiceException | DataValidationServiceException e) {

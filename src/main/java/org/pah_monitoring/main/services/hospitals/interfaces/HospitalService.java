@@ -23,8 +23,6 @@ public interface HospitalService extends DataAddingValidationService<HospitalAdd
 
     void checkHospitalCurrentState(Hospital requestedHospital) throws DataValidationServiceException;
 
-    void checkAccessRightsForObtainingAll() throws NotEnoughRightsServiceException;
-
     void checkAccessRightsForObtainingConcrete(Hospital requestedHospital) throws NotEnoughRightsServiceException;
 
 }

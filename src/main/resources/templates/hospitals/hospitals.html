@@ -1,57 +1,3 @@
-<!--<!DOCTYPE html>
-
-<html lang="ru" xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Медицинские учреждения</title>
-        <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
-        <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
-    </head>
-
-    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
-        <div class="container text-secondary">
-            <div th:each="each : ${hospitals}" class="d-flex position-relative row mb-3">
-                <div class="col-12">
-                    <div class="border rounded p-2">
-                        <div class="text-center mb-2 m-1">
-                            <h2 class="fs-4 mb-2" th:text="${each.name}">Национальный медицинский исследовательский центр имени В. А. Алмазова</h2>
-                            <div th:switch="${#strings.toString(each.currentState)}">
-                                <p th:case="'WAITING_CODE'" class="text-danger fs-5">Ожидает выдачу кода</p>
-                                <p th:case="'WAITING_REGISTRATION'" class="text-warning fs-5">Ожидает регистрации администратора</p>
-                                <p th:case="'REGISTERED'" class="text-success fs-5">Зарегистрировано</p>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-center justify-content-md-between">
-                            <h3 class="fs-4 mb-1 m-1">OID: <span th:text="${each.oid}">1.232.345.7665.123.5</span></h3>
-                            <div th:switch="${#strings.toString(each.currentState)}">
-                                <p th:case="'WAITING_CODE'" class="fs-5 mb-1 m-1">
-                                    <a href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" class="stretched-link text-decoration-none text-danger">
-                                        Дата подачи заявки:
-                                        <span th:text="${each.request.date}">25-12-2019 19:11:43</span>
-                                    </a>
-                                </p>
-                                <p th:case="'WAITING_REGISTRATION'" class="fs-5 mb-1 m-1">
-                                    <a href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" class="stretched-link text-decoration-none text-warning">
-                                        Дата подачи заявки:
-                                        <span th:text="${each.request.date}">25-12-2019 19:11:43</span>
-                                    </a>
-                                </p>
-                                <p th:case="'REGISTERED'" class="text-success fs-5 mb-1 m-1">
-                                    <a href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" class="stretched-link text-decoration-none text-success">
-                                        Дата регистрации:
-                                        <span th:text="${each.date}">25-12-2019 19:11:43 </span>
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>-->
-
 <!DOCTYPE html>
 
 <html lang="ru" xmlns:th="https://www.thymeleaf.org">
@@ -68,40 +14,47 @@
 
     <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
         <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
         <div class="container text-secondary my-5">
             <!---->
             <div class="row text-center mb-5" th:if="${!hospitals.empty}">
                 <div class="col-12">
-                    <h1 class="fs-2 word-wrap">Список медицинских учреждений</h1>
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+                        <h1 class="fs-3 m-2 m-md-0">Список медицинских учреждений</h1>
+                        <div class="m-2 m-md-0">
+                            <button class="btn btn-lg btn-primary">Фильтр</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!---->
             <div class="row" th:each="each, status : ${hospitals}" th:classappend="${!status.last} ? 'mb-3'">
                 <div class="col-12" th:classappend="${!status.last} ? 'mb-3'">
                     <div class="text-start">
-                        <p class="fs-4 break-all mb-0">
+                        <p class="fs-5 word-wrap mb-2">
                             <svg class="mb-2" fill="#000000" width="24px" height="24px" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <path
                                     d="M19.699219 1C17.665885 1 16 2.6658854 16 4.6992188L16 15.400391C16 17.433724 17.665885 19.099609 19.699219 19.099609L30.400391 19.099609C32.433724 19.099609 34.099609 17.433724 34.099609 15.400391L34.099609 4.6992188 A 1.0001 1.0001 0 0 0 34.097656 4.6328125C33.964738 2.6383346 32.334115 1 30.300781 1L19.699219 1 z M 19.699219 3L30.300781 3C31.265919 3 32.030467 3.7585597 32.099609 4.7617188L32.099609 15.400391C32.099609 16.367057 31.367057 17.099609 30.400391 17.099609L19.699219 17.099609C18.732552 17.099609 18 16.367057 18 15.400391L18 4.6992188C18 3.7325521 18.732552 3 19.699219 3 z M 24 6L24 9L21 9L21 11L24 11L24 14L26 14L26 11L29 11L29 9L26 9L26 6L24 6 z M 6.6992188 9C4.6592187 9 3 10.659219 3 12.699219L3 46L21 46L21 34L29 34L29 46L48 46L48 12.699219C48 10.659219 46.340781 9 44.300781 9L36.099609 9L36.099609 15.400391C36.099609 18.540391 33.540391 21.099609 30.400391 21.099609L19.699219 21.099609C16.559219 21.099609 14 18.540391 14 15.400391L14 9L6.6992188 9 z M 8 23L15 23L15 29L8 29L8 23 z M 21 23L29 23L29 29L21 29L21 23 z M 35 23L42 23L42 29L35 29L35 23 z M 8 34L15 34L15 40L8 40L8 34 z M 35 34L42 34L42 40L35 40L35 34 z"
                                 />
                             </svg>
                             <span th:switch="${#strings.toString(each.currentState)}">
-                                <span th:case="'WAITING_CODE'"><a href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" th:text="${each.name}" class="text-decoration-none"></a></span>
-                                <span th:case="'WAITING_REGISTRATION'"><a href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" th:text="${each.name}" class="text-decoration-none"></a></span>
-                                <span th:case="'REGISTERED'"><a href="#" th:href="@{/hospitals/__${each.id}__}" th:text="${each.name}" class="text-decoration-none"></a></span>
+                                <span th:case="'WAITING_CODE'"><a href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" th:text="${each.name}" class="text-decoration-none text-secondary"></a></span>
+                                <span th:case="'WAITING_REGISTRATION'"><a href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" th:text="${each.name}" class="text-decoration-none text-secondary"></a></span>
+                                <span th:case="'REGISTERED'"><a href="#" th:href="@{/hospitals/__${each.id}__}" th:text="${each.name}" class="text-decoration-none text-secondary"></a></span>
                             </span>
                         </p>
-                        <p class="fs-5 mb-1" th:text="${each.oid}">OID: 1.32.34.5.234.34213</p>
-                        <p class="fs-5 mb-0 text-success" th:text="${each.date}">
+                        <p class="fs-6 mb-1" th:text="'OID: ' + ${each.oid}">OID: 1.32.34.5.234.34213</p>
+                        <p class="fs-6 mb-0">
                             <span th:switch="${#strings.toString(each.currentState)}">
-                                <span th:case="'WAITING_CODE'" th:text="'Ожидает выдачу кода'"></span>
-                                <span th:case="'WAITING_REGISTRATION'" th:text="'Ожидает регистрацию администратора'"></span>
-                                <span th:case="'REGISTERED'"><a href="#" th:href="@{/hospitals/__${each.id}__}" th:text="${each.name}" class="text-decoration-none"></a></span>
+                                <span th:case="'WAITING_CODE'" th:text="'Ожидает выдачу кода'" class="text-danger"></span>
+                                <span th:case="'WAITING_REGISTRATION'" th:text="'Ожидает регистрацию администратора'" class="text-warning"></span>
+                                <span th:case="'REGISTERED'" th:text="'Зарегистрировано ' + ${each.formattedDate}" class="text-success"></span>
                             </span>
                         </p>
                     </div>
                 </div>
-                <hr th:if="${!status.last}" />
+                <hr class="mb-0" th:if="${!status.last}" />
             </div>
             <!---->
             <div class="row" th:if="${hospitals.empty}" id="empty-hospitals-message">
@@ -111,6 +64,10 @@
             </div>
             <!---->
         </div>
+        <!---->
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>
 </html>
