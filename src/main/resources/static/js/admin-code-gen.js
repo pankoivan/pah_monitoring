@@ -34,10 +34,24 @@ function fetchSave(data) {
 }
 
 function showModalSuccess(response) {
-    response.json().then(() => {
-        fillSuccessModalText();
+    response.json().then((responseJson) => {
+        fillSuccessModalText(responseJson);
         new bootstrap.Modal(document.getElementById("success-modal")).show();
     });
+}
+
+function fillSuccessModalText(responseJson) {
+    let successModalText = document.getElementById("success-modal-text");
+
+    successModalText.textContent = "";
+
+    let email = document.createElement("span");
+    email.className = "fw-bold";
+    email.textContent = ` ${responseJson.email}`;
+
+    successModalText.appendChild(document.createTextNode("Код регистрации был успешно сгенерирован и отправлен на почту"));
+    successModalText.appendChild(email);
+    successModalText.appendChild(document.createTextNode("."));
 }
 
 function showModalError(response) {
@@ -45,8 +59,4 @@ function showModalError(response) {
         document.getElementById("error-modal-text").innerText = responseJson.errorDescription;
         new bootstrap.Modal(document.getElementById("error-modal")).show();
     });
-}
-
-function fillSuccessModalText() {
-    document.getElementById("success-modal-text").textContent = "Код был успешно сгенерирован.";
 }
