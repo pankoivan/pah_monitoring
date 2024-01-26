@@ -7,6 +7,7 @@ import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.RedirectService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,12 +26,15 @@ public class HospitalRegistrationMvcController {
 
     private final RedirectService redirectService;
 
+    private final PageHeaderService pageHeaderService;
+
     @GetMapping("/form")
     @PreAuthorize("permitAll()")
-    public String getForm() {
+    public String getForm(Model model) {
         if (redirectService.checkNotAnonymousUserRedirect()) {
             return redirectService.notAnonymousUserRedirect();
         }
+        pageHeaderService.addHeader(model);
         return "hospitals/hospital-registration-form";
     }
 
