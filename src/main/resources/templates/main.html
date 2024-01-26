@@ -15,7 +15,7 @@
     <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
         <!---->
         <!--<div th:replace="~{/fragments/headers/anon-header :: anon-header}"></div>-->
-        <div th:replace="@{${headerFolder}} :: ${headerName}"></div>
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
 
         <div class="container text-dark my-5">
             <!---->

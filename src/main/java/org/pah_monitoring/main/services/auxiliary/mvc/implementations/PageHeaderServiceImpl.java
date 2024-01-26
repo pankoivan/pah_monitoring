@@ -34,7 +34,7 @@ public class PageHeaderServiceImpl implements PageHeaderService {
     }
 
     private void addHeader(Model model, String headerFolder, String headerName) {
-        model.addAttribute("headerFolder", headerFolder);
+        model.addAttribute("headerPath", headerFolder);
         model.addAttribute("headerName", headerName);
     }
 
