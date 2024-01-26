@@ -1,7 +1,6 @@
 package org.pah_monitoring.main.services.hospitals.implementations;
 
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalAddingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.rest_client.RegistryHospital;
@@ -108,6 +107,21 @@ public class HospitalServiceImpl implements HospitalService {
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
+    }
+
+    @Override
+    public AdministratorStatistics getAdministratorStatistics(Hospital hospital) {
+        return new AdministratorStatistics();
+    }
+
+    @Override
+    public DoctorStatistics getDoctorStatistics(Hospital hospital) {
+        return new DoctorStatistics();
+    }
+
+    @Override
+    public PatientStatistics getPatientStatistics(Hospital hospital) {
+        return new PatientStatistics();
     }
 
 }

@@ -41,6 +41,9 @@ public class HospitalMvcController {
             Hospital hospital = service.findById(service.parsePathId(pathId));
             service.checkHospitalCurrentState(hospital);
             service.checkAccessRightsForObtainingConcrete(hospital);
+            model.addAttribute("adminStat", service.getAdministratorStatistics(hospital));
+            model.addAttribute("doctorStat", service.getDoctorStatistics(hospital));
+            model.addAttribute("patientStat", service.getPatientStatistics(hospital));
             pageHeaderService.addHeader(model);
             model.addAttribute("hospital", hospital);
             return "hospitals/hospital";

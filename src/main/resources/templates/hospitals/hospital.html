@@ -12,14 +12,16 @@
         <link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
     </head>
 
-    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
         <!---->
         <div class="container text-secondary my-5">
             <!---->
             <div class="row mb-5">
                 <div class="col-12 text-center">
-                    <h1 th:text="${hospital.name}" class="fs-2">Национальный медицинский исследовательский центр имени В. А. Алмазова</h1>
-                    <p th:text="${hospital.oid}" class="fs-4 mb-0">OID: 12.3235.4546.2345</p>
+                    <h1 th:text="${hospital.name}" class="fs-3">Национальный медицинский исследовательский центр имени В. А. Алмазова</h1>
+                    <p th:text="'OID: ' + ${hospital.oid}" class="fs-4 mb-0">OID: 12.3235.4546.2345</p>
                 </div>
             </div>
             <!---->
@@ -61,8 +63,8 @@
                     </div>
                     <ul class="mb-0 fs-5">
                         <li th:text="'Активные: ' + ${patientStat.activeCount}">Активные: 24</li>
-                        <li th:text="'Неактивные: ' + ${patientStat.activeCount}">Неактивные: 2</li>
-                        <li th:text="'Нераспределённые: ' + ${patientStat.uncallocated}">Нераспределённые: 11</li>
+                        <li th:text="'Неактивные: ' + ${patientStat.inActiveCount}">Неактивные: 2</li>
+                        <li th:text="'Нераспределённые: ' + ${patientStat.unallocated}">Нераспределённые: 11</li>
                     </ul>
                 </div>
             </div>
@@ -78,6 +80,10 @@
             </div>
             <!---->
         </div>
+        <!---->
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>
 </html>
