@@ -2,9 +2,11 @@ const userRegistrationForm = document.getElementById("user-registration-form");
 
 const role = userRegistrationForm.querySelector('input[name="role"]').value;
 
-const submitUrlPart = role == '"Администратор"' ? "admin" : role == '"Врач"' ? "doctor" : "patient";
+const submitUrlPart = role == "Администратор" ? "admin" : role == "Врач" ? "doctor" : "patient";
 
 userRegistrationForm.addEventListener("submit", function (event) {
+    console.log(role);
+
     event.preventDefault();
 
     code = new URLSearchParams(window.location.search).get("code");
@@ -18,13 +20,13 @@ userRegistrationForm.addEventListener("submit", function (event) {
     let gender = userRegistrationForm.querySelector('input[name="gender"]:checked') ? userRegistrationForm.querySelector('input[name="gender"]:checked').value : null;
     let birthdate = userRegistrationForm.querySelector('input[name="birthdate"]').value;
 
-    if (role == '"Администратор"' || role == '"Врач"') {
+    if (role == "Администратор" || role == "Врач") {
         post = userRegistrationForm.querySelector('input[name="post"]').value;
     }
 
     let data;
 
-    if (role == '"Администратор"' || role == '"Врач"') {
+    if (role == "Администратор" || role == "Врач") {
         data = {
             userSecurityInformationAddingDto: {
                 email: email,
@@ -43,7 +45,7 @@ userRegistrationForm.addEventListener("submit", function (event) {
             },
             code: code,
         };
-    } else if (role == '"Пациент"') {
+    } else if (role == "Пациент") {
         data = {
             userSecurityInformationAddingDto: {
                 email: email,
@@ -106,7 +108,10 @@ function fillSuccessModalText(responseJson) {
 
     let fullname = document.createElement("span");
     fullname.className = "fw-bold";
-    fullname.innerText = responseJson.patronymic != "" ? ` ${responseJson.lastname} ${responseJson.name} ${responseJson.patronymic}` : ` ${responseJson.lastname} ${responseJson.name}`;
+    fullname.innerText =
+        responseJson.userInformation.patronymic != ""
+            ? ` ${responseJson.userInformation.lastname} ${responseJson.userInformation.name} ${responseJson.userInformation.patronymic}`
+            : ` ${responseJson.userInformation.lastname} ${responseJson.userInformation.name}`;
 
     let link = document.createElement("a");
     link.className = "href-success";
