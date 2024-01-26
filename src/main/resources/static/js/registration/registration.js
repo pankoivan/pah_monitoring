@@ -1,6 +1,6 @@
 const userRegistrationForm = document.getElementById("user-registration-form");
 
-const role = document.getElementById("role").textContent;
+const role = userRegistrationForm.querySelector('input[name="role"]').value;
 
 const submitUrlPart = role == '"Администратор"' ? "admin" : role == '"Врач"' ? "doctor" : "patient";
 
