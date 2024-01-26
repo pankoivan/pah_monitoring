@@ -47,6 +47,7 @@ public class HospitalRegistrationMvcController {
             model.addAttribute("commentExists", !request.getComment().isEmpty());
             model.addAttribute("role", Role.ADMINISTRATOR);
             model.addAttribute("expirationDateList", ExpirationDate.values());
+            pageHeaderService.addHeader(model);
             return "hospitals/hospital-registration-request";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);

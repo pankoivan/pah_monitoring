@@ -41,8 +41,8 @@ function closeCodeGenerationModal() {
 }
 
 function showModalSuccessForCodeGeneration(response) {
-    response.json().then(() => {
-        fillSuccessModalTextForCodeGeneration();
+    response.json().then((responseJson) => {
+        fillSuccessModalTextForCodeGeneration(responseJson);
         new bootstrap.Modal(document.getElementById("success-modal")).show();
     });
 }
@@ -54,23 +54,37 @@ function showModalErrorForCodeGeneration(response) {
     });
 }
 
-function fillSuccessModalTextForCodeGeneration() {
+function fillSuccessModalTextForCodeGeneration(responseJson) {
     let successModalText = document.getElementById("success-modal-text");
 
     successModalText.textContent = "";
 
     let toHospitals = document.createElement("a");
     toHospitals.className = "href-success";
-    toHospitals.innerText = "Вернуться к списку медицинских учреждений.";
+    toHospitals.innerText = "списку медицинских учреждений";
     toHospitals.href = "/hospitals";
 
-    successModalText.appendChild(document.createTextNode("Код был успешно сгенерирован. Данное медицинское учреждение переходит в состояние ожидания регистрации администратора."));
+    let email = document.createElement("span");
+    email.className = "fw-bold";
+    email.textContent = ` ${responseJson.email}`;
+
+    let hospital = document.createElement("span");
+    hospital.className = "fw-bold";
+    hospital.textContent = ` ${responseJson.hospital.name} `;
+
+    successModalText.appendChild(document.createTextNode("Код регистрации был успешно сгенерирован и отправлен на почту"));
+    successModalText.appendChild(email);
+    successModalText.appendChild(document.createTextNode("."));
     successModalText.appendChild(document.createElement("br"));
     successModalText.appendChild(document.createElement("br"));
-    successModalText.appendChild(document.createTextNode("После регистрации администратора оно будет зарегистрировано в приложении."));
+    successModalText.appendChild(document.createTextNode("Медицинское учреждение"));
+    successModalText.appendChild(hospital);
+    successModalText.appendChild(document.createTextNode("переходит в состояние ожидания регистрации."));
     successModalText.appendChild(document.createElement("br"));
     successModalText.appendChild(document.createElement("br"));
+    successModalText.appendChild(document.createTextNode("Вернуться к "));
     successModalText.appendChild(toHospitals);
+    successModalText.appendChild(document.createTextNode("."));
 }
 
 /* Для удаления заявки */
