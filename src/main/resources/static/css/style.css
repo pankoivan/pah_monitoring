@@ -6,6 +6,10 @@
     background-color: var(--bs-gray-200);
 }
 
+.bg-gray-400 {
+    background-color: var(--bs-gray-400);
+}
+
 .text-gray-300 {
     color: var(--bs-gray-300);
 }

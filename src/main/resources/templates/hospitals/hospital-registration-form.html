@@ -20,9 +20,9 @@
             <!---->
             <div class="row">
                 <div class="col-12">
-                    <form action="#" th:action="@{/rest/hospital-registration-requests/save}" method="post" class="bg-gray-200 border rounded fs-5 p-3" id="hospital-registration-form">
+                    <form action="#" th:action="@{/rest/hospital-registration-requests/save}" method="post" class="bg-gray-400 border rounded fs-5 p-3" id="hospital-registration-form">
                         <h2 class="fs-4">Заявка</h2>
-                        <hr class="mb-1" />
+                        <hr class="text-dark mb-1" />
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center mb-3">
                             <div class="flex-grow-1 m-1">
                                 <label for="lastname" class="form-label">Фамилия <span class="text-danger fs-6"> *</span></label>
@@ -64,7 +64,7 @@
                             <label for="comment" class="form-label">Комментарий</label>
                             <textarea name="comment" id="comment" class="form-control" rows="3" placeholder="Можете написать здесь что-нибудь про "></textarea>
                         </div>
-                        <hr />
+                        <hr class="text-dark" />
                         <button type="submit" class="btn btn-lg btn-primary my-1">Отправить</button>
                     </form>
                 </div>

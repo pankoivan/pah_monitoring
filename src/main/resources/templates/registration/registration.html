@@ -16,13 +16,13 @@
         <!---->
         <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
         <!---->
-        <div class="container text-gray-300 my-5">
+        <div class="container text-secondary my-5">
             <!---->
-            <div class="row mb-5">
+            <div class="row">
                 <div class="col-12">
-                    <form action="#" th:action="@{/rest/registration}" method="post" class="bg-secondary border rounded fs-5 p-3" id="user-registration-form">
+                    <form action="#" th:action="@{/rest/registration}" method="post" class="bg-gray-400 border rounded fs-5 p-3" id="user-registration-form">
                         <h2 class="fs-4">Регистрация</h2>
-                        <hr class="text-white" />
+                        <hr class="text-dark" />
                         <div class="mb-3">
                             <p class="form-label">Предопределённая информация</p>
                             <div class="border rounded p-2" id="predefined-info">
@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                        <hr class="text-white mt-4" />
+                        <hr class="text-dark mt-4" />
                         <button type="submit" class="btn btn-lg btn-primary my-1">Зарегистрироваться</button>
                     </form>
                 </div>
