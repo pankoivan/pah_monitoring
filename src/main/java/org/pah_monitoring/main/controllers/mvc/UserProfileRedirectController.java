@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/users")
 @PreAuthorize("permitAll()")
-public class UserRedirectController {
+public class UserProfileRedirectController {
 
     private final UserSearchingService service;
 
@@ -34,7 +34,7 @@ public class UserRedirectController {
                 case Doctor doctor -> "redirect:/doctors/%s".formatted(doctor.getId());
                 case Patient patient -> "redirect:/patients/%s".formatted(patient.getId());
                 default -> throw new UrlValidationMvcControllerException(
-                        "Не существует пользователя, у которого id общей информации равен \"%s\"".formatted(pathId)
+                        "Неожиданный класс пользователя: \"%s\"".formatted(user.getClass())
                 );
             };
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
