@@ -114,4 +114,9 @@ public class Administrator implements HospitalEmployee, UserDetails {
         return employeeInformation.getUserInformation();
     }
 
+    @Override
+    public boolean isEmployee() {
+        return true;
+    }
+
 }

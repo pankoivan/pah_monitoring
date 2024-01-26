@@ -10,9 +10,11 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.users.users.implementations.common.AbstractPatientServiceImpl;
 import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,15 +31,17 @@ public class DoctorMvcController {
 
     private final AbstractPatientServiceImpl patientService;
 
+    private final PageHeaderService pageHeaderService;
+
     @GetMapping
+    @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
     public String getDoctors(Model model) {
-        try {
-            service.checkAccessRightsForObtainingAll();
-            model.addAttribute("doctors", service.findAll());
-            return "users/doctors";
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
+        model.addAttribute("users", service.findAll());
+        model.addAttribute("title", "Врачи");
+        model.addAttribute("usersListDescription", "Список врачей");
+        model.addAttribute("emptyUsersListMessage", "Список врачей пуст");
+        pageHeaderService.addHeader(model);
+        return "users/users";
     }
 
     @GetMapping("/{id}")
@@ -46,6 +50,7 @@ public class DoctorMvcController {
             Doctor doctor = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(doctor);
             model.addAttribute("doctor", doctor);
+            pageHeaderService.addHeader(model);
             return "users/profiles/doctor-profile";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
@@ -60,6 +65,7 @@ public class DoctorMvcController {
             Doctor doctor = service.findById(service.parsePathId(pathId));
             patientService.checkAccessRightsForObtainingDoctorPatients(doctor);
             model.addAttribute("patients", patientService.findAllByDoctorId(doctor.getId()));
+            pageHeaderService.addHeader(model);
             return "users/patients";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);

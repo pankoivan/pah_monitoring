@@ -10,8 +10,10 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,15 +28,17 @@ public class AdministratorMvcController {
     @Qualifier("administratorService")
     private final HospitalUserService<Administrator, AdministratorAddingDto, AdministratorEditingDto, AdministratorSavingDto> service;
 
+    private final PageHeaderService pageHeaderService;
+
     @GetMapping
+    @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
     public String getAdmins(Model model) {
-        try {
-            service.checkAccessRightsForObtainingAll();
-            model.addAttribute("admins", service.findAll());
-            return "users/admins";
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
+        model.addAttribute("users", service.findAll());
+        model.addAttribute("title", "Администраторы");
+        model.addAttribute("usersListDescription", "Список администраторов");
+        model.addAttribute("emptyUsersListMessage", "Список администраторов пуст");
+        pageHeaderService.addHeader(model);
+        return "users/users";
     }
 
     @GetMapping("/{id}")
@@ -43,6 +47,7 @@ public class AdministratorMvcController {
             Administrator administrator = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(administrator);
             model.addAttribute("admin", administrator);
+            pageHeaderService.addHeader(model);
             return "users/profiles/admin-profile";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);

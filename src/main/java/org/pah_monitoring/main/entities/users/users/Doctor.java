@@ -109,4 +109,9 @@ public class Doctor implements HospitalEmployee, UserDetails {
         return employeeInformation.getUserInformation();
     }
 
+    @Override
+    public boolean isEmployee() {
+        return true;
+    }
+
 }

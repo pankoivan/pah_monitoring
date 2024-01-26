@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title th:title="${title}">Пользователи</title>
+        <title th:text="${title}">Пользователи</title>
         <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
         <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
         <link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
@@ -12,21 +12,28 @@
         <link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
     </head>
 
-    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
         <!---->
         <div class="container text-secondary my-5">
             <!---->
             <div class="row text-center mb-5" th:if="${!users.empty}">
                 <div class="col-12">
-                    <h1 th:text="${usersListDescription}" class="fs-2 word-wrap">Список пользователей</h1>
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+                        <h1 class="fs-3 m-2 m-md-0" th:text="${usersListDescription}"></h1>
+                        <div class="m-2 m-md-0">
+                            <button class="btn btn-lg btn-primary">Фильтр</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!---->
             <div class="row" th:each="each, status : ${users}" th:classappend="${!status.last} ? 'mb-3'">
                 <div class="col-12" th:classappend="${!status.last} ? 'mb-3'">
                     <div class="text-start">
-                        <p class="fs-4 break-all mb-0">
-                            <abbr th:title="${each.isEmployee} ? ${each.post} + ' медицинского учреждения &quot;' + ${each.hospital.name} + '&quot;' : ${each.role.alias}" title="Врач-пульмонолог" class="text-decoration-none">
+                        <p class="fs-4 word-wrap mb-0">
+                            <abbr th:title="${each.isEmployee} ? ${each.employeeInformation.post} + ' медицинского учреждения &quot;' + ${each.hospital.name} + '&quot;' : ${each.role.alias}" title="Врач-пульмонолог" class="text-decoration-none">
                                 <svg class="mb-2" width="28px" height="28px" viewBox="0 -8 72 72" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
                                     <defs>
                                         <style>
@@ -44,13 +51,17 @@
                                     <polyline class="cls-1" points="34.35 37.87 37.56 37.87 39.08 50.62 32.81 50.62" />
                                 </svg>
                             </abbr>
-                            <span><a href="#" th:href="@{/users/__${each.id}__}" th:text="${each.lastname} + ' ' + ${each.name} + ' ' + ${each.patronymic}" class="text-decoration-none text-secondary">Козлов Геннадий Викторович</a></span>
+                            <span
+                                ><a href="#" th:href="@{/users/__${each.id}__}" th:text="${each.userInformation.lastname} + ' ' + ${each.userInformation.name} + ' ' + ${each.userInformation.patronymic}" class="text-decoration-none text-secondary"
+                                    >Козлов Геннадий Викторович</a
+                                ></span
+                            >
                         </p>
                         <p class="fs-5 mb-1" th:text="${each.userInformation.phoneNumber}">+7 (912) 123-90-56</p>
                         <p class="fs-5 mb-0" th:text="${each.role.alias}">Врач</p>
                     </div>
                 </div>
-                <hr th:if="${!status.last}" />
+                <hr class="mb-0" th:if="${!status.last}" />
             </div>
             <!---->
             <div class="row" th:if="${users.empty}" id="empty-users-message">
@@ -60,6 +71,10 @@
             </div>
             <!---->
         </div>
+        <!---->
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>
 </html>

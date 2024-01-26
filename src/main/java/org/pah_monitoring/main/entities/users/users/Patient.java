@@ -121,4 +121,9 @@ public class Patient implements HospitalUser, UserDetails {
         return getClass().hashCode();
     }
 
+    @Override
+    public boolean isEmployee() {
+        return false;
+    }
+
 }
