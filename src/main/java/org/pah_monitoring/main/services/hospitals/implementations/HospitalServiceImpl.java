@@ -69,6 +69,7 @@ public class HospitalServiceImpl implements HospitalService {
         } else if (hospital.getCurrentState() == Hospital.CurrentState.WAITING_REGISTRATION) {
             hospital.setCurrentState(Hospital.CurrentState.REGISTERED);
         }
+        hospital.setDate(LocalDateTime.now());
         repository.save(hospital);
     }
 
