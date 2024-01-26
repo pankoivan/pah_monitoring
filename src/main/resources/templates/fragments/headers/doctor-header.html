@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>Заголовок для главного администратора</title>
+        <title>Заголовок для врача</title>
     </head>
     <body>
         <header class="container-fluid bg-dark" th:fragment="doctor-header">
@@ -31,7 +31,7 @@
                             <a aria-expanded="false" href="#" id="user" class="nav-link text-secondary break-all d-block" data-bs-toggle="dropdown">Иванов Иван</a>
                             <ul aria-labelledby="user" class="dropdown-menu text-small">
                                 <li>
-                                    <a class="dropdown-item" href="#" th:href="${profileLink}">Профиль</a>
+                                    <a class="dropdown-item" href="#" th:href="@{/users/__${currentUser.userInformation.id}__}">Профиль</a>
                                 </li>
                                 <hr class="dropdown-divider" />
                                 <li>

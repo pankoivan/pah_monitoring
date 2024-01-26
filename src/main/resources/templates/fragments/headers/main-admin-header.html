@@ -40,7 +40,7 @@
                             <a aria-expanded="false" href="#" id="user" class="nav-link text-secondary break-all d-block" data-bs-toggle="dropdown">Иванов Иван</a>
                             <ul aria-labelledby="user" class="dropdown-menu text-small">
                                 <li>
-                                    <a class="dropdown-item" href="#" th:href="${profileLink}">Профиль</a>
+                                    <a class="dropdown-item" href="#" th:href="@{/users/__${currentUser.userInformation.id}__}">Профиль</a>
                                 </li>
                                 <hr class="dropdown-divider" />
                                 <li>
