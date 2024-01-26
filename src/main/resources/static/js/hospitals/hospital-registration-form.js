@@ -120,11 +120,11 @@ function fillSuccessModalText(responseJson) {
 
     let hospitalName = document.createElement("span");
     hospitalName.className = "fw-bold";
-    hospitalName.innerText = ` "${responseJson.hospital.name}" `;
+    hospitalName.innerText = ` ${responseJson.hospital.name} `;
 
     let email = document.createElement("span");
     email.className = "fw-bold";
-    email.innerText = ` "${responseJson.email}"`;
+    email.innerText = ` ${responseJson.email}`;
 
     successModalText.appendChild(document.createTextNode("Заявка на регистрацию медицинского учреждения"));
     successModalText.appendChild(hospitalName);
