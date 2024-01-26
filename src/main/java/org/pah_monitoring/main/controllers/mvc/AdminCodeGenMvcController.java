@@ -25,7 +25,7 @@ public class AdminCodeGenMvcController {
     public String getPage(Model model) {
         model.addAttribute("admin", extractionService.administrator());
         model.addAttribute("expirationDateList", ExpirationDate.values());
-        model.addAttribute("roles", Role.values());
+        model.addAttribute("roles", Role.hospitalRoles());
         pageHeaderService.addHeader(model);
         return "admin-code-gen";
     }
