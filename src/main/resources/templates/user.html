@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title th:text="${title}">Пользователь</title>
+        <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
+        <!---->
+        <div class="container text-secondary my-5">
+            <!---->
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+                        <h1 th:text="${user.userInformation.name}" class="fs-3 m-2">Иванов Казимир Петрович</h1>
+                        <h2 th:text="${user.role.alias}" class="fs-4 m-2">Врач</h2>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-5" />
+            <!---->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="fs-4">Медицинское учреждение</h3>
+                    <p class="mb-0">Национальный медицинский исследовательский центр имени В. А. Алмазова</p>
+                </div>
+            </div>
+            <!---->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="fs-4">Рабочая информация</h3>
+                    <p class="mb-0">Должность: врач-кардиолог 3-го ранга</p>
+                </div>
+            </div>
+            <!---->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="fs-4">Общая информация</h3>
+                    <p class="mb-1">ФИО: Иванов Казимир Петрович</p>
+                    <p class="mb-1">Телефон: +7 (121) 916-09-91</p>
+                    <p class="mb-1">Пол: мужской</p>
+                    <p class="mb-0">Дата рождения: 18-01-1981</p>
+                </div>
+            </div>
+            <!---->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="fs-4">Логин-информация</h3>
+                    <p class="mb-1">Почта: Иванов Казимир Петрович</p>
+                    <p class="mb-0">Пароль: my!Str0ngP4ssword@</p>
+                </div>
+            </div>
+            <!---->
+        </div>
+        <!---->
+    </body>
+</html>
