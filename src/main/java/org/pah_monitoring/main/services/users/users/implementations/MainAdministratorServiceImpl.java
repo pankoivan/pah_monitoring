@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MainAdministratorServiceImpl implements MainAdministratorService {
 
-    private MainAdministratorRepository repository;
+    private final MainAdministratorRepository repository;
 
     @Override
     public MainAdministrator get() {

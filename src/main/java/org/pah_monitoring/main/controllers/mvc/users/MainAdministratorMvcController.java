@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/main-admin")
 @PreAuthorize("hasAnyRole('MAIN_ADMINISTRATOR', 'ADMINISTRATOR')")
-public class MainAdministratorController {
+public class MainAdministratorMvcController {
 
     private final MainAdministratorService service;
 
-    private final PageHeaderService pageHeaderService;
-
     private final AccessRightsCheckService checkService;
 
+    private final PageHeaderService pageHeaderService;
+
     @GetMapping
-    public String getPage(Model model) {
+    public String getMainAdminPage(Model model) {
         MainAdministrator mainAdministrator = service.get();
         model.addAttribute("user", mainAdministrator);
         model.addAttribute("isSelf", checkService.isSameUser(mainAdministrator));
         model.addAttribute("isHospitalUser", false);
-        model.addAttribute("isEmployee", false);
+        model.addAttribute("isHospitalEmployee", false);
         model.addAttribute("isDoctor", false);
         model.addAttribute("isPatient", false);
         model.addAttribute("isMessageEnabled", checkService.isAdministrator());

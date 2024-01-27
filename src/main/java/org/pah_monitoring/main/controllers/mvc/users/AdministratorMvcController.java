@@ -7,11 +7,10 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.saving.Administra
 import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
-import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
-import org.pah_monitoring.main.services.auxiliary.access.interfaces.CurrentUserExtractionService;
 import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,13 +29,13 @@ public class AdministratorMvcController {
     @Qualifier("administratorService")
     private final HospitalUserService<Administrator, AdministratorAddingDto, AdministratorEditingDto, AdministratorSavingDto> service;
 
-    private final PageHeaderService pageHeaderService;
-
     private final AccessRightsCheckService checkService;
+
+    private final PageHeaderService pageHeaderService;
 
     @GetMapping
     @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
-    public String getAdmins(Model model) {
+    public String getAdminsPage(Model model) {
         model.addAttribute("users", service.findAll());
         model.addAttribute("title", "Администраторы");
         model.addAttribute("usersListDescription", "Список администраторов");
@@ -46,21 +45,16 @@ public class AdministratorMvcController {
     }
 
     @GetMapping("/{id}")
-    public String getAdmin(Model model, @PathVariable("id") String pathId) {
+    public String getAdminPage(Model model, @PathVariable("id") String pathId) {
         try {
             Administrator administrator = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(administrator);
             model.addAttribute("user", administrator);
-            model.addAttribute("isEmployee", true);
-            model.addAttribute("isPatient", false);
-            model.addAttribute("isDoctor", false);
             model.addAttribute("isSelf", checkService.isSameUser(administrator));
             model.addAttribute("isHospitalUser", true);
-            model.addAttribute(
-                    "isActivityEditingEnabled",
-                    checkService.isAdministratorFromSameHospital(administrator.getHospital()) &&
-                    !checkService.isSameUser(administrator)
-            );
+            model.addAttribute("isHospitalEmployee", true);
+            model.addAttribute("isDoctor", false);
+            model.addAttribute("isPatient", false);
             model.addAttribute(
                     "isMessageEnabled",
                     checkService.isHospitalUserFromSameHospital(administrator.getHospital()) &&
@@ -70,6 +64,11 @@ public class AdministratorMvcController {
                     "isNonLoginInfoEditingEnabled",
                     checkService.isSameUser(administrator) ||
                     checkService.isAdministratorFromSameHospital(administrator.getHospital())
+            );
+            model.addAttribute(
+                    "isActivityEditingEnabled",
+                    checkService.isAdministratorFromSameHospital(administrator.getHospital()) &&
+                    !checkService.isSameUser(administrator)
             );
             pageHeaderService.addHeader(model);
             return "users/user";

@@ -7,8 +7,8 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSav
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
-import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
@@ -29,13 +29,13 @@ public class PatientMvcController {
     @Qualifier("patientService")
     private final HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> service;
 
-    private final PageHeaderService pageHeaderService;
-
     private final AccessRightsCheckService checkService;
+
+    private final PageHeaderService pageHeaderService;
 
     @GetMapping
     @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
-    public String getPatients(Model model) {
+    public String getPatientsPage(Model model) {
         model.addAttribute("users", service.findAll());
         model.addAttribute("title", "Пациенты");
         model.addAttribute("usersListDescription", "Список пациентов");
@@ -45,24 +45,18 @@ public class PatientMvcController {
     }
 
     @GetMapping("/{id}")
-    public String getPatient(Model model, @PathVariable("id") String pathId) {
+    public String getPatientPage(Model model, @PathVariable("id") String pathId) {
         try {
             Patient patient = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(patient);
             model.addAttribute("user", patient);
-            model.addAttribute("isEmployee", false);
-            model.addAttribute("isPatient", true);
-            model.addAttribute("isDoctor", false);
             model.addAttribute("isSelf", checkService.isSameUser(patient));
             model.addAttribute("isHospitalUser", true);
-            model.addAttribute(
-                    "isCurrentUserAdminFromSameHospital",
-                    checkService.isAdministratorFromSameHospital(patient.getHospital())
-            );
-            model.addAttribute(
-                    "isActivityEditingEnabled",
-                    checkService.isOwnDoctor(patient)
-            );
+            model.addAttribute("isHospitalEmployee", false);
+            model.addAttribute("isDoctor", false);
+            model.addAttribute("isPatient", true);
+            model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(patient.getHospital()));
+            model.addAttribute("isCurrentUserOwnDoctor", checkService.isOwnDoctor(patient));
             model.addAttribute(
                     "isMessageEnabled",
                     checkService.isHospitalUserFromSameHospital(patient.getHospital()) &&
@@ -73,7 +67,10 @@ public class PatientMvcController {
                     checkService.isSameUser(patient) ||
                     checkService.isAdministratorFromSameHospital(patient.getHospital())
             );
-            model.addAttribute("isCurrentUserOwnDoctor", checkService.isOwnDoctor(patient));
+            model.addAttribute(
+                    "isActivityEditingEnabled",
+                    checkService.isOwnDoctor(patient)
+            );
             pageHeaderService.addHeader(model);
             return "users/user";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
