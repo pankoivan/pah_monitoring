@@ -10,6 +10,7 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.users.users.implementations.common.AbstractPatientServiceImpl;
 import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
@@ -33,6 +34,8 @@ public class DoctorMvcController {
 
     private final PageHeaderService pageHeaderService;
 
+    private final AccessRightsCheckService checkService;
+
     @GetMapping
     @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
     public String getDoctors(Model model) {
@@ -49,9 +52,12 @@ public class DoctorMvcController {
         try {
             Doctor doctor = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(doctor);
-            model.addAttribute("doctor", doctor);
+            model.addAttribute("user", doctor);
+            model.addAttribute("isEmployee", true);
+            model.addAttribute("isPatient", false);
+            model.addAttribute("isSelf", checkService.isSameUser(doctor));
             pageHeaderService.addHeader(model);
-            return "users/profiles/doctor-profile";
+            return "users/user";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {

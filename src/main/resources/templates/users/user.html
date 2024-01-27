@@ -12,14 +12,16 @@
         <link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
     </head>
 
-    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
         <!---->
         <div class="container text-secondary my-5">
             <!---->
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
-                        <h1 th:text="${user.userInformation.name}" class="fs-3 m-2">Иванов Казимир Петрович</h1>
+                        <h1 th:text="${user.userInformation.lastname} + ' ' + ${user.userInformation.name} + ' ' + ${user.userInformation.patronymic}" class="fs-3 m-2">Иванов Казимир Петрович</h1>
                         <h2 th:text="${user.role.alias}" class="fs-4 m-2">Врач</h2>
                     </div>
                 </div>
@@ -33,7 +35,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row mb-5">
+            <div class="row mb-5" th:if="${isEmployee}">
                 <div class="col-12">
                     <h3 class="fs-4">Рабочая информация</h3>
                     <p class="mb-0">Должность: врач-кардиолог 3-го ранга</p>
@@ -50,7 +52,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row mb-5">
+            <div class="row mb-5" th:if="${isSelf}">
                 <div class="col-12">
                     <h3 class="fs-4">Логин-информация</h3>
                     <p class="mb-1">Почта: Иванов Казимир Петрович</p>
@@ -65,7 +67,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row">
+            <div class="row" th:if="${isPatient}">
                 <div class="col-12">
                     <h3 class="fs-4">Лечащий врач</h3>
                     <p class="mb-0"><a href="#" class="text-secondary">Дачников Пётр Аркадьевич</a></p>
@@ -73,15 +75,17 @@
             </div>
             <hr class="my-5" />
             <!---->
-            <!--<div class="row">
-                <button type="button" class="btn btn-primary mb-2">Написать сообщение</button>
-                <button type="button" class="btn btn-secondary mb-2">Закрепить за врачом</button>
-                <button type="button" class="btn btn-success mb-2">Отправить в отпуск</button>
-                <button type="button" class="btn btn-warning mb-2">Отправить на больничный</button>
-                <button type="button" class="btn btn-danger mb-2">Уволить</button>
-                <button type="button" class="btn btn-danger">Сделать неактивным</button>
-            </div>-->
-            <p class="d-inline-flex gap-1">
+            <div class="row">
+                <div>
+                    <button type="button" class="btn btn-primary">Написать сообщение</button>
+                    <button type="button" class="btn btn-secondary">Закрепить за врачом</button>
+                    <button type="button" class="btn btn-success">Отправить в отпуск</button>
+                    <button type="button" class="btn btn-warning">Отправить на больничный</button>
+                    <button type="button" class="btn btn-danger">Уволить</button>
+                    <button type="button" class="btn btn-danger">Сделать неактивным</button>
+                </div>
+            </div>
+            <!--<p class="d-inline-flex gap-1">
                 <button class="btn btn-primary m-1">Написать сообщение</button>
                 <button class="btn btn-primary m-1" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Остальные действия</button>
             </p>
@@ -95,9 +99,11 @@
                         <button type="button" class="btn btn-danger mb-2">Сделать неактивным</button>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <!---->
         </div>
+        <!---->
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
     </body>

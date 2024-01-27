@@ -52,7 +52,11 @@
                                 </svg>
                             </abbr>
                             <span
-                                ><a href="#" th:href="@{/users/__${each.id}__}" th:text="${each.userInformation.lastname} + ' ' + ${each.userInformation.name} + ' ' + ${each.userInformation.patronymic}" class="text-decoration-none text-secondary"
+                                ><a
+                                    href="#"
+                                    th:href="@{/users/__${each.userInformation.id}__}"
+                                    th:text="${each.userInformation.lastname} + ' ' + ${each.userInformation.name} + ' ' + ${each.userInformation.patronymic}"
+                                    class="text-decoration-none text-secondary"
                                     >Козлов Геннадий Викторович</a
                                 ></span
                             >

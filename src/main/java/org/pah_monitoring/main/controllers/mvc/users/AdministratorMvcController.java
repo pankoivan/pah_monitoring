@@ -10,6 +10,8 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
+import org.pah_monitoring.main.services.auxiliary.access.interfaces.CurrentUserExtractionService;
 import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,6 +32,8 @@ public class AdministratorMvcController {
 
     private final PageHeaderService pageHeaderService;
 
+    private final AccessRightsCheckService checkService;
+
     @GetMapping
     @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
     public String getAdmins(Model model) {
@@ -46,9 +50,12 @@ public class AdministratorMvcController {
         try {
             Administrator administrator = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(administrator);
-            model.addAttribute("admin", administrator);
+            model.addAttribute("user", administrator);
+            model.addAttribute("isEmployee", true);
+            model.addAttribute("isPatient", false);
+            model.addAttribute("isSelf", checkService.isSameUser(administrator));
             pageHeaderService.addHeader(model);
-            return "users/profiles/admin-profile";
+            return "users/user";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
