@@ -3,6 +3,7 @@ package org.pah_monitoring.main.entities.users.info;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.enums.Gender;
 import org.pah_monitoring.main.entities.users.messages.UserMessage;
@@ -50,6 +51,16 @@ public class UserInformation implements BaseEntity {
 
     @OneToMany(mappedBy = "recipient")
     private List<UserMessage> receivedMessages;
+
+    public String getFullName() {
+        return !patronymic.isEmpty()
+                ? "%s %s %s".formatted(lastname, name, patronymic)
+                : "%s %s".formatted(lastname, patronymic);
+    }
+
+    public String getFormattedBirthdate() {
+        return DateTimeFormatConstants.DAY_MONTH_YEAR.format(birthdate);
+    }
 
     @Override
     public boolean equals(Object o) {

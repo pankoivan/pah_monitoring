@@ -56,6 +56,7 @@ public class DoctorMvcController {
             model.addAttribute("isEmployee", true);
             model.addAttribute("isPatient", false);
             model.addAttribute("isSelf", checkService.isSameUser(doctor));
+            model.addAttribute("isHospitalUser", true);
             pageHeaderService.addHeader(model);
             return "users/user";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {

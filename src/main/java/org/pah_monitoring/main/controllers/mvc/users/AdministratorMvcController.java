@@ -54,6 +54,7 @@ public class AdministratorMvcController {
             model.addAttribute("isEmployee", true);
             model.addAttribute("isPatient", false);
             model.addAttribute("isSelf", checkService.isSameUser(administrator));
+            model.addAttribute("isHospitalUser", true);
             pageHeaderService.addHeader(model);
             return "users/user";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {

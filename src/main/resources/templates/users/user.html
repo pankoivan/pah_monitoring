@@ -21,17 +21,17 @@
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
-                        <h1 th:text="${user.userInformation.lastname} + ' ' + ${user.userInformation.name} + ' ' + ${user.userInformation.patronymic}" class="fs-3 m-2">Иванов Казимир Петрович</h1>
+                        <h1 th:text="${user.userInformation.fullName}" class="fs-3 m-2">Иванов Казимир Петрович</h1>
                         <h2 th:text="${user.role.alias}" class="fs-4 m-2">Врач</h2>
                     </div>
                 </div>
             </div>
             <hr class="my-5" />
             <!---->
-            <div class="row mb-5">
+            <div class="row mb-5" th:if="${isHospitalUser}">
                 <div class="col-12">
                     <h3 class="fs-4">Медицинское учреждение</h3>
-                    <p class="mb-0">Национальный медицинский исследовательский центр имени В. А. Алмазова</p>
+                    <p class="mb-0" th:text="${user.hospital.name}">Национальный медицинский исследовательский центр имени В. А. Алмазова</p>
                 </div>
             </div>
             <!---->
@@ -59,7 +59,7 @@
                             </svg>
                         </a>
                     </h3>
-                    <p class="mb-0">Должность: врач-кардиолог 3-го ранга</p>
+                    <p class="mb-0">Должность: <span th:text="${user.employeeInformation.post}" class="text-lowercase">врач-кардиолог 3-го ранга</span></p>
                 </div>
             </div>
             <!---->
@@ -87,10 +87,10 @@
                             </svg>
                         </a>
                     </h3>
-                    <p class="mb-1">ФИО: Иванов Казимир Петрович</p>
-                    <p class="mb-1">Телефон: +7 (121) 916-09-91</p>
-                    <p class="mb-1">Пол: мужской</p>
-                    <p class="mb-0">Дата рождения: 18-01-1981</p>
+                    <p class="mb-1" th:text="'ФИО: ' + ${user.userInformation.fullName}">ФИО: Иванов Казимир Петрович</p>
+                    <p class="mb-1" th:text="'Телефон: ' + ${user.userInformation.phoneNumber}">Телефон: +7 (121) 916-09-91</p>
+                    <p class="mb-1" th:if="${user.userInformation.gender != null}">Пол: <span th:text="${user.userInformation.gender.alias}" class="text-lowercase"></span></p>
+                    <p class="mb-0" th:if="${user.userInformation.birthdate != null}" th:text="'Дата рождения: ' + ${user.userInformation.formattedBirthdate}">Дата рождения: 18-01-1981</p>
                 </div>
             </div>
             <!---->
@@ -118,14 +118,14 @@
                             </svg>
                         </a>
                     </h3>
-                    <p class="mb-1">Почта: Иванов Казимир Петрович</p>
-                    <p class="mb-0">Пароль: my!Str0ngP4ssword@</p>
+                    <p class="mb-1" th:text="'Почта: ' + ${user.userSecurityInformation.email}">Почта: some@exampleMail</p>
+                    <p class="mb-0" th:text="'Пароль: ' + ${user.userSecurityInformation.password}">Пароль: my!Str0ngP4ssword@</p>
                 </div>
             </div>
             <!---->
             <div class="row mb-5">
                 <div class="col-12">
-                    <h3 class="fs-4 text-success">Активность</h3>
+                    <h3 class="fs-4">Активность</h3>
                     <p class="text-success mb-0">На текущий момент этот пользователь активен</p>
                 </div>
             </div>
