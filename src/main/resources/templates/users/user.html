@@ -133,7 +133,10 @@
             <div class="row" th:if="${isPatient}">
                 <div class="col-12">
                     <h3 class="fs-4">Лечащий врач</h3>
-                    <p class="mb-0"><a href="#" class="text-secondary">Дачников Пётр Аркадьевич</a></p>
+                    <p th:if="${user.doctor != null}" class="mb-0"><a href="#" th:href="@{/doctors/__${user.doctor.id}__}" th:text="${user.doctor.userInformation.fullName}" class="text-secondary">Дачников Пётр Аркадьевич</a></p>
+                    <p th:if="${user.doctor == null}" class="text-danger">
+                        Сейчас этот пациент не закреплён ни за одним врачом. <span th:if="${isCurrentUserAdminFromSameHospital}">Необходимо в ближайшее время <a href="#" class="text-danger">назначить</a> ему лечащего врача.</span>
+                    </p>
                 </div>
             </div>
             <hr class="my-5" />
