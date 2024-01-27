@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.entities.users.info;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -52,12 +53,14 @@ public class UserInformation implements BaseEntity {
     @OneToMany(mappedBy = "recipient")
     private List<UserMessage> receivedMessages;
 
+    @JsonIgnore
     public String getFullName() {
         return !patronymic.isEmpty()
                 ? "%s %s %s".formatted(lastname, name, patronymic)
                 : "%s %s".formatted(lastname, name);
     }
 
+    @JsonIgnore
     public String getFormattedBirthdate() {
         return DateTimeFormatConstants.DAY_MONTH_YEAR.format(birthdate);
     }

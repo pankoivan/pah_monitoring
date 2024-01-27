@@ -92,7 +92,7 @@ public class DoctorMvcController {
             model.addAttribute("usersListDescription", "Список пациентов врача \"%s\"".formatted(doctor.getUserInformation().getFullName()));
             model.addAttribute("emptyUsersListMessage", "Список пациентов врача \"%s\" пуст".formatted(doctor.getUserInformation().getFullName()));
             pageHeaderService.addHeader(model);
-            return "users/patients";
+            return "users/users";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {

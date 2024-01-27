@@ -20,9 +20,9 @@
             <!---->
             <div class="row">
                 <div class="col-12 col-md-10 col-md-8 mx-auto">
-                    <form action="#" th:action="@{/rest/security-codes/generate/by-admin}" class="bg-gray-400 border rounded fs-5 p-3" id="code-generation-form">
+                    <form action="#" th:action="@{/rest/security-codes/generate/by-admin}" class="border rounded fs-5 p-3" id="code-generation-form">
                         <h2 class="fs-4">Генерация кодов</h2>
-                        <hr class="text-dark" />
+                        <hr />
                         <div class="mb-3">
                             <label for="name-code" class="form-label">Медицинское учреждение</label>
                             <input type="text" name="name" id="name-code" class="form-control" disabled th:value="${admin.hospital.name}" />
@@ -43,7 +43,7 @@
                                 <option th:each="each : ${expirationDateList}" th:text="${each.alias}" th:value="${each}">1 день</option>
                             </select>
                         </div>
-                        <hr class="text-dark" />
+                        <hr />
                         <button type="submit" class="text-center btn btn-lg btn-primary my-1">Сгенерировать код</button>
                     </form>
                 </div>

@@ -20,12 +20,12 @@
             <!---->
             <div class="row">
                 <div class="col-12">
-                    <form action="#" th:action="@{/rest/hospital-registration/requests/add}" class="bg-gray-400 border rounded fs-5 p-3">
+                    <form action="#" th:action="@{/rest/hospital-registration/requests/add}" class="border rounded fs-5 p-3">
                         <div class="d-flex align-items-center justify-content-between mb-0">
                             <h2 class="fs-4 mb-0">Заявка</h2>
                             <div class="fs-4" th:text="${request.formattedDate}">19.09.2021 в 15:12:14</div>
                         </div>
-                        <hr class="text-dark mb-1" />
+                        <hr class="mb-1" />
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center mb-3">
                             <div class="flex-grow-1 m-1">
                                 <label for="lastname" class="form-label">Фамилия</label>
@@ -62,7 +62,7 @@
                                 <input th:value="${request.phoneNumber}" type="text" name="phoneNumber" id="phone-number" class="form-control" placeholder="890231214560" disabled />
                             </div>
                         </div>
-                        <div class="m-1 mb-3">
+                        <div class="m-1" th:classappend="${commentExists} ? 'mb-4' : 'mb-3'">
                             <label for="email" class="form-label">Почта для получения кода</label>
                             <input th:value="${request.email}" type="email" name="email" id="email" class="form-control" placeholder="example@mail.com" disabled />
                         </div>
@@ -70,7 +70,7 @@
                             <label for="comment" class="form-label">Комментарий к заявке</label>
                             <textarea th:text="${request.comment}" name="comment" id="comment" class="form-control" rows="3" disabled></textarea>
                         </div>
-                        <hr class="text-dark" />
+                        <hr />
                         <div class="text-center" th:switch="${#strings.toString(request.hospital.currentState)}">
                             <div th:case="'WAITING_CODE'" class="d-flex flex-row flex-wrap align-items-center justify-content-center">
                                 <button type="button" class="btn btn-lg btn-success m-2" data-bs-toggle="modal" data-bs-target="#code-generation-modal">Принять</button>

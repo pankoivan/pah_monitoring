@@ -36,9 +36,9 @@
             <!---->
             <div class="row">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
-                    <form action="#" th:action="@{/login/processing}" method="post" class="bg-gray-400 border rounded fs-5 p-3">
+                    <form action="#" th:action="@{/login/processing}" method="post" class="border rounded fs-5 p-3">
                         <h2 class="fs-4">Вход</h2>
-                        <hr class="text-dark" />
+                        <hr />
                         <div class="mb-3">
                             <label for="email" class="form-label">Почта</label>
                             <input type="text" name="username" id="username" class="form-control" placeholder="some@someEmail" />
@@ -47,7 +47,7 @@
                             <label for="password" class="form-label">Пароль</label>
                             <input type="password" name="password" id="password" class="form-control" placeholder="12someStrong!password89" />
                         </div>
-                        <hr class="text-dark" />
+                        <hr />
                         <button type="submit" class="text-center btn btn-lg btn-primary my-1">Войти</button>
                     </form>
                 </div>
