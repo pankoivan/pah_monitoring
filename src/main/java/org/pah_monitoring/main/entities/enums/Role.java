@@ -15,7 +15,7 @@ public enum Role implements GrantedAuthority {
 
     ADMINISTRATOR("Администратор"),
 
-    DOCTOR("Доктор"),
+    DOCTOR("Врач"),
 
     PATIENT("Пациент");
 

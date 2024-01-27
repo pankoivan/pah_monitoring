@@ -48,7 +48,7 @@
                 <div class="col-12">
                     <h3 class="fs-4">
                         Рабочая информация
-                        <a href="#" class="text-decoration-none">
+                        <a href="#" th:if="${isNonLoginInfoEditingEnabled}" class="text-decoration-none">
                             <img class="mb-1" src="../../static/svg/edit-svgrepo-com.svg" th:src="@{/svg/edit-svgrepo-com.svg}" width="20" alt="Редактировать" />
                         </a>
                     </h3>
@@ -60,7 +60,7 @@
                 <div class="col-12">
                     <h3 class="fs-4">
                         Общая информация
-                        <a href="#" class="text-decoration-none">
+                        <a href="#" th:if="${isNonLoginInfoEditingEnabled}" class="text-decoration-none">
                             <img class="mb-1" src="../../static/svg/edit-svgrepo-com.svg" th:src="@{/svg/edit-svgrepo-com.svg}" width="20" alt="Редактировать" />
                         </a>
                     </h3>

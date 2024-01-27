@@ -55,6 +55,7 @@ public class DoctorMvcController {
             model.addAttribute("user", doctor);
             model.addAttribute("isEmployee", true);
             model.addAttribute("isPatient", false);
+            model.addAttribute("isDoctor", true);
             model.addAttribute("isSelf", checkService.isSameUser(doctor));
             model.addAttribute("isHospitalUser", true);
             model.addAttribute(
@@ -66,6 +67,11 @@ public class DoctorMvcController {
                     "isMessageEnabled",
                     checkService.isHospitalUserFromSameHospital(doctor.getHospital()) &&
                     !checkService.isSameUser(doctor)
+            );
+            model.addAttribute(
+                    "isNonLoginInfoEditingEnabled",
+                    checkService.isSameUser(doctor) ||
+                    checkService.isAdministratorFromSameHospital(doctor.getHospital())
             );
             pageHeaderService.addHeader(model);
             return "users/user";

@@ -5,8 +5,6 @@ const role = userRegistrationForm.querySelector('input[name="role"]').value;
 const submitUrlPart = role == "Администратор" ? "admin" : role == "Врач" ? "doctor" : "patient";
 
 userRegistrationForm.addEventListener("submit", function (event) {
-    console.log(role);
-
     event.preventDefault();
 
     code = new URLSearchParams(window.location.search).get("code");

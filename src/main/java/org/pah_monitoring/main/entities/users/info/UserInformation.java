@@ -55,7 +55,7 @@ public class UserInformation implements BaseEntity {
     public String getFullName() {
         return !patronymic.isEmpty()
                 ? "%s %s %s".formatted(lastname, name, patronymic)
-                : "%s %s".formatted(lastname, patronymic);
+                : "%s %s".formatted(lastname, name);
     }
 
     public String getFormattedBirthdate() {
