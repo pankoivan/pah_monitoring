@@ -57,12 +57,13 @@ public class AdministratorMvcController {
             model.addAttribute("isHospitalUser", true);
             model.addAttribute(
                     "isActivityEditingEnabled",
-                    checkService.isAdministratorFromSameHospital(administrator.getHospital())
+                    checkService.isAdministratorFromSameHospital(administrator.getHospital()) &&
+                    !checkService.isSameUser(administrator)
             );
             model.addAttribute(
                     "isMessageEnabled",
-                    checkService.isHospitalUserFromSameHospital(administrator.getHospital()) ||
-                    checkService.isMainAdministrator()
+                    checkService.isHospitalUserFromSameHospital(administrator.getHospital()) &&
+                    !checkService.isSameUser(administrator)
             );
             pageHeaderService.addHeader(model);
             return "users/user";

@@ -64,7 +64,8 @@ public class PatientMvcController {
             );
             model.addAttribute(
                     "isMessageEnabled",
-                    checkService.isHospitalUserFromSameHospital(patient.getHospital())
+                    checkService.isHospitalUserFromSameHospital(patient.getHospital()) &&
+                    !checkService.isSameUser(patient)
             );
             model.addAttribute("isCurrentUserOwnDoctor", checkService.isOwnDoctor(patient));
             pageHeaderService.addHeader(model);

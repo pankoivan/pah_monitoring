@@ -59,11 +59,13 @@ public class DoctorMvcController {
             model.addAttribute("isHospitalUser", true);
             model.addAttribute(
                     "isActivityEditingEnabled",
-                    checkService.isAdministratorFromSameHospital(doctor.getHospital())
+                    checkService.isAdministratorFromSameHospital(doctor.getHospital()) &&
+                    !checkService.isSameUser(doctor)
             );
             model.addAttribute(
                     "isMessageEnabled",
-                    checkService.isHospitalUserFromSameHospital(doctor.getHospital())
+                    checkService.isHospitalUserFromSameHospital(doctor.getHospital()) &&
+                    !checkService.isSameUser(doctor)
             );
             pageHeaderService.addHeader(model);
             return "users/user";

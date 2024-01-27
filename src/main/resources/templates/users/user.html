@@ -38,8 +38,8 @@
             <div class="row mb-5" th:if="${isHospitalUser}">
                 <div class="col-12">
                     <h3 class="fs-4">Медицинское учреждение</h3>
-                    <p class="mb-0" th:text="${user.hospital.name}">
-                        <a href="#" th:href="@{/hospitals/__${user.hospital.id}__}" class="text-secondary">Национальный медицинский исследовательский центр имени В. А. Алмазова</a>
+                    <p class="mb-0">
+                        <a href="#" th:href="@{/hospitals/__${user.hospital.id}__}" th:text="${user.hospital.name}" class="text-secondary">Национальный медицинский исследовательский центр имени В. А. Алмазова</a>
                     </p>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row" th:if="${isPatient}">
+            <div class="row mb-5" th:if="${isPatient}">
                 <div class="col-12">
                     <h3 class="fs-4">
                         Лечащий врач
@@ -134,22 +134,12 @@
                 </div>
             </div>
             <!---->
-            <div class="row" th:if="${isPatient}">
+            <div class="row" th:if="${isPatient && isCurrentUserOwnDoctor}">
                 <div class="col-12">
-                    <h3 class="fs-4">
-                        Лечащий врач
-                        <a th:if="${isCurrentUserAdminFromSameHospital}" href="#" class="text-decoration-none">
-                            <img class="mb-1" src="../../static/svg/edit-svgrepo-com.svg" th:src="@{/svg/edit-svgrepo-com.svg}" width="20" alt="Редактировать" />
-                        </a>
-                    </h3>
-                    <p th:if="${user.doctor != null}" class="mb-0">
-                        <a href="#" th:href="@{/doctors/__${user.doctor.id}__}" th:text="${user.doctor.userInformation.fullName}" class="text-secondary"> Дачников Пётр Аркадьевич </a>
-                        <span th:if="${isCurrentUserOwnDoctor}" class="fst-italic"> вы</span>
-                    </p>
-                    <p th:if="${user.doctor == null}" class="text-danger mb-0">
-                        <span th:if="${isSelf}">Сейчас вы не закреплены ни за одним врачом</span>
-                        <span th:if="${!isSelf}">Сейчас этот пациент не закреплён ни за одним врачом</span>
-                    </p>
+                    <h3 class="fs-4">Динамика здоровья</h3>
+                    <p class="mb-1"><a href="#">Ссылка 1</a></p>
+                    <p class="mb-1"><a href="#">Ссылка 2</a></p>
+                    <p class="mb-0"><a href="#">Ссылка 3</a></p>
                 </div>
             </div>
             <!---->
