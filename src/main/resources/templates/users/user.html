@@ -119,7 +119,7 @@
                 <div class="col-12">
                     <h3 class="fs-4">
                         Лечащий врач
-                        <a th:if="${isCurrentUserAdminFromSameHospital}" href="#" class="text-decoration-none">
+                        <a id="doctor-editing" th:if="${isCurrentUserAdminFromSameHospital}" href="#" class="text-decoration-none">
                             <img class="mb-1" src="../../static/svg/edit-svgrepo-com.svg" th:src="@{/svg/edit-svgrepo-com.svg}" width="20" alt="Редактировать" />
                         </a>
                     </h3>
@@ -147,6 +147,7 @@
         <!---->
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
+        <script src="../../static/js/users/user.js" th:src="@{/js/users/user.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
     </body>
 </html>
