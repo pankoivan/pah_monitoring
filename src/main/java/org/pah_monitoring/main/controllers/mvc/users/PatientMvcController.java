@@ -58,6 +58,15 @@ public class PatientMvcController {
                     "isCurrentUserAdminFromSameHospital",
                     checkService.isAdministratorFromSameHospital(patient.getHospital())
             );
+            model.addAttribute(
+                    "isActivityEditingEnabled",
+                    checkService.isOwnDoctor(patient)
+            );
+            model.addAttribute(
+                    "isMessageEnabled",
+                    checkService.isHospitalUserFromSameHospital(patient.getHospital())
+            );
+            model.addAttribute("isCurrentUserOwnDoctor", checkService.isOwnDoctor(patient));
             pageHeaderService.addHeader(model);
             return "users/user";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {

@@ -48,6 +48,10 @@ public class Doctor implements HospitalEmployee, UserDetails {
     @OneToMany(mappedBy = "author")
     private List<PatientInactivity> assignedPatientInactivities;
 
+    public int patientsCount() {
+        return patients.size();
+    }
+
     public Role getRole() {
         return Role.DOCTOR;
     }
