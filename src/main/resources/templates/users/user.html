@@ -134,12 +134,22 @@
                 </div>
             </div>
             <!---->
-            <div class="row" th:if="${isPatient && isCurrentUserOwnDoctor}">
+            <div class="row mb-5" th:if="${isPatient && isCurrentUserOwnDoctor}">
                 <div class="col-12">
-                    <h3 class="fs-4">Динамика здоровья</h3>
-                    <p class="mb-1"><a href="#">Ссылка 1</a></p>
-                    <p class="mb-1"><a href="#">Ссылка 2</a></p>
-                    <p class="mb-0"><a href="#">Ссылка 3</a></p>
+                    <h3 class="fs-4">Ход лечения</h3>
+                    <p class="mb-0"><a href="#" th:href="@{/patients/__${user.id}__/examinations-nav}" class="text-secondary">Перейти к навигации по наблюдениям</a></p>
+                </div>
+            </div>
+            <!---->
+            <div class="row mb-5" th:if="${isPatient}">
+                <div class="col-12">
+                    <h3 class="fs-4">
+                        Награды
+                        <a id="achievement-adding" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
+                            <img src="../../static/svg/add-svgrepo-com.svg" th:src="@{/svg/add-svgrepo-com.svg}" width="20" alt="Редактировать" />
+                        </a>
+                    </h3>
+                    <p class="mb-0"><a href="#" th:href="@{/patients/__${user.id}__/achievements}" class="text-secondary">Перейти к наградам</a></p>
                 </div>
             </div>
             <!---->
