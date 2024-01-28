@@ -56,7 +56,7 @@ public class Patient implements HospitalUser, UserDetails {
     @OneToMany(mappedBy = "patient")
     private List<Medicine> medicines;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "patient_achievement",
             joinColumns = @JoinColumn(name = "patient_id"),
@@ -66,6 +66,10 @@ public class Patient implements HospitalUser, UserDetails {
 
     @OneToOne(mappedBy = "patient")
     private PatientInactivity patientInactivity;
+
+    public int getAchievementsCount() {
+        return achievements.size();
+    }
 
     public Role getRole() {
         return Role.PATIENT;

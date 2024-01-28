@@ -149,6 +149,10 @@
                             <img class="mb-0" src="../../static/svg/add-svgrepo-com.svg" th:src="@{/svg/add-svgrepo-com.svg}" width="20" alt="Добавить" />
                         </a>
                     </h3>
+                    <p class="mb-1">
+                        Всего наград:
+                        <span th:text="${user.achievementsCount}">12</span>
+                    </p>
                     <p class="mb-0"><a href="#" th:href="@{/patients/__${user.id}__/achievements}" class="text-secondary">Перейти к наградам</a></p>
                 </div>
             </div>
