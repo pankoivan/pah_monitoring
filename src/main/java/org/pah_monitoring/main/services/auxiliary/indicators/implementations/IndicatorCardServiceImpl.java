@@ -129,7 +129,7 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
                 .builder()
                 .workingName(workingName)
                 .name(name)
-                .fileName(fileName)
+                .filename(fileName)
                 .build();
     }
 

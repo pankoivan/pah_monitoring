@@ -15,6 +15,6 @@ public class IndicatorCard {
 
     private String name;
 
-    private String fileName;
+    private String filename;
 
 }
