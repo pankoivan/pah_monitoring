@@ -1,19 +1,38 @@
 package org.pah_monitoring.main.services.auxiliary.indicators.implementations;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Supplier;
 import org.pah_monitoring.main.entities.auxiliary.IndicatorCard;
 import org.pah_monitoring.main.entities.enums.IndicatorType;
 import org.pah_monitoring.main.services.auxiliary.indicators.interfaces.IndicatorCardService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @Service
 public class IndicatorCardServiceImpl implements IndicatorCardService {
 
-    private HashMap<IndicatorType, Supplier<IndicatorCard>> actions = Map.of(
-            IndicatorType.SPIROMETRY, () -> spirometry()
+    private final Map<IndicatorType, Supplier<IndicatorCard>> actions = Map.ofEntries(
+            Map.entry(IndicatorType.SPIROMETRY, this::spirometry),
+            Map.entry(IndicatorType.WALK_TEST, this::walkTest),
+            Map.entry(IndicatorType.PULSE_OXIMETRY, this::pulseOximetry),
+            Map.entry(IndicatorType.COUGH, this::cough),
+            Map.entry(IndicatorType.CHEST_PAIN, this::chestPain),
+            Map.entry(IndicatorType.FAINTING, this::fainting),
+            Map.entry(IndicatorType.PHYSICAL_CHANGES, this::physicalChanges),
+            Map.entry(IndicatorType.ASCITES, this::ascites),
+            Map.entry(IndicatorType.OVERALL_HEALTH, this::overallHealth),
+            Map.entry(IndicatorType.VERTIGO, this::vertigo),
+            Map.entry(IndicatorType.PRESSURE, this::pressure),
+            Map.entry(IndicatorType.LIQUID_AND_WEIGHT, this::liquidAndWeight),
+            Map.entry(IndicatorType.FUNCTIONAL_CLASS, this::functionalClass),
+            Map.entry(IndicatorType.BLOOD_TEST, this::bloodTest),
+            Map.entry(IndicatorType.ELECTROCARDIOGRAPHY, this::electrocardiography),
+            Map.entry(IndicatorType.RADIOGRAPHY, this::radiography),
+            Map.entry(IndicatorType.ECHOCARDIOGRAPHY, this::echocardiography),
+            Map.entry(IndicatorType.COMPUTED_TOMOGRAPHY, this::computedTomography),
+            Map.entry(IndicatorType.CATHETERIZATION, this::catheterization)
     );
 
     @Override
@@ -21,80 +40,89 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
         return actions.get(indicatorType).get();
     }
 
-    private IndicatorType spirometry() {
-        return null;
+    private IndicatorCard spirometry() {
+        return buildIndicatorCard("spirometry", "Спирометрия", "spirometry.jpg");
     }
 
-    private IndicatorType walkTest() {
-        return null;
+    private IndicatorCard walkTest() {
+        return buildIndicatorCard("walk-test", "Т6МХ", "walk-test.jpg");
     }
 
-    private IndicatorType pulseOximetry() {
-        return null;
+    private IndicatorCard pulseOximetry() {
+        return buildIndicatorCard("pulse-oximetry", "Пульсоксиметрия", "pulse-oximetry.jpg");
     }
 
-    private IndicatorType cough() {
-        return null;
+    private IndicatorCard cough() {
+        return buildIndicatorCard("cough", "Кашель", "cough.jpg");
     }
 
-    private IndicatorType chestPain() {
-        return null;
+    private IndicatorCard chestPain() {
+        return buildIndicatorCard("chest-pain", "Боль в груди", "chest-pain.jpg");
     }
 
-    private IndicatorType fainting() {
-        return null;
+    private IndicatorCard fainting() {
+        return buildIndicatorCard("fainting", "Обморок", "fainting.jpg");
     }
 
-    private IndicatorType physicalChanges() {
-        return null;
+    private IndicatorCard physicalChanges() {
+        return buildIndicatorCard("physical-changes", "Физические изменения", "physical-changes.jpg");
     }
 
-    private IndicatorType ascites() {
-        return null;
+    private IndicatorCard ascites() {
+        return buildIndicatorCard("ascites", "Асцит", "ascites.jpg");
     }
 
-    private IndicatorType overallHealth() {
-        return null;
+    private IndicatorCard overallHealth() {
+        return buildIndicatorCard("overall-health", "Общее самочувствие", "overall-health.jpg");
     }
 
-    private IndicatorType vertigo() {
-        return null;
+    private IndicatorCard vertigo() {
+        return buildIndicatorCard("vertigo", "Головокружение", "vertigo.jpg");
     }
 
-    private IndicatorType pressure() {
-        return null;
+    private IndicatorCard pressure() {
+        return buildIndicatorCard("pressure", "Давление", "pressure.jpg");
     }
 
-    private IndicatorType liquidAndWeight() {
-        return null;
+    private IndicatorCard liquidAndWeight() {
+        return buildIndicatorCard("liquid-and-weight", "Жидкость/вес", "liquid-and-weight.jpg");
     }
 
-    private IndicatorType functionalClass() {
-        return null;
+    private IndicatorCard functionalClass() {
+        return buildIndicatorCard("functional-class", "Функциональный класс", "functional-class.jpg");
     }
 
-    private IndicatorType bloodTest() {
-        return null;
+    private IndicatorCard bloodTest() {
+        return buildIndicatorCard("blood-test", "Развёрнутый анализ крови", "blood-test.jpg");
     }
 
-    private IndicatorType electrocardiography() {
-        return null;
+    private IndicatorCard electrocardiography() {
+        return buildIndicatorCard("electrocardiography", "Электрокардиография", "electrocardiography.jpg");
     }
 
-    private IndicatorType radiography() {
-        return null;
+    private IndicatorCard radiography() {
+        return buildIndicatorCard("radiography", "Рентгенография органов грудной клетки", "radiography.jpg");
     }
 
-    private IndicatorType echocardiography() {
-        return null;
+    private IndicatorCard echocardiography() {
+        return buildIndicatorCard("echocardiography", "Эхокардиография", "echocardiography.jpg");
     }
 
-    private IndicatorType computedTomography() {
-        return null;
+    private IndicatorCard computedTomography() {
+        return buildIndicatorCard("computed-tomography", "Компьютерная томография органов грудной клетки", "computed-tomography.jpg");
     }
 
-    private IndicatorType catheterization() {
-        return null;
+    private IndicatorCard catheterization() {
+        return buildIndicatorCard("catheterization", "Катетеризация правых отделов сердца", "catheterization.jpg");
+    }
+
+    private IndicatorCard buildIndicatorCard(String workingName, String name, String fileName) {
+        return IndicatorCard
+                .builder()
+                .workingName(workingName)
+                .name(name)
+                .fileName(fileName)
+                .build();
     }
 
 }
