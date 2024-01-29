@@ -8,46 +8,44 @@ import lombok.Getter;
 @Getter
 public enum IndicatorType {
 
-    SPIROMETRY("Спирометрия", "spirometry"),
+    SPIROMETRY("Спирометрия"),
 
-    WALK_TEST("Т6МХ", "walk_test"),
+    WALK_TEST("Т6МХ"),
 
-    PULSE_OXIMETRY("Пульсоксиметрия", "pulse_oximetry"),
+    PULSE_OXIMETRY("Пульсоксиметрия"),
 
-    COUGH("Кашель", "cough"),
+    COUGH("Кашель"),
 
-    CHEST_PAIN("Боль в груди", "chest_pain"),
+    CHEST_PAIN("Боль в груди"),
 
-    FAINTING("Обморок", "fainting"),
+    FAINTING("Обморок"),
 
-    PHYSICAL_CHANGES("Физические изменения", "physical_changes"),
+    PHYSICAL_CHANGES("Физические изменения"),
 
-    ASCITES("Асцит", "ascites"),
+    ASCITES("Асцит"),
 
-    OVERALL_HEALTH("Общее самочувствие", "overall_health"),
+    OVERALL_HEALTH("Общее самочувствие"),
 
-    VERTIGO("Головокружение", "vertigo"),
+    VERTIGO("Головокружение"),
 
-    PRESSURE("Давление", "pressure"),
+    PRESSURE("Давление"),
 
-    LIQUID_AND_WEIGHT("Жидкость и вес", "liquid_and_weight"),
+    LIQUID_AND_WEIGHT("Жидкость и вес"),
 
-    FUNCTIONAL_CLASS("Функциональный класс", "functional_class"),
+    FUNCTIONAL_CLASS("Функциональный класс"),
 
-    BLOOD_TEST("Развёрнутый анализ крови", "analysis_file"),
+    BLOOD_TEST("Развёрнутый анализ крови"),
 
-    ELECTROCARDIOGRAPHY("Электрокардиография", "analysis_file"),
+    ELECTROCARDIOGRAPHY("Электрокардиография"),
 
-    RADIOGRAPHY("Рентгенография органов грудной клетки", "analysis_file"),
+    RADIOGRAPHY("Рентгенография органов грудной клетки"),
 
-    ECHOCARDIOGRAPHY("Эхокардиография", "analysis_file"),
+    ECHOCARDIOGRAPHY("Эхокардиография"),
 
-    COMPUTED_TOMOGRAPHY("Компьютерная томография органов грудной клетки", "analysis_file"),
+    COMPUTED_TOMOGRAPHY("Компьютерная томография органов грудной клетки"),
 
-    CATHETERIZATION("Катетеризация правых отделов сердца", "analysis_file");
+    CATHETERIZATION("Катетеризация правых отделов сердца");
 
     private final String alias;
-
-    private final String tableName;
 
 }
