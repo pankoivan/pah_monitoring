@@ -8,7 +8,8 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEd
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.ChestPainGraphicsDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.ChestPainTablesDto;
-import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.ChestPain;
+import org.pah_monitoring.main.entities.examinations.indicators.ChestPain;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -68,6 +69,10 @@ public class ChestPainServiceImpl extends AbstractIndicatorServiceImpl
         return ChestPainGraphicsDto
                 .builder()
                 .build();
+    }
+
+    protected List<InputIndicator> findAllByPatient(Patient patient) {
+        return repository.findAllByPatientIdAbstract(patient.getId());
     }
 
 }

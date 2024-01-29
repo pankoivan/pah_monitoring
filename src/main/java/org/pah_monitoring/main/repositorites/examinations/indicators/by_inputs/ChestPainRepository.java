@@ -1,14 +1,11 @@
 package org.pah_monitoring.main.repositorites.examinations.indicators.by_inputs;
 
-import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.ChestPain;
+import org.pah_monitoring.main.entities.examinations.indicators.ChestPain;
+import org.pah_monitoring.main.repositorites.examinations.indicators.common.IndicatorRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface ChestPainRepository extends JpaRepository<ChestPain, Integer> {
-
-    List<ChestPain> findAllByPatientId(Integer id);
+public interface ChestPainRepository extends JpaRepository<ChestPain, Integer>, IndicatorRepository<ChestPain> {
 
 }

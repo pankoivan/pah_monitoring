@@ -1,10 +1,11 @@
-package org.pah_monitoring.main.entities.examinations.indicators.by_inputs;
+package org.pah_monitoring.main.entities.examinations.indicators;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.enums.EventDuration;
 import org.pah_monitoring.main.entities.enums.IndicatorType;
-import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
 import java.time.LocalDateTime;
@@ -17,8 +18,8 @@ import java.time.LocalDateTime;
 @Builder
 @JsonIgnoreProperties("patient")
 @Entity
-@Table(name = "cough")
-public class Cough implements Indicator {
+@Table(name = "chest_pain")
+public class ChestPain implements InputIndicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,15 +31,12 @@ public class Cough implements Indicator {
     private Type type;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "power")
-    private Power power;
+    @Column(name = "duration")
+    private EventDuration duration;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "timbre")
-    private Timbre timbre;
-
-    @Column(name = "hemoptysis")
-    private Boolean hemoptysis;
+    @Column(name = "nitroglycerin")
+    private Nitroglycerin nitroglycerin;
 
     @Column(name = "date")
     private LocalDateTime date;
@@ -50,8 +48,8 @@ public class Cough implements Indicator {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof Cough other))
-                && (id != null)
+                || ((o instanceof ChestPain other))
+                &&(id != null)
                 && (id.equals(other.id));
     }
 
@@ -62,28 +60,20 @@ public class Cough implements Indicator {
 
     @Override
     public IndicatorType getIndicatorGroup() {
-        return IndicatorType.COUGH;
+        return IndicatorType.CHEST_PAIN;
     }
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
     public enum Type {
 
-        DRY("Сухой"),
+        PRESSING("Давящая"),
 
-        WET("Влажный");
+        ACHING("Ноющая"),
 
-        private final String alias;
+        STABBING("Колющая"),
 
-    }
-
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    @Getter
-    public enum Power {
-
-        COUGHING("Покашливание"),
-
-        TEARING_COUGH("Надрывный кашель");
+        COMPRESSING("Сжимающая");
 
         private final String alias;
 
@@ -91,19 +81,13 @@ public class Cough implements Indicator {
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
-    public enum Timbre {
+    public enum Nitroglycerin {
 
-        SHORT("Короткий и осторожный"),
+        YES("Да"),
 
-        BARKING("Лающий"),
+        NO("Нет"),
 
-        CHEST("Звонкий грудной"),
-
-        HOARSE("Сиплый"),
-
-        MUFFLED("Приглушённый"),
-
-        SOUNDLESS("Беззвучный");
+        DID_NOT_TAKE("Не принимал");
 
         private final String alias;
 

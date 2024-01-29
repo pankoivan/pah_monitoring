@@ -8,7 +8,8 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEd
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.PhysicalChangesGraphicsDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.PhysicalChangesTablesDto;
-import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.PhysicalChanges;
+import org.pah_monitoring.main.entities.examinations.indicators.PhysicalChanges;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -71,6 +72,10 @@ public class PhysicalChangesServiceImpl extends AbstractIndicatorServiceImpl
         return PhysicalChangesGraphicsDto
                 .builder()
                 .build();
+    }
+
+    protected List<InputIndicator> findAllByPatient(Patient patient) {
+        return repository.findAllByPatientIdAbstract(patient.getId());
     }
 
 }

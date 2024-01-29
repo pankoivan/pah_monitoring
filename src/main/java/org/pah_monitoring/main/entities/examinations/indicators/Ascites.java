@@ -1,10 +1,10 @@
-package org.pah_monitoring.main.entities.examinations.indicators.by_inputs;
+package org.pah_monitoring.main.entities.examinations.indicators;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.IndicatorType;
-import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties("patient")
 @Entity
 @Table(name = "ascites")
-public class Ascites implements Indicator {
+public class Ascites implements InputIndicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

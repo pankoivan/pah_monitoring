@@ -1,11 +1,10 @@
-package org.pah_monitoring.main.entities.examinations.indicators.by_inputs;
+package org.pah_monitoring.main.entities.examinations.indicators;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.enums.EventDuration;
 import org.pah_monitoring.main.entities.enums.IndicatorType;
-import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
 import java.time.LocalDateTime;
@@ -18,20 +17,22 @@ import java.time.LocalDateTime;
 @Builder
 @JsonIgnoreProperties("patient")
 @Entity
-@Table(name = "vertigo")
-public class Vertigo implements Indicator {
+@Table(name = "pulse_oximetry")
+public class PulseOximetry implements InputIndicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "duration")
-    private EventDuration duration;
+    @Column(name = "oxygen_percentage")
+    private Double oxygenPercentage;
 
-    @Column(name = "nausea")
-    private Boolean nausea;
+    @Column(name = "pulse_rate")
+    private Integer pulseRate;
+
+    @Column(name = "during_exercise")
+    private Boolean duringExercise;
 
     @Column(name = "date")
     private LocalDateTime date;
@@ -43,7 +44,7 @@ public class Vertigo implements Indicator {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof Vertigo other))
+                || ((o instanceof PulseOximetry other))
                 && (id != null)
                 && (id.equals(other.id));
     }
@@ -55,7 +56,7 @@ public class Vertigo implements Indicator {
 
     @Override
     public IndicatorType getIndicatorGroup() {
-        return IndicatorType.VERTIGO;
+        return IndicatorType.PULSE_OXIMETRY;
     }
 
 }

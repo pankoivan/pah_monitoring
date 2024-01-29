@@ -3,7 +3,7 @@ package org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_i
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.pah_monitoring.main.entities.enums.EventDuration;
-import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.ChestPain;
+import org.pah_monitoring.main.entities.examinations.indicators.ChestPain;
 
 @Data
 public class ChestPainAddingDto {

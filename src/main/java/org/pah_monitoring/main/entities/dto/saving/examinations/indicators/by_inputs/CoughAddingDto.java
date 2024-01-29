@@ -2,7 +2,7 @@ package org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_i
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.Cough;
+import org.pah_monitoring.main.entities.examinations.indicators.Cough;
 
 @Data
 public class CoughAddingDto {

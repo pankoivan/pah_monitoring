@@ -1,10 +1,10 @@
-package org.pah_monitoring.main.entities.examinations.indicators.by_inputs;
+package org.pah_monitoring.main.entities.examinations.indicators;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.IndicatorType;
-import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
 import java.time.LocalDateTime;
@@ -17,31 +17,17 @@ import java.time.LocalDateTime;
 @Builder
 @JsonIgnoreProperties("patient")
 @Entity
-@Table(name = "physical_changes")
-public class PhysicalChanges implements Indicator {
+@Table(name = "functional_class")
+public class FunctionalClass implements InputIndicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "acrocyanosis")
-    private Boolean acrocyanosis;
-
-    @Column(name = "fingers_phalanges")
-    private Boolean fingersPhalanges;
-
-    @Column(name = "nails")
-    private Boolean nails;
-
-    @Column(name = "chest")
-    private Boolean chest;
-
-    @Column(name = "neck_veins")
-    private Boolean neckVeins;
-
-    @Column(name = "lower_extremities")
-    private Boolean lowerExtremities;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "functional_class")
+    private FunctionalClassNumber functionalClassNumber;
 
     @Column(name = "date")
     private LocalDateTime date;
@@ -53,7 +39,7 @@ public class PhysicalChanges implements Indicator {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof PhysicalChanges other))
+                || ((o instanceof FunctionalClass other))
                 && (id != null)
                 && (id.equals(other.id));
     }
@@ -65,7 +51,23 @@ public class PhysicalChanges implements Indicator {
 
     @Override
     public IndicatorType getIndicatorGroup() {
-        return IndicatorType.PHYSICAL_CHANGES;
+        return IndicatorType.FUNCTIONAL_CLASS;
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum FunctionalClassNumber {
+
+        I("ФК 1"),
+
+        II("ФК 2"),
+
+        III("ФК 3"),
+
+        IV("ФК 4");
+
+        private final String alias;
+
     }
 
 }

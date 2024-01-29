@@ -8,7 +8,8 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEd
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.OverallHealthGraphicsDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.OverallHealthTablesDto;
-import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.OverallHealth;
+import org.pah_monitoring.main.entities.examinations.indicators.OverallHealth;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -72,6 +73,10 @@ public class OverallHealthServiceImpl extends AbstractIndicatorServiceImpl
         return OverallHealthGraphicsDto
                 .builder()
                 .build();
+    }
+
+    protected List<InputIndicator> findAllByPatient(Patient patient) {
+        return repository.findAllByPatientIdAbstract(patient.getId());
     }
 
 }

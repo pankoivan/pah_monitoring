@@ -8,7 +8,8 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEd
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.AscitesGraphicsDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.AscitesTablesDto;
-import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.Ascites;
+import org.pah_monitoring.main.entities.examinations.indicators.Ascites;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -25,8 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("ascitesService")
-public class AscitesServiceImpl extends AbstractIndicatorServiceImpl
-        <Ascites, AscitesAddingDto, AscitesTablesDto, AscitesGraphicsDto> {
+public class AscitesServiceImpl extends AbstractIndicatorServiceImpl<Ascites, AscitesAddingDto, AscitesTablesDto, AscitesGraphicsDto> {
 
     private final AscitesRepository repository;
 
@@ -68,6 +68,10 @@ public class AscitesServiceImpl extends AbstractIndicatorServiceImpl
         return AscitesGraphicsDto
                 .builder()
                 .build();
+    }
+
+    protected List<InputIndicator> findAllByPatient(Patient patient) {
+        return repository.findAllByPatientIdAbstract(patient.getId());
     }
 
 }

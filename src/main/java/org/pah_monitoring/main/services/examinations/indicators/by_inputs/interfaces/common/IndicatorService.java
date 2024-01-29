@@ -6,11 +6,15 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataAddingValidationService;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface IndicatorService<T, M, N, R> extends DataAddingValidationService<M> {
 
     List<T> findAllByPatientId(Integer id) throws DataSearchingServiceException;
+
+    Optional<LocalDateTime> getLastExaminationDateFor(Patient patient);
 
     List<N> forTables(List<T> list);
 

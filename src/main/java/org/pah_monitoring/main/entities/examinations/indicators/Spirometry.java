@@ -1,10 +1,10 @@
-package org.pah_monitoring.main.entities.examinations.indicators.by_inputs;
+package org.pah_monitoring.main.entities.examinations.indicators;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.IndicatorType;
-import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
 import java.time.LocalDateTime;
@@ -17,19 +17,25 @@ import java.time.LocalDateTime;
 @Builder
 @JsonIgnoreProperties("patient")
 @Entity
-@Table(name = "liquid_and_weight")
-public class LiquidAndWeight implements Indicator {
+@Table(name = "spirometry")
+public class Spirometry implements InputIndicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "liquid")
-    private Double liquid;
+    @Column(name = "vlc")
+    private Double vlc;
 
-    @Column(name = "weight")
-    private Double weight;
+    @Column(name = "avlc")
+    private Double avlc;
+
+    @Column(name = "rlv")
+    private Double rlv;
+
+    @Column(name = "vfe1")
+    private Double vfe1;
 
     @Column(name = "date")
     private LocalDateTime date;
@@ -41,7 +47,7 @@ public class LiquidAndWeight implements Indicator {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof LiquidAndWeight other))
+                || ((o instanceof Spirometry other))
                 && (id != null)
                 && (id.equals(other.id));
     }
@@ -53,7 +59,7 @@ public class LiquidAndWeight implements Indicator {
 
     @Override
     public IndicatorType getIndicatorGroup() {
-        return IndicatorType.LIQUID_AND_WEIGHT;
+        return IndicatorType.SPIROMETRY;
     }
 
 }

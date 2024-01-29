@@ -1,10 +1,11 @@
-package org.pah_monitoring.main.entities.examinations.indicators.by_inputs;
+package org.pah_monitoring.main.entities.examinations.indicators;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.enums.EventDuration;
 import org.pah_monitoring.main.entities.enums.IndicatorType;
-import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
 import java.time.LocalDateTime;
@@ -17,25 +18,20 @@ import java.time.LocalDateTime;
 @Builder
 @JsonIgnoreProperties("patient")
 @Entity
-@Table(name = "spirometry")
-public class Spirometry implements Indicator {
+@Table(name = "vertigo")
+public class Vertigo implements InputIndicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "vlc")
-    private Double vlc;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "duration")
+    private EventDuration duration;
 
-    @Column(name = "avlc")
-    private Double avlc;
-
-    @Column(name = "rlv")
-    private Double rlv;
-
-    @Column(name = "vfe1")
-    private Double vfe1;
+    @Column(name = "nausea")
+    private Boolean nausea;
 
     @Column(name = "date")
     private LocalDateTime date;
@@ -47,7 +43,7 @@ public class Spirometry implements Indicator {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof Spirometry other))
+                || ((o instanceof Vertigo other))
                 && (id != null)
                 && (id.equals(other.id));
     }
@@ -59,7 +55,7 @@ public class Spirometry implements Indicator {
 
     @Override
     public IndicatorType getIndicatorGroup() {
-        return IndicatorType.SPIROMETRY;
+        return IndicatorType.VERTIGO;
     }
 
 }

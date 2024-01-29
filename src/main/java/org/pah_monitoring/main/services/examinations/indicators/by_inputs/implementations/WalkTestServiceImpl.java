@@ -14,9 +14,10 @@ import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.Wal
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.PressureTablesDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.PulseOximetryTablesDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.WalkTestTablesDto;
-import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.Pressure;
-import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.PulseOximetry;
-import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.WalkTest;
+import org.pah_monitoring.main.entities.examinations.indicators.Pressure;
+import org.pah_monitoring.main.entities.examinations.indicators.PulseOximetry;
+import org.pah_monitoring.main.entities.examinations.indicators.WalkTest;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -101,6 +102,10 @@ public class WalkTestServiceImpl extends AbstractIndicatorServiceImpl
         return WalkTestGraphicsDto
                 .builder()
                 .build();
+    }
+
+    protected List<InputIndicator> findAllByPatient(Patient patient) {
+        return repository.findAllByPatientIdAbstract(patient.getId());
     }
 
 }

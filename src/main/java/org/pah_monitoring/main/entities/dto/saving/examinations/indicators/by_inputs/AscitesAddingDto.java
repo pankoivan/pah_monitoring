@@ -2,7 +2,7 @@ package org.pah_monitoring.main.entities.dto.saving.examinations.indicators.by_i
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.Ascites;
+import org.pah_monitoring.main.entities.examinations.indicators.Ascites;
 
 @Data
 public class AscitesAddingDto {

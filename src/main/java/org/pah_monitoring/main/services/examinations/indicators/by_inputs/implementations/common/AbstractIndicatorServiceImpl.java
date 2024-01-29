@@ -3,6 +3,7 @@ package org.pah_monitoring.main.services.examinations.indicators.by_inputs.imple
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
@@ -12,7 +13,11 @@ import org.pah_monitoring.main.services.examinations.indicators.by_inputs.interf
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 @RequiredArgsConstructor
 @Getter
@@ -22,6 +27,14 @@ public abstract class AbstractIndicatorServiceImpl<T, M, N, R> implements Indica
     private CurrentUserExtractionService extractionService;
 
     private AccessRightsCheckService checkService;
+
+    @Override
+    public Optional<LocalDateTime> getLastExaminationDateFor(Patient patient) {
+        return findAllByPatient(patient)
+                .stream()
+                .map(InputIndicator::getDate)
+                .max(Comparator.comparing(Function.identity()));
+    }
 
     @Override
     public List<N> forTables(List<T> list) {
@@ -70,6 +83,8 @@ public abstract class AbstractIndicatorServiceImpl<T, M, N, R> implements Indica
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
     }
+
+    protected abstract List<InputIndicator> findAllByPatient(Patient patient);
 
     protected abstract N toTablesDto(T entity);
 

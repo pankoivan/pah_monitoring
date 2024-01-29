@@ -8,7 +8,8 @@ import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEd
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.CoughGraphicsDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.CoughTablesDto;
-import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.Cough;
+import org.pah_monitoring.main.entities.examinations.indicators.Cough;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -69,6 +70,10 @@ public class CoughServiceImpl extends AbstractIndicatorServiceImpl
         return CoughGraphicsDto
                 .builder()
                 .build();
+    }
+
+    protected List<InputIndicator> findAllByPatient(Patient patient) {
+        return repository.findAllByPatientIdAbstract(patient.getId());
     }
 
 }

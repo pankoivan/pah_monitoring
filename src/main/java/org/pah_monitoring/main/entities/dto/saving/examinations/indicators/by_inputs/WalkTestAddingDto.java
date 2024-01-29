@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.pah_monitoring.main.entities.examinations.indicators.by_inputs.WalkTest;
+import org.pah_monitoring.main.entities.examinations.indicators.WalkTest;
 
 @Data
 public class WalkTestAddingDto {
