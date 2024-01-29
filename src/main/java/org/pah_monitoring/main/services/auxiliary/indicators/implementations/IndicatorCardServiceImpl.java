@@ -38,7 +38,7 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
     );
 
     @Override
-    public List<IndicatorCard> getAllCards() {
+    public List<IndicatorCard> getAll() {
         return Stream.of(IndicatorType.values())
                 .map(this::getCardFor)
                 .toList();

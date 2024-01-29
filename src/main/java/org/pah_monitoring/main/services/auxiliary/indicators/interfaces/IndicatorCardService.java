@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface IndicatorCardService {
 
-    List<IndicatorCard> getAllCards();
+    List<IndicatorCard> getAll();
 
 }
