@@ -27,7 +27,7 @@
                                 <span th:text="${user.userInformation.fullName}">Казимиров Иван Петрович</span>
                             </span>
                             <a th:if="${isMessageEnabled}" href="#" class="text-decoration-none">
-                                <img class="mb-0" src="../../static/svg/message-square-dots-svgrepo-com.svg" th:src="@{/svg/message-square-dots-svgrepo-com.svg}" width="24" alt="Написать сообщение" />
+                                <img width="24" src="../../static/svg/message.svg" th:src="@{/svg/message.svg}" alt="Сообщение" />
                             </a>
                         </h1>
                         <h2 th:text="${user.role.alias}" class="fs-4 m-2 m-md-0">Врач</h2>
@@ -50,7 +50,7 @@
                     <h3 class="fs-4">
                         Рабочая информация
                         <a href="#" th:if="${isNonLoginInfoEditingEnabled}" class="text-decoration-none">
-                            <img class="mb-0" src="../../static/svg/edit-svgrepo-com.svg" th:src="@{/svg/edit-svgrepo-com.svg}" width="20" alt="Редактировать" />
+                            <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
                     <p class="mb-0">Должность: <span th:text="${user.employeeInformation.post}" class="text-lowercase">врач-кардиолог 3-го ранга</span></p>
@@ -62,7 +62,7 @@
                     <h3 class="fs-4">
                         Общая информация
                         <a href="#" th:if="${isNonLoginInfoEditingEnabled}" class="text-decoration-none">
-                            <img class="mb-0" src="../../static/svg/edit-svgrepo-com.svg" th:src="@{/svg/edit-svgrepo-com.svg}" width="20" alt="Редактировать" />
+                            <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
                     <p class="mb-1" th:text="'ФИО: ' + ${user.userInformation.fullName}">ФИО: Иванов Казимир Петрович</p>
@@ -77,7 +77,7 @@
                     <h3 class="fs-4">
                         Логин-информация
                         <a href="#" class="text-decoration-none">
-                            <img class="mb-0" src="../../static/svg/edit-svgrepo-com.svg" th:src="@{/svg/edit-svgrepo-com.svg}" width="20" alt="Редактировать" />
+                            <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
                     <p class="mb-1" th:text="'Почта: ' + ${user.userSecurityInformation.email}">Почта: some@exampleMail</p>
@@ -90,7 +90,7 @@
                     <h3 class="fs-4">
                         Активность
                         <a th:if="${isActivityEditingEnabled}" href="#" class="text-decoration-none">
-                            <img class="mb-0" src="../../static/svg/edit-svgrepo-com.svg" th:src="@{/svg/edit-svgrepo-com.svg}" width="20" alt="Редактировать" />
+                            <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
                     <p class="text-success mb-0">Активен</p>
@@ -120,7 +120,7 @@
                     <h3 class="fs-4">
                         Лечащий врач
                         <a id="doctor-editing" th:if="${isCurrentUserAdminFromSameHospital}" href="#" class="text-decoration-none">
-                            <img class="mb-0" src="../../static/svg/edit-svgrepo-com.svg" th:src="@{/svg/edit-svgrepo-com.svg}" width="20" alt="Редактировать" />
+                            <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
                     <p th:if="${user.doctor != null}" class="mb-0">
@@ -146,7 +146,7 @@
                     <h3 class="fs-4">
                         Награды
                         <a id="achievement-adding" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
-                            <img class="mb-0" src="../../static/svg/add-svgrepo-com.svg" th:src="@{/svg/add-svgrepo-com.svg}" width="20" alt="Добавить" />
+                            <img width="20" src="../../static/svg/info.svg" th:src="@{/svg/info.svg}" alt="Информация" />
                         </a>
                     </h3>
                     <p class="mb-1">
