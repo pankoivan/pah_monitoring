@@ -36,6 +36,10 @@
     --bs-modal-footer-border-color: var(--bs-success-border-subtle);
 }
 
+.card:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 .info-block {
     background-color: var(--bs-primary-bg-subtle);
     color: var(--bs-primary-text-emphasis);
