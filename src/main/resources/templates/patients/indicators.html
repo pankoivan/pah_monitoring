@@ -27,7 +27,7 @@
                                 <a th:id="'edit-schedule-for-' + ${each.workingName}" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
                                     <img width="18" class="mb-1" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                                 </a>
-                                <img th:if="${isCurrentUserPatient}" src="../../static/svg/schedule.svg" th:src="@{/svg/schedule.svg}" alt="Расписание" />
+                                <img width="18" th:if="${isCurrentUserPatient}" src="../../static/svg/schedule.svg" th:src="@{/svg/schedule.svg}" alt="Расписание" />
                                 Текущее расписание: <span class="text-lowercase">Три раза в неделю</span>
                             </p>
                             <p class="mb-3">
