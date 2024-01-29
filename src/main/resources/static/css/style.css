@@ -2,21 +2,12 @@
     background-color: var(--bs-gray-100);
 }
 
-.bg-gray-200 {
-    background-color: var(--bs-gray-200);
+.bg-form {
+    background-color: #f2f3f5;
 }
 
-.bg-gray-400 {
-    background-color: var(--bs-gray-400);
-}
-
-.text-gray-300 {
-    color: var(--bs-gray-300);
-}
-
-.break-all {
-    word-wrap: break-word;
-    word-break: break-all;
+.bg-indicator {
+    background-color: #f2f3f5;
 }
 
 .href-success {
@@ -55,4 +46,9 @@
     background-color: var(--bs-danger-bg-subtle);
     color: var(--bs-danger-text-emphasis);
     border-color: var(--bs-danger-border-subtle);
+}
+
+.break-all {
+    word-wrap: break-word;
+    word-break: break-all;
 }
