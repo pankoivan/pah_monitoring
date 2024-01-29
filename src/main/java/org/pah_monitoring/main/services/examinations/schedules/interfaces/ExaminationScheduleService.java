@@ -3,6 +3,7 @@ package org.pah_monitoring.main.services.examinations.schedules.interfaces;
 import org.pah_monitoring.main.entities.dto.saving.examinations.schedules.ExaminationScheduleAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.examinations.schedules.ExaminationScheduleEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.examinations.schedules.ExaminationScheduleSavingDto;
+import org.pah_monitoring.main.entities.enums.IndicatorType;
 import org.pah_monitoring.main.entities.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -13,10 +14,13 @@ import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataEd
 import org.pah_monitoring.main.services.validation.interfaces.data.saving.DataSavingValidationService;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ExaminationScheduleService extends
         DataAddingValidationService<ExaminationScheduleAddingDto>, DataEditingValidationService<ExaminationScheduleEditingDto>,
         DataSavingValidationService<ExaminationScheduleSavingDto> {
+
+    Optional<ExaminationSchedule> findConcrete(IndicatorType type, Patient patient);
 
     ExaminationSchedule findById(Integer id) throws DataSearchingServiceException;
 
@@ -26,7 +30,7 @@ public interface ExaminationScheduleService extends
 
     ExaminationSchedule edit(ExaminationScheduleEditingDto editingDto) throws DataSavingServiceException;
 
-    void checkAccessRightsForObtainingAllByPatientId(Patient patient) throws NotEnoughRightsServiceException;
+    void checkAccessRightsForObtainingAll(Patient patient) throws NotEnoughRightsServiceException;
 
     void checkAccessRightsForAdding(Patient patient) throws NotEnoughRightsServiceException;
 

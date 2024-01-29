@@ -8,6 +8,7 @@ import org.pah_monitoring.main.entities.dto.saving.examinations.schedules.Examin
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.entities.enums.IndicatorType;
 import org.pah_monitoring.main.entities.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
@@ -36,6 +38,11 @@ public class ExaminationScheduleServiceImpl implements ExaminationScheduleServic
     private HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
     private AccessRightsCheckService checkService;
+
+    @Override
+    public Optional<ExaminationSchedule> findConcrete(IndicatorType type, Patient patient) {
+        return repository.findByIndicatorsGroupAndPatientId(type, patient.getId());
+    }
 
     @Override
     public ExaminationSchedule findById(Integer id) throws DataSearchingServiceException {
@@ -110,7 +117,7 @@ public class ExaminationScheduleServiceImpl implements ExaminationScheduleServic
     }
 
     @Override
-    public void checkAccessRightsForObtainingAllByPatientId(Patient patient) throws NotEnoughRightsServiceException {
+    public void checkAccessRightsForObtainingAll(Patient patient) throws NotEnoughRightsServiceException {
         if (!(
                 checkService.isSamePatient(patient) ||
                 checkService.isOwnDoctor(patient)
