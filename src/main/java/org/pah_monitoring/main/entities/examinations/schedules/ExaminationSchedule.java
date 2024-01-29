@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.common.interfaces.BaseEntity;
-import org.pah_monitoring.main.entities.enums.IndicatorGroup;
+import org.pah_monitoring.main.entities.enums.IndicatorType;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
 @NoArgsConstructor
@@ -25,7 +25,7 @@ public class ExaminationSchedule implements BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "indicators_group")
-    private IndicatorGroup indicatorGroup;
+    private IndicatorType indicatorType;
 
     @Column(name = "schedule")
     private String schedule;

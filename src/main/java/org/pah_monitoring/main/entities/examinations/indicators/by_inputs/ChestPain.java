@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.enums.EventDuration;
-import org.pah_monitoring.main.entities.enums.IndicatorGroup;
+import org.pah_monitoring.main.entities.enums.IndicatorType;
 import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
@@ -59,8 +59,8 @@ public class ChestPain implements Indicator {
     }
 
     @Override
-    public IndicatorGroup getIndicatorGroup() {
-        return IndicatorGroup.CHEST_PAIN;
+    public IndicatorType getIndicatorGroup() {
+        return IndicatorType.CHEST_PAIN;
     }
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)

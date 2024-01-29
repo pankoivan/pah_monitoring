@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public enum IndicatorGroup {
+public enum IndicatorType {
 
     SPIROMETRY("Спирометрия", "spirometry"),
 

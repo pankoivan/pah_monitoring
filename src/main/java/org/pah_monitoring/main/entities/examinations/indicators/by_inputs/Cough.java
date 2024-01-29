@@ -3,7 +3,7 @@ package org.pah_monitoring.main.entities.examinations.indicators.by_inputs;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.enums.IndicatorGroup;
+import org.pah_monitoring.main.entities.enums.IndicatorType;
 import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
@@ -61,8 +61,8 @@ public class Cough implements Indicator {
     }
 
     @Override
-    public IndicatorGroup getIndicatorGroup() {
-        return IndicatorGroup.COUGH;
+    public IndicatorType getIndicatorGroup() {
+        return IndicatorType.COUGH;
     }
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
