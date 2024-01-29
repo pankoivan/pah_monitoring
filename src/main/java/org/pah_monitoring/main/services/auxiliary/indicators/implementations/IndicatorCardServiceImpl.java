@@ -7,7 +7,9 @@ import org.pah_monitoring.main.entities.enums.IndicatorType;
 import org.pah_monitoring.main.services.auxiliary.indicators.interfaces.IndicatorCardService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
@@ -36,7 +38,13 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
     );
 
     @Override
-    public IndicatorCard getCardFor(IndicatorType indicatorType) {
+    public List<IndicatorCard> getAllCards() {
+        return Stream.of(IndicatorType.values())
+                .map(this::getCardFor)
+                .toList();
+    }
+
+    private IndicatorCard getCardFor(IndicatorType indicatorType) {
         return actions.get(indicatorType).get();
     }
 

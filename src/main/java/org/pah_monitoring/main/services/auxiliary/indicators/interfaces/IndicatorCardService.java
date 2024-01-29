@@ -1,10 +1,11 @@
 package org.pah_monitoring.main.services.auxiliary.indicators.interfaces;
 
 import org.pah_monitoring.main.entities.auxiliary.IndicatorCard;
-import org.pah_monitoring.main.entities.enums.IndicatorType;
+
+import java.util.List;
 
 public interface IndicatorCardService {
 
-    IndicatorCard getCardFor(IndicatorType indicatorType);
+    List<IndicatorCard> getAllCards();
 
 }
