@@ -3,7 +3,7 @@ package org.pah_monitoring.main.entities.examinations.indicators;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.FileIndicator;
+import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.Indicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
 
 import java.time.LocalDateTime;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties("patient")
 @Entity
 @Table(name = "analysis_file")
-public class AnalysisFile implements FileIndicator {
+public class AnalysisFile implements Indicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
