@@ -22,11 +22,8 @@
                 <div class="col-12">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between text-center">
                         <h1 class="fs-3 m-2 m-md-0">
-                            <span>
-                                <span th:if="${isPatient && isCurrentUserOwnDoctor}" class="text-success fs-5">*</span>
-                                <span th:text="${user.userInformation.fullName}">Казимиров Иван Петрович</span>
-                            </span>
-                            <a th:if="${isMessageEnabled}" href="#" class="text-decoration-none">
+                            <span th:text="${user.userInformation.fullName}">Казимиров Иван Петрович</span>
+                            <a th:if="${isMessageEnabled}" href="#" th:href="@{/messages/__${user.userInformation.id}__}" class="text-decoration-none">
                                 <img width="24" src="../../static/svg/message.svg" th:src="@{/svg/message.svg}" alt="Сообщение" />
                             </a>
                         </h1>
@@ -53,7 +50,7 @@
                             <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
-                    <p class="mb-0">Должность: <span th:text="${user.employeeInformation.post}" class="text-lowercase">врач-кардиолог 3-го ранга</span></p>
+                    <p class="mb-0">Должность: <span th:text="${user.employeeInformation.post}" class="text-lowercase">Врач-кардиолог 3-го ранга</span></p>
                 </div>
             </div>
             <!---->
@@ -85,7 +82,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row mb-5">
+            <div class="row" th:classappend="${isDoctor || isPatient} ? 'mb-5'">
                 <div class="col-12">
                     <h3 class="fs-4">
                         Активность
@@ -137,7 +134,7 @@
             <div class="row mb-5" th:if="${isPatient && isCurrentUserOwnDoctor}">
                 <div class="col-12">
                     <h3 class="fs-4">Ход лечения</h3>
-                    <p class="mb-0"><a href="#" th:href="@{/patients/__${user.id}__/examinations-nav}" class="text-secondary">Перейти к навигации по наблюдениям</a></p>
+                    <p class="mb-0"><a href="#" th:href="@{/patients/__${user.id}__/indicators}" class="text-secondary">Перейти к навигации по показателям пациента</a></p>
                 </div>
             </div>
             <!---->
@@ -145,7 +142,7 @@
                 <div class="col-12">
                     <h3 class="fs-4">
                         Награды
-                        <a id="achievement-adding" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
+                        <a href="#" th:href="@{/achievements}" class="text-decoration-none">
                             <img width="20" src="../../static/svg/info.svg" th:src="@{/svg/info.svg}" alt="Информация" />
                         </a>
                     </h3>
