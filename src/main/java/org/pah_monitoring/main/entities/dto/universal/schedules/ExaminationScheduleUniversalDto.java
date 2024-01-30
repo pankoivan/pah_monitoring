@@ -1,13 +1,11 @@
-package org.pah_monitoring.main.entities.dto.saving.examinations.schedules;
+package org.pah_monitoring.main.entities.dto.universal.schedules;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.pah_monitoring.main.entities.enums.IndicatorType;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class ExaminationScheduleAddingDto extends ExaminationScheduleSavingDto {
+public class ExaminationScheduleUniversalDto {
 
     @NotNull(message = "Поле \"patientId\" не должно отсутствовать")
     Integer patientId;

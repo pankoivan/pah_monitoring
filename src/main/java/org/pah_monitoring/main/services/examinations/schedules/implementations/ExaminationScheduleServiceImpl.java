@@ -2,16 +2,15 @@ package org.pah_monitoring.main.services.examinations.schedules.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.dto.saving.examinations.schedules.ExaminationScheduleAddingDto;
-import org.pah_monitoring.main.entities.dto.saving.examinations.schedules.ExaminationScheduleEditingDto;
-import org.pah_monitoring.main.entities.dto.saving.examinations.schedules.ExaminationScheduleSavingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.entities.dto.universal.schedules.ExaminationScheduleUniversalDto;
 import org.pah_monitoring.main.entities.enums.IndicatorType;
 import org.pah_monitoring.main.entities.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
@@ -24,7 +23,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
-import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -52,12 +50,7 @@ public class ExaminationScheduleServiceImpl implements ExaminationScheduleServic
     }
 
     @Override
-    public List<ExaminationSchedule> findAllByPatientId(Integer patientId) throws DataSearchingServiceException {
-        return repository.findAllByPatientId(patientService.findById(patientId).getId());
-    }
-
-    @Override
-    public ExaminationSchedule add(ExaminationScheduleAddingDto addingDto) throws DataSavingServiceException {
+    public ExaminationSchedule save(ExaminationScheduleUniversalDto universalDto) throws DataSavingServiceException {
         try {
             return repository.save(
                     ExaminationSchedule
@@ -68,73 +61,28 @@ public class ExaminationScheduleServiceImpl implements ExaminationScheduleServic
                             .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(universalDto), e);
         }
     }
 
     @Override
-    public ExaminationSchedule edit(ExaminationScheduleEditingDto editingDto) throws DataSavingServiceException {
+    public void delete(ExaminationScheduleUniversalDto universalDto) throws DataDeletionServiceException {
         try {
-            ExaminationSchedule schedule = findById(editingDto.getId());
-            return repository.save(
-                    ExaminationSchedule
-                            .builder()
-                            .id(schedule.getId())
-                            .patient(schedule.getPatient())
-                            .indicatorType(schedule.getIndicatorType())
-                            .schedule(editingDto.getSchedule())
-                            .build()
-            );
+
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(editingDto), e);
+            throw new DataDeletionServiceException("Сущность с идентификатором \"%s\" не была удалена".formatted(id), e);
         }
     }
 
     @Override
-    public void checkDataValidityForAdding(ExaminationScheduleAddingDto addingDto, BindingResult bindingResult)
-            throws DataValidationServiceException {
-
-        checkDataValidityForSaving(addingDto, bindingResult);
-
-    }
-
-    @Override
-    public void checkDataValidityForEditing(ExaminationScheduleEditingDto editingDto, BindingResult bindingResult)
-            throws DataValidationServiceException {
-
-        checkDataValidityForSaving(editingDto, bindingResult);
-
-    }
-
-    @Override
-    public void checkDataValidityForSaving(ExaminationScheduleSavingDto savingDto, BindingResult bindingResult)
-            throws DataValidationServiceException {
-
+    public void checkDataValidityForSaving(ExaminationScheduleUniversalDto universalDto, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-
     }
 
     @Override
-    public void checkAccessRightsForObtainingAll(Patient patient) throws NotEnoughRightsServiceException {
-        if (!(
-                checkService.isSamePatient(patient) ||
-                checkService.isOwnDoctor(patient)
-        )) {
-            throw new NotEnoughRightsServiceException("Недостаточно прав");
-        }
-    }
-
-    @Override
-    public void checkAccessRightsForAdding(Patient patient) throws NotEnoughRightsServiceException {
-        if (!checkService.isOwnDoctor(patient)) {
-            throw new NotEnoughRightsServiceException("Недостаточно прав");
-        }
-    }
-
-    @Override
-    public void checkAccessRightsForEditing(Patient patient) throws NotEnoughRightsServiceException {
+    public void checkAccessRightsForAnyAction(Patient patient) throws NotEnoughRightsServiceException {
         if (!checkService.isOwnDoctor(patient)) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
