@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-// @EnableMethodSecurity // todo: uncomment in later versions
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
