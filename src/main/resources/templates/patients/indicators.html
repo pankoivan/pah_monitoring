@@ -41,14 +41,14 @@
                             </p>
                             <p class="mb-3" th:if="${isCurrentUserOwnDoctor}">
                                 <img width="18" class="mb-1" src="../../static/svg/table.svg" th:src="@{/svg/table.svg}" alt="Таблица" />
-                                <a href="#" class="text-secondary">Посмотреть в виде таблицы</a>
+                                <a href="#" th:href="@{${each.tablesRef}}" class="text-secondary">Посмотреть в виде таблицы</a>
                             </p>
                             <p class="mb-0" th:if="${isCurrentUserOwnDoctor}">
                                 <img width="18" class="mb-1" src="../../static/svg/graphic.svg" th:src="@{/svg/graphic.svg}" alt="График" />
-                                <a href="#" class="text-secondary">Посмотреть в виде графиков</a>
+                                <a href="#" th:href="@{${each.graphicsRef}}" class="text-secondary">Посмотреть в виде графиков</a>
                             </p>
                             <p class="mb-0" th:if="${isCurrentUserPatient}">
-                                <a href="#" class="btn btn-sm btn-primary">Перейти к отправке</a>
+                                <a href="#" th:href="@{${each.postFormRef}}" class="btn btn-sm btn-primary">Перейти к отправке</a>
                             </p>
                         </div>
                     </div>
@@ -78,10 +78,10 @@
                             </p>
                             <p class="mb-3" th:if="${isCurrentUserOwnDoctor}">
                                 <img width="18" class="mb-1" src="../../static/svg/files.svg" th:src="@{/svg/files.svg}" alt="Файлы" />
-                                <a href="#" class="text-secondary">Посмотреть в виде файлов</a>
+                                <a href="#" th:href="@{${each.filesRef}}" class="text-secondary">Посмотреть в виде файлов</a>
                             </p>
                             <p class="mb-0" th:if="${isCurrentUserPatient}">
-                                <a href="#" class="btn btn-sm btn-primary">Перейти к отправке</a>
+                                <a href="#" th:href="@{${each.postFormRef}}" class="btn btn-sm btn-primary">Перейти к отправке</a>
                             </p>
                         </div>
                     </div>
