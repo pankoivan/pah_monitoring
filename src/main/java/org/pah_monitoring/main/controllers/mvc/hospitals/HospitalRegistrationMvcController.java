@@ -30,7 +30,7 @@ public class HospitalRegistrationMvcController {
 
     @GetMapping("/form")
     @PreAuthorize("permitAll()")
-    public String getForm(Model model) {
+    public String getFormPage(Model model) {
         if (redirectService.checkNotAnonymousUserRedirect()) {
             return redirectService.notAnonymousUserRedirect();
         }
@@ -40,7 +40,7 @@ public class HospitalRegistrationMvcController {
 
     @GetMapping("/requests/{id}")
     @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
-    public String getRequest(Model model, @PathVariable("id") String pathId) {
+    public String getRequestPage(Model model, @PathVariable("id") String pathId) {
         try {
             HospitalRegistrationRequest request = service.findById(service.parsePathId(pathId));
             model.addAttribute("request", request);

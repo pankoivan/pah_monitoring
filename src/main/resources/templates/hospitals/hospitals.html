@@ -43,8 +43,8 @@
                         <p class="fs-6 mb-1" th:text="'OID: ' + ${each.oid}">OID: 1.32.34.5.234.34213</p>
                         <p class="fs-6 mb-0">
                             <span th:switch="${#strings.toString(each.currentState)}">
-                                <span th:case="'WAITING_CODE'" th:text="'Ожидает выдачу кода'" class="text-danger"></span>
-                                <span th:case="'WAITING_REGISTRATION'" th:text="'Ожидает регистрацию администратора'" class="text-warning"></span>
+                                <span th:case="'WAITING_CODE'" th:text="'Ожидает выдачи кода'" class="text-danger"></span>
+                                <span th:case="'WAITING_REGISTRATION'" th:text="'Ожидает регистрации администратора'" class="text-warning"></span>
                                 <span th:case="'REGISTERED'" th:text="'Зарегистрировано ' + ${each.formattedDate}" class="text-success"></span>
                             </span>
                         </p>
