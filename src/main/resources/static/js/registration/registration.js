@@ -128,3 +128,13 @@ function fillSuccessModalText(responseJson) {
     successModalText.appendChild(document.createElement("br"));
     successModalText.appendChild(login);
 }
+
+document.getElementById("success-modal-close-1").addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location.href = "/login";
+});
+
+document.getElementById("success-modal-close-2").addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location.href = "/login";
+});
