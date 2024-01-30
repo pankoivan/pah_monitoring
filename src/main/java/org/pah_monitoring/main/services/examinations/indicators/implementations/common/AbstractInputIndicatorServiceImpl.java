@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
+import org.pah_monitoring.main.entities.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.users.users.Patient;
 import org.pah_monitoring.main.services.examinations.indicators.interfaces.common.InputIndicatorService;
+import org.pah_monitoring.main.services.examinations.schedules.interfaces.ExaminationScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
@@ -20,12 +22,20 @@ import java.util.function.Function;
 public abstract class AbstractInputIndicatorServiceImpl<T, M, N, R> extends AbstractIndicatorServiceImpl<T, M>
         implements InputIndicatorService<T, M, N, R> {
 
+    private ExaminationScheduleService scheduleService;
+
     @Override
     public Optional<LocalDateTime> getLastExaminationDateFor(Patient patient) {
         return findAllByPatient(patient)
                 .stream()
                 .map(InputIndicator::getDate)
                 .max(Comparator.comparing(Function.identity()));
+    }
+
+    @Override
+    public Optional<String> getScheduleFor(Patient patient) {
+        return scheduleService.findConcrete(getIndicatorType(), patient)
+                .map(ExaminationSchedule::getSchedule);
     }
 
     @Override

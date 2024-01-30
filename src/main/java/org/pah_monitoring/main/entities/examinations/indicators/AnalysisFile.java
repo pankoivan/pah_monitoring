@@ -51,30 +51,29 @@ public class AnalysisFile implements Indicator {
         return getClass().hashCode();
     }
 
-    /*@Override
-    public IndicatorType getIndicatorGroup() {
-        return analysisType != null
-                ? IndicatorType.valueOf(analysisType.name())
-                : null;
-    }*/
-
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
     public enum AnalysisType {
 
-        BLOOD_TEST("Развёрнутый анализ крови"),
+        BLOOD_TEST("Развёрнутый анализ крови", "blood-test", "blood-test.jpg", "blood-test"),
 
-        ELECTROCARDIOGRAPHY("Электрокардиография"),
+        ELECTROCARDIOGRAPHY("Электрокардиография", "electrocardiography", "electrocardiography.jpg", "electrocardiography"),
 
-        RADIOGRAPHY("Рентгенография органов грудной клетки"),
+        RADIOGRAPHY("Рентгенография органов грудной клетки", "radiography", "radiography.jpg", "radiography"),
 
-        ECHOCARDIOGRAPHY("Эхокардиография"),
+        ECHOCARDIOGRAPHY("Эхокардиография", "echocardiography", "echocardiography.jpg", "echocardiography"),
 
-        COMPUTED_TOMOGRAPHY("Компьютерная томография органов грудной клетки"),
+        COMPUTED_TOMOGRAPHY("Компьютерная томография органов грудной клетки", "computed-tomography", "computed-tomography.jpg", "computed-tomography"),
 
-        CATHETERIZATION("Катетеризация правых отделов сердца");
+        CATHETERIZATION("Катетеризация правых отделов сердца", "catheterization", "catheterization.jpg", "catheterization");
 
-        private final String alias;
+        private final String name;
+
+        private final String workingName;
+
+        private final String filename;
+
+        private final String filesRef;
 
     }
 

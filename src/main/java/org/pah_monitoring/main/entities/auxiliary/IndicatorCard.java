@@ -1,9 +1,9 @@
 package org.pah_monitoring.main.entities.auxiliary;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 
 import java.time.LocalDateTime;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Builder
+@SuperBuilder
 public class IndicatorCard {
 
     private String workingName;
@@ -19,6 +19,8 @@ public class IndicatorCard {
     private String name;
 
     private String filename;
+
+    private String schedule;
 
     private LocalDateTime date;
 

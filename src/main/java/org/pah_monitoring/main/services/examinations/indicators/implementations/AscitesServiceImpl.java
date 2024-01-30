@@ -2,12 +2,15 @@ package org.pah_monitoring.main.services.examinations.indicators.implementations
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.main.entities.auxiliary.IndicatorCard;
+import org.pah_monitoring.main.entities.auxiliary.InputIndicatorCard;
 import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.AscitesAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.AscitesGraphicsDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.AscitesTablesDto;
+import org.pah_monitoring.main.entities.enums.IndicatorType;
 import org.pah_monitoring.main.entities.examinations.indicators.Ascites;
 import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
@@ -32,6 +35,25 @@ public class AscitesServiceImpl extends AbstractInputIndicatorServiceImpl<Ascite
 
     @Qualifier("patientService")
     private HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
+
+    @Override
+    public IndicatorType getIndicatorType() {
+        return IndicatorType.ASCITES;
+    }
+
+    @Override
+    public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
+        return InputIndicatorCard
+                .builder()
+                .workingName("ascites")
+                .name(getIndicatorType().getAlias())
+                .filename("ascites.jpg")
+                .schedule(getScheduleFor(patient).orElse(null))
+                .date(getLastExaminationDateFor(patient).orElse(null))
+                .tablesViewRef("tables?ascites")
+                .graphicsViewRef("graphics?ascites")
+                .build();
+    }
 
     @Override
     public List<Ascites> findAllByPatientId(Integer id) throws DataSearchingServiceException {

@@ -2,12 +2,14 @@ package org.pah_monitoring.main.services.examinations.indicators.implementations
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.main.entities.auxiliary.InputIndicatorCard;
 import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.OverallHealthAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.OverallHealthGraphicsDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.OverallHealthTablesDto;
+import org.pah_monitoring.main.entities.enums.IndicatorType;
 import org.pah_monitoring.main.entities.examinations.indicators.OverallHealth;
 import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
@@ -33,6 +35,25 @@ public class OverallHealthServiceImpl extends AbstractInputIndicatorServiceImpl
 
     @Qualifier("patientService")
     private HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
+
+    @Override
+    public IndicatorType getIndicatorType() {
+        return IndicatorType.OVERALL_HEALTH;
+    }
+
+    @Override
+    public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
+        return InputIndicatorCard
+                .builder()
+                .workingName("overall-health")
+                .name(getIndicatorType().getAlias())
+                .filename("overall-health.jpg")
+                .schedule(getScheduleFor(patient).orElse(null))
+                .date(getLastExaminationDateFor(patient).orElse(null))
+                .tablesViewRef("tables?overall-health")
+                .graphicsViewRef("graphics?overall-health")
+                .build();
+    }
 
     @Override
     public List<OverallHealth> findAllByPatientId(Integer id) throws DataSearchingServiceException {

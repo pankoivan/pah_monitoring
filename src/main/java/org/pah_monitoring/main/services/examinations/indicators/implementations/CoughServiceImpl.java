@@ -2,12 +2,14 @@ package org.pah_monitoring.main.services.examinations.indicators.implementations
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.main.entities.auxiliary.InputIndicatorCard;
 import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.CoughAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.CoughGraphicsDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.CoughTablesDto;
+import org.pah_monitoring.main.entities.enums.IndicatorType;
 import org.pah_monitoring.main.entities.examinations.indicators.Cough;
 import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
@@ -33,6 +35,25 @@ public class CoughServiceImpl extends AbstractInputIndicatorServiceImpl
 
     @Qualifier("patientService")
     private HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
+
+    @Override
+    public IndicatorType getIndicatorType() {
+        return IndicatorType.COUGH;
+    }
+
+    @Override
+    public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
+        return InputIndicatorCard
+                .builder()
+                .workingName("cough")
+                .name(getIndicatorType().getAlias())
+                .filename("cough.jpg")
+                .schedule(getScheduleFor(patient).orElse(null))
+                .date(getLastExaminationDateFor(patient).orElse(null))
+                .tablesViewRef("tables?cough")
+                .graphicsViewRef("graphics?cough")
+                .build();
+    }
 
     @Override
     public List<Cough> findAllByPatientId(Integer id) throws DataSearchingServiceException {

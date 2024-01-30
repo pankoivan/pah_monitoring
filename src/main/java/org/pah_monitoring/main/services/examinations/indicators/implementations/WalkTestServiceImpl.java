@@ -2,6 +2,7 @@ package org.pah_monitoring.main.services.examinations.indicators.implementations
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.main.entities.auxiliary.InputIndicatorCard;
 import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.PressureAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.PulseOximetryAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.WalkTestAddingDto;
@@ -14,6 +15,7 @@ import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.Wal
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.PressureTablesDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.PulseOximetryTablesDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.WalkTestTablesDto;
+import org.pah_monitoring.main.entities.enums.IndicatorType;
 import org.pah_monitoring.main.entities.examinations.indicators.Pressure;
 import org.pah_monitoring.main.entities.examinations.indicators.PulseOximetry;
 import org.pah_monitoring.main.entities.examinations.indicators.WalkTest;
@@ -51,6 +53,25 @@ public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl
     @Qualifier("pressureService")
     private AbstractInputIndicatorServiceImpl<Pressure, PressureAddingDto, PressureTablesDto, PressureGraphicsDto>
             pressureService;
+
+    @Override
+    public IndicatorType getIndicatorType() {
+        return IndicatorType.WALK_TEST;
+    }
+
+    @Override
+    public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
+        return InputIndicatorCard
+                .builder()
+                .workingName("walk-test")
+                .name(getIndicatorType().getAlias())
+                .filename("walk-test.jpg")
+                .schedule(getScheduleFor(patient).orElse(null))
+                .date(getLastExaminationDateFor(patient).orElse(null))
+                .tablesViewRef("tables?walk-test")
+                .graphicsViewRef("graphics?walk-test")
+                .build();
+    }
 
     @Override
     public List<WalkTest> findAllByPatientId(Integer id) throws DataSearchingServiceException {

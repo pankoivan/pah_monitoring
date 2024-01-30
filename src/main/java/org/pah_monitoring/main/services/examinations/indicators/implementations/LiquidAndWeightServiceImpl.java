@@ -2,12 +2,14 @@ package org.pah_monitoring.main.services.examinations.indicators.implementations
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.main.entities.auxiliary.InputIndicatorCard;
 import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.LiquidAndWeightAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.LiquidAndWeightGraphicsDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.LiquidAndWeightTablesDto;
+import org.pah_monitoring.main.entities.enums.IndicatorType;
 import org.pah_monitoring.main.entities.examinations.indicators.LiquidAndWeight;
 import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
@@ -33,6 +35,25 @@ public class LiquidAndWeightServiceImpl extends AbstractInputIndicatorServiceImp
 
     @Qualifier("patientService")
     private HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
+
+    @Override
+    public IndicatorType getIndicatorType() {
+        return IndicatorType.LIQUID_AND_WEIGHT;
+    }
+
+    @Override
+    public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
+        return InputIndicatorCard
+                .builder()
+                .workingName("liquid-and-weight")
+                .name(getIndicatorType().getAlias())
+                .filename("liquid-and-weight.jpg")
+                .schedule(getScheduleFor(patient).orElse(null))
+                .date(getLastExaminationDateFor(patient).orElse(null))
+                .tablesViewRef("tables?liquid-and-weight")
+                .graphicsViewRef("graphics?liquid-and-weight")
+                .build();
+    }
 
     @Override
     public List<LiquidAndWeight> findAllByPatientId(Integer id) throws DataSearchingServiceException {

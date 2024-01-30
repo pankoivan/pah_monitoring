@@ -17,7 +17,7 @@ public class IndicatorMvcController {
 
     @GetMapping("/indicators")
     public String getIndicatorsPage(Model model) {
-        model.addAttribute("indicators", service.getAll());
+        model.addAttribute("indicators", service.getAllIndicatorCardsFor());
         model.addAttribute("isCurrentUserOwnDoctor", true);
         model.addAttribute("isCurrentUserPatient", false);
         pageHeaderService.addHeader(model);

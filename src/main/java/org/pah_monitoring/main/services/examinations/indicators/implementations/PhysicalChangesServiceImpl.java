@@ -2,12 +2,14 @@ package org.pah_monitoring.main.services.examinations.indicators.implementations
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.main.entities.auxiliary.InputIndicatorCard;
 import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.PhysicalChangesAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.PhysicalChangesGraphicsDto;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.PhysicalChangesTablesDto;
+import org.pah_monitoring.main.entities.enums.IndicatorType;
 import org.pah_monitoring.main.entities.examinations.indicators.PhysicalChanges;
 import org.pah_monitoring.main.entities.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.users.users.Patient;
@@ -33,6 +35,25 @@ public class PhysicalChangesServiceImpl extends AbstractInputIndicatorServiceImp
 
     @Qualifier("patientService")
     private HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
+
+    @Override
+    public IndicatorType getIndicatorType() {
+        return IndicatorType.PHYSICAL_CHANGES;
+    }
+
+    @Override
+    public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
+        return InputIndicatorCard
+                .builder()
+                .workingName("physical-changes")
+                .name(getIndicatorType().getAlias())
+                .filename("physical-changes.jpg")
+                .schedule(getScheduleFor(patient).orElse(null))
+                .date(getLastExaminationDateFor(patient).orElse(null))
+                .tablesViewRef("tables?physical-changes")
+                .graphicsViewRef("graphics?physical-changes")
+                .build();
+    }
 
     @Override
     public List<PhysicalChanges> findAllByPatientId(Integer id) throws DataSearchingServiceException {
