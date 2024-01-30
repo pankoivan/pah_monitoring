@@ -10,6 +10,8 @@ import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.*;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.*;
 import org.pah_monitoring.main.entities.examinations.indicators.*;
 import org.pah_monitoring.main.entities.users.users.Patient;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
+import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
 import org.pah_monitoring.main.services.auxiliary.indicators.interfaces.IndicatorCardService;
 import org.pah_monitoring.main.services.examinations.indicators.interfaces.AnalysisFileService;
 import org.pah_monitoring.main.services.examinations.indicators.interfaces.common.InputIndicatorService;
@@ -67,6 +69,8 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
     @Qualifier("walkTestService")
     private InputIndicatorService<WalkTest, WalkTestAddingDto, WalkTestTablesDto, WalkTestGraphicsDto> walkTestService;
 
+    private AccessRightsCheckService checkService;
+
     @Override
     public List<InputIndicatorCard> getAllInputIndicatorCardsFor(Patient patient) {
         return List.of(
@@ -99,6 +103,13 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
         indicatorCards.addAll(getAllInputIndicatorCardsFor(patient));
         indicatorCards.addAll(getAllFileIndicatorCardsFor(patient));
         return indicatorCards;
+    }
+
+    @Override
+    public void checkAccessRightsForObtainingByDoctor(Patient patient) throws NotEnoughRightsServiceException {
+        if (!checkService.isOwnDoctor(patient)) {
+            throw new NotEnoughRightsServiceException("Недостаточно прав");
+        }
     }
 
 }

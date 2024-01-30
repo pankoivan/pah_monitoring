@@ -17,8 +17,11 @@
         <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
         <!---->
         <div class="container text-secondary my-5">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center g-3 mb-4">
-                <div class="col mx-auto" th:each="each : ${indicators}">
+            <div class="row mb-3">
+                <h2 class="text-secondary text-center fs-2">Результаты наблюдений</h2>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center g-3 mb-5">
+                <div class="col mx-auto" th:each="each : ${inputIndicatorCards}">
                     <div class="card bg-indicator text-secondary">
                         <img src="../../static/img/indicators/Давление.jpg" th:src="@{'/img/indicators/' + ${each.filename}}" class="card-img-top rounded px-2 pt-2" alt="Давление" />
                         <div class="card-body text-start">
@@ -28,11 +31,11 @@
                                     <img width="18" class="mb-1" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                                 </a>
                                 <img width="18" th:if="${isCurrentUserPatient}" src="../../static/svg/schedule.svg" th:src="@{/svg/schedule.svg}" alt="Расписание" />
-                                Текущее расписание: <span class="text-lowercase">Три раза в неделю</span>
+                                Текущее расписание: <span class="text-lowercase" th:text="${each.schedule != null} ? ${each.schedule} : 'Отсутствует'">Три раза в неделю</span>
                             </p>
                             <p class="mb-3">
                                 <img width="18" class="mb-1" src="../../static/svg/date.svg" th:src="@{/svg/date.svg}" alt="Дата" />
-                                Дата последней отправки:
+                                Дата последней отправки: <span class="text-lowercase" th:text="${each.date != null} ? ${each.formattedDate} : 'Ни разу не отправлял'">14:48:56 20-11-2019</span>
                             </p>
                             <p class="mb-3" th:if="${isCurrentUserOwnDoctor}">
                                 <img width="18" class="mb-1" src="../../static/svg/table.svg" th:src="@{/svg/table.svg}" alt="Таблица" />
@@ -48,49 +51,37 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="col mx-auto">
+            </div>
+            <div class="row mb-3">
+                <h2 class="text-secondary text-center fs-2">Результаты анализов</h2>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center g-3 mb-3">
+                <div class="col mx-auto" th:each="each : ${fileIndicatorCards}">
                     <div class="card bg-indicator text-secondary">
-                        <img src="../../static/img/indicators/Т6МХ.jpg" class="card-img-top rounded px-2 pt-2" alt="..." />
+                        <img src="../../static/img/indicators/Давление.jpg" th:src="@{'/img/indicators/' + ${each.filename}}" class="card-img-top rounded px-2 pt-2" alt="Давление" />
                         <div class="card-body text-start">
-                            <h5 class="card-title text-center mb-3">Т6МХ</h5>
+                            <h5 class="card-title text-center mb-3" th:text="${each.name}">Давление</h5>
                             <p class="mb-3">
-                                <img class="mb-1" src="../../static/svg/schedule.svg" th:src="@{/svg/edit-svgrepo-com.svg}" width="18" alt="Редактировать" />
-                                Текущее расписание: <span class="text-lowercase">Три раза в неделю</span>
+                                <a th:id="'edit-schedule-for-' + ${each.workingName}" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
+                                    <img width="18" class="mb-1" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
+                                </a>
+                                <img width="18" th:if="${isCurrentUserPatient}" src="../../static/svg/schedule.svg" th:src="@{/svg/schedule.svg}" alt="Расписание" />
+                                Текущее расписание: <span class="text-lowercase" th:text="${each.schedule != null} ? ${each.schedule} : 'Отсутствует'">Три раза в неделю</span>
                             </p>
                             <p class="mb-3">
-                                <img class="mb-1" src="../../static/svg/date.svg" width="18" alt="Дата" />
-                                Дата последней отправки: <span class="text-lowercase">14:42:59 18.10.2021</span>
+                                <img width="18" class="mb-1" src="../../static/svg/date.svg" th:src="@{/svg/date.svg}" alt="Дата" />
+                                Дата последней отправки: <span class="text-lowercase" th:text="${each.date != null} ? ${each.formattedDate} : 'Ни разу не отправлял'">14:48:56 20-11-2019</span>
                             </p>
-                            <a href="#" class="btn btn-sm btn-primary mb-0">Перейти к отправке</a>
+                            <p class="mb-3" th:if="${isCurrentUserOwnDoctor}">
+                                <img width="18" class="mb-1" src="../../static/svg/table.svg" th:src="@{/svg/table.svg}" alt="Таблица" />
+                                <a href="#" class="text-secondary">Посмотреть в виде файлов</a>
+                            </p>
+                            <p class="mb-0" th:if="${isCurrentUserPatient}">
+                                <a href="#" class="btn btn-sm btn-primary">Перейти к отправке</a>
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="col mx-auto">
-                    <div class="card bg-indicator text-secondary">
-                        <img src="../../static/img/indicators/Давление.jpg" class="card-img-top rounded px-2 pt-2" alt="..." />
-                        <div class="card-body text-start">
-                            <h5 class="card-title text-center">Давление</h5>
-                            <p class="mb-2">
-                                <a href="#" th:if="${isNonLoginInfoEditingEnabled}" class="text-decoration-none">
-                                    <img class="mb-1" src="../../static/svg/edit-svgrepo-com.svg" th:src="@{/svg/edit-svgrepo-com.svg}" width="18" alt="Редактировать" />
-                                </a>
-                                Текущее расписание: <span class="text-lowercase">Три раза в неделю</span>
-                            </p>
-                            <p class="mb-2">
-                                <img class="mb-1" src="../../static/svg/date.svg" width="18" alt="Дата" />
-                                Дата последней отправки: <span class="text-lowercase">14:42:59 18.10.2021</span>
-                            </p>
-                            <p class="mb-2">
-                                <img class="mb-1" src="../../static/svg/table.svg" width="18" alt="Дата" />
-                                <a href="#" class="text-secondary">Посмотреть в виде таблицы</a>
-                            </p>
-                            <p class="mb-0">
-                                <img class="mb-1" src="../../static/svg/graphic.svg" width="18" alt="Дата" class="mb-1" />
-                                <a href="#" class="text-secondary">Посмотреть в виде графиков</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>-->
             </div>
         </div>
         <!---->

@@ -2,7 +2,6 @@ package org.pah_monitoring.main.services.examinations.indicators.implementations
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.auxiliary.IndicatorCard;
 import org.pah_monitoring.main.entities.auxiliary.InputIndicatorCard;
 import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.ChestPainAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
@@ -81,7 +80,7 @@ public class ChestPainServiceImpl extends AbstractInputIndicatorServiceImpl
 
     @Override
     protected List<InputIndicator> findAllByPatient(Patient patient) {
-        return repository.findAllByPatientIdAbstract(patient.getId());
+        return repository.findAllByPatient(patient);
     }
 
     @Override

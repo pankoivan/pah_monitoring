@@ -80,7 +80,7 @@ public class PressureServiceImpl extends AbstractInputIndicatorServiceImpl
 
     @Override
     protected List<InputIndicator> findAllByPatient(Patient patient) {
-        return repository.findAllByPatientIdAbstract(patient.getId());
+        return repository.findAllByPatient(patient);
     }
 
     @Override

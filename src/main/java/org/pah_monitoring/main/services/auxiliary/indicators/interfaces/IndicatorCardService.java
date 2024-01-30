@@ -4,6 +4,7 @@ import org.pah_monitoring.main.entities.auxiliary.FileIndicatorCard;
 import org.pah_monitoring.main.entities.auxiliary.IndicatorCard;
 import org.pah_monitoring.main.entities.auxiliary.InputIndicatorCard;
 import org.pah_monitoring.main.entities.users.users.Patient;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 
 import java.util.List;
 
@@ -14,5 +15,7 @@ public interface IndicatorCardService {
     List<FileIndicatorCard> getAllFileIndicatorCardsFor(Patient patient);
 
     List<IndicatorCard> getAllIndicatorCardsFor(Patient patient);
+
+    void checkAccessRightsForObtainingByDoctor(Patient patient) throws NotEnoughRightsServiceException;
 
 }

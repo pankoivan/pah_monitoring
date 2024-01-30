@@ -13,6 +13,6 @@ public interface ExaminationScheduleRepository extends JpaRepository<Examination
 
     List<ExaminationSchedule> findAllByPatientId(Integer id);
 
-    Optional<ExaminationSchedule> findByIndicatorsGroupAndPatientId(IndicatorType type, Integer id);
+    Optional<ExaminationSchedule> findByIndicatorTypeAndPatientId(IndicatorType type, Integer id);
 
 }

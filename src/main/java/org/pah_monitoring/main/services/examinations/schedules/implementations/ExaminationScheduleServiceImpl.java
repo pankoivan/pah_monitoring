@@ -41,7 +41,7 @@ public class ExaminationScheduleServiceImpl implements ExaminationScheduleServic
 
     @Override
     public Optional<ExaminationSchedule> findConcrete(IndicatorType type, Patient patient) {
-        return repository.findByIndicatorsGroupAndPatientId(type, patient.getId());
+        return repository.findByIndicatorTypeAndPatientId(type, patient.getId());
     }
 
     @Override
