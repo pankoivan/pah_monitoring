@@ -1,6 +1,9 @@
 package org.pah_monitoring.main.services.hospitals.implementations;
 
 import lombok.*;
+import org.pah_monitoring.main.entities.auxiliary.hospitals.AdministratorStatistics;
+import org.pah_monitoring.main.entities.auxiliary.hospitals.DoctorStatistics;
+import org.pah_monitoring.main.entities.auxiliary.hospitals.PatientStatistics;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalAddingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.rest_client.RegistryHospital;

@@ -2,7 +2,7 @@ package org.pah_monitoring.main.services.examinations.indicators.implementations
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.auxiliary.InputIndicatorCard;
+import org.pah_monitoring.main.entities.auxiliary.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.SpirometryAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;

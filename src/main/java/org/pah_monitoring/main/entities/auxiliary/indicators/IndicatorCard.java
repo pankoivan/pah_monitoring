@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities.auxiliary;
+package org.pah_monitoring.main.entities.auxiliary.indicators;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

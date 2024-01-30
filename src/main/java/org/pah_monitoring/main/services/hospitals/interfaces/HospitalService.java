@@ -1,8 +1,8 @@
 package org.pah_monitoring.main.services.hospitals.interfaces;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.pah_monitoring.main.entities.auxiliary.hospitals.AdministratorStatistics;
+import org.pah_monitoring.main.entities.auxiliary.hospitals.DoctorStatistics;
+import org.pah_monitoring.main.entities.auxiliary.hospitals.PatientStatistics;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalAddingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -33,29 +33,5 @@ public interface HospitalService extends DataAddingValidationService<HospitalAdd
     DoctorStatistics getDoctorStatistics(Hospital hospital);
 
     PatientStatistics getPatientStatistics(Hospital hospital);
-
-    @NoArgsConstructor @AllArgsConstructor @Data
-    class AdministratorStatistics {
-        private int activeCount;
-        private int vacationCount;
-        private int sickLeaveCount;
-        private int dismissalCount;
-    }
-
-    @NoArgsConstructor @AllArgsConstructor @Data
-    class DoctorStatistics {
-        private int activeCount;
-        private int vacationCount;
-        private int sickLeaveCount;
-        private int dismissalCount;
-        private int withoutPatientsCount;
-    }
-
-    @NoArgsConstructor @AllArgsConstructor @Data
-    class PatientStatistics {
-        private int activeCount;
-        private int inActiveCount;
-        private int unallocated;
-    }
 
 }

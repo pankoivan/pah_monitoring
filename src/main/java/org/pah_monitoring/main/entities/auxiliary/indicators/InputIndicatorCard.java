@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities.auxiliary;
+package org.pah_monitoring.main.entities.auxiliary.indicators;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -9,8 +9,10 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @SuperBuilder
-public class FileIndicatorCard extends IndicatorCard {
+public class InputIndicatorCard extends IndicatorCard {
 
-    private String filesRef;
+    private String tablesRef;
+
+    private String graphicsRef;
 
 }

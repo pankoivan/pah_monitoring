@@ -2,9 +2,9 @@ package org.pah_monitoring.main.services.auxiliary.indicators.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.auxiliary.FileIndicatorCard;
-import org.pah_monitoring.main.entities.auxiliary.IndicatorCard;
-import org.pah_monitoring.main.entities.auxiliary.InputIndicatorCard;
+import org.pah_monitoring.main.entities.auxiliary.indicators.FileIndicatorCard;
+import org.pah_monitoring.main.entities.auxiliary.indicators.IndicatorCard;
+import org.pah_monitoring.main.entities.auxiliary.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.entities.dto.saving.examinations.indicators.*;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.graphics.*;
 import org.pah_monitoring.main.entities.dto.transferring.indicators.tables.*;
