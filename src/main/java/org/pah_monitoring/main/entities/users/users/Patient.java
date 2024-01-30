@@ -76,7 +76,7 @@ public class Patient implements HospitalUser, UserDetails {
     }
 
     public boolean isActive() {
-        return patientInactivity != null;
+        return patientInactivity == null;
     }
 
     public boolean isNotActive() {
@@ -104,22 +104,22 @@ public class Patient implements HospitalUser, UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return isNotActive();
+        return isActive();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isNotActive();
+        return isActive();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isNotActive();
+        return isActive();
     }
 
     @Override
     public boolean isEnabled() {
-        return isNotActive();
+        return isActive();
     }
 
     @Override
