@@ -1,8 +1,5 @@
 package org.pah_monitoring.main.services.hospitals.interfaces;
 
-import org.pah_monitoring.main.entities.auxiliary.hospitals.AdministratorStatistics;
-import org.pah_monitoring.main.entities.auxiliary.hospitals.DoctorStatistics;
-import org.pah_monitoring.main.entities.auxiliary.hospitals.PatientStatistics;
 import org.pah_monitoring.main.entities.dto.saving.hospitals.HospitalAddingDto;
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -27,11 +24,5 @@ public interface HospitalService extends DataAddingValidationService<HospitalAdd
     void checkHospitalCurrentState(Hospital requestedHospital) throws DataValidationServiceException;
 
     void checkAccessRightsForObtainingConcrete(Hospital requestedHospital) throws NotEnoughRightsServiceException;
-
-    AdministratorStatistics getAdministratorStatistics(Hospital hospital);
-
-    DoctorStatistics getDoctorStatistics(Hospital hospital);
-
-    PatientStatistics getPatientStatistics(Hospital hospital);
 
 }
