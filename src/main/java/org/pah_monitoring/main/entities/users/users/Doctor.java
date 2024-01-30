@@ -123,6 +123,16 @@ public class Doctor implements HospitalEmployee, UserDetails {
     }
 
     @Override
+    public UserInformation getUserInformation() {
+        return employeeInformation.getUserInformation();
+    }
+
+    @Override
+    public boolean isEmployee() {
+        return true;
+    }
+
+    @Override
     public boolean equals(Object o) {
         return (this == o)
                 || ((o instanceof Doctor other))
@@ -133,16 +143,6 @@ public class Doctor implements HospitalEmployee, UserDetails {
     @Override
     public int hashCode() {
         return getClass().hashCode();
-    }
-
-    @Override
-    public UserInformation getUserInformation() {
-        return employeeInformation.getUserInformation();
-    }
-
-    @Override
-    public boolean isEmployee() {
-        return true;
     }
 
 }

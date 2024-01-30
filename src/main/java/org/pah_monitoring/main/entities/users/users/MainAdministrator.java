@@ -77,6 +77,11 @@ public class MainAdministrator implements User, UserDetails {
     }
 
     @Override
+    public boolean isEmployee() {
+        return false;
+    }
+
+    @Override
     public boolean equals(Object o) {
         return (this == o)
                 || ((o instanceof MainAdministrator other))
@@ -87,11 +92,6 @@ public class MainAdministrator implements User, UserDetails {
     @Override
     public int hashCode() {
         return getClass().hashCode();
-    }
-
-    @Override
-    public boolean isEmployee() {
-        return false;
     }
 
 }

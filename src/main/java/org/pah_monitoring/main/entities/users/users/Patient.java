@@ -75,12 +75,12 @@ public class Patient implements HospitalUser, UserDetails {
         return doctor == null;
     }
 
-    public boolean isBanned() {
+    public boolean isActive() {
         return patientInactivity != null;
     }
 
-    public boolean isNotBanned() {
-        return !isBanned();
+    public boolean isNotActive() {
+        return !isActive();
     }
 
     public Role getRole() {
@@ -104,22 +104,27 @@ public class Patient implements HospitalUser, UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return isNotBanned();
+        return isNotActive();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isNotBanned();
+        return isNotActive();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isNotBanned();
+        return isNotActive();
     }
 
     @Override
     public boolean isEnabled() {
-        return isNotBanned();
+        return isNotActive();
+    }
+
+    @Override
+    public boolean isEmployee() {
+        return false;
     }
 
     @Override
@@ -133,11 +138,6 @@ public class Patient implements HospitalUser, UserDetails {
     @Override
     public int hashCode() {
         return getClass().hashCode();
-    }
-
-    @Override
-    public boolean isEmployee() {
-        return false;
     }
 
 }
