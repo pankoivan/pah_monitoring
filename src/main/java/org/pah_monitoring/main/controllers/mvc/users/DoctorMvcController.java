@@ -30,9 +30,9 @@ public class DoctorMvcController {
     @Qualifier("doctorService")
     private final HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> service;
 
-    private final AbstractPatientServiceImpl patientService;
-
     private final AccessRightsCheckService checkService;
+
+    private final AbstractPatientServiceImpl patientService;
 
     private final PageHeaderService pageHeaderService;
 
@@ -68,7 +68,7 @@ public class DoctorMvcController {
                     checkService.isSameUser(doctor) ||
                     checkService.isAdministratorFromSameHospital(doctor.getHospital())
             );
-            model.addAttribute(
+            model.addAttribute( // todo: check if on vacation, sick leave or dismissed
                     "isActivityEditingEnabled",
                     checkService.isAdministratorFromSameHospital(doctor.getHospital()) &&
                     !checkService.isSameUser(doctor)
@@ -88,9 +88,9 @@ public class DoctorMvcController {
             Doctor doctor = service.findById(service.parsePathId(pathId));
             patientService.checkAccessRightsForObtainingDoctorPatients(doctor);
             model.addAttribute("users", patientService.findAllByDoctorId(doctor.getId()));
-            model.addAttribute("title", "Пациенты врача \"%s\"".formatted(doctor.getUserInformation().getFullName()));
-            model.addAttribute("usersListDescription", "Список пациентов врача \"%s\"".formatted(doctor.getUserInformation().getFullName()));
-            model.addAttribute("emptyUsersListMessage", "Список пациентов врача \"%s\" пуст".formatted(doctor.getUserInformation().getFullName()));
+            model.addAttribute("title", "Пациенты");
+            model.addAttribute("usersListDescription", "Список пациентов");
+            model.addAttribute("emptyUsersListMessage", "Список пациентов пуст");
             pageHeaderService.addHeader(model);
             return "users/users";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {

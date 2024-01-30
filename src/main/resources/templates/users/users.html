@@ -29,22 +29,20 @@
                 </div>
             </div>
             <!---->
-            <div class="row" th:each="each, status : ${users}" th:classappend="${!status.last} ? 'mb-3'">
+            <div class="row" th:each="each, status : ${users}" th:classappend="${!status.last} ? 'mb-2'">
                 <div class="col-12" th:classappend="${!status.last} ? 'mb-3'">
                     <div class="text-start">
-                        <p class="fs-4 word-wrap mb-0">
-                            <abbr th:title="${each.isEmployee} ? ${each.employeeInformation.post} + ' медицинского учреждения &quot;' + ${each.hospital.name} + '&quot;' : ${each.role.alias}" title="Врач-пульмонолог" class="text-decoration-none">
-                                <img src="../../static/svg/user.svg" th:src="@{/svg/user.svg}" alt="Пользователь" />
-                            </abbr>
-                            <span
-                                ><a
-                                    href="#"
-                                    th:href="@{/users/__${each.userInformation.id}__}"
-                                    th:text="${each.userInformation.lastname} + ' ' + ${each.userInformation.name} + ' ' + ${each.userInformation.patronymic}"
-                                    class="text-decoration-none text-secondary"
-                                    >Козлов Геннадий Викторович</a
-                                ></span
+                        <p class="fs-4 word-wrap mb-1">
+                            <a
+                                href="#"
+                                th:href="@{/users/__${each.userInformation.id}__}"
+                                class="text-decoration-none text-secondary"
+                                data-bs-toggle="tooltip"
+                                th:title="(${each.isEmployee} ? ${each.employeeInformation.post} : 'Пациент') + ' медицинского учреждения &quot;' + ${each.hospital.name} + '&quot;'"
                             >
+                                <img width="24" class="mb-1" src="../../static/svg/user.svg" th:src="@{/svg/user.svg}" alt="Пользователь" />
+                                <span th:text="${each.userInformation.fullName}"> Козлов Геннадий викторович </span>
+                            </a>
                         </p>
                         <p class="fs-5 mb-1" th:text="${each.userInformation.phoneNumber}">+7 (912) 123-90-56</p>
                         <p class="fs-5 mb-0" th:text="${each.role.alias}">Врач</p>

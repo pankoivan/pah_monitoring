@@ -8,8 +8,8 @@ import org.pah_monitoring.main.entities.hospitals.Hospital;
 import org.pah_monitoring.main.entities.users.users.Administrator;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
-import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/hospitals/{hospitalId}/admins")
+@RequestMapping("/hospitals/{id}/admins")
 public class HospitalAdministratorMvcController {
 
     private final HospitalService hospitalService;
@@ -34,9 +34,9 @@ public class HospitalAdministratorMvcController {
     private final PageHeaderService pageHeaderService;
 
     @GetMapping
-    public String getHospitalAdmins(Model model, @PathVariable("hospitalId") String pathHospitalId) {
+    public String getHospitalAdminsPage(Model model, @PathVariable("id") String pathId) {
         try {
-            Hospital hospital = hospitalService.findById(hospitalService.parsePathId(pathHospitalId));
+            Hospital hospital = hospitalService.findById(hospitalService.parsePathId(pathId));
             service.checkAccessRightsForObtainingAllInHospital(hospital);
             model.addAttribute("users", service.findAllByHospitalId(hospital.getId()));
             model.addAttribute("title", "Администраторы");

@@ -65,7 +65,7 @@ public class AdministratorMvcController {
                     checkService.isSameUser(administrator) ||
                     checkService.isAdministratorFromSameHospital(administrator.getHospital())
             );
-            model.addAttribute(
+            model.addAttribute( // todo: check if on vacation, sick leave or dismissed
                     "isActivityEditingEnabled",
                     checkService.isAdministratorFromSameHospital(administrator.getHospital()) &&
                     !checkService.isSameUser(administrator)
