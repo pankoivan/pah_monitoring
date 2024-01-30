@@ -52,12 +52,16 @@ public class ExaminationScheduleServiceImpl implements ExaminationScheduleServic
     @Override
     public ExaminationSchedule save(ExaminationScheduleUniversalDto universalDto) throws DataSavingServiceException {
         try {
+            Optional<ExaminationSchedule> schedule = repository.findByIndicatorTypeAndPatientId(
+                    universalDto.getIndicatorType(), universalDto.getPatientId()
+            );
             return repository.save(
                     ExaminationSchedule
                             .builder()
-                            .patient(patientService.findById(addingDto.getPatientId()))
-                            .indicatorType(addingDto.getIndicatorType())
-                            .schedule(addingDto.getSchedule())
+                            .id(schedule.map(ExaminationSchedule::getId).orElse(null))
+                            .patient(patientService.findById(universalDto.getPatientId()))
+                            .indicatorType(universalDto.getIndicatorType())
+                            .schedule(universalDto.getSchedule())
                             .build()
             );
         } catch (Exception e) {
@@ -67,10 +71,13 @@ public class ExaminationScheduleServiceImpl implements ExaminationScheduleServic
 
     @Override
     public void delete(ExaminationScheduleUniversalDto universalDto) throws DataDeletionServiceException {
+        Optional<ExaminationSchedule> schedule = repository.findByIndicatorTypeAndPatientId(
+                universalDto.getIndicatorType(), universalDto.getPatientId()
+        );
         try {
-
+            repository.deleteById(schedule.get().getId());
         } catch (Exception e) {
-            throw new DataDeletionServiceException("Сущность с идентификатором \"%s\" не была удалена".formatted(id), e);
+            throw new DataDeletionServiceException("DTO-сущность \"%s\" не была удалена".formatted(schedule), e);
         }
     }
 
