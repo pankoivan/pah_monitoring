@@ -49,8 +49,8 @@ public class VertigoServiceImpl extends AbstractInputIndicatorServiceImpl
                 .name(getIndicatorType().getAlias())
                 .filename("vertigo.jpg")
                 .postFormRef("/indicators/vertigo")
-                .tablesViewRef("/patients/%s/examinations/tables?vertigo".formatted(patient.getId()))
-                .graphicsViewRef("/patients/%s/examinations/graphics?vertigo".formatted(patient.getId()))
+                .tablesRef("/patients/%s/examinations/tables?vertigo".formatted(patient.getId()))
+                .graphicsRef("/patients/%s/examinations/graphics?vertigo".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .build();

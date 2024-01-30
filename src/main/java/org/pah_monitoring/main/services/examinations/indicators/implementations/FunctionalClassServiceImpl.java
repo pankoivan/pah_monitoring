@@ -49,8 +49,8 @@ public class FunctionalClassServiceImpl extends AbstractInputIndicatorServiceImp
                 .name(getIndicatorType().getAlias())
                 .filename("functional-class.jpg")
                 .postFormRef("/indicators/functional-class")
-                .tablesViewRef("/patients/%s/examinations/tables?functional-class".formatted(patient.getId()))
-                .graphicsViewRef("/patients/%s/examinations/graphics?functional-class".formatted(patient.getId()))
+                .tablesRef("/patients/%s/examinations/tables?functional-class".formatted(patient.getId()))
+                .graphicsRef("/patients/%s/examinations/graphics?functional-class".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .build();

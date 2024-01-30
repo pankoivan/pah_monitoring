@@ -49,8 +49,8 @@ public class CoughServiceImpl extends AbstractInputIndicatorServiceImpl
                 .name(getIndicatorType().getAlias())
                 .filename("cough.jpg")
                 .postFormRef("/indicators/cough")
-                .tablesViewRef("/patients/%s/examinations/tables?cough".formatted(patient.getId()))
-                .graphicsViewRef("/patients/%s/examinations/graphics?cough".formatted(patient.getId()))
+                .tablesRef("/patients/%s/examinations/tables?cough".formatted(patient.getId()))
+                .graphicsRef("/patients/%s/examinations/graphics?cough".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .build();

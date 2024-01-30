@@ -48,8 +48,8 @@ public class AscitesServiceImpl extends AbstractInputIndicatorServiceImpl<Ascite
                 .name(getIndicatorType().getAlias())
                 .filename("ascites.jpg")
                 .postFormRef("/indicators/ascites")
-                .tablesViewRef("/patients/%s/examinations/tables?ascites".formatted(patient.getId()))
-                .graphicsViewRef("/patients/%s/examinations/graphics?ascites".formatted(patient.getId()))
+                .tablesRef("/patients/%s/examinations/tables?ascites".formatted(patient.getId()))
+                .graphicsRef("/patients/%s/examinations/graphics?ascites".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .build();

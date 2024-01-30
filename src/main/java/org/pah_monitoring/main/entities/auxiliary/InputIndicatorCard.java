@@ -11,8 +11,8 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class InputIndicatorCard extends IndicatorCard {
 
-    private String tablesViewRef;
+    private String tablesRef;
 
-    private String graphicsViewRef;
+    private String graphicsRef;
 
 }

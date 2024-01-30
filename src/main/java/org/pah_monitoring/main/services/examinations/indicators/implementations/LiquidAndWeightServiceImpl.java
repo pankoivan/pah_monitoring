@@ -49,8 +49,8 @@ public class LiquidAndWeightServiceImpl extends AbstractInputIndicatorServiceImp
                 .name(getIndicatorType().getAlias())
                 .filename("liquid-and-weight.jpg")
                 .postFormRef("/indicators/liquid-and-weight")
-                .tablesViewRef("/patients/%s/examinations/tables?liquid-and-weight".formatted(patient.getId()))
-                .graphicsViewRef("/patients/%s/examinations/graphics?liquid-and-weight".formatted(patient.getId()))
+                .tablesRef("/patients/%s/examinations/tables?liquid-and-weight".formatted(patient.getId()))
+                .graphicsRef("/patients/%s/examinations/graphics?liquid-and-weight".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .build();

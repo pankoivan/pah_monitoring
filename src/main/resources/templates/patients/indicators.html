@@ -76,7 +76,7 @@
                                 <img width="18" class="mb-1" src="../../static/svg/date.svg" th:src="@{/svg/date.svg}" alt="Дата" />
                                 Дата последней отправки: <span class="text-lowercase" th:text="${each.date != null} ? ${each.formattedDate} : 'Ни разу не отправлял'">14:48:56 20-11-2019</span>
                             </p>
-                            <p class="mb-3" th:if="${isCurrentUserOwnDoctor}">
+                            <p class="mb-0" th:if="${isCurrentUserOwnDoctor}">
                                 <img width="18" class="mb-1" src="../../static/svg/files.svg" th:src="@{/svg/files.svg}" alt="Файлы" />
                                 <a href="#" th:href="@{${each.filesRef}}" class="text-secondary">Посмотреть в виде файлов</a>
                             </p>
