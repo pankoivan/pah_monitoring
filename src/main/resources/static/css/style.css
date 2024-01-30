@@ -1,13 +1,18 @@
+:root {
+    --my-bg-form: #f2f3f5;
+    --my-bg-indicator: #f2f3f5;
+}
+
 .bg-main {
     background-color: var(--bs-gray-100);
 }
 
 .bg-form {
-    background-color: #f2f3f5;
+    background-color: var(--my-bg-form);
 }
 
 .bg-indicator {
-    background-color: #f2f3f5;
+    background-color: var(--my-bg-indicator);
 }
 
 .href-success {
