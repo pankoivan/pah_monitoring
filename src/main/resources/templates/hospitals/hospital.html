@@ -31,6 +31,7 @@
                         <a href="#" th:href="@{/hospitals/__${hospital.id}__/admins}" class="text-secondary fs-4">Администраторы</a>
                     </div>
                     <ul class="mb-0 fs-5">
+                        <li th:text="'Всего: ' + ${adminStat.total}">Всего: 11</li>
                         <li th:text="'Активные: ' + ${adminStat.activeCount}">Активные: 5</li>
                         <li th:text="'В отпуске: ' + ${adminStat.vacationCount}">В отпуске: 1</li>
                         <li th:text="'На больничном: ' + ${adminStat.sickLeaveCount}">На больничном: 2</li>
@@ -46,6 +47,7 @@
                         <a href="#" th:href="@{/hospitals/__${hospital.id}__/doctors}" class="text-secondary fs-4">Врачи</a>
                     </div>
                     <ul class="mb-0 fs-5">
+                        <li th:text="'Всего: ' + ${doctorStat.total}">Всего: 12</li>
                         <li th:text="'Активные: ' + ${doctorStat.activeCount}">Активные: 11</li>
                         <li th:text="'В отпуске: ' + ${doctorStat.vacationCount}">В отпуске: 2</li>
                         <li th:text="'На больничном: ' + ${doctorStat.sickLeaveCount}">На больничном: 0</li>
@@ -62,6 +64,7 @@
                         <a href="#" th:href="@{/hospitals/__${hospital.id}__/patients}" class="text-secondary fs-4">Пациенты</a>
                     </div>
                     <ul class="mb-0 fs-5">
+                        <li th:text="'Всего: ' + ${patientStat.total}">Всего: 19</li>
                         <li th:text="'Активные: ' + ${patientStat.activeCount}">Активные: 24</li>
                         <li th:text="'Неактивные: ' + ${patientStat.inactiveCount}">Неактивные: 2</li>
                         <li th:text="'Нераспределённые: ' + ${patientStat.unallocated}">Нераспределённые: 11</li>

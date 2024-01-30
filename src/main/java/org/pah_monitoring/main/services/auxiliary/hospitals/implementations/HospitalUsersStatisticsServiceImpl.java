@@ -25,6 +25,9 @@ public class HospitalUsersStatisticsServiceImpl implements HospitalUsersStatisti
         List<Administrator> administrators = hospital.getAdministrators();
         return AdministratorStatistics
                 .builder()
+                .total(
+                        administrators.size()
+                )
                 .activeCount(
                         (int) administrators.stream().filter(Administrator::isActive).count()
                 )
@@ -45,6 +48,9 @@ public class HospitalUsersStatisticsServiceImpl implements HospitalUsersStatisti
         List<Doctor> doctors = hospital.getDoctors();
         return DoctorStatistics
                 .builder()
+                .total(
+                        doctors.size()
+                )
                 .activeCount(
                         (int) doctors.stream().filter(Doctor::isActive).count()
                 )
@@ -68,6 +74,9 @@ public class HospitalUsersStatisticsServiceImpl implements HospitalUsersStatisti
         List<Patient> patients = hospital.getPatients();
         return PatientStatistics
                 .builder()
+                .total(
+                        patients.size()
+                )
                 .activeCount(
                         (int) patients.stream().filter(Patient::isActive).count()
                 )

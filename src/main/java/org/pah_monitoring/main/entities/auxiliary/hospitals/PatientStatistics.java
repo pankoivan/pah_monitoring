@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PatientStatistics {
 
+    private int total;
+
     private int activeCount;
 
     private int inactiveCount;
