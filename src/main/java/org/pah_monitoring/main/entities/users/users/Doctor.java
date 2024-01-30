@@ -64,15 +64,7 @@ public class Doctor implements HospitalEmployee, UserDetails {
     }
 
     public boolean isActive() {
-        return isNotDismissed() && !later1 && !later2;
-    }
-
-    public boolean isOnVacation() {
-        return later1;
-    }
-
-    public boolean isOnSickLeave() {
-        return later2;
+        return isNotDismissed() && !isOnVacation() && !isOnSickLeave();
     }
 
     public boolean isDismissed() {

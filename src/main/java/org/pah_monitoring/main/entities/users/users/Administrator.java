@@ -59,17 +59,9 @@ public class Administrator implements HospitalEmployee, UserDetails {
 
     @OneToMany(mappedBy = "author")
     private List<Dismissal> assignedDismissals;
-    
-    public boolean isActive() {
-        return isNotDismissed() && !later1 && !later2;
-    }
-    
-    public boolean isOnVacation() {
-        return later1;
-    }
 
-    public boolean isOnSickLeave() {
-        return later2;
+    public boolean isActive() {
+        return isNotDismissed() && !isOnVacation() && !isOnSickLeave();
     }
 
     public boolean isDismissed() {
