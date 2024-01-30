@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.controllers.mvc;
+package org.pah_monitoring.main.controllers.mvc.redirect;
 
 import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 @PreAuthorize("permitAll()")
-public class MainMvcController {
+public class MainRedirectMvcController {
 
     private final MainAdminContactService mainAdminContactService;
 
@@ -23,12 +23,12 @@ public class MainMvcController {
     private final PageHeaderService pageHeaderService;
 
     @GetMapping
-    public String getPage(Model model) {
+    public String getMainPageOrRedirectSpecificMainPage(Model model) {
         if (redirectService.checkMainRedirect()) {
             return redirectService.mainRedirect();
         }
-        pageHeaderService.addHeader(model);
         model.addAttribute("contacts", mainAdminContactService.findAll());
+        pageHeaderService.addHeader(model);
         return "main";
     }
 

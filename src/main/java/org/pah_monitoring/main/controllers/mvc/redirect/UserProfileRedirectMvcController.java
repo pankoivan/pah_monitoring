@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.controllers.mvc;
+package org.pah_monitoring.main.controllers.mvc.redirect;
 
 import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.users.users.Administrator;
@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/users")
-@PreAuthorize("permitAll()")
-public class UserProfileRedirectController {
+@PreAuthorize("isAuthenticated()")
+public class UserProfileRedirectMvcController {
 
     private final UserSearchingService service;
 
     @GetMapping("/{id}")
-    public String redirect(@PathVariable("id") String pathId) {
+    public String redirectProfilePage(@PathVariable("id") String pathId) {
         try {
             User user = service.findUserByUserInformationId(service.parsePathId(pathId));
             return switch (user) {

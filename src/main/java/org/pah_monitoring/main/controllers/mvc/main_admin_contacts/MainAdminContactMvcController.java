@@ -20,7 +20,7 @@ public class MainAdminContactMvcController {
     private final PageHeaderService pageHeaderService;
 
     @GetMapping
-    public String getPage(Model model) {
+    public String getMainAdminContactsPage(Model model) {
         model.addAttribute("contacts", service.findAll());
         pageHeaderService.addHeader(model);
         return "contacts";

@@ -30,7 +30,7 @@ public class RegistrationMvcController {
     private final PageHeaderService pageHeaderService;
 
     @GetMapping
-    public String getPage(Model model, @RequestParam(value = "code", required = false) String stringCode) {
+    public String getRegistrationPage(Model model, @RequestParam(value = "code", required = false) String stringCode) {
         if (redirectService.checkNotAnonymousUserRedirect()) {
             return redirectService.notAnonymousUserRedirect();
         }

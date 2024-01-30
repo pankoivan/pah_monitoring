@@ -20,7 +20,7 @@ public class LoginMvcController {
     private final PageHeaderService pageHeaderService;
 
     @GetMapping
-    public String getLogin(Model model) {
+    public String getLoginPage(Model model) {
         if (redirectService.checkNotAnonymousUserRedirect()) {
             return redirectService.notAnonymousUserRedirect();
         }

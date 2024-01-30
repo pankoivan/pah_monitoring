@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.controllers.mvc;
+package org.pah_monitoring.main.controllers.mvc.code_gen;
 
 import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.enums.ExpirationDate;
@@ -22,7 +22,7 @@ public class AdminCodeGenMvcController {
     private final PageHeaderService pageHeaderService;
 
     @GetMapping
-    public String getPage(Model model) {
+    public String getCodeGenPage(Model model) {
         model.addAttribute("admin", extractionService.administrator());
         model.addAttribute("expirationDateList", ExpirationDate.values());
         model.addAttribute("roles", Role.hospitalRoles());
