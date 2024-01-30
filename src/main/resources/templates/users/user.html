@@ -36,7 +36,7 @@
             <div class="row mb-5" th:if="${isHospitalUser}">
                 <div class="col-12">
                     <h3 class="fs-4">Медицинское учреждение</h3>
-                    <p class="mb-0">
+                    <p class="word-wrap mb-0">
                         <a href="#" th:href="@{/hospitals/__${user.hospital.id}__}" th:text="${user.hospital.name}" class="text-secondary">Национальный медицинский исследовательский центр имени В. А. Алмазова</a>
                     </p>
                 </div>
