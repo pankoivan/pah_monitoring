@@ -16,6 +16,6 @@ public interface IndicatorCardService {
 
     List<IndicatorCard> getAllIndicatorCardsFor(Patient patient);
 
-    void checkAccessRightsForObtainingByDoctor(Patient patient) throws NotEnoughRightsServiceException;
+    void checkAccessRightsForObtainingAll(Patient patient) throws NotEnoughRightsServiceException;
 
 }

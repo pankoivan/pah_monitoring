@@ -48,10 +48,11 @@ public class PhysicalChangesServiceImpl extends AbstractInputIndicatorServiceImp
                 .workingName("physical-changes")
                 .name(getIndicatorType().getAlias())
                 .filename("physical-changes.jpg")
+                .postFormRef("/indicators/physical-changes")
+                .tablesViewRef("/patients/%s/examinations/tables?physical-changes".formatted(patient.getId()))
+                .graphicsViewRef("/patients/%s/examinations/graphics?physical-changes".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
-                .tablesViewRef("tables?physical-changes")
-                .graphicsViewRef("graphics?physical-changes")
                 .build();
     }
 

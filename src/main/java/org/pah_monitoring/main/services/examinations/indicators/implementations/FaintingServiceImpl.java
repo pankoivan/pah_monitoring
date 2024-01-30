@@ -48,10 +48,11 @@ public class FaintingServiceImpl extends AbstractInputIndicatorServiceImpl
                 .workingName("fainting")
                 .name(getIndicatorType().getAlias())
                 .filename("fainting.jpg")
+                .postFormRef("/indicators/fainting")
+                .tablesViewRef("/patients/%s/examinations/tables?fainting".formatted(patient.getId()))
+                .graphicsViewRef("/patients/%s/examinations/graphics?fainting".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
-                .tablesViewRef("tables?fainting")
-                .graphicsViewRef("graphics?fainting")
                 .build();
     }
 

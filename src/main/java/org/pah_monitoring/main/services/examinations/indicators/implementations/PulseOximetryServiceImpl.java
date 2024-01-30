@@ -48,10 +48,11 @@ public class PulseOximetryServiceImpl extends AbstractInputIndicatorServiceImpl
                 .workingName("pulse-oximetry")
                 .name(getIndicatorType().getAlias())
                 .filename("pulse-oximetry.jpg")
+                .postFormRef("/indicators/pulse-oximetry")
+                .tablesViewRef("/patients/%s/examinations/tables?pulse-oximetry".formatted(patient.getId()))
+                .graphicsViewRef("/patients/%s/examinations/graphics?pulse-oximetry".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
-                .tablesViewRef("tables?pulse-oximetry")
-                .graphicsViewRef("graphics?pulse-oximetry")
                 .build();
     }
 

@@ -106,8 +106,11 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
     }
 
     @Override
-    public void checkAccessRightsForObtainingByDoctor(Patient patient) throws NotEnoughRightsServiceException {
-        if (!checkService.isOwnDoctor(patient)) {
+    public void checkAccessRightsForObtainingAll(Patient patient) throws NotEnoughRightsServiceException {
+        if (!(
+                checkService.isSamePatient(patient) ||
+                        checkService.isOwnDoctor(patient)
+        )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
     }

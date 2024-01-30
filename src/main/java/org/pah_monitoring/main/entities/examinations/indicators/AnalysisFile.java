@@ -55,17 +55,51 @@ public class AnalysisFile implements Indicator {
     @Getter
     public enum AnalysisType {
 
-        BLOOD_TEST("Развёрнутый анализ крови", "blood-test", "blood-test.jpg", "blood-test"),
+        BLOOD_TEST(
+                "Развёрнутый анализ крови",
+                "blood-test",
+                "blood-test.jpg",
+                "/patients/%s/examinations/blood-test",
+                "/indicators/blood-test"
+        ),
 
-        ELECTROCARDIOGRAPHY("Электрокардиография", "electrocardiography", "electrocardiography.jpg", "electrocardiography"),
+        ELECTROCARDIOGRAPHY(
+                "Электрокардиография",
+                "electrocardiography",
+                "electrocardiography.jpg",
+                "/patients/%s/examinations/electrocardiography",
+                "/indicators/electrocardiography"
+        ),
 
-        RADIOGRAPHY("Рентгенография органов грудной клетки", "radiography", "radiography.jpg", "radiography"),
+        RADIOGRAPHY(
+                "Рентгенография органов грудной клетки",
+                "radiography",
+                "radiography.jpg",
+                "/patients/%s/examinations/radiography",
+                "/indicators/radiography"),
 
-        ECHOCARDIOGRAPHY("Эхокардиография", "echocardiography", "echocardiography.jpg", "echocardiography"),
+        ECHOCARDIOGRAPHY(
+                "Эхокардиография",
+                "echocardiography",
+                "echocardiography.jpg",
+                "/patients/%s/examinations/echocardiography",
+                "/indicators/echocardiography"
+        ),
 
-        COMPUTED_TOMOGRAPHY("Компьютерная томография органов грудной клетки", "computed-tomography", "computed-tomography.jpg", "computed-tomography"),
+        COMPUTED_TOMOGRAPHY(
+                "Компьютерная томография органов грудной клетки",
+                "computed-tomography",
+                "computed-tomography.jpg",
+                "/patients/%s/examinations/computed-tomography",
+                "/indicators/computed-tomography"),
 
-        CATHETERIZATION("Катетеризация правых отделов сердца", "catheterization", "catheterization.jpg", "catheterization");
+        CATHETERIZATION(
+                "Катетеризация правых отделов сердца",
+                "catheterization",
+                "catheterization.jpg",
+                "/patients/%s/examinations/catheterization",
+                "/indicators/catheterization"
+        );
 
         private final String name;
 
@@ -74,6 +108,8 @@ public class AnalysisFile implements Indicator {
         private final String filename;
 
         private final String filesRef;
+
+        private final String postFormRef;
 
     }
 

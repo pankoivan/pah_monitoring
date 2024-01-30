@@ -48,10 +48,11 @@ public class PressureServiceImpl extends AbstractInputIndicatorServiceImpl
                 .workingName("pressure")
                 .name(getIndicatorType().getAlias())
                 .filename("pressure.jpg")
+                .postFormRef("/indicators/pressure")
+                .tablesViewRef("/patients/%s/examinations/tables?pressure".formatted(patient.getId()))
+                .graphicsViewRef("/patients/%s/examinations/graphics?pressure".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
-                .tablesViewRef("tables?pressure")
-                .graphicsViewRef("graphics?pressure")
                 .build();
     }
 

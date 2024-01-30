@@ -20,6 +20,8 @@ public class IndicatorCard {
 
     private String filename;
 
+    private String postFormRef;
+
     private String schedule;
 
     private LocalDateTime date;

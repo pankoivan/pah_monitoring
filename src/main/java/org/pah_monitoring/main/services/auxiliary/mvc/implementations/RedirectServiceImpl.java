@@ -31,7 +31,7 @@ public class RedirectServiceImpl implements RedirectService {
         } else if (checkService.isDoctor()) {
             return "redirect:/doctors/%s/patients".formatted(extractionService.doctor().getId());
         } else if (checkService.isPatient()) {
-            return "redirect:/indicators";
+            return "redirect:/patients/%s/indicators".formatted(extractionService.patient().getId());
         } else {
             return "redirect:/login";
         }
