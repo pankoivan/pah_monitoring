@@ -71,12 +71,20 @@ public class Patient implements HospitalUser, UserDetails {
         return achievements.size();
     }
 
-    public Role getRole() {
-        return Role.PATIENT;
+    public boolean hasNoDoctor() {
+        return doctor == null;
     }
 
-    public boolean isActive() {
-        return patientInactivity == null;
+    public boolean isBanned() {
+        return patientInactivity != null;
+    }
+
+    public boolean isNotBanned() {
+        return !isBanned();
+    }
+
+    public Role getRole() {
+        return Role.PATIENT;
     }
 
     @Override
@@ -96,22 +104,22 @@ public class Patient implements HospitalUser, UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return isActive();
+        return isNotBanned();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isActive();
+        return isNotBanned();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isActive();
+        return isNotBanned();
     }
 
     @Override
     public boolean isEnabled() {
-        return isActive();
+        return isNotBanned();
     }
 
     @Override

@@ -59,13 +59,29 @@ public class Administrator implements HospitalEmployee, UserDetails {
 
     @OneToMany(mappedBy = "author")
     private List<Dismissal> assignedDismissals;
+    
+    public boolean isActive() {
+        return isNotDismissed() && !later1 && !later2;
+    }
+    
+    public boolean isOnVacation() {
+        return later1;
+    }
+
+    public boolean isOnSickLeave() {
+        return later2;
+    }
+
+    public boolean isDismissed() {
+        return employeeInformation.getDismissal() != null;
+    }
+
+    public boolean isNotDismissed() {
+        return !isDismissed();
+    }
 
     public Role getRole() {
         return Role.ADMINISTRATOR;
-    }
-
-    public boolean isActive() {
-        return employeeInformation.getDismissal() == null;
     }
 
     @Override
@@ -85,22 +101,32 @@ public class Administrator implements HospitalEmployee, UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return isActive();
+        return isNotDismissed();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isActive();
+        return isNotDismissed();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isActive();
+        return isNotDismissed();
     }
 
     @Override
     public boolean isEnabled() {
-        return isActive();
+        return isNotDismissed();
+    }
+
+    @Override
+    public UserInformation getUserInformation() {
+        return employeeInformation.getUserInformation();
+    }
+
+    @Override
+    public boolean isEmployee() {
+        return true;
     }
 
     @Override
@@ -114,16 +140,6 @@ public class Administrator implements HospitalEmployee, UserDetails {
     @Override
     public int hashCode() {
         return getClass().hashCode();
-    }
-
-    @Override
-    public UserInformation getUserInformation() {
-        return employeeInformation.getUserInformation();
-    }
-
-    @Override
-    public boolean isEmployee() {
-        return true;
     }
 
 }
