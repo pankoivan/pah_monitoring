@@ -9,6 +9,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
+import org.pah_monitoring.main.services.auxiliary.hospitals.interfaces.HospitalUsersStatisticsService;
 import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HospitalMvcController {
 
     private final HospitalService service;
+
+    private final HospitalUsersStatisticsService statisticsService;
 
     private final AccessRightsCheckService checkService;
 
@@ -45,9 +48,9 @@ public class HospitalMvcController {
             service.checkHospitalCurrentState(hospital);
             service.checkAccessRightsForObtainingConcrete(hospital);
             model.addAttribute("hospital", hospital);
-            model.addAttribute("adminStat", service.getAdministratorStatistics(hospital));
-            model.addAttribute("doctorStat", service.getDoctorStatistics(hospital));
-            model.addAttribute("patientStat", service.getPatientStatistics(hospital));
+            model.addAttribute("adminStat", statisticsService.getAdministratorStatistics(hospital));
+            model.addAttribute("doctorStat", statisticsService.getDoctorStatistics(hospital));
+            model.addAttribute("patientStat", statisticsService.getPatientStatistics(hospital));
             model.addAttribute("isMainAdmin", checkService.isMainAdministrator());
             pageHeaderService.addHeader(model);
             return "hospitals/hospital";
