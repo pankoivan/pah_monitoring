@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @PreAuthorize("permitAll()")
 public class ErrorControllerImpl implements ErrorController {
 
-    // todo: check why i get here with every request
-
     @RequestMapping
     public String errors(HttpServletRequest request, Model model) {
 
@@ -29,11 +27,7 @@ public class ErrorControllerImpl implements ErrorController {
             case "404" -> addToModel(model, HttpErrorText.title404, HttpErrorText.text404);
             case "405" -> addToModel(model, HttpErrorText.title405, HttpErrorText.text405);
             case "500" -> addToModel(model, HttpErrorText.titleUnexpectedServerError, HttpErrorText.textUnexpectedServerError);
-            default -> addToModel(
-                    model,
-                    HttpErrorText.titleXxx.formatted(status),
-                    HttpErrorText.textNotHandledXxx.formatted(status)
-            );
+            default -> addToModel(model, HttpErrorText.titleXxx.formatted(status), HttpErrorText.textNotHandledXxx.formatted(status));
         }
 
         return "errors/error";
