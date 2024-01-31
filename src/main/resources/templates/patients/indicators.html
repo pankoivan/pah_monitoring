@@ -90,7 +90,6 @@
             <!---->
         </div>
         <!---->
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#schedule-editing-modal">Отптпрпрпрпр</button>
         <div class="modal fade" id="schedule-editing-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -100,22 +99,22 @@
                     </div>
                     <div class="modal-body fs-5" id="schedule-editing-modal-text">
                         <form action="#" th:action="@{/later}" class="border rounded text-secondary fs-5 p-3" id="schedule-editing-form">
-                            <input type="hidden" th:value="${patient.id}" />
+                            <input type="hidden" id="patient-id" th:value="${patient.id}" />
                             <div class="mb-3">
                                 <label for="patient" class="form-label">Пациент</label>
-                                <input type="text" name="patient" id="patient" class="form-control" th:value="${patient.userInformation.fullName}" disabled />
+                                <input id="patient" type="text" name="patient" class="form-control" th:value="${patient.userInformation.fullName}" disabled />
                             </div>
                             <div class="mb-3">
                                 <label for="indicator" class="form-label">Показатель</label>
-                                <input type="text" name="indicator" id="indicator" class="form-control" disabled />
+                                <input id="indicator" type="text" name="indicator" class="form-control" disabled />
                             </div>
                             <div class="mb-4">
                                 <label for="schedule" class="form-label">Расписание</label>
-                                <input type="text" name="schedule" id="schedule" class="form-control" placeholder="3 раза в неделю" />
+                                <input id="schedule" type="text" name="schedule" class="form-control" placeholder="3 раза в неделю" />
                             </div>
                             <div class="d-flex flex-row align-items-center justify-content-between mb-2">
-                                <button type="submit" class="btn btn-primary">Сохранить</button>
-                                <button type="button" class="btn btn-danger">Удалить</button>
+                                <button id="save" type="button" class="btn btn-primary">Сохранить</button>
+                                <button id="delete" type="button" class="btn btn-danger">Удалить</button>
                             </div>
                         </form>
                     </div>
@@ -130,6 +129,7 @@
         <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
+        <script src="../../static/js/patients/indicators.js" th:src="@{/js/patients/indicators.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>

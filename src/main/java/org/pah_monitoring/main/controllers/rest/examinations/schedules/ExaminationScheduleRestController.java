@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/rest/examinations")
+@RequestMapping("/rest/schedules")
 public class ExaminationScheduleRestController {
 
     private final ExaminationScheduleService service;
