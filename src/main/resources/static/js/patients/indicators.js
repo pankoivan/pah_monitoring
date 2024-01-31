@@ -1,71 +1,65 @@
-let map;
+let schedules;
 
 document.addEventListener("DOMContentLoaded", () => {
     fetch("http://localhost:8080/rest/schedules/get/for/" + document.getElementById("patient-id").value, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json",
+            Accept: "application/json",
         },
     })
         .then((response) => {
             if (response.ok) {
                 response.json().then((responseJson) => {
-                    map = new Map(Object.entries(responseJson));
+                    schedules = new Map(Object.entries(responseJson));
                 });
             } else {
-                console.error("На сервере произошла ошибка, для которой здесь не предусмотрено никаких действий");
+                console.error("Ошибка сервера");
             }
         })
         .catch((error) => {
-            console.error("Произошла ошибка, для которой не предусмотрено никаких действий", error);
+            console.error("Ошибка запроса", error);
         });
 });
 
 document.querySelectorAll("a[data-key]").forEach((action) => {
-    action.addEventListener("click", function (event) {
+    action.addEventListener("click", (event) => {
         event.preventDefault();
 
-        /*let data = {
-            patientId: document.getElementById("patient-id").value,
-            indicatorType: extractIndicatorType(edit.id),
-        };*/
-
-        let data;
-
-        schedule = map.get(action.dataset.key);
+        let schedule = schedules.get(action.dataset.key);
 
         if (schedule.id == null) {
             document.getElementById("delete").classList.add("visually-hidden");
             document.getElementById("save").addEventListener("click", (event) => {
                 event.preventDefault();
-                data = null;
+                let data = {
+                    patientId: schedule.patientId,
+                    indicatorType: schedule.indicatorType,
+                    schedule: schedule.schedule,
+                };
                 fetchAdd(data);
             });
         } else {
             document.getElementById("delete").addEventListener("click", (event) => {
                 event.preventDefault();
-                id = null;
+                let id = schedule.id;
                 fetchDelete(id);
             });
             document.getElementById("save").addEventListener("click", (event) => {
                 event.preventDefault();
-                data = null;
+                let data = {
+                    id: schedule.id,
+                    schedule: schedule.schedule,
+                };
                 fetchEdit(data);
             });
         }
 
-        //fetchCheck(data);
+        new bootstrap.Modal(document.getElementById("schedule-editing-modal")).show();
     });
 });
 
-function fetchAdd(data) {}
-
-function fetchEdit(data) {}
-
-function fetchDelete(id) {}
-
-/*function fetchCheck(data) {
-    fetch("http://localhost:8080/rest/schedules/check", {
+function fetchAdd(data) {
+    fetch("http://localhost:8080/rest/schedules/add", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -74,29 +68,76 @@ function fetchDelete(id) {}
     })
         .then((response) => {
             if (response.ok) {
-                response.json().then((responseJson) => {
-                    fillAndShowScheduleEditingModal(responseJson);
-                });
+                showModalSuccessForAdding(response);
             } else {
-                console.error("На сервере произошла ошибка, для которой здесь не предусмотрено никаких действий");
+                showModalError(response);
             }
         })
         .catch((error) => {
-            console.error("Произошла ошибка, для которой не предусмотрено никаких действий", error);
+            console.error("Ошибка запроса", error);
         });
-}*/
-
-function fillAndShowScheduleEditingModal(responseJson) {
-    let indicator = document.getElementById("indicator");
-    indicator.value = responseJson.indicatorTypeAlias;
-    if (responseJson.schedule == null) {
-        document.getElementById("delete").classList.add("visually-hidden");
-    } else {
-        document.getElementById("schedule").value = responseJson.schedule;
-    }
-    new bootstrap.Modal(document.getElementById("schedule-editing-modal")).show();
 }
 
-function extractIndicatorType(str) {
-    return str.split("-").pop();
+function fetchEdit(data) {
+    fetch("http://localhost:8080/rest/schedules/edit", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    })
+        .then((response) => {
+            if (response.ok) {
+                showModalSuccessForEditing(response);
+            } else {
+                showModalError(response);
+            }
+        })
+        .catch((error) => {
+            console.error("Ошибка запроса", error);
+        });
+}
+
+function fetchDelete(id) {
+    fetch("http://localhost:8080/rest/schedules/delete/" + id, {
+        method: "POST",
+    })
+        .then((response) => {
+            if (response.ok) {
+                showModalSuccessForDeleting(response);
+            } else {
+                showModalError(response);
+            }
+        })
+        .catch((error) => {
+            console.error("Ошибка запроса", error);
+        });
+}
+
+function showModalSuccessForAdding(response) {
+    response.json().then(() => {
+        document.getElementById("success-modal-text").innerText = "Расписание было успешно добавлено";
+        new bootstrap.Modal(document.getElementById("success-modal")).show();
+    });
+}
+
+function showModalSuccessForEditing(response) {
+    response.json().then(() => {
+        document.getElementById("success-modal-text").innerText = "Расписание было успешно заменено";
+        new bootstrap.Modal(document.getElementById("success-modal")).show();
+    });
+}
+
+function showModalSuccessForDeleting(response) {
+    response.json().then(() => {
+        document.getElementById("success-modal-text").innerText = "Расписание было успешно удалено";
+        new bootstrap.Modal(document.getElementById("success-modal")).show();
+    });
+}
+
+function showModalError(response) {
+    response.json().then((responseJson) => {
+        document.getElementById("error-modal-text").innerText = responseJson.errorDescription;
+        new bootstrap.Modal(document.getElementById("error-modal")).show();
+    });
 }
