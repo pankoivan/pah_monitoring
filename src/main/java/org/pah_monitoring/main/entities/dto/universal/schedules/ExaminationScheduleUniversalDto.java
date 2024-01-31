@@ -13,7 +13,7 @@ public class ExaminationScheduleUniversalDto {
     @NotNull(message = "Поле \"patientId\" не должно отсутствовать")
     Integer patientId;
 
-    @NotNull(message = "Поле \"indicatorGroup\" не должно отсутствовать")
+    @NotNull(message = "Поле \"indicatorType\" не должно отсутствовать")
     IndicatorType indicatorType;
 
     @NotNull(message = "Поле \"schedule\" не должно отсутствовать")
