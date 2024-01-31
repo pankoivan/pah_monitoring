@@ -66,7 +66,7 @@
                         <div class="card-body text-start">
                             <h5 class="card-title text-center mb-3" th:text="${each.name}">Давление</h5>
                             <p class="mb-3">
-                                <a th:id="'edit-schedule-for-' + ${each.workingName}" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
+                                <a th:id="'edit-' + ${each.workingName}" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
                                     <img width="18" class="mb-1" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                                 </a>
                                 <img width="18" class="mb-1" th:if="${isCurrentUserPatient}" src="../../static/svg/schedule.svg" th:src="@{/svg/schedule.svg}" alt="Расписание" />
@@ -100,9 +100,10 @@
                     </div>
                     <div class="modal-body fs-5" id="schedule-editing-modal-text">
                         <form action="#" th:action="@{/later}" class="border rounded text-secondary fs-5 p-3" id="schedule-editing-form">
+                            <input type="hidden" th:value="${patient.id}" />
                             <div class="mb-3">
                                 <label for="patient" class="form-label">Пациент</label>
-                                <input type="text" name="patient" id="patient" class="form-control" disabled />
+                                <input type="text" name="patient" id="patient" class="form-control" th:value="${patient.userInformation.fullName}" disabled />
                             </div>
                             <div class="mb-3">
                                 <label for="indicator" class="form-label">Показатель</label>
