@@ -2,8 +2,12 @@ const scheduleEditingForm = document.getElementById("schedule-editing-form");
 
 let schedules;
 
+let errorModal;
+let successModal;
+let scheduleEditingModal;
+
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("http://localhost:8080/rest/schedules/get/for/" + document.getElementById("patient-id").value, {
+    fetch("http://localhost:8080/rest/schedules/get/for/" + patientId(), {
         method: "GET",
         headers: {
             Accept: "application/json",
@@ -21,6 +25,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch((error) => {
             console.error("Ошибка запроса", error);
         });
+
+    errorModal = new bootstrap.Modal(document.getElementById("error-modal"));
+    successModal = new bootstrap.Modal(document.getElementById("success-modal"));
+    scheduleEditingModal = new bootstrap.Modal(document.getElementById("schedule-editing-modal"));
 });
 
 document.querySelectorAll("a[data-key]").forEach((action) => {
@@ -29,8 +37,8 @@ document.querySelectorAll("a[data-key]").forEach((action) => {
 
         let schedule = schedules.get(action.dataset.key);
 
-        document.getElementById("indicator").value = schedule.indicatorTypeAlias;
-        document.getElementById("schedule").value = schedule.schedule == null ? "" : schedule.schedule;
+        scheduleEditingForm.querySelector('input[name="indicator"]').value = schedule.indicatorTypeAlias;
+        scheduleEditingForm.querySelector('input[name="schedule"]').value = schedule.schedule == null ? "" : schedule.schedule;
 
         if (schedule.id == null) {
             document.getElementById("delete").classList.add("visually-hidden");
@@ -39,7 +47,7 @@ document.querySelectorAll("a[data-key]").forEach((action) => {
                 let data = {
                     patientId: schedule.patientId,
                     indicatorType: schedule.indicatorType,
-                    schedule: document.getElementById("schedule").value,
+                    schedule: scheduleEditingForm.querySelector('input[name="schedule"]').value,
                 };
                 fetchAdd(data);
             });
@@ -53,13 +61,13 @@ document.querySelectorAll("a[data-key]").forEach((action) => {
                 event.preventDefault();
                 let data = {
                     id: schedule.id,
-                    schedule: document.getElementById("schedule").value,
+                    schedule: scheduleEditingForm.querySelector('input[name="schedule"]').value,
                 };
                 fetchEdit(data);
             });
         }
 
-        new bootstrap.Modal(document.getElementById("schedule-editing-modal")).show();
+        showScheduleEditingModal();
     });
 });
 
@@ -74,9 +82,9 @@ function fetchAdd(data) {
         .then((response) => {
             closeScheduleEditingModal();
             if (response.ok) {
-                showModalSuccessForAdding(response);
+                showSuccessModal("Расписание было успешно добавлено");
             } else {
-                showModalError(response);
+                showErrorModal(response);
             }
         })
         .catch((error) => {
@@ -95,9 +103,9 @@ function fetchEdit(data) {
         .then((response) => {
             closeScheduleEditingModal();
             if (response.ok) {
-                showModalSuccessForEditing(response);
+                showSuccessModal("Расписание было успешно изменено");
             } else {
-                showModalError(response);
+                showErrorModal(response);
             }
         })
         .catch((error) => {
@@ -112,9 +120,9 @@ function fetchDelete(id) {
         .then((response) => {
             closeScheduleEditingModal();
             if (response.ok) {
-                showModalSuccessForDeleting(response);
+                showSuccessModal("Расписание было успешно удалено");
             } else {
-                showModalError(response);
+                showErrorModal(response);
             }
         })
         .catch((error) => {
@@ -122,40 +130,24 @@ function fetchDelete(id) {
         });
 }
 
-function showModalSuccessForAdding(response) {
-    response.json().then(() => {
-        document.getElementById("success-modal-text").innerText = "Расписание было успешно добавлено";
-        new bootstrap.Modal(document.getElementById("success-modal")).show();
-    });
-}
-
-function showModalSuccessForEditing(response) {
-    response.json().then(() => {
-        document.getElementById("success-modal-text").innerText = "Расписание было успешно заменено";
-        new bootstrap.Modal(document.getElementById("success-modal")).show();
-    });
-}
-
-function showModalSuccessForDeleting(response) {
-    response.json().then(() => {
-        document.getElementById("success-modal-text").innerText = "Расписание было успешно удалено";
-        new bootstrap.Modal(document.getElementById("success-modal")).show();
-    });
-}
-
-function showModalError(response) {
-    response.json().then((responseJson) => {
-        document.getElementById("error-modal-text").innerText = responseJson.errorDescription;
-        new bootstrap.Modal(document.getElementById("error-modal")).show();
-    });
+function showScheduleEditingModal() {
+    scheduleEditingModal.show();
 }
 
 function closeScheduleEditingModal() {
     document.getElementById("schedule-editing-modal-close-1").click();
 }
 
-function showScheduleEditingModal() {
-    new bootstrap.Modal(document.getElementById("schedule-editing-modal")).show();
+function showSuccessModal(message) {
+    document.getElementById("success-modal-text").innerText = message;
+    successModal.show();
+}
+
+function showErrorModal(response) {
+    response.json().then((responseJson) => {
+        document.getElementById("error-modal-text").innerText = responseJson.errorDescription;
+        errorModal.show();
+    });
 }
 
 document.getElementById("error-modal-close-1").addEventListener("click", () => {
@@ -165,3 +157,7 @@ document.getElementById("error-modal-close-1").addEventListener("click", () => {
 document.getElementById("error-modal-close-2").addEventListener("click", () => {
     showScheduleEditingModal();
 });
+
+function patientId() {
+    return window.location.pathname.split("/")[2];
+}
