@@ -36,6 +36,7 @@ document.querySelectorAll("a[data-key]").forEach((action) => {
         event.preventDefault();
 
         let schedule = schedules.get(action.dataset.key);
+        console.log(schedule);
 
         scheduleEditingForm.querySelector('input[name="indicator"]').value = schedule.indicatorTypeAlias;
         scheduleEditingForm.querySelector('input[name="schedule"]').value = schedule.schedule == null ? "" : schedule.schedule;
@@ -160,4 +161,20 @@ document.getElementById("error-modal-close-2").addEventListener("click", () => {
 
 function patientId() {
     return window.location.pathname.split("/")[2];
+}
+
+document.getElementById("schedule-editing-modal-close-1").addEventListener("click", () => {
+    refreshScheduleEditingForm();
+});
+
+document.getElementById("schedule-editing-modal-close-2").addEventListener("click", () => {
+    refreshScheduleEditingForm();
+});
+
+function refreshScheduleEditingForm() {
+    document.getElementById("delete").classList.remove("visually-hidden");
+    let saveButton = document.getElementById("save");
+    saveButton.outerHTML = saveButton.outerHTML;
+    let deleteButton = document.getElementById("delete");
+    deleteButton.outerHTML = deleteButton.outerHTML;
 }
