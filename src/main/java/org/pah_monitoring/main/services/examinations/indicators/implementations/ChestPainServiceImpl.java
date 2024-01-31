@@ -45,7 +45,7 @@ public class ChestPainServiceImpl extends AbstractInputIndicatorServiceImpl
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
         return InputIndicatorCard
                 .builder()
-                .workingName("chest-pain")
+                .workingName(IndicatorType.CHEST_PAIN.name())
                 .name(getIndicatorType().getAlias())
                 .filename("chest-pain.jpg")
                 .postFormRef("/indicators/chest-pain")

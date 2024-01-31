@@ -45,7 +45,7 @@ public class PressureServiceImpl extends AbstractInputIndicatorServiceImpl
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
         return InputIndicatorCard
                 .builder()
-                .workingName("pressure")
+                .workingName(IndicatorType.PRESSURE.name())
                 .name(getIndicatorType().getAlias())
                 .filename("pressure.jpg")
                 .postFormRef("/indicators/pressure")

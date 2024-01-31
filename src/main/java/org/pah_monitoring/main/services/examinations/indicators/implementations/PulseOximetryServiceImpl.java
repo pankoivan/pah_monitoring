@@ -45,7 +45,7 @@ public class PulseOximetryServiceImpl extends AbstractInputIndicatorServiceImpl
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
         return InputIndicatorCard
                 .builder()
-                .workingName("pulse-oximetry")
+                .workingName(IndicatorType.PULSE_OXIMETRY.name())
                 .name(getIndicatorType().getAlias())
                 .filename("pulse-oximetry.jpg")
                 .postFormRef("/indicators/pulse-oximetry")

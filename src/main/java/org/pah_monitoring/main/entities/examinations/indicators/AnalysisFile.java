@@ -57,7 +57,7 @@ public class AnalysisFile implements Indicator {
 
         BLOOD_TEST(
                 "Развёрнутый анализ крови",
-                "blood-test",
+                "BLOOD_TEST",
                 "blood-test.jpg",
                 "/patients/%s/examinations/blood-test",
                 "/indicators/blood-test"
@@ -65,7 +65,7 @@ public class AnalysisFile implements Indicator {
 
         ELECTROCARDIOGRAPHY(
                 "Электрокардиография",
-                "electrocardiography",
+                "ELECTROCARDIOGRAPHY",
                 "electrocardiography.jpg",
                 "/patients/%s/examinations/electrocardiography",
                 "/indicators/electrocardiography"
@@ -73,14 +73,14 @@ public class AnalysisFile implements Indicator {
 
         RADIOGRAPHY(
                 "Рентгенография органов грудной клетки",
-                "radiography",
+                "RADIOGRAPHY",
                 "radiography.jpg",
                 "/patients/%s/examinations/radiography",
                 "/indicators/radiography"),
 
         ECHOCARDIOGRAPHY(
                 "Эхокардиография",
-                "echocardiography",
+                "ECHOCARDIOGRAPHY",
                 "echocardiography.jpg",
                 "/patients/%s/examinations/echocardiography",
                 "/indicators/echocardiography"
@@ -88,14 +88,14 @@ public class AnalysisFile implements Indicator {
 
         COMPUTED_TOMOGRAPHY(
                 "Компьютерная томография органов грудной клетки",
-                "computed-tomography",
+                "COMPUTED_TOMOGRAPHY",
                 "computed-tomography.jpg",
                 "/patients/%s/examinations/computed-tomography",
                 "/indicators/computed-tomography"),
 
         CATHETERIZATION(
                 "Катетеризация правых отделов сердца",
-                "catheterization",
+                "CATHETERIZATION",
                 "catheterization.jpg",
                 "/patients/%s/examinations/catheterization",
                 "/indicators/catheterization"

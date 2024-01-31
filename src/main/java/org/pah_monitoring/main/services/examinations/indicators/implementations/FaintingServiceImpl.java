@@ -45,7 +45,7 @@ public class FaintingServiceImpl extends AbstractInputIndicatorServiceImpl
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
         return InputIndicatorCard
                 .builder()
-                .workingName("fainting")
+                .workingName(IndicatorType.FAINTING.name())
                 .name(getIndicatorType().getAlias())
                 .filename("fainting.jpg")
                 .postFormRef("/indicators/fainting")

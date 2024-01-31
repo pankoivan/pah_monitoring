@@ -44,7 +44,7 @@ public class AscitesServiceImpl extends AbstractInputIndicatorServiceImpl<Ascite
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
         return InputIndicatorCard
                 .builder()
-                .workingName("ascites")
+                .workingName(IndicatorType.ASCITES.name())
                 .name(getIndicatorType().getAlias())
                 .filename("ascites.jpg")
                 .postFormRef("/indicators/ascites")

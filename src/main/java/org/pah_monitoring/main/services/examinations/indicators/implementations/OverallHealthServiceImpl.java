@@ -45,7 +45,7 @@ public class OverallHealthServiceImpl extends AbstractInputIndicatorServiceImpl
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
         return InputIndicatorCard
                 .builder()
-                .workingName("overall-health")
+                .workingName(IndicatorType.OVERALL_HEALTH.name())
                 .name(getIndicatorType().getAlias())
                 .filename("overall-health.jpg")
                 .postFormRef("/indicators/overall-health")

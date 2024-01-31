@@ -45,7 +45,7 @@ public class PhysicalChangesServiceImpl extends AbstractInputIndicatorServiceImp
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
         return InputIndicatorCard
                 .builder()
-                .workingName("physical-changes")
+                .workingName(IndicatorType.PHYSICAL_CHANGES.name())
                 .name(getIndicatorType().getAlias())
                 .filename("physical-changes.jpg")
                 .postFormRef("/indicators/physical-changes")

@@ -45,7 +45,7 @@ public class FunctionalClassServiceImpl extends AbstractInputIndicatorServiceImp
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
         return InputIndicatorCard
                 .builder()
-                .workingName("functional-class")
+                .workingName(IndicatorType.FUNCTIONAL_CLASS.name())
                 .name(getIndicatorType().getAlias())
                 .filename("functional-class.jpg")
                 .postFormRef("/indicators/functional-class")

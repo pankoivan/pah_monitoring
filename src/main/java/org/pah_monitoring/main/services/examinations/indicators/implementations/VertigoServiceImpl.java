@@ -45,7 +45,7 @@ public class VertigoServiceImpl extends AbstractInputIndicatorServiceImpl
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
         return InputIndicatorCard
                 .builder()
-                .workingName("vertigo")
+                .workingName(IndicatorType.VERTIGO.name())
                 .name(getIndicatorType().getAlias())
                 .filename("vertigo.jpg")
                 .postFormRef("/indicators/vertigo")

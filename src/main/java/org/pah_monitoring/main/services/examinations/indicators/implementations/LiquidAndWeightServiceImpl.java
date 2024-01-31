@@ -45,7 +45,7 @@ public class LiquidAndWeightServiceImpl extends AbstractInputIndicatorServiceImp
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
         return InputIndicatorCard
                 .builder()
-                .workingName("liquid-and-weight")
+                .workingName(IndicatorType.LIQUID_AND_WEIGHT.name())
                 .name(getIndicatorType().getAlias())
                 .filename("liquid-and-weight.jpg")
                 .postFormRef("/indicators/liquid-and-weight")

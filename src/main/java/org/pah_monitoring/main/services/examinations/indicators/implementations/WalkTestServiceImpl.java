@@ -63,7 +63,7 @@ public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
         return InputIndicatorCard
                 .builder()
-                .workingName("walk-test")
+                .workingName(IndicatorType.WALK_TEST.name())
                 .name(getIndicatorType().getAlias())
                 .filename("walk-test.jpg")
                 .postFormRef("/indicators/walk-test")

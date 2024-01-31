@@ -45,7 +45,7 @@ public class CoughServiceImpl extends AbstractInputIndicatorServiceImpl
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
         return InputIndicatorCard
                 .builder()
-                .workingName("cough")
+                .workingName(IndicatorType.COUGH.name())
                 .name(getIndicatorType().getAlias())
                 .filename("cough.jpg")
                 .postFormRef("/indicators/cough")

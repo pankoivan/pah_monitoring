@@ -45,7 +45,7 @@ public class SpirometryServiceImpl extends AbstractInputIndicatorServiceImpl
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
         return InputIndicatorCard
                 .builder()
-                .workingName("spirometry")
+                .workingName(IndicatorType.SPIROMETRY.name())
                 .name(getIndicatorType().getAlias())
                 .filename("spirometry.jpg")
                 .postFormRef("/indicators/spirometry")
