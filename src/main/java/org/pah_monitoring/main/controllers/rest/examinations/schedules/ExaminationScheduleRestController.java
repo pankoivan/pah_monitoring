@@ -1,6 +1,9 @@
 package org.pah_monitoring.main.controllers.rest.examinations.schedules;
 
+import jakarta.validation.Valid;
 import lombok.*;
+import org.pah_monitoring.main.entities.dto.saving.examinations.schedules.ExaminationScheduleAddingDto;
+import org.pah_monitoring.main.entities.dto.saving.examinations.schedules.ExaminationScheduleEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
@@ -16,10 +19,12 @@ import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceE
 import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.services.examinations.schedules.interfaces.ExaminationScheduleService;
 import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -38,7 +43,7 @@ public class ExaminationScheduleRestController {
     @Qualifier("patientService")
     private final HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
-    @PostMapping("/check")
+    /*@PostMapping("/check")
     public ScheduleCheckResponse check(@RequestBody ScheduleCheckRequest request) {
         try {
             Patient patient = patientService.findById(request.getPatientId());
@@ -50,14 +55,15 @@ public class ExaminationScheduleRestController {
         } catch (DataSearchingServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         }
-    }
+    }*/
 
-    @PostMapping("/save")
-    public ExaminationSchedule save(@RequestBody ExaminationScheduleUniversalDto universalDto) {
+    @PostMapping("/add")
+    public ExaminationSchedule add(@RequestBody @Valid ExaminationScheduleAddingDto addingDto, BindingResult bindingResult) {
         try {
-            service.checkAccessRightsForAnyAction(patientService.findById(universalDto.getPatientId()));
-            return service.save(universalDto);
-        } catch (DataSearchingServiceException e) {
+            service.checkAccessRightsForActions(patientService.findById(addingDto.getPatientId()));
+            service.checkDataValidityForAdding(addingDto, bindingResult);
+            return service.add(addingDto);
+        } catch (DataSearchingServiceException | DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
@@ -66,12 +72,29 @@ public class ExaminationScheduleRestController {
         }
     }
 
-    @PostMapping("/delete")
-    public void delete(@RequestBody ExaminationScheduleUniversalDto universalDto) {
+    @PostMapping("/edit")
+    public ExaminationSchedule edit(@RequestBody @Valid ExaminationScheduleEditingDto editingDto, BindingResult bindingResult) {
         try {
-            service.checkAccessRightsForAnyAction(patientService.findById(universalDto.getPatientId()));
-            service.delete(universalDto);
-        } catch (DataSearchingServiceException e) {
+            ExaminationSchedule schedule = service.findById(editingDto.getId());
+            service.checkAccessRightsForActions(schedule.getPatient());
+            service.checkDataValidityForEditing(editingDto, bindingResult);
+            return service.edit(editingDto);
+        } catch (DataSearchingServiceException | DataValidationServiceException e) {
+            throw new DataValidationRestControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
+        } catch (DataSavingServiceException e) {
+            throw new DataSavingRestControllerException(e.getMessage(), e);
+        }
+    }
+
+    @PostMapping("/delete/{id}")
+    public void delete(@PathVariable("id") String pathId) {
+        try {
+            ExaminationSchedule schedule = service.findById(service.parsePathId(pathId));
+            service.checkAccessRightsForActions(schedule.getPatient());
+            service.deleteById(schedule.getId());
+        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsRestControllerException(e.getMessage(), e);

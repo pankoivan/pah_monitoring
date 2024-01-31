@@ -29,7 +29,7 @@
                         <div class="card-body text-start">
                             <h5 class="card-title text-center mb-3" th:text="${each.name}">Давление</h5>
                             <p class="mb-3">
-                                <a data-key="${each.workingName}" th:id="'edit-' + ${each.workingName}" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
+                                <a th:attr="data-key=${each.workingName}" th:id="'edit-' + ${each.workingName}" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
                                     <img width="18" class="mb-1" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                                 </a>
                                 <img width="18" th:if="${isCurrentUserPatient}" src="../../static/svg/schedule.svg" th:src="@{/svg/schedule.svg}" alt="Расписание" />
@@ -66,7 +66,7 @@
                         <div class="card-body text-start">
                             <h5 class="card-title text-center mb-3" th:text="${each.name}">Давление</h5>
                             <p class="mb-3">
-                                <a data-key="${each.workingName}" th:id="'edit-' + ${each.workingName}" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
+                                <a th:attr="data-key=${each.workingName}" th:id="'edit-' + ${each.workingName}" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
                                     <img width="18" class="mb-1" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                                 </a>
                                 <img width="18" class="mb-1" th:if="${isCurrentUserPatient}" src="../../static/svg/schedule.svg" th:src="@{/svg/schedule.svg}" alt="Расписание" />
@@ -95,7 +95,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-4" id="schedule-editing-modal-title">Редактирование расписания</h1>
-                        <button id="schedule-editing-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button id="schedule-editing-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body fs-5" id="schedule-editing-modal-text">
                         <form action="#" th:action="@{/later}" class="border rounded text-secondary fs-5 p-3" id="schedule-editing-form">
@@ -119,7 +119,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <button id="schedule-editing-modal-close-2" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                     </div>
                 </div>
             </div>
