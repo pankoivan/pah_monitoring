@@ -29,7 +29,7 @@
                         <div class="card-body text-start">
                             <h5 class="card-title text-center mb-3" th:text="${each.name}">Давление</h5>
                             <p class="mb-3">
-                                <a th:id="'edit-schedule-for-' + ${each.workingName}" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
+                                <a th:id="'edit-' + ${each.workingName}" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
                                     <img width="18" class="mb-1" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                                 </a>
                                 <img width="18" th:if="${isCurrentUserPatient}" src="../../static/svg/schedule.svg" th:src="@{/svg/schedule.svg}" alt="Расписание" />
