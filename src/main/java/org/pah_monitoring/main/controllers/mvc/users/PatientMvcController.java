@@ -49,6 +49,7 @@ public class PatientMvcController {
         try {
             Patient patient = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(patient);
+            model.addAttribute("target", "#patient-inactivity-modal");
             model.addAttribute("user", patient);
             model.addAttribute("isActive", patient.isActive());
             model.addAttribute("activityMessage", patient.activityMessage());

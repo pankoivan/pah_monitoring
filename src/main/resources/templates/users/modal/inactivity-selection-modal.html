@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <div th:fragment="inactivity-selection-modal" class="modal fade" id="inactivity-selection-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-4" id="inactivity-selection-modal-title">Опция</h1>
+                        <button id="inactivity-selection-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="inactivity-selection-modal-text">
+                        <div class="d-flex mb-2">
+                            <button class="btn btn-lg btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#vacation-modal">Назначить отпуск</button>
+                        </div>
+                        <div class="d-flex mb-2">
+                            <button class="btn btn-lg btn-warning flex-grow-1" data-bs-toggle="modal" data-bs-target="#sick-leave-modal">Назначить больничный</button>
+                        </div>
+                        <div class="d-flex mb-0">
+                            <button class="btn btn-lg btn-danger flex-grow-1" data-bs-toggle="modal" data-bs-target="#dismissal-modal">Уволить</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="inactivity-selection-modal-close-2" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

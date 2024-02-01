@@ -72,6 +72,7 @@ public class AdministratorMvcController {
                     checkService.isAdministratorFromSameHospital(administrator.getHospital()) &&
                     !checkService.isSameUser(administrator)
             );
+            model.addAttribute("target", "#inactivity-selection-modal");
             pageHeaderService.addHeader(model);
             return "users/user";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {

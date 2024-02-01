@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <div th:fragment="vacation-modal" class="modal fade" id="vacation-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-4" id="vacation-modal-title">Назначение отпуска</h1>
+                        <button id="vacation-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body fs-5" id="vacation-modal-text">
+                        <form id="vacation-form" action="#" class="border rounded text-secondary fs-5 p-3">
+                            <div class="mb-3">
+                                <label for="vacation-employee" class="form-label">Сотрудник</label>
+                                <input type="text" name="vacation-employee" id="vacation-employee" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="vacation-start-date" class="form-label">Дата начала</label>
+                                <input type="date" name="vacation-start-date" id="vacation-start-date" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="vacation-end-date" class="form-label">Дата окончания</label>
+                                <input type="date" name="vacation-end-date" id="vacation-end-date" class="form-control" />
+                            </div>
+                            <div class="mb-4">
+                                <label for="vacation-comment" class="form-label">Комментарий</label>
+                                <textarea name="vacation-comment" id="vacation-comment" class="form-control" rows="3" placeholder="Можете написать здесь какой-нибудь небольшой комментарий по поводу назначаемого отпуска"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Отправить</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="vacation-modal-close-2" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

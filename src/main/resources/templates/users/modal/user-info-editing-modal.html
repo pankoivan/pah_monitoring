@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <div th:fragment="user-info-editing-modal" class="modal fade" id="user-info-editing-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-4" id="user-info-editing-modal-title">Редактирование общей информации</h1>
+                        <button id="user-info-editing-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body fs-5" id="user-info-editing-modal-text">
+                        <form id="user-info-editing-form" action="#" class="border rounded text-secondary fs-5 p-3">
+                            <div class="mb-3">
+                                <label for="lastname" class="form-label">Фамилия</label>
+                                <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Иванов" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Имя</label>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Иван" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="patronymic" class="form-label">Отчество</label>
+                                <input type="text" name="patronymic" id="patronymic" class="form-control" placeholder="Иванович" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone-number" class="form-label">Номер телефона</label>
+                                <input type="text" name="phoneNumber" id="phone-number" class="form-control" placeholder="89212345901" />
+                            </div>
+                            <div class="mb-3">
+                                <p class="form-label">Пол</p>
+                                <div class="form-check" th:each="each, status : ${genders}" id="gender">
+                                    <div>
+                                        <label class="form-check-label" th:for="'gender-radio-' + ${status.index}"></label>
+                                        <input th:id="'gender-radio-' + ${status.index}" type="radio" class="form-check-input" th:text="${each.alias}" th:value="${each}" name="gender" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="birthdate" class="form-label">Дата рождения</label>
+                                <input type="date" name="birthdate" id="birthdate" class="form-control" />
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Сохранить изменения</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="user-info-editing-modal-close-2" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -52,6 +52,7 @@ public class DoctorMvcController {
         try {
             Doctor doctor = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(doctor);
+            model.addAttribute("target", "#inactivity-selection-modal");
             model.addAttribute("user", doctor);
             model.addAttribute("isActive", doctor.isActive());
             model.addAttribute("activityMessage", doctor.activityMessage());

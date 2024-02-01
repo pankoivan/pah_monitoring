@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <div th:fragment="employee-info-editing-modal" class="modal fade" id="employee-info-editing-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-4" id="employee-info-editing-modal-title">Редактирование рабочей информации</h1>
+                        <button id="employee-info-editing-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body fs-5" id="employee-info-editing-modal-text">
+                        <form id="employee-info-editing-form" action="#" class="border rounded text-secondary fs-5 p-3">
+                            <div class="mb-4">
+                                <label for="post" class="form-label">Должность</label>
+                                <input type="text" name="post" id="post" class="form-control" placeholder="Секретарь" />
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Сохранить изменения</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="employee-info-editing-modal-close-2" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

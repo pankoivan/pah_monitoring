@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <div th:fragment="sick-leave-modal" class="modal fade" id="sick-leave-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-4" id="sick-leave-modal-title">Назначение больничного</h1>
+                        <button id="sick-leave-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body fs-5" id="sick-leave-modal-text">
+                        <form id="sick-leave-form" action="#" class="border rounded text-secondary fs-5 p-3">
+                            <div class="mb-3">
+                                <label for="sick-leave-employee" class="form-label">Сотрудник</label>
+                                <input type="text" name="sick-leave-employee" id="sick-leave-employee" class="form-control" disabled />
+                            </div>
+                            <div class="mb-3">
+                                <label for="sick-leave-start-date" class="form-label">Дата начала</label>
+                                <input type="date" name="sick-leave-start-date" id="sick-leave-start-date" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="sick-leave-end-date" class="form-label">Дата окончания</label>
+                                <input type="date" name="sick-leave-end-date" id="sick-leave-end-date" class="form-control" />
+                            </div>
+                            <div class="mb-4">
+                                <label for="sick-leave-comment" class="form-label">Комментарий</label>
+                                <textarea name="sick-leave-comment" id="sick-leave-comment" class="form-control" rows="3" placeholder="Можете написать здесь какой-нибудь небольшой комментарий по поводу назначаемого больничного"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Отправить</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="sick-leave-modal-close-2" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
