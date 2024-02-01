@@ -1,10 +1,10 @@
 package org.pah_monitoring.main.controllers.mvc.code_gen;
 
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.enums.ExpirationDate;
-import org.pah_monitoring.main.entities.enums.Role;
-import org.pah_monitoring.main.services.auxiliary.access.interfaces.CurrentUserExtractionService;
-import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
+import org.pah_monitoring.main.entities.main.enums.ExpirationDate;
+import org.pah_monitoring.main.entities.main.enums.Role;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserExtractionService;
+import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

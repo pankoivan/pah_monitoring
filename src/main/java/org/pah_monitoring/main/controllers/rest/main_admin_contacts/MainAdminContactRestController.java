@@ -2,8 +2,8 @@ package org.pah_monitoring.main.controllers.rest.main_admin_contacts;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.dto.saving.main_admin_contacts.MainAdminContactSavingDto;
-import org.pah_monitoring.main.entities.main_admin_contacts.MainAdminContact;
+import org.pah_monitoring.main.entities.additional.dto.saving.main_admin_contacts.MainAdminContactSavingDto;
+import org.pah_monitoring.main.entities.main.main_admin_contacts.MainAdminContact;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataDeletionRestControllerException;
@@ -13,7 +13,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
-import org.pah_monitoring.main.services.main_admin_contacts.interfaces.MainAdminContactService;
+import org.pah_monitoring.main.services.main.main_admin_contacts.interfaces.MainAdminContactService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;

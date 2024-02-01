@@ -1,8 +1,8 @@
 package org.pah_monitoring.main.controllers.mvc.login;
 
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
-import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.RedirectService;
+import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
+import org.pah_monitoring.main.services.additional.mvc.interfaces.RedirectService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

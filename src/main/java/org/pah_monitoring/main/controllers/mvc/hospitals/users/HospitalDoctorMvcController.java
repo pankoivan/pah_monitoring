@@ -1,19 +1,19 @@
 package org.pah_monitoring.main.controllers.mvc.hospitals.users;
 
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.dto.saving.users.users.adding.DoctorAddingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.users.editing.DoctorEditingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.users.saving.DoctorSavingDto;
-import org.pah_monitoring.main.entities.hospitals.Hospital;
-import org.pah_monitoring.main.entities.users.users.Doctor;
+import org.pah_monitoring.main.entities.additional.dto.saving.users.users.adding.DoctorAddingDto;
+import org.pah_monitoring.main.entities.additional.dto.saving.users.users.editing.DoctorEditingDto;
+import org.pah_monitoring.main.entities.additional.dto.saving.users.users.saving.DoctorSavingDto;
+import org.pah_monitoring.main.entities.main.hospitals.Hospital;
+import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
-import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
-import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
-import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
+import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
+import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
+import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

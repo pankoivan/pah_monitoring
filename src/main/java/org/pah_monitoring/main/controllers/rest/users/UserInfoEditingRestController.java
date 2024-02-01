@@ -2,12 +2,12 @@ package org.pah_monitoring.main.controllers.rest.users;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.dto.saving.users.info.editing.EmployeeInformationEditingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.info.editing.UserInformationEditingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.info.editing.UserSecurityInformationEditingDto;
-import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
-import org.pah_monitoring.main.entities.users.info.UserInformation;
-import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
+import org.pah_monitoring.main.entities.additional.dto.saving.users.info.editing.EmployeeInformationEditingDto;
+import org.pah_monitoring.main.entities.additional.dto.saving.users.info.editing.UserInformationEditingDto;
+import org.pah_monitoring.main.entities.additional.dto.saving.users.info.editing.UserSecurityInformationEditingDto;
+import org.pah_monitoring.main.entities.main.users.info.EmployeeInformation;
+import org.pah_monitoring.main.entities.main.users.info.UserInformation;
+import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.forbidden.NotEnoughRightsRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
@@ -15,10 +15,10 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
-import org.pah_monitoring.main.services.auxiliary.users.interfaces.UserSearchingService;
-import org.pah_monitoring.main.services.users.info.interfaces.EmployeeInformationService;
-import org.pah_monitoring.main.services.users.info.interfaces.UserInformationService;
-import org.pah_monitoring.main.services.users.info.interfaces.UserSecurityInformationService;
+import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchingService;
+import org.pah_monitoring.main.services.main.users.info.interfaces.EmployeeInformationService;
+import org.pah_monitoring.main.services.main.users.info.interfaces.UserInformationService;
+import org.pah_monitoring.main.services.main.users.info.interfaces.UserSecurityInformationService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -74,7 +74,7 @@ public class UserInfoEditingRestController {
     public EmployeeInformation editHospitalEmployeeInfo(@RequestBody @Valid EmployeeInformationEditingDto editingDto,
                                                         BindingResult bindingResult) {
         try {
-            employeeInformationService.checkAccessRightsForEditing(userSearchingService.findHospitalEmployeeByEmployeeInformationId(editingDto.getId()));
+            employeeInformationService.checkAccessRightsForEditing(userSearchingService.findHospitalEmployeeByHospitalEmployeeInformationId(editingDto.getId()));
             employeeInformationService.checkDataValidityForEditing(editingDto, bindingResult);
             return employeeInformationService.edit(editingDto);
         } catch (DataValidationServiceException | DataSearchingServiceException e) {

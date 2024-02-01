@@ -1,19 +1,19 @@
 package org.pah_monitoring.main.controllers.mvc.users;
 
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.dto.saving.users.users.adding.DoctorAddingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.users.editing.DoctorEditingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.users.saving.DoctorSavingDto;
-import org.pah_monitoring.main.entities.users.users.Doctor;
+import org.pah_monitoring.main.entities.additional.dto.saving.users.users.adding.DoctorAddingDto;
+import org.pah_monitoring.main.entities.additional.dto.saving.users.users.editing.DoctorEditingDto;
+import org.pah_monitoring.main.entities.additional.dto.saving.users.users.saving.DoctorSavingDto;
+import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
-import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
-import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
-import org.pah_monitoring.main.services.users.users.implementations.common.AbstractPatientServiceImpl;
-import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
+import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
+import org.pah_monitoring.main.services.main.users.users.implementations.common.AbstractPatientServiceImpl;
+import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ public class DoctorMvcController {
     @Qualifier("doctorService")
     private final HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> service;
 
-    private final AccessRightsCheckService checkService;
+    private final CurrentUserCheckService checkService;
 
     private final AbstractPatientServiceImpl patientService;
 

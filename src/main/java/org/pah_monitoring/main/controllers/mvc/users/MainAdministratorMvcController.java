@@ -1,10 +1,10 @@
 package org.pah_monitoring.main.controllers.mvc.users;
 
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.users.users.MainAdministrator;
-import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
-import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
-import org.pah_monitoring.main.services.users.users.interfaces.MainAdministratorService;
+import org.pah_monitoring.main.entities.main.users.users.MainAdministrator;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
+import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
+import org.pah_monitoring.main.services.main.users.users.interfaces.MainAdministratorService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +19,7 @@ public class MainAdministratorMvcController {
 
     private final MainAdministratorService service;
 
-    private final AccessRightsCheckService checkService;
+    private final CurrentUserCheckService checkService;
 
     private final PageHeaderService pageHeaderService;
 

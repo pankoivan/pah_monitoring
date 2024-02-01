@@ -1,15 +1,15 @@
 package org.pah_monitoring.main.controllers.mvc.redirect;
 
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.users.users.Administrator;
-import org.pah_monitoring.main.entities.users.users.Doctor;
-import org.pah_monitoring.main.entities.users.users.MainAdministrator;
-import org.pah_monitoring.main.entities.users.users.Patient;
-import org.pah_monitoring.main.entities.users.users.common.interfaces.User;
+import org.pah_monitoring.main.entities.main.users.users.Administrator;
+import org.pah_monitoring.main.entities.main.users.users.Doctor;
+import org.pah_monitoring.main.entities.main.users.users.MainAdministrator;
+import org.pah_monitoring.main.entities.main.users.users.Patient;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
-import org.pah_monitoring.main.services.auxiliary.users.interfaces.UserSearchingService;
+import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchingService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

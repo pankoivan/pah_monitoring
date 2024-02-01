@@ -1,17 +1,17 @@
 package org.pah_monitoring.main.controllers.mvc.hospitals;
 
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.hospitals.Hospital;
+import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
-import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
-import org.pah_monitoring.main.services.auxiliary.hospitals.interfaces.HospitalUsersStatisticsService;
-import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
-import org.pah_monitoring.main.services.hospitals.interfaces.HospitalService;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
+import org.pah_monitoring.main.services.additional.hospitals.interfaces.HospitalUsersStatisticsService;
+import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
+import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +28,7 @@ public class HospitalMvcController {
 
     private final HospitalUsersStatisticsService statisticsService;
 
-    private final AccessRightsCheckService checkService;
+    private final CurrentUserCheckService checkService;
 
     private final PageHeaderService pageHeaderService;
 

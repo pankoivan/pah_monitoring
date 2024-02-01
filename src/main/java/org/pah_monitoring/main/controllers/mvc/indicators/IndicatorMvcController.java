@@ -1,19 +1,19 @@
 package org.pah_monitoring.main.controllers.mvc.indicators;
 
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.dto.saving.users.users.adding.PatientAddingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.users.editing.PatientEditingDto;
-import org.pah_monitoring.main.entities.dto.saving.users.users.saving.PatientSavingDto;
-import org.pah_monitoring.main.entities.users.users.Patient;
+import org.pah_monitoring.main.entities.additional.dto.saving.users.users.adding.PatientAddingDto;
+import org.pah_monitoring.main.entities.additional.dto.saving.users.users.editing.PatientEditingDto;
+import org.pah_monitoring.main.entities.additional.dto.saving.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
-import org.pah_monitoring.main.services.auxiliary.access.interfaces.AccessRightsCheckService;
-import org.pah_monitoring.main.services.auxiliary.indicators.interfaces.IndicatorCardService;
-import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
-import org.pah_monitoring.main.services.users.users.interfaces.common.HospitalUserService;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
+import org.pah_monitoring.main.services.additional.indicators.interfaces.IndicatorCardService;
+import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
+import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -33,7 +33,7 @@ public class IndicatorMvcController {
     @Qualifier("patientService")
     private final HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
-    private final AccessRightsCheckService checkService;
+    private final CurrentUserCheckService checkService;
 
     private final PageHeaderService pageHeaderService;
 

@@ -1,15 +1,15 @@
 package org.pah_monitoring.main.controllers.mvc.hospitals;
 
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.enums.ExpirationDate;
-import org.pah_monitoring.main.entities.enums.Role;
-import org.pah_monitoring.main.entities.hospitals.HospitalRegistrationRequest;
+import org.pah_monitoring.main.entities.main.enums.ExpirationDate;
+import org.pah_monitoring.main.entities.main.enums.Role;
+import org.pah_monitoring.main.entities.main.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
-import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.PageHeaderService;
-import org.pah_monitoring.main.services.auxiliary.mvc.interfaces.RedirectService;
-import org.pah_monitoring.main.services.hospitals.interfaces.HospitalRegistrationRequestService;
+import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
+import org.pah_monitoring.main.services.additional.mvc.interfaces.RedirectService;
+import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
