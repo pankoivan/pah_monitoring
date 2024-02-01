@@ -22,7 +22,7 @@ import java.util.List;
 @JsonIncludeProperties({"id", "userSecurityInformation", "userInformation"})
 @Entity
 @Table(name = "main_administrator")
-public class MainAdministrator implements User, UserDetails {
+public class MainAdministrator extends User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +37,37 @@ public class MainAdministrator implements User, UserDetails {
     @JoinColumn(name = "user_information_id")
     private UserInformation userInformation;
 
+    @Override
+    public boolean isHospitalUser() {
+        return false;
+    }
+
+    @Override
+    public boolean isHospitalEmployee() {
+        return false;
+    }
+
+    @Override
+    public boolean isMainAdministrator() {
+        return true;
+    }
+
+    @Override
+    public boolean isAdministrator() {
+        return false;
+    }
+
+    @Override
+    public boolean isDoctor() {
+        return false;
+    }
+
+    @Override
+    public boolean isPatient() {
+        return false;
+    }
+
+    @Override
     public Role getRole() {
         return Role.MAIN_ADMINISTRATOR;
     }
@@ -74,11 +105,6 @@ public class MainAdministrator implements User, UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    @Override
-    public boolean isHospitalEmployee() {
-        return false;
     }
 
     @Override

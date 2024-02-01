@@ -5,14 +5,24 @@ import org.pah_monitoring.main.entities.enums.Role;
 import org.pah_monitoring.main.entities.users.info.UserInformation;
 import org.pah_monitoring.main.entities.users.info.UserSecurityInformation;
 
-public interface User extends BaseEntity {
+public abstract class User implements BaseEntity {
 
-    UserSecurityInformation getUserSecurityInformation();
+    public abstract boolean isHospitalUser();
 
-    UserInformation getUserInformation();
+    public abstract boolean isHospitalEmployee();
 
-    Role getRole();
+    public abstract boolean isMainAdministrator();
 
-    boolean isHospitalEmployee();
+    public abstract boolean isAdministrator();
+
+    public abstract boolean isDoctor();
+
+    public abstract boolean isPatient();
+
+    public abstract Role getRole();
+
+    public abstract UserSecurityInformation getUserSecurityInformation();
+
+    public abstract UserInformation getUserInformation();
 
 }

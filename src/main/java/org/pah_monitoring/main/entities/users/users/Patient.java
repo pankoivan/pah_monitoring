@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,7 +28,7 @@ import java.util.List;
 @JsonIncludeProperties({"id", "userSecurityInformation", "userInformation"})
 @Entity
 @Table(name = "patient")
-public class Patient implements HospitalUser, UserDetails {
+public class Patient extends HospitalUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,22 +76,60 @@ public class Patient implements HospitalUser, UserDetails {
         return doctor == null;
     }
 
+    public Optional<PatientInactivity> getCurrentPatientInactivity() {
+        return Optional.ofNullable(patientInactivity);
+    }
+
+    @Override
     public boolean isActive() {
         return patientInactivity == null;
     }
 
+    @Override
     public boolean isNotActive() {
         return !isActive();
     }
 
-    public String activityMessage() {
-        if (isActive()) {
-            return "Активен";
-        } else {
+    @Override
+    public String getActivityMessage() {
+        if (patientInactivity != null) {
             return "Переведён в неактивное состояние %s".formatted(patientInactivity.getDate());
+        } else {
+            return "Активен";
         }
     }
 
+    @Override
+    public boolean isHospitalUser() {
+        return true;
+    }
+
+    @Override
+    public boolean isHospitalEmployee() {
+        return true;
+    }
+
+    @Override
+    public boolean isMainAdministrator() {
+        return false;
+    }
+
+    @Override
+    public boolean isAdministrator() {
+        return false;
+    }
+
+    @Override
+    public boolean isDoctor() {
+        return false;
+    }
+
+    @Override
+    public boolean isPatient() {
+        return true;
+    }
+
+    @Override
     public Role getRole() {
         return Role.PATIENT;
     }
@@ -128,11 +167,6 @@ public class Patient implements HospitalUser, UserDetails {
     @Override
     public boolean isEnabled() {
         return isActive();
-    }
-
-    @Override
-    public boolean isHospitalEmployee() {
-        return false;
     }
 
     @Override

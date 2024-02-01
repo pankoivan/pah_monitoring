@@ -2,12 +2,14 @@ package org.pah_monitoring.main.entities.users.users.common.interfaces;
 
 import org.pah_monitoring.main.entities.hospitals.Hospital;
 
-public interface HospitalUser extends User {
+public abstract class HospitalUser extends User {
 
-    Hospital getHospital();
+    public abstract Hospital getHospital();
 
-    boolean isActive();
+    public abstract boolean isActive();
 
-    String activityMessage();
+    public abstract boolean isNotActive();
+
+    public abstract String getActivityMessage();
 
 }

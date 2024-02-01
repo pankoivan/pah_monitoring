@@ -32,7 +32,7 @@ import java.util.List;
 })
 @Entity
 @Table(name = "administrator")
-public class Administrator implements HospitalEmployee, UserDetails {
+public class Administrator extends HospitalEmployee implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,8 +60,44 @@ public class Administrator implements HospitalEmployee, UserDetails {
     @OneToMany(mappedBy = "author")
     private List<Dismissal> assignedDismissals;
 
+    @Override
+    public boolean isHospitalUser() {
+        return true;
+    }
+
+    @Override
+    public boolean isHospitalEmployee() {
+        return true;
+    }
+
+    @Override
+    public boolean isMainAdministrator() {
+        return false;
+    }
+
+    @Override
+    public boolean isAdministrator() {
+        return true;
+    }
+
+    @Override
+    public boolean isDoctor() {
+        return false;
+    }
+
+    @Override
+    public boolean isPatient() {
+        return false;
+    }
+
+    @Override
     public Role getRole() {
         return Role.ADMINISTRATOR;
+    }
+
+    @Override
+    public UserInformation getUserInformation() {
+        return employeeInformation.getUserInformation();
     }
 
     @Override
@@ -81,32 +117,22 @@ public class Administrator implements HospitalEmployee, UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return isNotDismissed();
+        return !isDismissed();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isNotDismissed();
+        return !isDismissed();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isNotDismissed();
+        return !isDismissed();
     }
 
     @Override
     public boolean isEnabled() {
-        return isNotDismissed();
-    }
-
-    @Override
-    public UserInformation getUserInformation() {
-        return employeeInformation.getUserInformation();
-    }
-
-    @Override
-    public boolean isHospitalEmployee() {
-        return true;
+        return !isDismissed();
     }
 
     @Override

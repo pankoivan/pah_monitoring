@@ -6,85 +6,60 @@ import org.pah_monitoring.main.entities.users.inactivity.Vacation;
 import org.pah_monitoring.main.entities.users.info.EmployeeInformation;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
-public interface HospitalEmployee extends HospitalUser {
+public abstract class HospitalEmployee extends HospitalUser {
 
-    EmployeeInformation getEmployeeInformation();
+    public abstract EmployeeInformation getEmployeeInformation();
 
-    default Vacation getCurrentVacation() {
+    public Optional<Vacation> getCurrentVacation() {
         return getEmployeeInformation().getVacations()
                 .stream()
                 .filter(vacation -> vacation.getEndDate().isAfter(LocalDate.now()))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
-    default SickLeave getCurrentSickLeave() {
+    public boolean isOnVacation() {
+        return getCurrentVacation().isPresent();
+    }
+
+    public Optional<SickLeave> getCurrentSickLeave() {
         return getEmployeeInformation().getSickLeaves()
                 .stream()
                 .filter(sickLeave -> sickLeave.getEndDate().isAfter(LocalDate.now()))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
-    default boolean isOnVacation() {
-        return getCurrentVacation() != null;
+    public boolean isOnSickLeave() {
+        return getCurrentSickLeave().isPresent();
     }
 
-    default boolean isOnSickLeave() {
-        return getCurrentSickLeave() != null;
+    public Optional<Dismissal> getCurrentDismissal() {
+        return Optional.ofNullable(getEmployeeInformation().getDismissal());
     }
 
-    default boolean isDismissed() {
-        return getCurrentDismissal() != null;
+    public boolean isDismissed() {
+        return getCurrentDismissal().isPresent();
     }
 
-    default boolean isNotDismissed() {
-        return !isDismissed();
+    public boolean isActive() {
+        return !isDismissed() && !isOnVacation() && !isOnSickLeave();
     }
 
-    default boolean isActive() {
-        return isNotDismissed() && !isOnVacation() && !isOnSickLeave();
+    public boolean isNotActive() {
+        return !isActive();
     }
 
-    default Dismissal getCurrentDismissal() {
-        return getEmployeeInformation().getDismissal();
-    }
-
-    default String vacationMessage() {
-        Vacation vacation = getCurrentVacation();
-        if (vacation == null) {
-            return "Не в отпуске";
-        } else {
+    public String getActivityMessage() {
+        if (getCurrentVacation().isPresent()) {
+            Vacation vacation = getCurrentVacation().get();
             return "В отпуске с %s по %s".formatted(vacation.getStartDate(), vacation.getEndDate());
-        }
-    }
-
-    default String sickLeaveMessage() {
-        SickLeave sickLeave = getCurrentSickLeave();
-        if (sickLeave == null) {
-            return "Не на больничном";
-        } else {
+        } else if (getCurrentSickLeave().isPresent()) {
+            SickLeave sickLeave = getCurrentSickLeave().get();
             return "На больничном с %s по %s".formatted(sickLeave.getStartDate(), sickLeave.getEndDate());
-        }
-    }
-
-    default String dismissalMessage() {
-        Dismissal dismissal = getCurrentDismissal();
-        if (dismissal == null) {
-            return "Не уволен";
-        } else {
+        } else if (getCurrentDismissal().isPresent()) {
+            Dismissal dismissal = getCurrentDismissal().get();
             return "Уволен %s".formatted(dismissal.getDate());
-        }
-    }
-
-    default String activityMessage() {
-        if (isOnVacation()) {
-            return vacationMessage();
-        } else if (isOnSickLeave()) {
-            return sickLeaveMessage();
-        } else if (isDismissed()) {
-            return dismissalMessage();
         } else {
             return "Активен";
         }

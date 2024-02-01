@@ -30,7 +30,7 @@ import java.util.List;
 })
 @Entity
 @Table(name = "doctor")
-public class Doctor implements HospitalEmployee, UserDetails {
+public class Doctor extends HospitalEmployee implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,8 +63,44 @@ public class Doctor implements HospitalEmployee, UserDetails {
         return patients.isEmpty();
     }
 
+    @Override
+    public boolean isHospitalUser() {
+        return true;
+    }
+
+    @Override
+    public boolean isHospitalEmployee() {
+        return true;
+    }
+
+    @Override
+    public boolean isMainAdministrator() {
+        return false;
+    }
+
+    @Override
+    public boolean isAdministrator() {
+        return false;
+    }
+
+    @Override
+    public boolean isDoctor() {
+        return true;
+    }
+
+    @Override
+    public boolean isPatient() {
+        return false;
+    }
+
+    @Override
     public Role getRole() {
         return Role.DOCTOR;
+    }
+
+    @Override
+    public UserInformation getUserInformation() {
+        return employeeInformation.getUserInformation();
     }
 
     @Override
@@ -84,32 +120,22 @@ public class Doctor implements HospitalEmployee, UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return isNotDismissed();
+        return !isDismissed();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isNotDismissed();
+        return !isDismissed();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isNotDismissed();
+        return !isDismissed();
     }
 
     @Override
     public boolean isEnabled() {
-        return isNotDismissed();
-    }
-
-    @Override
-    public UserInformation getUserInformation() {
-        return employeeInformation.getUserInformation();
-    }
-
-    @Override
-    public boolean isHospitalEmployee() {
-        return true;
+        return !isDismissed();
     }
 
     @Override
