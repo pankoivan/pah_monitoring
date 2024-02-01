@@ -50,6 +50,7 @@ public class AdministratorMvcController {
             Administrator administrator = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(administrator);
             model.addAttribute("user", administrator);
+            model.addAttribute("isActive", administrator.isActive());
             model.addAttribute("isSelf", checkService.isSameUser(administrator));
             model.addAttribute("isHospitalUser", true);
             model.addAttribute("isHospitalEmployee", true);
