@@ -131,7 +131,7 @@ public class Patient implements HospitalUser, UserDetails {
     }
 
     @Override
-    public boolean isEmployee() {
+    public boolean isHospitalEmployee() {
         return false;
     }
 

@@ -105,7 +105,7 @@ public class Administrator implements HospitalEmployee, UserDetails {
     }
 
     @Override
-    public boolean isEmployee() {
+    public boolean isHospitalEmployee() {
         return true;
     }
 

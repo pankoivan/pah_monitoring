@@ -77,7 +77,7 @@ public class MainAdministrator implements User, UserDetails {
     }
 
     @Override
-    public boolean isEmployee() {
+    public boolean isHospitalEmployee() {
         return false;
     }
 

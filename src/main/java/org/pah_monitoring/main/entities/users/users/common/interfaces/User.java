@@ -13,6 +13,6 @@ public interface User extends BaseEntity {
 
     Role getRole();
 
-    boolean isEmployee();
+    boolean isHospitalEmployee();
 
 }
