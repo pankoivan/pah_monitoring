@@ -49,15 +49,13 @@ public class PatientMvcController {
         try {
             Patient patient = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(patient);
-            model.addAttribute("target", "#patient-inactivity-modal");
             model.addAttribute("user", patient);
-            model.addAttribute("isActive", patient.isActive());
-            model.addAttribute("activityMessage", patient.activityMessage());
-            model.addAttribute("isSelf", checkService.isSameUser(patient));
             model.addAttribute("isHospitalUser", true);
             model.addAttribute("isHospitalEmployee", false);
+            model.addAttribute("isAdmin", false);
             model.addAttribute("isDoctor", false);
             model.addAttribute("isPatient", true);
+            model.addAttribute("isSelf", checkService.isSameUser(patient));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(patient.getHospital()));
             model.addAttribute("isCurrentUserOwnDoctor", checkService.isOwnDoctor(patient));
             model.addAttribute(
@@ -74,6 +72,7 @@ public class PatientMvcController {
                     "isActivityEditingEnabled",
                     checkService.isOwnDoctor(patient)
             );
+            model.addAttribute("target", "#patient-inactivity-modal");
             pageHeaderService.addHeader(model);
             return "users/user";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {

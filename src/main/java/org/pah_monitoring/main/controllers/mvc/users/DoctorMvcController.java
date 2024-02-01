@@ -52,15 +52,14 @@ public class DoctorMvcController {
         try {
             Doctor doctor = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(doctor);
-            model.addAttribute("target", "#inactivity-selection-modal");
-            model.addAttribute("user", doctor);
-            model.addAttribute("isActive", doctor.isActive());
-            model.addAttribute("activityMessage", doctor.activityMessage());
-            model.addAttribute("isSelf", checkService.isSameUser(doctor));
             model.addAttribute("isHospitalUser", true);
             model.addAttribute("isHospitalEmployee", true);
+            model.addAttribute("isAdmin", false);
             model.addAttribute("isDoctor", true);
             model.addAttribute("isPatient", false);
+            model.addAttribute("target", "#inactivity-selection-modal");
+            model.addAttribute("user", doctor);
+            model.addAttribute("isSelf", checkService.isSameUser(doctor));
             model.addAttribute(
                     "isMessageEnabled",
                     checkService.isHospitalUserFromSameHospital(doctor.getHospital()) &&
