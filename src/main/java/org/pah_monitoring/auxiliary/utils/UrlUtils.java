@@ -24,6 +24,7 @@ public final class UrlUtils {
         sb.deleteCharAt(sb.length() - 1);
 
         return sb.toString();
+
     }
 
 }
