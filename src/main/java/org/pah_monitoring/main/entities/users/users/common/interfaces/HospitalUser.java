@@ -6,4 +6,6 @@ public interface HospitalUser extends User {
 
     Hospital getHospital();
 
+    boolean isActive();
+
 }

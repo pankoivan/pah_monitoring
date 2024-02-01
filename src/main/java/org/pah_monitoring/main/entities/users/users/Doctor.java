@@ -63,18 +63,6 @@ public class Doctor implements HospitalEmployee, UserDetails {
         return patients.isEmpty();
     }
 
-    public boolean isActive() {
-        return isNotDismissed() && !isOnVacation() && !isOnSickLeave();
-    }
-
-    public boolean isDismissed() {
-        return employeeInformation.getDismissal() != null;
-    }
-
-    public boolean isNotDismissed() {
-        return !isDismissed();
-    }
-
     public Role getRole() {
         return Role.DOCTOR;
     }
