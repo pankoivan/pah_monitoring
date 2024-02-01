@@ -58,11 +58,11 @@ public class ExaminationScheduleRestController {
     }*/
 
     @PostMapping("/add")
-    public ExaminationSchedule add(@RequestBody @Valid ExaminationScheduleAddingDto addingDto, BindingResult bindingResult) {
+    public Temp add(@RequestBody @Valid ExaminationScheduleAddingDto addingDto, BindingResult bindingResult) {
         try {
             service.checkAccessRightsForActions(patientService.findById(addingDto.getPatientId()));
             service.checkDataValidityForAdding(addingDto, bindingResult);
-            return service.add(addingDto);
+            return map(service.add(addingDto));
         } catch (DataSearchingServiceException | DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
@@ -73,12 +73,12 @@ public class ExaminationScheduleRestController {
     }
 
     @PostMapping("/edit")
-    public ExaminationSchedule edit(@RequestBody @Valid ExaminationScheduleEditingDto editingDto, BindingResult bindingResult) {
+    public Temp edit(@RequestBody @Valid ExaminationScheduleEditingDto editingDto, BindingResult bindingResult) {
         try {
             ExaminationSchedule schedule = service.findById(editingDto.getId());
             service.checkAccessRightsForActions(schedule.getPatient());
             service.checkDataValidityForEditing(editingDto, bindingResult);
-            return service.edit(editingDto);
+            return map(service.edit(editingDto));
         } catch (DataSearchingServiceException | DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
@@ -147,6 +147,17 @@ public class ExaminationScheduleRestController {
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
         }
+    }
+
+    private Temp map(ExaminationSchedule schedule) {
+        return Temp
+                .builder()
+                .id(schedule.getId())
+                .patientId(schedule.getPatient().getId())
+                .indicatorType(schedule.getIndicatorType())
+                .indicatorTypeAlias(schedule.getIndicatorType().getAlias())
+                .schedule(schedule.getSchedule())
+                .build();
     }
 
 }
