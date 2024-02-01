@@ -38,7 +38,7 @@
                                 th:href="@{/users/__${each.userInformation.id}__}"
                                 class="text-decoration-none text-secondary"
                                 data-bs-toggle="tooltip"
-                                th:title="(${each.isEmployee} ? ${each.employeeInformation.post} : 'Пациент') + ' медицинского учреждения &quot;' + ${each.hospital.name} + '&quot;'"
+                                th:title="(${each.isHospitalEmployee} ? ${each.employeeInformation.post} : 'Пациент') + ' медицинского учреждения &quot;' + ${each.hospital.name} + '&quot;'"
                             >
                                 <img width="24" class="mb-1" src="../../static/svg/user.svg" th:src="@{/svg/user.svg}" alt="Пользователь" />
                                 <span th:text="${each.userInformation.fullName}"> Козлов Геннадий викторович </span>
