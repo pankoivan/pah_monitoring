@@ -78,4 +78,16 @@ public interface HospitalEmployee extends HospitalUser {
         }
     }
 
+    default String activityMessage() {
+        if (isOnVacation()) {
+            return vacationMessage();
+        } else if (isOnSickLeave()) {
+            return sickLeaveMessage();
+        } else if (isDismissed()) {
+            return dismissalMessage();
+        } else {
+            return "Активен";
+        }
+    }
+
 }

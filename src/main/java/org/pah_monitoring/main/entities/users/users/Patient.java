@@ -83,11 +83,11 @@ public class Patient implements HospitalUser, UserDetails {
         return !isActive();
     }
 
-    public String inactivityMessage() {
+    public String activityMessage() {
         if (isActive()) {
             return "Активен";
         } else {
-            return "Переведён в состояние неактивности %s".formatted(patientInactivity.getDate());
+            return "Переведён в неактивное состояние %s".formatted(patientInactivity.getDate());
         }
     }
 

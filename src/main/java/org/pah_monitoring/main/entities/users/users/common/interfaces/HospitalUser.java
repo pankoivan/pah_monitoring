@@ -8,4 +8,6 @@ public interface HospitalUser extends User {
 
     boolean isActive();
 
+    String activityMessage();
+
 }

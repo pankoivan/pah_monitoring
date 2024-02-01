@@ -51,6 +51,7 @@ public class AdministratorMvcController {
             service.checkAccessRightsForObtainingConcrete(administrator);
             model.addAttribute("user", administrator);
             model.addAttribute("isActive", administrator.isActive());
+            model.addAttribute("activityMessage", administrator.activityMessage());
             model.addAttribute("isSelf", checkService.isSameUser(administrator));
             model.addAttribute("isHospitalUser", true);
             model.addAttribute("isHospitalEmployee", true);

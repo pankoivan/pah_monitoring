@@ -51,6 +51,7 @@ public class PatientMvcController {
             service.checkAccessRightsForObtainingConcrete(patient);
             model.addAttribute("user", patient);
             model.addAttribute("isActive", patient.isActive());
+            model.addAttribute("activityMessage", patient.activityMessage());
             model.addAttribute("isSelf", checkService.isSameUser(patient));
             model.addAttribute("isHospitalUser", true);
             model.addAttribute("isHospitalEmployee", false);
