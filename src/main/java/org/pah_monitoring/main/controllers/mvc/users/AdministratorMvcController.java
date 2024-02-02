@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc.users;
 
 import lombok.RequiredArgsConstructor;
+import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.dto.in.users.users.adding.AdministratorAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.editing.AdministratorEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.saving.AdministratorSavingDto;
@@ -51,11 +52,12 @@ public class AdministratorMvcController {
             Administrator administrator = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(administrator);
             model.addAttribute("user", administrator);
+            model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(administrator.getUserInformation().getPhoneNumber()));
+            model.addAttribute("genders", Gender.values());
             model.addAttribute("isSelf", checkService.isSameUser(administrator));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(administrator.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(administrator.getHospital()));
             model.addAttribute("target", "#inactivity-selection-modal");
-            model.addAttribute("genders", Gender.values());
             pageHeaderService.addHeader(model);
             return "users/user";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {

@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc.users;
 
 import lombok.RequiredArgsConstructor;
+import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.dto.in.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.saving.PatientSavingDto;
@@ -51,13 +52,14 @@ public class PatientMvcController {
             Patient patient = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(patient);
             model.addAttribute("user", patient);
+            model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(patient.getUserInformation().getPhoneNumber()));
+            model.addAttribute("genders", Gender.values());
             model.addAttribute("isSelf", checkService.isSameUser(patient));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(patient.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(patient.getHospital()));
             model.addAttribute("isCurrentUserOwnDoctor", checkService.isOwnDoctor(patient));
             model.addAttribute("isCurrentUserMainAdministrator", checkService.isMainAdministrator());
             model.addAttribute("target", "#patient-inactivity-modal");
-            model.addAttribute("genders", Gender.values());
             pageHeaderService.addHeader(model);
             return "users/user";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {

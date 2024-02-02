@@ -34,14 +34,14 @@
                             </div>
                             <div class="mb-3">
                                 <label for="phone-number" class="form-label">Номер телефона</label>
-                                <input type="text" name="phoneNumber" id="phone-number" class="form-control" placeholder="89212345901" th:value="${user.userInformation.phoneNumber}" />
+                                <input type="text" name="phoneNumber" id="phone-number" class="form-control" placeholder="89212345901" th:value="${sourcePhoneNumber}" />
                             </div>
                             <div class="mb-3">
                                 <p class="form-label">Пол</p>
                                 <div class="form-check" th:each="each, status : ${genders}" id="gender">
                                     <div>
                                         <label class="form-check-label" th:for="'gender-radio-' + ${status.index}"></label>
-                                        <input th:id="'gender-radio-' + ${status.index}" type="radio" class="form-check-input" th:text="${each.alias}" th:value="${each}" name="gender" />
+                                        <input th:id="'gender-radio-' + ${status.index}" type="radio" class="form-check-input" th:text="${each.alias}" th:value="${each}" name="gender" th:checked="${each == user.userInformation.gender}" />
                                     </div>
                                 </div>
                             </div>

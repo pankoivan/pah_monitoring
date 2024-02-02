@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc.users;
 
 import lombok.RequiredArgsConstructor;
+import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.dto.in.users.users.adding.DoctorAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.editing.DoctorEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.saving.DoctorSavingDto;
@@ -54,12 +55,13 @@ public class DoctorMvcController {
             Doctor doctor = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(doctor);
             model.addAttribute("user", doctor);
+            model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(doctor.getUserInformation().getPhoneNumber()));
+            model.addAttribute("genders", Gender.values());
             model.addAttribute("isSelf", checkService.isSameUser(doctor));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(doctor.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(doctor.getHospital()));
             model.addAttribute("isCurrentUserMainAdministrator", checkService.isMainAdministrator());
             model.addAttribute("target", "#inactivity-selection-modal");
-            model.addAttribute("genders", Gender.values());
             pageHeaderService.addHeader(model);
             return "users/user";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {

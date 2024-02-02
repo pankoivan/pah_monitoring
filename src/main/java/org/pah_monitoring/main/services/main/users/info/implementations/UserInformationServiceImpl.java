@@ -48,7 +48,7 @@ public class UserInformationServiceImpl implements UserInformationService {
                             .patronymic(addingDto.getPatronymic())
                             .gender(addingDto.getGender())
                             .birthdate(addingDto.getBirthdate())
-                            .phoneNumber(PhoneNumberUtils.readable(addingDto.getPhoneNumber()))
+                            .phoneNumber(PhoneNumberUtils.toReadable(addingDto.getPhoneNumber()))
                             .build()
             );
         } catch (Exception e) {
@@ -71,7 +71,7 @@ public class UserInformationServiceImpl implements UserInformationService {
                             .patronymic(editingDto.getPatronymic())
                             .gender(editingDto.getGender())
                             .birthdate(editingDto.getBirthdate())
-                            .phoneNumber(PhoneNumberUtils.readable(editingDto.getPhoneNumber()))
+                            .phoneNumber(PhoneNumberUtils.toReadable(editingDto.getPhoneNumber()))
                             .build()
             );
         } catch (Exception e) {

@@ -61,7 +61,7 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
                             .patronymic(addingDto.getPatronymic())
                             .post(addingDto.getPost())
                             .passport(addingDto.getPassport())
-                            .phoneNumber(PhoneNumberUtils.readable(addingDto.getPhoneNumber()))
+                            .phoneNumber(PhoneNumberUtils.toReadable(addingDto.getPhoneNumber()))
                             .email(addingDto.getEmail())
                             .comment(addingDto.getComment())
                             .date(LocalDateTime.now())
@@ -97,7 +97,7 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
             );
         }
         try {
-            if (repository.existsByPhoneNumber(PhoneNumberUtils.readable(addingDto.getPhoneNumber()))) {
+            if (repository.existsByPhoneNumber(PhoneNumberUtils.toReadable(addingDto.getPhoneNumber()))) {
                 throw new DataValidationServiceException(
                         "Человек с номером телефона \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
                                 .formatted(addingDto.getPhoneNumber())

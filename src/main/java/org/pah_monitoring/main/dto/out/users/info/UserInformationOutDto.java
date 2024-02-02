@@ -21,6 +21,8 @@ public class UserInformationOutDto implements OutDto {
 
     private String phoneNumber;
 
+    private String sourcePhoneNumber;
+
     private Gender gender;
 
     private String genderAlias;
