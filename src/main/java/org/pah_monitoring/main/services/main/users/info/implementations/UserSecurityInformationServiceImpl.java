@@ -78,7 +78,11 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
                             .builder()
                             .id(securityInformation.getId())
                             .email(editingDto.getEmail())
-                            .password(passwordEncoder.encode(editingDto.getPassword()))
+                            .password(
+                                    editingDto.getPassword() != null
+                                            ? passwordEncoder.encode(editingDto.getPassword())
+                                            : securityInformation.getPassword()
+                            )
                             .build()
             );
         } catch (Exception e) {
@@ -103,7 +107,9 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
     public void checkDataValidityForEditing(UserSecurityInformationEditingDto editingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
-        checkDataValidityForSaving(editingDto, bindingResult);
+        if (editingDto.getPassword() != null && bindingResult.hasErrors()) {
+            throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
 
         Optional<UserSecurityInformation> securityInformation = repository.findByEmail(editingDto.getEmail());
         if (securityInformation.isPresent() && !securityInformation.get().getId().equals(editingDto.getId())) {

@@ -65,6 +65,7 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
                             .builder()
                             .id(employeeInformation.getId())
                             .post(editingDto.getPost())
+                            .userInformation(employeeInformation.getUserInformation())
                             .build()
             );
         } catch (Exception e) {
