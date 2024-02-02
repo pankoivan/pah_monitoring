@@ -15,10 +15,4 @@ public class UserSecurityInformationSavingDto {
     @NotBlank(message = "Почта не должна состоять только из пробельных символов")
     private String email;
 
-    @Size(min = 3, max = 63, message = "Минимальная длина пароля - 3 символа, максимальная - 63 символа")
-    @NotNull(message = "Поле \"password\" не должно отсутствовать")
-    @NotEmpty(message = "Пароль не должен быть пустым")
-    @NotBlank(message = "Пароль не должен состоять только из пробельных символов")
-    private String password;
-
 }
