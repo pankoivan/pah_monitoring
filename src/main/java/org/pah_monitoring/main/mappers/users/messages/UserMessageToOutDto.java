@@ -12,6 +12,8 @@ public class UserMessageToOutDto implements BaseEntityToOutDtoMapper<UserMessage
     public UserMessageOutDto map(UserMessage userMessage) {
         return UserMessageOutDto
                 .builder()
+                .author("Вы")
+                .recipient(userMessage.getRecipient().getFullName())
                 .text(userMessage.getText())
                 .formattedDate(userMessage.getFormattedDate())
                 .formattedEditingDate(userMessage.getFormattedEditingDate())
