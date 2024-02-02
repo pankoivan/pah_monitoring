@@ -2,7 +2,7 @@ package org.pah_monitoring.main.controllers.rest.hospitals;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.additional.dto.saving.hospitals.HospitalRegistrationRequestAddingDto;
+import org.pah_monitoring.main.dto.in.hospitals.HospitalRegistrationRequestAddingDto;
 import org.pah_monitoring.main.entities.main.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidationRestControllerException;

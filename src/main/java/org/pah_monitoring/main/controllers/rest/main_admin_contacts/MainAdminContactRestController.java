@@ -2,7 +2,7 @@ package org.pah_monitoring.main.controllers.rest.main_admin_contacts;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.additional.dto.saving.main_admin_contacts.MainAdminContactSavingDto;
+import org.pah_monitoring.main.dto.in.main_admin_contacts.MainAdminContactSavingDto;
 import org.pah_monitoring.main.entities.main.main_admin_contacts.MainAdminContact;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidationRestControllerException;

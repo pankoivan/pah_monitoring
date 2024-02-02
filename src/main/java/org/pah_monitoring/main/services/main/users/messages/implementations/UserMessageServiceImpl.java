@@ -2,9 +2,9 @@ package org.pah_monitoring.main.services.main.users.messages.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.messages.UserMessageAddingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.messages.UserMessageEditingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.messages.UserMessageSavingDto;
+import org.pah_monitoring.main.dto.in.users.messages.UserMessageAddingDto;
+import org.pah_monitoring.main.dto.in.users.messages.UserMessageEditingDto;
+import org.pah_monitoring.main.dto.in.users.messages.UserMessageSavingDto;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.entities.main.users.messages.UserMessage;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;

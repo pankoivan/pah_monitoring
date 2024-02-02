@@ -2,9 +2,9 @@ package org.pah_monitoring.main.services.main.users.users.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.users.adding.AdministratorAddingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.users.editing.AdministratorEditingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.users.saving.AdministratorSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.adding.AdministratorAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.editing.AdministratorEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.saving.AdministratorSavingDto;
 import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;

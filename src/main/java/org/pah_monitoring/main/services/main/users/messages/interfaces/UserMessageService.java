@@ -1,17 +1,17 @@
 package org.pah_monitoring.main.services.main.users.messages.interfaces;
 
-import org.pah_monitoring.main.entities.additional.dto.saving.users.messages.UserMessageAddingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.messages.UserMessageEditingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.messages.UserMessageSavingDto;
+import org.pah_monitoring.main.dto.in.users.messages.UserMessageAddingDto;
+import org.pah_monitoring.main.dto.in.users.messages.UserMessageEditingDto;
+import org.pah_monitoring.main.dto.in.users.messages.UserMessageSavingDto;
 import org.pah_monitoring.main.entities.main.users.messages.UserMessage;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
-import org.pah_monitoring.main.services.additional.validation.interfaces.data.saving.DataAddingValidationService;
-import org.pah_monitoring.main.services.additional.validation.interfaces.data.saving.DataEditingValidationService;
-import org.pah_monitoring.main.services.additional.validation.interfaces.data.saving.DataSavingValidationService;
+import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataAddingValidationService;
+import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataEditingValidationService;
+import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataSavingValidationService;
 
 import java.util.List;
 

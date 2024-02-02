@@ -2,13 +2,13 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.additional.auxiliary.indicators.InputIndicatorCard;
-import org.pah_monitoring.main.entities.additional.dto.saving.examinations.indicators.LiquidAndWeightAddingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.users.adding.PatientAddingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.users.editing.PatientEditingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.users.saving.PatientSavingDto;
-import org.pah_monitoring.main.entities.additional.dto.transferring.indicators.graphics.LiquidAndWeightGraphicsDto;
-import org.pah_monitoring.main.entities.additional.dto.transferring.indicators.tables.LiquidAndWeightTablesDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.LiquidAndWeightGraphicsDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.tables.LiquidAndWeightTablesDto;
+import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
+import org.pah_monitoring.main.dto.in.examinations.indicators.LiquidAndWeightAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.adding.PatientAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.editing.PatientEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.LiquidAndWeight;
 import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;

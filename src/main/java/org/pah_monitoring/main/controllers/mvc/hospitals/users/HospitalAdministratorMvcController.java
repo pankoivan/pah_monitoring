@@ -1,9 +1,9 @@
 package org.pah_monitoring.main.controllers.mvc.hospitals.users;
 
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.users.adding.AdministratorAddingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.users.editing.AdministratorEditingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.users.saving.AdministratorSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.adding.AdministratorAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.editing.AdministratorEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.saving.AdministratorSavingDto;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;

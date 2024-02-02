@@ -2,9 +2,9 @@ package org.pah_monitoring.main.services.additional.hospitals.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.additional.auxiliary.hospitals.AdministratorStatistics;
-import org.pah_monitoring.main.entities.additional.auxiliary.hospitals.DoctorStatistics;
-import org.pah_monitoring.main.entities.additional.auxiliary.hospitals.PatientStatistics;
+import org.pah_monitoring.main.entities.additional.hospitals.AdministratorStatistics;
+import org.pah_monitoring.main.entities.additional.hospitals.DoctorStatistics;
+import org.pah_monitoring.main.entities.additional.hospitals.PatientStatistics;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;

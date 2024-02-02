@@ -3,7 +3,7 @@ package org.pah_monitoring.main.services.main.users.inactivity.implementations;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.QuantityRestrictionConstants;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.inactivity.DismissalAddingDto;
+import org.pah_monitoring.main.dto.in.users.inactivity.DismissalAddingDto;
 import org.pah_monitoring.main.entities.main.users.inactivity.Dismissal;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;

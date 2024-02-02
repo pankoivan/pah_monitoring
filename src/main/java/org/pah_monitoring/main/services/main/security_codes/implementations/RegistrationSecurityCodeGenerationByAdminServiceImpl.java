@@ -2,7 +2,7 @@ package org.pah_monitoring.main.services.main.security_codes.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.additional.dto.saving.security_codes.RegistrationSecurityCodeByAdminAddingDto;
+import org.pah_monitoring.main.dto.in.security_codes.RegistrationSecurityCodeByAdminAddingDto;
 import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;

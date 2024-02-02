@@ -2,9 +2,9 @@ package org.pah_monitoring.main.services.main.users.info.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.info.adding.UserSecurityInformationAddingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.info.editing.UserSecurityInformationEditingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.info.saving.UserSecurityInformationSavingDto;
+import org.pah_monitoring.main.dto.in.users.info.adding.UserSecurityInformationAddingDto;
+import org.pah_monitoring.main.dto.in.users.info.editing.UserSecurityInformationEditingDto;
+import org.pah_monitoring.main.dto.in.users.info.saving.UserSecurityInformationSavingDto;
 import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalUser;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;

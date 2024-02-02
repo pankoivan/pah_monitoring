@@ -3,7 +3,7 @@ package org.pah_monitoring.main.services.main.main_admin_contacts.implementation
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.QuantityRestrictionConstants;
-import org.pah_monitoring.main.entities.additional.dto.saving.main_admin_contacts.MainAdminContactSavingDto;
+import org.pah_monitoring.main.dto.in.main_admin_contacts.MainAdminContactSavingDto;
 import org.pah_monitoring.main.entities.main.main_admin_contacts.MainAdminContact;
 import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;

@@ -2,7 +2,7 @@ package org.pah_monitoring.main.services.main.users.inactivity.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.inactivity.VacationAddingDto;
+import org.pah_monitoring.main.dto.in.users.inactivity.VacationAddingDto;
 import org.pah_monitoring.main.entities.main.users.inactivity.Vacation;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalEmployee;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;

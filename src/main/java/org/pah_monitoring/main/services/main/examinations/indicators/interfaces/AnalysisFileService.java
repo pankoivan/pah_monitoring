@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.services.main.examinations.indicators.interfaces;
 
-import org.pah_monitoring.main.entities.additional.auxiliary.indicators.FileIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.FileIndicatorCard;
 import org.pah_monitoring.main.entities.main.examinations.indicators.AnalysisFile;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;

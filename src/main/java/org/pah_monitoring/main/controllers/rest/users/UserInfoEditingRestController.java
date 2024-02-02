@@ -2,9 +2,9 @@ package org.pah_monitoring.main.controllers.rest.users;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.info.editing.EmployeeInformationEditingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.info.editing.UserInformationEditingDto;
-import org.pah_monitoring.main.entities.additional.dto.saving.users.info.editing.UserSecurityInformationEditingDto;
+import org.pah_monitoring.main.dto.in.users.info.editing.EmployeeInformationEditingDto;
+import org.pah_monitoring.main.dto.in.users.info.editing.UserInformationEditingDto;
+import org.pah_monitoring.main.dto.in.users.info.editing.UserSecurityInformationEditingDto;
 import org.pah_monitoring.main.entities.main.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
