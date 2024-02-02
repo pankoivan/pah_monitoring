@@ -52,30 +52,10 @@ public class DoctorMvcController {
         try {
             Doctor doctor = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(doctor);
-            /*model.addAttribute("isHospitalUser", true);
-            model.addAttribute("isHospitalEmployee", true);
-            model.addAttribute("isAdmin", false);
-            model.addAttribute("isDoctor", true);
-            model.addAttribute("isPatient", false);*/
             model.addAttribute("user", doctor);
             model.addAttribute("isSelf", checkService.isSameUser(doctor));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(doctor.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(doctor.getHospital()));
-            /*model.addAttribute(
-                    "isMessageEnabled",
-                    checkService.isHospitalUserFromSameHospital(doctor.getHospital()) &&
-                    !checkService.isSameUser(doctor)
-            );
-            model.addAttribute(
-                    "isNonLoginInfoEditingEnabled",
-                    checkService.isSameUser(doctor) ||
-                    checkService.isAdministratorFromSameHospital(doctor.getHospital())
-            );
-            model.addAttribute( // todo: check if on vacation, sick leave or dismissed
-                    "isActivityEditingEnabled",
-                    checkService.isAdministratorFromSameHospital(doctor.getHospital()) &&
-                    !checkService.isSameUser(doctor)
-            );*/
             model.addAttribute("target", "#inactivity-selection-modal");
             pageHeaderService.addHeader(model);
             return "users/user";

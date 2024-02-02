@@ -49,30 +49,11 @@ public class PatientMvcController {
         try {
             Patient patient = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(patient);
-            /*model.addAttribute("isHospitalUser", true);
-            model.addAttribute("isHospitalEmployee", false);
-            model.addAttribute("isAdmin", false);
-            model.addAttribute("isDoctor", false);
-            model.addAttribute("isPatient", true);*/
             model.addAttribute("user", patient);
             model.addAttribute("isSelf", checkService.isSameUser(patient));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(patient.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(patient.getHospital()));
             model.addAttribute("isCurrentUserOwnDoctor", checkService.isOwnDoctor(patient));
-            /*model.addAttribute(
-                    "isMessageEnabled",
-                    checkService.isHospitalUserFromSameHospital(patient.getHospital()) &&
-                    !checkService.isSameUser(patient)
-            );
-            model.addAttribute(
-                    "isNonLoginInfoEditingEnabled",
-                    checkService.isSameUser(patient) ||
-                    checkService.isAdministratorFromSameHospital(patient.getHospital())
-            );
-            model.addAttribute(
-                    "isActivityEditingEnabled",
-                    checkService.isOwnDoctor(patient)
-            );*/
             model.addAttribute("target", "#patient-inactivity-modal");
             pageHeaderService.addHeader(model);
             return "users/user";
