@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     employeeInfoEditingModalInit();
     userInfoEditingModalInit();
     loginInfoEditingModalInit();
-    modalsInit();
 });
 
 function employeeInfoEditingModalInit() {
@@ -81,16 +80,21 @@ function fetchInfoEdit(data, whichInfo) {
     })
         .then((response) => {
             if (response.ok) {
-                if (whichInfo == "employee-info") {
-                    document.getElementById("employee-info-editing-modal-close-1").click();
-                    showSuccessModal("Рабочая информация была успешно изменена");
-                } else if (whichInfo == "user-info") {
-                    document.getElementById("user-info-editing-modal-close-1").click();
-                    showSuccessModal("Общая информация была успешно изменена");
-                } else if (whichInfo == "login-info") {
-                    document.getElementById("login-info-editing-modal-close-1").click();
-                    showSuccessModal("Логин-информация была успешно изменена");
-                }
+                response.json().then((responseJson) => {
+                    if (whichInfo == "employee-info") {
+                        document.getElementById("employee-info-editing-modal-close-1").click();
+                        refreshEmployeeInfoEditingFormData(responseJson);
+                        showSuccessModal("Рабочая информация была успешно изменена");
+                    } else if (whichInfo == "user-info") {
+                        document.getElementById("user-info-editing-modal-close-1").click();
+                        refreshUserInfoEditingFormData(responseJson);
+                        showSuccessModal("Общая информация была успешно изменена");
+                    } else if (whichInfo == "login-info") {
+                        document.getElementById("login-info-editing-modal-close-1").click();
+                        refreshLoginInfoEditingFormData(responseJson);
+                        showSuccessModal("Логин-информация была успешно изменена");
+                    }
+                });
             } else {
                 response.json().then((responseJson) => {
                     if (whichInfo == "employee-info") {
@@ -144,6 +148,31 @@ function fetchInactivityAdd(data, whichInactivity) {
         .catch((error) => {
             console.error("Ошибка запроса", error);
         });
+}
+
+function refreshEmployeeInfoEditingFormData(responseJson) {
+    employeeInfoEditingForm.querySelector('input[name="post"]').value = responseJson.post;
+    employeeInfoEditingForm.querySelector('input[name="post"]').setAttribute("value", responseJson.post);
+}
+
+function refreshUserInfoEditingFormData(responseJson) {
+    userInfoEditingForm.querySelector('input[name="name"]').value = responseJson.name;
+    userInfoEditingForm.querySelector('input[name="name"]').setAttribute("value", responseJson.name);
+    userInfoEditingForm.querySelector('input[name="lastname"]').value = responseJson.lastname;
+    userInfoEditingForm.querySelector('input[name="lastname"]').setAttribute("value", responseJson.lastname);
+    userInfoEditingForm.querySelector('input[name="patronymic"]').value = responseJson.patronymic;
+    userInfoEditingForm.querySelector('input[name="patronymic"]').setAttribute("value", responseJson.patronymic);
+    userInfoEditingForm.querySelector('input[name="phoneNumber"]').value = responseJson.sourcePhoneNumber;
+    userInfoEditingForm.querySelector('input[name="phoneNumber"]').setAttribute("value", responseJson.sourcePhoneNumber);
+    userInfoEditingForm.querySelector('input[name="gender"]').value = responseJson.gender;
+    userInfoEditingForm.querySelector('input[name="gender"]').setAttribute("value", responseJson.gender);
+    userInfoEditingForm.querySelector('input[name="birthdate"]').value = responseJson.birthdate;
+    userInfoEditingForm.querySelector('input[name="birthdate"]').setAttribute("value", responseJson.birthdate);
+}
+
+function refreshLoginInfoEditingFormData(responseJson) {
+    loginInfoEditingForm.querySelector('input[name="email"]').value = responseJson.email;
+    loginInfoEditingForm.querySelector('input[name="email"]').setAttribute("value", responseJson.email);
 }
 
 function refreshForm(form, errorBlockId) {

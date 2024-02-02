@@ -20,7 +20,7 @@ public class UserInformationToOutDtoMapper implements BaseEntityToOutDtoMapper<U
                 .phoneNumber(userInformation.getPhoneNumber())
                 .sourcePhoneNumber(PhoneNumberUtils.toSource(userInformation.getPhoneNumber()))
                 .gender(userInformation.getGender())
-                .genderAlias(userInformation.getGender().getAlias())
+                .genderAlias(userInformation.getGender() != null ? userInformation.getGender().getAlias() : null)
                 .birthdate(userInformation.getBirthdate())
                 .formattedBirthdate(userInformation.getFormattedBirthdate())
                 .build();
