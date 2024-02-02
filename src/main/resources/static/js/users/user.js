@@ -62,7 +62,7 @@ function modalsInit() {
             event.preventDefault();
             let data = {
                 email: loginInfoEditingForm.querySelector('input[name="email"]').value,
-                password: loginInfoEditingForm.querySelector('input[name="password"]').value,
+                password: loginInfoEditingForm.querySelector('input[name="password"]').value == "" ? null : loginInfoEditingForm.querySelector('input[name="password"]').value,
             };
             currentModal = "login-info";
             fetchInfoEdit(data, "login-info");
