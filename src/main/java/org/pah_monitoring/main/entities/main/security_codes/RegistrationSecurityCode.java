@@ -2,6 +2,7 @@ package org.pah_monitoring.main.entities.main.security_codes;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.main.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
@@ -40,6 +41,10 @@ public class RegistrationSecurityCode implements BaseEntity {
     @ManyToOne
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
+
+    public String getFormattedExpirationDate() {
+        return DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(expirationDate);
+    }
 
     @Override
     public boolean equals(Object o) {
