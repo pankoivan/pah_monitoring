@@ -22,7 +22,7 @@
                 <div class="col-12">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between text-center">
                         <h1 class="fs-3 m-2 m-md-0">
-                            <span th:text="${user.userInformation.fullName}">Казимиров Иван Петрович</span>
+                            <span id="profile-full-name" th:text="${user.userInformation.fullName}">Казимиров Иван Петрович</span>
                             <a
                                 th:if="${!isSelf && (user.isHospitalUser && isCurrentUserHospitalUserFromSameHospital || user.isMainAdministrator && isCurrentUserAdministrator)}"
                                 href="#"
@@ -55,7 +55,10 @@
                             <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
-                    <p class="mb-0">Должность: <span id="info-post" th:text="${user.employeeInformation.post}" class="text-lowercase">Врач-кардиолог 3-го ранга</span></p>
+                    <p class="mb-0">
+                        Должность:
+                        <span id="info-post" th:text="${user.employeeInformation.post}" class="text-lowercase">Врач-кардиолог 3-го ранга</span>
+                    </p>
                 </div>
             </div>
             <!---->
@@ -67,12 +70,21 @@
                             <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
-                    <p id="info-full-name" class="mb-1" th:text="'ФИО: ' + ${user.userInformation.fullName}">ФИО: Иванов Казимир Петрович</p>
-                    <p id="info-phone-number" th:text="'Телефон: ' + ${user.userInformation.phoneNumber}" th:classappend="${user.userInformation.gender == null && user.userInformation.birthdate == null} ? 'mb-0' : 'mb-1'">Телефон: +7 (121) 916-09-91</p>
-                    <p id="info-gender" th:if="${user.userInformation.gender != null}" th:classappend="${user.userInformation.birthdate == null} ? 'mb-0' : 'mb-1'">
-                        Пол: <span th:text="${user.userInformation.gender.alias}" class="text-lowercase"></span>
+                    <p class="mb-1">
+                        ФИО:
+                        <span id="info-full-name" th:text="${user.userInformation.fullName}"></span>
                     </p>
-                    <p id="info-birthdate" class="mb-0" th:if="${user.userInformation.birthdate != null}" th:text="'Дата рождения: ' + ${user.userInformation.formattedBirthdate}">Дата рождения: 18-01-1981</p>
+                    <p th:classappend="${user.userInformation.gender == null && user.userInformation.birthdate == null} ? 'mb-0' : 'mb-1'">
+                        Телефон:
+                        <span id="info-phone-number" th:text="${user.userInformation.phoneNumber}"></span>
+                    </p>
+                    <p id="info-gender-block" th:classappend="|${user.userInformation.gender == null ? 'visually-hidden' : ''} ${user.userInformation.birthdate == null ? 'mb-0' : 'mb-1'}|">
+                        Пол: <span id="info-gender" th:text="${user.userInformation.gender != null} ? ${user.userInformation.gender.alias}" class="text-lowercase"></span>
+                    </p>
+                    <p id="info-birthdate-block" class="mb-0" th:classappend="${user.userInformation.birthdate == null} ? 'visually-hidden'">
+                        Дата рождения:
+                        <span id="info-birthdate" th:text="${user.userInformation.formattedBirthdate}"></span>
+                    </p>
                 </div>
             </div>
             <!---->
@@ -94,7 +106,7 @@
                     <h3 class="fs-4">
                         Активность
                         <a
-                            th:if="${user.isActive && (user.isHospitalEmployee && isCurrentUserAdminFromSameHospital || user.isPatient && isCurrentUserOwnDoctor)}"
+                            th:if="${user.isActive && (user.isHospitalEmployee && isCurrentUserAdminFromSameHospital && !isSelf || user.isPatient && isCurrentUserOwnDoctor)}"
                             href="#"
                             data-bs-toggle="modal"
                             th:attr="data-bs-target=${target}"

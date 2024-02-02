@@ -62,7 +62,9 @@ public class UserInformation implements BaseEntity {
 
     @JsonIgnore
     public String getFormattedBirthdate() {
-        return DateTimeFormatConstants.DAY_MONTH_YEAR.format(birthdate);
+        return birthdate != null
+                ? DateTimeFormatConstants.DAY_MONTH_YEAR.format(birthdate)
+                : null;
     }
 
     @Override

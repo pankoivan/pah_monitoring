@@ -84,14 +84,17 @@ function fetchInfoEdit(data, whichInfo) {
                     if (whichInfo == "employee-info") {
                         document.getElementById("employee-info-editing-modal-close-1").click();
                         refreshEmployeeInfoEditingFormData(responseJson);
+                        refreshEmployeeInfo(responseJson);
                         showSuccessModal("Рабочая информация была успешно изменена");
                     } else if (whichInfo == "user-info") {
                         document.getElementById("user-info-editing-modal-close-1").click();
                         refreshUserInfoEditingFormData(responseJson);
+                        refreshUserInfo(responseJson);
                         showSuccessModal("Общая информация была успешно изменена");
                     } else if (whichInfo == "login-info") {
                         document.getElementById("login-info-editing-modal-close-1").click();
                         refreshLoginInfoEditingFormData(responseJson);
+                        refreshLoginInfo(responseJson);
                         showSuccessModal("Логин-информация была успешно изменена");
                     }
                 });
@@ -155,6 +158,10 @@ function refreshEmployeeInfoEditingFormData(responseJson) {
     employeeInfoEditingForm.querySelector('input[name="post"]').setAttribute("value", responseJson.post);
 }
 
+function refreshEmployeeInfo(responseJson) {
+    document.getElementById("info-post").innerText = responseJson.post;
+}
+
 function refreshUserInfoEditingFormData(responseJson) {
     userInfoEditingForm.querySelector('input[name="name"]').value = responseJson.name;
     userInfoEditingForm.querySelector('input[name="name"]').setAttribute("value", responseJson.name);
@@ -164,15 +171,44 @@ function refreshUserInfoEditingFormData(responseJson) {
     userInfoEditingForm.querySelector('input[name="patronymic"]').setAttribute("value", responseJson.patronymic);
     userInfoEditingForm.querySelector('input[name="phoneNumber"]').value = responseJson.sourcePhoneNumber;
     userInfoEditingForm.querySelector('input[name="phoneNumber"]').setAttribute("value", responseJson.sourcePhoneNumber);
-    userInfoEditingForm.querySelector('input[name="gender"]').value = responseJson.gender;
-    userInfoEditingForm.querySelector('input[name="gender"]').setAttribute("value", responseJson.gender);
+    if (responseJson.gender != null) {
+        //document.getElementById("MALE").checked = false;
+        //document.getElementById("MALE").setAttribute("checked", false);
+        document.getElementById("MALE").removeAttribute("checked");
+        //document.getElementById("FEMALE").checked = false;
+        //document.getElementById("FEMALE").setAttribute("checked", false);
+        document.getElementById("FEMALE").removeAttribute("checked");
+        //document.getElementById(responseJson.gender).checked = true;
+        document.getElementById(responseJson.gender).checked = "checked";
+        document.getElementById(responseJson.gender).setAttribute("checked", "checked");
+    }
     userInfoEditingForm.querySelector('input[name="birthdate"]').value = responseJson.birthdate;
     userInfoEditingForm.querySelector('input[name="birthdate"]').setAttribute("value", responseJson.birthdate);
+}
+
+function refreshUserInfo(responseJson) {
+    document.title = responseJson.fullName;
+    document.getElementById("profile-full-name").innerText = responseJson.fullName;
+    document.getElementById("info-full-name").innerText = responseJson.fullName;
+    document.getElementById("info-phone-number").innerText = responseJson.phoneNumber;
+    document.getElementById("info-gender").innerText = responseJson.genderAlias;
+    document.getElementById("info-birthdate").innerText = responseJson.formattedBirthdate;
+    if (responseJson.genderAlias != null) {
+        document.getElementById("info-gender-block").classList.remove("visually-hidden");
+    }
+    if (responseJson.formattedBirthdate != null) {
+        document.getElementById("info-birthdate-block").classList.remove("visually-hidden");
+        document.getElementById("info-birthdate-block").classList.add("mt-1");
+    }
 }
 
 function refreshLoginInfoEditingFormData(responseJson) {
     loginInfoEditingForm.querySelector('input[name="email"]').value = responseJson.email;
     loginInfoEditingForm.querySelector('input[name="email"]').setAttribute("value", responseJson.email);
+}
+
+function refreshLoginInfo() {
+    document.getElementById("info-email").innerText = responseJson.email;
 }
 
 function refreshForm(form, errorBlockId) {
