@@ -6,7 +6,7 @@ import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMappe
 import org.springframework.stereotype.Component;
 
 @Component("userMessageMapper")
-public class UserMessageToOutDto implements BaseEntityToOutDtoMapper<UserMessage, UserMessageOutDto> {
+public class UserMessageToOutDtoMapper implements BaseEntityToOutDtoMapper<UserMessage, UserMessageOutDto> {
 
     @Override
     public UserMessageOutDto map(UserMessage userMessage) {
