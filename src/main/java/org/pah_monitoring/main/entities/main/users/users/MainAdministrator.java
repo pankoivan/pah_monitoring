@@ -38,6 +38,21 @@ public class MainAdministrator extends User implements UserDetails {
     private UserInformation userInformation;
 
     @Override
+    public boolean isActive() {
+        return true;
+    }
+
+    @Override
+    public boolean isNotActive() {
+        return !isActive();
+    }
+
+    @Override
+    public String getActivityMessage() {
+        return "Активен";
+    }
+
+    @Override
     public boolean isHospitalUser() {
         return false;
     }

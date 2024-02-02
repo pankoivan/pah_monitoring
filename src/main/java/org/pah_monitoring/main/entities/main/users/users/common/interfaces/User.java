@@ -7,6 +7,12 @@ import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
 
 public abstract class User implements BaseEntity {
 
+    public abstract boolean isActive();
+
+    public abstract boolean isNotActive();
+
+    public abstract String getActivityMessage();
+
     public abstract boolean isHospitalUser();
 
     public abstract boolean isHospitalEmployee();

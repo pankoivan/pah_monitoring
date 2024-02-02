@@ -72,8 +72,12 @@ public class Patient extends HospitalUser implements UserDetails {
         return achievements.size();
     }
 
+    public boolean hasDoctor() {
+        return doctor != null;
+    }
+
     public boolean hasNoDoctor() {
-        return doctor == null;
+        return !hasDoctor();
     }
 
     public Optional<PatientInactivity> getCurrentPatientInactivity() {

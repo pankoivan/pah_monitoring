@@ -59,8 +59,12 @@ public class Doctor extends HospitalEmployee implements UserDetails {
         return patients.size();
     }
 
+    public boolean hasPatients() {
+        return !patients.isEmpty();
+    }
+
     public boolean hasNoPatients() {
-        return patients.isEmpty();
+        return !hasPatients();
     }
 
     @Override

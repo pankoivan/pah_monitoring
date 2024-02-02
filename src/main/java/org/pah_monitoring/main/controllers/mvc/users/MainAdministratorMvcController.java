@@ -28,12 +28,13 @@ public class MainAdministratorMvcController {
         MainAdministrator mainAdministrator = service.get();
         model.addAttribute("user", mainAdministrator);
         model.addAttribute("isSelf", checkService.isSameUser(mainAdministrator));
-        model.addAttribute("isHospitalUser", false);
+        model.addAttribute("isCurrentUserAdministrator", checkService.isAdministrator());
+        /*model.addAttribute("isHospitalUser", false);
         model.addAttribute("isHospitalEmployee", false);
         model.addAttribute("isDoctor", false);
-        model.addAttribute("isPatient", false);
-        model.addAttribute("isMessageEnabled", checkService.isAdministrator());
-        model.addAttribute("isNonLoginInfoEditingEnabled", checkService.isSameUser(mainAdministrator));
+        model.addAttribute("isPatient", false);*/
+        /*model.addAttribute("isMessageEnabled", checkService.isAdministrator());
+        model.addAttribute("isNonLoginInfoEditingEnabled", checkService.isSameUser(mainAdministrator));*/
         pageHeaderService.addHeader(model);
         return "users/user";
     }

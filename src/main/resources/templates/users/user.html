@@ -23,7 +23,12 @@
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between text-center">
                         <h1 class="fs-3 m-2 m-md-0">
                             <span th:text="${user.userInformation.fullName}">Казимиров Иван Петрович</span>
-                            <a th:if="${isMessageEnabled}" href="#" th:href="@{/messages/__${user.userInformation.id}__}" class="text-decoration-none">
+                            <a
+                                th:if="${!isSelf && (user.isHospitalUser && isCurrentUserHospitalUserFromSameHospital || user.isMainAdministrator && isCurrentUserAdministrator)}"
+                                href="#"
+                                th:href="@{/messages/__${user.userInformation.id}__}"
+                                class="text-decoration-none"
+                            >
                                 <img width="24" src="../../static/svg/message.svg" th:src="@{/svg/message.svg}" alt="Сообщение" />
                             </a>
                         </h1>
@@ -33,7 +38,7 @@
             </div>
             <hr class="my-5" />
             <!---->
-            <div class="row mb-5" th:if="${isHospitalUser}">
+            <div class="row mb-5" th:if="${user.isHospitalUser}">
                 <div class="col-12">
                     <h3 class="fs-4">Медицинское учреждение</h3>
                     <p class="word-wrap mb-0">
@@ -42,11 +47,11 @@
                 </div>
             </div>
             <!---->
-            <div class="row mb-5" th:if="${isHospitalEmployee}">
+            <div class="row mb-5" th:if="${user.isHospitalEmployee}">
                 <div class="col-12">
                     <h3 class="fs-4">
                         Рабочая информация
-                        <a href="#" th:if="${isNonLoginInfoEditingEnabled}" data-bs-toggle="modal" data-bs-target="#employee-info-editing-modal" class="text-decoration-none">
+                        <a href="#" th:if="${isSelf || isCurrentUserAdminFromSameHospital}" data-bs-toggle="modal" data-bs-target="#employee-info-editing-modal" class="text-decoration-none">
                             <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
@@ -58,7 +63,7 @@
                 <div class="col-12">
                     <h3 class="fs-4">
                         Общая информация
-                        <a href="#" th:if="${isNonLoginInfoEditingEnabled}" data-bs-toggle="modal" data-bs-target="#user-info-editing-modal" class="text-decoration-none">
+                        <a href="#" th:if="${isSelf || isCurrentUserAdminFromSameHospital}" data-bs-toggle="modal" data-bs-target="#user-info-editing-modal" class="text-decoration-none">
                             <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
@@ -84,37 +89,43 @@
                 </div>
             </div>
             <!---->
-            <div class="row" th:classappend="${isDoctor || isPatient} ? 'mb-5'">
+            <div class="row" th:classappend="${user.isDoctor || user.isPatient} ? 'mb-5'">
                 <div class="col-12">
                     <h3 class="fs-4">
                         Активность
-                        <a th:if="${isActivityEditingEnabled}" href="#" data-bs-toggle="modal" th:attr="data-bs-target=${target}" class="text-decoration-none">
+                        <a
+                            th:if="${user.isActive && (user.isHospitalEmployee && isCurrentUserAdminFromSameHospital || user.isPatient && isCurrentUserOwnDoctor)}"
+                            href="#"
+                            data-bs-toggle="modal"
+                            th:attr="data-bs-target=${target}"
+                            class="text-decoration-none"
+                        >
                             <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
-                    <p id="info-activity" th:text="${activityMessage}" class="text-success mb-0">Активен</p>
+                    <p id="info-activity" th:text="${user.activityMessage}" class="text-success mb-0">Активен</p>
                 </div>
             </div>
             <!---->
-            <div class="row" th:if="${isDoctor}">
+            <div class="row" th:if="${user.isDoctor}">
                 <div class="col-12">
                     <h3 class="fs-4">Пациенты</h3>
-                    <p th:if="${!user.patients.empty}" class="mb-1">
+                    <p th:if="${user.hasPatients}" class="mb-1">
                         <span th:if="${isSelf}">Сейчас за вами закреплено пациентов: </span>
                         <span th:if="${!isSelf}">Сейчас за этим врачом закреплено пациентов: </span>
                         <span th:text="${user.patientsCount}">5</span>
                     </p>
-                    <p th:if="${!user.patients.empty}" class="mb-0">
+                    <p th:if="${user.hasPatients}" class="mb-0">
                         <a href="#" th:href="@{/doctors/__${user.id}__/patients}" class="text-secondary">Перейти к списку пациентов</a>
                     </p>
-                    <p th:if="${user.patients.empty}" class="text-danger mb-0">
+                    <p th:if="${user.hasNoPatients}" class="text-danger mb-0">
                         <span th:if="${isSelf}">Сейчас у вас нет никаких пациентов</span>
                         <span th:if="${!isSelf}">Сейчас у этого врача нет никаких пациентов</span>
                     </p>
                 </div>
             </div>
             <!---->
-            <div class="row mb-5" th:if="${isPatient}">
+            <div class="row mb-5" th:if="${user.isPatient}">
                 <div class="col-12">
                     <h3 class="fs-4">
                         Лечащий врач
@@ -122,25 +133,25 @@
                             <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
-                    <p th:if="${user.doctor != null}" class="mb-0">
+                    <p th:if="${user.hasDoctor}" class="mb-0">
                         <a href="#" th:href="@{/doctors/__${user.doctor.id}__}" th:text="${user.doctor.userInformation.fullName}" class="text-secondary">Дачников Пётр Аркадьевич</a>
                         <span th:if="${isCurrentUserOwnDoctor}" class="fst-italic">(вы)</span>
                     </p>
-                    <p th:if="${user.doctor == null}" class="text-danger mb-0">
+                    <p th:if="${user.hasNoDoctor}" class="text-danger mb-0">
                         <span th:if="${isSelf}">Сейчас вы не закреплены ни за одним врачом</span>
                         <span th:if="${!isSelf}">Сейчас этот пациент не закреплён ни за одним врачом</span>
                     </p>
                 </div>
             </div>
             <!---->
-            <div class="row mb-5" th:if="${isPatient && isCurrentUserOwnDoctor}">
+            <div class="row mb-5" th:if="${user.isPatient && (isSelf || isCurrentUserOwnDoctor)}">
                 <div class="col-12">
-                    <h3 class="fs-4">Ход лечения</h3>
-                    <p class="mb-0"><a href="#" th:href="@{/patients/__${user.id}__/indicators}" class="text-secondary">Перейти к навигации по показателям пациента</a></p>
+                    <h3 class="fs-4">Показатели</h3>
+                    <p class="mb-0"><a href="#" th:href="@{/patients/__${user.id}__/indicators}" class="text-secondary">Перейти к навигации по показателям</a></p>
                 </div>
             </div>
             <!---->
-            <div class="row" th:if="${isPatient}">
+            <div class="row" th:if="${user.isPatient}">
                 <div class="col-12">
                     <h3 class="fs-4">
                         Награды

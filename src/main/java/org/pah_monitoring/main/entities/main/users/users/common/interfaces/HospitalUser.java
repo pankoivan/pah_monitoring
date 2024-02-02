@@ -6,10 +6,4 @@ public abstract class HospitalUser extends User {
 
     public abstract Hospital getHospital();
 
-    public abstract boolean isActive();
-
-    public abstract boolean isNotActive();
-
-    public abstract String getActivityMessage();
-
 }

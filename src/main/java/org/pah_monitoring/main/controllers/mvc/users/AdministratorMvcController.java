@@ -49,11 +49,11 @@ public class AdministratorMvcController {
         try {
             Administrator administrator = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(administrator);
-            model.addAttribute("isHospitalUser", true);
+            /*model.addAttribute("isHospitalUser", true);
             model.addAttribute("isHospitalEmployee", true);
             model.addAttribute("isAdmin", true);
             model.addAttribute("isDoctor", false);
-            model.addAttribute("isPatient", false);
+            model.addAttribute("isPatient", false);*/
             model.addAttribute("user", administrator);
             model.addAttribute("isSelf", checkService.isSameUser(administrator));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(administrator.getHospital()));
