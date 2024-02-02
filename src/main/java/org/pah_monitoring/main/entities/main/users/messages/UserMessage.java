@@ -3,6 +3,7 @@ package org.pah_monitoring.main.entities.main.users.messages;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.main.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 
@@ -40,6 +41,16 @@ public class UserMessage implements BaseEntity {
     @ManyToOne
     @JoinColumn(name = "author_id")
     private UserInformation author;
+
+    public String getFormattedDate() {
+        return DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(date);
+    }
+
+    public String getFormattedEditingDate() {
+        return editingDate != null
+                ? DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(editingDate)
+                : null;
+    }
 
     @Override
     public boolean equals(Object o) {
