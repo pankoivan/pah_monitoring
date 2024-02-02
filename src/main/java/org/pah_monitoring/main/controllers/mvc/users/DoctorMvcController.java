@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.dto.in.users.users.adding.DoctorAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.editing.DoctorEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.saving.DoctorSavingDto;
+import org.pah_monitoring.main.entities.main.enums.Gender;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
@@ -58,6 +59,7 @@ public class DoctorMvcController {
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(doctor.getHospital()));
             model.addAttribute("isCurrentUserMainAdministrator", checkService.isMainAdministrator());
             model.addAttribute("target", "#inactivity-selection-modal");
+            model.addAttribute("genders", Gender.values());
             pageHeaderService.addHeader(model);
             return "users/user";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {

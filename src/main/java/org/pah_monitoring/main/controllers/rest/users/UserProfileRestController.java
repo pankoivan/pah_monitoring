@@ -1,7 +1,6 @@
 package org.pah_monitoring.main.controllers.rest.users;
 
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.dto.in.users.info.editing.EmployeeInformationEditingDto;
 import org.pah_monitoring.main.dto.in.users.info.editing.UserInformationEditingDto;
@@ -13,14 +12,12 @@ import org.pah_monitoring.main.entities.main.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
-import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.forbidden.NotEnoughRightsRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
 import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchingService;
 import org.pah_monitoring.main.services.main.users.info.interfaces.EmployeeInformationService;
@@ -65,9 +62,9 @@ public class UserProfileRestController {
         }
     }*/
 
-    @PostMapping("/edit/user-security-info")
-    public UserSecurityInformationOutDto editUserSecurityInfo(@RequestBody @Valid UserSecurityInformationEditingDto editingDto,
-                                                              BindingResult bindingResult) {
+    @PostMapping("/edit/login-info")
+    public UserSecurityInformationOutDto editLoginInfo(@RequestBody @Valid UserSecurityInformationEditingDto editingDto,
+                                                       BindingResult bindingResult) {
         try {
             securityInformationService.checkAccessRightsForEditing(userSearchingService.findUserByUserSecurityInformationId(editingDto.getId()));
             securityInformationService.checkDataValidityForEditing(editingDto, bindingResult);
