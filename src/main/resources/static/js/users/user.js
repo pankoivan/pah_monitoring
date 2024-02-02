@@ -34,6 +34,7 @@ function modalsInit() {
         employeeInfoEditingForm.addEventListener("submit", (event) => {
             event.preventDefault();
             let data = {
+                id: employeeInfoEditingForm.querySelector('input[name="id"]').value,
                 post: employeeInfoEditingForm.querySelector('input[name="post"]').value,
             };
             currentModal = "employee-info";
@@ -45,6 +46,7 @@ function modalsInit() {
         userInfoEditingForm.addEventListener("submit", (event) => {
             event.preventDefault();
             let data = {
+                id: userInfoEditingForm.querySelector('input[name="id"]').value,
                 name: userInfoEditingForm.querySelector('input[name="name"]').value,
                 lastname: userInfoEditingForm.querySelector('input[name="lastname"]').value,
                 patronymic: userInfoEditingForm.querySelector('input[name="patronymic"]').value,
@@ -61,6 +63,7 @@ function modalsInit() {
         loginInfoEditingForm.addEventListener("submit", (event) => {
             event.preventDefault();
             let data = {
+                id: loginInfoEditingForm.querySelector('input[name="id"]').value,
                 email: loginInfoEditingForm.querySelector('input[name="email"]').value,
                 password: loginInfoEditingForm.querySelector('input[name="password"]').value == "" ? null : loginInfoEditingForm.querySelector('input[name="password"]').value,
             };

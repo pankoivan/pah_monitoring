@@ -14,6 +14,7 @@
                     </div>
                     <div class="modal-body fs-5" id="user-info-editing-modal-text">
                         <form id="user-info-editing-form" action="#" class="border rounded text-secondary fs-5 p-3">
+                            <input type="hidden" name="id" th:value="${user.userInformation.id}" />
                             <div class="mb-3">
                                 <label for="lastname" class="form-label">Фамилия</label>
                                 <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Иванов" th:value="${user.userInformation.lastname}" />
