@@ -56,6 +56,7 @@ public class DoctorMvcController {
             model.addAttribute("isSelf", checkService.isSameUser(doctor));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(doctor.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(doctor.getHospital()));
+            model.addAttribute("isCurrentUserMainAdministrator", checkService.isMainAdministrator());
             model.addAttribute("target", "#inactivity-selection-modal");
             pageHeaderService.addHeader(model);
             return "users/user";

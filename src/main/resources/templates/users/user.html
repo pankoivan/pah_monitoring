@@ -107,7 +107,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row" th:if="${user.isDoctor}">
+            <div class="row" th:if="${user.isDoctor && !isCurrentUserMainAdministrator}">
                 <div class="col-12">
                     <h3 class="fs-4">Пациенты</h3>
                     <p th:if="${user.hasPatients}" class="mb-1">
@@ -125,7 +125,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row mb-5" th:if="${user.isPatient}">
+            <div class="row mb-5" th:if="${user.isPatient && !isCurrentUserMainAdministrator}">
                 <div class="col-12">
                     <h3 class="fs-4">
                         Лечащий врач
