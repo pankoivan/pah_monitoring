@@ -169,14 +169,14 @@
             <!---->
         </div>
         <!---->
-        <div th:replace="~{/users/modal/employee-info-editing-modal :: employee-info-editing-modal}" th:if="${user.isHospitalEmployee && (isSelf || isCurrentUserAdminFromSameHospital)}"></div>
-        <div th:replace="~{/users/modal/user-info-editing-modal :: user-info-editing-modal}" th:if="${isSelf || isCurrentUserAdminFromSameHospital}"></div>
-        <div th:replace="~{/users/modal/login-info-editing-modal :: login-info-editing-modal}" th:if="${isSelf}"></div>
-        <div th:replace="~{/users/modal/inactivity-selection-modal :: inactivity-selection-modal}" th:if="${user.isHospitalEmployee && user.isActive && !isSelf && isCurrentUserAdminFromSameHospital}"></div>
-        <div th:replace="~{/users/modal/vacation-modal :: vacation-modal}" th:if="${user.isHospitalEmployee && user.isActive && !isSelf && isCurrentUserAdminFromSameHospital}"></div>
-        <div th:replace="~{/users/modal/sick-leave-modal :: sick-leave-modal}" th:if="${user.isHospitalEmployee && user.isActive && !isSelf && isCurrentUserAdminFromSameHospital}"></div>
-        <div th:replace="~{/users/modal/dismissal-modal :: dismissal-modal}" th:if="${user.isHospitalEmployee && user.isActive && !isSelf && isCurrentUserAdminFromSameHospital}"></div>
-        <div th:replace="~{/users/modal/patient-inactivity-modal :: patient-inactivity-modal}" th:if="${user.isPatient && user.isActive && isCurrentUserOwnDoctor}"></div>
+        <div th:replace="${user.isHospitalEmployee && (isSelf || isCurrentUserAdminFromSameHospital)} ? ~{/users/modal/employee-info-editing-modal :: employee-info-editing-modal} : _"></div>
+        <div th:replace="${isSelf || isCurrentUserAdminFromSameHospital} ? ~{/users/modal/user-info-editing-modal :: user-info-editing-modal} : _"></div>
+        <div th:replace="${isSelf} ? ~{/users/modal/login-info-editing-modal :: login-info-editing-modal} : _"></div>
+        <div th:replace="${user.isHospitalEmployee && user.isActive && !isSelf && isCurrentUserAdminFromSameHospital} ? ~{/users/modal/inactivity-selection-modal :: inactivity-selection-modal} : _"></div>
+        <div th:replace="${user.isHospitalEmployee && user.isActive && !isSelf && isCurrentUserAdminFromSameHospital} ? ~{/users/modal/vacation-modal :: vacation-modal} : _"></div>
+        <div th:replace="${user.isHospitalEmployee && user.isActive && !isSelf && isCurrentUserAdminFromSameHospital} ? ~{/users/modal/sick-leave-modal :: sick-leave-modal} : _"></div>
+        <div th:replace="${user.isHospitalEmployee && user.isActive && !isSelf && isCurrentUserAdminFromSameHospital} ? ~{/users/modal/dismissal-modal :: dismissal-modal} : _"></div>
+        <div th:replace="${user.isPatient && user.isActive && isCurrentUserOwnDoctor} ? ~{/users/modal/patient-inactivity-modal :: patient-inactivity-modal} : _"></div>
         <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
         <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
