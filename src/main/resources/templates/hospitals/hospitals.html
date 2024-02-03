@@ -91,17 +91,29 @@
                         <p class="fs-5 word-wrap mb-2">
                             <img width="24" src="../../static/svg/hospital.svg" th:src="@{/svg/hospital.svg}" alt="Медицинское учреждение" />
                             <span th:switch="${#strings.toString(each.currentState)}">
-                                <span th:case="'WAITING_CODE'"><a href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" th:text="${each.name}" class="text-decoration-none text-secondary"></a></span>
-                                <span th:case="'WAITING_REGISTRATION'"><a href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" th:text="${each.name}" class="text-decoration-none text-secondary"></a></span>
-                                <span th:case="'REGISTERED'"><a href="#" th:href="@{/hospitals/__${each.id}__}" th:text="${each.name}" class="text-decoration-none text-secondary"></a></span>
+                                <a th:case="'WAITING_CODE'" href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" th:text="${each.name}" class="text-decoration-none text-secondary">Алмазова</a>
+                                <a th:case="'WAITING_REGISTRATION'" href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" th:text="${each.name}" class="text-decoration-none text-secondary">Алмазова</a>
+                                <a th:case="'REGISTERED'" href="#" th:href="@{/hospitals/__${each.id}__}" th:text="${each.name}" class="text-decoration-none text-secondary">Алмазова</a>
                             </span>
                         </p>
-                        <p class="fs-6 mb-1" th:text="'OID: ' + ${each.oid}">OID: 1.32.34.5.234.34213</p>
+                        <p class="fs-6 mb-1">
+                            OID:
+                            <span th:text="${each.oid}">1.2932.4743646.21.123</span>
+                        </p>
                         <p class="fs-6 mb-0">
                             <span th:switch="${#strings.toString(each.currentState)}">
-                                <span th:case="'WAITING_CODE'" th:text="'Ожидает выдачи кода'" class="text-danger"></span>
-                                <span th:case="'WAITING_REGISTRATION'" th:text="'Ожидает регистрации администратора'" class="text-warning"></span>
-                                <span th:case="'REGISTERED'" th:text="'Зарегистрировано ' + ${each.formattedDate}" class="text-success"></span>
+                                <span th:case="'WAITING_CODE'" class="text-danger">
+                                    Ожидает выдачи кода. Заявка была подана
+                                    <span th:text="${each.formattedDate}"></span>
+                                </span>
+                                <span th:case="'WAITING_REGISTRATION'" class="text-warning">
+                                    Ожидает регистрации администратора. Код был выдан
+                                    <span th:text="${each.formattedDate}"></span>
+                                </span>
+                                <span th:case="'REGISTERED'" class="text-success">
+                                    Зарегистрировано:
+                                    <span th:text="${each.formattedDate}"></span>
+                                </span>
                             </span>
                         </p>
                     </div>
