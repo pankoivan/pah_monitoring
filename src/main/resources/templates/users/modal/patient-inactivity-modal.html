@@ -16,7 +16,7 @@
                         <form id="patient-inactivity-form" action="#" class="border rounded text-secondary fs-5 p-3">
                             <div class="mb-3">
                                 <label for="patient-inactivity-patient" class="form-label">Пациент</label>
-                                <input type="text" name="patient-inactivity-patient" id="patient-inactivity-patient" class="form-control" th:text="${user.userInformation.fullName}" disabled />
+                                <input type="text" name="patient-inactivity-patient" id="patient-inactivity-patient" class="form-control" th:value="${user.userInformation.fullName}" disabled />
                             </div>
                             <div class="mb-4">
                                 <label for="patient-inactivity-comment" class="form-label">Комментарий</label>
