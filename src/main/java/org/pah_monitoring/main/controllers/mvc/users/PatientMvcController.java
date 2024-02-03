@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/patients")
@@ -55,6 +57,7 @@ public class PatientMvcController {
             model.addAttribute("currentInactivity", patient.getCurrentInactivity().orElse(null));
             model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(patient.getUserInformation().getPhoneNumber()));
             model.addAttribute("genders", Gender.values());
+            model.addAttribute("currentDate", LocalDate.now());
             model.addAttribute("isSelf", checkService.isSameUser(patient));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(patient.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(patient.getHospital()));

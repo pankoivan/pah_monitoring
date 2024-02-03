@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/admins")
@@ -55,6 +57,7 @@ public class AdministratorMvcController {
             model.addAttribute("currentInactivity", administrator.getCurrentInactivity().orElse(null));
             model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(administrator.getUserInformation().getPhoneNumber()));
             model.addAttribute("genders", Gender.values());
+            model.addAttribute("currentDate", LocalDate.now());
             model.addAttribute("isSelf", checkService.isSameUser(administrator));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(administrator.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(administrator.getHospital()));
