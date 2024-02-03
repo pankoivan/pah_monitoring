@@ -115,7 +115,15 @@
                             <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
-                    <p id="info-activity" th:text="${user.activityMessage}" class="text-success mb-0">Активен</p>
+                    <p id="info-activity" th:text="${user.activityMessage}" class="text-success" th:classappend="${user.isActive} ? 'mb-0' : 'mb-1'">Активен</p>
+                    <p id="info-extended-activity-whom-block" class="mb-1" th:classappend="${user.isActive} ? 'visually-hidden'">
+                        <span id="info-extended-activity-whom" th:text="${authorMessagePart}"></span>
+                        <a id="info-extended-activity-whom-full-name" href="#" th:href="@{/users/__${authorUserInformationId}__}" th:text="${authorFullName}" class="text-secondary"></a>
+                    </p>
+                    <p th:if="${comment != null}" id="info-extended-activity-comment-block" class="mb-0" th:classappend="${user.isActive} ? 'visually-hidden'">
+                        Комментарий:
+                        <span id="info-extended-activity-comment" th:text="${comment}"></span>
+                    </p>
                 </div>
             </div>
             <!---->
