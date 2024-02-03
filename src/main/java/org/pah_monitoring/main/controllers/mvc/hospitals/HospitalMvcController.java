@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -34,9 +35,12 @@ public class HospitalMvcController {
 
     @GetMapping
     @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
-    public String getHospitalsPage(Model model) {
+    public String getHospitalsPage(Model model, @RequestParam(value = "page", required = false) Integer page) {
         model.addAttribute("hospitals", service.findAll());
         pageHeaderService.addHeader(model);
+        System.out.println(page);
+        model.addAttribute("currentPage", page == null ? 1 : page);
+        model.addAttribute("pagesCount", 10);
         return "hospitals/hospitals";
     }
 

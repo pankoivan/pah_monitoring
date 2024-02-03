@@ -35,9 +35,8 @@ function searched(searching) {
 
 function applyFilter() {
     const url = new URL(window.location.href);
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("page")) {
-        url.searchParams.set("page", params.get("page"));
+    if (url.searchParams.get("page")) {
+        url.searchParams.set("page", url.searchParams.get("page"));
     }
     if (document.querySelector('input[name="filtration"]:checked')) {
         url.searchParams.set("filtration", document.querySelector('input[name="filtration"]:checked').id);
@@ -47,6 +46,8 @@ function applyFilter() {
     }
     if (document.querySelector('input[name="searching"]').value != "") {
         url.searchParams.set("searching", document.querySelector('input[name="searching"]').value);
+    } else {
+        url.searchParams.delete("searching");
     }
     window.location.href = url;
 }

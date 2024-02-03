@@ -130,26 +130,29 @@
         </div>
         <!---->
         <nav class="mb-5">
-            <ul class="pagination pagination-overriden">
+            <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
+                    <button id="first-page" class="page-link" th:classappend="${currentPage == 1} ? 'disabled'">&lt;&lt;</button>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">...</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
+                    <button id="prev-page" class="page-link" th:classappend="${currentPage == 1} ? 'disabled'">&lt;</button>
+                </li>
+                <li class="page-item">
+                    <button id="current-page" class="page-link active" th:text="${currentPage}">1</button>
+                </li>
+                <li class="page-item">
+                    <button id="next-page" class="page-link" th:classappend="${currentPage == pagesCount} ? 'disabled'">&gt;</button>
+                </li>
+                <li class="page-item" th:attr="data-count=${pagesCount}">
+                    <button id="last-page" class="page-link" th:classappend="${currentPage == pagesCount} ? 'disabled'">&gt;&gt;</button>
                 </li>
             </ul>
         </nav>
         <!---->
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
-        <script src="../../static/js/hospitals/hospitals.js" th:src="@{/js/hospitals/hospitals.js}"></script>
+        <script src="../../static/js/common/get-params.js" th:src="@{/js/common/get-params.js}"></script>
+        <script src="../../static/js/common/pagination.js" th:src="@{/js/common/pagination.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>
