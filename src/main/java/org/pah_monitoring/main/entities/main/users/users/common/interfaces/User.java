@@ -11,8 +11,6 @@ public abstract class User implements BaseEntity {
 
     public abstract boolean isNotActive();
 
-    public abstract String getActivityMessage();
-
     public abstract boolean isHospitalUser();
 
     public abstract boolean isHospitalEmployee();

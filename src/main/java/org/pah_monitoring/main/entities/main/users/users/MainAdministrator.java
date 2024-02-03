@@ -48,11 +48,6 @@ public class MainAdministrator extends User implements UserDetails {
     }
 
     @Override
-    public String getActivityMessage() {
-        return "Активен";
-    }
-
-    @Override
     public boolean isHospitalUser() {
         return false;
     }

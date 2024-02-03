@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.main.common.interfaces.BaseEntity;
+import org.pah_monitoring.main.entities.main.users.inactivity.common.Inactivity;
 import org.pah_monitoring.main.entities.main.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;
 
@@ -19,7 +20,7 @@ import java.time.LocalDate;
 @JsonIgnoreProperties({"employee", "author"})
 @Entity
 @Table(name = "dismissal")
-public class Dismissal implements BaseEntity {
+public class Dismissal extends Inactivity implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +43,26 @@ public class Dismissal implements BaseEntity {
 
     public String getFormattedDate() {
         return DateTimeFormatConstants.DAY_MONTH_YEAR.format(date);
+    }
+
+    @Override
+    public String getActivityMessage() {
+        return "Уволен %s".formatted(getFormattedDate());
+    }
+
+    @Override
+    public String getAuthorMessagePart() {
+        return "Кем уволен:";
+    }
+
+    @Override
+    public String getAuthorFullName() {
+        return author.getUserInformation().getFullName();
+    }
+
+    @Override
+    public Integer getAuthorUserInformationId() {
+        return author.getUserInformation().getId();
     }
 
     @Override

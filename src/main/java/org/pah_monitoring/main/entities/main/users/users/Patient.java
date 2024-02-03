@@ -8,6 +8,7 @@ import org.pah_monitoring.main.entities.main.examinations.schedules.ExaminationS
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.entities.main.patient_additions.Achievement;
 import org.pah_monitoring.main.entities.main.patient_additions.Medicine;
+import org.pah_monitoring.main.entities.main.users.inactivity.common.Inactivity;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.entities.main.users.inactivity.PatientInactivity;
@@ -80,10 +81,6 @@ public class Patient extends HospitalUser implements UserDetails {
         return !hasDoctor();
     }
 
-    public Optional<PatientInactivity> getCurrentPatientInactivity() {
-        return Optional.ofNullable(patientInactivity);
-    }
-
     @Override
     public boolean isActive() {
         return patientInactivity == null;
@@ -92,15 +89,6 @@ public class Patient extends HospitalUser implements UserDetails {
     @Override
     public boolean isNotActive() {
         return !isActive();
-    }
-
-    @Override
-    public String getActivityMessage() {
-        if (patientInactivity != null) {
-            return "Переведён в неактивное состояние %s".formatted(patientInactivity.getDate());
-        } else {
-            return "Активен";
-        }
     }
 
     @Override
@@ -136,6 +124,11 @@ public class Patient extends HospitalUser implements UserDetails {
     @Override
     public Role getRole() {
         return Role.PATIENT;
+    }
+
+    @Override
+    public Optional<Inactivity> getCurrentInactivity() {
+        return Optional.ofNullable(patientInactivity);
     }
 
     @Override
