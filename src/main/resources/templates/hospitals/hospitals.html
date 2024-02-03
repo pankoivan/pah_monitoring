@@ -23,7 +23,7 @@
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
                         <h1 class="fs-3 m-2 m-md-0">Список медицинских учреждений</h1>
                         <div class="m-2 m-md-0">
-                            <button class="btn btn-lg btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filter" aria-expanded="false" aria-controls="filter">Фильтр</button>
+                            <button class="btn btn-lg btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filter" aria-expanded="false" aria-controls="filter" id="filter-button">Фильтр</button>
                         </div>
                     </div>
                 </div>
@@ -34,35 +34,45 @@
                     <div id="filter" class="collapse multi-collapse">
                         <div class="filter rounded fs-6 p-3 mb-5">
                             <div class="d-flex flex-row flex-wrap align-items-center justify-content-between">
-                                <div class="m-2 m-lg-0">
-                                    <h6 class="fs-5">Фильтрация</h6>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                                        <label class="form-check-label" for="flexRadioDefault1"> Ожидают выдачи кода </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
-                                        <label class="form-check-label" for="flexRadioDefault2"> Ожидают регистрации администратора </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" />
-                                        <label class="form-check-label" for="flexRadioDefault3"> Зарегистрированы </label>
-                                    </div>
-                                </div>
-                                <div class="m-2 m-lg-0">
-                                    <h6 class="fs-5">Сортировка</h6>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" />
-                                        <label class="form-check-label" for="flexRadioDefault4"> Название </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5" checked />
-                                        <label class="form-check-label" for="flexRadioDefault6"> Дата </label>
+                                <div class="mb-auto">
+                                    <div class="m-2 m-lg-0">
+                                        <h6 class="fs-5">Фильтрация</h6>
+                                        <div class="form-check">
+                                            <label class="form-check-label" for="filtration-radio-0"> Ожидают выдачи кода </label>
+                                            <input class="form-check-input" type="radio" name="filtration" id="filtration-radio-0" />
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label" for="filtration-radio-1"> Ожидают регистрации администратора </label>
+                                            <input class="form-check-input" type="radio" name="filtration" id="filtration-radio-1" />
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label" for="filtration-radio-2"> Зарегистрированы </label>
+                                            <input class="form-check-input" type="radio" name="filtration" id="filtration-radio-2" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="m-2 m-lg-0">
-                                    <h6 class="fs-5">Поиск</h6>
-                                    <input class="form-control" type="search" placeholder="Найти..." />
+                                <div class="mb-auto">
+                                    <div class="m-2 m-lg-0">
+                                        <h6 class="fs-5">Сортировка</h6>
+                                        <div class="form-check">
+                                            <label class="form-check-label" for="sorting-radio-0"> Название </label>
+                                            <input class="form-check-input" type="radio" name="sorting" id="sorting-radio-0" />
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label" for="sorting-radio-1"> OID </label>
+                                            <input class="form-check-input" type="radio" name="sorting" id="sorting-radio-1" />
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label" for="sorting-radio-2"> Дата </label>
+                                            <input class="form-check-input" type="radio" name="sorting" id="sorting-radio-2" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-auto">
+                                    <div class="m-2 m-lg-0">
+                                        <h6 class="fs-5">Поиск</h6>
+                                        <input class="form-control" type="search" placeholder="Найти..." />
+                                    </div>
                                 </div>
                             </div>
                             <hr />
@@ -109,6 +119,7 @@
         <!---->
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
+        <script src="../../static/js/hospitals/hospitals.js" th:src="@{/js/hospitals/hospitals.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>
