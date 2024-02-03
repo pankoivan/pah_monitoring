@@ -12,6 +12,10 @@ public class VacationToOutDtoMapper implements BaseEntityToOutDtoMapper<Vacation
     public VacationOutDto map(Vacation vacation) {
         return VacationOutDto
                 .builder()
+                .activityMessage("В отпуске с %s по %s".formatted(vacation.getFormattedStartDate(), vacation.getFormattedEndDate()))
+                .authorMessagePart("Кем назначен отпуск:")
+                .authorFullName(vacation.getAuthor().getUserInformation().getFullName())
+                .authorUserInformationId(vacation.getAuthor().getUserInformation().getId())
                 .formattedStartDate(vacation.getFormattedStartDate())
                 .formattedEndDate(vacation.getFormattedEndDate())
                 .comment(vacation.getComment())

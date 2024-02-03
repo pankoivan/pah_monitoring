@@ -12,6 +12,10 @@ public class SickLeaveToOutDtoMapper implements BaseEntityToOutDtoMapper<SickLea
     public SickLeaveOutDto map(SickLeave sickLeave) {
         return SickLeaveOutDto
                 .builder()
+                .activityMessage("На больничном с %s по %s".formatted(sickLeave.getFormattedStartDate(), sickLeave.getFormattedEndDate()))
+                .authorMessagePart("Кем назначен больничный:")
+                .authorFullName(sickLeave.getAuthor().getUserInformation().getFullName())
+                .authorUserInformationId(sickLeave.getAuthor().getUserInformation().getId())
                 .formattedStartDate(sickLeave.getFormattedStartDate())
                 .formattedEndDate(sickLeave.getFormattedEndDate())
                 .comment(sickLeave.getComment())

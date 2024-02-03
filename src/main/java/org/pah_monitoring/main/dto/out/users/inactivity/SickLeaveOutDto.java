@@ -8,6 +8,14 @@ import org.pah_monitoring.main.dto.out.common.interfaces.OutDto;
 @Builder
 public class SickLeaveOutDto implements OutDto {
 
+    private String activityMessage;
+
+    private String authorMessagePart;
+
+    private String authorFullName;
+
+    private Integer authorUserInformationId;
+
     private String formattedStartDate;
 
     private String formattedEndDate;

@@ -12,6 +12,10 @@ public class PatientInactivityToOutDtoMapper implements BaseEntityToOutDtoMapper
     public PatientInactivityOutDto map(PatientInactivity patientInactivity) {
         return PatientInactivityOutDto
                 .builder()
+                .activityMessage("Переведён в неактивное состояние %s".formatted(patientInactivity.getFormattedDate()))
+                .authorMessagePart("Кем переведён:")
+                .authorFullName(patientInactivity.getAuthor().getUserInformation().getFullName())
+                .authorUserInformationId(patientInactivity.getAuthor().getUserInformation().getId())
                 .formattedDate(patientInactivity.getFormattedDate())
                 .comment(patientInactivity.getComment())
                 .build();
