@@ -52,6 +52,7 @@ public class AdministratorMvcController {
             Administrator administrator = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(administrator);
             model.addAttribute("user", administrator);
+            model.addAttribute("currentInactivity", administrator.getCurrentInactivity().orElse(null));
             model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(administrator.getUserInformation().getPhoneNumber()));
             model.addAttribute("genders", Gender.values());
             model.addAttribute("isSelf", checkService.isSameUser(administrator));

@@ -52,6 +52,7 @@ public class PatientMvcController {
             Patient patient = service.findById(service.parsePathId(pathId));
             service.checkAccessRightsForObtainingConcrete(patient);
             model.addAttribute("user", patient);
+            model.addAttribute("currentInactivity", patient.getCurrentInactivity().orElse(null));
             model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(patient.getUserInformation().getPhoneNumber()));
             model.addAttribute("genders", Gender.values());
             model.addAttribute("isSelf", checkService.isSameUser(patient));
