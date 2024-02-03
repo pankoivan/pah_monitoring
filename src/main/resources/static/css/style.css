@@ -57,6 +57,13 @@
     border-color: var(--bs-danger-border-subtle);
 }
 
+.filter {
+    background-color: var(--bs-primary-bg-subtle);
+    color: var(--bs-primary-text-emphasis);
+    border-color: var(--bs-primary-border-subtle) !important;
+    border: thin solid;
+}
+
 .break-all {
     word-wrap: break-word;
     word-break: break-all;
