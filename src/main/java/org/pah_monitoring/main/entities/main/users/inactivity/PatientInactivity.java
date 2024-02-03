@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
-import org.pah_monitoring.main.entities.main.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.main.users.inactivity.common.Inactivity;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
@@ -20,7 +19,7 @@ import java.time.LocalDate;
 @JsonIgnoreProperties({"patient", "author"})
 @Entity
 @Table(name = "patient_inactivity")
-public class PatientInactivity extends Inactivity implements BaseEntity {
+public class PatientInactivity extends Inactivity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +45,7 @@ public class PatientInactivity extends Inactivity implements BaseEntity {
     }
 
     @Override
-    public String getActivityMessage() {
+    public String getInactivityMessage() {
         return "Переведён в неактивное состояние %s".formatted(getFormattedDate());
     }
 

@@ -1,8 +1,10 @@
 package org.pah_monitoring.main.entities.main.users.inactivity.common;
 
-public abstract class Inactivity {
+import org.pah_monitoring.main.entities.main.common.interfaces.BaseEntity;
 
-    public abstract String getActivityMessage();
+public abstract class Inactivity implements BaseEntity {
+
+    public abstract String getInactivityMessage();
 
     public abstract String getAuthorMessagePart();
 
