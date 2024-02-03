@@ -1,6 +1,7 @@
 :root {
     --my-bg-form: #f2f3f5;
     --my-bg-indicator: #f2f3f5;
+    --my-bg-filter: #f2f3f5;
 }
 
 .bg-main {
@@ -58,9 +59,8 @@
 }
 
 .filter {
-    background-color: var(--bs-primary-bg-subtle);
-    color: var(--bs-primary-text-emphasis);
-    border-color: var(--bs-primary-border-subtle) !important;
+    background-color: var(--my-bg-filter);
+    border-color: var(--bs-gray-300) !important;
     border: thin solid;
 }
 
