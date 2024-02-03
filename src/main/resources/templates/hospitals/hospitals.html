@@ -31,23 +31,23 @@
             <!---->
             <div class="row">
                 <div class="col-12">
-                    <div id="filter" class="collapse multi-collapse">
+                    <div id="filter" class="collapse">
                         <div class="filter rounded fs-6 p-3 mb-5">
                             <div class="d-flex flex-row flex-wrap align-items-center justify-content-between">
                                 <div class="mb-auto">
                                     <div class="m-2 m-lg-0">
                                         <h6 class="fs-5">Фильтрация</h6>
                                         <div class="form-check">
-                                            <label class="form-check-label" for="filtration-radio-0"> Ожидают выдачи кода </label>
-                                            <input class="form-check-input" type="radio" name="filtration" id="filtration-radio-0" />
+                                            <label class="form-check-label" for="WAITING_CODE"> Ожидают выдачи кода </label>
+                                            <input class="form-check-input" type="radio" name="filtration" id="WAITING_CODE" />
                                         </div>
                                         <div class="form-check">
-                                            <label class="form-check-label" for="filtration-radio-1"> Ожидают регистрации администратора </label>
-                                            <input class="form-check-input" type="radio" name="filtration" id="filtration-radio-1" />
+                                            <label class="form-check-label" for="WAITING_REGISTRATION"> Ожидают регистрации администратора </label>
+                                            <input class="form-check-input" type="radio" name="filtration" id="WAITING_REGISTRATION" />
                                         </div>
                                         <div class="form-check">
-                                            <label class="form-check-label" for="filtration-radio-2"> Зарегистрированы </label>
-                                            <input class="form-check-input" type="radio" name="filtration" id="filtration-radio-2" />
+                                            <label class="form-check-label" for="REGISTERED"> Зарегистрированы </label>
+                                            <input class="form-check-input" type="radio" name="filtration" id="REGISTERED" />
                                         </div>
                                     </div>
                                 </div>
@@ -55,23 +55,23 @@
                                     <div class="m-2 m-lg-0">
                                         <h6 class="fs-5">Сортировка</h6>
                                         <div class="form-check">
-                                            <label class="form-check-label" for="sorting-radio-0"> Название </label>
-                                            <input class="form-check-input" type="radio" name="sorting" id="sorting-radio-0" />
+                                            <label class="form-check-label" for="NAME"> Название </label>
+                                            <input class="form-check-input" type="radio" name="sorting" id="NAME" />
                                         </div>
                                         <div class="form-check">
-                                            <label class="form-check-label" for="sorting-radio-1"> OID </label>
-                                            <input class="form-check-input" type="radio" name="sorting" id="sorting-radio-1" />
+                                            <label class="form-check-label" for="OID"> OID </label>
+                                            <input class="form-check-input" type="radio" name="sorting" id="OID" />
                                         </div>
                                         <div class="form-check">
-                                            <label class="form-check-label" for="sorting-radio-2"> Дата </label>
-                                            <input class="form-check-input" type="radio" name="sorting" id="sorting-radio-2" />
+                                            <label class="form-check-label" for="DATE"> Дата </label>
+                                            <input class="form-check-input" type="radio" name="sorting" id="DATE" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-auto">
                                     <div class="m-2 m-lg-0">
                                         <h6 class="fs-5">Поиск</h6>
-                                        <input class="form-control" type="search" placeholder="Найти..." />
+                                        <input class="form-control" type="search" name="searching" placeholder="Найти..." />
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@
                     </a>
                 </li>
                 <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">...</a></li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item">
                     <a class="page-link" href="#" aria-label="Next">
