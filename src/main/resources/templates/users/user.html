@@ -72,18 +72,19 @@
                     </h3>
                     <p class="mb-1">
                         ФИО:
-                        <span id="info-full-name" th:text="${user.userInformation.fullName}"></span>
+                        <span id="info-full-name" th:text="${user.userInformation.fullName}">Иванов Иван Иванович</span>
                     </p>
                     <p th:classappend="${user.userInformation.gender == null && user.userInformation.birthdate == null} ? 'mb-0' : 'mb-1'">
                         Телефон:
-                        <span id="info-phone-number" th:text="${user.userInformation.phoneNumber}"></span>
+                        <span id="info-phone-number" th:text="${user.userInformation.phoneNumber}">+7 (984) 123-90-87</span>
                     </p>
                     <p id="info-gender-block" th:classappend="|${user.userInformation.gender == null ? 'visually-hidden' : ''} ${user.userInformation.birthdate == null ? 'mb-0' : 'mb-1'}|">
-                        Пол: <span id="info-gender" th:text="${user.userInformation.gender != null} ? ${user.userInformation.gender.alias}" class="text-lowercase"></span>
+                        Пол:
+                        <span id="info-gender" th:text="${user.userInformation.gender != null} ? ${user.userInformation.gender.alias}" class="text-lowercase">Мужской</span>
                     </p>
                     <p id="info-birthdate-block" class="mb-0" th:classappend="${user.userInformation.birthdate == null} ? 'visually-hidden'">
                         Дата рождения:
-                        <span id="info-birthdate" th:text="${user.userInformation.formattedBirthdate}"></span>
+                        <span id="info-birthdate" th:text="${user.userInformation.formattedBirthdate}">21.11.1999</span>
                     </p>
                 </div>
             </div>
@@ -96,7 +97,10 @@
                             <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
-                    <p id="info-email" class="mb-1" th:text="'Почта: ' + ${user.userSecurityInformation.email}">Почта: some@exampleMail</p>
+                    <p class="mb-1">
+                        Почта:
+                        <span id="info-email" th:text="${user.userSecurityInformation.email}">someMail@example</span>
+                    </p>
                     <p id="info-password" class="mb-0">Пароль: ••••••••••••</p>
                 </div>
             </div>
@@ -116,21 +120,23 @@
                         </a>
                     </h3>
                     <p th:if="${user.isActive}" class="text-success mb-0">Активен</p>
-                    <div th:if="${!user.isMainAdministrator && user.isNotActive}" class="mb-0">
-                        <p id="info-inactivity" th:text="${currentInactivity.inactivityMessage}" class="text-danger mb-1"></p>
-                        <p id="info-extended-inactivity-whom-block" class="mb-1">
-                            <span id="info-extended-inactivity-whom" th:text="${currentInactivity.authorMessagePart}"></span>
-                            <a id="info-extended-inactivity-whom-full-name" href="#" th:href="@{/users/__${currentInactivity.authorUserInformationId}__}" th:text="${currentInactivity.authorFullName}" class="text-secondary"></a>
-                        </p>
-                        <p id="info-extended-inactivity-comment-block" th:if="${currentInactivity.comment != null}" class="mb-0">
-                            Комментарий:
-                            <span id="info-extended-inactivity-comment" th:text="${currentInactivity.comment}" class="text-lowercase fst-italic"></span>
-                        </p>
+                    <div th:if="${user.isNotActive}" class="mb-0">
+                        <p id="info-inactivity" th:text="${currentInactivity.inactivityMessage}" class="text-danger mb-1">Уволен 19.01.2022</p>
+                        <div th:if="${!isCurrentUserMainAdministrator}">
+                            <p id="info-extended-inactivity-whom-block" class="mb-1">
+                                <span id="info-extended-inactivity-whom" th:text="${currentInactivity.authorMessagePart}">Кем уволен:</span>
+                                <a id="info-extended-inactivity-whom-full-name" href="#" th:href="@{/users/__${currentInactivity.authorUserInformationId}__}" th:text="${currentInactivity.authorFullName}" class="text-secondary">Петров Пётр Ильич</a>
+                            </p>
+                            <p id="info-extended-inactivity-comment-block" th:if="${currentInactivity.comment != null}" class="mb-0">
+                                Комментарий:
+                                <span id="info-extended-inactivity-comment" th:text="${currentInactivity.comment}" class="text-lowercase fst-italic">Плохо работал</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
             <!---->
-            <div class="row" th:if="${user.isDoctor && !isCurrentUserMainAdministrator}">
+            <div class="row" th:if="${user.isDoctor && (isSelf || isCurrentUserAdminFromSameHospital)}">
                 <div class="col-12">
                     <h3 class="fs-4">Пациенты</h3>
                     <p th:if="${user.hasPatients}" class="mb-1">
@@ -139,20 +145,20 @@
                         <span th:text="${user.patientsCount}">5</span>
                     </p>
                     <p th:if="${user.hasPatients}" class="mb-0">
-                        <a href="#" th:href="@{/doctors/__${user.id}__/patients}" class="text-secondary">Перейти к списку пациентов</a>
+                        <a href="#" th:href="@{/doctors/__${user.id}__/patients}" class="text-secondary">Перейти к пациентам</a>
                     </p>
                     <p th:if="${user.hasNoPatients}" class="text-danger mb-0">
-                        <span th:if="${isSelf}">Сейчас у вас нет никаких пациентов</span>
-                        <span th:if="${!isSelf}">Сейчас у этого врача нет никаких пациентов</span>
+                        <span th:if="${isSelf}">Сейчас вы не закреплены ни за одним пациентом</span>
+                        <span th:if="${!isSelf}">Сейчас этот врач не закреплён ни за одним пациентом</span>
                     </p>
                 </div>
             </div>
             <!---->
-            <div class="row mb-5" th:if="${user.isPatient && !isCurrentUserMainAdministrator}">
+            <div class="row mb-5" th:if="${user.isPatient && (isSelf || isCurrentUserOwnDoctor || isCurrentUserAdminFromSameHospital)}">
                 <div class="col-12">
                     <h3 class="fs-4">
                         Лечащий врач
-                        <a id="doctor-editing" th:if="${isCurrentUserAdminFromSameHospital}" href="#" class="text-decoration-none">
+                        <a th:if="${isCurrentUserAdminFromSameHospital}" href="#" th:href="@{/hospitals/__${user.hospital.id}__/doctors?patientId=__${user.id}__}" class="text-decoration-none">
                             <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
@@ -169,8 +175,13 @@
             <!---->
             <div class="row mb-5" th:if="${user.isPatient && (isSelf || isCurrentUserOwnDoctor)}">
                 <div class="col-12">
-                    <h3 class="fs-4">Показатели</h3>
-                    <p class="mb-0"><a href="#" th:href="@{/patients/__${user.id}__/indicators}" class="text-secondary">Перейти к навигации по показателям</a></p>
+                    <h3 class="fs-4">История лечения</h3>
+                    <p class="mb-1">
+                        <a href="#" th:href="@{/patients/__${user.id}__/anamnesis}" class="text-secondary">Перейти к анамнезу</a>
+                    </p>
+                    <p class="mb-0">
+                        <a href="#" th:href="@{/patients/__${user.id}__/indicators}" class="text-secondary">Перейти к показателям</a>
+                    </p>
                 </div>
             </div>
             <!---->
@@ -186,7 +197,9 @@
                         Всего наград:
                         <span th:text="${user.achievementsCount}">12</span>
                     </p>
-                    <p class="mb-0"><a href="#" th:href="@{/patients/__${user.id}__/achievements}" class="text-secondary">Перейти к наградам</a></p>
+                    <p class="mb-0">
+                        <a href="#" th:href="@{/patients/__${user.id}__/achievements}" class="text-secondary">Перейти к наградам</a>
+                    </p>
                 </div>
             </div>
             <!---->

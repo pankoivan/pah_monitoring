@@ -8,10 +8,10 @@ import org.pah_monitoring.main.dto.in.users.info.saving.UserSecurityInformationS
 import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalUser;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.main.users.info.UserSecurityInformationRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalRegistrationRequestService;
@@ -79,7 +79,7 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
                             .id(securityInformation.getId())
                             .email(editingDto.getEmail())
                             .password(
-                                    editingDto.getPassword() != null
+                                    editingDto.getPassword() != null && !editingDto.getPassword().isEmpty()
                                             ? passwordEncoder.encode(editingDto.getPassword())
                                             : securityInformation.getPassword()
                             )
@@ -107,8 +107,12 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
     public void checkDataValidityForEditing(UserSecurityInformationEditingDto editingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
-        if (editingDto.getPassword() != null && bindingResult.hasErrors()) {
-            throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        checkDataValidityForSaving(editingDto, bindingResult);
+
+        if (editingDto.getPassword() != null && !editingDto.getPassword().isEmpty()) {
+            if (editingDto.getPassword().length() < 3 || editingDto.getPassword().length() > 63) {
+                throw new DataValidationServiceException("Минимальная длина пароля - 3 символа, максимальная - 63 символа");
+            }
         }
 
         Optional<UserSecurityInformation> securityInformation = repository.findByEmail(editingDto.getEmail());

@@ -1,11 +1,11 @@
-let employeeInfoEditingForm = document.getElementById("employee-info-editing-form");
-let userInfoEditingForm = document.getElementById("user-info-editing-form");
-let loginInfoEditingForm = document.getElementById("login-info-editing-form");
+const employeeInfoEditingForm = document.getElementById("employee-info-editing-form");
+const userInfoEditingForm = document.getElementById("user-info-editing-form");
+const loginInfoEditingForm = document.getElementById("login-info-editing-form");
 
-let vacationForm = document.getElementById("vacation-form");
-let sickLeaveForm = document.getElementById("sick-leave-form");
-let dismissalForm = document.getElementById("dismissal-form");
-let patientInactivityForm = document.getElementById("patient-inactivity-form");
+const vacationForm = document.getElementById("vacation-form");
+const sickLeaveForm = document.getElementById("sick-leave-form");
+const dismissalForm = document.getElementById("dismissal-form");
+const patientInactivityForm = document.getElementById("patient-inactivity-form");
 
 document.addEventListener("DOMContentLoaded", () => {
     employeeInfoEditingModalInit();
@@ -55,6 +55,7 @@ function userInfoEditingModalInit() {
 function loginInfoEditingModalInit() {
     let loginInfoEditingModal = document.getElementById("login-info-editing-modal");
     if (loginInfoEditingModal) {
+        changePasswordFlag();
         loginInfoEditingForm.addEventListener("submit", (event) => {
             event.preventDefault();
             let data = {
@@ -202,13 +203,16 @@ function refreshLoginInfoEditingFormData(responseJson) {
     loginInfoEditingForm.querySelector('input[name="email"]').setAttribute("value", responseJson.email);
 }
 
-function refreshLoginInfo() {
+function refreshLoginInfo(responseJson) {
     document.getElementById("info-email").innerText = responseJson.email;
 }
 
 function refreshForm(form, errorBlockId) {
     form.reset();
     hideErrorBlock(errorBlockId);
+    if (form == loginInfoEditingForm) {
+        document.getElementById("password-block").classList.add("visually-hidden");
+    }
 }
 
 function showErrorBlock(errorBlockId, errorDescription) {
@@ -226,10 +230,12 @@ function showSuccessModal(message) {
     new bootstrap.Modal(document.getElementById("success-modal")).show();
 }
 
-document.getElementById("change-password").addEventListener("change", (check) => {
-    if (check.target.checked) {
-        document.getElementById("password-block").classList.remove("visually-hidden");
-    } else {
-        document.getElementById("password-block").classList.add("visually-hidden");
-    }
-});
+function changePasswordFlag() {
+    document.getElementById("change-password").addEventListener("change", (check) => {
+        if (check.target.checked) {
+            document.getElementById("password-block").classList.remove("visually-hidden");
+        } else {
+            document.getElementById("password-block").classList.add("visually-hidden");
+        }
+    });
+}
