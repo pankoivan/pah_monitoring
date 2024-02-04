@@ -172,13 +172,8 @@ function refreshUserInfoEditingFormData(responseJson) {
     userInfoEditingForm.querySelector('input[name="phoneNumber"]').value = responseJson.sourcePhoneNumber;
     userInfoEditingForm.querySelector('input[name="phoneNumber"]').setAttribute("value", responseJson.sourcePhoneNumber);
     if (responseJson.gender != null) {
-        //document.getElementById("MALE").checked = false;
-        //document.getElementById("MALE").setAttribute("checked", false);
         document.getElementById("MALE").removeAttribute("checked");
-        //document.getElementById("FEMALE").checked = false;
-        //document.getElementById("FEMALE").setAttribute("checked", false);
         document.getElementById("FEMALE").removeAttribute("checked");
-        //document.getElementById(responseJson.gender).checked = true;
         document.getElementById(responseJson.gender).checked = "checked";
         document.getElementById(responseJson.gender).setAttribute("checked", "checked");
     }
