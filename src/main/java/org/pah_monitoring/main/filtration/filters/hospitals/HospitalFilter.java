@@ -1,9 +1,9 @@
-package org.pah_monitoring.main.filtration.filters;
+package org.pah_monitoring.main.filtration.filters.hospitals;
 
 import org.pah_monitoring.auxiliary.constants.QuantityRestrictionConstants;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
-import org.pah_monitoring.main.filtration.enums.HospitalFiltrationProperty;
-import org.pah_monitoring.main.filtration.enums.HospitalSortingProperty;
+import org.pah_monitoring.main.filtration.enums.hospitals.HospitalFiltrationProperty;
+import org.pah_monitoring.main.filtration.enums.hospitals.HospitalSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.springframework.stereotype.Component;
 

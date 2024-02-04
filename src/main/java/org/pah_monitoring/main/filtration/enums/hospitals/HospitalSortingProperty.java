@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.filtration.enums;
+package org.pah_monitoring.main.filtration.enums.hospitals;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
