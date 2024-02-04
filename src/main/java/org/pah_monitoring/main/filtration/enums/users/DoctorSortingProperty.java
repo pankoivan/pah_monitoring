@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.EnumSet;
 import java.util.Optional;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -17,6 +18,10 @@ public enum DoctorSortingProperty {
     PATIENTS_COUNT("По количеству пациентов");
 
     private final String alias;
+
+    private EnumSet<DoctorSortingProperty> subsetForMainAdministrator() {
+        return EnumSet.of(FULL_NAME, PHONE_NUMBER);
+    }
 
     public static Optional<DoctorSortingProperty> optionalValueOf(String sorting) {
         try {

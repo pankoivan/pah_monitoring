@@ -29,6 +29,8 @@ public class PatientFilter extends AbstractEntityFilter<Patient> {
         return filtrationProperty.map(patientFiltrationProperty -> switch (patientFiltrationProperty) {
             case ACTIVE -> patients.filter(Patient::isActive);
             case INACTIVE -> patients.filter(Patient::isNotActive);
+            case HAS_DOCTOR -> patients.filter(Patient::hasDoctor);
+            case HAS_NO_DOCTOR -> patients.filter(Patient::hasNoDoctor);
         }).orElse(patients);
     }
 

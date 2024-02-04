@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.EnumSet;
 import java.util.Optional;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -23,6 +24,10 @@ public enum DoctorFiltrationProperty {
     HAS_NO_PATIENTS("Без пациентов");
 
     private final String alias;
+
+    private EnumSet<DoctorFiltrationProperty> subsetForMainAdministrator() {
+        return EnumSet.of(ACTIVE, VACATION, SICK_LEAVE, DISMISSAL);
+    }
 
     public static Optional<DoctorFiltrationProperty> optionalValueOf(String filtration) {
         try {
