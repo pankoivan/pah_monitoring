@@ -22,7 +22,7 @@ public class HospitalFilter extends AbstractEntityFilter<Hospital> {
 
     public Stream<Hospital> filtered(Stream<Hospital> hospitals, String filtration) {
         Optional<HospitalFiltrationProperty> filtrationProperty = HospitalFiltrationProperty.optionalValueOf(filtration);
-        return filtrationProperty.map(hospitalSortingProperty -> switch (hospitalSortingProperty) {
+        return filtrationProperty.map(hospitalFiltrationProperty -> switch (hospitalFiltrationProperty) {
             case WAITING_CODE -> hospitals.filter(Hospital::isWaitingCode);
             case WAITING_REGISTRATION -> hospitals.filter(Hospital::isWaitingRegistration);
             case REGISTERED -> hospitals.filter(Hospital::isRegistered);
