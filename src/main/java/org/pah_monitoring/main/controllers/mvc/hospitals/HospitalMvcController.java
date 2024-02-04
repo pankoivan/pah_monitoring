@@ -8,6 +8,8 @@ import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceE
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.filtration.enums.HospitalFiltrationProperty;
+import org.pah_monitoring.main.filtration.enums.HospitalSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.services.additional.hospitals.interfaces.HospitalUsersStatisticsService;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
@@ -43,6 +45,8 @@ public class HospitalMvcController {
         model.addAttribute("hospitals", service.findAll(parameters, pageStat));
         model.addAttribute("currentPage", pageStat.getCurrentPage());
         model.addAttribute("pagesCount", pageStat.getPagesCount());
+        model.addAttribute("filtrationProperties", HospitalFiltrationProperty.values());
+        model.addAttribute("sortingProperties", HospitalSortingProperty.values());
         pageHeaderService.addHeader(model);
         return "hospitals/hospitals";
     }
