@@ -12,6 +12,7 @@ import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceE
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,6 +32,8 @@ public class HospitalAdministratorMvcController {
     @Qualifier("administratorService")
     private final HospitalUserService<Administrator, AdministratorAddingDto, AdministratorEditingDto, AdministratorSavingDto> service;
 
+    private final CurrentUserCheckService checkService;
+
     private final PageHeaderService pageHeaderService;
 
     @GetMapping
@@ -42,6 +45,7 @@ public class HospitalAdministratorMvcController {
             model.addAttribute("title", "Администраторы");
             model.addAttribute("usersListDescription", "Список администраторов");
             model.addAttribute("emptyUsersListMessage", "Список администраторов пуст");
+            model.addAttribute("isCurrentUserAdministrator", checkService.isAdministrator());
             pageHeaderService.addHeader(model);
             return "users/users";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {

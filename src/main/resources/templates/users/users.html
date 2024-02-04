@@ -33,19 +33,23 @@
                 <div class="col-12" th:classappend="${!status.last} ? 'mb-3'">
                     <div class="text-start">
                         <p class="fs-4 word-wrap mb-1">
-                            <a
-                                href="#"
-                                th:href="@{/users/__${each.userInformation.id}__}"
-                                class="text-decoration-none text-secondary"
-                                data-bs-toggle="tooltip"
-                                th:title="(${each.isHospitalEmployee} ? ${each.employeeInformation.post} : 'Пациент') + ' медицинского учреждения &quot;' + ${each.hospital.name} + '&quot;'"
-                            >
-                                <img width="24" class="mb-1" src="../../static/svg/user.svg" th:src="@{/svg/user.svg}" alt="Пользователь" />
-                                <span th:text="${each.userInformation.fullName}"> Козлов Геннадий викторович </span>
-                            </a>
+                            <img width="24" class="mb-1" src="../../static/svg/user.svg" th:src="@{/svg/user.svg}" alt="Пользователь" />
+                            <a href="#" th:href="@{/users/__${each.userInformation.id}__}" th:text="${each.userInformation.fullName}" class="text-decoration-none text-secondary"> Козлов Геннадий Петрович </a>
                         </p>
                         <p class="fs-5 mb-1" th:text="${each.userInformation.phoneNumber}">+7 (912) 123-90-56</p>
-                        <p class="fs-5 mb-0" th:text="${each.role.alias}">Врач</p>
+                        <p class="fs-5" th:classappend="${isCurrentUserAdministrator} ? 'mb-1' : 'mb-0'">
+                            <span th:text="${each.role.alias}">Врач</span><span th:if="${each.isHospitalEmployee}" th:text="': ' + ${each.employeeInformation.post}" class="text-lowercase">Врач-кардиолог</span>
+                        </p>
+                        <p th:if="${isCurrentUserAdministrator}" class="fs-5 mb-0">
+                            <span th:if="${each.isDoctor}">
+                                <span th:if="${each.hasPatients}" class="text-success mt-1">Сейчас пациентов: <span th:text="${each.patientsCount}">5</span></span>
+                                <span th:if="${each.hasNoPatients}" class="text-danger mt-1">В данный момент находится без пациентов</span>
+                            </span>
+                            <span th:if="${each.isPatient}">
+                                <span th:if="${each.hasDoctor}" class="text-success mt-1">Закреплён за врачом</span>
+                                <span th:if="${each.hasNoDoctor}" class="text-danger mt-1">Не закреплён за врачом</span>
+                            </span>
+                        </p>
                     </div>
                 </div>
                 <hr class="mb-0" th:if="${!status.last}" />
