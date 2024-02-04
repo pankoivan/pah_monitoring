@@ -11,4 +11,8 @@ public final class QuantityRestrictionConstants {
 
     public static final int MIN_NUMBER_OF_ACTIVE_DOCTORS_IN_HOSPITAL = 1;
 
+    public static final int MAX_NUMBER_OF_HOSPITALS_PER_PAGE = 5;
+
+    public static final int MAX_NUMBER_OF_USERS_PER_PAGE = 5;
+
 }
