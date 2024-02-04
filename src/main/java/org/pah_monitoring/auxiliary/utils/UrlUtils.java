@@ -3,7 +3,6 @@ package org.pah_monitoring.auxiliary.utils;
 import lombok.experimental.UtilityClass;
 import org.pah_monitoring.main.exceptions.utils.UrlUtilsException;
 
-import java.util.AbstractMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -31,7 +30,7 @@ public final class UrlUtils {
 
     }
 
-    public static Map<String, String> convertGetParametersMapToOneToOneMap(Map<String, String[]> parameters) {
+    public static Map<String, String> normalizeGetParametersMap(Map<String, String[]> parameters) {
 
         return parameters.entrySet()
                 .stream()

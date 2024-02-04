@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.filtration.filters;
 
 import org.pah_monitoring.auxiliary.constants.QuantityRestrictionConstants;
+import org.pah_monitoring.auxiliary.utils.UrlUtils;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.filtration.enums.HospitalFiltrationProperty;
 import org.pah_monitoring.main.filtration.enums.HospitalSortingProperty;
@@ -17,29 +18,32 @@ import java.util.stream.Stream;
 public class HospitalFilter implements EntityFilter<Hospital> {
 
     @Override
-    public int pagesCount(List<Hospital> entities) {
-        return !entities.isEmpty()
-                ? Math.ceilDiv(entities.size(), QuantityRestrictionConstants.MAX_NUMBER_OF_HOSPITALS_PER_PAGE)
-                : 1;
-    }
+    public List<Hospital> apply(List<Hospital> hospitals, Map<String, String[]> parameters, EntityFilter.PageStat pageStat) {
 
-    @Override
-    public List<Hospital> apply(List<Hospital> hospitals, Map<String, String> parameters) {
-        return paged(
-                sorted(
-                        filtered(
-                                searched(
-                                        hospitals, parameters.get("searching")
-                                ), parameters.get("filtration")
-                        ), parameters.get("sorting")
-                ), parameters.get("page")
-        );
+        Map<String, String> normalizedParameters = UrlUtils.normalizeGetParametersMap(parameters);
+
+        List<Hospital> result =
+                paged(
+                        sorted(
+                                filtered(
+                                        searched(
+                                                hospitals, normalizedParameters.get("searching")
+                                        ), normalizedParameters.get("filtration")
+                                ), normalizedParameters.get("sorting")
+                        ), normalizedParameters.get("page")
+                );
+
+        pageStat.setCurrentPage(currentPage(normalizedParameters.get("page")));
+        pageStat.setPagesCount(pagesCount(result));
+
+        return result;
+
     }
 
     private Stream<Hospital> searched(List<Hospital> hospitals, String searching) {
         return searching == null || searching.isEmpty()
                 ? hospitals.stream()
-                : hospitals.stream().filter(hospital -> hospital.getName().contains(searching));
+                : hospitals.stream().filter(hospital -> hospital.getName().toLowerCase().contains(searching.toLowerCase()));
     }
 
     private Stream<Hospital> filtered(Stream<Hospital> hospitals, String filtration) {
@@ -78,17 +82,23 @@ public class HospitalFilter implements EntityFilter<Hospital> {
 
     private List<Hospital> paged(Stream<Hospital> hospitals, String page) {
         return hospitals
-                .skip((long) (page(page) - 1) * QuantityRestrictionConstants.MAX_NUMBER_OF_HOSPITALS_PER_PAGE)
+                .skip((long) (currentPage(page) - 1) * QuantityRestrictionConstants.MAX_NUMBER_OF_HOSPITALS_PER_PAGE)
                 .limit(QuantityRestrictionConstants.MAX_NUMBER_OF_HOSPITALS_PER_PAGE)
                 .toList();
     }
 
-    private int page(String page) {
+    private int currentPage(String page) {
         try {
             return Integer.parseInt(page);
         } catch (NumberFormatException e) {
             return 1;
         }
+    }
+
+    private int pagesCount(List<Hospital> entities) {
+        return !entities.isEmpty()
+                ? Math.ceilDiv(entities.size(), QuantityRestrictionConstants.MAX_NUMBER_OF_HOSPITALS_PER_PAGE)
+                : 1;
     }
 
 }
