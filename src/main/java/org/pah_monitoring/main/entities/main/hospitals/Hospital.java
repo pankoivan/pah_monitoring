@@ -63,6 +63,18 @@ public class Hospital implements BaseEntity {
     @OneToOne(mappedBy = "hospital")
     private HospitalRegistrationRequest request;
 
+    public boolean isWaitingCode() {
+        return currentState == CurrentState.WAITING_CODE;
+    }
+
+    public boolean isWaitingRegistration() {
+        return currentState == CurrentState.WAITING_REGISTRATION;
+    }
+
+    public boolean isRegistered() {
+        return currentState == CurrentState.REGISTERED;
+    }
+
     public String getFormattedDate() {
         return DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(date);
     }
