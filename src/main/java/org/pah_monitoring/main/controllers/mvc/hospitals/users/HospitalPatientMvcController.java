@@ -11,6 +11,11 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.filtration.enums.users.AdministratorFiltrationProperty;
+import org.pah_monitoring.main.filtration.enums.users.AdministratorSortingProperty;
+import org.pah_monitoring.main.filtration.enums.users.PatientFiltrationProperty;
+import org.pah_monitoring.main.filtration.enums.users.PatientSortingProperty;
+import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
@@ -22,6 +27,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -39,11 +47,18 @@ public class HospitalPatientMvcController {
     private final PageHeaderService pageHeaderService;
 
     @GetMapping
-    public String getHospitalPatientsPage(Model model, @PathVariable("id") String pathId) {
+    public String getHospitalPatientsPage(Model model, @PathVariable("id") String pathId, @RequestParam Map<String, String> parameters) {
         try {
             Hospital hospital = hospitalService.findById(hospitalService.parsePathId(pathId));
             service.checkAccessRightsForObtainingAllInHospital(hospital);
-            model.addAttribute("users", service.findAllByHospitalId(hospital.getId()));
+            EntityFilter.PageStat pageStat = new EntityFilter.PageStat();
+            model.addAttribute("users", service.findAllByHospitalId(hospital.getId(), parameters, pageStat));
+            model.addAttribute("currentPage", pageStat.getCurrentPage());
+            model.addAttribute("pagesCount", pageStat.getPagesCount());
+            model.addAttribute("filtrationProperties",
+                    checkService.isMainAdministrator() ? PatientFiltrationProperty.subset() : PatientFiltrationProperty.values()
+            );
+            model.addAttribute("sortingProperties", PatientSortingProperty.values());
             model.addAttribute("title", "Пациенты");
             model.addAttribute("usersListDescription", "Список пациентов");
             model.addAttribute("emptyUsersListMessage", "Список пациентов пуст");

@@ -12,13 +12,11 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
-import org.pah_monitoring.main.filtration.enums.hospitals.HospitalFiltrationProperty;
-import org.pah_monitoring.main.filtration.enums.hospitals.HospitalSortingProperty;
 import org.pah_monitoring.main.filtration.enums.users.AdministratorFiltrationProperty;
 import org.pah_monitoring.main.filtration.enums.users.AdministratorSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
-import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;

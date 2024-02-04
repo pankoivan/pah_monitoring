@@ -19,7 +19,7 @@ public enum DoctorSortingProperty {
 
     private final String alias;
 
-    private EnumSet<DoctorSortingProperty> subsetForMainAdministrator() {
+    public static EnumSet<DoctorSortingProperty> subset() {
         return EnumSet.of(FULL_NAME, PHONE_NUMBER);
     }
 

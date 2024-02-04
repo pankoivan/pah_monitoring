@@ -12,6 +12,8 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.filtration.enums.users.*;
+import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.main.users.users.implementations.common.AbstractPatientServiceImpl;
@@ -23,8 +25,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -42,8 +46,13 @@ public class DoctorMvcController {
 
     @GetMapping
     @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
-    public String getDoctorsPage(Model model) {
-        model.addAttribute("users", service.findAll());
+    public String getDoctorsPage(Model model, @RequestParam Map<String, String> parameters) {
+        EntityFilter.PageStat pageStat = new EntityFilter.PageStat();
+        model.addAttribute("users", service.findAll(parameters, pageStat));
+        model.addAttribute("currentPage", pageStat.getCurrentPage());
+        model.addAttribute("pagesCount", pageStat.getPagesCount());
+        model.addAttribute("filtrationProperties", DoctorFiltrationProperty.subset());
+        model.addAttribute("sortingProperties", DoctorSortingProperty.subset());
         model.addAttribute("title", "Врачи");
         model.addAttribute("usersListDescription", "Список врачей");
         model.addAttribute("emptyUsersListMessage", "Список врачей пуст");
@@ -76,11 +85,16 @@ public class DoctorMvcController {
     }
 
     @GetMapping("/{id}/patients")
-    public String getDoctorPatientsPage(Model model, @PathVariable("id") String pathId) {
+    public String getDoctorPatientsPage(Model model, @PathVariable("id") String pathId, @RequestParam Map<String, String> parameters) {
         try {
             Doctor doctor = service.findById(service.parsePathId(pathId));
             patientService.checkAccessRightsForObtainingDoctorPatients(doctor);
-            model.addAttribute("users", patientService.findAllByDoctorId(doctor.getId()));
+            EntityFilter.PageStat pageStat = new EntityFilter.PageStat();
+            model.addAttribute("users", patientService.findAllByDoctorId(doctor.getId(), parameters, pageStat));
+            model.addAttribute("currentPage", pageStat.getCurrentPage());
+            model.addAttribute("pagesCount", pageStat.getPagesCount());
+            model.addAttribute("filtrationProperties", PatientFiltrationProperty.subset());
+            model.addAttribute("sortingProperties", PatientSortingProperty.values());
             model.addAttribute("title", "Пациенты");
             model.addAttribute("usersListDescription", "Список пациентов");
             model.addAttribute("emptyUsersListMessage", "Список пациентов пуст");

@@ -25,7 +25,7 @@ public enum DoctorFiltrationProperty {
 
     private final String alias;
 
-    private EnumSet<DoctorFiltrationProperty> subsetForMainAdministrator() {
+    public static EnumSet<DoctorFiltrationProperty> subset() {
         return EnumSet.of(ACTIVE, VACATION, SICK_LEAVE, DISMISSAL);
     }
 
