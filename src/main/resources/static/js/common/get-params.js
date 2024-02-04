@@ -46,6 +46,7 @@ function applyFilter() {
     } else {
         url.searchParams.delete("searching");
     }
+    url.searchParams.set("page", 1);
     window.location.href = url;
 }
 
@@ -54,5 +55,6 @@ function clearFilter() {
     url.searchParams.delete("filtration");
     url.searchParams.delete("sorting");
     url.searchParams.delete("searching");
+    url.searchParams.set("page", 1);
     window.location.href = url;
 }
