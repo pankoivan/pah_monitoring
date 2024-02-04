@@ -11,16 +11,19 @@ import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
+import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.repositorites.main.users.users.DoctorRepository;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.main.users.info.interfaces.EmployeeInformationService;
 import org.pah_monitoring.main.services.main.users.info.interfaces.UserSecurityInformationService;
 import org.pah_monitoring.main.services.main.users.users.implementations.common.AbstractHospitalUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
@@ -36,9 +39,17 @@ public class DoctorServiceImpl extends
 
     private HospitalService hospitalService;
 
+    @Qualifier("doctorFilter")
+    private EntityFilter<Doctor> doctorFilter;
+
     @Override
     public List<Doctor> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<Doctor> findAll(Map<String, String> parameters, EntityFilter.PageStat pageStat) {
+        return doctorFilter.apply(findAll(), parameters, pageStat);
     }
 
     @Override

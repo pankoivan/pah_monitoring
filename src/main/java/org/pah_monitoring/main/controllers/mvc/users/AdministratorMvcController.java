@@ -12,6 +12,10 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.filtration.enums.hospitals.HospitalFiltrationProperty;
+import org.pah_monitoring.main.filtration.enums.hospitals.HospitalSortingProperty;
+import org.pah_monitoring.main.filtration.enums.users.AdministratorFiltrationProperty;
+import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
@@ -22,8 +26,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -39,8 +45,13 @@ public class AdministratorMvcController {
 
     @GetMapping
     @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
-    public String getAdminsPage(Model model) {
-        model.addAttribute("users", service.findAll());
+    public String getAdminsPage(Model model, @RequestParam Map<String, String> parameters) {
+        EntityFilter.PageStat pageStat = new EntityFilter.PageStat();
+        model.addAttribute("users", service.findAll(parameters, pageStat));
+        model.addAttribute("currentPage", pageStat.getCurrentPage());
+        model.addAttribute("pagesCount", pageStat.getPagesCount());
+        model.addAttribute("filtrationProperties", AdministratorFiltrationProperty.values());
+        model.addAttribute("sortingProperties", AdministratorFiltrationProperty.values());
         model.addAttribute("title", "Администраторы");
         model.addAttribute("usersListDescription", "Список администраторов");
         model.addAttribute("emptyUsersListMessage", "Список администраторов пуст");
