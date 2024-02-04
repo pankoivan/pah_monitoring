@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         currentPage = Number(new URLSearchParams(window.location.search).get("page"));
     }
-    console.log(currentPage);
 });
 
 document.getElementById("first-page").addEventListener("click", () => {
@@ -26,7 +25,7 @@ document.getElementById("last-page").addEventListener("click", () => {
 });
 
 function toPage(page) {
-    let url = new URL(window.location.href);
+    const url = new URL(window.location.href);
     url.searchParams.set("page", page);
     window.location.href = url;
 }
