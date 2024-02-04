@@ -3,17 +3,25 @@ package org.pah_monitoring.main.filtration.filters;
 import org.pah_monitoring.auxiliary.constants.QuantityRestrictionConstants;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.filtration.enums.HospitalFiltrationProperty;
+import org.pah_monitoring.main.filtration.enums.HospitalSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 @Component("hospitalFilter")
 public class HospitalFilter implements EntityFilter<Hospital> {
+
+    @Override
+    public int pagesCount(List<Hospital> entities) {
+        return !entities.isEmpty()
+                ? Math.ceilDiv(entities.size(), QuantityRestrictionConstants.MAX_NUMBER_OF_HOSPITALS_PER_PAGE)
+                : 1;
+    }
 
     @Override
     public List<Hospital> apply(List<Hospital> hospitals, Map<String, String> parameters) {
@@ -29,18 +37,43 @@ public class HospitalFilter implements EntityFilter<Hospital> {
     }
 
     private Stream<Hospital> searched(List<Hospital> hospitals, String searching) {
-
+        return searching == null || searching.isEmpty()
+                ? hospitals.stream()
+                : hospitals.stream().filter(hospital -> hospital.getName().contains(searching));
     }
 
     private Stream<Hospital> filtered(Stream<Hospital> hospitals, String filtration) {
-        Optional<Predicate<Hospital>> predicate = filtration(filtration);
-        return predicate.isEmpty()
-                ? hospitals
-                : hospitals.filter(predicate.get());
+        Optional<HospitalFiltrationProperty> filtrationProperty = filtrationProperty(filtration);
+        return filtrationProperty.map(hospitalSortingProperty -> switch (hospitalSortingProperty) {
+            case WAITING_CODE -> hospitals.filter(Hospital::isWaitingCode);
+            case WAITING_REGISTRATION -> hospitals.filter(Hospital::isWaitingRegistration);
+            case REGISTERED -> hospitals.filter(Hospital::isRegistered);
+        }).orElse(hospitals);
+    }
+
+    private Optional<HospitalFiltrationProperty> filtrationProperty(String filtration) {
+        try {
+            return Optional.of(HospitalFiltrationProperty.valueOf(filtration));
+        } catch (IllegalArgumentException e) {
+            return Optional.empty();
+        }
     }
 
     private Stream<Hospital> sorted(Stream<Hospital> hospitals, String sorting) {
+        Optional<HospitalSortingProperty> sortingProperty = sortingProperty(sorting);
+        return sortingProperty.map(hospitalSortingProperty -> switch (hospitalSortingProperty) {
+            case NAME -> hospitals.sorted(Comparator.comparing(Hospital::getName));
+            case OID -> hospitals.sorted(Comparator.comparing(Hospital::getOid));
+            case DATE -> hospitals.sorted(Comparator.comparing(Hospital::getDate));
+        }).orElse(hospitals);
+    }
 
+    private Optional<HospitalSortingProperty> sortingProperty(String sorting) {
+        try {
+            return Optional.of(HospitalSortingProperty.valueOf(sorting));
+        } catch (IllegalArgumentException e) {
+            return Optional.empty();
+        }
     }
 
     private List<Hospital> paged(Stream<Hospital> hospitals, String page) {
@@ -48,21 +81,6 @@ public class HospitalFilter implements EntityFilter<Hospital> {
                 .skip((long) (page(page) - 1) * QuantityRestrictionConstants.MAX_NUMBER_OF_HOSPITALS_PER_PAGE)
                 .limit(QuantityRestrictionConstants.MAX_NUMBER_OF_HOSPITALS_PER_PAGE)
                 .toList();
-    }
-
-    private Optional<Predicate<Hospital>> filtration(String filtration) {
-        HospitalFiltrationProperty filtrationProperty;
-        try {
-            filtrationProperty = HospitalFiltrationProperty.valueOf(filtration);
-        } catch (IllegalArgumentException e) {
-            return Optional.empty();
-        }
-        Predicate<Hospital> predicate = switch (filtrationProperty) {
-            case WAITING_CODE -> Hospital::isWaitingCode;
-            case WAITING_REGISTRATION -> Hospital::isWaitingRegistration;
-            case REGISTERED -> Hospital::isRegistered;
-        };
-        return Optional.of(predicate);
     }
 
     private int page(String page) {
