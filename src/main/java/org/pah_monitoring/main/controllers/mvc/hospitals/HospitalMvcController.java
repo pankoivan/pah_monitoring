@@ -8,6 +8,7 @@ import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceE
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.hospitals.interfaces.HospitalUsersStatisticsService;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -35,12 +38,16 @@ public class HospitalMvcController {
 
     @GetMapping
     @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
-    public String getHospitalsPage(Model model, @RequestParam(value = "page", required = false) Integer page) {
-        model.addAttribute("hospitals", service.findAll());
+    public String getHospitalsPage(Model model, @RequestParam Map<String, String[]> parameters) {
+        EntityFilter.PageStat pageStat = new EntityFilter.PageStat();
+        try {
+            model.addAttribute("hospitals", service.findAll(parameters, pageStat));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("currentPage", pageStat.getCurrentPage());
+        model.addAttribute("pagesCount", pageStat.getPagesCount());
         pageHeaderService.addHeader(model);
-        System.out.println(page);
-        model.addAttribute("currentPage", page == null ? 1 : page);
-        model.addAttribute("pagesCount", 10);
         return "hospitals/hospitals";
     }
 

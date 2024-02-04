@@ -6,14 +6,18 @@ import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceE
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
+import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataAddingValidationService;
 import org.pah_monitoring.main.services.main.validation.interfaces.url.UrlValidationService;
 
 import java.util.List;
+import java.util.Map;
 
 public interface HospitalService extends DataAddingValidationService<HospitalAddingDto>, UrlValidationService {
 
     List<Hospital> findAll();
+
+    List<Hospital> findAll(Map<String, String[]> parameters, EntityFilter.PageStat pageStat);
 
     Hospital findById(Integer id) throws DataSearchingServiceException;
 

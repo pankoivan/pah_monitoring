@@ -3,23 +3,26 @@ package org.pah_monitoring.main.services.main.hospitals.implementations;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.dto.in.hospitals.HospitalAddingDto;
-import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.entities.additional.rest_client.RegistryHospital;
+import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.rest_client.RestClientServiceException;
+import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.repositorites.main.hospitals.HospitalRepository;
-import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.rest_client.interfaces.RegistryRestClientService;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
@@ -32,9 +35,17 @@ public class HospitalServiceImpl implements HospitalService {
 
     private RegistryRestClientService registryRestClientService;
 
+    @Qualifier("hospitalFilter")
+    private EntityFilter<Hospital> hospitalFilter;
+
     @Override
     public List<Hospital> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<Hospital> findAll(Map<String, String[]> parameters, EntityFilter.PageStat pageStat) {
+        return hospitalFilter.apply(findAll(), parameters, pageStat);
     }
 
     @Override

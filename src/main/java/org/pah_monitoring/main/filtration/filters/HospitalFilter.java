@@ -58,7 +58,7 @@ public class HospitalFilter implements EntityFilter<Hospital> {
     private Optional<HospitalFiltrationProperty> filtrationProperty(String filtration) {
         try {
             return Optional.of(HospitalFiltrationProperty.valueOf(filtration));
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException | IllegalArgumentException e) {
             return Optional.empty();
         }
     }
@@ -75,7 +75,7 @@ public class HospitalFilter implements EntityFilter<Hospital> {
     private Optional<HospitalSortingProperty> sortingProperty(String sorting) {
         try {
             return Optional.of(HospitalSortingProperty.valueOf(sorting));
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException | IllegalArgumentException e) {
             return Optional.empty();
         }
     }
