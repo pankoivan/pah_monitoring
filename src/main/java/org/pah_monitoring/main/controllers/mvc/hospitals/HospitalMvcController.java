@@ -9,9 +9,9 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
-import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.hospitals.interfaces.HospitalUsersStatisticsService;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -38,13 +38,9 @@ public class HospitalMvcController {
 
     @GetMapping
     @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
-    public String getHospitalsPage(Model model, @RequestParam Map<String, String[]> parameters) {
+    public String getHospitalsPage(Model model, @RequestParam Map<String, String> parameters) {
         EntityFilter.PageStat pageStat = new EntityFilter.PageStat();
-        try {
-            model.addAttribute("hospitals", service.findAll(parameters, pageStat));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        model.addAttribute("hospitals", service.findAll(parameters, pageStat));
         model.addAttribute("currentPage", pageStat.getCurrentPage());
         model.addAttribute("pagesCount", pageStat.getPagesCount());
         pageHeaderService.addHeader(model);

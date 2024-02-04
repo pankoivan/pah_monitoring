@@ -17,7 +17,7 @@ public interface HospitalService extends DataAddingValidationService<HospitalAdd
 
     List<Hospital> findAll();
 
-    List<Hospital> findAll(Map<String, String[]> parameters, EntityFilter.PageStat pageStat);
+    List<Hospital> findAll(Map<String, String> parameters, EntityFilter.PageStat pageStat);
 
     Hospital findById(Integer id) throws DataSearchingServiceException;
 

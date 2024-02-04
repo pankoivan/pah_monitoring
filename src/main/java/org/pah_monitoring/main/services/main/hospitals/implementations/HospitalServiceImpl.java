@@ -44,7 +44,7 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public List<Hospital> findAll(Map<String, String[]> parameters, EntityFilter.PageStat pageStat) {
+    public List<Hospital> findAll(Map<String, String> parameters, EntityFilter.PageStat pageStat) {
         return hospitalFilter.apply(findAll(), parameters, pageStat);
     }
 
