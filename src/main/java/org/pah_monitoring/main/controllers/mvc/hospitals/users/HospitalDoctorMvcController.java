@@ -16,6 +16,7 @@ import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserC
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/hospitals/{id}/doctors")
+@PreAuthorize("isAuthenticated()")
 public class HospitalDoctorMvcController {
 
     private final HospitalService hospitalService;
