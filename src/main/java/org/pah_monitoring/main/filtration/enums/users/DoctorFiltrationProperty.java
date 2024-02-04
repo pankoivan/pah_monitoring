@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Optional;
+
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public enum DoctorFiltrationProperty {
@@ -21,5 +23,13 @@ public enum DoctorFiltrationProperty {
     HAS_NO_PATIENTS("Без пациентов");
 
     private final String alias;
+
+    public static Optional<DoctorFiltrationProperty> optionalValueOf(String filtration) {
+        try {
+            return Optional.of(DoctorFiltrationProperty.valueOf(filtration));
+        } catch (NullPointerException | IllegalArgumentException e) {
+            return Optional.empty();
+        }
+    }
 
 }
