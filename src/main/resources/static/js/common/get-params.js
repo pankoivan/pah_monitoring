@@ -16,7 +16,7 @@ document.getElementById("filter-clear-button").addEventListener("click", () => {
 
 function showFilterOnStart() {
     const params = new URLSearchParams(window.location.search);
-    if (params.size > 1 || (params.size == 1 && !params.get("page"))) {
+    if (params.get("filtration") || params.get("sorting") || params.get("searching")) {
         document.getElementById("filter").classList.add("show");
     }
 }
@@ -35,9 +35,6 @@ function searched(searching) {
 
 function applyFilter() {
     const url = new URL(window.location.href);
-    if (url.searchParams.get("page")) {
-        url.searchParams.set("page", url.searchParams.get("page"));
-    }
     if (document.querySelector('input[name="filtration"]:checked')) {
         url.searchParams.set("filtration", document.querySelector('input[name="filtration"]:checked').id);
     }
@@ -53,10 +50,9 @@ function applyFilter() {
 }
 
 function clearFilter() {
-    const params = new URLSearchParams(window.location.search);
-    let url = window.location.href.split("?")[0];
-    if (params.get("page")) {
-        url = url + `?page=${params.get("page")}`;
-    }
+    const url = new URL(window.location.href);
+    url.searchParams.delete("filtration");
+    url.searchParams.delete("sorting");
+    url.searchParams.delete("searching");
     window.location.href = url;
 }
