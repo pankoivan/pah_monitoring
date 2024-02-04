@@ -65,6 +65,12 @@ public class AdministratorServiceImpl extends
     }
 
     @Override
+    public List<Administrator> findAllByHospitalId(Integer hospitalId, Map<String, String> parameters, EntityFilter.PageStat pageStat)
+            throws DataSearchingServiceException {
+        return administratorFilter.apply(findAllByHospitalId(hospitalId), parameters, pageStat);
+    }
+
+    @Override
     public Administrator add(AdministratorAddingDto addingDto) throws DataSavingServiceException {
 
         try {

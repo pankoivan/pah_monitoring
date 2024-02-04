@@ -27,6 +27,8 @@ public interface HospitalUserService
 
     List<T> findAllByHospitalId(Integer hospitalId) throws DataSearchingServiceException;
 
+    List<T> findAllByHospitalId(Integer hospitalId, Map<String, String> parameters, EntityFilter.PageStat pageStat) throws DataSearchingServiceException;
+
     T findById(Integer id) throws DataSearchingServiceException;
 
     T add(M addingDto) throws DataSavingServiceException;

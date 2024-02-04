@@ -65,6 +65,12 @@ public class DoctorServiceImpl extends
     }
 
     @Override
+    public List<Doctor> findAllByHospitalId(Integer hospitalId, Map<String, String> parameters, EntityFilter.PageStat pageStat)
+            throws DataSearchingServiceException {
+        return doctorFilter.apply(findAllByHospitalId(hospitalId), parameters, pageStat);
+    }
+
+    @Override
     public Doctor add(DoctorAddingDto addingDto) throws DataSavingServiceException {
 
         try {

@@ -55,6 +55,12 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
     }
 
     @Override
+    public List<Patient> findAllByDoctorId(Integer doctorId, Map<String, String> parameters, EntityFilter.PageStat pageStat)
+            throws DataSearchingServiceException {
+        return patientFilter.apply(findAllByDoctorId(doctorId), parameters, pageStat);
+    }
+
+    @Override
     public List<Patient> findAll() {
         return repository.findAll();
     }
@@ -74,6 +80,12 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
     @Override
     public List<Patient> findAllByHospitalId(Integer id) throws DataSearchingServiceException {
         return repository.findAllByHospitalId(hospitalService.findById(id).getId());
+    }
+
+    @Override
+    public List<Patient> findAllByHospitalId(Integer hospitalId, Map<String, String> parameters, EntityFilter.PageStat pageStat)
+            throws DataSearchingServiceException {
+        return patientFilter.apply(findAllByHospitalId(hospitalId), parameters, pageStat);
     }
 
     @Override
