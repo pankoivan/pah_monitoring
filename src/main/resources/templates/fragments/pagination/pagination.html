@@ -4,8 +4,8 @@
         <meta charset="UTF-8" />
     </head>
     <body>
-        <nav th:fragment="pagination" class="mb-5">
-            <ul class="pagination">
+        <nav th:fragment="pagination" class="mt-5">
+            <ul class="pagination pagination-overriden">
                 <li class="page-item">
                     <button id="first-page" class="page-link" th:classappend="${currentPage == 1} ? 'disabled'">&lt;&lt;</button>
                 </li>
