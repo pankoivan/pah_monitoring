@@ -1,10 +1,11 @@
 let currentPage;
 
 document.addEventListener("DOMContentLoaded", () => {
-    if (new URLSearchParams(window.location.search).get("page") == null) {
+    const page = new URLSearchParams(window.location.search).get("page");
+    if (page == null || page == "") {
         currentPage = 1;
     } else {
-        currentPage = Number(new URLSearchParams(window.location.search).get("page"));
+        currentPage = Number(page);
     }
 });
 
