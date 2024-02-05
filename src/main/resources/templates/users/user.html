@@ -24,7 +24,7 @@
                         <h1 class="fs-3 m-2 m-md-0">
                             <span id="profile-full-name" th:text="${user.userInformation.fullName}">Казимиров Иван Петрович</span>
                             <a
-                                th:if="${!isSelf && (user.isHospitalUser && isCurrentUserHospitalUserFromSameHospital || user.isMainAdministrator && isCurrentUserAdministrator)}"
+                                th:if="${!isSelf && (user.isHospitalUser && isCurrentUserHospitalUserFromSameHospital || user.isMainAdministrator && isCurrentUserAdministrator || user.isAdministrator && isCurrentUserMainAdministrator)}"
                                 href="#"
                                 th:href="@{/messages/__${user.userInformation.id}__}"
                                 class="text-decoration-none"
@@ -105,7 +105,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row" th:classappend="${user.isDoctor || user.isPatient} ? 'mb-5'">
+            <div class="row" th:classappend="${user.isDoctor && (isSelf || isCurrentUserAdminFromSameHospital) || user.isPatient} ? 'mb-5'">
                 <div class="col-12">
                     <h3 class="fs-4">
                         Активность
