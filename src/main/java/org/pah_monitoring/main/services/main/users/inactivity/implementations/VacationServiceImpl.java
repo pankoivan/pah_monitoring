@@ -19,7 +19,7 @@ import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("vacationService")
 public class VacationServiceImpl extends AbstractHospitalEmployeeInactivityServiceImpl<Vacation, VacationAddingDto, HospitalEmployee> {
 
     private final VacationRepository repository;

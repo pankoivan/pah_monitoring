@@ -25,7 +25,7 @@ import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("patientInactivityService")
 public class PatientInactivityServiceImpl implements InactivityService<PatientInactivity, PatientInactivityAddingDto, Patient> {
 
     private final PatientInactivityRepository repository;

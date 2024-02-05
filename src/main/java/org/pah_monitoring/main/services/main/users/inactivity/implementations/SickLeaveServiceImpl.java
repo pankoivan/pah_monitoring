@@ -19,7 +19,7 @@ import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("sickLeaveService")
 public class SickLeaveServiceImpl extends AbstractHospitalEmployeeInactivityServiceImpl<SickLeave, SickLeaveAddingDto, HospitalEmployee> {
 
     private final SickLeaveRepository repository;

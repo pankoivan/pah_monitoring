@@ -17,7 +17,7 @@ import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("dismissalService")
 public class DismissalServiceImpl extends AbstractHospitalEmployeeInactivityServiceImpl<Dismissal, DismissalAddingDto, HospitalEmployee> {
 
     private final DismissalRepository repository;
