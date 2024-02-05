@@ -12,6 +12,7 @@ import org.pah_monitoring.main.entities.main.enums.AchievementEnum;
 import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
@@ -21,7 +22,8 @@ import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalServic
 import org.pah_monitoring.main.services.main.patient_additions.interfaces.AchievementService;
 import org.pah_monitoring.main.services.main.users.info.interfaces.UserInformationService;
 import org.pah_monitoring.main.services.main.users.info.interfaces.UserSecurityInformationService;
-import org.pah_monitoring.main.services.main.users.users.implementations.common.AbstractPatientServiceImpl;
+import org.pah_monitoring.main.services.main.users.users.implementations.common.AbstractHospitalUserServiceImpl;
+import org.pah_monitoring.main.services.main.users.users.interfaces.PatientService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,7 +36,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("patientService")
-public class PatientServiceImpl extends AbstractPatientServiceImpl {
+public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto>
+        implements PatientService {
 
     private final PatientRepository repository;
 
@@ -44,13 +47,13 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
 
     private HospitalService hospitalService;
 
-    private AchievementService achievementService;
-
     @Qualifier("patientFilter")
     private EntityFilter<Patient> patientFilter;
 
     @Qualifier("doctorService")
     private HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> doctorService;
+
+    private AchievementService achievementService;
 
     @Override
     public void award(Patient patient, AchievementEnum achievement) throws DataSearchingServiceException, DataSavingServiceException {
@@ -153,6 +156,16 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
     public void checkDataValidityForSaving(PatientSavingDto savingDto, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+    }
+
+    @Override
+    public void checkAccessRightsForObtainingDoctorPatients(Doctor requestedDoctor) throws NotEnoughRightsServiceException {
+        if (!(
+                getCheckService().isSelf(requestedDoctor) ||
+                getCheckService().isAdministratorFromSameHospital(requestedDoctor.getHospital())
+        )) {
+            throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
     }
 

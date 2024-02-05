@@ -16,8 +16,8 @@ import org.pah_monitoring.main.filtration.enums.users.*;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
-import org.pah_monitoring.main.services.main.users.users.implementations.common.AbstractPatientServiceImpl;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
+import org.pah_monitoring.main.services.main.users.users.interfaces.PatientService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -40,7 +40,7 @@ public class DoctorMvcController {
 
     private final CurrentUserCheckService checkService;
 
-    private final AbstractPatientServiceImpl patientService;
+    private final PatientService patientService;
 
     private final PageHeaderService pageHeaderService;
 
