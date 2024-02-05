@@ -51,7 +51,7 @@ public class UserMessageServiceImpl implements UserMessageService {
     }
 
     @Override
-    public List<User> findAllRecipients() throws DataSearchingServiceException {
+    public List<User> findAllDialogues() throws DataSearchingServiceException {
 
         List<UserInformation> userInfoRecipients = repository.findAllByAuthorId(extractionService.user().getUserInformation().getId())
                 .stream()
@@ -70,8 +70,11 @@ public class UserMessageServiceImpl implements UserMessageService {
     }
 
     @Override
-    public List<UserMessage> findDialogueByRecipientId(Integer recipientId) {
-        return repository.findAllByAuthorIdAndRecipientId(extractionService.user().getUserInformation().getId(), recipientId);
+    public List<UserMessage> findDialogue(Integer recipientId) throws DataSearchingServiceException {
+        return repository.findAllByAuthorIdAndRecipientId(
+                extractionService.user().getUserInformation().getId(),
+                userInformationService.findById(recipientId).getId()
+        );
     }
 
     @Override

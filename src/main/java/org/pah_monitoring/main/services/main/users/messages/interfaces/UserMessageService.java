@@ -22,9 +22,9 @@ public interface UserMessageService extends
 
     UserMessage findById(Integer id) throws DataSearchingServiceException;
 
-    List<User> findAllRecipients() throws DataSearchingServiceException;
+    List<User> findAllDialogues() throws DataSearchingServiceException;
 
-    List<UserMessage> findDialogueByRecipientId(Integer recipientId);
+    List<UserMessage> findDialogue(Integer recipientId) throws DataSearchingServiceException;
 
     UserMessage add(UserMessageAddingDto addingDto) throws DataSavingServiceException;
 
