@@ -19,6 +19,10 @@ public interface PatientService extends HospitalUserService<Patient, PatientAddi
 
     void award(Patient patient, AchievementEnum achievement) throws DataSearchingServiceException, DataSavingServiceException;
 
+    void assignToDoctor(Patient patient, Doctor doctor);
+
+    void removeFromDoctor(Patient patient);
+
     List<Patient> findAllByDoctorId(Integer doctorId) throws DataSearchingServiceException;
 
     List<Patient> findAllByDoctorId(Integer doctorId, Map<String, String> parameters, EntityFilter.PageStat pageStat)

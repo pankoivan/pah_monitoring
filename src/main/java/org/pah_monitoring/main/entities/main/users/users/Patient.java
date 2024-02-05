@@ -69,6 +69,21 @@ public class Patient extends HospitalUser implements UserDetails {
     @OneToOne(mappedBy = "patient")
     private PatientInactivity patientInactivity;
 
+    public void setDoctor(Doctor doctor) {
+        if (this.doctor != null) {
+            this.doctor.removePatient(this);
+        }
+        this.doctor = doctor;
+        doctor.addPatient(this);
+    }
+
+    public void removeDoctor() {
+        if (this.doctor != null) {
+            this.doctor.removePatient(this);
+        }
+        this.doctor = null;
+    }
+
     public int getAchievementsCount() {
         return achievements.size();
     }

@@ -55,6 +55,14 @@ public class Doctor extends HospitalEmployee implements UserDetails {
     @OneToMany(mappedBy = "author")
     private List<PatientInactivity> assignedPatientInactivities;
 
+    public void addPatient(Patient patient) {
+        patients.add(patient);
+    }
+
+    public void removePatient(Patient patient) {
+        patients.remove(patient);
+    }
+
     public int patientsCount() {
         return patients.size();
     }

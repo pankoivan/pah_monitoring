@@ -56,13 +56,21 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
     private AchievementService achievementService;
 
     @Override
-    public void award(Patient patient, AchievementEnum achievement) throws DataSearchingServiceException, DataSavingServiceException {
+    public void award(Patient patient, AchievementEnum achievement) throws DataSearchingServiceException {
         patient.getAchievements().add(achievementService.findAchievementByName(achievement.getAlias()));
-        try {
-            repository.save(patient);
-        } catch (Exception e) {
-            throw new DataSavingServiceException("Пациент \"%s\" не был награждён".formatted(patient), e);
-        }
+        repository.save(patient);
+    }
+
+    @Override
+    public void assignToDoctor(Patient patient, Doctor doctor) {
+        patient.setDoctor(doctor);
+        repository.save(patient);
+    }
+
+    @Override
+    public void removeFromDoctor(Patient patient) {
+        patient.removeDoctor();
+        repository.save(patient);
     }
 
     @Override
