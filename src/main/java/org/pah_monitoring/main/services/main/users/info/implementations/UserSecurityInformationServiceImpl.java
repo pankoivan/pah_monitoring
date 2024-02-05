@@ -5,6 +5,8 @@ import lombok.Setter;
 import org.pah_monitoring.main.dto.in.users.info.adding.UserSecurityInformationAddingDto;
 import org.pah_monitoring.main.dto.in.users.info.editing.UserSecurityInformationEditingDto;
 import org.pah_monitoring.main.dto.in.users.info.saving.UserSecurityInformationSavingDto;
+import org.pah_monitoring.main.entities.main.hospitals.Hospital;
+import org.pah_monitoring.main.entities.main.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalUser;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
@@ -53,7 +55,6 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
 
     @Override
     public UserSecurityInformation add(UserSecurityInformationAddingDto addingDto) throws DataSavingServiceException {
-
         try {
             return repository.save(
                     UserSecurityInformation
@@ -65,12 +66,10 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
-
     }
 
     @Override
     public UserSecurityInformation edit(UserSecurityInformationEditingDto editingDto) throws DataSavingServiceException {
-
         try {
             UserSecurityInformation securityInformation = findById(editingDto.getId());
             return repository.save(
@@ -79,7 +78,7 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
                             .id(securityInformation.getId())
                             .email(editingDto.getEmail())
                             .password(
-                                    editingDto.getPassword() != null && !editingDto.getPassword().isEmpty()
+                                    editingDto.getPassword() != null
                                             ? passwordEncoder.encode(editingDto.getPassword())
                                             : securityInformation.getPassword()
                             )
@@ -88,7 +87,6 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(editingDto), e);
         }
-
     }
 
     @Override
@@ -109,7 +107,7 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
 
         checkDataValidityForSaving(editingDto, bindingResult);
 
-        if (editingDto.getPassword() != null && !editingDto.getPassword().isEmpty()) {
+        if (editingDto.getPassword() != null) {
             if (editingDto.getPassword().length() < 3 || editingDto.getPassword().length() > 63) {
                 throw new DataValidationServiceException("Минимальная длина пароля - 3 символа, максимальная - 63 символа");
             }
@@ -126,12 +124,15 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
                             .formatted(editingDto.getEmail()));
         }
 
-        if (requestService.existsByEmail(editingDto.getEmail())) {
-            throw new DataValidationServiceException(
-                    "Нельзя сменить почту на \"%s\", так как она указана в заявке на регистрацию медицинского учреждения"
-                            .formatted(editingDto.getEmail())
-            );
-        }
+        try {
+            HospitalRegistrationRequest request = requestService.findByEmail(editingDto.getEmail());
+            if (request.getHospital().getCurrentState() != Hospital.CurrentState.REGISTERED) {
+                throw new DataValidationServiceException(
+                        "Нельзя сменить почту на \"%s\", так как она указана в заявке на регистрацию медицинского учреждения"
+                                .formatted(editingDto.getEmail())
+                );
+            }
+        } catch (DataSearchingServiceException ignored) {}
 
     }
 
@@ -150,7 +151,6 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
         if (!(
                 checkService.isSelf(userWithRequestedEditingInfo) ||
                 checkService.isAdministratorFromSameHospital(((HospitalUser) userWithRequestedEditingInfo).getHospital())
-
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }

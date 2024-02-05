@@ -9,10 +9,10 @@ import org.pah_monitoring.main.dto.in.users.info.saving.UserInformationSavingDto
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalUser;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.main.users.info.UserInformationRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.users.info.interfaces.UserInformationService;
@@ -38,7 +38,6 @@ public class UserInformationServiceImpl implements UserInformationService {
 
     @Override
     public UserInformation add(UserInformationAddingDto addingDto) throws DataSavingServiceException {
-
         try {
             return repository.save(
                     UserInformation
@@ -54,12 +53,10 @@ public class UserInformationServiceImpl implements UserInformationService {
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
-
     }
 
     @Override
     public UserInformation edit(UserInformationEditingDto editingDto) throws DataSavingServiceException {
-
         try {
             UserInformation userInformation = findById(editingDto.getId());
             return repository.save(
@@ -77,7 +74,6 @@ public class UserInformationServiceImpl implements UserInformationService {
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(editingDto), e);
         }
-
     }
 
     @Override
@@ -111,7 +107,6 @@ public class UserInformationServiceImpl implements UserInformationService {
         if (!(
                 checkService.isSelf(userWithRequestedEditingInfo) ||
                 checkService.isAdministratorFromSameHospital(((HospitalUser) userWithRequestedEditingInfo).getHospital())
-
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }

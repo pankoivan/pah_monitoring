@@ -8,10 +8,10 @@ import org.pah_monitoring.main.dto.in.users.info.saving.EmployeeInformationSavin
 import org.pah_monitoring.main.entities.main.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalUser;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.repositorites.main.users.info.EmployeeInformationRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.users.info.interfaces.EmployeeInformationService;
@@ -40,7 +40,6 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
 
     @Override
     public EmployeeInformation add(EmployeeInformationAddingDto addingDto) throws DataSavingServiceException {
-
         try {
             return repository.save(
                     EmployeeInformation
@@ -52,12 +51,10 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
-
     }
 
     @Override
     public EmployeeInformation edit(EmployeeInformationEditingDto editingDto) throws DataSavingServiceException {
-
         try {
             EmployeeInformation employeeInformation = findById(editingDto.getId());
             return repository.save(
@@ -71,7 +68,6 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(editingDto), e);
         }
-
     }
 
     @Override
@@ -107,7 +103,6 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
         if (!(
                 checkService.isSelf(userWithRequestedEditingInfo) ||
                 checkService.isAdministratorFromSameHospital(((HospitalUser) userWithRequestedEditingInfo).getHospital())
-
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }

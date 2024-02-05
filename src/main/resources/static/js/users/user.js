@@ -217,7 +217,7 @@ function refreshForm(form, errorBlockId) {
 
 function showErrorBlock(errorBlockId, errorDescription) {
     let errorBlock = document.getElementById(errorBlockId);
-    errorBlock.querySelector("p").innerText = errorDescription;
+    errorBlock.querySelector("span").innerText = errorDescription;
     errorBlock.classList.remove("visually-hidden");
 }
 

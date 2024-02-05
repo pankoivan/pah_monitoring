@@ -14,6 +14,8 @@ public interface HospitalRegistrationRequestService extends DataAddingValidation
 
     boolean existsByEmail(String email);
 
+    HospitalRegistrationRequest findByEmail(String email) throws DataSearchingServiceException;
+
     HospitalRegistrationRequest findById(Integer id) throws DataSearchingServiceException;
 
     HospitalRegistrationRequest add(HospitalRegistrationRequestAddingDto addingDto) throws DataSavingServiceException;
