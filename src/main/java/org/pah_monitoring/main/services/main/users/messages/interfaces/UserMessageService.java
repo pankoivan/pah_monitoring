@@ -12,12 +12,13 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataAddingValidationService;
 import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataEditingValidationService;
 import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataSavingValidationService;
+import org.pah_monitoring.main.services.main.validation.interfaces.url.UrlValidationService;
 
 import java.util.List;
 
 public interface UserMessageService extends
         DataAddingValidationService<UserMessageAddingDto>, DataEditingValidationService<UserMessageEditingDto>,
-        DataSavingValidationService<UserMessageSavingDto> {
+        DataSavingValidationService<UserMessageSavingDto>, UrlValidationService {
 
     UserMessage findById(Integer id) throws DataSearchingServiceException;
 
