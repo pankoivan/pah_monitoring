@@ -50,7 +50,7 @@ public class RegistrationSecurityCodeGenerationByMainAdminServiceImpl
     }
 
     @Override
-    public void checkDataValidityForSaving(RegistrationSecurityCodeByMainAdminAddingDto addingDto, BindingResult bindingResult)
+    public void checkDataValidityForAdding(RegistrationSecurityCodeByMainAdminAddingDto addingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {

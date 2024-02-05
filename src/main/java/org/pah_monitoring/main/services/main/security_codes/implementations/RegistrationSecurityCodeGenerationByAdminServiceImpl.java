@@ -52,23 +52,27 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
     }
 
     @Override
-    public void checkDataValidityForSaving(RegistrationSecurityCodeByAdminAddingDto addingDto, BindingResult bindingResult)
+    public void checkDataValidityForAdding(RegistrationSecurityCodeByAdminAddingDto addingDto, BindingResult bindingResult)
             throws DataValidationServiceException {
 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
+
         if (repository.existsByEmail(addingDto.getEmail())) {
             throw new DataValidationServiceException("Пользователю с почтой \"%s\" уже выдан код".formatted(addingDto.getEmail()));
         }
+
         if (securityInformationService.existsByEmail(addingDto.getEmail())) {
             throw new DataValidationServiceException("Пользователь с почтой \"%s\" уже зарегистрирован".formatted(addingDto.getEmail()));
         }
+
         if (requestService.existsByEmail(addingDto.getEmail())) {
             throw new DataValidationServiceException(
                     "Почта \"%s\" указана в заявке на регистрацию медицинского учреждения".formatted(addingDto.getEmail())
             );
         }
+
         if (addingDto.getRole() == Role.MAIN_ADMINISTRATOR) {
             throw new DataValidationServiceException(
                     "Для роли \"%s\" не предусмотрена генерация кода".formatted(Role.MAIN_ADMINISTRATOR.getAlias())

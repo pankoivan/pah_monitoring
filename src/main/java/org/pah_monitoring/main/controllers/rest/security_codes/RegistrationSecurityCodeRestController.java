@@ -53,7 +53,7 @@ public class RegistrationSecurityCodeRestController {
     public RegistrationSecurityCode generateByMainAdmin(@RequestBody @Valid RegistrationSecurityCodeByMainAdminAddingDto addingDto,
                                                         BindingResult bindingResult) {
         try {
-            codeGeneratorByMainAdmin.checkDataValidityForSaving(addingDto, bindingResult);
+            codeGeneratorByMainAdmin.checkDataValidityForAdding(addingDto, bindingResult);
             RegistrationSecurityCode code = codeGeneratorByMainAdmin.add(addingDto);
             emailMessageSender.send(code.getEmail(), code, false);
             hospitalService.upgrade(code.getHospital());
@@ -70,7 +70,7 @@ public class RegistrationSecurityCodeRestController {
     public RegistrationSecurityCode generateByAdmin(@RequestBody @Valid RegistrationSecurityCodeByAdminAddingDto addingDto,
                                                     BindingResult bindingResult) {
         try {
-            codeGeneratorByAdmin.checkDataValidityForSaving(addingDto, bindingResult);
+            codeGeneratorByAdmin.checkDataValidityForAdding(addingDto, bindingResult);
             RegistrationSecurityCode code = codeGeneratorByAdmin.add(addingDto);
             emailMessageSender.send(code.getEmail(), code, false);
             return code;
