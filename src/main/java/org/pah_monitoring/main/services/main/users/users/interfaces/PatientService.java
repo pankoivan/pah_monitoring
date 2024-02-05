@@ -3,7 +3,7 @@ package org.pah_monitoring.main.services.main.users.users.interfaces;
 import org.pah_monitoring.main.dto.in.users.users.adding.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.saving.PatientSavingDto;
-import org.pah_monitoring.main.entities.main.enums.AchievementEnum;
+import org.pah_monitoring.main.entities.main.patient_additions.Achievement;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 public interface PatientService extends HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> {
 
-    void award(Patient patient, AchievementEnum achievement) throws DataSearchingServiceException;
+    void award(Patient patient, Achievement achievement);
 
     void assignToDoctor(Patient patient, Doctor doctor);
 

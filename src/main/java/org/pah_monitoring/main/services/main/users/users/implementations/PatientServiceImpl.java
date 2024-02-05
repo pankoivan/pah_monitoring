@@ -8,8 +8,8 @@ import org.pah_monitoring.main.dto.in.users.users.editing.DoctorEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.saving.DoctorSavingDto;
 import org.pah_monitoring.main.dto.in.users.users.saving.PatientSavingDto;
-import org.pah_monitoring.main.entities.main.enums.AchievementEnum;
 import org.pah_monitoring.main.entities.main.enums.Role;
+import org.pah_monitoring.main.entities.main.patient_additions.Achievement;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -19,7 +19,6 @@ import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceExce
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.repositorites.main.users.users.PatientRepository;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
-import org.pah_monitoring.main.services.main.patient_additions.interfaces.AchievementService;
 import org.pah_monitoring.main.services.main.users.info.interfaces.UserInformationService;
 import org.pah_monitoring.main.services.main.users.info.interfaces.UserSecurityInformationService;
 import org.pah_monitoring.main.services.main.users.users.implementations.common.AbstractHospitalUserServiceImpl;
@@ -53,11 +52,9 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
     @Qualifier("doctorService")
     private HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> doctorService;
 
-    private AchievementService achievementService;
-
     @Override
-    public void award(Patient patient, AchievementEnum achievement) throws DataSearchingServiceException {
-        patient.getAchievements().add(achievementService.findAchievementByName(achievement.getAlias()));
+    public void award(Patient patient, Achievement achievement) {
+        patient.addAchievement(achievement);
         repository.save(patient);
     }
 
