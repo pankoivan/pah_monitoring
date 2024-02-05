@@ -6,7 +6,6 @@ import org.pah_monitoring.main.dto.in.users.users.adding.AdministratorAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.editing.AdministratorEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.saving.AdministratorSavingDto;
 import org.pah_monitoring.main.entities.main.enums.Role;
-import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -28,8 +27,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("administratorService")
-public class AdministratorServiceImpl extends
-        AbstractHospitalUserServiceImpl<Administrator, AdministratorAddingDto, AdministratorEditingDto, AdministratorSavingDto> {
+public class AdministratorServiceImpl
+        extends AbstractHospitalUserServiceImpl<Administrator, AdministratorAddingDto, AdministratorEditingDto, AdministratorSavingDto> {
 
     private final AdministratorRepository repository;
 
@@ -77,38 +76,27 @@ public class AdministratorServiceImpl extends
 
     @Override
     public Administrator add(AdministratorAddingDto addingDto) throws DataSavingServiceException {
-
         try {
-            RegistrationSecurityCode code = getCodeService().findByStringUuid(addingDto.getCode());
             return repository.save(
                     Administrator
                             .builder()
                             .userSecurityInformation(securityInformationService.add(addingDto.getUserSecurityInformationAddingDto()))
                             .employeeInformation(employeeInformationService.add(addingDto.getEmployeeInformationAddingDto()))
-                            .hospital(code.getHospital())
+                            .hospital(getCodeService().findByStringUuid(addingDto.getCode()).getHospital())
                             .build()
             );
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
-
     }
 
     @Override
     public Administrator edit(AdministratorEditingDto editingDto) throws DataSavingServiceException {
-
         try {
-            Administrator administrator = findById(editingDto.getId());
-            return repository.save(
-                    Administrator
-                            .builder()
-                            .id(administrator.getId())
-                            .build()
-            );
+            return repository.save(findById(editingDto.getId()));
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(editingDto), e);
         }
-
     }
 
     @Override
@@ -125,21 +113,15 @@ public class AdministratorServiceImpl extends
     }
 
     @Override
-    public void checkDataValidityForEditing(AdministratorEditingDto editingDto, BindingResult bindingResult)
-            throws DataValidationServiceException {
-
+    public void checkDataValidityForEditing(AdministratorEditingDto editingDto, BindingResult bindingResult) throws DataValidationServiceException {
         checkDataValidityForSaving(editingDto, bindingResult);
-
     }
 
     @Override
-    public void checkDataValidityForSaving(AdministratorSavingDto savingDto, BindingResult bindingResult)
-            throws DataValidationServiceException {
-
+    public void checkDataValidityForSaving(AdministratorSavingDto savingDto, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-
     }
 
     @Override

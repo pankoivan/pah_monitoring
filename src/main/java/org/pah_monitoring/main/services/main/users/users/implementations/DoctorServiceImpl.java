@@ -6,7 +6,6 @@ import org.pah_monitoring.main.dto.in.users.users.adding.DoctorAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.editing.DoctorEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.saving.DoctorSavingDto;
 import org.pah_monitoring.main.entities.main.enums.Role;
-import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -28,8 +27,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("doctorService")
-public class DoctorServiceImpl extends
-        AbstractHospitalUserServiceImpl<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> {
+public class DoctorServiceImpl
+        extends AbstractHospitalUserServiceImpl<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> {
 
     private final DoctorRepository repository;
 
@@ -77,38 +76,27 @@ public class DoctorServiceImpl extends
 
     @Override
     public Doctor add(DoctorAddingDto addingDto) throws DataSavingServiceException {
-
         try {
-            RegistrationSecurityCode code = getCodeService().findByStringUuid(addingDto.getCode());
             return repository.save(
                     Doctor
                             .builder()
                             .userSecurityInformation(securityInformationService.add(addingDto.getUserSecurityInformationAddingDto()))
                             .employeeInformation(employeeInformationService.add(addingDto.getEmployeeInformationAddingDto()))
-                            .hospital(code.getHospital())
+                            .hospital(getCodeService().findByStringUuid(addingDto.getCode()).getHospital())
                             .build()
             );
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
-
     }
 
     @Override
     public Doctor edit(DoctorEditingDto editingDto) throws DataSavingServiceException {
-
         try {
-            Doctor doctor = findById(editingDto.getId());
-            return repository.save(
-                    Doctor
-                            .builder()
-                            .id(doctor.getId())
-                            .build()
-            );
+            return repository.save(findById(editingDto.getId()));
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(editingDto), e);
         }
-
     }
 
     @Override
@@ -125,21 +113,15 @@ public class DoctorServiceImpl extends
     }
 
     @Override
-    public void checkDataValidityForEditing(DoctorEditingDto editingDto, BindingResult bindingResult)
-            throws DataValidationServiceException {
-
+    public void checkDataValidityForEditing(DoctorEditingDto editingDto, BindingResult bindingResult) throws DataValidationServiceException {
         checkDataValidityForSaving(editingDto, bindingResult);
-
     }
 
     @Override
-    public void checkDataValidityForSaving(DoctorSavingDto savingDto, BindingResult bindingResult)
-            throws DataValidationServiceException {
-
+    public void checkDataValidityForSaving(DoctorSavingDto savingDto, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-
     }
 
     @Override

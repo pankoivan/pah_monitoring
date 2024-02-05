@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
-@Getter
 @Setter(onMethod = @__(@Autowired))
+@Getter
 public abstract class AbstractPatientServiceImpl extends
         AbstractHospitalUserServiceImpl<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> {
 

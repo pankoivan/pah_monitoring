@@ -9,7 +9,6 @@ import org.pah_monitoring.main.dto.in.users.users.editing.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.saving.DoctorSavingDto;
 import org.pah_monitoring.main.dto.in.users.users.saving.PatientSavingDto;
 import org.pah_monitoring.main.entities.main.enums.Role;
-import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
@@ -50,11 +49,6 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
     private HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> doctorService;
 
     @Override
-    public int count() {
-        return (int) repository.count();
-    }
-
-    @Override
     public List<Patient> findAllByDoctorId(Integer doctorId) throws DataSearchingServiceException {
         return doctorService.findById(doctorId).getPatients();
     }
@@ -63,6 +57,11 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
     public List<Patient> findAllByDoctorId(Integer doctorId, Map<String, String> parameters, EntityFilter.PageStat pageStat)
             throws DataSearchingServiceException {
         return patientFilter.apply(findAllByDoctorId(doctorId), parameters, pageStat);
+    }
+
+    @Override
+    public int count() {
+        return (int) repository.count();
     }
 
     @Override
@@ -95,38 +94,27 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
 
     @Override
     public Patient add(PatientAddingDto addingDto) throws DataSavingServiceException {
-
         try {
-            RegistrationSecurityCode code = getCodeService().findByStringUuid(addingDto.getCode());
             return repository.save(
                     Patient
                             .builder()
                             .userSecurityInformation(securityInformationService.add(addingDto.getUserSecurityInformationAddingDto()))
                             .userInformation(userInformationService.add(addingDto.getUserInformationAddingDto()))
-                            .hospital(code.getHospital())
+                            .hospital(getCodeService().findByStringUuid(addingDto.getCode()).getHospital())
                             .build()
             );
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
-
     }
 
     @Override
     public Patient edit(PatientEditingDto savingDto) throws DataSavingServiceException {
-
         try {
-            Patient patient = findById(savingDto.getId());
-            return repository.save(
-                    Patient
-                            .builder()
-                            .id(patient.getId())
-                            .build()
-            );
+            return repository.save(findById(savingDto.getId()));
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
         }
-
     }
 
     @Override
@@ -143,21 +131,15 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
     }
 
     @Override
-    public void checkDataValidityForEditing(PatientEditingDto editingDto, BindingResult bindingResult)
-            throws DataValidationServiceException {
-
+    public void checkDataValidityForEditing(PatientEditingDto editingDto, BindingResult bindingResult) throws DataValidationServiceException {
         checkDataValidityForSaving(editingDto, bindingResult);
-
     }
 
     @Override
-    public void checkDataValidityForSaving(PatientSavingDto savingDto, BindingResult bindingResult)
-            throws DataValidationServiceException {
-
+    public void checkDataValidityForSaving(PatientSavingDto savingDto, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-
     }
 
     @Override
