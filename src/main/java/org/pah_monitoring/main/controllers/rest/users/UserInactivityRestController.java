@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/rest/inactivity/add")
 @PreAuthorize("isAuthenticated()")
-public class InactivityRestController {
+public class UserInactivityRestController {
 
     @Qualifier("vacationService")
     private final InactivityService<Vacation, VacationAddingDto, HospitalEmployee> vacationService;

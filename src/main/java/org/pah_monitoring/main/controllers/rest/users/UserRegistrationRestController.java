@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/rest/registration")
 @PreAuthorize("permitAll()")
-public class RegistrationRestController {
+public class UserRegistrationRestController {
 
     @Qualifier("administratorService")
     private final HospitalUserService<Administrator, AdministratorAddingDto, AdministratorEditingDto, AdministratorSavingDto> administratorService;
