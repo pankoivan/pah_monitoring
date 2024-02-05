@@ -20,16 +20,16 @@
             <!---->
             <div th:if="${param.logout}" class="row mb-5">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
-                    <div class="text-center fs-4 info-block rounded h-100">
-                        <p class="mb-1 my-auto">Вы вышли из аккаунта</p>
+                    <div class="text-center fs-4 info-block rounded p-2">
+                        <span class="my-auto">Вы вышли из аккаунта</span>
                     </div>
                 </div>
             </div>
             <!---->
             <div th:if="${param.error}" class="row mb-5">
                 <div class="col-12 col-md-9 col-lg-6 mx-auto">
-                    <div class="text-center fs-4 danger-block rounded h-100">
-                        <p class="mb-1 my-auto">Неверный логин или пароль</p>
+                    <div class="text-center fs-4 danger-block rounded p-2">
+                        <span class="my-auto">Неверный логин или пароль</span>
                     </div>
                 </div>
             </div>
