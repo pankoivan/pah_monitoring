@@ -16,13 +16,13 @@
                         <nav class="m-2 my-xl-0">
                             <ul class="nav justify-content-center">
                                 <li>
-                                    <a href="#" th:href="@{/hospitals}" class="nav-link text-secondary">Медицинское учреждение</a>
+                                    <a href="#" th:href="@{/hospitals/__${currentUser.hospital.id}__}" class="nav-link text-secondary">Медицинское учреждение</a>
                                 </li>
                                 <li>
-                                    <a href="#" th:href="@{/indicators}" class="nav-link text-secondary">Отправка показателей</a>
+                                    <a href="#" th:href="@{/patients/__${currentUser.id}__/indicators}" class="nav-link text-secondary">Отправка показателей</a>
                                 </li>
                                 <li>
-                                    <a href="#" th:href="@{/later}" class="nav-link text-secondary">Динамика здоровья</a>
+                                    <a href="#" th:href="@{/patients/__${currentUser.id}__/anamnesis}" class="nav-link text-secondary">Анамнез</a>
                                 </li>
                             </ul>
                         </nav>
