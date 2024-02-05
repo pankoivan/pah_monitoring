@@ -11,6 +11,6 @@ public interface InactivityService<T extends Inactivity, M extends InactivityAdd
 
     T add(M addingDto) throws DataSavingServiceException;
 
-    void checkAccessRightsForAdding(N user) throws NotEnoughRightsServiceException;
+    void checkAccessRightsForAdding(N hospitalUser) throws NotEnoughRightsServiceException;
 
 }

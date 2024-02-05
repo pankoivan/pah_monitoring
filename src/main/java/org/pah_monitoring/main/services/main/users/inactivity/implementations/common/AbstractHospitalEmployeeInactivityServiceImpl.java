@@ -1,22 +1,23 @@
 package org.pah_monitoring.main.services.main.users.inactivity.implementations.common;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.QuantityRestrictionConstants;
 import org.pah_monitoring.main.dto.in.users.inactivity.common.InactivityAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.adding.PatientAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.editing.PatientEditingDto;
-import org.pah_monitoring.main.dto.in.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.adding.AdministratorAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.adding.DoctorAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.editing.AdministratorEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.editing.DoctorEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.saving.AdministratorSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.saving.DoctorSavingDto;
 import org.pah_monitoring.main.entities.main.users.inactivity.common.Inactivity;
+import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
-import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalEmployee;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
-import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserExtractionService;
 import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchingService;
 import org.pah_monitoring.main.services.main.users.inactivity.interfaces.common.InactivityService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
@@ -26,19 +27,16 @@ import org.springframework.validation.BindingResult;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Getter
 public abstract class AbstractHospitalEmployeeInactivityServiceImpl
         <T extends Inactivity, M extends InactivityAddingDto, N extends HospitalEmployee> implements InactivityService<T, M, N> {
 
     @Qualifier("administratorService")
-    private HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> administratorService;
+    private HospitalUserService<Administrator, AdministratorAddingDto, AdministratorEditingDto, AdministratorSavingDto> administratorService;
 
     @Qualifier("doctorService")
-    private HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> doctorService;
+    private HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> doctorService;
 
     private UserSearchingService searchingService;
-
-    private CurrentUserExtractionService extractionService;
 
     private CurrentUserCheckService checkService;
 
