@@ -14,7 +14,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceExce
 import org.pah_monitoring.main.repositorites.main.users.inactivity.PatientInactivityRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserExtractionService;
-import org.pah_monitoring.main.services.main.users.inactivity.interfaces.PatientInactivityService;
+import org.pah_monitoring.main.services.main.users.inactivity.interfaces.common.InactivityService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,7 +26,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service
-public class PatientInactivityServiceImpl implements PatientInactivityService {
+public class PatientInactivityServiceImpl implements InactivityService<PatientInactivity, PatientInactivityAddingDto, Patient> {
 
     private final PatientInactivityRepository repository;
 
@@ -41,13 +41,13 @@ public class PatientInactivityServiceImpl implements PatientInactivityService {
     public PatientInactivity add(PatientInactivityAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(
-              PatientInactivity
-                      .builder()
-                      .patient(patientService.findById(addingDto.getToWhomId()))
-                      .author(extractionService.doctor())
-                      .comment(addingDto.getComment())
-                      .date(LocalDate.now())
-                      .build()
+                    PatientInactivity
+                            .builder()
+                            .patient(patientService.findById(addingDto.getToWhomId()))
+                            .author(extractionService.doctor())
+                            .comment(addingDto.getComment())
+                            .date(LocalDate.now())
+                            .build()
             );
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);

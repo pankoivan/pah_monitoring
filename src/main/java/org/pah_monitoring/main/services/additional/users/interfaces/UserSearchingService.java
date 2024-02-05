@@ -11,6 +11,6 @@ public interface UserSearchingService extends UrlValidationService {
 
     User findUserByUserInformationId(Integer id) throws DataSearchingServiceException;
 
-    HospitalEmployee findHospitalEmployeeByHospitalEmployeeInformationId(Integer id) throws DataSearchingServiceException;
+    HospitalEmployee findHospitalEmployeeByEmployeeInformationId(Integer id) throws DataSearchingServiceException;
 
 }

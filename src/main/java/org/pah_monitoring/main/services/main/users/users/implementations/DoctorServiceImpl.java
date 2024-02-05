@@ -43,6 +43,11 @@ public class DoctorServiceImpl extends
     private EntityFilter<Doctor> doctorFilter;
 
     @Override
+    public int count() {
+        return (int) repository.count();
+    }
+
+    @Override
     public List<Doctor> findAll() {
         return repository.findAll();
     }

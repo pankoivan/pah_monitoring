@@ -43,6 +43,11 @@ public class AdministratorServiceImpl extends
     private EntityFilter<Administrator> administratorFilter;
 
     @Override
+    public int count() {
+        return (int) repository.count();
+    }
+
+    @Override
     public List<Administrator> findAll() {
         return repository.findAll();
     }

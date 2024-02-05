@@ -21,6 +21,8 @@ public interface HospitalUserService
         <T extends HospitalUser, M extends HospitalUserAddingInfo, R extends HospitalUserEditingInfo, N extends HospitalUserSavingInfo>
         extends DataAddingValidationService<M>, DataEditingValidationService<R>, DataSavingValidationService<N>, UrlValidationService {
 
+    int count();
+
     List<T> findAll();
 
     List<T> findAll(Map<String, String> parameters, EntityFilter.PageStat pageStat);

@@ -1,17 +1,18 @@
 package org.pah_monitoring.main.dto.in.users.inactivity.common;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class InactivityAddingDto {
+public abstract class InactivityAddingDto {
 
     @NotNull(message = "Поле \"toWhomId\" не должно отсутствовать")
     private Integer toWhomId;
 
+    @NotBlank(message = "Комментарий не должен состоять только из пробельных символов")
     @Size(max = 1024, message = "Максимальная длина комментария - 1024 символа")
-    @NotNull(message = "Поле \"comment\" не должно отсутствовать")
     private String comment;
 
 }

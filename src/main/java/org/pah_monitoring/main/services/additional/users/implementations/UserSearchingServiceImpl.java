@@ -60,7 +60,7 @@ public class UserSearchingServiceImpl implements UserSearchingService {
     }
 
     @Override
-    public HospitalEmployee findHospitalEmployeeByHospitalEmployeeInformationId(Integer id) throws DataSearchingServiceException {
+    public HospitalEmployee findHospitalEmployeeByEmployeeInformationId(Integer id) throws DataSearchingServiceException {
         return Stream.of(
                         administratorRepository.findByEmployeeInformationId(id).orElse(null),
                         doctorRepository.findByEmployeeInformationId(id).orElse(null)

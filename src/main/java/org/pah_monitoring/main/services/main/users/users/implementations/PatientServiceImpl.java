@@ -50,6 +50,11 @@ public class PatientServiceImpl extends AbstractPatientServiceImpl {
     private HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> doctorService;
 
     @Override
+    public int count() {
+        return (int) repository.count();
+    }
+
+    @Override
     public List<Patient> findAllByDoctorId(Integer doctorId) throws DataSearchingServiceException {
         return doctorService.findById(doctorId).getPatients();
     }

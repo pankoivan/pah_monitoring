@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.entities.main.users.inactivity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
@@ -16,7 +15,6 @@ import java.time.LocalDate;
 @Setter
 @ToString(exclude = {"patient", "author"})
 @Builder
-@JsonIgnoreProperties({"patient", "author"})
 @Entity
 @Table(name = "patient_inactivity")
 public class PatientInactivity extends Inactivity {

@@ -99,7 +99,7 @@ public class UserProfileRestController {
                                                       BindingResult bindingResult) {
         try {
             employeeInformationService.checkAccessRightsForEditing(
-                    userSearchingService.findHospitalEmployeeByHospitalEmployeeInformationId(editingDto.getId())
+                    userSearchingService.findHospitalEmployeeByEmployeeInformationId(editingDto.getId())
             );
             employeeInformationService.checkDataValidityForEditing(editingDto, bindingResult);
             return employeeInformationMapper.map(employeeInformationService.edit(editingDto));
