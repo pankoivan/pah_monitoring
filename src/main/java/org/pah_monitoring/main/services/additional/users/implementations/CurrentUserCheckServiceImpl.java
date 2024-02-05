@@ -3,7 +3,6 @@ package org.pah_monitoring.main.services.additional.users.implementations;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
-import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
@@ -68,33 +67,9 @@ public class CurrentUserCheckServiceImpl implements CurrentUserCheckService {
     }
 
     @Override
-    public boolean isSameUser(User user) {
+    public boolean isSelf(User user) {
         try {
             if (!userExtractionService.user().getUserInformation().equals(user.getUserInformation())) {
-                return false;
-            }
-        } catch (NullPointerException | ClassCastException e) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean isSameDoctor(Doctor doctor) {
-        try {
-            if (!userExtractionService.doctor().equals(doctor)) {
-                return false;
-            }
-        } catch (NullPointerException | ClassCastException e) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean isSamePatient(Patient patient) {
-        try {
-            if (!userExtractionService.patient().equals(patient)) {
                 return false;
             }
         } catch (NullPointerException | ClassCastException e) {

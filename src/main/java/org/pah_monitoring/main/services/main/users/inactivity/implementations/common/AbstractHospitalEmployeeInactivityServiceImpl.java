@@ -54,7 +54,7 @@ public abstract class AbstractHospitalEmployeeInactivityServiceImpl
             throw new DataValidationServiceException(e.getMessage(), e);
         }
 
-        if (checkService.isSameUser(hospitalEmployee)) {
+        if (checkService.isSelf(hospitalEmployee)) {
             throw new DataValidationServiceException("Нельзя уволить самого себя");
         }
 
@@ -93,7 +93,7 @@ public abstract class AbstractHospitalEmployeeInactivityServiceImpl
     public void checkAccessRightsForAdding(HospitalEmployee hospitalEmployee) throws NotEnoughRightsServiceException {
         if (
                 !checkService.isAdministratorFromSameHospital(hospitalEmployee.getHospital()) ||
-                checkService.isSameUser(hospitalEmployee)
+                checkService.isSelf(hospitalEmployee)
         ) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }

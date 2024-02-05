@@ -144,7 +144,7 @@ public class UserMessageServiceImpl implements UserMessageService {
                 (checkService.isMainAdministrator() && recipient.isAdministrator() ||
                 checkService.isAdministrator() && recipient.isMainAdministrator() ||
                 checkService.isHospitalUserFromSameHospital(((HospitalUser) recipient).getHospital())) &&
-                !checkService.isSameUser(recipient)
+                !checkService.isSelf(recipient)
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
@@ -152,14 +152,14 @@ public class UserMessageServiceImpl implements UserMessageService {
 
     @Override
     public void checkAccessRightsForEditing(User author) throws NotEnoughRightsServiceException {
-        if (!checkService.isSameUser(author)) {
+        if (!checkService.isSelf(author)) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
     }
 
     @Override
     public void checkAccessRightsForDeleting(User author) throws NotEnoughRightsServiceException {
-        if (!checkService.isSameUser(author)) {
+        if (!checkService.isSelf(author)) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
     }

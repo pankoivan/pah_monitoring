@@ -31,7 +31,7 @@ public class MainAdministratorMvcController {
         model.addAttribute("user", mainAdministrator);
         model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(mainAdministrator.getUserInformation().getPhoneNumber()));
         model.addAttribute("genders", Gender.values());
-        model.addAttribute("isSelf", checkService.isSameUser(mainAdministrator));
+        model.addAttribute("isSelf", checkService.isSelf(mainAdministrator));
         model.addAttribute("isCurrentUserAdministrator", checkService.isAdministrator());
         pageHeaderService.addHeader(model);
         return "users/user";

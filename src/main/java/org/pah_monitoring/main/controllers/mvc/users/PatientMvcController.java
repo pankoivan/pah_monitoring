@@ -68,7 +68,7 @@ public class PatientMvcController {
             model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(patient.getUserInformation().getPhoneNumber()));
             model.addAttribute("genders", Gender.values());
             model.addAttribute("currentDate", LocalDate.now());
-            model.addAttribute("isSelf", checkService.isSameUser(patient));
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(patient.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(patient.getHospital()));
             model.addAttribute("isCurrentUserOwnDoctor", checkService.isOwnDoctor(patient));

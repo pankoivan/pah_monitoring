@@ -33,7 +33,7 @@ public class UserMessageRestController {
     @PostMapping("/add")
     public UserMessage add(@RequestBody @Valid UserMessageAddingDto addingDto, BindingResult bindingResult) {
         try {
-            service.checkAccessRightsForDeleting(searchingService.findUserByUserInformationId(addingDto.getRecipientId()));
+            service.checkAccessRightsForAdding(searchingService.findUserByUserInformationId(addingDto.getRecipientId()));
             service.checkDataValidityForAdding(addingDto, bindingResult);
             return service.add(addingDto);
         } catch (DataSearchingServiceException | DataValidationServiceException e) {
@@ -49,7 +49,7 @@ public class UserMessageRestController {
     public UserMessage edit(@RequestBody @Valid UserMessageEditingDto editingDto, BindingResult bindingResult) {
         try {
             UserMessage message = service.findById(editingDto.getId());
-            service.checkAccessRightsForDeleting(searchingService.findUserByUserInformationId(message.getAuthor().getId()));
+            service.checkAccessRightsForEditing(searchingService.findUserByUserInformationId(message.getAuthor().getId()));
             service.checkDataValidityForEditing(editingDto, bindingResult);
             return service.edit(editingDto);
         } catch (DataSearchingServiceException | DataValidationServiceException e) {

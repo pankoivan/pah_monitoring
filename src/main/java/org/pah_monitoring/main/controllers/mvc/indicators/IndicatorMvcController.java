@@ -45,7 +45,7 @@ public class IndicatorMvcController {
             model.addAttribute("inputIndicatorCards", service.getAllInputIndicatorCardsFor(patient));
             model.addAttribute("fileIndicatorCards", service.getAllFileIndicatorCardsFor(patient));
             model.addAttribute("isCurrentUserOwnDoctor", checkService.isOwnDoctor(patient));
-            model.addAttribute("isCurrentUserPatient", checkService.isSamePatient(patient));
+            model.addAttribute("isCurrentUserPatient", checkService.isSelf(patient));
             model.addAttribute("patient", patient);
             pageHeaderService.addHeader(model);
             return "patients/indicators";

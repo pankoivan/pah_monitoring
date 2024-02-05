@@ -84,7 +84,7 @@ public abstract class AbstractHospitalUserServiceImpl
     @Override
     public void checkAccessRightsForEditing(T requestedEditingHospitalUser) throws NotEnoughRightsServiceException {
         if (!(
-                checkService.isSameUser(requestedEditingHospitalUser) ||
+                checkService.isSelf(requestedEditingHospitalUser) ||
                 checkService.isAdministratorFromSameHospital(requestedEditingHospitalUser.getHospital())
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");

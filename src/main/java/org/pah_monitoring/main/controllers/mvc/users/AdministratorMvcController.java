@@ -68,7 +68,7 @@ public class AdministratorMvcController {
             model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(administrator.getUserInformation().getPhoneNumber()));
             model.addAttribute("genders", Gender.values());
             model.addAttribute("currentDate", LocalDate.now());
-            model.addAttribute("isSelf", checkService.isSameUser(administrator));
+            model.addAttribute("isSelf", checkService.isSelf(administrator));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(administrator.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(administrator.getHospital()));
             model.addAttribute("isCurrentUserMainAdministrator", checkService.isMainAdministrator());

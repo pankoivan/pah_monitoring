@@ -70,7 +70,7 @@ public class DoctorMvcController {
             model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(doctor.getUserInformation().getPhoneNumber()));
             model.addAttribute("genders", Gender.values());
             model.addAttribute("currentDate", LocalDate.now());
-            model.addAttribute("isSelf", checkService.isSameUser(doctor));
+            model.addAttribute("isSelf", checkService.isSelf(doctor));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(doctor.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(doctor.getHospital()));
             model.addAttribute("isCurrentUserMainAdministrator", checkService.isMainAdministrator());

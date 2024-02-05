@@ -148,7 +148,7 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
     @Override
     public void checkAccessRightsForEditing(User userWithRequestedEditingInfo) throws NotEnoughRightsServiceException {
         if (!(
-                checkService.isSameUser(userWithRequestedEditingInfo) ||
+                checkService.isSelf(userWithRequestedEditingInfo) ||
                 checkService.isAdministratorFromSameHospital(((HospitalUser) userWithRequestedEditingInfo).getHospital())
 
         )) {
