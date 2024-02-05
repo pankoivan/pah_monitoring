@@ -7,7 +7,6 @@ import org.pah_monitoring.main.dto.in.users.messages.UserMessageEditingDto;
 import org.pah_monitoring.main.dto.in.users.messages.UserMessageSavingDto;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.entities.main.users.messages.UserMessage;
-import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalUser;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -38,11 +37,11 @@ public class UserMessageServiceImpl implements UserMessageService {
 
     private UserInformationService userInformationService;
 
+    private UserSearchingService searchingService;
+
     private CurrentUserExtractionService extractionService;
 
     private CurrentUserCheckService checkService;
-
-    private UserSearchingService searchingService;
 
     @Override
     public UserMessage findById(Integer id) throws DataSearchingServiceException {
@@ -142,8 +141,10 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Override
     public void checkAccessRightsForAdding(User recipient) throws NotEnoughRightsServiceException {
         if (!(
-                checkService.isMainAdministrator() && recipient instanceof Administrator ||
-                checkService.isHospitalUserFromSameHospital(((HospitalUser) recipient).getHospital())
+                (checkService.isMainAdministrator() && recipient.isAdministrator() ||
+                checkService.isAdministrator() && recipient.isMainAdministrator() ||
+                checkService.isHospitalUserFromSameHospital(((HospitalUser) recipient).getHospital())) &&
+                !checkService.isSameUser(recipient)
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
