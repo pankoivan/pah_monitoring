@@ -11,7 +11,7 @@ public class ExpiredCodeDeletion {
 
     private final RegistrationSecurityCodeService service;
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRateString = "${my.schedule.rate.expired-code-deletion}")
     public void deleteExpired() {
         service.deleteExpired();
     }
