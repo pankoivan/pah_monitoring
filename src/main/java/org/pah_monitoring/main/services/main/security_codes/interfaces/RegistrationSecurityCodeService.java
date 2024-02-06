@@ -16,6 +16,8 @@ public interface RegistrationSecurityCodeService {
 
     boolean isNotSuitableForEmail(RegistrationSecurityCode code, String email);
 
+    boolean isForHospitalEmployee(RegistrationSecurityCode code);
+
     RegistrationSecurityCode findByUuid(UUID uuid) throws DataSearchingServiceException;
 
     RegistrationSecurityCode findByStringUuid(String stringUuid) throws UuidUtilsException, DataSearchingServiceException;

@@ -38,10 +38,7 @@ public class RegistrationMvcController {
             RegistrationSecurityCode code = service.findByStringUuid(stringCode);
             model.addAttribute("code", code);
             model.addAttribute("genders", Gender.values());
-            model.addAttribute(
-                    "isEmployee",
-                    code.getRole() == Role.ADMINISTRATOR || code.getRole() == Role.DOCTOR
-            );
+            model.addAttribute("isHospitalEmployee", service.isForHospitalEmployee(code));
             pageHeaderService.addHeader(model);
             return "registration/registration";
         } catch (UuidUtilsException | DataSearchingServiceException e) {

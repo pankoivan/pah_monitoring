@@ -40,6 +40,11 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
     }
 
     @Override
+    public boolean isForHospitalEmployee(RegistrationSecurityCode code) {
+        return code.getRole() == Role.ADMINISTRATOR || code.getRole() == Role.DOCTOR;
+    }
+
+    @Override
     public RegistrationSecurityCode findByUuid(UUID uuid) throws DataSearchingServiceException {
         return repository.findByCode(uuid).orElseThrow(
                 () -> new DataSearchingServiceException("Код \"%s\" не существует".formatted(uuid))
