@@ -86,6 +86,14 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
+    public void downgrade(Hospital hospital) {
+        if (hospital.getCurrentState() == Hospital.CurrentState.WAITING_REGISTRATION) {
+            hospital.setCurrentState(Hospital.CurrentState.WAITING_CODE);
+        }
+        repository.save(hospital);
+    }
+
+    @Override
     public void checkDataValidityForAdding(HospitalAddingDto addingDto, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));

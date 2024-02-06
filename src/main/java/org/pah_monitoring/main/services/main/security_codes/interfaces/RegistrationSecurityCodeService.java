@@ -21,4 +21,6 @@ public interface RegistrationSecurityCodeService {
 
     void deleteByEmail(String email) throws DataSearchingServiceException, DataDeletionServiceException;
 
+    void deleteExpired();
+
 }

@@ -9,6 +9,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceExcept
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 import org.pah_monitoring.main.repositorites.main.security_codes.RegistrationSecurityCodeRepository;
+import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.main.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ import java.util.UUID;
 public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurityCodeService {
 
     private final RegistrationSecurityCodeRepository repository;
+
+    private HospitalService hospitalService;
 
     @Override
     public boolean existsByEmail(String email) {
@@ -67,6 +70,19 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
         } catch (Exception e) {
             throw new DataDeletionServiceException("Код, сгенерированный для почты \"%s\", не был удалён".formatted(email), e);
         }
+    }
+
+    @Override
+    public void deleteExpired() {
+        repository.findAll()
+                .stream()
+                .filter(RegistrationSecurityCode::isExpired)
+                .forEach(code -> {
+                    if (code.isForHospitalThatWaitingRegistration()) {
+                        hospitalService.downgrade(code.getHospital());
+                    }
+                    repository.deleteById(code.getId());
+                });
     }
 
 }
