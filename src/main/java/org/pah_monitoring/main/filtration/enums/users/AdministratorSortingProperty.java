@@ -10,9 +10,9 @@ import java.util.Optional;
 @Getter
 public enum AdministratorSortingProperty {
 
-    FULL_NAME("По ФИО"),
+    FULL_NAME("ФИО"),
 
-    PHONE_NUMBER("По номеру телефона");
+    PHONE_NUMBER("Номер телефона");
 
     private final String alias;
 

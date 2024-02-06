@@ -15,9 +15,9 @@ public enum PatientFiltrationProperty {
 
     INACTIVE("Неактивные"),
 
-    HAS_DOCTOR("Закреплены за врачом"),
+    HAS_DOCTOR("Закреплённые за врачом"),
 
-    HAS_NO_DOCTOR("Не закреплены за врачом");
+    HAS_NO_DOCTOR("Не закреплённые за врачом");
 
     private final String alias;
 

@@ -10,11 +10,11 @@ import java.util.Optional;
 @Getter
 public enum HospitalFiltrationProperty {
 
-    WAITING_CODE("Ожидает выдачи кода"),
+    WAITING_CODE("Ожидают выдачи кода"),
 
-    WAITING_REGISTRATION("Ожидает регистрации администратора"),
+    WAITING_REGISTRATION("Ожидают регистрации администратора"),
 
-    REGISTERED("Зарегистрировано");
+    REGISTERED("Зарегистрированные");
 
     private final String alias;
 

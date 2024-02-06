@@ -19,9 +19,9 @@ public enum DoctorFiltrationProperty {
 
     DISMISSAL("Уволенные"),
 
-    HAS_PATIENTS("С пациентами"),
+    HAS_PATIENTS("Закреплённые за пациентами"),
 
-    HAS_NO_PATIENTS("Без пациентов");
+    HAS_NO_PATIENTS("Не закреплённые за пациентами");
 
     private final String alias;
 

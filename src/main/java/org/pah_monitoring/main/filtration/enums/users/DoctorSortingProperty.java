@@ -11,11 +11,11 @@ import java.util.Optional;
 @Getter
 public enum DoctorSortingProperty {
 
-    FULL_NAME("По ФИО"),
+    FULL_NAME("ФИО"),
 
-    PHONE_NUMBER("По номеру телефона"),
+    PHONE_NUMBER("Номер телефона"),
 
-    PATIENTS_COUNT("По количеству пациентов");
+    PATIENTS_COUNT("Количество пациентов");
 
     private final String alias;
 
