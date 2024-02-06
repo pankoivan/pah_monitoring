@@ -24,6 +24,8 @@ userRegistrationForm.addEventListener("submit", function (event) {
 
     let data;
 
+    console.log("Patronymic: " + patronymic);
+
     if (role == "Администратор" || role == "Врач") {
         data = {
             userSecurityInformationAddingDto: {
@@ -35,7 +37,7 @@ userRegistrationForm.addEventListener("submit", function (event) {
                 userInformationAddingDto: {
                     name: name,
                     lastname: lastname,
-                    patronymic: patronymic,
+                    patronymic: patronymic == "" ? null : patronymic,
                     phoneNumber: phoneNumber,
                     gender: gender,
                     birthdate: birthdate,

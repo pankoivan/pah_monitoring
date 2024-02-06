@@ -12,7 +12,6 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.utils.PhoneNumberUtilsException;
 import org.pah_monitoring.main.repositorites.main.hospitals.HospitalRegistrationRequestRepository;
-import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.main.security_codes.interfaces.RegistrationSecurityCodeService;
@@ -35,8 +34,6 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     private UserSecurityInformationService securityInformationService;
 
     private RegistrationSecurityCodeService securityCodeService;
-
-    private CurrentUserCheckService checkService;
 
     @Override
     public boolean existsByEmail(String email) {
@@ -97,12 +94,14 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
+
         if (repository.existsByPassport(addingDto.getPassport())) {
             throw new DataValidationServiceException(
                     "Человек с паспортными данными \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
                             .formatted(addingDto.getPassport())
             );
         }
+
         try {
             if (repository.existsByPhoneNumber(PhoneNumberUtils.toReadable(addingDto.getPhoneNumber()))) {
                 throw new DataValidationServiceException(
@@ -113,16 +112,19 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
         } catch (PhoneNumberUtilsException e) {
             throw new DataValidationServiceException(e.getMessage(), e);
         }
+
         if (repository.existsByEmail(addingDto.getEmail())) {
             throw new DataValidationServiceException(
                     "Почта \"%s\" уже указана в другой заявке".formatted(addingDto.getEmail())
             );
         }
+
         if (securityInformationService.existsByEmail(addingDto.getEmail())) {
             throw new DataValidationServiceException(
                     "Человек с почтой \"%s\" уже зарегистрирован в приложении".formatted(addingDto.getEmail())
             );
         }
+
         if (securityCodeService.existsByEmail(addingDto.getEmail())) {
             throw new DataValidationServiceException(
                     "Человеку с почтой \"%s\" уже выдан код".formatted(addingDto.getEmail())

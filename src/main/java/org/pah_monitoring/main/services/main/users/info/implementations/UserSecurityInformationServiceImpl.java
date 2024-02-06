@@ -2,9 +2,9 @@ package org.pah_monitoring.main.services.main.users.info.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.dto.in.users.info.adding.UserSecurityInformationAddingDto;
-import org.pah_monitoring.main.dto.in.users.info.editing.UserSecurityInformationEditingDto;
-import org.pah_monitoring.main.dto.in.users.info.saving.UserSecurityInformationSavingDto;
+import org.pah_monitoring.main.dto.in.users.info.security.UserSecurityInformationAddingDto;
+import org.pah_monitoring.main.dto.in.users.info.security.UserSecurityInformationEditingDto;
+import org.pah_monitoring.main.dto.in.users.info.security.UserSecurityInformationSavingDto;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.entities.main.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
@@ -95,10 +95,6 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
 
         checkDataValidityForSaving(addingDto, bindingResult);
 
-        if (repository.existsByEmail(addingDto.getEmail())) {
-            throw new DataValidationServiceException("Почта \"%s\" уже занята".formatted(addingDto.getEmail()));
-        }
-
     }
 
     @Override
@@ -115,21 +111,18 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
 
         Optional<UserSecurityInformation> securityInformation = repository.findByEmail(editingDto.getEmail());
         if (securityInformation.isPresent() && !securityInformation.get().getId().equals(editingDto.getId())) {
-            throw new DataValidationServiceException("Почта \"%s\" уже занята".formatted(editingDto.getEmail()));
+            throw new DataValidationServiceException("Пользователь с почтой \"%s\" уже зарегистрирован".formatted(editingDto.getEmail()));
         }
 
         if (codeService.existsByEmail(editingDto.getEmail())) {
-            throw new DataValidationServiceException(
-                    "Нельзя сменить почту на \"%s\", так как для этой почты был сгенерирован код для другого человека"
-                            .formatted(editingDto.getEmail()));
+            throw new DataValidationServiceException("Пользователю с почтой \"%s\" уже выдан код".formatted(editingDto.getEmail()));
         }
 
         try {
             HospitalRegistrationRequest request = requestService.findByEmail(editingDto.getEmail());
             if (request.getHospital().getCurrentState() != Hospital.CurrentState.REGISTERED) {
                 throw new DataValidationServiceException(
-                        "Нельзя сменить почту на \"%s\", так как она указана в заявке на регистрацию медицинского учреждения"
-                                .formatted(editingDto.getEmail())
+                        "Почта \"%s\" указана в заявке на регистрацию медицинского учреждения".formatted(editingDto.getEmail())
                 );
             }
         } catch (DataSearchingServiceException ignored) {}

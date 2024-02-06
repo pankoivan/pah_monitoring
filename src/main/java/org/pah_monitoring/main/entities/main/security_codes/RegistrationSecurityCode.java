@@ -46,6 +46,26 @@ public class RegistrationSecurityCode implements BaseEntity {
         return DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(expirationDate);
     }
 
+    public boolean isExpired() {
+        return LocalDateTime.now().isAfter(expirationDate);
+    }
+
+    public boolean isNotSuitableForRole(Role role) {
+        return this.role != role;
+    }
+
+    public boolean isNotSuitableForEmail(String email) {
+        return !this.email.equals(email);
+    }
+
+    public boolean isForHospitalEmployee() {
+        return role == Role.ADMINISTRATOR || role == Role.DOCTOR;
+    }
+
+    public boolean isForHospitalThatWaitingRegistration() {
+        return hospital.getCurrentState() == Hospital.CurrentState.WAITING_REGISTRATION;
+    }
+
     @Override
     public boolean equals(Object o) {
         return (this == o)

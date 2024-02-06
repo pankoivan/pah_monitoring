@@ -1,17 +1,18 @@
-package org.pah_monitoring.main.dto.in.users.users.adding;
+package org.pah_monitoring.main.dto.in.users.users.administrator;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.pah_monitoring.main.dto.in.users.users.common.HospitalUserAddingInfo;
-import org.pah_monitoring.main.dto.in.users.users.saving.DoctorSavingDto;
-import org.pah_monitoring.main.dto.in.users.info.adding.EmployeeInformationAddingDto;
-import org.pah_monitoring.main.dto.in.users.info.adding.UserSecurityInformationAddingDto;
+import lombok.ToString;
+import org.pah_monitoring.main.dto.in.users.users.common.interfaces.HospitalUserAddingInfo;
+import org.pah_monitoring.main.dto.in.users.info.employee.EmployeeInformationAddingDto;
+import org.pah_monitoring.main.dto.in.users.info.security.UserSecurityInformationAddingDto;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class DoctorAddingDto extends DoctorSavingDto implements HospitalUserAddingInfo {
+@ToString(callSuper = true)
+public class AdministratorAddingDto extends AdministratorSavingDto implements HospitalUserAddingInfo {
 
     @Valid
     @NotNull(message = "Поле \"userSecurityInformationAddingDto\" не должно отсутствовать")

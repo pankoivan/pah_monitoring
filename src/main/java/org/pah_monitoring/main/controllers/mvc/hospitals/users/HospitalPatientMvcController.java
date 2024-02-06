@@ -1,9 +1,9 @@
 package org.pah_monitoring.main.controllers.mvc.hospitals.users;
 
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.dto.in.users.users.adding.PatientAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.editing.PatientEditingDto;
-import org.pah_monitoring.main.dto.in.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
@@ -11,8 +11,6 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
-import org.pah_monitoring.main.filtration.enums.users.AdministratorFiltrationProperty;
-import org.pah_monitoring.main.filtration.enums.users.AdministratorSortingProperty;
 import org.pah_monitoring.main.filtration.enums.users.PatientFiltrationProperty;
 import org.pah_monitoring.main.filtration.enums.users.PatientSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;

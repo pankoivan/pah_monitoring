@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.dto.in.users.messages;
+package org.pah_monitoring.main.dto.in.users.info.user;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class UserMessageEditingDto extends UserMessageSavingDto {
+public class UserInformationEditingDto extends UserInformationSavingDto {
 
     @NotNull(message = "Поле \"id\" не должно отсутствовать")
     private Integer id;

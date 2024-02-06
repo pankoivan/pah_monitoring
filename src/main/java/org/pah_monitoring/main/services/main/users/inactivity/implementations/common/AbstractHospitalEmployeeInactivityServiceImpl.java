@@ -4,12 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.QuantityRestrictionConstants;
 import org.pah_monitoring.main.dto.in.users.inactivity.common.InactivityAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.adding.AdministratorAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.adding.DoctorAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.editing.AdministratorEditingDto;
-import org.pah_monitoring.main.dto.in.users.users.editing.DoctorEditingDto;
-import org.pah_monitoring.main.dto.in.users.users.saving.AdministratorSavingDto;
-import org.pah_monitoring.main.dto.in.users.users.saving.DoctorSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorSavingDto;
 import org.pah_monitoring.main.entities.main.users.inactivity.common.Inactivity;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
@@ -55,7 +55,9 @@ public abstract class AbstractHospitalEmployeeInactivityServiceImpl
         }
 
         if (checkService.isSelf(hospitalEmployee)) {
-            throw new DataValidationServiceException("Нельзя уволить самого себя");
+            throw new DataValidationServiceException(
+                    "Нельзя назначить отпуск или больничный самому себе, а также уволить самого себя"
+            );
         }
 
         if (
@@ -83,7 +85,7 @@ public abstract class AbstractHospitalEmployeeInactivityServiceImpl
         ) {
             throw new DataValidationServiceException("""
                     У этого врача всё ещё есть пациенты, поэтому его нельзя отправлять в отпуск, на больничный или увольнять.\
-                     Для осуществления этих действий переведите всех его пациентов к другому врачу.
+                     Для осуществления этих действий переведите всех его пациентов к другому врачу
                     """);
         }
 

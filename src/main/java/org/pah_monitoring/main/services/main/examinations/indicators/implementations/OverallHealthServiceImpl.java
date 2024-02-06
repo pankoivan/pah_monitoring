@@ -6,9 +6,9 @@ import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.OverallH
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.OverallHealthTablesDto;
 import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.dto.in.examinations.indicators.OverallHealthAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.adding.PatientAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.editing.PatientEditingDto;
-import org.pah_monitoring.main.dto.in.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.OverallHealth;
 import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;

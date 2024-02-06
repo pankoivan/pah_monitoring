@@ -2,9 +2,9 @@ package org.pah_monitoring.main.controllers.mvc.users;
 
 import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
-import org.pah_monitoring.main.dto.in.users.users.adding.AdministratorAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.editing.AdministratorEditingDto;
-import org.pah_monitoring.main.dto.in.users.users.saving.AdministratorSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorSavingDto;
 import org.pah_monitoring.main.entities.main.enums.Gender;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;

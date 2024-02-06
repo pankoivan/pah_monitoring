@@ -7,12 +7,12 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class UserMessageSavingDto {
+public abstract class UserMessageSavingDto {
 
-    @Size(max = 1024, message = "Максимальная длина сообщения - 1024 символа")
     @NotNull(message = "Поле \"text\" не должно отсутствовать")
     @NotEmpty(message = "Сообщение не должно быть пустым")
     @NotBlank(message = "Сообщение не должно состоять только из пробельных символов")
+    @Size(max = 1024, message = "Максимальная длина сообщения - 1024 символа")
     private String text;
 
 }

@@ -70,14 +70,17 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
+
         if (isNew(savingDto) && repository.count() == QuantityRestrictionConstants.MAX_NUMBER_OF_MAIN_ADMIN_CONTACTS) {
             throw new DataValidationServiceException("Максимально допустимое число контактов: %s".formatted(
                     QuantityRestrictionConstants.MAX_NUMBER_OF_MAIN_ADMIN_CONTACTS)
             );
         }
+
         if (existsByContact(savingDto)) {
             throw new DataValidationServiceException("Контакт \"%s\" уже существует".formatted(savingDto.getContact()));
         }
+
         if (existsByDescription(savingDto)) {
             throw new DataValidationServiceException("Контакт с описанием \"%s\" уже существует".formatted(savingDto.getDescription()));
         }

@@ -1,9 +1,8 @@
-package org.pah_monitoring.main.dto.in.users.info.adding;
+package org.pah_monitoring.main.dto.in.users.info.user;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.pah_monitoring.main.dto.in.users.info.saving.UserInformationSavingDto;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

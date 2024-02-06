@@ -4,9 +4,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
-import org.pah_monitoring.main.dto.in.users.users.common.HospitalUserAddingInfo;
-import org.pah_monitoring.main.dto.in.users.users.common.HospitalUserEditingInfo;
-import org.pah_monitoring.main.dto.in.users.users.common.HospitalUserSavingInfo;
+import org.pah_monitoring.main.dto.in.users.users.common.interfaces.HospitalUserAddingInfo;
+import org.pah_monitoring.main.dto.in.users.users.common.interfaces.HospitalUserEditingInfo;
+import org.pah_monitoring.main.dto.in.users.users.common.interfaces.HospitalUserSavingInfo;
 import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurityCode;
@@ -42,18 +42,18 @@ public abstract class AbstractHospitalUserServiceImpl
             throw new DataValidationServiceException(e.getMessage(), e);
         }
 
-        if (codeService.isExpired(code)) {
+        if (code.isExpired()) {
             throw new DataValidationServiceException(
                     "Истёк срок действия кода. Код был действителен до %s"
                             .formatted(DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(code.getExpirationDate()))
             );
         }
 
-        if (codeService.isNotSuitableForRole(code, getRole())) {
+        if (code.isNotSuitableForRole(getRole())) {
             throw new DataValidationServiceException("Код не предназначен для роли \"%s\"".formatted(getRole().getAlias()));
         }
 
-        if (codeService.isNotSuitableForEmail(code, addingDto.getUserSecurityInformationAddingDto().getEmail())) {
+        if (code.isNotSuitableForEmail(addingDto.getUserSecurityInformationAddingDto().getEmail())) {
             throw new DataValidationServiceException(
                     "Код не предназначен для почты \"%s\"".formatted(addingDto.getUserSecurityInformationAddingDto().getEmail())
             );

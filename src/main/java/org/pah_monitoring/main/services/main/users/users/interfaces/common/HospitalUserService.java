@@ -1,8 +1,8 @@
 package org.pah_monitoring.main.services.main.users.users.interfaces.common;
 
-import org.pah_monitoring.main.dto.in.users.users.common.HospitalUserAddingInfo;
-import org.pah_monitoring.main.dto.in.users.users.common.HospitalUserEditingInfo;
-import org.pah_monitoring.main.dto.in.users.users.common.HospitalUserSavingInfo;
+import org.pah_monitoring.main.dto.in.users.users.common.interfaces.HospitalUserAddingInfo;
+import org.pah_monitoring.main.dto.in.users.users.common.interfaces.HospitalUserEditingInfo;
+import org.pah_monitoring.main.dto.in.users.users.common.interfaces.HospitalUserSavingInfo;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalUser;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -29,7 +29,8 @@ public interface HospitalUserService
 
     List<T> findAllByHospitalId(Integer hospitalId) throws DataSearchingServiceException;
 
-    List<T> findAllByHospitalId(Integer hospitalId, Map<String, String> parameters, EntityFilter.PageStat pageStat) throws DataSearchingServiceException;
+    List<T> findAllByHospitalId(Integer hospitalId, Map<String, String> parameters, EntityFilter.PageStat pageStat)
+            throws DataSearchingServiceException;
 
     T findById(Integer id) throws DataSearchingServiceException;
 

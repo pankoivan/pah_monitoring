@@ -1,16 +1,17 @@
-package org.pah_monitoring.main.dto.in.users.users.adding;
+package org.pah_monitoring.main.dto.in.users.users.patient;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.pah_monitoring.main.dto.in.users.users.common.HospitalUserAddingInfo;
-import org.pah_monitoring.main.dto.in.users.users.saving.PatientSavingDto;
-import org.pah_monitoring.main.dto.in.users.info.adding.UserInformationAddingDto;
-import org.pah_monitoring.main.dto.in.users.info.adding.UserSecurityInformationAddingDto;
+import lombok.ToString;
+import org.pah_monitoring.main.dto.in.users.info.security.UserSecurityInformationAddingDto;
+import org.pah_monitoring.main.dto.in.users.info.user.UserInformationAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.common.interfaces.HospitalUserAddingInfo;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class PatientAddingDto extends PatientSavingDto implements HospitalUserAddingInfo {
 
     @Valid

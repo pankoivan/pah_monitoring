@@ -1,11 +1,11 @@
-package org.pah_monitoring.main.dto.in.users.info.adding;
+package org.pah_monitoring.main.dto.in.users.info.employee;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.pah_monitoring.main.dto.in.users.info.saving.EmployeeInformationSavingDto;
+import org.pah_monitoring.main.dto.in.users.info.user.UserInformationAddingDto;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

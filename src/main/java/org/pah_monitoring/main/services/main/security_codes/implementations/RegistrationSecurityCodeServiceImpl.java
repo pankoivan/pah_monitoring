@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.utils.UuidUtils;
-import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -14,7 +13,6 @@ import org.pah_monitoring.main.services.main.security_codes.interfaces.Registrat
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -25,37 +23,8 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
     private final RegistrationSecurityCodeRepository repository;
 
     @Override
-    public boolean isExpired(RegistrationSecurityCode code) {
-        return LocalDateTime.now().isAfter(code.getExpirationDate());
-    }
-
-    @Override
-    public boolean isNotSuitableForRole(RegistrationSecurityCode code, Role role) {
-        return code.getRole() != role;
-    }
-
-    @Override
-    public boolean isNotSuitableForEmail(RegistrationSecurityCode code, String email) {
-        return !code.getEmail().equals(email);
-    }
-
-    @Override
-    public boolean isForHospitalEmployee(RegistrationSecurityCode code) {
-        return code.getRole() == Role.ADMINISTRATOR || code.getRole() == Role.DOCTOR;
-    }
-
-    @Override
-    public RegistrationSecurityCode findByUuid(UUID uuid) throws DataSearchingServiceException {
-        return repository.findByCode(uuid).orElseThrow(
-                () -> new DataSearchingServiceException("Код \"%s\" не существует".formatted(uuid))
-        );
-    }
-
-    @Override
-    public RegistrationSecurityCode findByStringUuid(String stringUuid) throws UuidUtilsException, DataSearchingServiceException {
-        return repository.findByCode(UuidUtils.fromString(stringUuid)).orElseThrow(
-                () -> new DataSearchingServiceException("Код \"%s\" не существует".formatted(stringUuid))
-        );
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
     }
 
     @Override
@@ -74,8 +43,17 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
     }
 
     @Override
-    public boolean existsByEmail(String email) {
-        return repository.existsByEmail(email);
+    public RegistrationSecurityCode findByUuid(UUID uuid) throws DataSearchingServiceException {
+        return repository.findByCode(uuid).orElseThrow(
+                () -> new DataSearchingServiceException("Код \"%s\" не существует".formatted(uuid))
+        );
+    }
+
+    @Override
+    public RegistrationSecurityCode findByStringUuid(String stringUuid) throws UuidUtilsException, DataSearchingServiceException {
+        return repository.findByCode(UuidUtils.fromString(stringUuid)).orElseThrow(
+                () -> new DataSearchingServiceException("Код \"%s\" не существует".formatted(stringUuid))
+        );
     }
 
     @Transactional
@@ -87,7 +65,7 @@ public class RegistrationSecurityCodeServiceImpl implements RegistrationSecurity
         try {
             repository.deleteByEmail(email);
         } catch (Exception e) {
-            throw new DataDeletionServiceException("Сущность с полем \"email\" = \"%s\" не была удалена".formatted(email), e);
+            throw new DataDeletionServiceException("Код, сгенерированный для почты \"%s\", не был удалён".formatted(email), e);
         }
     }
 

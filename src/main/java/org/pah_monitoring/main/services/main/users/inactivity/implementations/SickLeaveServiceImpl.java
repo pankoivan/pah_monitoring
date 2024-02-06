@@ -50,7 +50,7 @@ public class SickLeaveServiceImpl extends AbstractHospitalEmployeeInactivityServ
     public void checkDataValidityForAdding(SickLeaveAddingDto addingDto, BindingResult bindingResult) throws DataValidationServiceException {
         super.checkDataValidityForAdding(addingDto, bindingResult);
         if (LocalDate.now().isAfter(addingDto.getEndDate())) {
-            throw new DataValidationServiceException("Дата окончания отпуска должна быть больше даты начала отпуска");
+            throw new DataValidationServiceException("Дата окончания больничного должна быть больше даты начала больничного");
         }
     }
 

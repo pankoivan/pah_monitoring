@@ -7,7 +7,8 @@ import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceE
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataAddingValidationService;
 
-public interface InactivityService<T extends Inactivity, M extends InactivityAddingDto, N extends HospitalUser> extends DataAddingValidationService<M> {
+public interface InactivityService<T extends Inactivity, M extends InactivityAddingDto, N extends HospitalUser>
+        extends DataAddingValidationService<M> {
 
     T add(M addingDto) throws DataSavingServiceException;
 

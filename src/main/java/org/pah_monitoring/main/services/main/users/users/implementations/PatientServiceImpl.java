@@ -2,12 +2,12 @@ package org.pah_monitoring.main.services.main.users.users.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.dto.in.users.users.adding.DoctorAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.adding.PatientAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.editing.DoctorEditingDto;
-import org.pah_monitoring.main.dto.in.users.users.editing.PatientEditingDto;
-import org.pah_monitoring.main.dto.in.users.users.saving.DoctorSavingDto;
-import org.pah_monitoring.main.dto.in.users.users.saving.PatientSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.patient_additions.Achievement;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
@@ -72,7 +72,7 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
 
     @Override
     public List<Patient> findAllByDoctorId(Integer doctorId) throws DataSearchingServiceException {
-        return doctorService.findById(doctorId).getPatients();
+        return repository.findAllByDoctorId(doctorService.findById(doctorId).getId());
     }
 
     @Override

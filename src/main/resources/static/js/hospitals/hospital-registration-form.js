@@ -69,7 +69,7 @@ hospitalRegistrationForm.addEventListener("submit", function (event) {
         passport: hospitalRegistrationForm.querySelector('input[name="passport"]').value,
         phoneNumber: hospitalRegistrationForm.querySelector('input[name="phoneNumber"]').value,
         email: hospitalRegistrationForm.querySelector('input[name="email"]').value,
-        comment: hospitalRegistrationForm.querySelector('textarea[name="comment"]').value,
+        comment: hospitalRegistrationForm.querySelector('textarea[name="comment"]').value == "" ? null : hospitalRegistrationForm.querySelector('textarea[name="comment"]').value,
         hospitalAddingDto: {
             name: hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value,
         },
