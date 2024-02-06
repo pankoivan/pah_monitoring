@@ -22,11 +22,15 @@ public class RegistrationSecurityCodeEmailServiceImpl implements EmailService<Re
 
     private final JavaMailSender mailSender;
 
-    @Setter(onMethod = @__(@Value("${spring.mail.username}")))
-    private String applicationEmail;
+    @Value("${spring.mail.username}")
+    private final String applicationEmail;
+
+    @Value("${my.email.enabled}")
+    private final boolean enabled;
 
     @Override
-    public void send(String recipient, RegistrationSecurityCode code, boolean enabled) {
+    public void send(String recipient, RegistrationSecurityCode code) {
+        System.out.println(enabled);
         if (enabled) {
             allowedRecipients(recipient); // todo: delete in final version
 

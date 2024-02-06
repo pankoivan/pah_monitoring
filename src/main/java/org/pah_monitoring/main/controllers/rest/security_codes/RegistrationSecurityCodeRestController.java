@@ -55,7 +55,7 @@ public class RegistrationSecurityCodeRestController {
         try {
             codeGeneratorByMainAdmin.checkDataValidityForAdding(addingDto, bindingResult);
             RegistrationSecurityCode code = codeGeneratorByMainAdmin.add(addingDto);
-            emailMessageSender.send(code.getEmail(), code, false);
+            emailMessageSender.send(code.getEmail(), code);
             hospitalService.upgrade(code.getHospital());
             return code;
         } catch (DataValidationServiceException e) {
@@ -72,7 +72,7 @@ public class RegistrationSecurityCodeRestController {
         try {
             codeGeneratorByAdmin.checkDataValidityForAdding(addingDto, bindingResult);
             RegistrationSecurityCode code = codeGeneratorByAdmin.add(addingDto);
-            emailMessageSender.send(code.getEmail(), code, false);
+            emailMessageSender.send(code.getEmail(), code);
             return code;
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
