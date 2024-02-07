@@ -2,9 +2,9 @@ package org.pah_monitoring.main.services.additional.mvc.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserExtractionService;
-import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -33,13 +33,13 @@ public class PageHeaderServiceImpl implements PageHeaderService {
         }
     }
 
-    private void addHeader(Model model, String headerFolder, String headerName) {
-        model.addAttribute("headerPath", headerFolder);
+    private void addHeader(Model model, String headerPath, String headerName) {
+        model.addAttribute("headerPath", headerPath);
         model.addAttribute("headerName", headerName);
     }
 
-    private void addHeaderAndUser(Model model, String headerFolder, String headerName) {
-        addHeader(model, headerFolder, headerName);
+    private void addHeaderAndUser(Model model, String headerPath, String headerName) {
+        addHeader(model, headerPath, headerName);
         model.addAttribute("currentUser", extractionService.user());
     }
 

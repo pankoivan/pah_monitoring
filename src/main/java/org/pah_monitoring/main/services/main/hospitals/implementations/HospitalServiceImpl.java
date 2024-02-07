@@ -23,11 +23,14 @@ import org.springframework.validation.BindingResult;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service
 public class HospitalServiceImpl implements HospitalService {
+
+    private static final ThreadLocal<RegistryHospital> cachedHospital = new ThreadLocal<>();
 
     private final HospitalRepository repository;
 
@@ -57,9 +60,14 @@ public class HospitalServiceImpl implements HospitalService {
 
     @Override
     public Hospital add(HospitalAddingDto addingDto) throws DataSavingServiceException {
+
+        RegistryHospital registryHospital = cachedHospital.get();
+        if (registryHospital == null) {
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto));
+        }
+        cachedHospital.remove();
+
         try {
-            // todo: make cache for all Hospitals in registryService
-            RegistryHospital registryHospital = registryRestClientService.selected(addingDto.getName()).orElseThrow();
             return repository.save(
                     Hospital
                             .builder()
@@ -72,6 +80,7 @@ public class HospitalServiceImpl implements HospitalService {
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
+
     }
 
     @Override
@@ -102,10 +111,13 @@ public class HospitalServiceImpl implements HospitalService {
             throw new DataValidationServiceException("Медицинское учреждение \"%s\" уже существует".formatted(addingDto.getName()));
         }
         try {
-            if (registryRestClientService.selected(addingDto.getName()).isEmpty()) {
+            Optional<RegistryHospital> hospital = registryRestClientService.selected(addingDto.getName());
+            if (hospital.isEmpty()) {
                 throw new DataValidationServiceException("Медицинского учреждения \"%s\" нет в справочнике".formatted(addingDto.getName()));
+            } else {
+                cachedHospital.set(hospital.get());
             }
-        } catch (RestClientServiceException e) {
+        } catch (RestClientServiceException | UnsupportedOperationException e) {
             throw new DataValidationServiceException(e.getMessage(), e);
         }
     }
