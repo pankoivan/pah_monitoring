@@ -64,8 +64,8 @@ public class AdministratorServiceImpl
     }
 
     @Override
-    public List<Administrator> findAllByHospitalId(Integer id) throws DataSearchingServiceException {
-        return repository.findAllByHospitalId(hospitalService.findById(id).getId());
+    public List<Administrator> findAllByHospitalId(Integer hospitalId) throws DataSearchingServiceException {
+        return repository.findAllByHospitalId(hospitalService.findById(hospitalId).getId());
     }
 
     @Override

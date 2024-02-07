@@ -104,8 +104,8 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
     }
 
     @Override
-    public List<Patient> findAllByHospitalId(Integer id) throws DataSearchingServiceException {
-        return repository.findAllByHospitalId(hospitalService.findById(id).getId());
+    public List<Patient> findAllByHospitalId(Integer hospitalId) throws DataSearchingServiceException {
+        return repository.findAllByHospitalId(hospitalService.findById(hospitalId).getId());
     }
 
     @Override
@@ -131,11 +131,11 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
     }
 
     @Override
-    public Patient edit(PatientEditingDto savingDto) throws DataSavingServiceException {
+    public Patient edit(PatientEditingDto editingDto) throws DataSavingServiceException {
         try {
-            return repository.save(findById(savingDto.getId()));
+            return repository.save(findById(editingDto.getId()));
         } catch (Exception e) {
-            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(savingDto), e);
+            throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(editingDto), e);
         }
     }
 

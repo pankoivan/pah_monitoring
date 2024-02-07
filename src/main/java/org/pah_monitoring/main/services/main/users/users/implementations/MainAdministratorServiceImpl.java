@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("mainAdministratorService")
 public class MainAdministratorServiceImpl implements MainAdministratorService {
 
     private final MainAdministratorRepository repository;

@@ -64,8 +64,8 @@ public class DoctorServiceImpl
     }
 
     @Override
-    public List<Doctor> findAllByHospitalId(Integer id) throws DataSearchingServiceException {
-        return repository.findAllByHospitalId(hospitalService.findById(id).getId());
+    public List<Doctor> findAllByHospitalId(Integer hospitalId) throws DataSearchingServiceException {
+        return repository.findAllByHospitalId(hospitalService.findById(hospitalId).getId());
     }
 
     @Override
