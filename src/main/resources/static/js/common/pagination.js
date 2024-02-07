@@ -1,13 +1,12 @@
-let currentPage;
+const requestedPage = new URLSearchParams(window.location.search).get("page");
 
-document.addEventListener("DOMContentLoaded", () => {
-    const page = new URLSearchParams(window.location.search).get("page");
-    if (page == null || page == "") {
-        currentPage = 1;
-    } else {
-        currentPage = Number(page);
-    }
-});
+const lastPage = Number(document.querySelector("li[data-count]").dataset.count);
+
+const currentPage = requestedPage == null || requestedPage == "" ? 1 : Number(requestedPage);
+
+if (lastPage < requestedPage) {
+    toPage(1);
+}
 
 document.getElementById("first-page").addEventListener("click", () => {
     toPage(1);
@@ -22,7 +21,7 @@ document.getElementById("next-page").addEventListener("click", () => {
 });
 
 document.getElementById("last-page").addEventListener("click", () => {
-    toPage(Number(document.querySelector("li[data-count]").dataset.count));
+    toPage(lastPage);
 });
 
 function toPage(page) {

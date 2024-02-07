@@ -31,8 +31,10 @@ public abstract class AbstractEntityFilter<T> implements EntityFilter<T> {
 
     public List<T> paged(Stream<T> entities, String page, PageStat pageStat) {
         List<T> result = entities.toList();
-        pageStat.setCurrentPage(currentPage(page));
-        pageStat.setPagesCount(pagesCount(result));
+        int currentPage = currentPage(page);
+        int pagesCount = pagesCount(result);
+        pageStat.setCurrentPage(currentPage);
+        pageStat.setPagesCount(currentPage <= pagesCount ? pagesCount : 1);
         return result
                 .stream()
                 .skip((long) (currentPage(page) - 1) * QuantityRestrictionConstants.MAX_NUMBER_OF_ELEMENTS_PER_PAGE)
