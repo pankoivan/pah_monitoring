@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.services.additional.indicators.implementations;
+package org.pah_monitoring.main.services.main.examinations.cards.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -11,8 +11,8 @@ import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard
 import org.pah_monitoring.main.entities.main.examinations.indicators.*;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
-import org.pah_monitoring.main.services.additional.indicators.interfaces.IndicatorCardService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
+import org.pah_monitoring.main.services.main.examinations.cards.interfaces.IndicatorCardService;
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.AnalysisFileService;
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.InputIndicatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,6 @@ import java.util.stream.Stream;
 @Setter(onMethod = @__(@Autowired))
 @Service
 public class IndicatorCardServiceImpl implements IndicatorCardService {
-
-    private AnalysisFileService<AnalysisFile, AnalysisFileAddingDto> analysisFileService;
 
     @Qualifier("ascitesService")
     private InputIndicatorService<Ascites, AscitesAddingDto, AscitesTablesDto, AscitesGraphicsDto> ascitesService;
@@ -68,6 +66,8 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
 
     @Qualifier("walkTestService")
     private InputIndicatorService<WalkTest, WalkTestAddingDto, WalkTestTablesDto, WalkTestGraphicsDto> walkTestService;
+
+    private AnalysisFileService<AnalysisFile, AnalysisFileAddingDto> analysisFileService;
 
     private CurrentUserCheckService checkService;
 

@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.services.additional.indicators.interfaces;
+package org.pah_monitoring.main.services.main.examinations.cards.interfaces;
 
 import org.pah_monitoring.main.entities.additional.indicators.FileIndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;

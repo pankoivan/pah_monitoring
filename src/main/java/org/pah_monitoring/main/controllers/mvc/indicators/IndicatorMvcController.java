@@ -11,7 +11,7 @@ import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceE
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
-import org.pah_monitoring.main.services.additional.indicators.interfaces.IndicatorCardService;
+import org.pah_monitoring.main.services.main.examinations.cards.interfaces.IndicatorCardService;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;

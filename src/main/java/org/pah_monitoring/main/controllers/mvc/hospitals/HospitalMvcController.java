@@ -11,7 +11,7 @@ import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceExcept
 import org.pah_monitoring.main.filtration.enums.hospitals.HospitalFiltrationProperty;
 import org.pah_monitoring.main.filtration.enums.hospitals.HospitalSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
-import org.pah_monitoring.main.services.additional.hospitals.interfaces.HospitalUsersStatisticsService;
+import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalUserStatisticsService;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
@@ -32,7 +32,7 @@ public class HospitalMvcController {
 
     private final HospitalService service;
 
-    private final HospitalUsersStatisticsService statisticsService;
+    private final HospitalUserStatisticsService statisticsService;
 
     private final CurrentUserCheckService checkService;
 
