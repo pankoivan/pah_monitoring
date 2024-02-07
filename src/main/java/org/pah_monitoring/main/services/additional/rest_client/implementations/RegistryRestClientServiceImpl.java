@@ -34,30 +34,30 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     private final String token;
 
     @Override
-    public Optional<RegistryHospital> selected(String selected) throws RestClientServiceException {
-        return search(selected)
-                .stream()
-                .findFirst();
-    }
-
     public List<RegistryHospital> search(String search) throws RestClientServiceException {
         return search(search, 15);
     }
 
     @Override
     public List<RegistryHospital> search(String search, int limit) throws RestClientServiceException {
-
         return getRegistryHospitalList()
                 .stream()
                 .filter(rh -> matches(search, rh))
                 .map(this::toResponseRegistryHospital)
                 .limit(limit)
                 .toList();
+    }
 
+    @Override
+    public Optional<RegistryHospital> selected(String selected) throws RestClientServiceException {
+        return getRegistryHospitalList()
+                .stream()
+                .filter(rh -> equals(selected, rh))
+                .map(this::toResponseRegistryHospital)
+                .findFirst();
     }
 
     private RegistryHospital toResponseRegistryHospital(List<Pair> registryHospital) {
-
         RegistryHospital responseRegistryHospital = new RegistryHospital();
         for (Pair pair : registryHospital) {
             if (pair.isNameFull()) {
@@ -68,52 +68,51 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
             }
         }
         return responseRegistryHospital;
-
     }
 
     private boolean matches(String search, List<Pair> registryHospital) {
-
         for (Pair pair : registryHospital) {
             if (pair.isNameFull() && pair.value.toLowerCase().contains(search.toLowerCase())) {
                 return true;
             }
         }
         return false;
+    }
 
+    private boolean equals(String search, List<Pair> registryHospital) {
+        for (Pair pair : registryHospital) {
+            if (pair.isNameFull() && pair.value.equals(search)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private List<List<Pair>> getRegistryHospitalList() throws RestClientServiceException {
-
         List<List<Pair>> list = new ArrayList<>();
-
         int total = getBaseResponse(1, 1).total;
         for (int i = 1; list.size() < total; ++i) {
             list.addAll(getBaseResponse(200, i).list);
         }
-
         return list;
     }
 
     private BaseResponse getBaseResponse(Integer onPage, Integer page) throws RestClientServiceException {
-
         try {
-
-            RequestEntity<Void> request = RequestEntity
-                    .get(UrlUtils.buildUrlWithGetParameters(
-                            baseUrl,
-                            "identifier", identifier,
-                            "userKey", token,
-                            "size", onPage,
-                            "page", page
-                    ))
-                    .build();
-
-            return restTemplate.exchange(request, BaseResponse.class).getBody();
-
+            return restTemplate.exchange(
+                    RequestEntity.get(UrlUtils.buildUrlWithGetParameters(
+                                    baseUrl,
+                                    "identifier", identifier,
+                                    "userKey", token,
+                                    "size", onPage,
+                                    "page", page
+                            )
+                    ).build(),
+                    BaseResponse.class
+            ).getBody();
         } catch (UrlUtilsException | RestClientException e) {
             throw new RestClientServiceException("Произошла ошибка при REST-взаимодействии с API реестра", e);
         }
-
     }
 
     @NoArgsConstructor @AllArgsConstructor @Data
@@ -126,9 +125,11 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     private static class Pair {
         String column;
         String value;
+
         public boolean isNameFull() {
             return column.equals("nameFull");
         }
+
         public boolean isOid() {
             return column.equals("oid");
         }
