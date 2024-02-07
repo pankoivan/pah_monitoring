@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.services.additional.other;
+package org.pah_monitoring.main.services.additional.users.implementations;
 
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.repositorites.main.users.users.AdministratorRepository;
@@ -28,14 +28,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return Stream.of(
-                mainAdministratorRepository.findByUserSecurityInformationEmail(email).orElse(null),
-                administratorRepository.findByUserSecurityInformationEmail(email).orElse(null),
-                doctorRepository.findByUserSecurityInformationEmail(email).orElse(null),
-                patientRepository.findByUserSecurityInformationEmail(email).orElse(null)
-        )
+                        mainAdministratorRepository.findByUserSecurityInformationEmail(email).orElse(null),
+                        administratorRepository.findByUserSecurityInformationEmail(email).orElse(null),
+                        doctorRepository.findByUserSecurityInformationEmail(email).orElse(null),
+                        patientRepository.findByUserSecurityInformationEmail(email).orElse(null)
+                )
                 .filter(Objects::nonNull)
                 .findFirst()
-                .orElseThrow(() -> new UsernameNotFoundException("User with email \"%s\" doesn't exists".formatted(email)));
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователь с почтой \"%s\" не существует".formatted(email)));
     }
 
 }
