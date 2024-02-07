@@ -1,6 +1,6 @@
-const requestId = Number(window.location.pathname.split("/").pop());
+const referrer = document.referrer == "" ? "/hospitals" : document.referrer;
 
-/* Для генерации кода */
+const requestId = Number(window.location.pathname.split("/").pop());
 
 const codeGenerationForm = document.getElementById("code-generation-form");
 
@@ -87,10 +87,7 @@ function fillSuccessModalTextForCodeGeneration(responseJson) {
     successModalText.appendChild(document.createTextNode("."));
 }
 
-/* Для удаления заявки */
-
-document.getElementById("decline-request").addEventListener("click", function (event) {
-    event.preventDefault();
+document.getElementById("decline-request").addEventListener("click", () => {
     fetchDelete();
 });
 
@@ -109,7 +106,7 @@ function fetchDelete() {
             }
         })
         .catch((error) => {
-            console.error("Произошла ошибка, для которой не предусмотрено никаких действий", error);
+            console.error("Ошибка запроса", error);
         });
 }
 
@@ -132,25 +129,18 @@ function fillSuccessModalTextForRequestRejecting() {
 
     let toHospitals = document.createElement("a");
     toHospitals.className = "href-success";
-    toHospitals.innerText = "списку медицинских учреждений";
-    toHospitals.href = "/hospitals";
+    toHospitals.innerText = " списку ";
+    toHospitals.href = referrer;
 
-    successModalText.appendChild(document.createTextNode("Заявка на регистрацию этого медицинского учреждения была успешно отклонена."));
+    successModalText.appendChild(document.createTextNode("Заявка на регистрацию медицинского учреждения была успешно отклонена."));
     successModalText.appendChild(document.createElement("br"));
     successModalText.appendChild(document.createElement("br"));
-    successModalText.appendChild(document.createTextNode("Вернуться к "));
+    successModalText.appendChild(document.createTextNode("Вернуться к"));
     successModalText.appendChild(toHospitals);
+    successModalText.appendChild(document.createTextNode("медицинских учреждений"));
     successModalText.appendChild(document.createTextNode("."));
 }
 
-/* Для закрытия окон */
-
-document.getElementById("success-modal-close-1").addEventListener("click", function (event) {
-    event.preventDefault();
-    window.location.href = "/hospitals";
-});
-
-document.getElementById("success-modal-close-2").addEventListener("click", function (event) {
-    event.preventDefault();
-    window.location.href = "/hospitals";
+document.getElementById("success-modal").addEventListener("hidden.bs.modal", () => {
+    window.location.href = referrer;
 });
