@@ -108,12 +108,6 @@ public class ExaminationScheduleServiceImpl implements ExaminationScheduleServic
 
         checkDataValidityForSaving(editingDto, bindingResult);
 
-        try {
-            findById(editingDto.getId());
-        } catch (DataSearchingServiceException e) {
-            throw new DataValidationServiceException(e.getMessage(), e);
-        }
-
     }
 
     @Override
