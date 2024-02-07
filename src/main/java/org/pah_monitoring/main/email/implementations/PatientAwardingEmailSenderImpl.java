@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Component("codeEmailSender")
+@Component("achievementEmailSender")
 public class PatientAwardingEmailSenderImpl implements EmailSender<Achievement> {
 
     private final JavaMailSender mailSender;

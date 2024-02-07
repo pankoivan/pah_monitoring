@@ -23,37 +23,37 @@ public class CurrentUserExtractionServiceImpl implements CurrentUserExtractionSe
 
     @Override
     public User user() throws NullPointerException, ClassCastException {
-        return (User) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return (User) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
     }
 
     @Override
     public HospitalUser hospitalUser() throws NullPointerException, ClassCastException {
-        return (HospitalUser) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return (HospitalUser) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
     }
 
     @Override
     public HospitalEmployee hospitalEmployee() throws NullPointerException, ClassCastException {
-        return (HospitalEmployee) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return (HospitalEmployee) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
     }
 
     @Override
     public MainAdministrator mainAdministrator() throws NullPointerException, ClassCastException {
-        return (MainAdministrator) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return (MainAdministrator) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
     }
 
     @Override
     public Administrator administrator() throws NullPointerException, ClassCastException {
-        return (Administrator) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return (Administrator) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
     }
 
     @Override
     public Doctor doctor() throws NullPointerException, ClassCastException {
-        return (Doctor) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return (Doctor) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
     }
 
     @Override
     public Patient patient() throws NullPointerException, ClassCastException {
-        return (Patient) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return (Patient) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
     }
 
 }

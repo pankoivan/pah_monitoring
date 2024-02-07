@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Component("codeEmailSender")
+@Component("doctorAssigningEmailSender")
 public class PatientDoctorAssigningMailSenderImpl implements EmailSender<Doctor> {
 
     @Override
