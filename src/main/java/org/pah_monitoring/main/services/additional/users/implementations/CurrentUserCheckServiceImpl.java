@@ -27,6 +27,11 @@ public class CurrentUserCheckServiceImpl implements CurrentUserCheckService {
     }
 
     @Override
+    public boolean isNotAnonymous() {
+        return !isAnonymous();
+    }
+
+    @Override
     public boolean isMainAdministrator() {
         try {
             userExtractionService.mainAdministrator();

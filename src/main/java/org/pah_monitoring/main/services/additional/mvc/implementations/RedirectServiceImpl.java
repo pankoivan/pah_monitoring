@@ -19,7 +19,7 @@ public class RedirectServiceImpl implements RedirectService {
 
     @Override
     public boolean checkMainRedirect() {
-        return !checkService.isAnonymous();
+        return checkService.isNotAnonymous();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class RedirectServiceImpl implements RedirectService {
 
     @Override
     public boolean checkNotAnonymousUserRedirect() {
-        return !checkService.isAnonymous();
+        return !checkService.isNotAnonymous();
     }
 
     @Override

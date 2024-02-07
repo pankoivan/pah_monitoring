@@ -8,6 +8,8 @@ public interface CurrentUserCheckService {
 
     boolean isAnonymous();
 
+    boolean isNotAnonymous();
+
     boolean isMainAdministrator();
 
     boolean isAdministrator();
