@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 public class PatientFilter extends AbstractEntityFilter<Patient> {
 
     @Override
-    protected Stream<Patient> searched(List<Patient> patients, String searching) {
+    public Stream<Patient> searched(List<Patient> patients, String searching) {
         return searching == null || searching.isEmpty()
                 ? patients.stream()
                 : patients.stream().filter(
@@ -24,7 +24,7 @@ public class PatientFilter extends AbstractEntityFilter<Patient> {
     }
 
     @Override
-    protected Stream<Patient> filtered(Stream<Patient> patients, String filtration) {
+    public Stream<Patient> filtered(Stream<Patient> patients, String filtration) {
         Optional<PatientFiltrationProperty> filtrationProperty = PatientFiltrationProperty.optionalValueOf(filtration);
         return filtrationProperty.map(patientFiltrationProperty -> switch (patientFiltrationProperty) {
             case ACTIVE -> patients.filter(Patient::isActive);
@@ -35,7 +35,7 @@ public class PatientFilter extends AbstractEntityFilter<Patient> {
     }
 
     @Override
-    protected Stream<Patient> sorted(Stream<Patient> patients, String sorting) {
+    public Stream<Patient> sorted(Stream<Patient> patients, String sorting) {
         Optional<PatientSortingProperty> sortingProperty = PatientSortingProperty.optionalValueOf(sorting);
         return sortingProperty.map(patientSortingProperty -> switch (patientSortingProperty) {
             case FULL_NAME -> patients.sorted(Comparator.comparing(patient -> patient.getUserInformation().getFullName()));
