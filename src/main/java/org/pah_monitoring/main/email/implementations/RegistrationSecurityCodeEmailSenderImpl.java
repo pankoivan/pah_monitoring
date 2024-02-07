@@ -1,12 +1,12 @@
-package org.pah_monitoring.main.services.additional.email.implementations;
+package org.pah_monitoring.main.email.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.auxiliary.text.ApplicationNameText;
 import org.pah_monitoring.auxiliary.text.EmailMessageText;
+import org.pah_monitoring.main.email.interfaces.EmailSender;
 import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurityCode;
-import org.pah_monitoring.main.services.additional.email.interfaces.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Component("codeEmailSender")
-public class RegistrationSecurityCodeEmailServiceImpl implements EmailService<RegistrationSecurityCode> {
+public class RegistrationSecurityCodeEmailSenderImpl implements EmailSender<RegistrationSecurityCode> {
 
     private final JavaMailSender mailSender;
 

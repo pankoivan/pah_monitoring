@@ -12,7 +12,7 @@ import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValida
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.services.additional.email.interfaces.EmailService;
+import org.pah_monitoring.main.email.interfaces.EmailSender;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.main.security_codes.interfaces.RegistrationSecurityCodeGenerationService;
 import org.pah_monitoring.main.services.main.security_codes.interfaces.RegistrationSecurityCodeService;
@@ -38,7 +38,7 @@ public class RegistrationSecurityCodeRestController {
     private final RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByAdminAddingDto> codeGeneratorByAdmin;
 
     @Qualifier("codeEmailSender")
-    private final EmailService<RegistrationSecurityCode> emailMessageSender;
+    private final EmailSender<RegistrationSecurityCode> emailMessageSender;
 
     private final HospitalService hospitalService;
 
