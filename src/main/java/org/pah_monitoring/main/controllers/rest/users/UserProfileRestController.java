@@ -1,10 +1,10 @@
 package org.pah_monitoring.main.controllers.rest.users;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.users.info.employee.EmployeeInformationEditingDto;
-import org.pah_monitoring.main.dto.in.users.info.user.UserInformationEditingDto;
 import org.pah_monitoring.main.dto.in.users.info.security.UserSecurityInformationEditingDto;
+import org.pah_monitoring.main.dto.in.users.info.user.UserInformationEditingDto;
 import org.pah_monitoring.main.dto.out.users.info.EmployeeInformationOutDto;
 import org.pah_monitoring.main.dto.out.users.info.UserInformationOutDto;
 import org.pah_monitoring.main.dto.out.users.info.UserSecurityInformationOutDto;
@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RestController
 @RequestMapping("/rest/user-profile")
 @PreAuthorize("isAuthenticated()")

@@ -1,15 +1,15 @@
 package org.pah_monitoring.main.controllers.rest.users;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorEditingDto;
-import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorEditingDto;
-import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RestController
 @RequestMapping("/rest/registration")
 @PreAuthorize("permitAll()")

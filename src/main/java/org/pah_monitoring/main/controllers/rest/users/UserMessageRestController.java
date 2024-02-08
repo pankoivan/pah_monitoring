@@ -1,13 +1,14 @@
 package org.pah_monitoring.main.controllers.rest.users;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.users.messages.UserMessageAddingDto;
 import org.pah_monitoring.main.dto.in.users.messages.UserMessageEditingDto;
 import org.pah_monitoring.main.entities.main.users.messages.UserMessage;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.forbidden.NotEnoughRightsRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataDeletionRestControllerException;
+import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
@@ -20,7 +21,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RestController
 @RequestMapping("/rest/messages")
 @PreAuthorize("isAuthenticated()")
@@ -41,7 +42,7 @@ public class UserMessageRestController {
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
-            throw new DataDeletionRestControllerException(e.getMessage(), e);
+            throw new DataSavingRestControllerException(e.getMessage(), e);
         }
     }
 
@@ -57,7 +58,7 @@ public class UserMessageRestController {
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
-            throw new DataDeletionRestControllerException(e.getMessage(), e);
+            throw new DataSavingRestControllerException(e.getMessage(), e);
         }
     }
 

@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.controllers.rest.users;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.users.inactivity.DismissalAddingDto;
 import org.pah_monitoring.main.dto.in.users.inactivity.PatientInactivityAddingDto;
 import org.pah_monitoring.main.dto.in.users.inactivity.SickLeaveAddingDto;
@@ -36,10 +36,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RestController
 @RequestMapping("/rest/inactivity/add")
-@PreAuthorize("isAuthenticated()")
+@PreAuthorize("hasRole('ADMINISTRATOR', 'DOCTOR')")
 public class UserInactivityRestController {
 
     @Qualifier("vacationService")
