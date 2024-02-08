@@ -111,7 +111,7 @@ public class HospitalServiceImpl implements HospitalService {
             throw new DataValidationServiceException("Медицинское учреждение \"%s\" уже существует".formatted(addingDto.getName()));
         }
         try {
-            Optional<RegistryHospital> hospital = registryRestClientService.selected(addingDto.getName());
+            Optional<RegistryHospital> hospital = registryRestClientService.select(addingDto.getName());
             if (hospital.isEmpty()) {
                 throw new DataValidationServiceException("Медицинского учреждения \"%s\" нет в справочнике".formatted(addingDto.getName()));
             } else {

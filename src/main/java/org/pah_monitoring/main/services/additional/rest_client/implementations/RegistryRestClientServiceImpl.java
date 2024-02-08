@@ -2,6 +2,7 @@ package org.pah_monitoring.main.services.additional.rest_client.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.auxiliary.constants.QuantityRestrictionConstants;
 import org.pah_monitoring.auxiliary.utils.UrlUtils;
 import org.pah_monitoring.main.entities.additional.rest.client.Pair;
 import org.pah_monitoring.main.entities.additional.rest.client.RegistryBaseResponse;
@@ -39,24 +40,16 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
 
     @Override
     public List<RegistryHospital> search(String search) throws RestClientServiceException {
-        return search(search, 15);
-    }
-
-    @Override
-    public List<RegistryHospital> search(String search, int limit) throws RestClientServiceException {
-        return getRegistryHospitalSet(search, "LIKE")
+        return getRegistryHospitalSet(search)
                 .stream()
+                .limit(QuantityRestrictionConstants.MAX_NUMBER_OF_REGISTRY_HOSPITALS)
                 .map(this::toRegistryHospital)
-                .limit(limit)
                 .toList();
     }
 
     @Override
-    public Optional<RegistryHospital> selected(String selected) throws RestClientServiceException {
-        return getRegistryHospitalSet(selected, "EXACT")
-                .stream()
-                .map(this::toRegistryHospital)
-                .findFirst();
+    public Optional<RegistryHospital> select(String select) throws RestClientServiceException {
+        return getRegistryHospital(select).map(this::toRegistryHospital);
     }
 
     private RegistryHospital toRegistryHospital(List<Pair> registryHospital) {
@@ -72,19 +65,30 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
         return responseRegistryHospital;
     }
 
-    private Set<List<Pair>> getRegistryHospitalSet(String searched, String mode) throws RestClientServiceException {
+    private Set<List<Pair>> getRegistryHospitalSet(String searched) throws RestClientServiceException {
         Set<List<Pair>> set = new HashSet<>();
-        set.addAll(getRegistryBaseResponse(4, 1, searched.toLowerCase(), mode).getRegistryHospitalSet());
-        set.addAll(getRegistryBaseResponse(4, 1, searched.toUpperCase(), mode).getRegistryHospitalSet());
+        set.addAll(getRegistryBaseResponse(searched, "LIKE").getRegistryHospitalSet());
+        set.addAll(getRegistryBaseResponse(searched.toLowerCase(), "LIKE").getRegistryHospitalSet());
+        set.addAll(getRegistryBaseResponse(searched.toUpperCase(), "LIKE").getRegistryHospitalSet());
         if (searched.length() > 1) {
-            set.addAll(getRegistryBaseResponse(3, 1,
-                    searched.substring(0, 1).toUpperCase() + searched.substring(1).toLowerCase(), mode).getRegistryHospitalSet()
+            set.addAll(getRegistryBaseResponse(
+                    searched.substring(0, 1).toUpperCase() + searched.substring(1).toLowerCase(), "LIKE")
+                    .getRegistryHospitalSet()
             );
         }
         return set;
     }
 
-    private RegistryBaseResponse getRegistryBaseResponse(Integer onPage, Integer page, String searched, String mode)
+    private Optional<List<Pair>> getRegistryHospital(String select) throws RestClientServiceException {
+        Set<List<Pair>> found = getRegistryBaseResponse(select, "EXACT").getRegistryHospitalSet();
+        if (found == null) {
+            return Optional.empty();
+        } else {
+            return found.stream().findFirst();
+        }
+    }
+
+    private RegistryBaseResponse getRegistryBaseResponse(String searched, String mode)
             throws RestClientServiceException {
         try {
             return restTemplate.exchange(
@@ -92,8 +96,8 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
                                     baseUrl,
                                     "identifier", identifier,
                                     "userKey", token,
-                                    "size", onPage,
-                                    "page", page,
+                                    "size", QuantityRestrictionConstants.MAX_NUMBER_OF_REGISTRY_HOSPITALS,
+                                    "page", 1,
                                     "filters", "nameFull|%s|%s".formatted(searched, mode),
                                     "columns", "nameFull",
                                     "columns", "oid"

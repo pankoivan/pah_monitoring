@@ -13,4 +13,6 @@ public final class QuantityRestrictionConstants {
 
     public static final int MAX_NUMBER_OF_ELEMENTS_PER_PAGE = 5;
 
+    public static final int MAX_NUMBER_OF_REGISTRY_HOSPITALS = 10;
+
 }

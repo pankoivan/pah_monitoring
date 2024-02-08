@@ -10,8 +10,6 @@ public interface RegistryRestClientService {
 
     List<RegistryHospital> search(String search) throws RestClientServiceException;
 
-    List<RegistryHospital> search(String search, int limit) throws RestClientServiceException;
-
-    Optional<RegistryHospital> selected(String selected) throws RestClientServiceException;
+    Optional<RegistryHospital> select(String select) throws RestClientServiceException;
 
 }
