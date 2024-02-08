@@ -3,7 +3,7 @@ package org.pah_monitoring.main.services.main.hospitals.implementations;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.dto.in.hospitals.HospitalAddingDto;
-import org.pah_monitoring.main.entities.additional.rest_client.RegistryHospital;
+import org.pah_monitoring.main.entities.additional.rest.client.RegistryHospital;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;

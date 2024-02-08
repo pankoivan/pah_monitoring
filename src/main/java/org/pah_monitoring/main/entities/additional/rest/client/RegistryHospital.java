@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities.additional.rest_client;
+package org.pah_monitoring.main.entities.additional.rest.client;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

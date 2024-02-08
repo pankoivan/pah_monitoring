@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.pah_monitoring.main.entities.additional.rest_client.RegistryHospital;
+import org.pah_monitoring.main.entities.additional.rest.client.RegistryHospital;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.RestClientRestControllerException;
 import org.pah_monitoring.main.exceptions.service.rest_client.RestClientServiceException;
 import org.pah_monitoring.main.services.additional.rest_client.interfaces.RegistryRestClientService;

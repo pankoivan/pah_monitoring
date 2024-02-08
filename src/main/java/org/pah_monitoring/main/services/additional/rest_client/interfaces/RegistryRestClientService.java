@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.services.additional.rest_client.interfaces;
 
-import org.pah_monitoring.main.entities.additional.rest_client.RegistryHospital;
+import org.pah_monitoring.main.entities.additional.rest.client.RegistryHospital;
 import org.pah_monitoring.main.exceptions.service.rest_client.RestClientServiceException;
 
 import java.util.List;
