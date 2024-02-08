@@ -3,6 +3,8 @@ const hospitalRegistrationForm = document.getElementById("hospital-registration-
 let timerId;
 
 hospitalRegistrationForm.querySelector('input[name="hospitalName"]').addEventListener("input", function () {
+    hospitalRegistrationForm.querySelector('input[name="hospitalOid"]').value = "";
+
     clearTimeout(timerId);
 
     timerId = setTimeout(function () {
@@ -50,7 +52,8 @@ function appendListBoxItem(registryHospital, hospitals) {
     hospital.innerText = registryHospital.name;
     hospital.addEventListener("click", function (event) {
         event.preventDefault();
-        hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value = this.textContent;
+        hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value = registryHospital.name;
+        hospitalRegistrationForm.querySelector('input[name="hospitalOid"]').value = registryHospital.oid;
         clearListbox(hospitals);
     });
     hospitals.appendChild(hospital);
@@ -70,6 +73,7 @@ hospitalRegistrationForm.addEventListener("submit", function (event) {
         comment: hospitalRegistrationForm.querySelector('textarea[name="comment"]').value == "" ? null : hospitalRegistrationForm.querySelector('textarea[name="comment"]').value,
         hospitalAddingDto: {
             name: hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value,
+            oid: hospitalRegistrationForm.querySelector('input[name="hospitalOid"]').value,
         },
     };
 

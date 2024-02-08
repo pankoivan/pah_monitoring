@@ -22,8 +22,9 @@ public class RegistryClientRestController {
     private final RegistryRestClientService service;
 
     @PostMapping("/search")
-    public List<RegistryHospital> search(@RequestBody String search) {
+    public List<RegistryHospital> search(@RequestBody(required = false) String search) {
         try {
+            System.out.println("Controller: " + search);
             return service.search(search);
         } catch (RestClientServiceException e) {
             throw new RestClientRestControllerException(e.getMessage(), e);

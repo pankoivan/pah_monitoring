@@ -66,13 +66,14 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     }
 
     private Set<List<Pair>> getRegistryHospitalSet(String searched) throws RestClientServiceException {
+        searched = searched == null ? "" : searched;
         Set<List<Pair>> set = new HashSet<>();
-        set.addAll(getRegistryBaseResponse(searched, "LIKE").getRegistryHospitalSet());
-        set.addAll(getRegistryBaseResponse(searched.toLowerCase(), "LIKE").getRegistryHospitalSet());
-        set.addAll(getRegistryBaseResponse(searched.toUpperCase(), "LIKE").getRegistryHospitalSet());
+        set.addAll(getRegistryBaseResponse("nameFull", searched, "LIKE").getRegistryHospitalSet());
+        set.addAll(getRegistryBaseResponse("nameFull", searched.toLowerCase(), "LIKE").getRegistryHospitalSet());
+        set.addAll(getRegistryBaseResponse("nameFull", searched.toUpperCase(), "LIKE").getRegistryHospitalSet());
         if (searched.length() > 1) {
             set.addAll(getRegistryBaseResponse(
-                    searched.substring(0, 1).toUpperCase() + searched.substring(1).toLowerCase(), "LIKE")
+                    "nameFull", searched.substring(0, 1).toUpperCase() + searched.substring(1).toLowerCase(), "LIKE")
                     .getRegistryHospitalSet()
             );
         }
@@ -80,7 +81,8 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     }
 
     private Optional<List<Pair>> getRegistryHospital(String select) throws RestClientServiceException {
-        Set<List<Pair>> found = getRegistryBaseResponse(select, "EXACT").getRegistryHospitalSet();
+        select = select == null ? "" : select;
+        Set<List<Pair>> found = getRegistryBaseResponse("oid", select, "EXACT").getRegistryHospitalSet();
         if (found == null) {
             return Optional.empty();
         } else {
@@ -88,17 +90,16 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
         }
     }
 
-    private RegistryBaseResponse getRegistryBaseResponse(String searched, String mode)
-            throws RestClientServiceException {
+    private RegistryBaseResponse getRegistryBaseResponse(String field, String search, String mode) throws RestClientServiceException {
         try {
             return restTemplate.exchange(
                     RequestEntity.get(UrlUtils.buildUrlWithGetParameters(
                                     baseUrl,
                                     "identifier", identifier,
                                     "userKey", token,
-                                    "size", QuantityRestrictionConstants.MAX_NUMBER_OF_REGISTRY_HOSPITALS,
                                     "page", 1,
-                                    "filters", "nameFull|%s|%s".formatted(searched, mode),
+                                    "size", QuantityRestrictionConstants.MAX_NUMBER_OF_REGISTRY_HOSPITALS,
+                                    "filters", "%s|%s|%s".formatted(field, search, mode),
                                     "columns", "nameFull",
                                     "columns", "oid"
                             )
