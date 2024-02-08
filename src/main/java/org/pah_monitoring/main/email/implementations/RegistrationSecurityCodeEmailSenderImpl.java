@@ -30,7 +30,6 @@ public class RegistrationSecurityCodeEmailSenderImpl implements EmailSender<Regi
 
     @Override
     public void send(String recipient, RegistrationSecurityCode code) {
-        System.out.println(enabled);
         if (enabled) {
             allowedRecipients(recipient); // todo: delete in final version
 

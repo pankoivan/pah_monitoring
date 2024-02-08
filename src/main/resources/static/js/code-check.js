@@ -3,9 +3,7 @@ const codeInputForm = document.getElementById("code-input-form");
 codeInputForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    let data = {
-        code: codeInputForm.querySelector('input[name="code"]').value,
-    };
+    let data = codeInputForm.querySelector('input[name="code"]').value;
 
     fetchCheck(data);
 });
@@ -14,15 +12,15 @@ function fetchCheck(data) {
     fetch("http://localhost:8080/rest/security-codes/check", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/text",
         },
-        body: JSON.stringify(data),
+        body: data,
     })
         .then((response) => {
             if (response.ok) {
                 response.json().then((responseJson) => {
-                    if (responseJson.true) {
-                        redirectRegistrationPage(data.code);
+                    if (responseJson.exists) {
+                        redirectRegistrationPage(data);
                     } else {
                         showErrorMessage();
                     }

@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.controllers.rest.main_admin_contacts;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.main_admin_contacts.MainAdminContactSavingDto;
 import org.pah_monitoring.main.entities.main.main_admin_contacts.MainAdminContact;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
@@ -18,10 +18,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RestController
 @RequestMapping("/rest/contacts")
-@PreAuthorize("MAIN_ADMINISTRATOR()")
+@PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
 public class MainAdminContactRestController {
 
     private final MainAdminContactService service;
