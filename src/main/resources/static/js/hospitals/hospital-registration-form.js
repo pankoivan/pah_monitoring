@@ -6,9 +6,7 @@ hospitalRegistrationForm.querySelector('input[name="hospitalName"]').addEventLis
     clearTimeout(timerId);
 
     timerId = setTimeout(function () {
-        let data = {
-            search: hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value,
-        };
+        let data = hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value;
         fetchSearch(data);
     }, 800);
 });
@@ -17,9 +15,9 @@ function fetchSearch(data) {
     fetch("http://localhost:8080/rest/client/registry/search", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/text",
         },
-        body: JSON.stringify(data),
+        body: data,
     })
         .then((response) => {
             if (response.ok) {

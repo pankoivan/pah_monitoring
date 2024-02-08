@@ -1,8 +1,5 @@
 package org.pah_monitoring.main.controllers.rest.rest_client;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.pah_monitoring.main.entities.additional.rest.client.RegistryHospital;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.RestClientRestControllerException;
@@ -23,17 +20,12 @@ public class RegistryClientRestController {
     private final RegistryRestClientService service;
 
     @PostMapping("/search")
-    public List<RegistryHospital> search(@RequestBody SearchRequest searchRequest) {
+    public List<RegistryHospital> search(@RequestBody String search) {
         try {
-            return service.search(searchRequest.search);
+            return service.search(search);
         } catch (RestClientServiceException e) {
             throw new RestClientRestControllerException(e.getMessage(), e);
         }
-    }
-
-    @NoArgsConstructor @AllArgsConstructor @Data
-    public static class SearchRequest {
-        String search;
     }
 
 }
