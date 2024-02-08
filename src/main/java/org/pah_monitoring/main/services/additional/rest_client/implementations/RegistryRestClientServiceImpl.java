@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.services.additional.rest_client.implementations;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.pah_monitoring.auxiliary.utils.UrlUtils;
 import org.pah_monitoring.main.entities.additional.rest_client.RegistryHospital;
@@ -13,9 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
@@ -40,9 +42,8 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
 
     @Override
     public List<RegistryHospital> search(String search, int limit) throws RestClientServiceException {
-        return getRegistryHospitalList()
+        return getRegistryHospitalSet(search, "LIKE")
                 .stream()
-                .filter(rh -> matches(search, rh))
                 .map(this::toResponseRegistryHospital)
                 .limit(limit)
                 .toList();
@@ -50,14 +51,13 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
 
     @Override
     public Optional<RegistryHospital> selected(String selected) throws RestClientServiceException {
-        return getRegistryHospitalList()
+        return getRegistryHospitalSet(selected, "EXACT")
                 .stream()
-                .filter(rh -> equals(selected, rh))
                 .map(this::toResponseRegistryHospital)
                 .findFirst();
     }
 
-    private RegistryHospital toResponseRegistryHospital(List<Pair> registryHospital) {
+    private RegistryHospital toResponseRegistryHospital(Set<Pair> registryHospital) {
         RegistryHospital responseRegistryHospital = new RegistryHospital();
         for (Pair pair : registryHospital) {
             if (pair.isNameFull()) {
@@ -70,34 +70,37 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
         return responseRegistryHospital;
     }
 
-    private boolean matches(String search, List<Pair> registryHospital) {
-        for (Pair pair : registryHospital) {
-            if (pair.isNameFull() && pair.value.toLowerCase().contains(search.toLowerCase())) {
-                return true;
-            }
+    /*private Set<Set<Pair>> getRegistryHospitalSetForAllSearchCombinations(String searched, String mode) throws RestClientServiceException {
+        Set<Set<Pair>> set = new HashSet<>();
+        set.addAll(getRegistryHospitalSet(searched.toLowerCase(), mode));
+        set.addAll(getRegistryHospitalSet(searched.toUpperCase(), mode));
+        set.addAll(getRegistryHospitalSet(
+                searched.substring(0, 1).toUpperCase() + searched.substring(1).toLowerCase(), mode
+        ));
+        System.out.println(set);
+        System.out.println("--------------------------------------------------SIZE: " + set.size());
+        return set;
+    }*/
+
+    private Set<Set<Pair>> getRegistryHospitalSet(String searched, String mode) throws RestClientServiceException {
+        Set<Set<Pair>> set = new HashSet<>();
+        /*int total = getBaseResponse(1, 1, searched, mode).total;
+        for (int i = 1; set.size() < total; ++i) {
+            set.addAll(getBaseResponse(200, i, searched, mode).set);
+        }*/
+        set.addAll(getBaseResponse(4, 1, searched.toLowerCase(), mode).set);
+        set.addAll(getBaseResponse(4, 1, searched.toUpperCase(), mode).set);
+        if (searched.length() > 1) {
+            set.addAll(getBaseResponse(3, 1,
+                    searched.substring(0, 1).toUpperCase() + searched.substring(1).toLowerCase(), mode).set
+            );
         }
-        return false;
+        System.out.println(set);
+        System.out.println("--------------------------------------------------SIZE: " + set.size());
+        return set;
     }
 
-    private boolean equals(String search, List<Pair> registryHospital) {
-        for (Pair pair : registryHospital) {
-            if (pair.isNameFull() && pair.value.equals(search)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private List<List<Pair>> getRegistryHospitalList() throws RestClientServiceException {
-        List<List<Pair>> list = new ArrayList<>();
-        int total = getBaseResponse(1, 1).total;
-        for (int i = 1; list.size() < total; ++i) {
-            list.addAll(getBaseResponse(200, i).list);
-        }
-        return list;
-    }
-
-    private BaseResponse getBaseResponse(Integer onPage, Integer page) throws RestClientServiceException {
+    private BaseResponse getBaseResponse(Integer onPage, Integer page, String searched, String mode) throws RestClientServiceException {
         try {
             return restTemplate.exchange(
                     RequestEntity.get(UrlUtils.buildUrlWithGetParameters(
@@ -105,7 +108,10 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
                                     "identifier", identifier,
                                     "userKey", token,
                                     "size", onPage,
-                                    "page", page
+                                    "page", page,
+                                    "filters", "nameFull|%s|%s".formatted(searched, mode),
+                                    "columns", "nameFull",
+                                    "columns", "oid"
                             )
                     ).build(),
                     BaseResponse.class
@@ -118,18 +124,17 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     @NoArgsConstructor @AllArgsConstructor @Data
     private static class BaseResponse {
         private Integer total;
-        private List<List<Pair>> list;
+        @JsonProperty("list")
+        private Set<Set<Pair>> set;
     }
 
     @NoArgsConstructor @AllArgsConstructor @Data
     private static class Pair {
         String column;
         String value;
-
         public boolean isNameFull() {
             return column.equals("nameFull");
         }
-
         public boolean isOid() {
             return column.equals("oid");
         }
