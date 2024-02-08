@@ -5,7 +5,7 @@ import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurity
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
 import org.springframework.stereotype.Component;
 
-@Component("registrationSecurityCodeMapper")
+@Component("codeMapper")
 public class RegistrationSecurityCodeToOutDtoMapper implements BaseEntityToOutDtoMapper<RegistrationSecurityCode, RegistrationSecurityCodeOutDto> {
 
     @Override

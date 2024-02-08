@@ -4,12 +4,14 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.security_codes.RegistrationSecurityCodeByAdminAddingDto;
 import org.pah_monitoring.main.dto.in.security_codes.RegistrationSecurityCodeByMainAdminAddingDto;
+import org.pah_monitoring.main.dto.out.security_codes.RegistrationSecurityCodeOutDto;
 import org.pah_monitoring.main.email.interfaces.EmailSender;
 import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
+import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.main.security_codes.interfaces.RegistrationSecurityCodeGenerationService;
 import org.pah_monitoring.main.services.main.security_codes.interfaces.RegistrationSecurityCodeService;
@@ -40,6 +42,9 @@ public class RegistrationSecurityCodeRestController {
     @Qualifier("codeEmailSender")
     private final EmailSender<RegistrationSecurityCode> codeEmailSender;
 
+    @Qualifier("codeMapper")
+    private final BaseEntityToOutDtoMapper<RegistrationSecurityCode, RegistrationSecurityCodeOutDto> codeMapper;
+
     private final HospitalService hospitalService;
 
     @PostMapping("/check")
@@ -50,14 +55,14 @@ public class RegistrationSecurityCodeRestController {
 
     @PostMapping("/generate/by-main-admin")
     @PreAuthorize("hasRole('MAIN_ADMINISTRATOR')")
-    public RegistrationSecurityCode generateByMainAdmin(@RequestBody @Valid RegistrationSecurityCodeByMainAdminAddingDto addingDto,
-                                                        BindingResult bindingResult) {
+    public RegistrationSecurityCodeOutDto generateByMainAdmin(@RequestBody @Valid RegistrationSecurityCodeByMainAdminAddingDto addingDto,
+                                                              BindingResult bindingResult) {
         try {
             codeGeneratorByMainAdmin.checkDataValidityForAdding(addingDto, bindingResult);
             RegistrationSecurityCode code = codeGeneratorByMainAdmin.add(addingDto);
             codeEmailSender.send(code.getEmail(), code);
             hospitalService.upgrade(code.getHospital());
-            return code;
+            return codeMapper.map(code);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -67,13 +72,13 @@ public class RegistrationSecurityCodeRestController {
 
     @PostMapping("/generate/by-admin")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
-    public RegistrationSecurityCode generateByAdmin(@RequestBody @Valid RegistrationSecurityCodeByAdminAddingDto addingDto,
-                                                    BindingResult bindingResult) {
+    public RegistrationSecurityCodeOutDto generateByAdmin(@RequestBody @Valid RegistrationSecurityCodeByAdminAddingDto addingDto,
+                                                          BindingResult bindingResult) {
         try {
             codeGeneratorByAdmin.checkDataValidityForAdding(addingDto, bindingResult);
             RegistrationSecurityCode code = codeGeneratorByAdmin.add(addingDto);
             codeEmailSender.send(code.getEmail(), code);
-            return code;
+            return codeMapper.map(code);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
