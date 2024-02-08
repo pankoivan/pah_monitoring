@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.List;
+import java.util.EnumSet;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
@@ -21,8 +21,8 @@ public enum Role implements GrantedAuthority {
 
     private final String alias;
 
-    public static List<Role> hospitalRoles() {
-        return List.of(ADMINISTRATOR, DOCTOR, PATIENT);
+    public static EnumSet<Role> hospitalRoles() {
+        return EnumSet.of(ADMINISTRATOR, DOCTOR, PATIENT);
     }
 
     @Override
