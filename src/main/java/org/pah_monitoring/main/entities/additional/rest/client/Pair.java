@@ -1,13 +1,16 @@
 package org.pah_monitoring.main.entities.additional.rest.client;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class Pair {
 
-    String column;
+    @JsonProperty("column")
+    private String column;
 
-    String value;
+    @JsonProperty("value")
+    private String value;
 
     public boolean isNameFull() {
         return column.equals("nameFull");

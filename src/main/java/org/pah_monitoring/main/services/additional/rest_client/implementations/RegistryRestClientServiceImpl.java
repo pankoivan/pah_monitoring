@@ -3,8 +3,8 @@ package org.pah_monitoring.main.services.additional.rest_client.implementations;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.utils.UrlUtils;
-import org.pah_monitoring.main.entities.additional.rest.client.BaseResponse;
 import org.pah_monitoring.main.entities.additional.rest.client.Pair;
+import org.pah_monitoring.main.entities.additional.rest.client.RegistryBaseResponse;
 import org.pah_monitoring.main.entities.additional.rest.client.RegistryHospital;
 import org.pah_monitoring.main.exceptions.service.rest_client.RestClientServiceException;
 import org.pah_monitoring.main.exceptions.utils.UrlUtilsException;
@@ -46,7 +46,7 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     public List<RegistryHospital> search(String search, int limit) throws RestClientServiceException {
         return getRegistryHospitalSet(search, "LIKE")
                 .stream()
-                .map(this::toResponseRegistryHospital)
+                .map(this::toRegistryHospital)
                 .limit(limit)
                 .toList();
     }
@@ -55,11 +55,11 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
     public Optional<RegistryHospital> selected(String selected) throws RestClientServiceException {
         return getRegistryHospitalSet(selected, "EXACT")
                 .stream()
-                .map(this::toResponseRegistryHospital)
+                .map(this::toRegistryHospital)
                 .findFirst();
     }
 
-    private RegistryHospital toResponseRegistryHospital(Set<Pair> registryHospital) {
+    private RegistryHospital toRegistryHospital(List<Pair> registryHospital) {
         RegistryHospital responseRegistryHospital = new RegistryHospital();
         for (Pair pair : registryHospital) {
             if (pair.isNameFull()) {
@@ -72,19 +72,20 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
         return responseRegistryHospital;
     }
 
-    private Set<Set<Pair>> getRegistryHospitalSet(String searched, String mode) throws RestClientServiceException {
-        Set<Set<Pair>> set = new HashSet<>();
-        set.addAll(getBaseResponse(4, 1, searched.toLowerCase(), mode).getSet());
-        set.addAll(getBaseResponse(4, 1, searched.toUpperCase(), mode).getSet());
+    private Set<List<Pair>> getRegistryHospitalSet(String searched, String mode) throws RestClientServiceException {
+        Set<List<Pair>> set = new HashSet<>();
+        set.addAll(getRegistryBaseResponse(4, 1, searched.toLowerCase(), mode).getRegistryHospitalSet());
+        set.addAll(getRegistryBaseResponse(4, 1, searched.toUpperCase(), mode).getRegistryHospitalSet());
         if (searched.length() > 1) {
-            set.addAll(getBaseResponse(3, 1,
-                    searched.substring(0, 1).toUpperCase() + searched.substring(1).toLowerCase(), mode).getSet()
+            set.addAll(getRegistryBaseResponse(3, 1,
+                    searched.substring(0, 1).toUpperCase() + searched.substring(1).toLowerCase(), mode).getRegistryHospitalSet()
             );
         }
         return set;
     }
 
-    private BaseResponse getBaseResponse(Integer onPage, Integer page, String searched, String mode) throws RestClientServiceException {
+    private RegistryBaseResponse getRegistryBaseResponse(Integer onPage, Integer page, String searched, String mode)
+            throws RestClientServiceException {
         try {
             return restTemplate.exchange(
                     RequestEntity.get(UrlUtils.buildUrlWithGetParameters(
@@ -98,7 +99,7 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
                                     "columns", "oid"
                             )
                     ).build(),
-                    BaseResponse.class
+                    RegistryBaseResponse.class
             ).getBody();
         } catch (UrlUtilsException | RestClientException e) {
             throw new RestClientServiceException("Произошла ошибка при REST-взаимодействии с API реестра", e);
