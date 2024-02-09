@@ -8,9 +8,9 @@ import org.pah_monitoring.main.entities.main.enums.ExpirationDate;
 public class RegistrationSecurityCodeByMainAdminAddingDto {
 
     @NotNull(message = "Поле \"hospitalRegistrationRequestId\" не должно отсутствовать")
-    Integer hospitalRegistrationRequestId;
+    private Integer hospitalRegistrationRequestId;
 
     @NotNull(message = "Поле \"expirationDate\" не должно отсутствовать")
-    ExpirationDate expirationDate;
+    private ExpirationDate expirationDate;
 
 }

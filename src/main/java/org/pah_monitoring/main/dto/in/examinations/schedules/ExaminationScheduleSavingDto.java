@@ -7,12 +7,12 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class ExaminationScheduleSavingDto {
+public abstract class ExaminationScheduleSavingDto {
 
-    @Size(min = 5, max = 24, message = "Минимальная длина расписания - 5 символов, максимальная - 24 символа")
     @NotNull(message = "Поле \"schedule\" не должно отсутствовать")
     @NotEmpty(message = "Расписание не должно быть пустым")
     @NotBlank(message = "Расписание не должно состоять только из пробельных символов")
+    @Size(min = 5, max = 24, message = "Минимальная длина расписания - 5 символов, максимальная - 24 символа")
     private String schedule;
 
 }
