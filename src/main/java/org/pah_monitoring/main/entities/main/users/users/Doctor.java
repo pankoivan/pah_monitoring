@@ -1,14 +1,13 @@
 package org.pah_monitoring.main.entities.main.users.users;
 
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
+import org.pah_monitoring.main.entities.main.users.inactivity.PatientInactivity;
 import org.pah_monitoring.main.entities.main.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
-import org.pah_monitoring.main.entities.main.users.inactivity.PatientInactivity;
 import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,12 +21,6 @@ import java.util.List;
 @Setter
 @ToString(of = "id")
 @Builder
-@JsonIncludeProperties({
-        "id",
-        "userSecurityInformation",
-        "employeeInformation",
-        "userInformation"
-})
 @Entity
 @Table(name = "doctor")
 public class Doctor extends HospitalEmployee implements UserDetails {

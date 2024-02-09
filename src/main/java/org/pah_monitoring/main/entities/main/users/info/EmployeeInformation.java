@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.entities.main.users.info;
 
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.main.common.interfaces.BaseEntity;
@@ -14,9 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(of = {"id", "post"})
+@ToString(of = "id")
 @Builder
-@JsonIncludeProperties({"id", "post", "userInformation"})
 @Entity
 @Table(name = "hospital_employee_information")
 public class EmployeeInformation implements BaseEntity {

@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.entities.main.examinations.schedules;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.main.common.interfaces.BaseEntity;
@@ -11,9 +10,8 @@ import org.pah_monitoring.main.entities.main.users.users.Patient;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = "patient")
+@ToString(of = "id")
 @Builder
-@JsonIgnoreProperties("patient")
 @Entity
 @Table(name = "examination_schedule")
 public class ExaminationSchedule implements BaseEntity {

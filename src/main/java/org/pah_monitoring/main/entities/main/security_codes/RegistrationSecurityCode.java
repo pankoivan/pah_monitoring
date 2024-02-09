@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = "hospital")
+@ToString(of = "id")
 @Builder
 @Entity
 @Table(name = "registration_security_code")

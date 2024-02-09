@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.entities.main.users.users;
 
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.main.enums.Role;
@@ -19,7 +18,6 @@ import java.util.List;
 @Setter
 @ToString(of = "id")
 @Builder
-@JsonIncludeProperties({"id", "userSecurityInformation", "userInformation"})
 @Entity
 @Table(name = "main_administrator")
 public class MainAdministrator extends User implements UserDetails {

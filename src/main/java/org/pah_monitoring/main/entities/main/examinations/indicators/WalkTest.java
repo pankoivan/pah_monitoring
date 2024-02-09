@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.entities.main.examinations.indicators;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
@@ -13,21 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {
-        "pulseOximetryBefore",
-        "pulseOximetryAfter",
-        "pressureBefore",
-        "pressureAfter",
-        "patient",
-})
+@ToString(of = "id")
 @Builder
-@JsonIgnoreProperties({
-        "pulseOximetryBefore",
-        "pulseOximetryAfter",
-        "pressureBefore",
-        "pressureAfter",
-        "patient",
-})
 @Entity
 @Table(name = "walk_test")
 public class WalkTest implements InputIndicator {

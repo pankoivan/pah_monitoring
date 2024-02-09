@@ -1,7 +1,6 @@
 package org.pah_monitoring.main.entities.main.users.info;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
@@ -16,9 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"sentMessages", "receivedMessages"})
+@ToString(of = "id")
 @Builder
-@JsonIgnoreProperties({"sentMessages", "receivedMessages"})
 @Entity
 @Table(name = "user_information")
 public class UserInformation implements BaseEntity {

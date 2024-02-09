@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.entities.main.examinations.indicators;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.main.enums.EventDuration;
@@ -14,9 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = "patient")
+@ToString(of = "id")
 @Builder
-@JsonIgnoreProperties("patient")
 @Entity
 @Table(name = "fainting")
 public class Fainting implements InputIndicator {

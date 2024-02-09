@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = "hospital")
+@ToString(of = "id")
 @Builder
 @Entity
 @Table(name = "hospital_registration_request")

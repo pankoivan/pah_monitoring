@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"patient", "author"})
+@ToString(of = "id")
 @Builder
 @Entity
 @Table(name = "patient_inactivity")

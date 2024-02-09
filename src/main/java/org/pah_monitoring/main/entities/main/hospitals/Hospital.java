@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.entities.main.hospitals;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
@@ -16,19 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {
-        "administrators",
-        "doctors",
-        "patients",
-        "request"
-})
+@ToString(of = "id")
 @Builder
-@JsonIgnoreProperties({
-        "administrators",
-        "doctors",
-        "patients",
-        "request"
-})
 @Entity
 @Table(name = "hospital")
 public class Hospital implements BaseEntity {

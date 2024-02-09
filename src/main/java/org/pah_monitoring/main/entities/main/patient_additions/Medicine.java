@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.entities.main.patient_additions;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.main.common.interfaces.BaseEntity;
@@ -10,9 +9,8 @@ import org.pah_monitoring.main.entities.main.users.users.Patient;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = "patient")
+@ToString(of = "id")
 @Builder
-@JsonIgnoreProperties("patient")
 @Entity
 @Table(name = "medicine")
 public class Medicine implements BaseEntity {

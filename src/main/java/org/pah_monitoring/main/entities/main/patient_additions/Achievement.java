@@ -8,7 +8,7 @@ import org.pah_monitoring.main.entities.main.common.interfaces.BaseEntity;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(of = "id")
 @Builder
 @Entity
 @Table(name = "achievement")
