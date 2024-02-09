@@ -83,11 +83,9 @@
                                 </div>
                                 <div class="mb-3 m-1">
                                     <p class="form-label">Пол</p>
-                                    <div class="form-check" th:each="each, status : ${genders}" id="gender">
-                                        <div>
-                                            <label class="form-check-label" th:for="'gender-radio-' + ${status.index}"></label>
-                                            <input th:id="'gender-radio-' + ${status.index}" type="radio" class="form-check-input" th:text="${each.alias}" th:value="${each}" name="gender" />
-                                        </div>
+                                    <div class="form-check" th:each="each : ${genders}">
+                                        <label class="form-check-label" th:for="${each}"></label>
+                                        <input th:id="${each}" type="radio" class="form-check-input" th:text="${each.alias}" th:value="${each}" name="gender" />
                                     </div>
                                 </div>
                                 <div class="mb-3 m-1">
