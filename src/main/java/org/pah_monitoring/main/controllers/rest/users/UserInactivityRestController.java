@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/rest/inactivity/add")
-@PreAuthorize("hasRole('ADMINISTRATOR', 'DOCTOR')")
+@PreAuthorize("hasAnyRole('ADMINISTRATOR', 'DOCTOR')")
 public class UserInactivityRestController {
 
     @Qualifier("vacationService")
