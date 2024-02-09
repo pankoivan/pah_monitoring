@@ -1,6 +1,6 @@
 const codeInputForm = document.getElementById("code-input-form");
 
-codeInputForm.addEventListener("submit", function (event) {
+codeInputForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     let data = codeInputForm.querySelector('input[name="code"]').value;
@@ -26,11 +26,11 @@ function fetchCheck(data) {
                     }
                 });
             } else {
-                console.error("На сервере произошла ошибка, для которой здесь не предусмотрено никаких действий");
+                console.error("Ошибка сервера");
             }
         })
         .catch((error) => {
-            console.error("Произошла ошибка, для которой не предусмотрено никаких действий", error);
+            console.error("Ошибка запроса", error);
         });
 }
 
@@ -39,5 +39,14 @@ function redirectRegistrationPage(code) {
 }
 
 function showErrorMessage() {
-    document.getElementById("code-input-error").style.display = "";
+    document.getElementById("code-input-error").classList.remove("visually-hidden");
 }
+
+function hideErrorMessage() {
+    document.getElementById("code-input-error").classList.add("visually-hidden");
+}
+
+document.getElementById("code-input-modal").addEventListener("hidden.bs.modal", () => {
+    codeInputForm.reset();
+    hideErrorMessage();
+});
