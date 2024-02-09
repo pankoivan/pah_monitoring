@@ -4,10 +4,10 @@ const role = userRegistrationForm.querySelector('input[name="role"]').value;
 
 const submitUrlPart = role == "Администратор" ? "admin" : role == "Врач" ? "doctor" : "patient";
 
-userRegistrationForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+const code = new URLSearchParams(window.location.search).get("code");
 
-    code = new URLSearchParams(window.location.search).get("code");
+userRegistrationForm.addEventListener("submit", (event) => {
+    event.preventDefault();
 
     let email = userRegistrationForm.querySelector('input[name="email"]').value;
     let password = userRegistrationForm.querySelector('input[name="password"]').value;
@@ -23,8 +23,6 @@ userRegistrationForm.addEventListener("submit", function (event) {
     }
 
     let data;
-
-    console.log("Patronymic: " + patronymic);
 
     if (role == "Администратор" || role == "Врач") {
         data = {
@@ -54,7 +52,7 @@ userRegistrationForm.addEventListener("submit", function (event) {
             userInformationAddingDto: {
                 name: name,
                 lastname: lastname,
-                patronymic: patronymic,
+                patronymic: patronymic == "" ? null : patronymic,
                 phoneNumber: phoneNumber,
                 gender: gender,
                 birthdate: birthdate,
@@ -63,10 +61,10 @@ userRegistrationForm.addEventListener("submit", function (event) {
         };
     }
 
-    fetchSave(data);
+    fetchAdd(data);
 });
 
-function fetchSave(data) {
+function fetchAdd(data) {
     fetch("http://localhost:8080/rest/registration/" + submitUrlPart, {
         method: "POST",
         headers: {
@@ -77,24 +75,24 @@ function fetchSave(data) {
         .then((response) => {
             if (response.ok) {
                 userRegistrationForm.reset();
-                showModalSuccess(response);
+                showSuccessModal(response);
             } else {
-                showModalError(response);
+                showErrorModal(response);
             }
         })
         .catch((error) => {
-            console.error("Произошла ошибка, для которой не предусмотрено никаких действий", error);
+            console.error("Ошибка запроса", error);
         });
 }
 
-function showModalSuccess(response) {
+function showSuccessModal(response) {
     response.json().then((responseJson) => {
         fillSuccessModalText(responseJson);
         new bootstrap.Modal(document.getElementById("success-modal")).show();
     });
 }
 
-function showModalError(response) {
+function showErrorModal(response) {
     response.json().then((responseJson) => {
         document.getElementById("error-modal-text").innerText = responseJson.errorDescription;
         new bootstrap.Modal(document.getElementById("error-modal")).show();
@@ -108,35 +106,23 @@ function fillSuccessModalText(responseJson) {
 
     let fullname = document.createElement("span");
     fullname.className = "fw-bold";
-    fullname.innerText =
-        responseJson.userInformation.patronymic != ""
-            ? ` ${responseJson.userInformation.lastname} ${responseJson.userInformation.name} ${responseJson.userInformation.patronymic}`
-            : ` ${responseJson.userInformation.lastname} ${responseJson.userInformation.name}`;
+    fullname.innerText = `${responseJson.fullName}`;
 
-    let link = document.createElement("a");
-    link.className = "href-success";
-    link.textContent = "войти";
-    link.href = "/login";
+    let login = document.createElement("a");
+    login.className = "href-success";
+    login.textContent = "войти";
+    login.href = "/login";
 
-    let login = document.createElement("span");
-    login.appendChild(document.createTextNode("Теперь вы можете "));
-    login.appendChild(link);
-    login.appendChild(document.createTextNode(" в свой аккаунт."));
-
-    successModalText.appendChild(document.createTextNode("Вы успешно зарегистрировались в приложении,"));
+    successModalText.appendChild(document.createTextNode("Вы успешно зарегистрировались в приложении, "));
     successModalText.appendChild(fullname);
     successModalText.appendChild(document.createTextNode("."));
     successModalText.appendChild(document.createElement("br"));
     successModalText.appendChild(document.createElement("br"));
+    successModalText.appendChild(document.createTextNode("Теперь вы можете "));
     successModalText.appendChild(login);
+    successModalText.appendChild(document.createTextNode(" в свой аккаунт."));
 }
 
-document.getElementById("success-modal-close-1").addEventListener("click", function (event) {
-    event.preventDefault();
-    window.location.href = "/login";
-});
-
-document.getElementById("success-modal-close-2").addEventListener("click", function (event) {
-    event.preventDefault();
+document.getElementById("success-modal").addEventListener("hidden.bs.modal", () => {
     window.location.href = "/login";
 });

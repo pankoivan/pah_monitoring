@@ -11,6 +11,7 @@ import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorSavingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
+import org.pah_monitoring.main.dto.out.users.users.common.UserOutDto;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
@@ -21,6 +22,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceExcept
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
+import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.main.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
@@ -47,18 +49,27 @@ public class UserRegistrationRestController {
     @Qualifier("patientService")
     private final HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
+    @Qualifier("administratorMapper")
+    private final BaseEntityToOutDtoMapper<Administrator, UserOutDto> administratorMapper;
+
+    @Qualifier("doctorMapper")
+    private final BaseEntityToOutDtoMapper<Doctor, UserOutDto> doctorMapper;
+
+    @Qualifier("patientMapper")
+    private final BaseEntityToOutDtoMapper<Patient, UserOutDto> patientMapper;
+
     private final RegistrationSecurityCodeService codeService;
 
     private final HospitalService hospitalService;
 
     @PostMapping("/admin")
-    public Administrator addAdmin(@RequestBody @Valid AdministratorAddingDto addingDto, BindingResult bindingResult) {
+    public UserOutDto addAdmin(@RequestBody @Valid AdministratorAddingDto addingDto, BindingResult bindingResult) {
         try {
             administratorService.checkDataValidityForAdding(addingDto, bindingResult);
             Administrator administrator = administratorService.add(addingDto);
             codeService.deleteByEmail(administrator.getUserSecurityInformation().getEmail());
             hospitalService.upgrade(administrator.getHospital());
-            return administrator;
+            return administratorMapper.map(administrator);
         } catch (DataValidationServiceException | DataSearchingServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -69,12 +80,12 @@ public class UserRegistrationRestController {
     }
 
     @PostMapping("/doctor")
-    public Doctor addDoctor(@RequestBody @Valid DoctorAddingDto addingDto, BindingResult bindingResult) {
+    public UserOutDto addDoctor(@RequestBody @Valid DoctorAddingDto addingDto, BindingResult bindingResult) {
         try {
             doctorService.checkDataValidityForAdding(addingDto, bindingResult);
             Doctor doctor = doctorService.add(addingDto);
             codeService.deleteByEmail(doctor.getUserSecurityInformation().getEmail());
-            return doctor;
+            return doctorMapper.map(doctor);
         } catch (DataValidationServiceException | DataSearchingServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -85,12 +96,12 @@ public class UserRegistrationRestController {
     }
 
     @PostMapping("/patient")
-    public Patient addPatient(@RequestBody @Valid PatientAddingDto addingDto, BindingResult bindingResult) {
+    public UserOutDto addPatient(@RequestBody @Valid PatientAddingDto addingDto, BindingResult bindingResult) {
         try {
             patientService.checkDataValidityForAdding(addingDto, bindingResult);
             Patient patient = patientService.add(addingDto);
             codeService.deleteByEmail(patient.getUserSecurityInformation().getEmail());
-            return patient;
+            return patientMapper.map(patient);
         } catch (DataValidationServiceException | DataSearchingServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
