@@ -122,18 +122,21 @@ function fillSuccessModalText(responseJson) {
 
     let hospitalName = document.createElement("span");
     hospitalName.className = "fw-bold";
-    hospitalName.innerText = ` ${responseJson.hospital.name} `;
+    hospitalName.innerText = `${responseJson.hospital.name}`;
 
     let email = document.createElement("span");
     email.className = "fw-bold";
-    email.innerText = ` ${responseJson.email}`;
+    email.innerText = `${responseJson.email}`;
 
-    successModalText.appendChild(document.createTextNode("Заявка на регистрацию медицинского учреждения"));
+    successModalText.appendChild(document.createTextNode("Заявка на регистрацию медицинского учреждения "));
     successModalText.appendChild(hospitalName);
-    successModalText.appendChild(document.createTextNode("успешно отправлена."));
+    successModalText.appendChild(document.createTextNode(" успешно отправлена."));
     successModalText.appendChild(document.createElement("br"));
     successModalText.appendChild(document.createElement("br"));
     successModalText.appendChild(document.createTextNode("Если ваша личность будет подтверждена, главный администратор приложения сгенерирует код, который придёт на почту"));
+    successModalText.appendChild(
+        document.createTextNode("Если ваша заявка не является спамом и вы действительно являетесь официальным представителем указанного медицинского учреждения, тогда главный администратор приложения сгенерирует код, который придёт на почту ")
+    );
     successModalText.appendChild(email);
     successModalText.appendChild(document.createTextNode("."));
     successModalText.appendChild(document.createElement("br"));
