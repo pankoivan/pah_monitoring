@@ -4,7 +4,7 @@ import org.pah_monitoring.main.dto.in.users.messages.UserMessageAddingDto;
 import org.pah_monitoring.main.dto.in.users.messages.UserMessageEditingDto;
 import org.pah_monitoring.main.dto.in.users.messages.UserMessageSavingDto;
 import org.pah_monitoring.main.entities.main.users.messages.UserMessage;
-import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
+import org.pah_monitoring.main.entities.main.users.users.common.User;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;

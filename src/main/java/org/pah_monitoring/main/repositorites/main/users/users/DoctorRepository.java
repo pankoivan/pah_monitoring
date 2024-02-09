@@ -1,8 +1,8 @@
 package org.pah_monitoring.main.repositorites.main.users.users;
 
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
-import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalEmployee;
-import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
+import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
+import org.pah_monitoring.main.entities.main.users.users.common.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;

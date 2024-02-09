@@ -2,7 +2,7 @@ package org.pah_monitoring.main.services.additional.users.interfaces;
 
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
-import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
+import org.pah_monitoring.main.entities.main.users.users.common.User;
 
 public interface CurrentUserCheckService {
 

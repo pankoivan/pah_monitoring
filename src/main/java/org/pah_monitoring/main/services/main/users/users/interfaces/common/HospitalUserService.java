@@ -4,7 +4,7 @@ import org.pah_monitoring.main.dto.in.users.users.common.interfaces.HospitalUser
 import org.pah_monitoring.main.dto.in.users.users.common.interfaces.HospitalUserEditingInfo;
 import org.pah_monitoring.main.dto.in.users.users.common.interfaces.HospitalUserSavingInfo;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
-import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalUser;
+import org.pah_monitoring.main.entities.main.users.users.common.HospitalUser;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;

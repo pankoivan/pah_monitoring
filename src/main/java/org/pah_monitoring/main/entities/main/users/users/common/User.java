@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities.main.users.users.common.interfaces;
+package org.pah_monitoring.main.entities.main.users.users.common;
 
 import org.pah_monitoring.main.entities.main.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.main.enums.Role;

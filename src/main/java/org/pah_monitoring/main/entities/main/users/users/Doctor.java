@@ -9,7 +9,7 @@ import org.pah_monitoring.main.entities.main.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.entities.main.users.inactivity.PatientInactivity;
-import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalEmployee;
+import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
