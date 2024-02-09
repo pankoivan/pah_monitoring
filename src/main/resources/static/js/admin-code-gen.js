@@ -45,13 +45,28 @@ function fillSuccessModalText(responseJson) {
 
     successModalText.textContent = "";
 
+    let role = document.createElement("span");
+    role.className = "fw-bold";
+    role.textContent = `${responseJson.roleAlias}`;
+
     let email = document.createElement("span");
     email.className = "fw-bold";
-    email.textContent = ` ${responseJson.email}`;
+    email.textContent = `${responseJson.email}`;
 
-    successModalText.appendChild(document.createTextNode("Код регистрации был успешно сгенерирован и отправлен на почту"));
+    let expirationDate = document.createElement("span");
+    expirationDate.className = "fw-bold";
+    expirationDate.textContent = `${responseJson.formattedExpirationDate}`;
+
+    successModalText.appendChild(document.createTextNode("Код регистрации на роль "));
+    successModalText.appendChild(role);
+    successModalText.appendChild(document.createTextNode(" был успешно сгенерирован и отправлен на почту "));
     successModalText.appendChild(email);
     successModalText.appendChild(document.createTextNode("."));
+    successModalText.appendChild(document.createElement("br"));
+    successModalText.appendChild(document.createElement("br"));
+    successModalText.appendChild(document.createTextNode("Срок действия кода истечёт "));
+    successModalText.appendChild(expirationDate);
+    successModalText.appendChild(document.createTextNode(". Человеку, которому был выдан этот код, необходимо успеть зарегистрироваться до указанного времени, иначе код нужно будет выдать повторно."));
 }
 
 function showModalError(response) {
