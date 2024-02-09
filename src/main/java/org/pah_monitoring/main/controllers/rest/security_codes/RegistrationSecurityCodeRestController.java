@@ -49,7 +49,7 @@ public class RegistrationSecurityCodeRestController {
 
     @PostMapping("/check")
     @PreAuthorize("permitAll()")
-    public Map<String, Boolean> check(@RequestBody String code) {
+    public Map<String, Boolean> check(@RequestBody(required = false) String code) {
         return Collections.singletonMap("exists", service.existsByStringUuid(code));
     }
 

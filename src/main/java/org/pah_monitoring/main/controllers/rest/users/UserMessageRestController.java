@@ -7,6 +7,7 @@ import org.pah_monitoring.main.dto.in.users.messages.UserMessageEditingDto;
 import org.pah_monitoring.main.dto.out.users.messages.UserMessageOutDto;
 import org.pah_monitoring.main.entities.main.users.messages.UserMessage;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
+import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.forbidden.NotEnoughRightsRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataDeletionRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
@@ -75,7 +76,7 @@ public class UserMessageRestController {
             service.checkAccessRightsForDeleting(searchingService.findUserByUserInformationId(message.getAuthor().getId()));
             service.deleteById(message.getId());
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new DataValidationRestControllerException(e.getMessage(), e);
+            throw new UrlValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         } catch (DataDeletionServiceException e) {
