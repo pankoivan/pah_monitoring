@@ -175,6 +175,13 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
     }
 
     @Override
+    public void checkAccessRightsForPatientDoctorConnection(Patient patient) throws NotEnoughRightsServiceException {
+        if (!getCheckService().isAdministratorFromSameHospital(patient.getHospital())) {
+            throw new NotEnoughRightsServiceException("Недостаточно прав");
+        }
+    }
+
+    @Override
     protected Role getRole() {
         return Role.PATIENT;
     }

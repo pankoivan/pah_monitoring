@@ -29,4 +29,6 @@ public interface PatientService extends HospitalUserService<Patient, PatientAddi
 
     void checkAccessRightsForObtainingDoctorPatients(Doctor requestedDoctor) throws NotEnoughRightsServiceException;
 
+    void checkAccessRightsForPatientDoctorConnection(Patient patient) throws NotEnoughRightsServiceException;
+
 }
