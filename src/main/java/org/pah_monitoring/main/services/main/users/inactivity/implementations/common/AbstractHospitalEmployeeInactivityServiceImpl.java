@@ -54,10 +54,12 @@ public abstract class AbstractHospitalEmployeeInactivityServiceImpl
             throw new DataValidationServiceException(e.getMessage(), e);
         }
 
+        if (hospitalEmployee.isNotActive()) {
+            throw new DataValidationServiceException("Этот сотрудник уже находится в отпуске, на больничном или уволен");
+        }
+
         if (checkService.isSelf(hospitalEmployee)) {
-            throw new DataValidationServiceException(
-                    "Нельзя назначить отпуск или больничный самому себе, а также уволить самого себя"
-            );
+            throw new DataValidationServiceException("Нельзя назначить отпуск или больничный самому себе, а также уволить самого себя");
         }
 
         if (

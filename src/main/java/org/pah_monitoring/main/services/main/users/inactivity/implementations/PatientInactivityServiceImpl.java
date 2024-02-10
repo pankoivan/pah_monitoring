@@ -10,6 +10,7 @@ import org.pah_monitoring.main.entities.main.users.inactivity.PatientInactivity;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.main.users.inactivity.PatientInactivityRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
@@ -55,10 +56,24 @@ public class PatientInactivityServiceImpl implements InactivityService<PatientIn
     }
 
     @Override
-    public void checkDataValidityForAdding(PatientInactivityAddingDto addingDto, BindingResult bindingResult) throws DataValidationServiceException {
+    public void checkDataValidityForAdding(PatientInactivityAddingDto addingDto, BindingResult bindingResult)
+            throws DataValidationServiceException {
+
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
+
+        Patient patient;
+        try {
+            patient = patientService.findById(addingDto.getToWhomId());
+        } catch (DataSearchingServiceException e) {
+            throw new DataValidationServiceException(e.getMessage(), e);
+        }
+
+        if (patient.isNotActive()) {
+            throw new DataValidationServiceException("Этот пациент уже переведён в неактивное состояние");
+        }
+
     }
 
     @Override
