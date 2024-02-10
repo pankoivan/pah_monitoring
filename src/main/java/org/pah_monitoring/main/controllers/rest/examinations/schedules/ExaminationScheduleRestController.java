@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.controllers.rest.examinations.schedules;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.examinations.schedules.ExaminationScheduleAddingDto;
 import org.pah_monitoring.main.dto.in.examinations.schedules.ExaminationScheduleEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RestController
 @RequestMapping("/rest/schedules")
 @PreAuthorize("isAuthenticated()")

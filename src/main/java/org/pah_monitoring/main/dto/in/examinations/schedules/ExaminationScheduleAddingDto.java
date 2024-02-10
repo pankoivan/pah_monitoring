@@ -12,9 +12,9 @@ import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 public class ExaminationScheduleAddingDto extends ExaminationScheduleSavingDto {
 
     @NotNull(message = "Поле \"patientId\" не должно отсутствовать")
-    Integer patientId;
+    private Integer patientId;
 
     @NotNull(message = "Поле \"indicatorType\" не должно отсутствовать")
-    IndicatorType indicatorType;
+    private IndicatorType indicatorType;
 
 }

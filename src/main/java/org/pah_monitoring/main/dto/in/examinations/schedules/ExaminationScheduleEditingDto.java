@@ -11,6 +11,6 @@ import lombok.ToString;
 public class ExaminationScheduleEditingDto extends ExaminationScheduleSavingDto {
 
     @NotNull(message = "Поле \"id\" не должно отсутствовать")
-    Integer id;
+    private Integer id;
 
 }
