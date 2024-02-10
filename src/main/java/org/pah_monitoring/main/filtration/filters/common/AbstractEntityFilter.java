@@ -31,13 +31,13 @@ public abstract class AbstractEntityFilter<T> implements EntityFilter<T> {
 
     public List<T> paged(Stream<T> entities, String page, PageStat pageStat) {
         List<T> result = entities.toList();
-        int currentPage = currentPage(page);
+        int currentPage = currentPage(page) > 0 ? currentPage(page) : 1;
         int pagesCount = pagesCount(result);
         pageStat.setCurrentPage(currentPage);
-        pageStat.setPagesCount(currentPage <= pagesCount ? pagesCount : 1);
+        pageStat.setPagesCount(pagesCount);
         return result
                 .stream()
-                .skip((long) (currentPage(page) - 1) * QuantityRestrictionConstants.MAX_NUMBER_OF_ELEMENTS_PER_PAGE)
+                .skip((long) (currentPage - 1) * QuantityRestrictionConstants.MAX_NUMBER_OF_ELEMENTS_PER_PAGE)
                 .limit(QuantityRestrictionConstants.MAX_NUMBER_OF_ELEMENTS_PER_PAGE)
                 .toList();
     }

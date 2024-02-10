@@ -4,9 +4,17 @@ const lastPage = Number(document.querySelector("li[data-count]").dataset.count);
 
 const currentPage = requestedPage == null || requestedPage == "" ? 1 : Number(requestedPage);
 
-/*if (lastPage < requestedPage) {
-    toPage(1);
-}*/
+if (requestedPage != null) {
+    if (isNaN(requestedPage)) {
+        toPage(1);
+    }
+    if (requestedPage < 1) {
+        toPage(1);
+    }
+    if (lastPage < requestedPage) {
+        toPage(lastPage);
+    }
+}
 
 document.getElementById("first-page").addEventListener("click", () => {
     toPage(1);
