@@ -43,6 +43,11 @@ public class Dismissal extends Inactivity {
     }
 
     @Override
+    public String getShortInactivityMessage() {
+        return "Уволен";
+    }
+
+    @Override
     public String getInactivityMessage() {
         return "Уволен %s".formatted(getFormattedDate());
     }

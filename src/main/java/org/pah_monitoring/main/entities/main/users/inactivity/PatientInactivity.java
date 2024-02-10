@@ -43,6 +43,11 @@ public class PatientInactivity extends Inactivity {
     }
 
     @Override
+    public String getShortInactivityMessage() {
+        return "Переведён в неактивное состояние";
+    }
+
+    @Override
     public String getInactivityMessage() {
         return "Переведён в неактивное состояние %s".formatted(getFormattedDate());
     }

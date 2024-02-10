@@ -50,6 +50,11 @@ public class SickLeave extends Inactivity {
     }
 
     @Override
+    public String getShortInactivityMessage() {
+        return "На больничном";
+    }
+
+    @Override
     public String getInactivityMessage() {
         return "На больничном с %s по %s".formatted(getFormattedStartDate(), getFormattedEndDate());
     }

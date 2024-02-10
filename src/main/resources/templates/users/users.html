@@ -37,6 +37,8 @@
                         <p class="fs-4 word-wrap mb-1">
                             <img width="24" class="mb-1" src="../../static/svg/user.svg" th:src="@{/svg/user.svg}" alt="Пользователь" />
                             <a href="#" th:href="@{/users/__${each.userInformation.id}__}" th:text="${each.userInformation.fullName}" class="text-decoration-none text-secondary"> Козлов Геннадий Петрович </a>
+                            <span th:if="${each.isActive}" class="text-success text-lowercase fs-6">Активен</span>
+                            <span th:if="${each.isNotActive}" class="text-danger text-lowercase fs-6" th:text="${each.currentInactivity.get.shortInactivityMessage}">На больничном</span>
                         </p>
                         <p class="fs-5 mb-1" th:text="${each.userInformation.phoneNumber}">+7 (912) 123-90-56</p>
                         <p class="fs-5" th:classappend="${isCurrentUserAdministrator} ? 'mb-1' : 'mb-0'">

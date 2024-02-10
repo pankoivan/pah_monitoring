@@ -50,6 +50,11 @@ public class Vacation extends Inactivity {
     }
 
     @Override
+    public String getShortInactivityMessage() {
+        return "В отпуске";
+    }
+
+    @Override
     public String getInactivityMessage() {
         return "В отпуске с %s по %s".formatted(getFormattedStartDate(), getFormattedEndDate());
     }
