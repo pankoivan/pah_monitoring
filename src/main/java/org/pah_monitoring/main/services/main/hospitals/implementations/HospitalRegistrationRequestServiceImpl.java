@@ -136,7 +136,7 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     }
 
     @Override
-    public void checkDataValidityForDeleting(HospitalRegistrationRequest request) throws DataValidationServiceException {
+    public void checkDataValidityForDeletion(HospitalRegistrationRequest request) throws DataValidationServiceException {
         if (request.getHospital().getCurrentState() != Hospital.CurrentState.WAITING_CODE) {
             throw new DataValidationServiceException(
                     "Медицинское учреждение \"%s\" не может быть удалено, так как заявка на его регистрацию была подтверждена"

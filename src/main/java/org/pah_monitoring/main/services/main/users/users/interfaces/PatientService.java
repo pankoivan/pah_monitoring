@@ -28,10 +28,10 @@ public interface PatientService extends HospitalUserService<Patient, PatientAddi
     List<Patient> findAllByDoctorId(Integer doctorId, Map<String, String> parameters, EntityFilter.PageStat pageStat)
             throws DataSearchingServiceException;
 
-    void checkAccessRightsForObtainingDoctorPatients(Doctor requestedDoctor) throws NotEnoughRightsServiceException;
+    void checkDataValidityForDoctorRemoval(Patient patient) throws DataValidationServiceException;
+
+    void checkAccessRightsForObtainingDoctorPatients(Doctor doctor) throws NotEnoughRightsServiceException;
 
     void checkAccessRightsForPatientDoctorConnection(Patient patient) throws NotEnoughRightsServiceException;
-
-    void checkHasDoctorForDeletion(Patient patient) throws DataValidationServiceException;
 
 }

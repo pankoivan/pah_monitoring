@@ -4,6 +4,6 @@ import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceExce
 
 public interface DataDeletionValidationService<T> {
 
-    void checkDataValidityForDeleting(T entity) throws DataValidationServiceException;
+    void checkDataValidityForDeletion(T entity) throws DataValidationServiceException;
 
 }

@@ -165,6 +165,13 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
     }
 
     @Override
+    public void checkDataValidityForDoctorRemoval(Patient patient) throws DataValidationServiceException {
+        if (patient.hasNoDoctor()) {
+            throw new DataValidationServiceException("У пациента с id \"%s\" нет доктора".formatted(patient.getId()));
+        }
+    }
+
+    @Override
     public void checkAccessRightsForObtainingDoctorPatients(Doctor requestedDoctor) throws NotEnoughRightsServiceException {
         if (!(
                 getCheckService().isSelf(requestedDoctor) ||
@@ -178,13 +185,6 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
     public void checkAccessRightsForPatientDoctorConnection(Patient patient) throws NotEnoughRightsServiceException {
         if (!getCheckService().isAdministratorFromSameHospital(patient.getHospital())) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
-        }
-    }
-
-    @Override
-    public void checkHasDoctorForDeletion(Patient patient) throws DataValidationServiceException {
-        if (patient.hasDoctor()) {
-            throw new DataValidationServiceException("У пациента с id \"%s\" нет доктора".formatted(patient.getDoctor()));
         }
     }
 

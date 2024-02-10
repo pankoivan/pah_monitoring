@@ -59,7 +59,7 @@ public class PatientDoctorConnectionRestController {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             Doctor doctor = patient.getDoctor();
-            patientService.checkHasDoctorForDeletion(patient);
+            patientService.checkDataValidityForDoctorRemoval(patient);
             patientService.checkAccessRightsForPatientDoctorConnection(patient);
             patientService.removeFromDoctor(patient);
             return Map.of(

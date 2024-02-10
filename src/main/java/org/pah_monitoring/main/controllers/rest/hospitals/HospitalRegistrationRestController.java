@@ -49,7 +49,7 @@ public class HospitalRegistrationRestController {
     public void delete(@PathVariable("id") String pathId) {
         try {
             int id = service.parsePathId(pathId);
-            service.checkDataValidityForDeleting(service.findById(id));
+            service.checkDataValidityForDeletion(service.findById(id));
             service.deleteById(id);
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
