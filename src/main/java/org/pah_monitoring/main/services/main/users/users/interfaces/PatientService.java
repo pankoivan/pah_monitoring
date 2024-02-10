@@ -8,6 +8,7 @@ import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 
@@ -30,5 +31,7 @@ public interface PatientService extends HospitalUserService<Patient, PatientAddi
     void checkAccessRightsForObtainingDoctorPatients(Doctor requestedDoctor) throws NotEnoughRightsServiceException;
 
     void checkAccessRightsForPatientDoctorConnection(Patient patient) throws NotEnoughRightsServiceException;
+
+    void checkHasDoctorForDeletion(Patient patient) throws DataValidationServiceException;
 
 }

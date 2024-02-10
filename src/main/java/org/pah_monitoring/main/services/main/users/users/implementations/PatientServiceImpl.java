@@ -182,6 +182,13 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
     }
 
     @Override
+    public void checkHasDoctorForDeletion(Patient patient) throws DataValidationServiceException {
+        if (patient.hasDoctor()) {
+            throw new DataValidationServiceException("У пациента с id \"%s\" нет доктора".formatted(patient.getDoctor()));
+        }
+    }
+
+    @Override
     protected Role getRole() {
         return Role.PATIENT;
     }
