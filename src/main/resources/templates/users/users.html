@@ -31,7 +31,7 @@
             <!---->
             <div th:replace="~{/fragments/filtration/filtration :: filtration}"></div>
             <!---->
-            <div class="row" th:each="each, status : ${users}" th:classappend="${!status.last} ? 'mb-2'" th:attr="data-userId=${each.id}">
+            <div class="row" th:each="each, status : ${users}" th:classappend="${!status.last} ? 'mb-3'" th:attr="data-userId=${each.id}">
                 <div class="col-12" th:classappend="${!status.last} ? 'mb-3'">
                     <div class="text-start">
                         <p class="fs-4 word-wrap mb-1">
@@ -44,17 +44,17 @@
                         <p class="fs-5" th:classappend="${isCurrentUserAdministrator} ? 'mb-1' : 'mb-0'">
                             <span th:text="${each.role.alias}">Врач</span><span th:if="${each.isHospitalEmployee}" th:text="': ' + ${each.employeeInformation.post}" class="text-lowercase">Врач-кардиолог</span>
                         </p>
-                        <p th:if="${isCurrentUserAdministrator}" class="fs-5" th:classappend="${param.patientId != null && isCurrentUserAdministrator && each.isDoctor} ? 'mb-2' : 'mb-0'">
+                        <p th:if="${isCurrentUserAdministrator}" class="fs-5" th:classappend="${param.patientId != null && isCurrentUserAdministrator && each.isDoctor} ? 'mb-2' : 'mb-1'">
                             <span th:if="${each.isDoctor}">
-                                <span th:if="${each.hasPatients}" class="text-success mt-1">Сейчас пациентов: <span th:text="${each.patientsCount}">5</span></span>
-                                <span th:if="${each.hasNoPatients}" class="text-danger mt-1">В данный момент находится без пациентов</span>
+                                <span th:if="${each.hasPatients}" class="text-success">Сейчас пациентов: <span th:text="${each.patientsCount}">5</span></span>
+                                <span th:if="${each.hasNoPatients}" class="text-danger">В данный момент находится без пациентов</span>
                             </span>
                             <span th:if="${each.isPatient}">
-                                <span th:if="${each.hasDoctor}" class="text-success mt-1">Закреплён за врачом</span>
-                                <span th:if="${each.hasNoDoctor}" class="text-danger mt-1">Не закреплён за врачом</span>
+                                <span th:if="${each.hasDoctor}" class="text-success">Закреплён за врачом</span>
+                                <span th:if="${each.hasNoDoctor}" class="text-danger">Не закреплён за врачом</span>
                             </span>
                         </p>
-                        <p th:if="${param.patientId != null && isCurrentUserAdministrator && each.isDoctor}" class="mb-0">
+                        <p th:if="${param.patientId != null && isCurrentUserAdministrator && each.isDoctor}" class="mb-1">
                             <button th:if="${!each.hasPatientById(param.patientId)}" class="btn btn-sm btn-success">Назначить</button>
                             <button th:if="${!each.hasPatientById(param.patientId) && each.isNotActive}" class="btn btn-sm btn-success" disabled>Назначить</button>
                             <button th:if="${each.hasPatientById(param.patientId)}" class="btn btn-sm btn-danger">Открепить</button>
