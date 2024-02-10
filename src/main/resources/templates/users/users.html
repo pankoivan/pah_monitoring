@@ -44,7 +44,7 @@
                         <p class="fs-5" th:classappend="${isCurrentUserAdministrator} ? 'mb-1' : 'mb-0'">
                             <span th:text="${each.role.alias}">Врач</span><span th:if="${each.isHospitalEmployee}" th:text="': ' + ${each.employeeInformation.post}" class="text-lowercase">Врач-кардиолог</span>
                         </p>
-                        <p th:if="${isCurrentUserAdministrator}" class="fs-5" th:classappend="${param.patientId != null && isCurrentUserAdministrator && each.isDoctor} ? 'mb-1' : 'mb-0'">
+                        <p th:if="${isCurrentUserAdministrator}" class="fs-5" th:classappend="${param.patientId != null && isCurrentUserAdministrator && each.isDoctor} ? 'mb-2' : 'mb-0'">
                             <span th:if="${each.isDoctor}">
                                 <span th:if="${each.hasPatients}" class="text-success mt-1">Сейчас пациентов: <span th:text="${each.patientsCount}">5</span></span>
                                 <span th:if="${each.hasNoPatients}" class="text-danger mt-1">В данный момент находится без пациентов</span>
@@ -56,6 +56,7 @@
                         </p>
                         <p th:if="${param.patientId != null && isCurrentUserAdministrator && each.isDoctor}" class="mb-0">
                             <button th:if="${!each.hasPatientById(param.patientId)}" class="btn btn-sm btn-success">Назначить</button>
+                            <button th:if="${!each.hasPatientById(param.patientId) && each.isNotActive}" class="btn btn-sm btn-success" disabled>Назначить</button>
                             <button th:if="${each.hasPatientById(param.patientId)}" class="btn btn-sm btn-danger">Открепить</button>
                         </p>
                     </div>
