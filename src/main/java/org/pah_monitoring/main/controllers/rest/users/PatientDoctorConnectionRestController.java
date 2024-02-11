@@ -18,10 +18,7 @@ import org.pah_monitoring.main.services.main.users.users.interfaces.PatientServi
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -36,8 +33,8 @@ public class PatientDoctorConnectionRestController {
     @Qualifier("doctorService")
     private final HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> doctorService;
 
-    @GetMapping("/assign")
-    public Map<String, String> assignToDoctor(PatientDoctorConnectionDto connectionDto) {
+    @PostMapping("/assign")
+    public Map<String, String> assignToDoctor(@RequestBody PatientDoctorConnectionDto connectionDto) {
         try {
             Patient patient = patientService.findById(connectionDto.getPatientId());
             Doctor doctor = doctorService.findById(connectionDto.getDoctorId());
@@ -54,8 +51,8 @@ public class PatientDoctorConnectionRestController {
         }
     }
 
-    @GetMapping("/remove")
-    public Map<String, String> removeFromDoctor(@RequestParam("patientId") String pathPatientId) {
+    @PostMapping("/remove/{patientId}")
+    public Map<String, String> removeFromDoctor(@PathVariable("patientId") String pathPatientId) {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             Doctor doctor = patient.getDoctor();

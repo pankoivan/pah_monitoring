@@ -22,7 +22,7 @@
                 <div class="col-12">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
                         <h1 class="fs-3 m-2 m-md-0" th:text="${usersListDescription}">Список пользователей</h1>
-                        <div class="m-2 m-md-0">
+                        <div class="m-1 m-md-0">
                             <button class="btn btn-lg btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filter" aria-expanded="false" aria-controls="filter" id="filter-button">Фильтр</button>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
             <!---->
             <div th:replace="~{/fragments/filtration/filtration :: filtration}"></div>
             <!---->
-            <div class="row" th:each="each, status : ${users}" th:classappend="${!status.last} ? 'mb-3'" th:attr="data-userId=${each.id}">
+            <div class="row" th:each="each, status : ${users}" th:classappend="${!status.last} ? 'mb-3'">
                 <div class="col-12" th:classappend="${!status.last} ? 'mb-3'">
                     <div class="text-start">
                         <p class="fs-4 word-wrap mb-1">
@@ -41,10 +41,10 @@
                             <span th:if="${each.isNotActive}" class="text-danger text-lowercase fs-6" th:text="${each.currentInactivity.get.shortInactivityMessage}">На больничном</span>
                         </p>
                         <p class="fs-5 mb-1" th:text="${each.userInformation.phoneNumber}">+7 (912) 123-90-56</p>
-                        <p class="fs-5" th:classappend="${isCurrentUserAdministrator} ? 'mb-1' : 'mb-0'">
+                        <p class="fs-5" th:classappend="${currentUser.isAdministrator} ? 'mb-1' : 'mb-0'">
                             <span th:text="${each.role.alias}">Врач</span><span th:if="${each.isHospitalEmployee}" th:text="': ' + ${each.employeeInformation.post}" class="text-lowercase">Врач-кардиолог</span>
                         </p>
-                        <p th:if="${isCurrentUserAdministrator}" class="fs-5" th:classappend="${param.patientId != null && isCurrentUserAdministrator && each.isDoctor} ? 'mb-2' : 'mb-1'">
+                        <p th:if="${currentUser.isAdministrator}" class="fs-5" th:classappend="${param.patientId != null && each.isDoctor} ? 'mb-2' : 'mb-1'">
                             <span th:if="${each.isDoctor}">
                                 <span th:if="${each.hasPatients}" class="text-success">Сейчас пациентов: <span th:text="${each.patientsCount}">5</span></span>
                                 <span th:if="${each.hasNoPatients}" class="text-danger">В данный момент находится без пациентов</span>
@@ -54,10 +54,10 @@
                                 <span th:if="${each.hasNoDoctor}" class="text-danger">Не закреплён за врачом</span>
                             </span>
                         </p>
-                        <p th:if="${param.patientId != null && isCurrentUserAdministrator && each.isDoctor}" class="mb-1">
-                            <button th:if="${!each.hasPatientById(param.patientId)}" class="btn btn-sm btn-success">Назначить</button>
+                        <p th:if="${param.patientId != null && currentUser.isAdministrator && each.isDoctor}" class="mb-1">
+                            <button th:if="${!each.hasPatientById(param.patientId)}" class="btn btn-sm btn-success" th:attr="data-doctor=${each.id}">Назначить</button>
                             <button th:if="${!each.hasPatientById(param.patientId) && each.isNotActive}" class="btn btn-sm btn-success" disabled>Назначить</button>
-                            <button th:if="${each.hasPatientById(param.patientId)}" class="btn btn-sm btn-danger">Открепить</button>
+                            <button th:if="${each.hasPatientById(param.patientId)}" class="btn btn-sm btn-danger" th:attr="data-doctor=${each.id}">Открепить</button>
                         </p>
                     </div>
                 </div>
@@ -74,6 +74,7 @@
             <!---->
         </div>
         <!---->
+        <div th:replace="${param.patientId != null && currentUser.isAdministrator} ? ~{/fragments/modal/success-modal :: success-modal} : _"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
         <script src="../../static/js/common/get-params.js" th:src="@{/js/common/get-params.js}"></script>
