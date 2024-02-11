@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS main_admin_contact
 CREATE TABLE IF NOT EXISTS hospital
 (
 	id SERIAL PRIMARY KEY,
-	oid VARCHAR (256) UNIQUE NOT NULL,
-	name VARCHAR (512) UNIQUE NOT NULL,
+	oid VARCHAR (64) UNIQUE NOT NULL,
+	name VARCHAR (256) UNIQUE NOT NULL,
 	current_state VARCHAR (24) NOT NULL,
 	date TIMESTAMP NOT NULL
 );
@@ -20,12 +20,12 @@ CREATE TABLE IF NOT EXISTS hospital_registration_request
 	hospital_id INT REFERENCES hospital (id) UNIQUE NOT NULL,
 	name VARCHAR (32) NOT NULL,
 	lastname VARCHAR (64) NOT NULL,
-	patronymic VARCHAR (32) NOT NULL,
+	patronymic VARCHAR (32),
 	post VARCHAR (128) NOT NULL,
 	passport VARCHAR (12) UNIQUE NOT NULL,
 	phone_number VARCHAR (24) UNIQUE NOT NULL,
 	email VARCHAR (256) UNIQUE NOT NULL,
-	comment TEXT NOT NULL,
+	comment TEXT,
 	date TIMESTAMP NOT NULL
 );
 
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS user_information
 	id SERIAL PRIMARY KEY,
 	name VARCHAR (32) NOT NULL,
 	lastname VARCHAR (64) NOT NULL,
-	patronymic VARCHAR (32) NOT NULL,
+	patronymic VARCHAR (32),
 	phone_number VARCHAR (24) NOT NULL,
 	gender VARCHAR (8),
 	birthdate DATE
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS sick_leave
 	id SERIAL PRIMARY KEY,
 	hospital_employee_information_id INT REFERENCES hospital_employee_information (id) NOT NULL,
 	author_id INT REFERENCES administrator (id) NOT NULL,
-	comment TEXT NOT NULL,
+	comment TEXT,
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL
 );
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS vacation
 	id SERIAL PRIMARY KEY,
 	hospital_employee_information_id INT REFERENCES hospital_employee_information (id) NOT NULL,
 	author_id INT REFERENCES administrator (id) NOT NULL,
-	comment TEXT NOT NULL,
+	comment TEXT,
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL
 );
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS dismissal
 	id SERIAL PRIMARY KEY,
 	hospital_employee_information_id INT REFERENCES hospital_employee_information (id) UNIQUE NOT NULL,
 	author_id INT REFERENCES administrator (id) NOT NULL,
-	comment TEXT NOT NULL,
+	comment TEXT,
 	date DATE NOT NULL
 );
 
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS patient_inactivity
 	id SERIAL PRIMARY KEY,
 	patient_id INT REFERENCES patient (id) UNIQUE NOT NULL,
 	author_id INT REFERENCES doctor (id) NOT NULL,
-	comment TEXT NOT NULL,
+	comment TEXT,
 	date DATE NOT NULL
 );
 
@@ -287,8 +287,8 @@ CREATE TABLE IF NOT EXISTS examination_schedule
 (
     id SERIAL PRIMARY KEY,
     patient_id INT REFERENCES patient (id) NOT NULL,
-    indicators_group VARCHAR (32) NOT NULL,
-    schedule VARCHAR (24) NOT NULL,
+    indicator_type VARCHAR (32) NOT NULL,
+    schedule VARCHAR (32) NOT NULL,
 	
 	CONSTRAINT examination_schedule__patient_and_indicators_group_unique UNIQUE (patient_id, indicators_group)
 );
@@ -307,8 +307,8 @@ CREATE TABLE IF NOT EXISTS achievement
 (
     id SERIAL PRIMARY KEY,
     filename VARCHAR (256) UNIQUE NOT NULL,
-    name VARCHAR (64) UNIQUE NOT NULL,
-    description TEXT UNIQUE NOT NULL
+    name VARCHAR (32) UNIQUE NOT NULL,
+    description VARCHAR (64) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS patient_achievement

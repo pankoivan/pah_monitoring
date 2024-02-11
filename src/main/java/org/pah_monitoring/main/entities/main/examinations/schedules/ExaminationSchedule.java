@@ -22,7 +22,7 @@ public class ExaminationSchedule implements BaseEntity {
     private Integer id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "indicators_group")
+    @Column(name = "indicator_type")
     private IndicatorType indicatorType;
 
     @Column(name = "schedule")
