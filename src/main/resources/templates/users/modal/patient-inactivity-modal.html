@@ -14,6 +14,7 @@
                     </div>
                     <div class="modal-body fs-5" id="patient-inactivity-modal-text">
                         <form id="patient-inactivity-form" action="#" class="border rounded text-secondary fs-5 p-3">
+                            <input type="hidden" name="patient-inactivity-to-whom-id" th:value="${user.id}" />
                             <div class="mb-3">
                                 <label for="patient-inactivity-patient" class="form-label">Пациент</label>
                                 <input type="text" name="patient-inactivity-patient" id="patient-inactivity-patient" class="form-control" th:value="${user.userInformation.fullName}" disabled />

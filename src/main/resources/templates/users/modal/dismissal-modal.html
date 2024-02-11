@@ -14,6 +14,7 @@
                     </div>
                     <div class="modal-body fs-5" id="dismissal-modal-text">
                         <form id="dismissal-form" action="#" class="border rounded text-secondary fs-5 p-3">
+                            <input type="hidden" name="dismissal-to-whom-id" th:value="${user.employeeInformation.id}" />
                             <div class="mb-3">
                                 <label for="dismissal-employee" class="form-label">Сотрудник</label>
                                 <input type="text" name="dismissal-employee" id="dismissal-employee" class="form-control" th:value="${user.userInformation.fullName}" disabled />

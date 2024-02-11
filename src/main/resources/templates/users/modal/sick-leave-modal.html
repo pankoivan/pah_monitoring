@@ -14,6 +14,7 @@
                     </div>
                     <div class="modal-body fs-5" id="sick-leave-modal-text">
                         <form id="sick-leave-form" action="#" class="border rounded text-secondary fs-5 p-3">
+                            <input type="hidden" name="sick-leave-to-whom-id" th:value="${user.employeeInformation.id}" />
                             <div class="mb-3">
                                 <label for="sick-leave-employee" class="form-label">Сотрудник</label>
                                 <input type="text" name="sick-leave-employee" id="sick-leave-employee" class="form-control" th:value="${user.userInformation.fullName}" disabled />

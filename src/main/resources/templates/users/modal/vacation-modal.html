@@ -14,6 +14,7 @@
                     </div>
                     <div class="modal-body fs-5" id="vacation-modal-text">
                         <form id="vacation-form" action="#" class="border rounded text-secondary fs-5 p-3">
+                            <input type="hidden" name="vacation-to-whom-id" th:value="${user.employeeInformation.id}" />
                             <div class="mb-3">
                                 <label for="vacation-employee" class="form-label">Сотрудник</label>
                                 <input type="text" name="vacation-employee" id="vacation-employee" class="form-control" th:value="${user.userInformation.fullName}" disabled />
