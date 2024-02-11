@@ -201,7 +201,7 @@ function vacationModalInit() {
             let data = {
                 toWhomId: vacationForm.querySelector('input[name="vacation-to-whom-id"]').value,
                 endDate: vacationForm.querySelector('input[name="vacation-end-date"]').value,
-                comment: vacationForm.querySelector('input[name="vacation-comment"]').value == "" ? null : vacationForm.querySelector('input[name="vacation-comment"]').value,
+                comment: vacationForm.querySelector('textarea[name="vacation-comment"]').value == "" ? null : vacationForm.querySelector('textarea[name="vacation-comment"]').value,
             };
             fetchInactivityAdd(data, "vacation");
         });
@@ -219,7 +219,7 @@ function sickLeaveModalInit() {
             let data = {
                 toWhomId: sickLeaveForm.querySelector('input[name="sick-leave-to-whom-id"]').value,
                 endDate: sickLeaveForm.querySelector('input[name="sick-leave-end-date"]').value,
-                comment: sickLeaveForm.querySelector('input[name="sick-leave-comment"]').value == "" ? null : vacationForm.querySelector('input[name="sick-leave-comment"]').value,
+                comment: sickLeaveForm.querySelector('textarea[name="sick-leave-comment"]').value == "" ? null : vacationForm.querySelector('textarea[name="sick-leave-comment"]').value,
             };
             fetchInactivityAdd(data, "sick-leave");
         });
@@ -264,7 +264,7 @@ function patientInactivityModalInit() {
 }
 
 function fetchInactivityAdd(data, whichInactivity) {
-    fetch("http://localhost:8080/rest/user-inactivities/add/" + whichInactivity, {
+    fetch("http://localhost:8080/rest/inactivity/add/" + whichInactivity, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

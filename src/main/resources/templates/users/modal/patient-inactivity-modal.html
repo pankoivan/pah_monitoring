@@ -13,6 +13,11 @@
                         <button id="patient-inactivity-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body fs-5" id="patient-inactivity-modal-text">
+                        <div class="visually-hidden mb-3" id="patient-inactivity-error">
+                            <div class="text-center fs-5 danger-block rounded p-2">
+                                <span class="my-auto">Заполняемый текст</span>
+                            </div>
+                        </div>
                         <form id="patient-inactivity-form" action="#" class="border rounded text-secondary fs-5 p-3">
                             <input type="hidden" name="patient-inactivity-to-whom-id" th:value="${user.id}" />
                             <div class="mb-3">

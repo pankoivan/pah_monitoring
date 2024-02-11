@@ -13,6 +13,11 @@
                         <button id="vacation-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body fs-5" id="vacation-modal-text">
+                        <div class="visually-hidden mb-3" id="vacation-error">
+                            <div class="text-center fs-5 danger-block rounded p-2">
+                                <span class="my-auto">Заполняемый текст</span>
+                            </div>
+                        </div>
                         <form id="vacation-form" action="#" class="border rounded text-secondary fs-5 p-3">
                             <input type="hidden" name="vacation-to-whom-id" th:value="${user.employeeInformation.id}" />
                             <div class="mb-3">
