@@ -106,8 +106,8 @@
             </div>
             <!---->
             <div class="row" th:classappend="${user.isDoctor && (isSelf || isCurrentUserAdminFromSameHospital) || user.isPatient} ? 'mb-5'">
-                <div class="col-12" id="inactivity-info">
-                    <h3 class="fs-4" id="activity">
+                <div class="col-12" id="activity-parent-block">
+                    <h3 class="fs-4">
                         Активность
                         <a
                             th:if="${user.isActive && (user.isHospitalEmployee && isCurrentUserAdminFromSameHospital && !isSelf || user.isPatient && isCurrentUserOwnDoctor)}"
@@ -120,17 +120,17 @@
                             <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
-                    <p th:if="${user.isActive}" class="text-success mb-0" id="active">Активен</p>
+                    <p th:if="${user.isActive}" class="text-success mb-0" id="active-message">Активен</p>
                     <div th:if="${user.isNotActive}" class="mb-0">
-                        <p id="info-inactivity" th:text="${currentInactivity.inactivityMessage}" class="text-danger mb-1">Уволен 19.01.2022</p>
+                        <p th:text="${currentInactivity.inactivityMessage}" class="text-danger mb-1">Уволен 19.01.2022</p>
                         <div th:if="${!isCurrentUserMainAdministrator}">
-                            <p id="info-extended-inactivity-whom-block" th:classappend="${currentInactivity.comment != null} ? 'mb-1' : 'mb-0'">
-                                <span id="info-extended-inactivity-whom" th:text="${currentInactivity.authorMessagePart}">Кем уволен:</span>
-                                <a id="info-extended-inactivity-whom-full-name" href="#" th:href="@{/users/__${currentInactivity.authorUserInformationId}__}" th:text="${currentInactivity.authorFullName}" class="text-secondary">Петров Пётр Ильич</a>
+                            <p th:classappend="${currentInactivity.comment != null} ? 'mb-1' : 'mb-0'">
+                                <span th:text="${currentInactivity.authorMessagePart}">Кем уволен:</span>
+                                <a href="#" th:href="@{/users/__${currentInactivity.authorUserInformationId}__}" th:text="${currentInactivity.authorFullName}" class="text-secondary">Петров Пётр Ильич</a>
                             </p>
-                            <p id="info-extended-inactivity-comment-block" th:if="${currentInactivity.comment != null}" class="mb-0">
+                            <p th:if="${currentInactivity.comment != null}" class="mb-0">
                                 Комментарий:
-                                <span id="info-extended-inactivity-comment" th:text="${currentInactivity.comment}" class="text-lowercase fst-italic">Плохо работал</span>
+                                <span th:text="${currentInactivity.comment}" class="text-lowercase fst-italic">Плохо работал</span>
                             </p>
                         </div>
                     </div>

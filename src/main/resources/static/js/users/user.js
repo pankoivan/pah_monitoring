@@ -219,7 +219,7 @@ function sickLeaveModalInit() {
             let data = {
                 toWhomId: sickLeaveForm.querySelector('input[name="sick-leave-to-whom-id"]').value,
                 endDate: sickLeaveForm.querySelector('input[name="sick-leave-end-date"]').value,
-                comment: sickLeaveForm.querySelector('textarea[name="sick-leave-comment"]').value == "" ? null : vacationForm.querySelector('textarea[name="sick-leave-comment"]').value,
+                comment: sickLeaveForm.querySelector('textarea[name="sick-leave-comment"]').value == "" ? null : sickLeaveForm.querySelector('textarea[name="sick-leave-comment"]').value,
             };
             fetchInactivityAdd(data, "sick-leave");
         });
@@ -236,7 +236,7 @@ function dismissalModalInit() {
             event.preventDefault();
             let data = {
                 toWhomId: dismissalForm.querySelector('input[name="dismissal-to-whom-id"]').value,
-                endDate: dismissalForm.querySelector('input[name="dismissal-end-date"]').value,
+                comment: dismissalForm.querySelector('textarea[name="dismissal-comment"]').value == "" ? null : dismissalForm.querySelector('textarea[name="dismissal-comment"]').value,
             };
             fetchInactivityAdd(data, "dismissal");
         });
@@ -253,7 +253,7 @@ function patientInactivityModalInit() {
             event.preventDefault();
             let data = {
                 toWhomId: patientInactivityForm.querySelector('input[name="patient-inactivity-to-whom-id"]').value,
-                endDate: patientInactivityForm.querySelector('input[name="patient-inactivity-end-date"]').value,
+                comment: patientInactivityForm.querySelector('input[name="patient-inactivity-comment"]').value == "" ? null : patientInactivityForm.querySelector('input[name="patient-inactivity-comment"]').value,
             };
             fetchInactivityAdd(data, "patient-inactivity");
         });
@@ -311,7 +311,8 @@ function fetchInactivityAdd(data, whichInactivity) {
 
 function refreshInactivity(response) {
     response.json().then((responseJson) => {
-        document.getElementById("active").remove();
+        document.getElementById("inactivity-add").remove();
+        document.getElementById("active-message").remove();
 
         let inactivityMessage = document.createElement("p");
         inactivityMessage.classList = "text-danger mb-1";
@@ -333,7 +334,7 @@ function refreshInactivity(response) {
         let commentBlock;
         if (responseJson.comment) {
             let comment = document.createElement("span");
-            comment.classList("text-lowercase fst-italic");
+            comment.classList = "text-lowercase fst-italic";
             comment.innerText = responseJson.comment;
 
             commentBlock = document.createElement("p");
@@ -342,11 +343,11 @@ function refreshInactivity(response) {
             commentBlock.appendChild(comment);
         }
 
-        let parentBlock = document.getElementById("inactivity-info");
-        parentBlock.appendChild(inactivityMessage);
-        parentBlock.appendChild(whomBlock);
+        let activityParentBlock = document.getElementById("activity-parent-block");
+        activityParentBlock.appendChild(inactivityMessage);
+        activityParentBlock.appendChild(whomBlock);
         if (commentBlock) {
-            parentBlock.appendChild(commentBlock);
+            activityParentBlock.appendChild(commentBlock);
         }
     });
 }
