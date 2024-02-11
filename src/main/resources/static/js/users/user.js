@@ -310,16 +310,45 @@ function fetchInactivityAdd(data, whichInactivity) {
 }
 
 function refreshInactivity(response) {
-    /*response.json().then((responseJson) => {
+    response.json().then((responseJson) => {
         document.getElementById("active").remove();
-
-        let inactivityBlock = document.createElement("div");
-        inactivityBlock.classList = "mb-0";
 
         let inactivityMessage = document.createElement("p");
         inactivityMessage.classList = "text-danger mb-1";
-    });*/
-    console.log("success");
+        inactivityMessage.innerText = responseJson.inactivityMessage;
+
+        let authorMessagePart = document.createElement("span");
+        authorMessagePart.innerText = responseJson.authorMessagePart;
+
+        let authorFullName = document.createElement("a");
+        authorFullName.classList = "text-secondary";
+        authorFullName.innerText = responseJson.authorFullName;
+        authorFullName.href = `/users/${responseJson.authorUserInformationId}`;
+
+        let whomBlock = document.createElement("p");
+        whomBlock.classList = responseJson.comment ? "mb-1" : "mb-0";
+        whomBlock.appendChild(authorMessagePart);
+        whomBlock.appendChild(authorFullName);
+
+        let commentBlock;
+        if (responseJson.comment) {
+            let comment = document.createElement("span");
+            comment.classList("text-lowercase fst-italic");
+            comment.innerText = responseJson.comment;
+
+            commentBlock = document.createElement("p");
+            commentBlock.classList = "mb-0";
+            commentBlock.appendChild(document.createTextNode("Комментарий: "));
+            commentBlock.appendChild(comment);
+        }
+
+        let parentBlock = document.getElementById("inactivity-info");
+        parentBlock.appendChild(inactivityMessage);
+        parentBlock.appendChild(whomBlock);
+        if (commentBlock) {
+            parentBlock.appendChild(commentBlock);
+        }
+    });
 }
 
 function showSuccessModal(message) {

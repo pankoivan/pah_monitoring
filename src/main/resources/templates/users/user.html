@@ -106,7 +106,7 @@
             </div>
             <!---->
             <div class="row" th:classappend="${user.isDoctor && (isSelf || isCurrentUserAdminFromSameHospital) || user.isPatient} ? 'mb-5'">
-                <div class="col-12">
+                <div class="col-12" id="inactivity-info">
                     <h3 class="fs-4" id="activity">
                         Активность
                         <a
@@ -124,7 +124,7 @@
                     <div th:if="${user.isNotActive}" class="mb-0">
                         <p id="info-inactivity" th:text="${currentInactivity.inactivityMessage}" class="text-danger mb-1">Уволен 19.01.2022</p>
                         <div th:if="${!isCurrentUserMainAdministrator}">
-                            <p id="info-extended-inactivity-whom-block" class="mb-1">
+                            <p id="info-extended-inactivity-whom-block" th:classappend="${currentInactivity.comment != null} ? 'mb-1' : 'mb-0'">
                                 <span id="info-extended-inactivity-whom" th:text="${currentInactivity.authorMessagePart}">Кем уволен:</span>
                                 <a id="info-extended-inactivity-whom-full-name" href="#" th:href="@{/users/__${currentInactivity.authorUserInformationId}__}" th:text="${currentInactivity.authorFullName}" class="text-secondary">Петров Пётр Ильич</a>
                             </p>
