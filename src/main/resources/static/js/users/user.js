@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
     employeeInfoEditingModalInit();
     userInfoEditingModalInit();
     loginInfoEditingModalInit();
+    vacationModalInit();
+    sickLeaveModalInit();
+    dismissalModalInit();
+    patientInactivityModalInit();
 });
 
 function employeeInfoEditingModalInit() {
@@ -116,44 +120,6 @@ function fetchInfoEdit(data, whichInfo) {
         });
 }
 
-function fetchInactivityAdd(data, whichInactivity) {
-    fetch("http://localhost:8080/rest/user-inactivities/add/" + whichInactivity, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    })
-        .then((response) => {
-            if (response.ok) {
-                if (whichInactivity == "vacation") {
-                    showSuccessModal("Отпуск был успешно назначен");
-                } else if (whichInactivity == "sick-leave") {
-                    showSuccessModal("Больничный был успешно назначен");
-                } else if (whichInactivity == "dismissal") {
-                    showSuccessModal("Сотрудник был успешно уволен");
-                } else if (whichInactivity == "patient-inactivity") {
-                    showSuccessModal("Пациент был успешно переведён в неактивное состояние");
-                }
-            } else {
-                response.json().then((responseJson) => {
-                    if (whichInactivity == "vacation") {
-                        showErrorBlock("vacation-error", responseJson.errorDescription);
-                    } else if (whichInactivity == "sick-leave") {
-                        showErrorBlock("sick-leave-error", responseJson.errorDescription);
-                    } else if (whichInactivity == "dismissal") {
-                        showErrorBlock("dismissal-error", responseJson.errorDescription);
-                    } else if (whichInactivity == "patient-inactivity") {
-                        showErrorBlock("patient-inactivity-error", responseJson.errorDescription);
-                    }
-                });
-            }
-        })
-        .catch((error) => {
-            console.error("Ошибка запроса", error);
-        });
-}
-
 function refreshEmployeeInfoEditingFormData(responseJson) {
     employeeInfoEditingForm.querySelector('input[name="post"]').value = responseJson.post;
     employeeInfoEditingForm.querySelector('input[name="post"]').setAttribute("value", responseJson.post);
@@ -215,21 +181,6 @@ function refreshForm(form, errorBlockId) {
     }
 }
 
-function showErrorBlock(errorBlockId, errorDescription) {
-    let errorBlock = document.getElementById(errorBlockId);
-    errorBlock.querySelector("span").innerText = errorDescription;
-    errorBlock.classList.remove("visually-hidden");
-}
-
-function hideErrorBlock(errorBlockId) {
-    document.getElementById(errorBlockId).classList.add("visually-hidden");
-}
-
-function showSuccessModal(message) {
-    document.getElementById("success-modal-text").innerText = message;
-    new bootstrap.Modal(document.getElementById("success-modal")).show();
-}
-
 function changePasswordFlag() {
     document.getElementById("change-password").addEventListener("change", (check) => {
         if (check.target.checked) {
@@ -238,4 +189,150 @@ function changePasswordFlag() {
             document.getElementById("password-block").classList.add("visually-hidden");
         }
     });
+}
+
+/**/
+
+function vacationModalInit() {
+    let vacationModal = document.getElementById("vacation-modal");
+    if (vacationModal) {
+        vacationForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            let data = {
+                toWhomId: vacationForm.querySelector('input[name="vacation-to-whom-id"]').value,
+                endDate: vacationForm.querySelector('input[name="vacation-end-date"]').value,
+                comment: vacationForm.querySelector('input[name="vacation-comment"]').value == "" ? null : vacationForm.querySelector('input[name="vacation-comment"]').value,
+            };
+            fetchInactivityAdd(data, "vacation");
+        });
+        vacationModal.addEventListener("hidden.bs.modal", () => {
+            refreshForm(vacationForm, "vacation-error");
+        });
+    }
+}
+
+function sickLeaveModalInit() {
+    let sickLeaveModal = document.getElementById("sick-leave-modal");
+    if (sickLeaveModal) {
+        sickLeaveForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            let data = {
+                toWhomId: sickLeaveForm.querySelector('input[name="sick-leave-to-whom-id"]').value,
+                endDate: sickLeaveForm.querySelector('input[name="sick-leave-end-date"]').value,
+                comment: sickLeaveForm.querySelector('input[name="sick-leave-comment"]').value == "" ? null : vacationForm.querySelector('input[name="sick-leave-comment"]').value,
+            };
+            fetchInactivityAdd(data, "sick-leave");
+        });
+        sickLeaveModal.addEventListener("hidden.bs.modal", () => {
+            refreshForm(sickLeaveForm, "sick-leave-error");
+        });
+    }
+}
+
+function dismissalModalInit() {
+    let dismissalModal = document.getElementById("dismissal-modal");
+    if (dismissalModal) {
+        dismissalForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            let data = {
+                toWhomId: dismissalForm.querySelector('input[name="dismissal-to-whom-id"]').value,
+                endDate: dismissalForm.querySelector('input[name="dismissal-end-date"]').value,
+            };
+            fetchInactivityAdd(data, "dismissal");
+        });
+        dismissalModal.addEventListener("hidden.bs.modal", () => {
+            refreshForm(dismissalForm, "dismissal-error");
+        });
+    }
+}
+
+function patientInactivityModalInit() {
+    let patientInactivityModal = document.getElementById("patient-inactivity-modal");
+    if (patientInactivityModal) {
+        patientInactivityForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            let data = {
+                toWhomId: patientInactivityForm.querySelector('input[name="patient-inactivity-to-whom-id"]').value,
+                endDate: patientInactivityForm.querySelector('input[name="patient-inactivity-end-date"]').value,
+            };
+            fetchInactivityAdd(data, "patient-inactivity");
+        });
+        patientInactivityModal.addEventListener("hidden.bs.modal", () => {
+            refreshForm(patientInactivityForm, "patient-inactivity-error");
+        });
+    }
+}
+
+function fetchInactivityAdd(data, whichInactivity) {
+    fetch("http://localhost:8080/rest/user-inactivities/add/" + whichInactivity, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    })
+        .then((response) => {
+            if (response.ok) {
+                if (whichInactivity == "vacation") {
+                    document.getElementById("vacation-modal-close-1").click();
+                    refreshInactivity(response);
+                    showSuccessModal("Отпуск был успешно назначен");
+                } else if (whichInactivity == "sick-leave") {
+                    document.getElementById("sick-leave-modal-close-1").click();
+                    refreshInactivity(response);
+                    showSuccessModal("Больничный был успешно назначен");
+                } else if (whichInactivity == "dismissal") {
+                    document.getElementById("dismissal-modal-close-1").click();
+                    refreshInactivity(response);
+                    showSuccessModal("Сотрудник был успешно уволен");
+                } else if (whichInactivity == "patient-inactivity") {
+                    document.getElementById("patient-inactivity-modal-close-1").click();
+                    refreshInactivity(response);
+                    showSuccessModal("Пациент был успешно переведён в неактивное состояние");
+                }
+            } else {
+                response.json().then((responseJson) => {
+                    if (whichInactivity == "vacation") {
+                        showErrorBlock("vacation-error", responseJson.errorDescription);
+                    } else if (whichInactivity == "sick-leave") {
+                        showErrorBlock("sick-leave-error", responseJson.errorDescription);
+                    } else if (whichInactivity == "dismissal") {
+                        showErrorBlock("dismissal-error", responseJson.errorDescription);
+                    } else if (whichInactivity == "patient-inactivity") {
+                        showErrorBlock("patient-inactivity-error", responseJson.errorDescription);
+                    }
+                });
+            }
+        })
+        .catch((error) => {
+            console.error("Ошибка запроса", error);
+        });
+}
+
+function refreshInactivity(response) {
+    /*response.json().then((responseJson) => {
+        document.getElementById("active").remove();
+
+        let inactivityBlock = document.createElement("div");
+        inactivityBlock.classList = "mb-0";
+
+        let inactivityMessage = document.createElement("p");
+        inactivityMessage.classList = "text-danger mb-1";
+    });*/
+    console.log("success");
+}
+
+function showSuccessModal(message) {
+    document.getElementById("success-modal-text").innerText = message;
+    new bootstrap.Modal(document.getElementById("success-modal")).show();
+}
+
+function showErrorBlock(errorBlockId, errorDescription) {
+    let errorBlock = document.getElementById(errorBlockId);
+    errorBlock.querySelector("span").innerText = errorDescription;
+    errorBlock.classList.remove("visually-hidden");
+}
+
+function hideErrorBlock(errorBlockId) {
+    document.getElementById(errorBlockId).classList.add("visually-hidden");
 }
