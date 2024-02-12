@@ -23,14 +23,20 @@ public class PhysicalChanges implements InputIndicator {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "acrocyanosis")
-    private Boolean acrocyanosis;
+    @Column(name = "abdominal_enlargement")
+    private Boolean abdominalEnlargement;
+
+    @Column(name = "legs_swelling")
+    private LegsSwelling legs_swelling;
+
+    @Column(name = "vascular_asterisks")
+    private Boolean vascular_asterisks;
+
+    @Column(name = "skin_color")
+    private SkinColor skinColor;
 
     @Column(name = "fingers_phalanges")
     private Boolean fingersPhalanges;
-
-    @Column(name = "nails")
-    private Boolean nails;
 
     @Column(name = "chest")
     private Boolean chest;
@@ -38,15 +44,42 @@ public class PhysicalChanges implements InputIndicator {
     @Column(name = "neck_veins")
     private Boolean neckVeins;
 
-    @Column(name = "lower_extremities")
-    private Boolean lowerExtremities;
-
     @Column(name = "date")
     private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum LegsSwelling {
+
+        MORNING("Утром"),
+
+        EVENING("Вечером"),
+
+        CONSTANTLY("Постоянно");
+
+        private final String alias;
+
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum SkinColor {
+
+        ORDINARY("Обычный"),
+
+        PALE("Бледный"),
+
+        BLUISH("Синюшный"),
+
+        YELLOWISH("Желтоватый");
+
+        private final String alias;
+
+    }
 
     @Override
     public boolean equals(Object o) {
