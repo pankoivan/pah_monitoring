@@ -6,6 +6,7 @@ import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.entities.main.patient_additions.Achievement;
+import org.pah_monitoring.main.entities.main.patient_additions.Anamnesis;
 import org.pah_monitoring.main.entities.main.users.inactivity.PatientInactivity;
 import org.pah_monitoring.main.entities.main.users.inactivity.common.Inactivity;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
@@ -49,6 +50,9 @@ public class Patient extends HospitalUser implements UserDetails {
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
+    @OneToOne(mappedBy = "patient")
+    private Anamnesis anamnesis;
+
     @OneToMany(mappedBy = "patient")
     private List<ExaminationSchedule> schedules;
 
@@ -63,8 +67,20 @@ public class Patient extends HospitalUser implements UserDetails {
     @OneToOne(mappedBy = "patient")
     private PatientInactivity patientInactivity;
 
+    public int getAchievementsCount() {
+        return achievements.size();
+    }
+
     public void addAchievement(Achievement achievement) {
         achievements.add(achievement);
+    }
+
+    public boolean hasDoctor() {
+        return doctor != null;
+    }
+
+    public boolean hasNoDoctor() {
+        return !hasDoctor();
     }
 
     public void setDoctor(Doctor doctor) {
@@ -82,16 +98,12 @@ public class Patient extends HospitalUser implements UserDetails {
         this.doctor = null;
     }
 
-    public int getAchievementsCount() {
-        return achievements.size();
+    public boolean hasAnamnesis() {
+        return anamnesis != null;
     }
 
-    public boolean hasDoctor() {
-        return doctor != null;
-    }
-
-    public boolean hasNoDoctor() {
-        return !hasDoctor();
+    public boolean hasNotAnamnesis() {
+        return !hasAnamnesis();
     }
 
     @Override
