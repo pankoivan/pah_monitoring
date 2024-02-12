@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc.patient_additions;
 
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.entities.main.enums.YesNo;
+import org.pah_monitoring.main.entities.main.enums.TrueFalseEnum;
 import org.pah_monitoring.main.entities.main.patient_additions.Anamnesis;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ public class AnamnesisController {
 
     @GetMapping("/anamnesis")
     public String getForm(Model model) {
-        model.addAttribute("yesNo", YesNo.values());
+        model.addAttribute("yesNo", TrueFalseEnum.values());
         model.addAttribute("bloodClotting", Anamnesis.BloodClotting.values());
         pageHeaderService.addHeader(model);
         return "patients/anamnesis-form";

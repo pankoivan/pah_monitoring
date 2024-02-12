@@ -6,13 +6,15 @@ import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public enum YesNo {
+public enum TrueFalseEnum {
 
-    YES("Да", true),
+    YES("Да", "Есть", true),
 
-    NO("Нет", false);
+    NO("Нет", "Нет", false);
 
-    private final String alias;
+    private final String yesNo;
+
+    private final String hasNot;
 
     private final boolean value;
 
