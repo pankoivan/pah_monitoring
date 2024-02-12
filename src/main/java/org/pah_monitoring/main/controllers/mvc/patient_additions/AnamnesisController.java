@@ -16,15 +16,17 @@ public class AnamnesisController {
 
     @GetMapping("/anamnesis")
     public String getForm(Model model) {
-        model.addAttribute("yesNo", TrueFalseEnum.values());
+        model.addAttribute("trueFalse", TrueFalseEnum.values());
         model.addAttribute("bloodClotting", Anamnesis.BloodClotting.values());
         pageHeaderService.addHeader(model);
         return "patients/anamnesis-form";
     }
 
     @GetMapping("/patients/{patientId}/anamnesis")
-    public String getPage() {
-        return null;
+    public String getPage(Model model) {
+        model.addAttribute("anamnesis", null);
+        pageHeaderService.addHeader(model);
+        return "patients/anamnesis";
     }
 
 }

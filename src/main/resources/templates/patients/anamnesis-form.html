@@ -23,21 +23,21 @@
                     <form action="#" method="post" id="hospital-registration-form" class="fs-5">
                         <div class="mb-5">
                             <h4 class="fs-4">Имеются ли у вас врождённые пороки сердца?</h4>
-                            <div class="form-check form-check-inline" th:each="each : ${yesNo}">
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
                                 <label class="form-check-label" th:for="'heartDisease' + ${each}" th:text="${each.yesNo}"></label>
                                 <input th:id="'heartDisease' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="heartDisease" />
                             </div>
                         </div>
                         <div class="mb-5">
                             <h4 class="fs-4">Имеется ли у вас хроническое заболевание лёгких?</h4>
-                            <div class="form-check form-check-inline" th:each="each : ${yesNo}">
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
                                 <label class="form-check-label" th:for="'lungDisease' + ${each}" th:text="${each.yesNo}"></label>
                                 <input th:id="'lungDisease' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="lungDisease" />
                             </div>
                         </div>
                         <div class="mb-5">
                             <h4 class="fs-4">Имелись ли хронические заболевания сердца или лёгких у ваших близких родственников?</h4>
-                            <div class="form-check form-check-inline" th:each="each : ${yesNo}">
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
                                 <label class="form-check-label" th:for="'relativesDiseases' + ${each}" th:text="${each.yesNo}"></label>
                                 <input th:id="'relativesDiseases' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="relativesDiseases" />
                             </div>
@@ -45,13 +45,13 @@
                         <div class="mb-5">
                             <h4 class="fs-4">Какая у вас свёртываемость крови?</h4>
                             <div class="form-check form-check-inline" th:each="each : ${bloodClotting}">
-                                <label class="form-check-label" th:for="'bloodClotting' + ${each}" th:text="${each.yesNo}"></label>
+                                <label class="form-check-label" th:for="'bloodClotting' + ${each}" th:text="${each.alias}"></label>
                                 <input th:id="'bloodClotting' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="bloodClotting" />
                             </div>
                         </div>
                         <div class="mb-5">
                             <h4 class="fs-4">Имеется ли у вас сахарный диабет?</h4>
-                            <div class="form-check form-check-inline" th:each="each : ${yesNo}">
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
                                 <label class="form-check-label" th:for="'diabetes' + ${each}" th:text="${each.yesNo}"></label>
                                 <input th:id="'diabetes' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="diabetes" />
                             </div>
