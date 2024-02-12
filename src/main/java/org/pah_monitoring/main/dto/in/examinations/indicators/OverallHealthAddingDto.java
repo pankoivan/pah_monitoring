@@ -7,8 +7,11 @@ import org.pah_monitoring.main.entities.main.examinations.indicators.OverallHeal
 @Data
 public class OverallHealthAddingDto {
 
+    @NotNull(message = "Поле \"breathlessness\" не должно отсутствовать")
+    private OverallHealth.Conditions breathlessness;
+
     @NotNull(message = "Поле \"fatigue\" не должно отсутствовать")
-    private Boolean fatigue;
+    private OverallHealth.Conditions fatigue;
 
     @NotNull(message = "Поле \"restFeeling\" не должно отсутствовать")
     private Boolean restFeeling;

@@ -23,8 +23,11 @@ public class OverallHealth implements InputIndicator {
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "breathlessness")
+    private Conditions breathlessness;
+
     @Column(name = "fatigue")
-    private Boolean fatigue;
+    private Conditions fatigue;
 
     @Column(name = "rest_feeling")
     private Boolean restFeeling;
@@ -68,6 +71,22 @@ public class OverallHealth implements InputIndicator {
     @Override
     public IndicatorType getIndicatorGroup() {
         return IndicatorType.OVERALL_HEALTH;
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public enum Conditions {
+
+        AT_REST("В покое"),
+
+        NORMAL_PHYSICAL_ACTIVITY("При обычной физической активности"),
+
+        INCREASED_PHYSICAL_ACTIVITY("При повышенной физической активности"),
+
+        NO("Нет");
+
+        private final String alias;
+
     }
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)

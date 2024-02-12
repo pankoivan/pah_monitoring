@@ -2,13 +2,13 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.OverallHealthGraphicsDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.OverallHealthTablesDto;
-import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.dto.in.examinations.indicators.OverallHealthAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.OverallHealthGraphicsDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.tables.OverallHealthTablesDto;
+import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.OverallHealth;
 import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
@@ -67,6 +67,7 @@ public class OverallHealthServiceImpl extends AbstractInputIndicatorServiceImpl
             return repository.save(
                     OverallHealth
                             .builder()
+                            .breathlessness(addingDto.getBreathlessness())
                             .fatigue(addingDto.getFatigue())
                             .restFeeling(addingDto.getRestFeeling())
                             .drowsiness(addingDto.getDrowsiness())
