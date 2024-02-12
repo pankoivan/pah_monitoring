@@ -22,17 +22,15 @@ public enum IndicatorType {
 
     PHYSICAL_CHANGES("Физические изменения"),
 
-    ASCITES("Асцит"),
-
     OVERALL_HEALTH("Общее самочувствие"),
 
     VERTIGO("Головокружение"),
 
     PRESSURE("Давление"),
 
-    LIQUID_AND_WEIGHT("Жидкость и вес"),
+    LIQUID("Питьевой режим"),
 
-    FUNCTIONAL_CLASS("Функциональный класс"),
+    WEIGHT("Вес"),
 
     BLOOD_TEST("Развёрнутый анализ крови"),
 
@@ -43,6 +41,8 @@ public enum IndicatorType {
     ECHOCARDIOGRAPHY("Эхокардиография"),
 
     COMPUTED_TOMOGRAPHY("Компьютерная томография органов грудной клетки"),
+
+    SCINTIGRAPHY("Сцинтиграфия лёгких"),
 
     CATHETERIZATION("Катетеризация правых отделов сердца");
 

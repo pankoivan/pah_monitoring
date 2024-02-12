@@ -74,7 +74,8 @@ public class AnalysisFile implements Indicator {
                 "RADIOGRAPHY",
                 "radiography.jpg",
                 "/patients/%s/examinations/radiography",
-                "/indicators/radiography"),
+                "/indicators/radiography"
+        ),
 
         ECHOCARDIOGRAPHY(
                 "Эхокардиография",
@@ -89,7 +90,16 @@ public class AnalysisFile implements Indicator {
                 "COMPUTED_TOMOGRAPHY",
                 "computed-tomography.jpg",
                 "/patients/%s/examinations/computed-tomography",
-                "/indicators/computed-tomography"),
+                "/indicators/computed-tomography"
+        ),
+
+        SCINTIGRAPHY(
+                "Сцинтиграфия лёгких",
+                "SCINTIGRAPHY",
+                "scintigraphy.jpg",
+                "/patients/%s/examinations/scintigraphy",
+                "/indicators/scintigraphy"
+        ),
 
         CATHETERIZATION(
                 "Катетеризация правых отделов сердца",

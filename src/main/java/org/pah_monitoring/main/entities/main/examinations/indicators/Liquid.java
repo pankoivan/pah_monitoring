@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @ToString(of = "id")
 @Builder
 @Entity
-@Table(name = "liquid_and_weight")
-public class LiquidAndWeight implements InputIndicator {
+@Table(name = "liquid")
+public class Liquid implements InputIndicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +25,6 @@ public class LiquidAndWeight implements InputIndicator {
 
     @Column(name = "liquid")
     private Double liquid;
-
-    @Column(name = "weight")
-    private Double weight;
 
     @Column(name = "date")
     private LocalDateTime date;
@@ -39,7 +36,7 @@ public class LiquidAndWeight implements InputIndicator {
     @Override
     public boolean equals(Object o) {
         return (this == o)
-                || ((o instanceof LiquidAndWeight other))
+                || ((o instanceof Liquid other))
                 && (id != null)
                 && (id.equals(other.id));
     }
@@ -51,7 +48,7 @@ public class LiquidAndWeight implements InputIndicator {
 
     @Override
     public IndicatorType getIndicatorGroup() {
-        return IndicatorType.LIQUID_AND_WEIGHT;
+        return IndicatorType.LIQUID;
     }
 
 }

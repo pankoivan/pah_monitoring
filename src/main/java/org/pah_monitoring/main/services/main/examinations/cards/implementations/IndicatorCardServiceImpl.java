@@ -37,9 +37,6 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
     @Qualifier("faintingService")
     private InputIndicatorService<Fainting, FaintingAddingDto, FaintingTablesDto, FaintingGraphicsDto> faintingService;
 
-    @Qualifier("liquidAndWeightService")
-    private InputIndicatorService<LiquidAndWeight, LiquidAndWeightAddingDto, LiquidAndWeightTablesDto, LiquidAndWeightGraphicsDto> liquidAndWeightService;
-
     @Qualifier("overallHealthService")
     private InputIndicatorService<OverallHealth, OverallHealthAddingDto, OverallHealthTablesDto, OverallHealthGraphicsDto> overallHealthService;
 
@@ -77,8 +74,7 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
                 physicalChangesService.getInputIndicatorCardFor(patient),
                 overallHealthService.getInputIndicatorCardFor(patient),
                 vertigoService.getInputIndicatorCardFor(patient),
-                pressureService.getInputIndicatorCardFor(patient),
-                liquidAndWeightService.getInputIndicatorCardFor(patient)
+                pressureService.getInputIndicatorCardFor(patient)
         );
     }
 

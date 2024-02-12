@@ -2,20 +2,20 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.LiquidAndWeightGraphicsDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.LiquidAndWeightTablesDto;
-import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
-import org.pah_monitoring.main.dto.in.examinations.indicators.LiquidAndWeightAddingDto;
+import org.pah_monitoring.main.dto.in.examinations.indicators.WeightAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.WeightGraphicsDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.tables.WeightTablesDto;
+import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
-import org.pah_monitoring.main.entities.main.examinations.indicators.LiquidAndWeight;
+import org.pah_monitoring.main.entities.main.examinations.indicators.Weight;
 import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
-import org.pah_monitoring.main.repositorites.main.examinations.indicators.LiquidAndWeightRepository;
+import org.pah_monitoring.main.repositorites.main.examinations.indicators.WeightRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,47 +27,46 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service("liquidAndWeightService")
-public class LiquidAndWeightServiceImpl extends AbstractInputIndicatorServiceImpl
-        <LiquidAndWeight, LiquidAndWeightAddingDto, LiquidAndWeightTablesDto, LiquidAndWeightGraphicsDto> {
+@Service("weightService")
+public class WeightServiceImpl extends AbstractInputIndicatorServiceImpl
+        <Weight, WeightAddingDto, WeightTablesDto, WeightGraphicsDto> {
 
-    private final LiquidAndWeightRepository repository;
+    private final WeightRepository repository;
 
     @Qualifier("patientService")
     private HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
     @Override
     public IndicatorType getIndicatorType() {
-        return IndicatorType.LIQUID_AND_WEIGHT;
+        return IndicatorType.WEIGHT;
     }
 
     @Override
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
         return InputIndicatorCard
                 .builder()
-                .workingName(IndicatorType.LIQUID_AND_WEIGHT.name())
+                .workingName(IndicatorType.WEIGHT.name())
                 .name(getIndicatorType().getAlias())
-                .filename("liquid-and-weight.jpg")
-                .postFormRef("/indicators/liquid-and-weight")
-                .tablesRef("/patients/%s/examinations/tables?liquid-and-weight".formatted(patient.getId()))
-                .graphicsRef("/patients/%s/examinations/graphics?liquid-and-weight".formatted(patient.getId()))
+                .filename("weight.jpg")
+                .postFormRef("/indicators/weight")
+                .tablesRef("/patients/%s/examinations/tables?weight".formatted(patient.getId()))
+                .graphicsRef("/patients/%s/examinations/graphics?weight".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .build();
     }
 
     @Override
-    public List<LiquidAndWeight> findAllByPatientId(Integer id) throws DataSearchingServiceException {
+    public List<Weight> findAllByPatientId(Integer id) throws DataSearchingServiceException {
         return repository.findAllByPatientId(patientService.findById(id).getId());
     }
 
     @Override
-    public LiquidAndWeight add(LiquidAndWeightAddingDto addingDto) throws DataSavingServiceException {
+    public Weight add(WeightAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(
-                    LiquidAndWeight
+                    Weight
                             .builder()
-                            .liquid(addingDto.getLiquid())
                             .weight(addingDto.getWeight())
                             .date(LocalDateTime.now())
                             .patient(getExtractionService().patient())
@@ -84,15 +83,15 @@ public class LiquidAndWeightServiceImpl extends AbstractInputIndicatorServiceImp
     }
 
     @Override
-    protected LiquidAndWeightTablesDto toTablesDto(LiquidAndWeight liquidAndWeight) {
-        return LiquidAndWeightTablesDto
+    protected WeightTablesDto toTablesDto(Weight weight) {
+        return WeightTablesDto
                 .builder()
                 .build();
     }
 
     @Override
-    protected LiquidAndWeightGraphicsDto toGraphicsDto(LiquidAndWeight liquidAndWeight) {
-        return LiquidAndWeightGraphicsDto
+    protected WeightGraphicsDto toGraphicsDto(Weight weight) {
+        return WeightGraphicsDto
                 .builder()
                 .build();
     }
