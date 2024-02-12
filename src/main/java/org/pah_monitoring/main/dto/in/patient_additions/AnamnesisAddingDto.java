@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.pah_monitoring.main.entities.main.patient_additions.Anamnesis;
 
 @Data
 public class AnamnesisAddingDto {
