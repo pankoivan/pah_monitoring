@@ -106,6 +106,14 @@ public class Patient extends HospitalUser implements UserDetails {
         return !hasAnamnesis();
     }
 
+    public boolean hasAchievement(Achievement achievement) {
+        return achievements.contains(achievement);
+    }
+
+    public boolean hasNotAchievement(Achievement achievement) {
+        return !achievements.contains(achievement);
+    }
+
     @Override
     public boolean isActive() {
         return patientInactivity == null;
