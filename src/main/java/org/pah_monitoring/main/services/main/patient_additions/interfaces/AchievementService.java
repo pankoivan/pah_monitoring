@@ -4,7 +4,13 @@ import org.pah_monitoring.main.entities.main.enums.AchievementEnum;
 import org.pah_monitoring.main.entities.main.patient_additions.Achievement;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 
+import java.util.List;
+
 public interface AchievementService {
+
+    List<Achievement> findAll();
+
+    List<Achievement> findAllByPatientId(Integer patientId) throws DataSearchingServiceException;
 
     Achievement achievement(AchievementEnum achievement) throws DataSearchingServiceException;
 
