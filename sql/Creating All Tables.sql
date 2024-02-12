@@ -138,11 +138,11 @@ CREATE TABLE IF NOT EXISTS anamnesis
 (
     id SERIAL PRIMARY KEY,
     patient_id INT REFERENCES patient (id) UNIQUE NOT NULL,
-    heart_disease VARCHAR (4) NOT NULL,
-    lung_disease VARCHAR (4) NOT NULL,
-    relatives_diseases VARCHAR (4) NOT NULL,
+    heart_disease BOOL NOT NULL,
+    lung_disease BOOL NOT NULL,
+    relatives_diseases BOOL NOT NULL,
     blood_clotting VARCHAR (24) NOT NULL,
-    diabetes VARCHAR (4) NOT NULL,
+    diabetes BOOL NOT NULL,
     height INT NOT NULL,
     weight REAL NOT NULL
 );
