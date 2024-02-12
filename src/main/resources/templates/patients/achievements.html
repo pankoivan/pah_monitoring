@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title th:text="'Награды пациента ' + '&quot;' ${patient.userInformation.fullName} + '&quot;'">Награды пациента "Иванов Иван Иванович"</title>
+        <title>Награды</title>
         <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
         <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
         <link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
@@ -18,190 +18,39 @@
         <!---->
         <div class="container text-secondary my-5">
             <!---->
-            <div class="row text-center mb-5">
-                <h1 class="fs-3" th:text="'Награды пациента ' + '&quot;' ${patient.userInformation.fullName} + '&quot;'">Награды пациента "Иванов Иван Иванович"</h1>
+            <div class="row fs-5 mb-3" th:if="${!isForPatient}">
+                <h1 class="text-center fs-3 mb-3">Награды</h1>
+                <p>На этой странице приведён полный список всех наград, которые автоматически назначаются пациенту системой за определённые достижения.</p>
+                <p>Например, за отправку анамнеза пациент получит награду "Историк", за первую отправку показателя "Т6МХ" - награду "Прогулка", за 50 отправок любых показателей - награду "Упорный".</p>
             </div>
             <!---->
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center g-4 mb-4">
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 1</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/1.png" width="72" alt="" />
+            <div class="row fs-5 mb-3" th:if="${isForPatient}">
+                <h1 class="text-center fs-3 mb-3">Награды</h1>
+                <p th:if="${isSelf}">
+                    Здесь перечислены все ваши награды. В данный момент их:
+                    <span th:text="${patient.achievementsCount}">12</span>
+                </p>
+                <p th:if="${isSelf}">
+                    Здесь перечислены все награды этого пациента. В данный момент их:
+                    <span th:text="${patient.achievementsCount}">12</span>
+                </p>
+            </div>
+            <!---->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center g-5">
+                <div class="col mx-auto" th:each="each : ${achievements}">
+                    <div class="border rounded p-3">
+                        <h4 class="fs-4 mb-3" th:text="${each.name}">Награда</h4>
+                        <div class="mb-3">
+                            <img src="../../static/img/achievements/1.png" th:src="@{/img/achievements/__${each.filename}__}" width="96" alt="Награда" />
                         </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
+                        <p class="mb-0" th:text="${each.description}">Выдаётся за какие-то заслуги</p>
                     </div>
                 </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 2</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/2.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 3</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/3.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 4</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/4.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 5</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/5.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 6</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/6.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 7</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/7.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 8</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/8.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 9</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/9.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 10</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/10.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 11</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/11.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 12</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/12.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 13</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/13.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 14</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/14.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 15</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/15.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 16</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/16.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 17</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/17.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 18</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/18.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 19</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/19.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
-                </div>
-                <div class="col mx-auto">
-                    <div class="border rounded">
-                        <h4 class="fs-4 mb-1">Награда 20</h4>
-                        <div class="mb-1">
-                            <img src="../../static/img/achievements/20.png" width="72" alt="" />
-                        </div>
-                        <p class="mb-0">Выдаётся за какие-то заслуги</p>
-                    </div>
+            </div>
+            <!---->
+            <div class="row" th:if="${achievements.isEmpty}" id="empty-achievements-message">
+                <div class="col-12">
+                    <div class="text-secondary text-center fst-italic fs-2">В списке наград пока пусто</div>
                 </div>
             </div>
             <!---->
@@ -210,5 +59,6 @@
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
     </body>
 </html>
