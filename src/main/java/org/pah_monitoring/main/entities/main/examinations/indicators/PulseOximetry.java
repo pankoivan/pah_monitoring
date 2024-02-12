@@ -29,8 +29,8 @@ public class PulseOximetry implements InputIndicator {
     @Column(name = "pulse_rate")
     private Integer pulseRate;
 
-    @Column(name = "during_exercise")
-    private Boolean duringExercise;
+    @Column(name = "after_exercise")
+    private Boolean afterExercise;
 
     @Column(name = "date")
     private LocalDateTime date;

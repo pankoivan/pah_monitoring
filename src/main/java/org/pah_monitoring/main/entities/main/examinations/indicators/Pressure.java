@@ -29,8 +29,8 @@ public class Pressure implements InputIndicator {
     @Column(name = "lower")
     private Integer lower;
 
-    @Column(name = "during_exercise")
-    private Boolean duringExercise;
+    @Column(name = "after_exercise")
+    private Boolean afterExercise;
 
     @Column(name = "date")
     private LocalDateTime date;

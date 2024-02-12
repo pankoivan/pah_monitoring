@@ -23,7 +23,7 @@ public class Spirometry implements InputIndicator {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "vcl")
+    @Column(name = "vlc")
     private Double vlc;
 
     @Column(name = "avlc")
