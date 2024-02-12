@@ -134,11 +134,24 @@ CREATE TABLE IF NOT EXISTS patient_inactivity
 	date DATE NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS anamnesis
+(
+    id SERIAL PRIMARY KEY,
+    patient_id INT REFERENCES patient (id) UNIQUE NOT NULL,
+    heart_disease VARCHAR (4) NOT NULL,
+    lung_disease VARCHAR (4) NOT NULL,
+    relatives_diseases VARCHAR (4) NOT NULL,
+    blood_clotting VARCHAR (24) NOT NULL,
+    diabetes VARCHAR (4) NOT NULL,
+    height INT NOT NULL,
+    weight REAL NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS spirometry
 (
 	id SERIAL PRIMARY KEY,
 	patient_id INT REFERENCES patient (id) NOT NULL,
-	vcl REAL NOT NULL,
+	vlc REAL NOT NULL,
 	avlc REAL NOT NULL,
 	rlv REAL NOT NULL,
 	vfe1 REAL NOT NULL,
@@ -151,7 +164,7 @@ CREATE TABLE IF NOT EXISTS pulse_oximetry
 	patient_id INT REFERENCES patient (id) NOT NULL,
 	oxygen_percentage REAL NOT NULL,
 	pulse_rate INT NOT NULL,
-	during_exercise BOOL NOT NULL,
+	after_exercise BOOL NOT NULL,
 	date TIMESTAMP NOT NULL
 );
 
@@ -161,7 +174,7 @@ CREATE TABLE IF NOT EXISTS pressure
 	patient_id INT REFERENCES patient (id) NOT NULL,
 	upper INT NOT NULL,
 	lower INT NOT NULL,
-	during_exercise BOOL NOT NULL,
+	after_exercise BOOL NOT NULL,
 	date TIMESTAMP NOT NULL
 );
 
@@ -215,22 +228,13 @@ CREATE TABLE IF NOT EXISTS physical_changes
 (
 	id SERIAL PRIMARY KEY,
 	patient_id INT REFERENCES patient (id) NOT NULL,
-	acrocyanosis BOOL NOT NULL,
+	abdominal_enlargement BOOL NOT NULL,
+	legs_swelling VARCHAR (12) NOT NULL,
+	vascular_asterisks BOOL NOT NULL,
+	skin_color VARCHAR (12) NOT NULL,
 	fingers_phalanges BOOL NOT NULL,
-	nails BOOL NOT NULL,
 	chest BOOL NOT NULL,
 	neck_veins BOOL NOT NULL,
-	lower_extremities BOOL NOT NULL,
-	date TIMESTAMP NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS ascites
-(
-	id SERIAL PRIMARY KEY,
-	patient_id INT REFERENCES patient (id) NOT NULL,
-	liquid_amount VARCHAR (12) NOT NULL,
-	content_infection VARCHAR (12) NOT NULL,
-	response_to_drug_therapy VARCHAR (24) NOT NULL,
 	date TIMESTAMP NOT NULL
 );
 
@@ -238,7 +242,8 @@ CREATE TABLE IF NOT EXISTS overall_health
 (
 	id SERIAL PRIMARY KEY,
 	patient_id INT REFERENCES patient (id) NOT NULL,
-	fatigue BOOL NOT NULL,
+	breathlessness VARCHAR (32) NOT NULL,
+	fatigue VARCHAR (32) NOT NULL,
 	rest_feeling BOOL NOT NULL,
 	drowsiness BOOL NOT NULL,
 	concentration BOOL NOT NULL,
@@ -257,20 +262,19 @@ CREATE TABLE IF NOT EXISTS vertigo
 	date TIMESTAMP NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS liquid_and_weight
+CREATE TABLE IF NOT EXISTS liquid
 (
 	id SERIAL PRIMARY KEY,
 	patient_id INT REFERENCES patient (id) NOT NULL,
 	liquid REAL NOT NULL,
-	weight REAL NOT NULL,
 	date TIMESTAMP NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS functional_class
+CREATE TABLE IF NOT EXISTS weight
 (
 	id SERIAL PRIMARY KEY,
 	patient_id INT REFERENCES patient (id) NOT NULL,
-	functional_class VARCHAR (4) NOT NULL,
+	weight REAL NOT NULL,
 	date TIMESTAMP NOT NULL
 );
 
@@ -290,17 +294,7 @@ CREATE TABLE IF NOT EXISTS examination_schedule
     indicator_type VARCHAR (32) NOT NULL,
     schedule VARCHAR (32) NOT NULL,
 	
-	CONSTRAINT examination_schedule__patient_and_indicators_group_unique UNIQUE (patient_id, indicators_group)
-);
-
-CREATE TABLE IF NOT EXISTS medicine
-(
-    id SERIAL PRIMARY KEY,
-    patient_id INT REFERENCES patient (id) NOT NULL,
-    medicine_api_id VARCHAR (1024) NOT NULL,
-    description TEXT NOT NULL,
-	
-	CONSTRAINT patient_medicine__patient_and_medicine_unique UNIQUE (patient_id, medicine_api_id)
+	CONSTRAINT examination_schedule__patient_and_indicator_type_unique UNIQUE (patient_id, indicator_type)
 );
 
 CREATE TABLE IF NOT EXISTS achievement
