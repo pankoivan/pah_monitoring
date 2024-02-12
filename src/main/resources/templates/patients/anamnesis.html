@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Анамнез</title>
+        <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary my-5">
+            <!---->
+            <div class="row" th:if="${anamnesis != null}">
+                <div class="col-12 fs-5">
+                    <div class="mb-5">
+                        <h4 class="fs-4">Врождённые пороки сердца</h4>
+                        <span th:if="${anamnesis.heartDisease}">Имеются</span>
+                        <span th:if="${!anamnesis.heartDisease}">Отсутствуют</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Хронические заболевания лёгких</h4>
+                        <span th:if="${anamnesis.lungDisease}">Имеются</span>
+                        <span th:if="${!anamnesis.lungDisease}">Отсутствуют</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Хронические заболевания сердца или лёгких у родственников</h4>
+                        <span th:if="${anamnesis.relativesDiseases}">Имеются</span>
+                        <span th:if="${!anamnesis.relativesDiseases}">Отсутствуют</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Свёртываемость крови</h4>
+                        <span th:text="${anamnesis.bloodClotting.alias}">Кровь долго не останавливается</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Сахарный диабет</h4>
+                        <span th:if="${anamnesis.diabetes}">Имеется</span>
+                        <span th:if="${!anamnesis.diabetes}">Отсутствует</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Рост</h4>
+                        <span th:text="${anamnesis.height}">177</span>
+                        <span>см</span>
+                    </div>
+                    <div>
+                        <h4 class="fs-4">Вес</h4>
+                        <span th:text="${anamnesis.weight}">64.9</span>
+                        <span>кг</span>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div class="row" th:if="${anamnesis == null}" id="empty-anamnesis-message">
+                <div class="col-12">
+                    <div class="text-secondary text-center fst-italic fs-2">Анамнез ещё не сдан</div>
+                </div>
+            </div>
+            <!---->
+        </div>
+        <!---->
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
+    </body>
+</html>
