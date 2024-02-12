@@ -7,19 +7,19 @@
         <nav th:fragment="pagination" class="mt-5">
             <ul class="pagination pagination-overriden">
                 <li class="page-item">
-                    <button id="first-page" class="page-link" th:classappend="${currentPage == 1} ? 'disabled'">&lt;&lt;</button>
+                    <button id="first-page" class="page-link" th:classappend="${currentPage == 1} ? 'disabled'">&laquo;</button>
                 </li>
                 <li class="page-item">
-                    <button id="prev-page" class="page-link" th:classappend="${currentPage == 1} ? 'disabled'">&lt;</button>
+                    <button id="prev-page" class="page-link" th:classappend="${currentPage == 1} ? 'disabled'">&lsaquo;</button>
                 </li>
                 <li class="page-item">
                     <button id="current-page" class="page-link active" th:text="${currentPage}">1</button>
                 </li>
                 <li class="page-item">
-                    <button id="next-page" class="page-link" th:classappend="${currentPage == pagesCount} ? 'disabled'">&gt;</button>
+                    <button id="next-page" class="page-link" th:classappend="${currentPage == pagesCount} ? 'disabled'">&rsaquo;</button>
                 </li>
                 <li class="page-item" th:attr="data-count=${pagesCount}">
-                    <button id="last-page" class="page-link" th:classappend="${currentPage == pagesCount} ? 'disabled'">&gt;&gt;</button>
+                    <button id="last-page" class="page-link" th:classappend="${currentPage == pagesCount} ? 'disabled'">&raquo;</button>
                 </li>
             </ul>
         </nav>
