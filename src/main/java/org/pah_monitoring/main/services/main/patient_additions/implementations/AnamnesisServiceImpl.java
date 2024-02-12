@@ -53,7 +53,7 @@ public class AnamnesisServiceImpl implements AnamnesisService {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
         try {
-            if (extractionService.patient().hasNotAnamnesis()) {
+            if (extractionService.patient().hasNoAnamnesis()) {
                 throw new DataValidationServiceException("Нельзя добавить больше одного анамнеза");
             }
         } catch (NullPointerException | ClassCastException e) {

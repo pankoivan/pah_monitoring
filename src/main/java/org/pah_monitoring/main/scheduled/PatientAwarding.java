@@ -12,8 +12,8 @@ public class PatientAwarding {
     private final AchievementService service;
 
     @Scheduled(fixedRateString = "${my.scheduled.rate.patient-awarding}")
-    public void awardPatient() {
-        service.awardPatient();
+    public void award() {
+        service.award();
     }
 
 }

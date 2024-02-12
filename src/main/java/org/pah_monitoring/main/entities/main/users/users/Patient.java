@@ -3,6 +3,7 @@ package org.pah_monitoring.main.entities.main.users.users;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.main.enums.Role;
+import org.pah_monitoring.main.entities.main.examinations.indicators.*;
 import org.pah_monitoring.main.entities.main.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.entities.main.patient_additions.Achievement;
@@ -56,6 +57,45 @@ public class Patient extends HospitalUser implements UserDetails {
     @OneToMany(mappedBy = "patient")
     private List<ExaminationSchedule> schedules;
 
+    @OneToMany(mappedBy = "patient")
+    private List<Spirometry> spirometries;
+
+    @OneToMany(mappedBy = "patient")
+    private List<WalkTest> walkTests;
+
+    @OneToMany(mappedBy = "patient")
+    private List<PulseOximetry> pulseOximetries;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Cough> coughs;
+
+    @OneToMany(mappedBy = "patient")
+    private List<ChestPain> chestPains;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Fainting> faintings;
+
+    @OneToMany(mappedBy = "patient")
+    private List<PhysicalChanges> physicalChanges;
+
+    @OneToMany(mappedBy = "patient")
+    private List<OverallHealth> overallHealths;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Vertigo> vertigos;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Pressure> pressures;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Liquid> liquids;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Weight> weights;
+
+    @OneToMany(mappedBy = "patient")
+    private List<AnalysisFile> analysisFiles;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "patient_achievement",
@@ -66,6 +106,12 @@ public class Patient extends HospitalUser implements UserDetails {
 
     @OneToOne(mappedBy = "patient")
     private PatientInactivity patientInactivity;
+
+    public int getIndicatorsCount() {
+        return spirometries.size() + walkTests.size() + pulseOximetries.size() + coughs.size() + chestPains.size() +
+                faintings.size() + physicalChanges.size() + overallHealths.size() + vertigos.size() + pressures.size() +
+                liquids.size() + weights.size() + analysisFiles.size();
+    }
 
     public int getAchievementsCount() {
         return achievements.size();
@@ -102,7 +148,7 @@ public class Patient extends HospitalUser implements UserDetails {
         return anamnesis != null;
     }
 
-    public boolean hasNotAnamnesis() {
+    public boolean hasNoAnamnesis() {
         return !hasAnamnesis();
     }
 
@@ -110,7 +156,7 @@ public class Patient extends HospitalUser implements UserDetails {
         return achievements.contains(achievement);
     }
 
-    public boolean hasNotAchievement(Achievement achievement) {
+    public boolean hasNoAchievement(Achievement achievement) {
         return !achievements.contains(achievement);
     }
 
