@@ -302,7 +302,7 @@ CREATE TABLE IF NOT EXISTS achievement
     id SERIAL PRIMARY KEY,
     filename VARCHAR (256) UNIQUE NOT NULL,
     name VARCHAR (32) UNIQUE NOT NULL,
-    description VARCHAR (64) UNIQUE NOT NULL
+    description VARCHAR (128) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS patient_achievement
