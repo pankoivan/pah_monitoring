@@ -6,7 +6,6 @@ import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.entities.main.patient_additions.Achievement;
-import org.pah_monitoring.main.entities.main.patient_additions.Medicine;
 import org.pah_monitoring.main.entities.main.users.inactivity.PatientInactivity;
 import org.pah_monitoring.main.entities.main.users.inactivity.common.Inactivity;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
@@ -52,9 +51,6 @@ public class Patient extends HospitalUser implements UserDetails {
 
     @OneToMany(mappedBy = "patient")
     private List<ExaminationSchedule> schedules;
-
-    @OneToMany(mappedBy = "patient")
-    private List<Medicine> medicines;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

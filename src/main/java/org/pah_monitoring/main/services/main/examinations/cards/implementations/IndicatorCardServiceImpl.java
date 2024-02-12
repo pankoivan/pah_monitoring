@@ -28,9 +28,6 @@ import java.util.stream.Stream;
 @Service
 public class IndicatorCardServiceImpl implements IndicatorCardService {
 
-    @Qualifier("ascitesService")
-    private InputIndicatorService<Ascites, AscitesAddingDto, AscitesTablesDto, AscitesGraphicsDto> ascitesService;
-
     @Qualifier("chestPainService")
     private InputIndicatorService<ChestPain, ChestPainAddingDto, ChestPainTablesDto, ChestPainGraphicsDto> chestPainService;
 
@@ -39,9 +36,6 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
 
     @Qualifier("faintingService")
     private InputIndicatorService<Fainting, FaintingAddingDto, FaintingTablesDto, FaintingGraphicsDto> faintingService;
-
-    @Qualifier("functionalClassService")
-    private InputIndicatorService<FunctionalClass, FunctionalClassAddingDto, FunctionalClassTablesDto, FunctionalClassGraphicsDto> functionalClassService;
 
     @Qualifier("liquidAndWeightService")
     private InputIndicatorService<LiquidAndWeight, LiquidAndWeightAddingDto, LiquidAndWeightTablesDto, LiquidAndWeightGraphicsDto> liquidAndWeightService;
@@ -81,12 +75,10 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
                 chestPainService.getInputIndicatorCardFor(patient),
                 faintingService.getInputIndicatorCardFor(patient),
                 physicalChangesService.getInputIndicatorCardFor(patient),
-                ascitesService.getInputIndicatorCardFor(patient),
                 overallHealthService.getInputIndicatorCardFor(patient),
                 vertigoService.getInputIndicatorCardFor(patient),
                 pressureService.getInputIndicatorCardFor(patient),
-                liquidAndWeightService.getInputIndicatorCardFor(patient),
-                functionalClassService.getInputIndicatorCardFor(patient)
+                liquidAndWeightService.getInputIndicatorCardFor(patient)
         );
     }
 
