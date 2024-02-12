@@ -2,15 +2,14 @@ const hospitalRegistrationForm = document.getElementById("hospital-registration-
 
 let timerId;
 
-hospitalRegistrationForm.querySelector('input[name="hospitalName"]').addEventListener("input", function () {
+hospitalRegistrationForm.querySelector('input[name="hospitalName"]').addEventListener("input", () => {
     hospitalRegistrationForm.querySelector('input[name="hospitalOid"]').value = "";
 
     clearTimeout(timerId);
 
-    timerId = setTimeout(function () {
-        let data = hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value;
-        fetchSearch(data);
-    }, 800);
+    timerId = setTimeout(() => {
+        fetchSearch(hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value);
+    }, 620);
 });
 
 function fetchSearch(data) {
@@ -18,51 +17,54 @@ function fetchSearch(data) {
         method: "POST",
         headers: {
             "Content-Type": "application/text",
+            Accept: "application/json",
         },
         body: data,
     })
         .then((response) => {
             if (response.ok) {
                 response.json().then((responseJson) => {
-                    let hospitals = document.getElementById("hospitals");
-                    clearListbox(hospitals);
-                    responseJson.forEach((registryHospital) => {
-                        appendListBoxItem(registryHospital, hospitals);
-                    });
+                    clearHospitals(document.getElementById("hospitals"));
+                    fillHospitals(document.getElementById("hospitals"), responseJson);
                 });
             } else {
-                console.error("На сервере произошла ошибка, для которой здесь не предусмотрено никаких действий", error);
+                console.error("Ошибка сервера", error);
             }
         })
         .catch((error) => {
-            console.error("Произошла ошибка, для которой не предусмотрено никаких действий", error);
+            console.error("Ошибка запроса", error);
         });
 }
 
-function clearListbox(hospitals) {
+function clearHospitals(hospitals) {
     while (hospitals.firstChild) {
         hospitals.removeChild(hospitals.firstChild);
     }
 }
 
-function appendListBoxItem(registryHospital, hospitals) {
-    let hospital = document.createElement("a");
+function fillHospitals(hospitals, responseJson) {
+    responseJson.forEach((registryHospital) => {
+        appendHospital(registryHospital, hospitals);
+    });
+}
+
+function appendHospital(registryHospital, hospitals) {
+    const hospital = document.createElement("a");
     hospital.className = "list-group-item list-group-item-action fs-6";
-    hospital.href = "#";
     hospital.innerText = registryHospital.name;
-    hospital.addEventListener("click", function (event) {
-        event.preventDefault();
+    hospital.href = "#";
+    hospital.addEventListener("click", () => {
         hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value = registryHospital.name;
         hospitalRegistrationForm.querySelector('input[name="hospitalOid"]').value = registryHospital.oid;
-        clearListbox(hospitals);
+        clearHospitals(hospitals);
     });
     hospitals.appendChild(hospital);
 }
 
-hospitalRegistrationForm.addEventListener("submit", function (event) {
+hospitalRegistrationForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    let data = {
+    const data = {
         name: hospitalRegistrationForm.querySelector('input[name="name"]').value,
         lastname: hospitalRegistrationForm.querySelector('input[name="lastname"]').value,
         patronymic: hospitalRegistrationForm.querySelector('input[name="patronymic"]').value,
@@ -77,38 +79,39 @@ hospitalRegistrationForm.addEventListener("submit", function (event) {
         },
     };
 
-    fetchSave(data);
+    fetchAdd(data);
 });
 
-function fetchSave(data) {
+function fetchAdd(data) {
     fetch("http://localhost:8080/rest/hospital-registration/requests/add", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
         },
         body: JSON.stringify(data),
     })
         .then((response) => {
             if (response.ok) {
                 hospitalRegistrationForm.reset();
-                showModalSuccess(response);
+                showSuccessModal(response);
             } else {
-                showModalError(response);
+                showErrorModal(response);
             }
         })
         .catch((error) => {
-            console.error("Произошла ошибка, для которой не предусмотрено никаких действий", error);
+            console.error("Ошибка запроса", error);
         });
 }
 
-function showModalSuccess(response) {
+function showSuccessModal(response) {
     response.json().then((responseJson) => {
         fillSuccessModalText(responseJson);
         new bootstrap.Modal(document.getElementById("success-modal")).show();
     });
 }
 
-function showModalError(response) {
+function showErrorModal(response) {
     response.json().then((responseJson) => {
         document.getElementById("error-modal-text").innerText = responseJson.errorDescription;
         new bootstrap.Modal(document.getElementById("error-modal")).show();
@@ -116,16 +119,16 @@ function showModalError(response) {
 }
 
 function fillSuccessModalText(responseJson) {
-    let successModalText = document.getElementById("success-modal-text");
+    const successModalText = document.getElementById("success-modal-text");
 
     successModalText.textContent = "";
 
-    let hospitalName = document.createElement("span");
+    const hospitalName = document.createElement("span");
     hospitalName.className = "fw-bold";
-    hospitalName.innerText = `${responseJson.hospital.name}`;
+    hospitalName.innerText = `${responseJson.hospitalName}`;
 
-    let email = document.createElement("span");
-    email.className = "fw-bold";
+    const email = document.createElement("span");
+    email.className = "fw-bold break-all";
     email.innerText = `${responseJson.email}`;
 
     successModalText.appendChild(document.createTextNode("Заявка на регистрацию медицинского учреждения "));
@@ -133,10 +136,7 @@ function fillSuccessModalText(responseJson) {
     successModalText.appendChild(document.createTextNode(" успешно отправлена."));
     successModalText.appendChild(document.createElement("br"));
     successModalText.appendChild(document.createElement("br"));
-    successModalText.appendChild(document.createTextNode("Если ваша личность будет подтверждена, главный администратор приложения сгенерирует код, который придёт на почту"));
-    successModalText.appendChild(
-        document.createTextNode("Если ваша заявка не является спамом и вы действительно являетесь официальным представителем указанного медицинского учреждения, тогда главный администратор приложения сгенерирует код, который придёт на почту ")
-    );
+    successModalText.appendChild(document.createTextNode("Если ваша личность будет подтверждена, главный администратор приложения сгенерирует код для регистрации, который придёт на почту "));
     successModalText.appendChild(email);
     successModalText.appendChild(document.createTextNode("."));
     successModalText.appendChild(document.createElement("br"));
