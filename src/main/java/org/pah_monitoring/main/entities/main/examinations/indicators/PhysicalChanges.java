@@ -27,10 +27,10 @@ public class PhysicalChanges implements InputIndicator {
     private Boolean abdominalEnlargement;
 
     @Column(name = "legs_swelling")
-    private LegsSwelling legs_swelling;
+    private LegsSwelling legsSwelling;
 
     @Column(name = "vascular_asterisks")
-    private Boolean vascular_asterisks;
+    private Boolean vascularAsterisks;
 
     @Column(name = "skin_color")
     private SkinColor skinColor;

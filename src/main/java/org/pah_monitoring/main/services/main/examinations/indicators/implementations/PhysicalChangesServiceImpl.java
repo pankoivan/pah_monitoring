@@ -67,12 +67,13 @@ public class PhysicalChangesServiceImpl extends AbstractInputIndicatorServiceImp
             return repository.save(
                     PhysicalChanges
                             .builder()
-                            .acrocyanosis(addingDto.getAcrocyanosis())
+                            .abdominalEnlargement(addingDto.getAbdominalEnlargement())
+                            .legsSwelling(addingDto.getLegsSwelling())
+                            .vascularAsterisks(addingDto.getVascularAsterisks())
+                            .skinColor(addingDto.getSkinColor())
                             .fingersPhalanges(addingDto.getFingersPhalanges())
-                            .nails(addingDto.getNails())
                             .chest(addingDto.getChest())
                             .neckVeins(addingDto.getNeckVeins())
-                            .lowerExtremities(addingDto.getLowerExtremities())
                             .date(LocalDateTime.now())
                             .patient(getExtractionService().patient())
                             .build()
