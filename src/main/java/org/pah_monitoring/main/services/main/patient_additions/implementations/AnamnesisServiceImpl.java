@@ -7,11 +7,13 @@ import org.pah_monitoring.main.entities.main.patient_additions.Anamnesis;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.main.patient_additions.AnamnesisRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserExtractionService;
 import org.pah_monitoring.main.services.main.patient_additions.interfaces.AnamnesisService;
+import org.pah_monitoring.main.services.main.users.users.interfaces.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -23,9 +25,16 @@ public class AnamnesisServiceImpl implements AnamnesisService {
 
     private final AnamnesisRepository repository;
 
+    private PatientService patientService;
+
     private CurrentUserExtractionService extractionService;
 
     private CurrentUserCheckService checkService;
+
+    @Override
+    public Anamnesis findByPatientId(Integer patientId) throws DataSearchingServiceException {
+        return patientService.findById(patientId).getAnamnesis();
+    }
 
     @Override
     public Anamnesis add(AnamnesisAddingDto addingDto) throws DataSavingServiceException {
