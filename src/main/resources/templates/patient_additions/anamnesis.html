@@ -49,10 +49,15 @@
                         <span th:text="${anamnesis.height}">177</span>
                         <span>см</span>
                     </div>
-                    <div>
+                    <div class="mb-5">
                         <h4 class="fs-4">Вес</h4>
                         <span th:text="${anamnesis.weight}">64.9</span>
                         <span>кг</span>
+                    </div>
+                    <div>
+                        <h4 class="fs-4">Индекс массы тела</h4>
+                        <span th:text="${anamnesis.bodyMassIndex}">24.21</span>
+                        <span>кг/м<sup>2</sup></span>
                     </div>
                 </div>
             </div>
