@@ -18,122 +18,91 @@
         <!---->
         <div class="container text-secondary my-5">
             <!---->
-            <div class="row">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h1 th:text="${request.hospital.name}" class="fs-5">Национальный медицинский исследовательский центр имени В. А. Алмазова</h1>
+                    <p class="fs-5 mb-0">
+                        OID:
+                        <span th:text="${request.hospital.oid}">1.2.134.65643.1234.34435.984</span>
+                    </p>
+                </div>
+            </div>
+            <!---->
+            <div class="row mb-5">
                 <div class="col-12">
-                    <form action="#" th:action="@{/rest/hospital-registration/requests/add}" class="border rounded bg-form fs-5 p-3">
-                        <div class="d-flex align-items-center justify-content-between mb-0">
-                            <h2 class="fs-4 mb-0">Заявка</h2>
-                            <div class="fs-4" th:text="${request.formattedDate}">19.09.2021 в 15:12:14</div>
-                        </div>
-                        <hr class="mb-1" />
-                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-center mb-3">
-                            <div class="flex-grow-1 m-1">
-                                <label for="lastname" class="form-label">Фамилия</label>
-                                <input th:value="${request.lastname}" type="text" name="lastname" id="lastname" class="form-control" placeholder="Иванов" disabled />
-                            </div>
-                            <div class="flex-grow-1 m-1">
-                                <label for="name" class="form-label">Имя</label>
-                                <input th:value="${request.name}" type="text" name="name" id="name" class="form-control" placeholder="Иван" disabled />
-                            </div>
-                            <div class="flex-grow-1 m-1">
-                                <label for="patronymic" class="form-label">Отчество</label>
-                                <input th:value="${request.patronymic}" type="text" name="patronymic" id="patronymic" class="form-control" placeholder="Иванович" disabled />
-                            </div>
-                        </div>
-                        <div class="m-1 mb-3">
-                            <label for="hospital-name" class="form-label">Полное наименование медицинского учреждения</label>
-                            <input th:value="${request.hospital.name}" type="text" name="hospitalName" id="hospital-name" class="form-control" placeholder="Национальный медицинский исследовательский центр имени В. А. Алмазова" disabled />
-                        </div>
-                        <div class="m-1 mb-3">
-                            <label for="hospital-oid" class="form-label">OID этого медицинского учреждения</label>
-                            <input th:value="${request.hospital.oid}" type="text" name="hospitalOid" id="hospital-oid" class="form-control" placeholder="1.23.49.123.4583" disabled />
-                        </div>
-                        <div class="m-1 mb-3">
-                            <label for="post" class="form-label">Должность заявителя</label>
-                            <input th:value="${request.post}" type="text" name="post" id="post" class="form-control" placeholder="Главный врач" disabled />
-                        </div>
-                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-center mb-3">
-                            <div class="flex-grow-1 m-1">
-                                <label for="passport" class="form-label">Серия и номер паспорта</label>
-                                <input th:value="${request.passport}" type="text" name="passport" id="passport" class="form-control" placeholder="3012 981322" disabled />
-                            </div>
-                            <div class="flex-grow-1 m-1">
-                                <label for="phone-number" class="form-label">Номер телефона</label>
-                                <input th:value="${request.phoneNumber}" type="text" name="phoneNumber" id="phone-number" class="form-control" placeholder="890231214560" disabled />
-                            </div>
-                        </div>
-                        <div class="m-1" th:classappend="${commentExists} ? 'mb-4' : 'mb-3'">
-                            <label for="email" class="form-label">Почта для получения кода</label>
-                            <input th:value="${request.email}" type="email" name="email" id="email" class="form-control" placeholder="example@mail.com" disabled />
-                        </div>
-                        <div th:if="${commentExists}" class="m-1 mb-4">
-                            <label for="comment" class="form-label">Комментарий к заявке</label>
-                            <textarea th:text="${request.comment}" name="comment" id="comment" class="form-control" rows="3" disabled></textarea>
-                        </div>
-                        <hr />
-                        <div class="text-center" th:switch="${#strings.toString(request.hospital.currentState)}">
-                            <div th:case="'WAITING_CODE'" class="d-flex flex-row flex-wrap align-items-center justify-content-center">
-                                <button type="button" class="btn btn-lg btn-success m-2" data-bs-toggle="modal" data-bs-target="#code-generation-modal">Принять</button>
-                                <button type="button" class="btn btn-lg btn-danger m-2" id="decline-request">Отклонить</button>
-                            </div>
-                            <div th:case="'WAITING_REGISTRATION'" class="fs-2 fst-italic text-warning">Ожидает регистрацию администратора</div>
-                            <div th:case="'REGISTERED'" class="fs-2 fst-italic text-success">
-                                Было зарегистрировано
-                                <span th:text="${request.hospital.formattedDate}">19.12.2021 в 12:59:01</span>
-                            </div>
-                        </div>
-                    </form>
+                    <h3 class="fs-4">Дата</h3>
+                    <p class="mb-0" th:text="${request.formattedDate}"></p>
+                </div>
+            </div>
+            <!---->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="fs-4">Заявитель</h3>
+                    <p class="mb-1">
+                        ФИО:
+                        <span>
+                            <span th:text="${request.lastname}">Иванов</span>
+                            <span th:text="${request.name}">Иван</span>
+                            <span th:text="${request.patronymic}" th:if="${request.patronymic != null}">Иванович</span>
+                        </span>
+                    </p>
+                    <p class="mb-1">
+                        Должность:
+                        <span th:text="${request.post}">Главный врач</span>
+                    </p>
+                    <p class="mb-1">
+                        Паспорт:
+                        <span th:text="${request.passport}">1234 567890</span>
+                    </p>
+                    <p class="mb-0">
+                        Телефон:
+                        <span th:text="${request.phoneNumber}">+7 (904) 190-29-84</span>
+                    </p>
+                </div>
+            </div>
+            <!---->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="fs-4">Почта</h3>
+                    <p class="mb-0" th:text="${request.email}"></p>
+                </div>
+            </div>
+            <!---->
+            <div class="row mb-5" th:if="${request.comment != null}">
+                <div class="col-12">
+                    <h3 class="fs-4">Комментарий</h3>
+                    <p class="mb-0" th:text="${request.comment}"></p>
+                </div>
+            </div>
+            <!---->
+            <div class="row mb-0">
+                <div class="col-12">
+                    <h3 class="fs-4">Статус</h3>
+                    <div th:switch="${#strings.toString(request.hospital.currentState)}">
+                        <p th:case="'WAITING_CODE'" class="mb-0">
+                            <span>Ожидает вашего решения:</span>
+                            <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#code-generation-modal">Принять</button>
+                            <span> / </span>
+                            <button type="button" class="btn btn-sm btn-danger" id="decline-request">Отклонить</button>
+                        </p>
+                        <p th:case="'WAITING_REGISTRATION'" class="mb-0">
+                            Ожидает регистрации администратора. Код был выдан
+                            <span th:text="${request.hospital.formattedDate}">19-08-2021 в 15:55:41</span>
+                        </p>
+                        <p th:case="'REGISTERED'" class="mb-0">
+                            Зарегистрировано
+                            <span th:text="${request.hospital.formattedDate}">19.12.2021 в 12:59:01</span>
+                        </p>
+                    </div>
                 </div>
             </div>
             <!---->
         </div>
         <!---->
-        <div th:if="${#strings.toString(request.hospital.currentState)} == 'WAITING_CODE'" class="modal fade" id="code-generation-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title text-secondary fs-4" id="code-generation-modal-title">Генерация кода</h1>
-                        <button id="code-generation-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body fs-5" id="code-generation-modal-text">
-                        <form action="#" th:action="@{/rest/security-codes/generate/by-main-admin}" class="border rounded text-secondary fs-5 p-3" id="code-generation-form">
-                            <div class="mb-3">
-                                <label for="name-code" class="form-label">Медицинское учреждение</label>
-                                <input type="text" name="name" id="name-code" class="form-control" disabled th:value="${request.hospital.name}" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="oid-code" class="form-label">OID</label>
-                                <input type="text" name="oid" id="oid-code" class="form-control" disabled th:value="${request.hospital.oid}" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="role-code" class="form-label">Роль</label>
-                                <select name="role" id="role-code" class="form-select" disabled>
-                                    <option th:text="${role.alias}">Администратор</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email-code" class="form-label">Почта</label>
-                                <input type="email" name="email" id="email-code" class="form-control" disabled th:value="${request.email}" />
-                            </div>
-                            <div class="mb-4">
-                                <label for="expiration-date" class="form-label">Срок действия кода</label>
-                                <select name="expirationDate" id="expiration-date" class="form-select">
-                                    <option th:each="each : ${expirationDateList}" th:text="${each.alias}" th:value="${each}">1 день</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary mb-2">Сгенерировать код</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div th:replace="${#strings.toString(request.hospital.currentState) == 'WAITING_CODE'} ? ~{/hospitals/modal/code-gen-modal :: code-gen-modal} : ~{}"></div>
         <!---->
-        <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
-        <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
-        <div th:replace="~{/fragments/modal/code-input-modal :: code-input-modal}"></div>
+        <div th:replace="${#strings.toString(request.hospital.currentState) == 'WAITING_CODE'} ? ~{/fragments/modal/error-modal :: error-modal} : ~{}"></div>
+        <div th:replace="${#strings.toString(request.hospital.currentState) == 'WAITING_CODE'} ? ~{/fragments/modal/success-modal :: success-modal} : ~{}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
         <script src="../../static/js/hospitals/hospital-registration-request.js" th:src="@{/js/hospitals/hospital-registration-request.js}"></script>

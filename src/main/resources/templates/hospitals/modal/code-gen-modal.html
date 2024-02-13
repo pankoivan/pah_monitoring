@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <div th:fragment="code-gen-modal" class="modal fade" id="code-generation-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title text-secondary fs-4" id="code-generation-modal-title">Генерация кода</h1>
+                        <button id="code-generation-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body fs-5" id="code-generation-modal-text">
+                        <form action="#" method="post" class="border rounded text-secondary fs-5 p-3" id="code-generation-form">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Медицинское учреждение</label>
+                                <input type="text" name="name" id="name" class="form-control" disabled th:value="${request.hospital.name}" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="oid" class="form-label">OID</label>
+                                <input type="text" name="oid" id="oid" class="form-control" disabled th:value="${request.hospital.oid}" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="role" class="form-label">Роль</label>
+                                <select name="role" id="role" class="form-select" disabled>
+                                    <option th:text="${role.alias}">Администратор</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Почта</label>
+                                <input type="email" name="email" id="email" class="form-control" disabled th:value="${request.email}" />
+                            </div>
+                            <div class="mb-4">
+                                <label for="expiration-date" class="form-label">Срок действия кода</label>
+                                <select name="expirationDate" id="expiration-date" class="form-select">
+                                    <option th:each="each : ${expirationDateList}" th:text="${each.alias}" th:value="${each}">1 день</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Сгенерировать код</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="code-generation-modal-close-2" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

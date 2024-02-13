@@ -214,6 +214,7 @@
         <div th:replace="${user.isHospitalEmployee && user.isActive && !isSelf && isCurrentUserAdminFromSameHospital} ? ~{/users/modal/sick-leave-modal :: sick-leave-modal} : ~{}"></div>
         <div th:replace="${user.isHospitalEmployee && user.isActive && !isSelf && isCurrentUserAdminFromSameHospital} ? ~{/users/modal/dismissal-modal :: dismissal-modal} : ~{}"></div>
         <div th:replace="${user.isPatient && user.isActive && isCurrentUserOwnDoctor} ? ~{/users/modal/patient-inactivity-modal :: patient-inactivity-modal} : ~{}"></div>
+        <!---->
         <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
         <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>

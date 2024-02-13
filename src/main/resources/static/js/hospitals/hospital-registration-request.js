@@ -4,28 +4,31 @@ const requestId = Number(window.location.pathname.split("/").pop());
 
 const codeGenerationForm = document.getElementById("code-generation-form");
 
-codeGenerationForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+if (codeGenerationForm) {
+    codeGenerationForm.addEventListener("submit", (event) => {
+        event.preventDefault();
 
-    let data = {
-        hospitalRegistrationRequestId: requestId,
-        expirationDate: codeGenerationForm.querySelector('select[name="expirationDate"]').value,
-    };
+        const data = {
+            hospitalRegistrationRequestId: requestId,
+            expirationDate: codeGenerationForm.querySelector('select[name="expirationDate"]').value,
+        };
 
-    fetchAdd(data);
-});
+        fetchAdd(data);
+    });
+}
 
 function fetchAdd(data) {
     fetch("http://localhost:8080/rest/security-codes/generate/by-main-admin", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
         },
         body: JSON.stringify(data),
     })
         .then((response) => {
             if (response.ok) {
-                closeCodeGenerationModal();
+                document.getElementById("code-generation-modal-close-1").click();
                 showSuccessModalForCodeGeneration(response);
             } else {
                 showErrorModalForCodeGeneration(response);
@@ -51,27 +54,27 @@ function showErrorModalForCodeGeneration(response) {
 }
 
 function fillSuccessModalTextForCodeGeneration(responseJson) {
-    let successModalText = document.getElementById("success-modal-text");
+    const successModalText = document.getElementById("success-modal-text");
 
     successModalText.textContent = "";
 
-    let role = document.createElement("span");
+    const role = document.createElement("span");
     role.className = "fw-bold";
-    role.textContent = `${responseJson.roleAlias}`;
+    role.innerText = `${responseJson.roleAlias}`;
 
-    let email = document.createElement("span");
-    email.className = "fw-bold";
-    email.textContent = `${responseJson.email}`;
+    const email = document.createElement("span");
+    email.className = "fw-bold break-all";
+    email.innerText = `${responseJson.email}`;
 
-    let hospital = document.createElement("span");
+    const hospital = document.createElement("span");
     hospital.className = "fw-bold";
-    hospital.textContent = `${responseJson.hospitalName}`;
+    hospital.innerText = `${responseJson.hospitalName}`;
 
-    let expirationDate = document.createElement("span");
+    const expirationDate = document.createElement("span");
     expirationDate.className = "fw-bold";
     expirationDate.textContent = `${responseJson.formattedExpirationDate}`;
 
-    let toHospitals = document.createElement("a");
+    const toHospitals = document.createElement("a");
     toHospitals.className = "href-success";
     toHospitals.innerText = "списку медицинских учреждений";
     toHospitals.href = referrer;
@@ -98,9 +101,11 @@ function fillSuccessModalTextForCodeGeneration(responseJson) {
     successModalText.appendChild(document.createTextNode("."));
 }
 
-document.getElementById("decline-request").addEventListener("click", () => {
-    fetchDelete();
-});
+if (document.getElementById("decline-request")) {
+    document.getElementById("decline-request").addEventListener("click", () => {
+        fetchDelete();
+    });
+}
 
 function fetchDelete() {
     fetch("http://localhost:8080/rest/hospital-registration/requests/delete/" + requestId, {
@@ -131,11 +136,11 @@ function showErrorModalForRequestRejecting(response) {
 }
 
 function fillSuccessModalTextForRequestRejecting() {
-    let successModalText = document.getElementById("success-modal-text");
+    const successModalText = document.getElementById("success-modal-text");
 
     successModalText.textContent = "";
 
-    let toHospitals = document.createElement("a");
+    const toHospitals = document.createElement("a");
     toHospitals.className = "href-success";
     toHospitals.innerText = "списку медицинских учреждений";
     toHospitals.href = referrer;
@@ -148,10 +153,8 @@ function fillSuccessModalTextForRequestRejecting() {
     successModalText.appendChild(document.createTextNode("."));
 }
 
-function closeCodeGenerationModal() {
-    document.getElementById("code-generation-modal-close").click();
+if (document.getElementById("success-modal")) {
+    document.getElementById("success-modal").addEventListener("hidden.bs.modal", () => {
+        window.location.href = referrer;
+    });
 }
-
-document.getElementById("success-modal").addEventListener("hidden.bs.modal", () => {
-    window.location.href = referrer;
-});
