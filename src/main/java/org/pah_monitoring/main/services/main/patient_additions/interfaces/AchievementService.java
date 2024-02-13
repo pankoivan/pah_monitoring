@@ -2,10 +2,11 @@ package org.pah_monitoring.main.services.main.patient_additions.interfaces;
 
 import org.pah_monitoring.main.entities.main.patient_additions.Achievement;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
+import org.pah_monitoring.main.services.main.validation.interfaces.url.UrlValidationService;
 
 import java.util.List;
 
-public interface AchievementService {
+public interface AchievementService extends UrlValidationService {
 
     List<Achievement> findAll();
 

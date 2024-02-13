@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/anamnesis")
 @PreAuthorize("isAuthenticated()")
-public class AnamnesisController {
+public class AnamnesisMvcController {
 
     private final AnamnesisService service;
 
@@ -30,7 +30,7 @@ public class AnamnesisController {
 
     @GetMapping("/form")
     @PreAuthorize("hasRole('PATIENT')")
-    public String getForm(Model model) {
+    public String getAnamnesisFormPage(Model model) {
         if (redirectService.checkPatientAnamnesisRedirect()) {
             return redirectService.patientAnamnesisRedirect();
         }
@@ -42,7 +42,7 @@ public class AnamnesisController {
 
     @GetMapping("/for/{patientId}")
     @PreAuthorize("hasAnyRole('PATIENT', 'DOCTOR')")
-    public String getPage(Model model, @PathVariable("patientId") String pathPatientId) {
+    public String getAnamnesisPage(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
             model.addAttribute("anamnesis", service.findByPatientId(service.parsePathId(pathPatientId)));
             pageHeaderService.addHeader(model);

@@ -190,7 +190,7 @@
                 <div class="col-12">
                     <h3 class="fs-4">
                         Награды
-                        <a href="#" th:href="@{/achievements}" class="text-decoration-none">
+                        <a href="#" th:href="@{/achievements/all}" class="text-decoration-none">
                             <img width="20" src="../../static/svg/info.svg" th:src="@{/svg/info.svg}" alt="Информация" />
                         </a>
                     </h3>
@@ -199,7 +199,7 @@
                         <span th:text="${user.achievementsCount}">12</span>
                     </p>
                     <p class="mb-0">
-                        <a href="#" th:href="@{/patients/__${user.id}__/achievements}" class="text-secondary">Перейти к наградам</a>
+                        <a href="#" th:href="@{/achievements/for/__${user.id}__}" class="text-secondary">Перейти к наградам</a>
                     </p>
                 </div>
             </div>
