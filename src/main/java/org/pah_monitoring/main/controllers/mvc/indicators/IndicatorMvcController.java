@@ -48,7 +48,7 @@ public class IndicatorMvcController {
             model.addAttribute("isCurrentUserPatient", checkService.isSelf(patient));
             model.addAttribute("patient", patient);
             pageHeaderService.addHeader(model);
-            return "patients/indicators";
+            return "indicators/indicators";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {

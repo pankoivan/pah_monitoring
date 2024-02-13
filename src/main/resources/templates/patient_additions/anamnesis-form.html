@@ -20,47 +20,47 @@
             <!---->
             <div class="row">
                 <div class="col-12">
-                    <form action="#" method="post" id="hospital-registration-form" class="fs-5">
+                    <form action="#" method="post" id="anamnesis-form" class="fs-5">
                         <div class="mb-5">
                             <h4 class="fs-4">Имеются ли у вас врождённые пороки сердца?</h4>
                             <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
-                                <label class="form-check-label" th:for="'heartDisease' + ${each}" th:text="${each.yesNo}"></label>
+                                <label class="form-check-label" th:for="'heartDisease' + ${each}" th:text="${each.yesNo}">Да</label>
                                 <input th:id="'heartDisease' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="heartDisease" />
                             </div>
                         </div>
                         <div class="mb-5">
                             <h4 class="fs-4">Имеется ли у вас хроническое заболевание лёгких?</h4>
                             <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
-                                <label class="form-check-label" th:for="'lungDisease' + ${each}" th:text="${each.yesNo}"></label>
+                                <label class="form-check-label" th:for="'lungDisease' + ${each}" th:text="${each.yesNo}">Нет</label>
                                 <input th:id="'lungDisease' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="lungDisease" />
                             </div>
                         </div>
                         <div class="mb-5">
                             <h4 class="fs-4">Имелись ли хронические заболевания сердца или лёгких у ваших близких родственников?</h4>
                             <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
-                                <label class="form-check-label" th:for="'relativesDiseases' + ${each}" th:text="${each.yesNo}"></label>
+                                <label class="form-check-label" th:for="'relativesDiseases' + ${each}" th:text="${each.yesNo}">Да</label>
                                 <input th:id="'relativesDiseases' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="relativesDiseases" />
                             </div>
                         </div>
                         <div class="mb-5">
                             <h4 class="fs-4">Какая у вас свёртываемость крови?</h4>
                             <div class="form-check form-check-inline" th:each="each : ${bloodClotting}">
-                                <label class="form-check-label" th:for="'bloodClotting' + ${each}" th:text="${each.alias}"></label>
+                                <label class="form-check-label" th:for="'bloodClotting' + ${each}" th:text="${each.alias}">Тромбофлебит</label>
                                 <input th:id="'bloodClotting' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="bloodClotting" />
                             </div>
                         </div>
                         <div class="mb-5">
                             <h4 class="fs-4">Имеется ли у вас сахарный диабет?</h4>
                             <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
-                                <label class="form-check-label" th:for="'diabetes' + ${each}" th:text="${each.yesNo}"></label>
+                                <label class="form-check-label" th:for="'diabetes' + ${each}" th:text="${each.yesNo}">Да</label>
                                 <input th:id="'diabetes' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="diabetes" />
                             </div>
                         </div>
-                        <div class="mb-5">
+                        <div class="mb-5 col-12 col-md-6 col-lg-4">
                             <label for="height" class="form-label fw-semibold fs-4">Ваш рост (см)</label>
                             <input type="number" name="height" id="height" class="form-control" placeholder="177" />
                         </div>
-                        <div class="mb-5">
+                        <div class="mb-5 col-12 col-md-6 col-lg-4">
                             <label for="weight" class="form-label fw-semibold fs-4">Ваш вес (кг)</label>
                             <input type="number" step="0.01" name="weight" id="weight" class="form-control" placeholder="64.9" />
                         </div>
@@ -75,6 +75,7 @@
         <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
+        <script src="../../static/js/patient-additions/anamnesis-form.js" th:src="@{/js/patient-additions/anamnesis-form.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>

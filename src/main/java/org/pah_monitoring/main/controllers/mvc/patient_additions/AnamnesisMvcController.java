@@ -43,7 +43,7 @@ public class AnamnesisMvcController {
         model.addAttribute("trueFalse", TrueFalseEnum.values());
         model.addAttribute("bloodClotting", Anamnesis.BloodClotting.values());
         pageHeaderService.addHeader(model);
-        return "patients/anamnesis-form";
+        return "patient_additions/anamnesis-form";
     }
 
     @GetMapping("/for/{patientId}")
@@ -52,7 +52,7 @@ public class AnamnesisMvcController {
         try {
             model.addAttribute("anamnesis", anamnesisMapper.map(service.findByPatientId(service.parsePathId(pathPatientId))));
             pageHeaderService.addHeader(model);
-            return "patients/anamnesis";
+            return "patient_additions/anamnesis";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }

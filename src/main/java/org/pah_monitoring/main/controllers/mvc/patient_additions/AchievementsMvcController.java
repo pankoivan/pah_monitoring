@@ -29,7 +29,7 @@ public class AchievementsMvcController {
     public String getAchievementsPage(Model model) {
         model.addAttribute("achievements", service.findAll());
         pageHeaderService.addHeader(model);
-        return "patients/achievements";
+        return "patient_additions/achievements";
     }
 
     @GetMapping("/for/{patientId}")
@@ -37,7 +37,7 @@ public class AchievementsMvcController {
         try {
             model.addAttribute("achievements", achievementService.findAllByPatientId(achievementService.parsePathId(pathPatientId)));
             pageHeaderService.addHeader(model);
-            return "patients/achievements";
+            return "patient_additions/achievements";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }
