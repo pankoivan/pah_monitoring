@@ -1,19 +1,23 @@
 const scheduleEditingForm = document.getElementById("schedule-editing-form");
 
+const patientId = window.location.pathname.split("/")[2];
+
 let schedules;
 
-let errorModal;
-let successModal;
-let scheduleEditingModal;
+let errorModal = document.getElementById("error-modal");
+let successModal = document.getElementById("success-modal");
+let scheduleEditingModal = document.getElementById("schedule-editing-modal");
 
 document.addEventListener("DOMContentLoaded", () => {
-    schedulesInit();
-    schedulesEventListenersInit();
-    modalsInit();
+    if (scheduleEditingModal) {
+        schedulesInit();
+        schedulesEventListenersInit();
+        modalsInit();
+    }
 });
 
 function schedulesInit() {
-    fetch("http://localhost:8080/rest/schedules/get/for/" + patientId(), {
+    fetch("http://localhost:8080/rest/schedules/get/for/" + patientId, {
         method: "GET",
         headers: {
             Accept: "application/json",
@@ -40,27 +44,24 @@ function schedulesEventListenersInit() {
 }
 
 function modalsInit() {
-    errorModal = new bootstrap.Modal(document.getElementById("error-modal"));
-    successModal = new bootstrap.Modal(document.getElementById("success-modal"));
-    scheduleEditingModal = new bootstrap.Modal(document.getElementById("schedule-editing-modal"));
+    errorModal = new bootstrap.Modal(errorModal);
+    successModal = new bootstrap.Modal(successModal);
+    scheduleEditingModal = new bootstrap.Modal(scheduleEditingModal);
 }
 
 function addScheduleObjectEventListeners(edit) {
-    edit.addEventListener("click", (event) => {
-        event.preventDefault();
-
+    edit.addEventListener("click", () => {
         refreshScheduleEditingForm();
 
-        let schedule = schedules.get(edit.dataset.edit);
+        const schedule = schedules.get(edit.dataset.edit);
 
         scheduleEditingForm.querySelector('input[name="indicator"]').value = schedule.indicatorTypeAlias;
         scheduleEditingForm.querySelector('input[name="schedule"]').value = schedule.schedule == null ? "" : schedule.schedule;
 
         if (schedule.id == null) {
             document.getElementById("delete").classList.add("visually-hidden");
-            document.getElementById("save").addEventListener("click", (event) => {
-                event.preventDefault();
-                let data = {
+            document.getElementById("save").addEventListener("click", () => {
+                const data = {
                     patientId: schedule.patientId,
                     indicatorType: schedule.indicatorType,
                     schedule: scheduleEditingForm.querySelector('input[name="schedule"]').value,
@@ -68,14 +69,11 @@ function addScheduleObjectEventListeners(edit) {
                 fetchAdd(data);
             });
         } else {
-            document.getElementById("delete").addEventListener("click", (event) => {
-                event.preventDefault();
-                let id = schedule.id;
-                fetchDelete(id, schedule.indicatorType);
+            document.getElementById("delete").addEventListener("click", () => {
+                fetchDelete(schedule.id, schedule.indicatorType);
             });
-            document.getElementById("save").addEventListener("click", (event) => {
-                event.preventDefault();
-                let data = {
+            document.getElementById("save").addEventListener("click", () => {
+                const data = {
                     id: schedule.id,
                     schedule: scheduleEditingForm.querySelector('input[name="schedule"]').value,
                 };
@@ -92,6 +90,7 @@ function fetchAdd(data) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
         },
         body: JSON.stringify(data),
     })
@@ -118,6 +117,7 @@ function fetchEdit(data) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
         },
         body: JSON.stringify(data),
     })
@@ -179,13 +179,11 @@ function showErrorModal(response) {
     });
 }
 
-document.getElementById("error-modal-close-1").addEventListener("click", () => {
-    showScheduleEditingModal();
-});
-
-document.getElementById("error-modal-close-2").addEventListener("click", () => {
-    showScheduleEditingModal();
-});
+if (errorModal) {
+    errorModal.addEventListener("hidden.bs.modal", () => {
+        showScheduleEditingModal();
+    });
+}
 
 function refreshScheduleObject(key, schedule) {
     if (schedule != null) {
@@ -197,7 +195,7 @@ function refreshScheduleObject(key, schedule) {
 }
 
 function refreshScheduleObjectEventListeners(key) {
-    edit = document.querySelector(`a[data-edit="${key}"]`);
+    const edit = document.querySelector(`a[data-edit="${key}"]`);
     edit.outerHTML = edit.outerHTML;
     return document.querySelector(`a[data-edit="${key}"]`);
 }
@@ -208,12 +206,8 @@ function refreshScheduleHtml(key, schedule) {
 
 function refreshScheduleEditingForm() {
     document.getElementById("delete").classList.remove("visually-hidden");
-    let saveButton = document.getElementById("save");
+    const saveButton = document.getElementById("save");
     saveButton.outerHTML = saveButton.outerHTML;
-    let deleteButton = document.getElementById("delete");
+    const deleteButton = document.getElementById("delete");
     deleteButton.outerHTML = deleteButton.outerHTML;
-}
-
-function patientId() {
-    return window.location.pathname.split("/")[2];
 }
