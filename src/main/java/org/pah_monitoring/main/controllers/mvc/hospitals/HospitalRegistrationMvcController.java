@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.controllers.mvc.hospitals;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.entities.main.enums.ExpirationDate;
 import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.hospitals.HospitalRegistrationRequest;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Controller
 @RequestMapping("/hospital-registration")
 public class HospitalRegistrationMvcController {
@@ -44,9 +44,8 @@ public class HospitalRegistrationMvcController {
         try {
             HospitalRegistrationRequest request = service.findById(service.parsePathId(pathId));
             model.addAttribute("request", request);
-            model.addAttribute("commentExists", !request.getComment().isEmpty());
-            model.addAttribute("role", Role.ADMINISTRATOR);
             model.addAttribute("expirationDateList", ExpirationDate.values());
+            model.addAttribute("role", Role.ADMINISTRATOR);
             pageHeaderService.addHeader(model);
             return "hospitals/hospital-registration-request";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
