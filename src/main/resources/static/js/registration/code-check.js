@@ -10,7 +10,7 @@ function fetchCheck(data) {
         method: "POST",
         headers: {
             "Content-Type": "application/text",
-            Accept: "application/text",
+            Accept: "application/json",
         },
         body: data,
     })
