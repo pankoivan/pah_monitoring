@@ -67,7 +67,7 @@ hospitalRegistrationForm.addEventListener("submit", (event) => {
     const data = {
         name: hospitalRegistrationForm.querySelector('input[name="name"]').value,
         lastname: hospitalRegistrationForm.querySelector('input[name="lastname"]').value,
-        patronymic: hospitalRegistrationForm.querySelector('input[name="patronymic"]').value,
+        patronymic: hospitalRegistrationForm.querySelector('input[name="patronymic"]').value == "" ? null : hospitalRegistrationForm.querySelector('input[name="patronymic"]').value,
         post: hospitalRegistrationForm.querySelector('input[name="post"]').value,
         passport: hospitalRegistrationForm.querySelector('input[name="passport"]').value,
         phoneNumber: hospitalRegistrationForm.querySelector('input[name="phoneNumber"]').value,
