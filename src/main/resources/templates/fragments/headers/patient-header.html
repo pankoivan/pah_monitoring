@@ -22,7 +22,7 @@
                                     <a href="#" th:href="@{/patients/__${currentUser.id}__/indicators}" class="nav-link text-secondary">Отправка показателей</a>
                                 </li>
                                 <li>
-                                    <a href="#" th:href="@{currentUser.hasAnamnesis ? '/patients/__${currentUser.id}__/anamnesis' : 'anamnesis'}" class="nav-link text-secondary">Анамнез</a>
+                                    <a href="#" th:href="@{currentUser.hasAnamnesis ? '/anamnesis/for/__${currentUser.id}__' : '/anamnesis-form'}" class="nav-link text-secondary">Анамнез</a>
                                 </li>
                             </ul>
                         </nav>
