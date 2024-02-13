@@ -9,15 +9,16 @@ const code = new URLSearchParams(window.location.search).get("code");
 userRegistrationForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    let email = userRegistrationForm.querySelector('input[name="email"]').value;
-    let password = userRegistrationForm.querySelector('input[name="password"]').value;
-    let name = userRegistrationForm.querySelector('input[name="name"]').value;
-    let lastname = userRegistrationForm.querySelector('input[name="lastname"]').value;
-    let patronymic = userRegistrationForm.querySelector('input[name="patronymic"]').value;
-    let phoneNumber = userRegistrationForm.querySelector('input[name="phoneNumber"]').value;
-    let gender = userRegistrationForm.querySelector('input[name="gender"]:checked') ? userRegistrationForm.querySelector('input[name="gender"]:checked').value : null;
-    let birthdate = userRegistrationForm.querySelector('input[name="birthdate"]').value;
+    const email = userRegistrationForm.querySelector('input[name="email"]').value;
+    const password = userRegistrationForm.querySelector('input[name="password"]').value;
+    const name = userRegistrationForm.querySelector('input[name="name"]').value;
+    const lastname = userRegistrationForm.querySelector('input[name="lastname"]').value;
+    const patronymic = userRegistrationForm.querySelector('input[name="patronymic"]').value == "" ? null : userRegistrationForm.querySelector('input[name="patronymic"]').value;
+    const phoneNumber = userRegistrationForm.querySelector('input[name="phoneNumber"]').value;
+    const gender = userRegistrationForm.querySelector('input[name="gender"]:checked') ? userRegistrationForm.querySelector('input[name="gender"]:checked').value : null;
+    const birthdate = userRegistrationForm.querySelector('input[name="birthdate"]').value;
 
+    let post;
     if (role == "Администратор" || role == "Врач") {
         post = userRegistrationForm.querySelector('input[name="post"]').value;
     }
@@ -35,7 +36,7 @@ userRegistrationForm.addEventListener("submit", (event) => {
                 userInformationAddingDto: {
                     name: name,
                     lastname: lastname,
-                    patronymic: patronymic == "" ? null : patronymic,
+                    patronymic: patronymic,
                     phoneNumber: phoneNumber,
                     gender: gender,
                     birthdate: birthdate,
@@ -52,7 +53,7 @@ userRegistrationForm.addEventListener("submit", (event) => {
             userInformationAddingDto: {
                 name: name,
                 lastname: lastname,
-                patronymic: patronymic == "" ? null : patronymic,
+                patronymic: patronymic,
                 phoneNumber: phoneNumber,
                 gender: gender,
                 birthdate: birthdate,
@@ -69,6 +70,7 @@ function fetchAdd(data) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
         },
         body: JSON.stringify(data),
     })
@@ -100,27 +102,33 @@ function showErrorModal(response) {
 }
 
 function fillSuccessModalText(responseJson) {
-    let successModalText = document.getElementById("success-modal-text");
+    const successModalText = document.getElementById("success-modal-text");
 
     successModalText.textContent = "";
 
-    let fullname = document.createElement("span");
-    fullname.className = "fw-bold";
-    fullname.innerText = `${responseJson.fullName}`;
+    const fullName = document.createElement("span");
+    fullName.className = "fw-bold";
+    fullName.innerText = `${responseJson.fullName}`;
 
-    let login = document.createElement("a");
+    const login = document.createElement("a");
     login.className = "href-success";
-    login.textContent = "войти";
+    login.innerText = "войти";
     login.href = "/login";
 
     successModalText.appendChild(document.createTextNode("Вы успешно зарегистрировались в приложении, "));
-    successModalText.appendChild(fullname);
+    successModalText.appendChild(fullName);
     successModalText.appendChild(document.createTextNode("."));
     successModalText.appendChild(document.createElement("br"));
     successModalText.appendChild(document.createElement("br"));
     successModalText.appendChild(document.createTextNode("Теперь вы можете "));
     successModalText.appendChild(login);
     successModalText.appendChild(document.createTextNode(" в свой аккаунт."));
+
+    if (role == "Пациент") {
+        successModalText.appendChild(document.createElement("br"));
+        successModalText.appendChild(document.createElement("br"));
+        successModalText.appendChild(document.createTextNode("Рекомендуем вам сразу же после входа в аккаунт заполнить анамнез: он позволит вашему будущему лечащему врачу сразу же получить важную для дальнейшего лечения информацию."));
+    }
 }
 
 document.getElementById("success-modal").addEventListener("hidden.bs.modal", () => {

@@ -2,10 +2,7 @@ const codeInputForm = document.getElementById("code-input-form");
 
 codeInputForm.addEventListener("submit", (event) => {
     event.preventDefault();
-
-    let data = codeInputForm.querySelector('input[name="code"]').value;
-
-    fetchCheck(data);
+    fetchCheck(codeInputForm.querySelector('input[name="code"]').value);
 });
 
 function fetchCheck(data) {
@@ -13,6 +10,7 @@ function fetchCheck(data) {
         method: "POST",
         headers: {
             "Content-Type": "application/text",
+            Accept: "application/text",
         },
         body: data,
     })
