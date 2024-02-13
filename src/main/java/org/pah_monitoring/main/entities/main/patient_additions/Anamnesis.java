@@ -2,6 +2,7 @@ package org.pah_monitoring.main.entities.main.patient_additions;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.pah_monitoring.main.entities.main.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 
 @NoArgsConstructor
@@ -12,7 +13,7 @@ import org.pah_monitoring.main.entities.main.users.users.Patient;
 @Builder
 @Entity
 @Table(name = "anamnesis")
-public class Anamnesis {
+public class Anamnesis implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
