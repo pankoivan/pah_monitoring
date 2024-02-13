@@ -9,6 +9,8 @@ import org.pah_monitoring.main.entities.main.patient_additions.Anamnesis;
 @Builder
 public class AnamnesisOutDto implements OutDto {
 
+    private Integer patientId;
+
     private Boolean heartDisease;
 
     private Boolean lungDisease;

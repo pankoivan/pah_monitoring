@@ -13,6 +13,7 @@ public class AnamnesisToOutDtoMapper implements BaseEntityToOutDtoMapper<Anamnes
     public AnamnesisOutDto map(Anamnesis anamnesis) {
         return AnamnesisOutDto
                 .builder()
+                .patientId(anamnesis.getPatient().getId())
                 .heartDisease(anamnesis.getHeartDisease())
                 .lungDisease(anamnesis.getLungDisease())
                 .relativesDiseases(anamnesis.getRelativesDiseases())
