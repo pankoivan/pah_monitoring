@@ -10,4 +10,8 @@ public interface RedirectService {
 
     String notAnonymousUserRedirect();
 
+    boolean checkPatientAnamnesisRedirect();
+
+    String patientAnamnesisRedirect();
+
 }

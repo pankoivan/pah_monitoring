@@ -7,8 +7,9 @@ import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceE
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataAddingValidationService;
+import org.pah_monitoring.main.services.main.validation.interfaces.url.UrlValidationService;
 
-public interface AnamnesisService extends DataAddingValidationService<AnamnesisAddingDto> {
+public interface AnamnesisService extends DataAddingValidationService<AnamnesisAddingDto>, UrlValidationService {
 
     Anamnesis findByPatientId(Integer patientId) throws DataSearchingServiceException;
 
