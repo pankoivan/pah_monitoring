@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.out.patient_additions.AnamnesisOutDto;
 import org.pah_monitoring.main.entities.main.enums.TrueFalseEnum;
 import org.pah_monitoring.main.entities.main.patient_additions.Anamnesis;
+import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
-import org.pah_monitoring.main.exceptions.controller.rest.forbidden.NotEnoughRightsRestControllerException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 @Controller
 @RequestMapping("/anamnesis")
-@PreAuthorize("isAuthenticated()")
+@PreAuthorize("hasAnyRole('PATIENT', 'DOCTOR')")
 public class AnamnesisMvcController {
 
     private final AnamnesisService service;
@@ -58,7 +58,7 @@ public class AnamnesisMvcController {
             pageHeaderService.addHeader(model);
             return "patient_additions/anamnesis";
         } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
+            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }

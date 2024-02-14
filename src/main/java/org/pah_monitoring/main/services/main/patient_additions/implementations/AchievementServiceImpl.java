@@ -6,8 +6,10 @@ import lombok.Setter;
 import org.pah_monitoring.main.entities.main.examinations.indicators.AnalysisFile;
 import org.pah_monitoring.main.entities.main.patient_additions.Achievement;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.main.patient_additions.AchievementRepository;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.patient_additions.interfaces.AchievementService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,9 @@ public class AchievementServiceImpl implements AchievementService {
 
     private final AchievementRepository repository;
 
-    private final PatientService patientService;
+    private PatientService patientService;
+
+    private CurrentUserCheckService checkService;
 
     @PostConstruct
     private void achievementsInit() {
@@ -45,6 +49,16 @@ public class AchievementServiceImpl implements AchievementService {
     @Override
     public List<Achievement> findAllByPatientId(Integer patientId) throws DataSearchingServiceException {
         return patientService.findById(patientId).getAchievements();
+    }
+
+    @Override
+    public void checkAccessRightsForObtainingPatientAchievements(Patient patient) throws NotEnoughRightsServiceException {
+        if (!(
+                checkService.isMainAdministrator() ||
+                checkService.isHospitalUserFromSameHospital(patient.getHospital())
+        )) {
+            throw new NotEnoughRightsServiceException("Недостаточно прав");
+        }
     }
 
     @Override
