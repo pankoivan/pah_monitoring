@@ -52,16 +52,16 @@
                             <div class="mx-3 mx-lg-0" th:text="${each.formattedDate}">19.03.2021 в 19:54:12</div>
                         </div>
                         <hr class="my-1" />
-                        <div th:text="${each.text}">
+                        <div th:text="${each.text}" th:attr="data-text=${each.id}">
                             Товарищи! сложившаяся структура организации представляет собой интересный эксперимент проверки форм развития. Повседневная практика показывает, что новая модель организационной деятельности требуют от нас анализа системы
                             обучения кадров, соответствует насущным потребностям.
                         </div>
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-between">
                             <div>
-                                <a th:if="${each.author.userInformation.id == currentUser.userInformation.id}" href="#" id="edit" th:attr="data-id=${each.id}">
+                                <a th:if="${each.author.userInformation.id == currentUser.userInformation.id}" href="#" th:attr="data-edit=${each.id}">
                                     <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                                 </a>
-                                <a th:if="${each.author.userInformation.id == currentUser.userInformation.id}" href="#" id="delete" th:attr="data-id=${each.id}">
+                                <a th:if="${each.author.userInformation.id == currentUser.userInformation.id}" href="#" th:attr="data-delete=${each.id}">
                                     <img width="20" src="../../static/svg/delete.svg" th:src="@{/svg/delete.svg}" alt="Удалить" />
                                 </a>
                             </div>
