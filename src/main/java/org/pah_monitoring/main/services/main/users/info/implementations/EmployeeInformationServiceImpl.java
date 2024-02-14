@@ -6,6 +6,7 @@ import org.pah_monitoring.main.dto.in.users.info.employee.EmployeeInformationAdd
 import org.pah_monitoring.main.dto.in.users.info.employee.EmployeeInformationEditingDto;
 import org.pah_monitoring.main.dto.in.users.info.employee.EmployeeInformationSavingDto;
 import org.pah_monitoring.main.entities.main.users.info.EmployeeInformation;
+import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
 import org.pah_monitoring.main.entities.main.users.users.common.HospitalUser;
 import org.pah_monitoring.main.entities.main.users.users.common.User;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -96,6 +97,13 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
 
+    }
+
+    @Override
+    public void checkHospitalEmployeeActivity(HospitalEmployee hospitalEmployee) throws DataValidationServiceException {
+        if (hospitalEmployee.isDismissed()) {
+            throw new DataValidationServiceException("Этот сотрудник уволен, поэтому вы не можете редактировать информацию о нём");
+        }
     }
 
     @Override

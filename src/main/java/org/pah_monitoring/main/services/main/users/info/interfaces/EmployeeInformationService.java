@@ -4,9 +4,13 @@ import org.pah_monitoring.main.dto.in.users.info.employee.EmployeeInformationAdd
 import org.pah_monitoring.main.dto.in.users.info.employee.EmployeeInformationEditingDto;
 import org.pah_monitoring.main.dto.in.users.info.employee.EmployeeInformationSavingDto;
 import org.pah_monitoring.main.entities.main.users.info.EmployeeInformation;
+import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
+import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.services.main.users.info.interfaces.common.UserInfoService;
 
 public interface EmployeeInformationService extends
         UserInfoService<EmployeeInformation, EmployeeInformationAddingDto, EmployeeInformationEditingDto, EmployeeInformationSavingDto> {
+
+    void checkHospitalEmployeeActivity(HospitalEmployee hospitalEmployee) throws DataValidationServiceException;
 
 }

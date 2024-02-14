@@ -11,6 +11,8 @@ import org.pah_monitoring.main.dto.out.users.info.UserSecurityInformationOutDto;
 import org.pah_monitoring.main.entities.main.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
+import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
+import org.pah_monitoring.main.entities.main.users.users.common.User;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.forbidden.NotEnoughRightsRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
@@ -58,7 +60,9 @@ public class UserProfileRestController {
     public UserSecurityInformationOutDto editLoginInfo(@RequestBody @Valid UserSecurityInformationEditingDto editingDto,
                                                        BindingResult bindingResult) {
         try {
-            securityInformationService.checkAccessRightsForEditing(userSearchingService.findUserByUserSecurityInformationId(editingDto.getId()));
+            User user = userSearchingService.findUserByUserSecurityInformationId(editingDto.getId());
+            securityInformationService.checkAccessRightsForEditing(user);
+            securityInformationService.checkUserActivity(user);
             securityInformationService.checkDataValidityForEditing(editingDto, bindingResult);
             return userSecurityInformationMapper.map(securityInformationService.edit(editingDto));
         } catch (DataSearchingServiceException | DataValidationServiceException e) {
@@ -74,7 +78,9 @@ public class UserProfileRestController {
     public UserInformationOutDto editUserInfo(@RequestBody @Valid UserInformationEditingDto editingDto,
                                               BindingResult bindingResult) {
         try {
-            userInformationService.checkAccessRightsForEditing(userSearchingService.findUserByUserInformationId(editingDto.getId()));
+            User user = userSearchingService.findUserByUserInformationId(editingDto.getId());
+            userInformationService.checkAccessRightsForEditing(user);
+            userInformationService.checkUserActivity(user);
             userInformationService.checkDataValidityForEditing(editingDto, bindingResult);
             return userInformationMapper.map(userInformationService.edit(editingDto));
         } catch (DataSearchingServiceException | DataValidationServiceException e) {
@@ -91,9 +97,9 @@ public class UserProfileRestController {
     public EmployeeInformationOutDto editEmployeeInfo(@RequestBody @Valid EmployeeInformationEditingDto editingDto,
                                                       BindingResult bindingResult) {
         try {
-            employeeInformationService.checkAccessRightsForEditing(
-                    userSearchingService.findHospitalEmployeeByEmployeeInformationId(editingDto.getId())
-            );
+            HospitalEmployee hospitalEmployee = userSearchingService.findHospitalEmployeeByEmployeeInformationId(editingDto.getId());
+            employeeInformationService.checkAccessRightsForEditing(hospitalEmployee);
+            employeeInformationService.checkHospitalEmployeeActivity(hospitalEmployee);
             employeeInformationService.checkDataValidityForEditing(editingDto, bindingResult);
             return employeeInformationMapper.map(employeeInformationService.edit(editingDto));
         } catch (DataSearchingServiceException | DataValidationServiceException e) {

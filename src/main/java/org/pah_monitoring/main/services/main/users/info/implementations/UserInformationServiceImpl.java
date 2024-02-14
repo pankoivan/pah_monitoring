@@ -7,6 +7,7 @@ import org.pah_monitoring.main.dto.in.users.info.user.UserInformationAddingDto;
 import org.pah_monitoring.main.dto.in.users.info.user.UserInformationEditingDto;
 import org.pah_monitoring.main.dto.in.users.info.user.UserInformationSavingDto;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
+import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
 import org.pah_monitoring.main.entities.main.users.users.common.HospitalUser;
 import org.pah_monitoring.main.entities.main.users.users.common.User;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -100,6 +101,16 @@ public class UserInformationServiceImpl implements UserInformationService {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
 
+    }
+
+    @Override
+    public void checkUserActivity(User user) throws DataValidationServiceException {
+        if (user.isHospitalEmployee() && ((HospitalEmployee) user).isDismissed()) {
+            throw new DataValidationServiceException("Этот сотрудник уволен, поэтому вы не можете редактировать информацию о нём");
+        }
+        if (user.isPatient() && user.isNotActive()) {
+            throw new DataValidationServiceException("Этот пациент неактивен, поэтому вы не можете редактировать информацию о нём");
+        }
     }
 
     @Override
