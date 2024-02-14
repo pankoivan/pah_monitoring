@@ -21,10 +21,13 @@ public class UserMessageToOutDtoMapper implements BaseEntityToOutDtoListMapper<U
         return UserMessageOutDto
                 .builder()
                 .id(userMessage.getId())
-                .author(checkService.isSelf(userMessage.getAuthor()) ? "Вы" : userMessage.getAuthor().getFullName())
+                .author(userMessage.getAuthor())
+                .authorFullName(checkService.isSelf(userMessage.getAuthor()) ? "Вы" : userMessage.getAuthor().getFullName())
                 .recipient(userMessage.getRecipient().getFullName())
                 .text(userMessage.getText())
+                .date(userMessage.getDate())
                 .formattedDate(userMessage.getFormattedDate())
+                .editingDate(userMessage.getEditingDate())
                 .formattedEditingDate(userMessage.getFormattedEditingDate())
                 .build();
     }

@@ -8,7 +8,7 @@ document.querySelectorAll("a[data-edit]").forEach((edit) => {
     edit.addEventListener("click", () => {
         isAdding = false;
         messageForm.querySelector('input[name="id"]').value = edit.dataset.edit;
-        messageForm.querySelector('input[name="text"]').value = document.querySelector(`div[data-text="${edit.dataset.edit}"]`).dataset.text;
+        messageForm.querySelector('textarea[name="message"]').value = document.querySelector(`div[data-text="${edit.dataset.edit}"]`).innerText;
     });
 });
 
@@ -24,13 +24,13 @@ if (document.getElementById("send")) {
         if (isAdding) {
             data = {
                 recipientId: recipientId,
-                text: messageForm.querySelector('input[name="text"]').value,
+                text: messageForm.querySelector('textarea[name="message"]').value,
             };
             fetchAdd(data);
         } else {
             data = {
                 id: messageForm.querySelector('input[name="id"]').value,
-                text: messageForm.querySelector('input[name="text"]').value,
+                text: messageForm.querySelector('textarea[name="message"]').value,
             };
             fetchEdit(data);
         }

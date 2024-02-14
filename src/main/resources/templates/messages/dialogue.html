@@ -24,7 +24,7 @@
                         <input class="visually-hidden" name="id" />
                         <div>
                             <label for="message" class="form-label">Текст сообщения</label>
-                            <a href="#" id="send">
+                            <a href="#" id="send" class="text-decoration-none">
                                 <img width="20" src="../../static/svg/send.svg" th:src="@{/svg/send.svg}" alt="Отправить" />
                             </a>
                             <textarea name="message" id="message" class="form-control" rows="3" placeholder="Введите текст сообщения..."></textarea>
@@ -44,11 +44,13 @@
                 </div>
             </div>
             <!---->
+            <div th:replace="~{/fragments/filtration/filtration :: filtration}"></div>
+            <!---->
             <div class="row mb-5" th:each="each, status : ${dialogue}" th:classappend="${!status.last} ? 'mb-5' : 'mb-0'">
                 <div class="col-12">
                     <div>
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center justify-content-lg-between">
-                            <div class="mx-3 mx-lg-0" th:text="${each.author}">Вы</div>
+                            <div class="mx-3 mx-lg-0" th:text="${each.authorFullName}">Вы</div>
                             <div class="mx-3 mx-lg-0" th:text="${each.formattedDate}">19.03.2021 в 19:54:12</div>
                         </div>
                         <hr class="my-1" />
@@ -58,10 +60,10 @@
                         </div>
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-between">
                             <div>
-                                <a th:if="${each.author.userInformation.id == currentUser.userInformation.id}" href="#" th:attr="data-edit=${each.id}">
+                                <a th:if="${each.author.id == currentUser.userInformation.id}" href="#" th:attr="data-edit=${each.id}" class="text-decoration-none">
                                     <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                                 </a>
-                                <a th:if="${each.author.userInformation.id == currentUser.userInformation.id}" href="#" th:attr="data-delete=${each.id}">
+                                <a th:if="${each.author.id == currentUser.userInformation.id}" href="#" th:attr="data-delete=${each.id}" class="text-decoration-none">
                                     <img width="20" src="../../static/svg/delete.svg" th:src="@{/svg/delete.svg}" alt="Удалить" />
                                 </a>
                             </div>

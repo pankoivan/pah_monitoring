@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.pah_monitoring.main.dto.in.users.messages.UserMessageAddingDto;
 import org.pah_monitoring.main.dto.in.users.messages.UserMessageEditingDto;
 import org.pah_monitoring.main.dto.in.users.messages.UserMessageSavingDto;
+import org.pah_monitoring.main.dto.out.users.messages.UserMessageOutDto;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.entities.main.users.messages.UserMessage;
 import org.pah_monitoring.main.entities.main.users.users.common.HospitalUser;
@@ -14,6 +15,8 @@ import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceExcept
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
+import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
+import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoListMapper;
 import org.pah_monitoring.main.repositorites.main.users.messages.UserMessageRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserExtractionService;
@@ -21,12 +24,14 @@ import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchin
 import org.pah_monitoring.main.services.main.users.info.interfaces.UserInformationService;
 import org.pah_monitoring.main.services.main.users.messages.interfaces.UserMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
@@ -42,6 +47,12 @@ public class UserMessageServiceImpl implements UserMessageService {
     private CurrentUserExtractionService extractionService;
 
     private CurrentUserCheckService checkService;
+
+    @Qualifier("userMessageMapper")
+    private BaseEntityToOutDtoListMapper<UserMessage, UserMessageOutDto> userMessageMapper;
+
+    @Qualifier("userMessageOutDtoFilter")
+    private EntityFilter<UserMessageOutDto> userMessageOutDtoFilter;
 
     @Override
     public UserMessage findById(Integer id) throws DataSearchingServiceException {
@@ -70,7 +81,7 @@ public class UserMessageServiceImpl implements UserMessageService {
     }
 
     @Override
-    public List<UserMessage> findDialogue(Integer recipientId) throws DataSearchingServiceException {
+    public List<UserMessageOutDto> findDialogue(Integer recipientId) throws DataSearchingServiceException {
         List<UserMessage> authorMessages = repository.findAllByAuthorIdAndRecipientId(
                 extractionService.user().getUserInformation().getId(),
                 userInformationService.findById(recipientId).getId()
@@ -80,7 +91,13 @@ public class UserMessageServiceImpl implements UserMessageService {
                 extractionService.user().getUserInformation().getId()
         );
         authorMessages.addAll(recipientMessages);
-        return authorMessages;
+        return userMessageMapper.mapList(authorMessages);
+    }
+
+    @Override
+    public List<UserMessageOutDto> findDialogue(Integer recipientId, Map<String, String> parameters, EntityFilter.PageStat pageStat)
+            throws DataSearchingServiceException {
+        return userMessageOutDtoFilter.apply(findDialogue(recipientId), parameters, pageStat);
     }
 
     @Override

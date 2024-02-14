@@ -1,20 +1,18 @@
 package org.pah_monitoring.main.controllers.mvc.messages;
 
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.dto.out.users.messages.UserMessageOutDto;
-import org.pah_monitoring.main.entities.main.users.messages.UserMessage;
 import org.pah_monitoring.main.entities.main.users.users.common.User;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.filtration.enums.messages.UserMessageFiltrationProperty;
+import org.pah_monitoring.main.filtration.enums.messages.UserMessageSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
-import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoListMapper;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchingService;
 import org.pah_monitoring.main.services.main.users.messages.interfaces.UserMessageService;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,12 +32,6 @@ public class UserMessageMvcController {
     private final UserMessageService service;
 
     private final UserSearchingService searchingService;
-
-    @Qualifier("userMessageMapper")
-    private final BaseEntityToOutDtoListMapper<UserMessage, UserMessageOutDto> userMessageMapper;
-
-    @Qualifier("userMessageFilter")
-    private final EntityFilter<UserMessageOutDto> userMessageOutDtoFilter;
 
     private final PageHeaderService pageHeaderService;
 
@@ -61,9 +53,11 @@ public class UserMessageMvcController {
             service.checkAccessRightsForAdding(recipient);
             model.addAttribute("recipientFullName", recipient.getUserInformation().getFullName());
             EntityFilter.PageStat pageStat = new EntityFilter.PageStat();
-            model.addAttribute("dialogue", userMessageOutDtoFilter.apply(
-                    userMessageMapper.mapList(service.findDialogue(service.parsePathId(pathRecipientId))), parameters, pageStat
-            ));
+            model.addAttribute("dialogue", service.findDialogue(recipient.getUserInformation().getId(), parameters, pageStat));
+            model.addAttribute("currentPage", pageStat.getCurrentPage());
+            model.addAttribute("pagesCount", pageStat.getPagesCount());
+            model.addAttribute("filtrationProperties", UserMessageFiltrationProperty.values());
+            model.addAttribute("sortingProperties", UserMessageSortingProperty.values());
             pageHeaderService.addHeader(model);
             return "messages/dialogue";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {

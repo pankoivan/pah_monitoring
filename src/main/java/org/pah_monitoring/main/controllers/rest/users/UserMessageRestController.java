@@ -35,15 +35,12 @@ public class UserMessageRestController {
 
     private final UserSearchingService searchingService;
 
-    @Qualifier("userMessageMapper")
-    private final BaseEntityToOutDtoMapper<UserMessage, UserMessageOutDto> userMessageMapper;
-
     @PostMapping("/add")
-    public UserMessageOutDto add(@RequestBody @Valid UserMessageAddingDto addingDto, BindingResult bindingResult) {
+    public void add(@RequestBody @Valid UserMessageAddingDto addingDto, BindingResult bindingResult) {
         try {
             service.checkAccessRightsForAdding(searchingService.findUserByUserInformationId(addingDto.getRecipientId()));
             service.checkDataValidityForAdding(addingDto, bindingResult);
-            return userMessageMapper.map(service.add(addingDto));
+            service.add(addingDto);
         } catch (DataSearchingServiceException | DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
@@ -54,12 +51,12 @@ public class UserMessageRestController {
     }
 
     @PostMapping("/edit")
-    public UserMessageOutDto edit(@RequestBody @Valid UserMessageEditingDto editingDto, BindingResult bindingResult) {
+    public void edit(@RequestBody @Valid UserMessageEditingDto editingDto, BindingResult bindingResult) {
         try {
             UserMessage message = service.findById(editingDto.getId());
             service.checkAccessRightsForEditing(searchingService.findUserByUserInformationId(message.getAuthor().getId()));
             service.checkDataValidityForEditing(editingDto, bindingResult);
-            return userMessageMapper.map(service.edit(editingDto));
+            service.edit(editingDto);
         } catch (DataSearchingServiceException | DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
