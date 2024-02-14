@@ -1,6 +1,8 @@
 package org.pah_monitoring.main.services.additional.users.interfaces;
 
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
+import org.pah_monitoring.main.entities.main.users.info.UserInformation;
+import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.entities.main.users.users.common.User;
 
@@ -19,6 +21,10 @@ public interface CurrentUserCheckService {
     boolean isPatient();
 
     boolean isSelf(User user);
+
+    boolean isSelf(UserInformation userInformation);
+
+    boolean isSelf(UserSecurityInformation userSecurityInformation);
 
     boolean isHospitalUserFromSameHospital(Hospital hospital);
 
