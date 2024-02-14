@@ -1,11 +1,11 @@
 package org.pah_monitoring.main.scheduled;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.services.main.patient_additions.interfaces.AchievementService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Component
 public class PatientAwarding {
 
