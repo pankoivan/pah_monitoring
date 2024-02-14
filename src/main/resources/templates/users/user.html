@@ -51,7 +51,7 @@
                 <div class="col-12">
                     <h3 class="fs-4">
                         Рабочая информация
-                        <a href="#" th:if="${isSelf || isCurrentUserAdminFromSameHospital}" data-bs-toggle="modal" data-bs-target="#employee-info-editing-modal" class="text-decoration-none">
+                        <a href="#" th:if="${(isSelf || isCurrentUserAdminFromSameHospital) && !user.isDismissed}" data-bs-toggle="modal" data-bs-target="#employee-info-editing-modal" class="text-decoration-none">
                             <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>
@@ -66,7 +66,13 @@
                 <div class="col-12">
                     <h3 class="fs-4">
                         Общая информация
-                        <a href="#" th:if="${isSelf || isCurrentUserAdminFromSameHospital}" data-bs-toggle="modal" data-bs-target="#user-info-editing-modal" class="text-decoration-none">
+                        <a
+                            href="#"
+                            th:if="${(isSelf || isCurrentUserAdminFromSameHospital) && (user.isHospitalEmployee && !user.isDismissed || user.isPatient && user.isActive)}"
+                            data-bs-toggle="modal"
+                            data-bs-target="#user-info-editing-modal"
+                            class="text-decoration-none"
+                        >
                             <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                         </a>
                     </h3>

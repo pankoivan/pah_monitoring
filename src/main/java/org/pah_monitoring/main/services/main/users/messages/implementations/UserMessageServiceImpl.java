@@ -171,12 +171,14 @@ public class UserMessageServiceImpl implements UserMessageService {
 
     @Override
     public void checkDataValidityForActions(User recipient) throws DataValidationServiceException {
-        if (
-                recipient.isHospitalEmployee() && ((HospitalEmployee) recipient).isDismissed() ||
-                recipient.isPatient() && recipient.isNotActive()
-        ) {
+        if (recipient.isHospitalEmployee() && ((HospitalEmployee) recipient).isDismissed()) {
             throw new DataValidationServiceException(
-                    "Пользователь неактивен, поэтому вы не можете редактировать или удалять, а также оставлять новые сообщения в диалоге с ним"
+                    "Сотрудник уволен, поэтому вы не можете редактировать или удалять, а также оставлять новые сообщения в диалоге с ним"
+            );
+        }
+        if (recipient.isPatient() && recipient.isNotActive()) {
+            throw new DataValidationServiceException(
+                    "Пациент неактивен, поэтому вы не можете редактировать или удалять, а также оставлять новые сообщения в диалоге с ним"
             );
         }
     }
