@@ -3,6 +3,7 @@ package org.pah_monitoring.main.controllers.mvc.messages;
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.out.users.messages.UserMessageOutDto;
 import org.pah_monitoring.main.entities.main.users.messages.UserMessage;
+import org.pah_monitoring.main.entities.main.users.users.common.User;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -56,7 +57,9 @@ public class UserMessageMvcController {
     @GetMapping("/{recipientId}")
     public String getDialoguePage(Model model, @PathVariable("recipientId") String pathRecipientId, @RequestParam Map<String, String> parameters) {
         try {
-            service.checkAccessRightsForAdding(searchingService.findUserByUserInformationId(service.parsePathId(pathRecipientId)));
+            User recipient = searchingService.findUserByUserInformationId(service.parsePathId(pathRecipientId));
+            service.checkAccessRightsForAdding(recipient);
+            model.addAttribute("recipientFullName", recipient.getUserInformation().getFullName());
             EntityFilter.PageStat pageStat = new EntityFilter.PageStat();
             model.addAttribute("dialogue", userMessageOutDtoFilter.apply(
                     userMessageMapper.mapList(service.findDialogue(service.parsePathId(pathRecipientId))), parameters, pageStat

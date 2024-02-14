@@ -58,10 +58,10 @@
                         </div>
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-between">
                             <div>
-                                <a href="#" id="edit" th:attr="data-id=${each.id}">
+                                <a th:if="${each.author.userInformation.id == currentUser.userInformation.id}" href="#" id="edit" th:attr="data-id=${each.id}">
                                     <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                                 </a>
-                                <a href="#" id="delete" th:attr="data-id=${each.id}">
+                                <a th:if="${each.author.userInformation.id == currentUser.userInformation.id}" href="#" id="delete" th:attr="data-id=${each.id}">
                                     <img width="20" src="../../static/svg/delete.svg" th:src="@{/svg/delete.svg}" alt="Удалить" />
                                 </a>
                             </div>
