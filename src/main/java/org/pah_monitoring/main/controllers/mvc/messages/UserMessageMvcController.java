@@ -51,7 +51,7 @@ public class UserMessageMvcController {
         try {
             User recipient = searchingService.findUserByUserInformationId(service.parsePathId(pathRecipientId));
             service.checkAccessRightsForAdding(recipient);
-            model.addAttribute("recipientFullName", recipient.getUserInformation().getFullName());
+            model.addAttribute("recipient", recipient);
             EntityFilter.PageStat pageStat = new EntityFilter.PageStat();
             model.addAttribute("dialogue", service.findDialogue(recipient.getUserInformation().getId(), parameters, pageStat));
             model.addAttribute("currentPage", pageStat.getCurrentPage());
