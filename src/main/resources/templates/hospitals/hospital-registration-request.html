@@ -20,8 +20,8 @@
             <!---->
             <div class="row mb-5">
                 <div class="col-12 text-center">
-                    <h1 th:text="${request.hospital.name}" class="fs-5">Национальный медицинский исследовательский центр имени В. А. Алмазова</h1>
-                    <p class="fs-5 mb-0">
+                    <h1 th:text="${request.hospital.name}" class="fs-4">Национальный медицинский исследовательский центр имени В. А. Алмазова</h1>
+                    <p class="fs-4 mb-0">
                         OID:
                         <span th:text="${request.hospital.oid}">1.2.134.65643.1234.34435.984</span>
                     </p>
@@ -31,47 +31,49 @@
             <div class="row mb-5">
                 <div class="col-12">
                     <h3 class="fs-4">Дата</h3>
-                    <p class="mb-0" th:text="${request.formattedDate}"></p>
+                    <p class="fs-6 mb-0" th:text="${request.formattedDate}">01-02-2023 14:51:59</p>
                 </div>
             </div>
             <!---->
             <div class="row mb-5">
                 <div class="col-12">
                     <h3 class="fs-4">Заявитель</h3>
-                    <p class="mb-1">
-                        ФИО:
-                        <span>
-                            <span th:text="${request.lastname}">Иванов</span>
-                            <span th:text="${request.name}">Иван</span>
-                            <span th:text="${request.patronymic}" th:if="${request.patronymic != null}">Иванович</span>
-                        </span>
-                    </p>
-                    <p class="mb-1">
-                        Должность:
-                        <span th:text="${request.post}">Главный врач</span>
-                    </p>
-                    <p class="mb-1">
-                        Паспорт:
-                        <span th:text="${request.passport}">1234 567890</span>
-                    </p>
-                    <p class="mb-0">
-                        Телефон:
-                        <span th:text="${request.phoneNumber}">+7 (904) 190-29-84</span>
-                    </p>
+                    <div class="fs-6">
+                        <p class="mb-1">
+                            ФИО:
+                            <span>
+                                <span th:text="${request.lastname}">Иванов</span>
+                                <span th:text="${request.name}">Иван</span>
+                                <span th:text="${request.patronymic}" th:if="${request.patronymic != null}">Иванович</span>
+                            </span>
+                        </p>
+                        <p class="mb-1">
+                            Должность:
+                            <span th:text="${request.post}">Главный врач</span>
+                        </p>
+                        <p class="mb-1">
+                            Паспорт:
+                            <span th:text="${request.passport}">1234 567890</span>
+                        </p>
+                        <p class="mb-0">
+                            Телефон:
+                            <span th:text="${request.phoneNumber}">+7 (904) 190-29-84</span>
+                        </p>
+                    </div>
                 </div>
             </div>
             <!---->
             <div class="row mb-5">
                 <div class="col-12">
                     <h3 class="fs-4">Почта</h3>
-                    <p class="mb-0" th:text="${request.email}"></p>
+                    <p class="fs-6 mb-0" th:text="${request.email}">someMail@maaaail</p>
                 </div>
             </div>
             <!---->
             <div class="row mb-5" th:if="${request.comment != null}">
                 <div class="col-12">
                     <h3 class="fs-4">Комментарий</h3>
-                    <p class="mb-0" th:text="${request.comment}"></p>
+                    <p class="fs-6 mb-0" th:text="${request.comment}">Текст непустого комментария</p>
                 </div>
             </div>
             <!---->
@@ -79,17 +81,17 @@
                 <div class="col-12">
                     <h3 class="fs-4">Статус</h3>
                     <div th:switch="${#strings.toString(request.hospital.currentState)}">
-                        <p th:case="'WAITING_CODE'" class="mb-0">
+                        <p th:case="'WAITING_CODE'" class="fs-6 mb-0">
                             <span>Ожидает вашего решения:</span>
                             <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#code-generation-modal">Принять</button>
                             <span> / </span>
                             <button type="button" class="btn btn-sm btn-danger" id="decline-request">Отклонить</button>
                         </p>
-                        <p th:case="'WAITING_REGISTRATION'" class="mb-0">
+                        <p th:case="'WAITING_REGISTRATION'" class="fs-6 mb-0">
                             Ожидает регистрации администратора. Код был выдан
                             <span th:text="${request.hospital.formattedDate}">19-08-2021 в 15:55:41</span>
                         </p>
-                        <p th:case="'REGISTERED'" class="mb-0">
+                        <p th:case="'REGISTERED'" class="fs-6 mb-0">
                             Зарегистрировано
                             <span th:text="${request.hospital.formattedDate}">19.12.2021 в 12:59:01</span>
                         </p>

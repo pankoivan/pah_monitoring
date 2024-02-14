@@ -20,66 +20,119 @@
             <!---->
             <div class="row mb-5">
                 <div class="col-12 text-center">
-                    <h1 th:text="${hospital.name}" class="fs-3">Национальный медицинский исследовательский центр имени В. А. Алмазова</h1>
-                    <p th:text="'OID: ' + ${hospital.oid}" class="fs-4 mb-0">OID: 12.3235.4546.2345</p>
+                    <h1 th:text="${hospital.name}" class="fs-4">Национальный медицинский исследовательский центр имени В. А. Алмазова</h1>
+                    <p class="fs-4 mb-0">
+                        OID:
+                        <span th:text="${hospital.oid}">1.12.1235.11235.46.245</span>
+                    </p>
                 </div>
             </div>
             <!---->
             <div class="row mb-5">
                 <div class="col-12">
-                    <div class="mb-3">
-                        <a href="#" th:href="@{/hospitals/__${hospital.id}__/admins}" class="text-secondary fs-4">Администраторы</a>
+                    <h4 class="fs-4">
+                        <a href="#" th:href="@{/hospitals/__${hospital.id}__/admins}" class="text-secondary">Администраторы</a>
+                    </h4>
+                    <div class="fs-6">
+                        <p class="mb-1">
+                            Всего:
+                            <span th:text="${adminStat.total}">11</span>
+                        </p>
+                        <p class="mb-1">
+                            Активные:
+                            <span th:text="${adminStat.activeCount}">5</span>
+                        </p>
+                        <p class="mb-1">
+                            В отпуске:
+                            <span th:text="${adminStat.vacationCount}">2</span>
+                        </p>
+                        <p class="mb-1">
+                            На больничном:
+                            <span th:text="${adminStat.sickLeaveCount}">3</span>
+                        </p>
+                        <p class="mb-0">
+                            Уволенные:
+                            <span th:text="${adminStat.dismissalCount}">1</span>
+                        </p>
                     </div>
-                    <ul class="mb-0 fs-5">
-                        <li th:text="'Всего: ' + ${adminStat.total}">Всего: 11</li>
-                        <li th:text="'Активные: ' + ${adminStat.activeCount}">Активные: 5</li>
-                        <li th:text="'В отпуске: ' + ${adminStat.vacationCount}">В отпуске: 1</li>
-                        <li th:text="'На больничном: ' + ${adminStat.sickLeaveCount}">На больничном: 2</li>
-                        <li th:text="'Уволенные: ' + ${adminStat.dismissalCount}">Уволенные: 0</li>
-                    </ul>
                 </div>
             </div>
-            <hr class="mb-5" />
             <!---->
             <div class="row mb-5">
                 <div class="col-12">
-                    <div class="mb-3">
-                        <a href="#" th:href="@{/hospitals/__${hospital.id}__/doctors}" class="text-secondary fs-4">Врачи</a>
+                    <h4 class="fs-4">
+                        <a href="#" th:href="@{/hospitals/__${hospital.id}__/doctors}" class="text-secondary">Врачи</a>
+                    </h4>
+                    <div class="fs-6">
+                        <p class="mb-1">
+                            Всего:
+                            <span th:text="${doctorStat.total}">14</span>
+                        </p>
+                        <p class="mb-1">
+                            Активные:
+                            <span th:text="${doctorStat.activeCount}">10</span>
+                        </p>
+                        <p class="mb-1">
+                            В отпуске:
+                            <span th:text="${doctorStat.vacationCount}">1</span>
+                        </p>
+                        <p class="mb-1">
+                            На больничном:
+                            <span th:text="${doctorStat.sickLeaveCount}">1</span>
+                        </p>
+                        <p class="mb-1">
+                            Уволенные:
+                            <span th:text="${doctorStat.dismissalCount}">0</span>
+                        </p>
+                        <p class="mb-0">
+                            Без пациентов:
+                            <span th:text="${doctorStat.withoutPatientsCount}">2</span>
+                        </p>
                     </div>
-                    <ul class="mb-0 fs-5">
-                        <li th:text="'Всего: ' + ${doctorStat.total}">Всего: 12</li>
-                        <li th:text="'Активные: ' + ${doctorStat.activeCount}">Активные: 11</li>
-                        <li th:text="'В отпуске: ' + ${doctorStat.vacationCount}">В отпуске: 2</li>
-                        <li th:text="'На больничном: ' + ${doctorStat.sickLeaveCount}">На больничном: 0</li>
-                        <li th:text="'Уволенные: ' + ${doctorStat.dismissalCount}">Уволенные: 3</li>
-                        <li th:text="'Без пациентов: ' + ${doctorStat.withoutPatientsCount}">Без пациентов: 2</li>
-                    </ul>
                 </div>
             </div>
-            <hr class="mb-5" />
             <!---->
             <div class="row" th:classappend="${isMainAdmin} ? 'mb-5'">
                 <div class="col-12">
-                    <div class="mb-3">
-                        <a href="#" th:href="@{/hospitals/__${hospital.id}__/patients}" class="text-secondary fs-4">Пациенты</a>
+                    <h4 class="fs-4">
+                        <a href="#" th:href="@{/hospitals/__${hospital.id}__/patients}" class="text-secondary">Пациенты</a>
+                    </h4>
+                    <div class="fs-6">
+                        <p class="mb-1">
+                            Всего:
+                            <span th:text="${patientStat.total}">26</span>
+                        </p>
+                        <p class="mb-1">
+                            Активные:
+                            <span th:text="${patientStat.activeCount}">24</span>
+                        </p>
+                        <p class="mb-1">
+                            Неактивные:
+                            <span th:text="${patientStat.inactiveCount}">2</span>
+                        </p>
+                        <p class="mb-0">
+                            Нераспределённые:
+                            <span th:text="${patientStat.unallocated}">4</span>
+                        </p>
                     </div>
-                    <ul class="mb-0 fs-5">
-                        <li th:text="'Всего: ' + ${patientStat.total}">Всего: 19</li>
-                        <li th:text="'Активные: ' + ${patientStat.activeCount}">Активные: 24</li>
-                        <li th:text="'Неактивные: ' + ${patientStat.inactiveCount}">Неактивные: 2</li>
-                        <li th:text="'Нераспределённые: ' + ${patientStat.unallocated}">Нераспределённые: 11</li>
-                    </ul>
                 </div>
             </div>
-            <hr class="mb-5" th:if="${isMainAdmin}" />
             <!---->
             <div class="row" th:if="${isMainAdmin}">
                 <div class="col-12">
-                    <div class="mb-3">
+                    <h4 class="fs-4">
                         <a href="#" th:href="@{/hospital-registration/requests/__${hospital.request.id}__}" class="text-secondary fs-4">Заявка</a>
+                    </h4>
+                    <div class="fs-6">
+                        <p class="mb-1">
+                            Дата подачи заявки:
+                            <span th:text="${hospital.request.formattedDate}">21-11-2022 в 16:54:12</span>
+                        </p>
+                        <p class="mb-0">
+                            Дата регистрации:
+                            <span th:text="${hospital.formattedDate}">25-11-2022 в 17:11:49</span>
+                        </p>
                     </div>
-                    <p class="fs-5 mb-1">Заявка на регистрацию медицинского учреждения была подана <span th:text="${hospital.request.formattedDate}">19-09-2022 в 16:54:12</span></p>
-                    <p class="fs-5 mb-0"><span th:text="'Оно было зарегистрировано ' + ${hospital.formattedDate}">19-09-2022 в 16:54:12</span></p>
                 </div>
             </div>
             <!---->
