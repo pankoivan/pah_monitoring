@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title th:text="${title}">Диалоги</title>
+        <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary my-5">
+            <!---->
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+                        <h1 class="fs-3 m-2 m-md-0">Список диалогов</h1>
+                        <div class="m-1 m-md-0">
+                            <button class="btn btn-lg btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filter" aria-expanded="false" aria-controls="filter" id="filter-button">Фильтр</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div th:replace="~{/fragments/filtration/filtration :: filtration}"></div>
+            <!---->
+            <div class="row" th:each="each, status : ${dialogues}" th:classappend="${!status.last} ? 'mb-3'">
+                <div class="col-12" th:classappend="${!status.last} ? 'mb-3'">
+                    <div class="text-start">
+                        <p class="fs-4 word-wrap mb-1">
+                            <img width="24" class="mb-1" src="../../static/svg/message.svg" th:src="@{/svg/message.svg}" alt="Диалог" />
+                            <a href="#" th:href="@{/messages/__${each.userInformation.id}__}" th:text="${each.userInformation.fullName}" class="text-decoration-none text-secondary"> Козлов Геннадий Петрович </a>
+                            <span th:if="${each.isActive}" class="text-success text-lowercase fs-6">Активен</span>
+                            <span th:if="${each.isNotActive}" class="text-danger text-lowercase fs-6" th:text="${each.currentInactivity.get.shortInactivityMessage}">На больничном</span>
+                        </p>
+                        <p class="fs-5 mb-1" th:text="${each.userInformation.phoneNumber}">+7 (912) 123-90-56</p>
+                        <p class="fs-5" class="mb-0"><span th:text="${each.role.alias}">Врач</span><span th:if="${each.isHospitalEmployee}" th:text="': ' + ${each.employeeInformation.post}" class="text-lowercase">Врач-кардиолог</span></p>
+                    </div>
+                </div>
+                <hr class="mb-0" th:if="${!status.last}" />
+            </div>
+            <!---->
+            <div class="row" th:if="${dialogues.empty}" id="empty-dialogues-message">
+                <div class="col-12">
+                    <div class="text-secondary text-center fst-italic fs-2">Список диалогов пуст</div>
+                </div>
+            </div>
+            <!---->
+            <div th:replace="~{/fragments/pagination/pagination :: pagination}"></div>
+            <!---->
+        </div>
+        <!---->
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../static/js/common/get-params.js" th:src="@{/js/common/get-params.js}"></script>
+        <script src="../../static/js/common/pagination.js" th:src="@{/js/common/pagination.js}"></script>
+        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
+    </body>
+</html>

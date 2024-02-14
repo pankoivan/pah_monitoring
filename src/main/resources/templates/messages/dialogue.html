@@ -44,7 +44,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row mb-5" th:each="each, status : ${messages}" th:classappend="${!status.last} ? 'mb-5' : 'mb-0'">
+            <div class="row mb-5" th:each="each, status : ${dialogue}" th:classappend="${!status.last} ? 'mb-5' : 'mb-0'">
                 <div class="col-12">
                     <div>
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center justify-content-lg-between">
@@ -74,6 +74,14 @@
                 </div>
             </div>
             <!---->
+            <div class="row" th:if="${dialogue.empty}" id="empty-dialogue-message">
+                <div class="col-12">
+                    <div class="text-secondary text-center fst-italic fs-2">Диалог пуст</div>
+                </div>
+            </div>
+            <!---->
+            <div th:replace="~{/fragments/pagination/pagination :: pagination}"></div>
+            <!---->
         </div>
         <!---->
         <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
@@ -82,7 +90,7 @@
         <!---->
         <script src="../../static/js/common/get-params.js" th:src="@{/js/common/get-params.js}"></script>
         <script src="../../static/js/common/pagination.js" th:src="@{/js/common/pagination.js}"></script>
-        <script src="../../static/js/messages/messages.js" th:src="@{/js/messages/messages.js}"></script>
+        <script src="../../static/js/messages/dialogue.js" th:src="@{/js/messages/dialogue.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>
