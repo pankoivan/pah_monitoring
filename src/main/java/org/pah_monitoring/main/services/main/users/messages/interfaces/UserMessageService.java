@@ -10,6 +10,7 @@ import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceE
 import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
+import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataAddingValidationService;
 import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataEditingValidationService;
@@ -37,6 +38,8 @@ public interface UserMessageService extends
     UserMessage edit(UserMessageEditingDto editingDto) throws DataSavingServiceException;
 
     void deleteById(Integer id) throws DataDeletionServiceException;
+
+    void checkDataValidityForActions(User recipient) throws DataValidationServiceException;
 
     void checkAccessRightsForAdding(User recipient) throws NotEnoughRightsServiceException;
 

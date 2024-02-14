@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.users.messages.UserMessageAddingDto;
 import org.pah_monitoring.main.dto.in.users.messages.UserMessageEditingDto;
 import org.pah_monitoring.main.entities.main.users.messages.UserMessage;
+import org.pah_monitoring.main.entities.main.users.users.common.User;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.forbidden.NotEnoughRightsRestControllerException;
@@ -35,7 +36,9 @@ public class UserMessageRestController {
     @PostMapping("/add")
     public void add(@RequestBody @Valid UserMessageAddingDto addingDto, BindingResult bindingResult) {
         try {
-            service.checkAccessRightsForAdding(searchingService.findUserByUserInformationId(addingDto.getRecipientId()));
+            User recipient = searchingService.findUserByUserInformationId(addingDto.getRecipientId());
+            service.checkAccessRightsForAdding(recipient);
+            service.checkDataValidityForActions(recipient);
             service.checkDataValidityForAdding(addingDto, bindingResult);
             service.add(addingDto);
         } catch (DataSearchingServiceException | DataValidationServiceException e) {
@@ -51,7 +54,9 @@ public class UserMessageRestController {
     public void edit(@RequestBody @Valid UserMessageEditingDto editingDto, BindingResult bindingResult) {
         try {
             UserMessage message = service.findById(editingDto.getId());
+            User recipient = searchingService.findUserByUserInformationId(message.getRecipient().getId());
             service.checkAccessRightsForEditing(searchingService.findUserByUserInformationId(message.getAuthor().getId()));
+            service.checkDataValidityForActions(recipient);
             service.checkDataValidityForEditing(editingDto, bindingResult);
             service.edit(editingDto);
         } catch (DataSearchingServiceException | DataValidationServiceException e) {
@@ -67,10 +72,14 @@ public class UserMessageRestController {
     public void delete(@PathVariable("id") String pathId) {
         try {
             UserMessage message = service.findById(service.parsePathId(pathId));
+            User recipient = searchingService.findUserByUserInformationId(message.getRecipient().getId());
             service.checkAccessRightsForDeleting(searchingService.findUserByUserInformationId(message.getAuthor().getId()));
+            service.checkDataValidityForActions(recipient);
             service.deleteById(message.getId());
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
+        } catch (DataValidationServiceException e) {
+            throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         } catch (DataDeletionServiceException e) {

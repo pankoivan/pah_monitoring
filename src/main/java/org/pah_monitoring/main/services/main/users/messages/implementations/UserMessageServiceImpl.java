@@ -8,6 +8,7 @@ import org.pah_monitoring.main.dto.in.users.messages.UserMessageSavingDto;
 import org.pah_monitoring.main.dto.out.users.messages.UserMessageOutDto;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.entities.main.users.messages.UserMessage;
+import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
 import org.pah_monitoring.main.entities.main.users.users.common.HospitalUser;
 import org.pah_monitoring.main.entities.main.users.users.common.User;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -82,16 +83,20 @@ public class UserMessageServiceImpl implements UserMessageService {
 
     @Override
     public List<UserMessageOutDto> findDialogue(Integer recipientId) throws DataSearchingServiceException {
+
         List<UserMessage> authorMessages = repository.findAllByAuthorIdAndRecipientId(
                 extractionService.user().getUserInformation().getId(),
                 userInformationService.findById(recipientId).getId()
         );
+
         List<UserMessage> recipientMessages = repository.findAllByAuthorIdAndRecipientId(
                 userInformationService.findById(recipientId).getId(),
                 extractionService.user().getUserInformation().getId()
         );
+
         authorMessages.addAll(recipientMessages);
         return userMessageMapper.mapList(authorMessages);
+
     }
 
     @Override
@@ -161,6 +166,18 @@ public class UserMessageServiceImpl implements UserMessageService {
     public void checkDataValidityForSaving(UserMessageSavingDto savingDto, BindingResult bindingResult) throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+    }
+
+    @Override
+    public void checkDataValidityForActions(User recipient) throws DataValidationServiceException {
+        if (
+                recipient.isHospitalEmployee() && ((HospitalEmployee) recipient).isDismissed() ||
+                recipient.isPatient() && recipient.isNotActive()
+        ) {
+            throw new DataValidationServiceException(
+                    "Пользователь неактивен, поэтому вы не можете редактировать или удалять, а также оставлять новые сообщения в диалоге с ним"
+            );
         }
     }
 
