@@ -55,20 +55,26 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
 
     @Override
     public void award(Patient patient, Achievement achievement) {
-        patient.addAchievement(achievement);
-        repository.save(patient);
+        if (patient.isActive()) {
+            patient.addAchievement(achievement);
+            repository.save(patient);
+        }
     }
 
     @Override
     public void assignToDoctor(Patient patient, Doctor doctor) {
-        patient.setDoctor(doctor);
-        repository.save(patient);
+        if (patient.isActive()) {
+            patient.setDoctor(doctor);
+            repository.save(patient);
+        }
     }
 
     @Override
     public void removeFromDoctor(Patient patient) {
-        patient.removeDoctor();
-        repository.save(patient);
+        if (patient.isActive()) {
+            patient.removeDoctor();
+            repository.save(patient);
+        }
     }
 
     @Override
@@ -166,10 +172,16 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
 
     @Override
     public void checkDataValidityForDoctorAssigning(PatientDoctorAssigningDto assigningDto, BindingResult bindingResult)
-            throws DataValidationServiceException {
+            throws DataSearchingServiceException, DataValidationServiceException {
+
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
+
+        if (findById(assigningDto.getPatientId()).isNotActive()) {
+            throw new DataValidationServiceException("Пациент с id \"%s\" неактивен".formatted(assigningDto.getPatientId()));
+        }
+
     }
 
     @Override
@@ -180,18 +192,28 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
     }
 
     @Override
-    public void checkAccessRightsForObtainingDoctorPatients(Doctor requestedDoctor) throws NotEnoughRightsServiceException {
+    public void checkAccessRightsForDoctorAssigning(Patient patient, Doctor doctor) throws NotEnoughRightsServiceException {
         if (!(
-                getCheckService().isSelf(requestedDoctor) ||
-                getCheckService().isAdministratorFromSameHospital(requestedDoctor.getHospital())
+                getCheckService().isAdministratorFromSameHospital(patient.getHospital()) &&
+                getCheckService().isAdministratorFromSameHospital(doctor.getHospital())
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
     }
 
     @Override
-    public void checkAccessRightsForPatientDoctorConnection(Patient patient) throws NotEnoughRightsServiceException {
+    public void checkAccessRightsForDoctorRemoval(Patient patient) throws NotEnoughRightsServiceException {
         if (!getCheckService().isAdministratorFromSameHospital(patient.getHospital())) {
+            throw new NotEnoughRightsServiceException("Недостаточно прав");
+        }
+    }
+
+    @Override
+    public void checkAccessRightsForObtainingDoctorPatients(Doctor requestedDoctor) throws NotEnoughRightsServiceException {
+        if (!(
+                getCheckService().isSelf(requestedDoctor) ||
+                getCheckService().isAdministratorFromSameHospital(requestedDoctor.getHospital())
+        )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
     }

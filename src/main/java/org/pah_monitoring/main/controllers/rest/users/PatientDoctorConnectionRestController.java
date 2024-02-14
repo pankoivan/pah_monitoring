@@ -40,7 +40,7 @@ public class PatientDoctorConnectionRestController {
         try {
             Patient patient = patientService.findById(assigningDto.getPatientId());
             Doctor doctor = doctorService.findById(assigningDto.getDoctorId());
-            patientService.checkAccessRightsForPatientDoctorConnection(patient);
+            patientService.checkAccessRightsForDoctorAssigning(patient, doctor);
             patientService.checkDataValidityForDoctorAssigning(assigningDto, bindingResult);
             patientService.assignToDoctor(patient, doctor);
             return Map.of(
@@ -59,7 +59,7 @@ public class PatientDoctorConnectionRestController {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             Doctor doctor = patient.getDoctor();
-            patientService.checkAccessRightsForPatientDoctorConnection(patient);
+            patientService.checkAccessRightsForDoctorRemoval(patient);
             patientService.checkDataValidityForDoctorRemoval(patient);
             patientService.removeFromDoctor(patient);
             return Map.of(

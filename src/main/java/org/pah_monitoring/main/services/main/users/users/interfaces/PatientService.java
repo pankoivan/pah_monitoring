@@ -31,12 +31,14 @@ public interface PatientService extends HospitalUserService<Patient, PatientAddi
             throws DataSearchingServiceException;
 
     void checkDataValidityForDoctorAssigning(PatientDoctorAssigningDto assigningDto, BindingResult bindingResult)
-            throws DataValidationServiceException;
+            throws DataSearchingServiceException, DataValidationServiceException;
 
     void checkDataValidityForDoctorRemoval(Patient patient) throws DataValidationServiceException;
 
-    void checkAccessRightsForObtainingDoctorPatients(Doctor doctor) throws NotEnoughRightsServiceException;
+    void checkAccessRightsForDoctorAssigning(Patient patient, Doctor doctor) throws NotEnoughRightsServiceException;
 
-    void checkAccessRightsForPatientDoctorConnection(Patient patient) throws NotEnoughRightsServiceException;
+    void checkAccessRightsForDoctorRemoval(Patient patient) throws NotEnoughRightsServiceException;
+
+    void checkAccessRightsForObtainingDoctorPatients(Doctor doctor) throws NotEnoughRightsServiceException;
 
 }
