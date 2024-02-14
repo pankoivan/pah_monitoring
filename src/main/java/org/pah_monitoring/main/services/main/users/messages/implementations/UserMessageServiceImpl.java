@@ -71,10 +71,16 @@ public class UserMessageServiceImpl implements UserMessageService {
 
     @Override
     public List<UserMessage> findDialogue(Integer recipientId) throws DataSearchingServiceException {
-        return repository.findAllByAuthorIdAndRecipientId(
+        List<UserMessage> authorMessages = repository.findAllByAuthorIdAndRecipientId(
                 extractionService.user().getUserInformation().getId(),
                 userInformationService.findById(recipientId).getId()
         );
+        List<UserMessage> recipientMessages = repository.findAllByAuthorIdAndRecipientId(
+                userInformationService.findById(recipientId).getId(),
+                extractionService.user().getUserInformation().getId()
+        );
+        authorMessages.addAll(recipientMessages);
+        return authorMessages;
     }
 
     @Override
