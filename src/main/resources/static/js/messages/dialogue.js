@@ -47,7 +47,9 @@ function fetchAdd(data) {
     })
         .then((response) => {
             if (response.ok) {
-                showSuccessModal("Сообщение было успешно отправлено");
+                const url = new URL(window.location.href);
+                url.searchParams.set("page", "1234");
+                window.location.href = url;
             } else {
                 showErrorModal(response);
             }
@@ -67,7 +69,7 @@ function fetchEdit(data) {
     })
         .then((response) => {
             if (response.ok) {
-                showSuccessModal("Сообщение было успешно изменено");
+                window.location.reload();
             } else {
                 showErrorModal(response);
             }
@@ -83,7 +85,7 @@ function fetchDelete(id) {
     })
         .then((response) => {
             if (response.ok) {
-                showSuccessModal("Сообщение было успешно удалено");
+                window.location.reload();
             } else {
                 showErrorModal(response);
             }
@@ -93,20 +95,9 @@ function fetchDelete(id) {
         });
 }
 
-function showSuccessModal(message) {
-    document.getElementById("success-modal-text").innerText = message;
-    new bootstrap.Modal(document.getElementById("success-modal")).show();
-}
-
 function showErrorModal(response) {
     response.json().then((responseJson) => {
         document.getElementById("error-modal-text").innerText = responseJson.errorDescription;
         new bootstrap.Modal(document.getElementById("error-modal")).show();
-    });
-}
-
-if (document.getElementById("success-modal")) {
-    document.getElementById("success-modal").addEventListener("hidden.bs.modal", () => {
-        window.location.reload();
     });
 }
