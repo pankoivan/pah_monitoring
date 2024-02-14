@@ -30,6 +30,8 @@ public interface CurrentUserCheckService {
 
     boolean isAdministratorFromSameHospital(Hospital hospital);
 
+    boolean isDoctorFromSameHospital(Hospital hospital);
+
     boolean isOwnDoctor(Patient patient);
 
 }

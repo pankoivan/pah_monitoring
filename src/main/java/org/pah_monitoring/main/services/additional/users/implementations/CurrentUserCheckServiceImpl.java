@@ -134,6 +134,18 @@ public class CurrentUserCheckServiceImpl implements CurrentUserCheckService {
     }
 
     @Override
+    public boolean isDoctorFromSameHospital(Hospital hospital) {
+        try {
+            if (!userExtractionService.doctor().getHospital().equals(hospital)) {
+                return false;
+            }
+        } catch (NullPointerException | ClassCastException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public boolean isOwnDoctor(Patient patient) {
         try {
             if (!userExtractionService.doctor().equals(patient.getDoctor())) {

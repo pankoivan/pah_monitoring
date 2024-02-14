@@ -189,6 +189,9 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
         if (patient.hasNoDoctor()) {
             throw new DataValidationServiceException("У пациента с id \"%s\" нет доктора".formatted(patient.getId()));
         }
+        if (patient.isNotActive()) {
+            throw new DataValidationServiceException("Пациент с id \"%s\" неактивен".formatted(patient.getId()));
+        }
     }
 
     @Override

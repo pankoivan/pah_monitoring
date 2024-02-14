@@ -72,6 +72,7 @@ public class PatientMvcController {
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(patient.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(patient.getHospital()));
             model.addAttribute("isCurrentUserOwnDoctor", checkService.isOwnDoctor(patient));
+            model.addAttribute("isCurrentUserDoctorFromSameHospital", checkService.isDoctorFromSameHospital(patient.getHospital()));
             model.addAttribute("isCurrentUserMainAdministrator", checkService.isMainAdministrator());
             model.addAttribute("target", "#patient-inactivity-modal");
             pageHeaderService.addHeader(model);

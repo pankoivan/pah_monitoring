@@ -6,9 +6,6 @@ import org.pah_monitoring.main.dto.in.users.inactivity.DismissalAddingDto;
 import org.pah_monitoring.main.dto.in.users.inactivity.PatientInactivityAddingDto;
 import org.pah_monitoring.main.dto.in.users.inactivity.SickLeaveAddingDto;
 import org.pah_monitoring.main.dto.in.users.inactivity.VacationAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
-import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
-import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.dto.out.users.inactivity.common.InactivityOutDto;
 import org.pah_monitoring.main.entities.main.users.inactivity.Dismissal;
 import org.pah_monitoring.main.entities.main.users.inactivity.PatientInactivity;
@@ -27,7 +24,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceExce
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
 import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchingService;
 import org.pah_monitoring.main.services.main.users.inactivity.interfaces.common.InactivityService;
-import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
+import org.pah_monitoring.main.services.main.users.users.interfaces.PatientService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -57,8 +54,7 @@ public class UserInactivityRestController {
     @Qualifier("inactivityMapper")
     private final BaseEntityToOutDtoMapper<Inactivity, InactivityOutDto> inactivityMapper;
 
-    @Qualifier("patientService")
-    private final HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
+    private final PatientService patientService;
 
     private final UserSearchingService searchingService;
 
@@ -114,8 +110,10 @@ public class UserInactivityRestController {
     @PreAuthorize("hasRole('DOCTOR')")
     public InactivityOutDto addPatientInactivity(@RequestBody @Valid PatientInactivityAddingDto addingDto, BindingResult bindingResult) {
         try {
-            patientInactivityService.checkAccessRightsForAdding(patientService.findById(addingDto.getToWhomId()));
+            Patient patient = patientService.findById(addingDto.getToWhomId());
+            patientInactivityService.checkAccessRightsForAdding(patient);
             patientInactivityService.checkDataValidityForAdding(addingDto, bindingResult);
+            patientService.removeFromDoctor(patient);
             return inactivityMapper.map(patientInactivityService.add(addingDto));
         } catch (DataSearchingServiceException | DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);

@@ -155,7 +155,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row mb-5" th:if="${user.isPatient && (isSelf || isCurrentUserOwnDoctor || isCurrentUserAdminFromSameHospital)}">
+            <div class="row mb-5" th:if="${user.isPatient && user.isActive && (isSelf || isCurrentUserOwnDoctor || isCurrentUserAdminFromSameHospital)}">
                 <div class="col-12">
                     <h3 class="fs-4">
                         Лечащий врач
@@ -174,7 +174,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row mb-5" th:if="${user.isPatient && (isSelf || isCurrentUserOwnDoctor)}">
+            <div class="row mb-5" th:if="${user.isPatient && user.isActive && (isSelf || isCurrentUserOwnDoctor) || user.isPatient && user.isNotActive && isCurrentUserDoctorFromSameHospital}">
                 <div class="col-12">
                     <h3 class="fs-4">История лечения</h3>
                     <p class="mb-1">
