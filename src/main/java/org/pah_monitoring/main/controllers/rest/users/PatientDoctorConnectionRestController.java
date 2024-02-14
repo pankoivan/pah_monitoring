@@ -1,10 +1,11 @@
 package org.pah_monitoring.main.controllers.rest.users;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorSavingDto;
-import org.pah_monitoring.main.dto.in.users.users.patient_doctor.PatientDoctorConnectionDto;
+import org.pah_monitoring.main.dto.in.users.users.patient_doctor.PatientDoctorAssigningDto;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
@@ -18,6 +19,7 @@ import org.pah_monitoring.main.services.main.users.users.interfaces.PatientServi
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -34,17 +36,18 @@ public class PatientDoctorConnectionRestController {
     private final HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> doctorService;
 
     @PostMapping("/assign")
-    public Map<String, String> assignToDoctor(@RequestBody PatientDoctorConnectionDto connectionDto) {
+    public Map<String, String> assignToDoctor(@RequestBody @Valid PatientDoctorAssigningDto assigningDto, BindingResult bindingResult) {
         try {
-            Patient patient = patientService.findById(connectionDto.getPatientId());
-            Doctor doctor = doctorService.findById(connectionDto.getDoctorId());
+            Patient patient = patientService.findById(assigningDto.getPatientId());
+            Doctor doctor = doctorService.findById(assigningDto.getDoctorId());
             patientService.checkAccessRightsForPatientDoctorConnection(patient);
+            patientService.checkDataValidityForDoctorAssigning(assigningDto, bindingResult);
             patientService.assignToDoctor(patient, doctor);
             return Map.of(
                     "patientFullName", patient.getUserInformation().getFullName(),
                     "doctorFullName", doctor.getEmployeeInformation().getUserInformation().getFullName()
             );
-        } catch (DataSearchingServiceException e) {
+        } catch (DataSearchingServiceException | DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
@@ -56,8 +59,8 @@ public class PatientDoctorConnectionRestController {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             Doctor doctor = patient.getDoctor();
-            patientService.checkDataValidityForDoctorRemoval(patient);
             patientService.checkAccessRightsForPatientDoctorConnection(patient);
+            patientService.checkDataValidityForDoctorRemoval(patient);
             patientService.removeFromDoctor(patient);
             return Map.of(
                     "patientFullName", patient.getUserInformation().getFullName(),

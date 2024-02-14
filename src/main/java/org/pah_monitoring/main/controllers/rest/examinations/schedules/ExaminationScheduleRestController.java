@@ -35,7 +35,7 @@ import java.util.Map;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/rest/schedules")
-@PreAuthorize("isAuthenticated()")
+@PreAuthorize("hasAnyRole('DOCTOR', 'PATIENT')")
 public class ExaminationScheduleRestController {
 
     private final ExaminationScheduleService service;
@@ -96,7 +96,7 @@ public class ExaminationScheduleRestController {
             service.checkAccessRightsForActions(schedule.getPatient());
             service.deleteById(schedule.getId());
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new DataValidationRestControllerException(e.getMessage(), e);
+            throw new UrlValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         } catch (DataDeletionServiceException e) {

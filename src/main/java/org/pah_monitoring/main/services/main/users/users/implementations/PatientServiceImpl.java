@@ -8,6 +8,7 @@ import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorSavingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient_doctor.PatientDoctorAssigningDto;
 import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.patient_additions.Achievement;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
@@ -140,8 +141,7 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
     }
 
     @Override
-    public void checkDataValidityForAdding(PatientAddingDto addingDto, BindingResult bindingResult)
-            throws DataValidationServiceException {
+    public void checkDataValidityForAdding(PatientAddingDto addingDto, BindingResult bindingResult) throws DataValidationServiceException {
 
         super.checkDataValidityForAdding(addingDto, bindingResult);
 
@@ -159,6 +159,14 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
 
     @Override
     public void checkDataValidityForSaving(PatientSavingDto savingDto, BindingResult bindingResult) throws DataValidationServiceException {
+        if (bindingResult.hasErrors()) {
+            throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
+        }
+    }
+
+    @Override
+    public void checkDataValidityForDoctorAssigning(PatientDoctorAssigningDto assigningDto, BindingResult bindingResult)
+            throws DataValidationServiceException {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
