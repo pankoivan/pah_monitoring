@@ -8,6 +8,7 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoListMapper;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchingService;
@@ -19,6 +20,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Map;
 
 @AllArgsConstructor
 @Controller
@@ -32,6 +36,9 @@ public class UserMessageMvcController {
 
     @Qualifier("userMessageMapper")
     private final BaseEntityToOutDtoListMapper<UserMessage, UserMessageOutDto> userMessageMapper;
+
+    @Qualifier("userMessageFilter")
+    private final EntityFilter<UserMessageOutDto> userMessageOutDtoFilter;
 
     private final PageHeaderService pageHeaderService;
 
@@ -47,10 +54,13 @@ public class UserMessageMvcController {
     }
 
     @GetMapping("/{recipientId}")
-    public String getDialoguePage(Model model, @PathVariable("recipientId") String pathRecipientId) {
+    public String getDialoguePage(Model model, @PathVariable("recipientId") String pathRecipientId, @RequestParam Map<String, String> parameters) {
         try {
             service.checkAccessRightsForAdding(searchingService.findUserByUserInformationId(service.parsePathId(pathRecipientId)));
-            model.addAttribute("dialogue", userMessageMapper.mapList(service.findDialogue(service.parsePathId(pathRecipientId))));
+            EntityFilter.PageStat pageStat = new EntityFilter.PageStat();
+            model.addAttribute("dialogue", userMessageOutDtoFilter.apply(
+                    userMessageMapper.mapList(service.findDialogue(service.parsePathId(pathRecipientId))), parameters, pageStat
+            ));
             pageHeaderService.addHeader(model);
             return "messages/dialogue";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
