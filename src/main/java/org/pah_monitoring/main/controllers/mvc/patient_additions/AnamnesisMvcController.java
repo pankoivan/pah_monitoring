@@ -5,6 +5,8 @@ import org.pah_monitoring.main.dto.out.patient_additions.AnamnesisOutDto;
 import org.pah_monitoring.main.entities.main.enums.TrueFalseEnum;
 import org.pah_monitoring.main.entities.main.patient_additions.Anamnesis;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
+import org.pah_monitoring.main.exceptions.controller.rest.forbidden.NotEnoughRightsRestControllerException;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
@@ -50,9 +52,13 @@ public class AnamnesisMvcController {
     @PreAuthorize("hasAnyRole('PATIENT', 'DOCTOR')")
     public String getAnamnesisPage(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            model.addAttribute("anamnesis", anamnesisMapper.map(service.findByPatientId(service.parsePathId(pathPatientId))));
+            Anamnesis anamnesis = service.findByPatientId(service.parsePathId(pathPatientId));
+            service.checkAccessRightsForObtaining(anamnesis.getPatient());
+            model.addAttribute("anamnesis", anamnesisMapper.map(anamnesis));
             pageHeaderService.addHeader(model);
             return "patient_additions/anamnesis";
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }

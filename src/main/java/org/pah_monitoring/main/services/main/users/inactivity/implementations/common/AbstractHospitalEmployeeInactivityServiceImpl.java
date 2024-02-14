@@ -88,7 +88,8 @@ public abstract class AbstractHospitalEmployeeInactivityServiceImpl
             throw new DataValidationServiceException("""
                     У этого врача всё ещё есть пациенты, поэтому его нельзя отправлять в отпуск, на больничный или увольнять.\
                      Для осуществления этих действий переведите всех его пациентов к другому врачу
-                    """);
+                    """
+            );
         }
 
     }

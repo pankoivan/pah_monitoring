@@ -63,7 +63,7 @@ public class AnamnesisServiceImpl implements AnamnesisService {
         }
         try {
             if (extractionService.patient().hasNoAnamnesis()) {
-                throw new DataValidationServiceException("Нельзя добавить больше одного анамнеза");
+                throw new DataValidationServiceException("Нельзя отправить больше одного анамнеза");
             }
         } catch (NullPointerException | ClassCastException e) {
             throw new DataValidationServiceException(e.getMessage(), e);
@@ -74,7 +74,8 @@ public class AnamnesisServiceImpl implements AnamnesisService {
     public void checkAccessRightsForObtaining(Patient patient) throws NotEnoughRightsServiceException {
         if (!(
                 checkService.isSelf(patient) ||
-                checkService.isOwnDoctor(patient)
+                (patient.isActive() && checkService.isOwnDoctor(patient) ||
+                patient.isNotActive() && checkService.isDoctorFromSameHospital(patient.getHospital()))
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
