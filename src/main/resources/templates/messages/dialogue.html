@@ -14,149 +14,61 @@
 
     <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
         <!---->
-        <!--<div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>-->
-        <header th:fragment="anon-header" class="container-fluid bg-dark">
-            <div class="container p-2">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-sm-between">
-                    <div class="m-2 my-sm-0">
-                        <a href="#" th:href="@{/}">
-                            <img src="../../static/img/main.png" th:src="@{/img/main.png}" alt="Главная" width="56" />
-                        </a>
-                    </div>
-                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-sm-between m-2 my-sm-0">
-                        <a href="/login" th:href="@{/login}" class="btn btn-primary m-2">Войти</a>
-                        <button type="button" class="btn btn-warning m-2" data-bs-toggle="modal" data-bs-target="#code-input-modal">Зарегистрироваться</button>
-                        <a href="/hospital-registration/form" th:href="@{/hospital-registration/form}" class="btn btn-success m-2">Подать заявку</a>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
         <!---->
         <div class="container text-secondary fs-5 my-5">
             <!---->
             <div class="row mb-5">
                 <div class="col-12">
-                    <form id="message-form" action="#" method="post" class="">
+                    <form id="message-form">
                         <input class="visually-hidden" name="id" />
-                        <div class="mb-3">
+                        <div>
                             <label for="message" class="form-label">Текст сообщения</label>
-                            <a href="#"><img width="20" src="../../static/svg/send.svg" th:src="@{/svg/send.svg}" alt="Отправить" /></a>
+                            <a href="#" id="send">
+                                <img width="20" src="../../static/svg/send.svg" th:src="@{/svg/send.svg}" alt="Отправить" />
+                            </a>
                             <textarea name="message" id="message" class="form-control" rows="3" placeholder="Введите текст сообщения..."></textarea>
                         </div>
                     </form>
                 </div>
             </div>
             <!---->
-            <div class="row mb-5">
+            <div class="row text-center mb-5">
                 <div class="col-12">
-                    <div>
-                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-center justify-content-lg-between">
-                            <div class="mx-3 mx-lg-0">Вы</div>
-                            <div class="mx-3 mx-lg-0">19.03.2021 в 19:54:12</div>
-                        </div>
-                        <hr class="my-1" />
-                        <div>
-                            Товарищи! сложившаяся структура организации представляет собой интересный эксперимент проверки форм развития. Повседневная практика показывает, что новая модель организационной деятельности требуют от нас анализа системы
-                            обучения кадров, соответствует насущным потребностям.
-                        </div>
-                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-between">
-                            <div>
-                                <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
-                                <img width="20" src="../../static/svg/delete.svg" th:src="@{/svg/delete.svg}" alt="Удалить" />
-                            </div>
-                            <div class="text-end fst-italic fs-6">Изм. 21.04.2022 в 15:22:36</div>
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+                        <h1 class="fs-3 m-2 m-md-0" th:text="${recipientFullName}">Иванов Иван Иванович</h1>
+                        <div class="m-2 m-md-0">
+                            <button class="btn btn-lg btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filter" aria-expanded="false" aria-controls="filter" id="filter-button">Фильтр</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="row mb-5">
+            <!---->
+            <div class="row mb-5" th:each="each, status : ${messages}" th:classappend="${!status.last} ? 'mb-5' : 'mb-0'">
                 <div class="col-12">
                     <div>
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center justify-content-lg-between">
-                            <div class="mx-3 mx-lg-0">Вы</div>
-                            <div class="mx-3 mx-lg-0">19.03.2021 в 19:54:12</div>
+                            <div class="mx-3 mx-lg-0" th:text="${each.author}">Вы</div>
+                            <div class="mx-3 mx-lg-0" th:text="${each.formattedDate}">19.03.2021 в 19:54:12</div>
                         </div>
                         <hr class="my-1" />
-                        <div>
+                        <div th:text="${each.text}">
                             Товарищи! сложившаяся структура организации представляет собой интересный эксперимент проверки форм развития. Повседневная практика показывает, что новая модель организационной деятельности требуют от нас анализа системы
                             обучения кадров, соответствует насущным потребностям.
                         </div>
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-between">
                             <div>
-                                <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
-                                <img width="20" src="../../static/svg/delete.svg" th:src="@{/svg/delete.svg}" alt="Удалить" />
+                                <a href="#" id="edit" th:attr="data-id=${each.id}">
+                                    <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
+                                </a>
+                                <a href="#" id="delete" th:attr="data-id=${each.id}">
+                                    <img width="20" src="../../static/svg/delete.svg" th:src="@{/svg/delete.svg}" alt="Удалить" />
+                                </a>
                             </div>
-                            <div class="text-end fst-italic fs-6">Изм. 21.04.2022 в 15:22:36</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mb-5">
-                <div class="col-12">
-                    <div>
-                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-center justify-content-lg-between">
-                            <div class="mx-3 mx-lg-0">Вы</div>
-                            <div class="mx-3 mx-lg-0">19.03.2021 в 19:54:12</div>
-                        </div>
-                        <hr class="my-1" />
-                        <div>
-                            Товарищи! сложившаяся структура организации представляет собой интересный эксперимент проверки форм развития. Повседневная практика показывает, что новая модель организационной деятельности требуют от нас анализа системы
-                            обучения кадров, соответствует насущным потребностям.
-                        </div>
-                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-between">
-                            <div>
-                                <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
-                                <img width="20" src="../../static/svg/delete.svg" th:src="@{/svg/delete.svg}" alt="Удалить" />
+                            <div th:if="${each.formattedEditingDate != null}" class="text-end fst-italic fs-6">
+                                <span>Изм.</span>
+                                <span th:text="${each.formattedEditingDate}">21.04.2022 в 15:22:36</span>
                             </div>
-                            <div class="text-end fst-italic fs-6">Изм. 21.04.2022 в 15:22:36</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mb-5">
-                <div class="col-12">
-                    <div>
-                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-center justify-content-lg-between">
-                            <div class="mx-3 mx-lg-0">Вы</div>
-                            <div class="mx-3 mx-lg-0">19.03.2021 в 19:54:12</div>
-                        </div>
-                        <hr class="my-1" />
-                        <div>
-                            Товарищи! сложившаяся структура организации представляет собой интересный эксперимент проверки форм развития. Повседневная практика показывает, что новая модель организационной деятельности требуют от нас анализа системы
-                            обучения кадров, соответствует насущным потребностям.
-                        </div>
-                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-between">
-                            <div>
-                                <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
-                                <img width="20" src="../../static/svg/delete.svg" th:src="@{/svg/delete.svg}" alt="Удалить" />
-                            </div>
-                            <div class="text-end fst-italic fs-6">Изм. 21.04.2022 в 15:22:36</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <div>
-                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-center justify-content-lg-between">
-                            <div class="mx-3 mx-lg-0">Вы</div>
-                            <div class="mx-3 mx-lg-0">19.03.2021 в 19:54:12</div>
-                        </div>
-                        <hr class="my-1" />
-                        <div>
-                            Товарищи! сложившаяся структура организации представляет собой интересный эксперимент проверки форм развития. Повседневная практика показывает, что новая модель организационной деятельности требуют от нас анализа системы
-                            обучения кадров, соответствует насущным потребностям.
-                        </div>
-                        <div class="d-flex flex-row flex-wrap align-items-center justify-content-between">
-                            <div>
-                                <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
-                                <img width="20" src="../../static/svg/delete.svg" th:src="@{/svg/delete.svg}" alt="Удалить" />
-                            </div>
-                            <div class="text-end fst-italic fs-6">Изм. 21.04.2022 в 15:22:36</div>
                         </div>
                     </div>
                 </div>
@@ -166,25 +78,11 @@
         <!---->
         <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
         <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
-        <!--<div th:replace="~{/fragments/footers/footer :: footer}"></div>-->
-        <footer th:fragment="footer" class="container-fluid bg-dark">
-            <div class="container p-2">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
-                    <div class="text-secondary text-center text-md-start m-2 m-md-0">
-                        <p class="mb-1">Приложение для мониторинга состояния здоровья пациентов с ЛАГ</p>
-                        <p class="mb-1">2023/2024 год</p>
-                    </div>
-                    <div class="m-2 m-md-0">
-                        <a href="#" th:href="@{/}">
-                            <img src="../../static/img/main.png" th:src="@{/img/main.png}" alt="Главная" width="64" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
         <script src="../../static/js/common/get-params.js" th:src="@{/js/common/get-params.js}"></script>
         <script src="../../static/js/common/pagination.js" th:src="@{/js/common/pagination.js}"></script>
+        <script src="../../static/js/messages/messages.js" th:src="@{/js/messages/messages.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>
