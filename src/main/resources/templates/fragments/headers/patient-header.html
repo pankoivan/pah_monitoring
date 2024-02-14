@@ -19,7 +19,7 @@
                                     <a href="#" th:href="@{/hospitals/__${currentUser.hospital.id}__}" class="nav-link text-secondary">Медицинское учреждение</a>
                                 </li>
                                 <li>
-                                    <a href="#" th:href="@{/patients/__${currentUser.id}__/indicators}" class="nav-link text-secondary">Отправка показателей</a>
+                                    <a href="#" th:href="@{/patients/__${currentUser.id}__/indicators}" class="nav-link text-secondary">Показатели</a>
                                 </li>
                                 <li>
                                     <a href="#" th:href="@{currentUser.hasAnamnesis ? '/anamnesis/for/__${currentUser.id}__' : '/anamnesis-form'}" class="nav-link text-secondary">Анамнез</a>
