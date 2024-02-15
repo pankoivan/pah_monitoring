@@ -8,6 +8,7 @@ import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceE
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.patient_additions.interfaces.AchievementService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.PatientService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,13 +28,17 @@ public class AchievementsMvcController {
 
     private final AchievementService achievementService;
 
-    private final PageHeaderService pageHeaderService;
-
     private final PatientService patientService;
+
+    private final CurrentUserCheckService checkService;
+
+    private final PageHeaderService pageHeaderService;
 
     @GetMapping("/all")
     public String getAchievementsPage(Model model) {
         model.addAttribute("achievements", service.findAll());
+        model.addAttribute("isForPatient", false);
+        model.addAttribute("isPatient", checkService.isPatient());
         pageHeaderService.addHeader(model);
         return "patient_additions/achievements";
     }
@@ -44,6 +49,8 @@ public class AchievementsMvcController {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             service.checkAccessRightsForObtainingPatientAchievements(patient);
             model.addAttribute("achievements", achievementService.findAllByPatientId(patient.getId()));
+            model.addAttribute("isForPatient", true);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "patient_additions/achievements";
         } catch (NotEnoughRightsServiceException e) {
