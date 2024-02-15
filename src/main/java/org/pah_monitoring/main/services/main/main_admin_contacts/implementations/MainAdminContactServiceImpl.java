@@ -9,7 +9,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceExcept
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.repositorites.main.main_admin_contacts.MainAdminContactRepository;
+import org.pah_monitoring.main.repositorites.main_admin_contacts.MainAdminContactRepository;
 import org.pah_monitoring.main.services.main.main_admin_contacts.interfaces.MainAdminContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

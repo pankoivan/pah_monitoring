@@ -16,7 +16,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceExcept
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.repositorites.main.examinations.schedules.ExaminationScheduleRepository;
+import org.pah_monitoring.main.repositorites.examinations.schedules.ExaminationScheduleRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.examinations.schedules.interfaces.ExaminationScheduleService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;

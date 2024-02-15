@@ -14,7 +14,7 @@ import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceE
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.repositorites.main.users.info.UserInformationRepository;
+import org.pah_monitoring.main.repositorites.users.info.UserInformationRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.users.info.interfaces.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;

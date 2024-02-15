@@ -18,7 +18,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoListMapper;
-import org.pah_monitoring.main.repositorites.main.users.messages.UserMessageRepository;
+import org.pah_monitoring.main.repositorites.users.messages.UserMessageRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserExtractionService;
 import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchingService;

@@ -11,7 +11,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.rest_client.RestClientServiceException;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
-import org.pah_monitoring.main.repositorites.main.hospitals.HospitalRepository;
+import org.pah_monitoring.main.repositorites.hospitals.HospitalRepository;
 import org.pah_monitoring.main.services.additional.rest_client.interfaces.RegistryRestClientService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;

@@ -10,7 +10,7 @@ import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurity
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.repositorites.main.security_codes.RegistrationSecurityCodeRepository;
+import org.pah_monitoring.main.repositorites.security_codes.RegistrationSecurityCodeRepository;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.pah_monitoring.main.services.main.security_codes.interfaces.RegistrationSecurityCodeGenerationService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -15,7 +15,7 @@ import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceE
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.repositorites.main.users.info.UserSecurityInformationRepository;
+import org.pah_monitoring.main.repositorites.users.info.UserSecurityInformationRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.pah_monitoring.main.services.main.security_codes.interfaces.RegistrationSecurityCodeService;

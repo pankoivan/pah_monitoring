@@ -11,7 +11,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.utils.PhoneNumberUtilsException;
-import org.pah_monitoring.main.repositorites.main.hospitals.HospitalRegistrationRequestRepository;
+import org.pah_monitoring.main.repositorites.hospitals.HospitalRegistrationRequestRepository;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.main.security_codes.interfaces.RegistrationSecurityCodeService;

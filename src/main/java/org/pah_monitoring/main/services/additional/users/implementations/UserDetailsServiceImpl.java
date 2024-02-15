@@ -1,10 +1,10 @@
 package org.pah_monitoring.main.services.additional.users.implementations;
 
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.repositorites.main.users.users.AdministratorRepository;
-import org.pah_monitoring.main.repositorites.main.users.users.DoctorRepository;
-import org.pah_monitoring.main.repositorites.main.users.users.MainAdministratorRepository;
-import org.pah_monitoring.main.repositorites.main.users.users.PatientRepository;
+import org.pah_monitoring.main.repositorites.users.users.AdministratorRepository;
+import org.pah_monitoring.main.repositorites.users.users.DoctorRepository;
+import org.pah_monitoring.main.repositorites.users.users.MainAdministratorRepository;
+import org.pah_monitoring.main.repositorites.users.users.PatientRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -7,7 +7,7 @@ import org.pah_monitoring.main.entities.main.users.inactivity.Vacation;
 import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.repositorites.main.users.inactivity.VacationRepository;
+import org.pah_monitoring.main.repositorites.users.inactivity.VacationRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserExtractionService;
 import org.pah_monitoring.main.services.main.users.inactivity.implementations.common.AbstractHospitalEmployeeInactivityServiceImpl;
 import org.pah_monitoring.main.services.main.users.info.interfaces.EmployeeInformationService;

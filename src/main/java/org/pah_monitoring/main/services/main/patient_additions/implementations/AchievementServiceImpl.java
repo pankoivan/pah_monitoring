@@ -8,7 +8,7 @@ import org.pah_monitoring.main.entities.main.patient_additions.Achievement;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
-import org.pah_monitoring.main.repositorites.main.patient_additions.AchievementRepository;
+import org.pah_monitoring.main.repositorites.patient_additions.AchievementRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.patient_additions.interfaces.AchievementService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.PatientService;

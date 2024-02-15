@@ -15,7 +15,7 @@ import org.pah_monitoring.main.entities.main.examinations.indicators.common.inte
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
-import org.pah_monitoring.main.repositorites.main.examinations.indicators.ChestPainRepository;
+import org.pah_monitoring.main.repositorites.examinations.indicators.ChestPainRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;

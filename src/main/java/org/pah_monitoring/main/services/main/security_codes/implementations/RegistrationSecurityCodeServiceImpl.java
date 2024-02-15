@@ -8,7 +8,7 @@ import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurity
 import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
-import org.pah_monitoring.main.repositorites.main.security_codes.RegistrationSecurityCodeRepository;
+import org.pah_monitoring.main.repositorites.security_codes.RegistrationSecurityCodeRepository;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.main.security_codes.interfaces.RegistrationSecurityCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
