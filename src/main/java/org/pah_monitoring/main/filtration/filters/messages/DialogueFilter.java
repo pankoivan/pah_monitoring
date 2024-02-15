@@ -3,8 +3,8 @@ package org.pah_monitoring.main.filtration.filters.messages;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.dto.out.users.messages.UserMessageOutDto;
-import org.pah_monitoring.main.filtration.enums.messages.UserMessageFiltrationProperty;
-import org.pah_monitoring.main.filtration.enums.messages.UserMessageSortingProperty;
+import org.pah_monitoring.main.filtration.enums.messages.DialogueFiltrationProperty;
+import org.pah_monitoring.main.filtration.enums.messages.DialogueSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.AbstractEntityFilter;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,8 @@ import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Component("userMessageOutDtoFilter")
-public class UserMessageOutDtoFilter extends AbstractEntityFilter<UserMessageOutDto> {
+@Component("dialogueFilter")
+public class DialogueFilter extends AbstractEntityFilter<UserMessageOutDto> {
 
     private CurrentUserCheckService checkService;
 
@@ -31,8 +31,8 @@ public class UserMessageOutDtoFilter extends AbstractEntityFilter<UserMessageOut
 
     @Override
     public Stream<UserMessageOutDto> filtered(Stream<UserMessageOutDto> messages, String filtration) {
-        Optional<UserMessageFiltrationProperty> filtrationProperty = UserMessageFiltrationProperty.optionalValueOf(filtration);
-        return filtrationProperty.map(userMessageFiltrationProperty -> switch (userMessageFiltrationProperty) {
+        Optional<DialogueFiltrationProperty> filtrationProperty = DialogueFiltrationProperty.optionalValueOf(filtration);
+        return filtrationProperty.map(dialogueFiltrationProperty -> switch (dialogueFiltrationProperty) {
             case AUTHOR -> messages.filter(message -> checkService.isSelf(message.getAuthor()));
             case RECIPIENT -> messages.filter(message -> !checkService.isSelf(message.getAuthor()));
         }).orElse(messages);
@@ -40,8 +40,8 @@ public class UserMessageOutDtoFilter extends AbstractEntityFilter<UserMessageOut
 
     @Override
     public Stream<UserMessageOutDto> sorted(Stream<UserMessageOutDto> messages, String sorting) {
-        Optional<UserMessageSortingProperty> sortingProperty = UserMessageSortingProperty.optionalValueOf(sorting);
-        return sortingProperty.map(userMessageSortingProperty -> switch (userMessageSortingProperty) {
+        Optional<DialogueSortingProperty> sortingProperty = DialogueSortingProperty.optionalValueOf(sorting);
+        return sortingProperty.map(dialogueSortingProperty -> switch (dialogueSortingProperty) {
             case DATE -> messages.sorted(Comparator.comparing(UserMessageOutDto::getDate));
             case EDITING_DATE -> messages.sorted(Comparator.nullsLast(Comparator.comparing(UserMessageOutDto::getEditingDate)));
         }).orElse(messages);

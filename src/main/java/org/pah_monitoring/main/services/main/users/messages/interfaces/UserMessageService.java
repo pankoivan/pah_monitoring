@@ -28,6 +28,8 @@ public interface UserMessageService extends
 
     List<User> findAllDialogues();
 
+    List<User> findAllDialogues(Map<String, String> parameters, EntityFilter.PageStat pageStat);
+
     List<UserMessageOutDto> findDialogue(Integer recipientId) throws DataSearchingServiceException;
 
     List<UserMessageOutDto> findDialogue(Integer recipientId, Map<String, String> parameters, EntityFilter.PageStat pageStat)

@@ -51,8 +51,11 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Qualifier("userMessageMapper")
     private BaseEntityToOutDtoListMapper<UserMessage, UserMessageOutDto> userMessageMapper;
 
-    @Qualifier("userMessageOutDtoFilter")
-    private EntityFilter<UserMessageOutDto> userMessageOutDtoFilter;
+    @Qualifier("dialoguesFilter")
+    private EntityFilter<User> dialoguesFilter;
+
+    @Qualifier("dialogueFilter")
+    private EntityFilter<UserMessageOutDto> dialogueFilter;
 
     @Override
     public UserMessage findById(Integer id) throws DataSearchingServiceException {
@@ -83,6 +86,11 @@ public class UserMessageServiceImpl implements UserMessageService {
     }
 
     @Override
+    public List<User> findAllDialogues(Map<String, String> parameters, EntityFilter.PageStat pageStat) {
+        return dialoguesFilter.apply(findAllDialogues(), parameters, pageStat);
+    }
+
+    @Override
     public List<UserMessageOutDto> findDialogue(Integer recipientId) throws DataSearchingServiceException {
 
         List<UserMessage> authorMessages = repository.findAllByAuthorIdAndRecipientId(
@@ -103,7 +111,7 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Override
     public List<UserMessageOutDto> findDialogue(Integer recipientId, Map<String, String> parameters, EntityFilter.PageStat pageStat)
             throws DataSearchingServiceException {
-        return userMessageOutDtoFilter.apply(findDialogue(recipientId), parameters, pageStat);
+        return dialogueFilter.apply(findDialogue(recipientId), parameters, pageStat);
     }
 
     @Override

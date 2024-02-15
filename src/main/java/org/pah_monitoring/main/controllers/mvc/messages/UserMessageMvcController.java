@@ -7,8 +7,8 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
-import org.pah_monitoring.main.filtration.enums.messages.UserMessageFiltrationProperty;
-import org.pah_monitoring.main.filtration.enums.messages.UserMessageSortingProperty;
+import org.pah_monitoring.main.filtration.enums.messages.DialogueFiltrationProperty;
+import org.pah_monitoring.main.filtration.enums.messages.DialogueSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchingService;
@@ -52,8 +52,8 @@ public class UserMessageMvcController {
             model.addAttribute("dialogue", service.findDialogue(recipient.getUserInformation().getId(), parameters, pageStat));
             model.addAttribute("currentPage", pageStat.getCurrentPage());
             model.addAttribute("pagesCount", pageStat.getPagesCount());
-            model.addAttribute("filtrationProperties", UserMessageFiltrationProperty.values());
-            model.addAttribute("sortingProperties", UserMessageSortingProperty.values());
+            model.addAttribute("filtrationProperties", DialogueFiltrationProperty.values());
+            model.addAttribute("sortingProperties", DialogueSortingProperty.values());
             pageHeaderService.addHeader(model);
             return "messages/dialogue";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {

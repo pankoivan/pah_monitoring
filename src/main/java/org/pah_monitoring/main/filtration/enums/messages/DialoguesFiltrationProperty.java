@@ -8,17 +8,17 @@ import java.util.Optional;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public enum UserMessageFiltrationProperty {
+public enum DialoguesFiltrationProperty {
 
-    AUTHOR("Автор"),
+    ACTIVE("Активные"),
 
-    RECIPIENT("Получатель");
+    INACTIVE("Неактивные");
 
     private final String alias;
 
-    public static Optional<UserMessageFiltrationProperty> optionalValueOf(String filtration) {
+    public static Optional<DialoguesFiltrationProperty> optionalValueOf(String filtration) {
         try {
-            return Optional.of(UserMessageFiltrationProperty.valueOf(filtration));
+            return Optional.of(DialoguesFiltrationProperty.valueOf(filtration));
         } catch (NullPointerException | IllegalArgumentException e) {
             return Optional.empty();
         }

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public enum UserMessageSortingProperty {
+public enum DialogueSortingProperty {
 
     DATE("Дата отправки"),
 
@@ -16,9 +16,9 @@ public enum UserMessageSortingProperty {
 
     private final String alias;
 
-    public static Optional<UserMessageSortingProperty> optionalValueOf(String filtration) {
+    public static Optional<DialogueSortingProperty> optionalValueOf(String filtration) {
         try {
-            return Optional.of(UserMessageSortingProperty.valueOf(filtration));
+            return Optional.of(DialogueSortingProperty.valueOf(filtration));
         } catch (NullPointerException | IllegalArgumentException e) {
             return Optional.empty();
         }
