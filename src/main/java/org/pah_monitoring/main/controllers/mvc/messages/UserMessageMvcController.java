@@ -37,13 +37,9 @@ public class UserMessageMvcController {
 
     @GetMapping
     public String getDialoguesPage(Model model) {
-        try {
-            model.addAttribute("dialogues", service.findAllDialogues());
-            pageHeaderService.addHeader(model);
-            return "messages/dialogues";
-        } catch (DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        }
+        model.addAttribute("dialogues", service.findAllDialogues());
+        pageHeaderService.addHeader(model);
+        return "messages/dialogues";
     }
 
     @GetMapping("/{recipientId}")
