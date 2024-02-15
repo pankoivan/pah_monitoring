@@ -93,12 +93,12 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Override
     public List<UserMessageOutDto> findDialogue(Integer recipientId) throws DataSearchingServiceException {
 
-        List<UserMessage> authorMessages = repository.findAllByAuthorIdAndRecipientId(
+        List<UserMessage> authorMessages = repository.findAllByAuthorIdAndRecipientIdOrderByDate(
                 extractionService.user().getUserInformation().getId(),
                 userInformationService.findById(recipientId).getId()
         );
 
-        List<UserMessage> recipientMessages = repository.findAllByAuthorIdAndRecipientId(
+        List<UserMessage> recipientMessages = repository.findAllByAuthorIdAndRecipientIdOrderByDate(
                 userInformationService.findById(recipientId).getId(),
                 extractionService.user().getUserInformation().getId()
         );
