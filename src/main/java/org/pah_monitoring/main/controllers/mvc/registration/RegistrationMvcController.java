@@ -1,8 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc.registration;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.entities.main.enums.Gender;
-import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Controller
 @RequestMapping("/registration")
 @PreAuthorize("permitAll()")
@@ -38,7 +37,6 @@ public class RegistrationMvcController {
             RegistrationSecurityCode code = service.findByStringUuid(stringCode);
             model.addAttribute("code", code);
             model.addAttribute("genders", Gender.values());
-            model.addAttribute("isHospitalEmployee", code.isForHospitalEmployee());
             pageHeaderService.addHeader(model);
             return "registration/registration";
         } catch (UuidUtilsException | DataSearchingServiceException e) {

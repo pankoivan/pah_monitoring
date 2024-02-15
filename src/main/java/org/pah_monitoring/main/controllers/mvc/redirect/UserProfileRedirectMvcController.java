@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.controllers.mvc.redirect;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.MainAdministrator;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Controller
 @RequestMapping("/users")
 @PreAuthorize("isAuthenticated()")

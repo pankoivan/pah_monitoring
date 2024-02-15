@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.controllers.mvc.redirect;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.RedirectService;
 import org.pah_monitoring.main.services.main.main_admin_contacts.interfaces.MainAdminContactService;
@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Controller
 @RequestMapping("/")
 @PreAuthorize("permitAll()")
