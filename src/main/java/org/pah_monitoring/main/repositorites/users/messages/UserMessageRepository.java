@@ -9,7 +9,9 @@ import java.util.List;
 @Repository
 public interface UserMessageRepository extends JpaRepository<UserMessage, Integer> {
 
-    List<UserMessage> findAllByAuthorId(Integer id);
+    List<UserMessage> findAllByAuthorId(Integer authorId);
+
+    List<UserMessage> findAllByRecipientId(Integer recipientId);
 
     List<UserMessage> findAllByAuthorIdAndRecipientId(Integer authorId, Integer recipientId);
 

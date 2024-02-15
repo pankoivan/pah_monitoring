@@ -26,7 +26,7 @@ public interface UserMessageService extends
 
     UserMessage findById(Integer id) throws DataSearchingServiceException;
 
-    List<User> findAllDialogues() throws DataSearchingServiceException;
+    List<User> findAllDialogues();
 
     List<UserMessageOutDto> findDialogue(Integer recipientId) throws DataSearchingServiceException;
 

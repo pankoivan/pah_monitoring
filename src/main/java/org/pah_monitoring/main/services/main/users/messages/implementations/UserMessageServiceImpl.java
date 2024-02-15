@@ -30,9 +30,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
@@ -63,21 +62,23 @@ public class UserMessageServiceImpl implements UserMessageService {
     }
 
     @Override
-    public List<User> findAllDialogues() throws DataSearchingServiceException {
+    public List<User> findAllDialogues() {
 
-        List<UserInformation> userInfoRecipients = repository.findAllByAuthorId(extractionService.user().getUserInformation().getId())
+        Set<UserInformation> userInfoRecipients = repository
+                .findAllByAuthorId(extractionService.user().getUserInformation().getId())
                 .stream()
                 .map(UserMessage::getRecipient)
-                .distinct()
-                .toList();
+                .collect(Collectors.toSet());
 
-        List<User> usersRecipients = new ArrayList<>();
+        Set<UserInformation> userInfoAuthors = repository
+                .findAllByRecipientId(extractionService.user().getUserInformation().getId())
+                .stream()
+                .map(UserMessage::getAuthor)
+                .collect(Collectors.toSet());
 
-        for (UserInformation info : userInfoRecipients) {
-            usersRecipients.add(searchingService.findUserByUserInformationId(info.getId()));
-        }
+        userInfoRecipients.addAll(userInfoAuthors);
 
-        return usersRecipients;
+        return map(userInfoRecipients);
 
     }
 
@@ -207,6 +208,22 @@ public class UserMessageServiceImpl implements UserMessageService {
         if (!checkService.isSelf(author)) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
+    }
+
+    private List<User> map(Collection<UserInformation> userInformations) {
+        List<User> users = new ArrayList<>();
+        for (UserInformation info : userInformations) {
+            User recipient;
+            try {
+                recipient = searchingService.findUserByUserInformationId(info.getId());
+            } catch (DataSearchingServiceException e) {
+                recipient = null;
+            }
+            if (recipient != null) {
+                users.add(recipient);
+            }
+        }
+        return users;
     }
 
 }
