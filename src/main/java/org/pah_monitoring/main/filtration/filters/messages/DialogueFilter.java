@@ -43,7 +43,7 @@ public class DialogueFilter extends AbstractEntityFilter<UserMessageOutDto> {
         Optional<DialogueSortingProperty> sortingProperty = DialogueSortingProperty.optionalValueOf(sorting);
         return sortingProperty.map(dialogueSortingProperty -> switch (dialogueSortingProperty) {
             case DATE -> messages.sorted(Comparator.comparing(UserMessageOutDto::getDate));
-            case EDITING_DATE -> messages.sorted(Comparator.nullsLast(Comparator.comparing(UserMessageOutDto::getEditingDate)));
+            case EDITING_DATE -> messages.sorted(Comparator.comparing(UserMessageOutDto::getEditingDate, Comparator.nullsLast(Comparator.naturalOrder())));
         }).orElse(messages);
     }
 
