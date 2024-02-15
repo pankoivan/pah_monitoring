@@ -93,18 +93,19 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Override
     public List<UserMessageOutDto> findDialogue(Integer recipientId) throws DataSearchingServiceException {
 
-        List<UserMessage> authorMessages = repository.findAllByAuthorIdAndRecipientIdOrderByDate(
+        List<UserMessage> authorMessages = repository.findAllByAuthorIdAndRecipientId(
                 extractionService.user().getUserInformation().getId(),
                 userInformationService.findById(recipientId).getId()
         );
 
-        List<UserMessage> recipientMessages = repository.findAllByAuthorIdAndRecipientIdOrderByDate(
+        List<UserMessage> recipientMessages = repository.findAllByAuthorIdAndRecipientId(
                 userInformationService.findById(recipientId).getId(),
                 extractionService.user().getUserInformation().getId()
         );
 
         authorMessages.addAll(recipientMessages);
-        return userMessageMapper.mapList(authorMessages);
+
+        return defaultDialogueSorting(userMessageMapper.mapList(authorMessages));
 
     }
 
@@ -232,6 +233,11 @@ public class UserMessageServiceImpl implements UserMessageService {
             }
         }
         return users;
+    }
+
+    private List<UserMessageOutDto> defaultDialogueSorting(List<UserMessageOutDto> messages) {
+        messages.sort(Comparator.comparing(UserMessageOutDto::getDate));
+        return messages;
     }
 
 }

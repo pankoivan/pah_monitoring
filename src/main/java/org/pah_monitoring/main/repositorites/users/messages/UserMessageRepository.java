@@ -13,6 +13,6 @@ public interface UserMessageRepository extends JpaRepository<UserMessage, Intege
 
     List<UserMessage> findAllByRecipientId(Integer recipientId);
 
-    List<UserMessage> findAllByAuthorIdAndRecipientIdOrderByDate(Integer authorId, Integer recipientId);
+    List<UserMessage> findAllByAuthorIdAndRecipientId(Integer authorId, Integer recipientId);
 
 }

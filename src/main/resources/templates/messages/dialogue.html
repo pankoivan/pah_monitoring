@@ -18,7 +18,7 @@
         <!---->
         <div class="container text-secondary fs-5 my-5">
             <!---->
-            <div class="row mb-5" th:if="${recipient.isHospitalEmployee && !recipient.isDismissed || recipient.isPatient && recipient.isActive}">
+            <div class="row mb-5" th:if="${recipient.isMainAdministrator || recipient.isHospitalEmployee && !recipient.isDismissed || recipient.isPatient && recipient.isActive}">
                 <div class="col-12">
                     <form id="message-form">
                         <input class="visually-hidden" name="id" />
