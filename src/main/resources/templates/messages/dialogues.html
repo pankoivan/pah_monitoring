@@ -34,7 +34,7 @@
             <div class="row" th:each="each, status : ${dialogues}" th:classappend="${!status.last} ? 'mb-3'">
                 <div class="col-12" th:classappend="${!status.last} ? 'mb-3'">
                     <div class="text-start">
-                        <p class="fs-4 word-wrap mb-1">
+                        <p class="fs-4 text-break mb-1">
                             <img width="24" class="mb-1" src="../../static/svg/message.svg" th:src="@{/svg/message.svg}" alt="Диалог" />
                             <a href="#" th:href="@{/messages/__${each.userInformation.id}__}" th:text="${each.userInformation.fullName}" class="text-decoration-none text-secondary"> Козлов Геннадий Петрович </a>
                             <span th:if="${each.isActive}" class="text-success text-lowercase fs-6">Активен</span>

@@ -45,7 +45,7 @@
                 <div class="col-12" id="contacts">
                     <div th:each="each, status : ${contacts}" class="text-start" th:classappend="${!status.last} ? 'mb-2'" th:id="'contact-' + ${each.id}">
                         <h4 th:id="'description-contact-' + ${each.id}" class="text-secondary" th:text="${each.description}">ВКонтакте</h4>
-                        <p th:id="'contact-contact-' + ${each.id}" class="text-dark break-all mb-2" th:text="${each.contact}">bttps://some/very/very/very/very/very/long/link</p>
+                        <p th:id="'contact-contact-' + ${each.id}" class="text-dark text-break mb-2" th:text="${each.contact}">bttps://some/very/very/very/very/very/long/link</p>
                         <a th:id="'edit-contact-' + ${each.id}" href="#" class="text-secondary me-1">Изменить</a>
                         <a th:id="'delete-contact-' + ${each.id}" href="#" class="text-secondary ms-1">Удалить</a>
                         <hr th:if="${!status.last}" />

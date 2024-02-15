@@ -34,7 +34,7 @@
             <div class="row" th:each="each, status : ${hospitals}" th:classappend="${!status.last} ? 'mb-3'">
                 <div class="col-12" th:classappend="${!status.last} ? 'mb-3'">
                     <div class="text-start">
-                        <p class="fs-5 word-wrap mb-2">
+                        <p class="fs-5 text-break mb-2">
                             <img width="24" src="../../static/svg/hospital.svg" th:src="@{/svg/hospital.svg}" alt="Медицинское учреждение" />
                             <span th:switch="${#strings.toString(each.currentState)}">
                                 <a th:case="'WAITING_CODE'" href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" th:text="${each.name}" class="text-decoration-none text-secondary">Алмазова</a>

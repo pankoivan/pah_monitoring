@@ -111,7 +111,7 @@ function newContact(responseJson, isFirst) {
 
     let contactContact = document.createElement("p");
     contactContact.id = "contact-contact-" + responseJson.id;
-    contactContact.className = "text-dark break-all mb-2";
+    contactContact.className = "text-dark text-break mb-2";
     contactContact.textContent = responseJson.contact;
 
     let contactEdit = document.createElement("a");

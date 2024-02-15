@@ -51,7 +51,7 @@
                 <div class="col-12">
                     <div th:each="each, status : ${contacts}" class="text-start" th:classappend="${!status.last} ? 'mb-2'">
                         <h4 class="text-secondary" th:text="${each.description}">ВКонтакте</h4>
-                        <p class="text-dark break-all mb-2" th:text="${each.contact}">bttps://some/very/very/very/very/very/long/link</p>
+                        <p class="text-dark text-break mb-2" th:text="${each.contact}">bttps://some/very/very/very/very/very/long/link</p>
                         <hr th:if="${!status.last}" />
                     </div>
                 </div>

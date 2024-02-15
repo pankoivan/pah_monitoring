@@ -58,7 +58,7 @@ function fillSuccessModalText(responseJson) {
     role.innerText = `${responseJson.roleAlias}`;
 
     const email = document.createElement("span");
-    email.className = "fw-bold";
+    email.className = "fw-bold text-break";
     email.innerText = `${responseJson.email}`;
 
     const expirationDate = document.createElement("span");
