@@ -9,6 +9,8 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.filtration.enums.messages.DialogueFiltrationProperty;
 import org.pah_monitoring.main.filtration.enums.messages.DialogueSortingProperty;
+import org.pah_monitoring.main.filtration.enums.messages.DialoguesFiltrationProperty;
+import org.pah_monitoring.main.filtration.enums.messages.DialoguesSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchingService;
@@ -36,8 +38,13 @@ public class UserMessageMvcController {
     private final PageHeaderService pageHeaderService;
 
     @GetMapping
-    public String getDialoguesPage(Model model) {
-        model.addAttribute("dialogues", service.findAllDialogues());
+    public String getDialoguesPage(Model model, @RequestParam Map<String, String> parameters) {
+        EntityFilter.PageStat pageStat = new EntityFilter.PageStat();
+        model.addAttribute("dialogues", service.findAllDialogues(parameters, pageStat));
+        model.addAttribute("currentPage", pageStat.getCurrentPage());
+        model.addAttribute("pagesCount", pageStat.getPagesCount());
+        model.addAttribute("filtrationProperties", DialoguesFiltrationProperty.values());
+        model.addAttribute("sortingProperties", DialoguesSortingProperty.values());
         pageHeaderService.addHeader(model);
         return "messages/dialogues";
     }
