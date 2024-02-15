@@ -236,8 +236,10 @@ public class UserMessageServiceImpl implements UserMessageService {
     }
 
     private List<UserMessageOutDto> defaultDialogueSorting(List<UserMessageOutDto> messages) {
-        messages.sort(Comparator.comparing(UserMessageOutDto::getDate));
-        return messages;
+        return messages
+                .stream()
+                .sorted(Comparator.comparing(UserMessageOutDto::getDate))
+                .toList();
     }
 
 }

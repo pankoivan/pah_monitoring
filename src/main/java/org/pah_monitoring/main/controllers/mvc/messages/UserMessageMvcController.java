@@ -67,6 +67,9 @@ public class UserMessageMvcController {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
