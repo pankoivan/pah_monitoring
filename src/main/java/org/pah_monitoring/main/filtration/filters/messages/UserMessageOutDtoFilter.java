@@ -26,9 +26,7 @@ public class UserMessageOutDtoFilter extends AbstractEntityFilter<UserMessageOut
     public Stream<UserMessageOutDto> searched(List<UserMessageOutDto> messages, String searching) {
         return searching == null || searching.isEmpty()
                 ? messages.stream()
-                : messages.stream().filter(
-                        message -> message.getText().toLowerCase().contains(searching.toLowerCase())
-                );
+                : messages.stream().filter(message -> message.getText().toLowerCase().contains(searching.toLowerCase()));
     }
 
     @Override
@@ -45,8 +43,7 @@ public class UserMessageOutDtoFilter extends AbstractEntityFilter<UserMessageOut
         Optional<UserMessageSortingProperty> sortingProperty = UserMessageSortingProperty.optionalValueOf(sorting);
         return sortingProperty.map(userMessageSortingProperty -> switch (userMessageSortingProperty) {
             case DATE -> messages.sorted(Comparator.comparing(UserMessageOutDto::getDate));
-            case EDITING_DATE ->
-                    messages.sorted(Comparator.nullsLast(Comparator.comparing(UserMessageOutDto::getEditingDate)));
+            case EDITING_DATE -> messages.sorted(Comparator.nullsLast(Comparator.comparing(UserMessageOutDto::getEditingDate)));
         }).orElse(messages);
     }
 
