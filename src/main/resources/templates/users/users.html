@@ -32,13 +32,13 @@
             <div th:replace="~{/fragments/filtration/filtration :: filtration}"></div>
             <!---->
             <div class="row" th:each="each, status : ${users}" th:classappend="${!status.last} ? 'mb-3'">
-                <div class="col-12" th:classappend="${!status.last} ? 'mb-3'">
+                <div class="col-12">
                     <div class="text-start">
                         <p class="fs-4 text-break mb-1">
                             <img width="24" class="mb-1" src="../../static/svg/user.svg" th:src="@{/svg/user.svg}" alt="Пользователь" />
                             <a href="#" th:href="@{/users/__${each.userInformation.id}__}" th:text="${each.userInformation.fullName}" class="text-decoration-none text-secondary"> Козлов Геннадий Петрович </a>
                             <span th:if="${each.isActive && (param.patientId == null || !currentUser.isAdministrator || !each.isDoctor)}" class="text-success text-lowercase fs-6">Активен</span>
-                            <span th:if="${each.isActive && param.patientId != null && currentUser.isAdministrator && each.isDoctor}" class="text-success text-lowercase fs-6">
+                            <span th:if="${each.isActive && param.patientId != null && currentUser.isAdministrator && each.isDoctor}">
                                 <a href="#" th:if="${!each.hasPatientById(param.patientId)}" class="text-decoration-none" th:attr="data-doctor-assign=${each.id}">
                                     <img width="24" class="mb-1" src="../../static/svg/assign-to-doctor.svg" th:src="@{/svg/assign-to-doctor.svg}" alt="Назначить" />
                                 </a>
@@ -49,9 +49,7 @@
                             <span th:if="${each.isNotActive}" class="text-danger text-lowercase fs-6" th:text="${each.currentInactivity.get.shortInactivityMessage}">На больничном</span>
                         </p>
                         <p class="fs-5 mb-1" th:text="${each.userInformation.phoneNumber}">+7 (912) 123-90-56</p>
-                        <p class="fs-5" th:classappend="${currentUser.isAdministrator} ? 'mb-1' : 'mb-0'">
-                            <span th:text="${each.role.alias}">Врач</span><span th:if="${each.isHospitalEmployee}" th:text="': ' + ${each.employeeInformation.post}" class="text-lowercase">Врач-кардиолог</span>
-                        </p>
+                        <p class="fs-5 mb-1"><span th:text="${each.role.alias}">Врач</span><span th:if="${each.isHospitalEmployee}" th:text="': ' + ${each.employeeInformation.post}" class="text-lowercase">Врач-кардиолог</span></p>
                         <p th:if="${currentUser.isAdministrator}" class="fs-5 mb-1">
                             <span th:if="${each.isDoctor}">
                                 <span th:if="${each.hasPatients}" class="text-success">Сейчас пациентов: <span th:text="${each.patientsCount}">5</span></span>
@@ -63,8 +61,8 @@
                             </span>
                         </p>
                     </div>
+                    <hr class="mb-0 mt-4" th:if="${!status.last}" />
                 </div>
-                <hr class="mb-0" th:if="${!status.last}" />
             </div>
             <!---->
             <div class="row" th:if="${users.empty}" id="empty-users-message">

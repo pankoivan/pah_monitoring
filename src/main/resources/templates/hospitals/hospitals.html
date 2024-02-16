@@ -32,7 +32,7 @@
             <div th:replace="~{/fragments/filtration/filtration :: filtration}"></div>
             <!---->
             <div class="row" th:each="each, status : ${hospitals}" th:classappend="${!status.last} ? 'mb-3'">
-                <div class="col-12" th:classappend="${!status.last} ? 'mb-3'">
+                <div class="col-12">
                     <div class="text-start">
                         <p class="fs-5 text-break mb-2">
                             <img width="24" src="../../static/svg/hospital.svg" th:src="@{/svg/hospital.svg}" alt="Медицинское учреждение" />
@@ -63,8 +63,8 @@
                             </span>
                         </p>
                     </div>
+                    <hr class="mb-0" th:if="${!status.last}" />
                 </div>
-                <hr class="mb-0" th:if="${!status.last}" />
             </div>
             <!---->
             <div class="row" th:if="${hospitals.empty}" id="empty-hospitals-message">
