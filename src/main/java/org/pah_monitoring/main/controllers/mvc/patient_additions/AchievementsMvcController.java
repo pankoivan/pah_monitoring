@@ -37,8 +37,6 @@ public class AchievementsMvcController {
     @GetMapping("/all")
     public String getAchievementsPage(Model model) {
         model.addAttribute("achievements", service.findAll());
-        model.addAttribute("isForPatient", false);
-        model.addAttribute("isPatient", checkService.isPatient());
         pageHeaderService.addHeader(model);
         return "patient_additions/achievements";
     }
@@ -49,7 +47,7 @@ public class AchievementsMvcController {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             service.checkAccessRightsForObtainingPatientAchievements(patient);
             model.addAttribute("achievements", achievementService.findAllByPatientId(patient.getId()));
-            model.addAttribute("isForPatient", true);
+            model.addAttribute("patient", patient);
             model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "patient_additions/achievements";

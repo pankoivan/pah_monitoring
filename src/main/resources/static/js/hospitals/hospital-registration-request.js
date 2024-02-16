@@ -63,7 +63,7 @@ function fillSuccessModalTextForCodeGeneration(responseJson) {
     role.innerText = `${responseJson.roleAlias}`;
 
     const email = document.createElement("span");
-    email.className = "fw-bold text-break";
+    email.className = "fw-bold";
     email.innerText = `${responseJson.email}`;
 
     const hospital = document.createElement("span");

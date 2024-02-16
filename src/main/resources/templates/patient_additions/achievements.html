@@ -18,27 +18,25 @@
         <!---->
         <div class="container text-secondary my-5">
             <!---->
-            <div class="row fs-5 mb-3" th:if="${!isForPatient}">
+            <div class="row fs-5 mb-3" th:if="${patient == null}">
                 <h1 class="text-center fs-3 mb-3">Награды</h1>
-                <p th:if="${isPatient}">На этой странице приведён полный список всех наград, которые вы можете получить за определённые достижения.</p>
-                <p th:if="${isPatient}">Например, за отправку анамнеза вы получите награду "Историк", за первую отправку показателя "Т6МХ" - награду "Прогулка", за 50 отправок любых показателей - награду "Упорный".</p>
-                <p th:if="${!isPatient}">На этой странице приведён полный список всех наград, которые автоматически вручаются пациенту системой за определённые достижения.</p>
-                <p th:if="${!isPatient}">Например, за отправку анамнеза пациент получит награду "Историк", за первую отправку показателя "Т6МХ" - награду "Прогулка", за 50 отправок любых показателей - награду "Упорный".</p>
+                <p th:if="${currentUser.isPatient}">На этой странице приведён полный список всех наград, которые вы можете получить за определённые достижения.</p>
+                <p th:if="${currentUser.isPatient}">Например, за отправку анамнеза вы получите награду "Историк", за первую отправку показателя "Т6МХ" - награду "Прогулка", за 50 отправок любых показателей - награду "Упорный".</p>
+                <p th:if="${!currentUser.isPatient}">На этой странице приведён полный список всех наград, которые автоматически вручаются пациенту системой за определённые достижения.</p>
+                <p th:if="${!currentUser.isPatient}">Например, за отправку анамнеза пациент получит награду "Историк", за первую отправку показателя "Т6МХ" - награду "Прогулка", за 50 отправок любых показателей - награду "Упорный".</p>
             </div>
             <!---->
-            <div class="row fs-5 mb-3" th:if="${isForPatient}">
-                <h1 class="text-center fs-3 mb-3">Награды</h1>
-                <p th:if="${isSelf}">
-                    Здесь перечислены все ваши награды. В данный момент их:
-                    <span th:text="${patient.achievementsCount}">12</span>
-                </p>
-                <p th:if="${!isSelf}">
-                    Здесь перечислены все награды этого пациента. В данный момент их:
-                    <span th:text="${patient.achievementsCount}">12</span>
-                </p>
+            <div class="row fs-5 mb-3" th:if="${patient != null}">
+                <h1 class="text-center fs-3">
+                    <span th:if="${isSelf}">Ваши награды</span>
+                    <span th:if="${!isSelf}">
+                        Награды пациента
+                        <span th:text="${patient.userInformation.fullName}" class="fw-bold">Иванов Сергей Петрович</span>
+                    </span>
+                </h1>
             </div>
             <!---->
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center g-5">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center g-5" th:if="${!achievements.isEmpty}">
                 <div class="col mx-auto" th:each="each : ${achievements}">
                     <div class="border rounded p-3">
                         <h4 class="fs-4 mb-3" th:text="${each.name}">Награда</h4>
