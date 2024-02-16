@@ -92,7 +92,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row" th:classappend="${isMainAdmin} ? 'mb-5'">
+            <div class="row" th:classappend="${currentUser.isMainAdministrator} ? 'mb-5'">
                 <div class="col-12">
                     <h4 class="fs-4">
                         <a href="#" th:href="@{/hospitals/__${hospital.id}__/patients}" class="text-secondary">Пациенты</a>
@@ -118,7 +118,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row" th:if="${isMainAdmin}">
+            <div class="row" th:if="${currentUser.isMainAdministrator}">
                 <div class="col-12">
                     <h4 class="fs-4">
                         <a href="#" th:href="@{/hospital-registration/requests/__${hospital.request.id}__}" class="text-secondary fs-4">Заявка</a>

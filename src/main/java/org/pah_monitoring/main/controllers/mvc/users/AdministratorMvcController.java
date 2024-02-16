@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.controllers.mvc.users;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorEditingDto;
@@ -30,9 +30,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 import java.util.Map;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Controller
 @RequestMapping("/admins")
+@PreAuthorize("isAuthenticated()")
 public class AdministratorMvcController {
 
     @Qualifier("administratorService")
@@ -65,13 +66,12 @@ public class AdministratorMvcController {
             service.checkAccessRightsForObtainingConcrete(administrator);
             model.addAttribute("user", administrator);
             model.addAttribute("currentInactivity", administrator.getCurrentInactivity().orElse(null));
-            model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(administrator.getUserInformation().getPhoneNumber()));
-            model.addAttribute("genders", Gender.values());
-            model.addAttribute("currentDate", LocalDate.now());
             model.addAttribute("isSelf", checkService.isSelf(administrator));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(administrator.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(administrator.getHospital()));
-            model.addAttribute("isCurrentUserMainAdministrator", checkService.isMainAdministrator());
+            model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(administrator.getUserInformation().getPhoneNumber()));
+            model.addAttribute("genders", Gender.values());
+            model.addAttribute("currentDate", LocalDate.now());
             model.addAttribute("target", "#inactivity-selection-modal");
             pageHeaderService.addHeader(model);
             return "users/user";

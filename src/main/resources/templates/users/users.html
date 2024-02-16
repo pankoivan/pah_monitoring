@@ -50,7 +50,7 @@
                         </p>
                         <p class="fs-5 mb-1" th:text="${each.userInformation.phoneNumber}">+7 (912) 123-90-56</p>
                         <p class="fs-5 mb-1"><span th:text="${each.role.alias}">Врач</span><span th:if="${each.isHospitalEmployee}" th:text="': ' + ${each.employeeInformation.post}" class="text-lowercase">Врач-кардиолог</span></p>
-                        <p th:if="${currentUser.isAdministrator}" class="fs-5 mb-1">
+                        <p th:if="${currentUser.isAdministrator && each.isActive}" class="fs-5 mb-1">
                             <span th:if="${each.isDoctor}">
                                 <span th:if="${each.hasPatients}" class="text-success">Сейчас пациентов: <span th:text="${each.patientsCount}">5</span></span>
                                 <span th:if="${each.hasNoPatients}" class="text-danger">Не закреплён ни за одним пациентом</span>

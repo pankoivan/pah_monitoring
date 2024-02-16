@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.controllers.mvc.hospitals.users;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorSavingDto;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Controller
 @RequestMapping("/hospitals/{id}/admins")
 @PreAuthorize("isAuthenticated()")
@@ -58,7 +58,6 @@ public class HospitalAdministratorMvcController {
             model.addAttribute("title", "Администраторы");
             model.addAttribute("usersListDescription", "Список администраторов");
             model.addAttribute("emptyUsersListMessage", "Список администраторов пуст");
-            model.addAttribute("isCurrentUserAdministrator", checkService.isAdministrator());
             pageHeaderService.addHeader(model);
             return "users/users";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {

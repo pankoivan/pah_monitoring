@@ -18,11 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function employeeInfoEditingModalInit() {
-    let employeeInfoEditingModal = document.getElementById("employee-info-editing-modal");
+    const employeeInfoEditingModal = document.getElementById("employee-info-editing-modal");
     if (employeeInfoEditingModal) {
         employeeInfoEditingForm.addEventListener("submit", (event) => {
             event.preventDefault();
-            let data = {
+            const data = {
                 id: employeeInfoEditingForm.querySelector('input[name="id"]').value,
                 post: employeeInfoEditingForm.querySelector('input[name="post"]').value,
             };
@@ -35,15 +35,15 @@ function employeeInfoEditingModalInit() {
 }
 
 function userInfoEditingModalInit() {
-    let userInfoEditingModal = document.getElementById("user-info-editing-modal");
+    const userInfoEditingModal = document.getElementById("user-info-editing-modal");
     if (userInfoEditingModal) {
         userInfoEditingForm.addEventListener("submit", (event) => {
             event.preventDefault();
-            let data = {
+            const data = {
                 id: userInfoEditingForm.querySelector('input[name="id"]').value,
                 name: userInfoEditingForm.querySelector('input[name="name"]').value,
                 lastname: userInfoEditingForm.querySelector('input[name="lastname"]').value,
-                patronymic: userInfoEditingForm.querySelector('input[name="patronymic"]').value,
+                patronymic: userInfoEditingForm.querySelector('input[name="patronymic"]').value == "" ? null : userInfoEditingForm.querySelector('input[name="patronymic"]').value,
                 phoneNumber: userInfoEditingForm.querySelector('input[name="phoneNumber"]').value,
                 gender: userInfoEditingForm.querySelector('input[name="gender"]:checked') ? userInfoEditingForm.querySelector('input[name="gender"]:checked').value : null,
                 birthdate: userInfoEditingForm.querySelector('input[name="birthdate"]').value,
@@ -57,12 +57,12 @@ function userInfoEditingModalInit() {
 }
 
 function loginInfoEditingModalInit() {
-    let loginInfoEditingModal = document.getElementById("login-info-editing-modal");
+    const loginInfoEditingModal = document.getElementById("login-info-editing-modal");
     if (loginInfoEditingModal) {
         changePasswordFlag();
         loginInfoEditingForm.addEventListener("submit", (event) => {
             event.preventDefault();
-            let data = {
+            const data = {
                 id: loginInfoEditingForm.querySelector('input[name="id"]').value,
                 email: loginInfoEditingForm.querySelector('input[name="email"]').value,
                 password: loginInfoEditingForm.querySelector('input[name="password"]').value == "" ? null : loginInfoEditingForm.querySelector('input[name="password"]').value,
@@ -80,6 +80,7 @@ function fetchInfoEdit(data, whichInfo) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
         },
         body: JSON.stringify(data),
     })
@@ -191,14 +192,12 @@ function changePasswordFlag() {
     });
 }
 
-/**/
-
 function vacationModalInit() {
-    let vacationModal = document.getElementById("vacation-modal");
+    const vacationModal = document.getElementById("vacation-modal");
     if (vacationModal) {
         vacationForm.addEventListener("submit", (event) => {
             event.preventDefault();
-            let data = {
+            const data = {
                 toWhomId: vacationForm.querySelector('input[name="vacation-to-whom-id"]').value,
                 endDate: vacationForm.querySelector('input[name="vacation-end-date"]').value,
                 comment: vacationForm.querySelector('textarea[name="vacation-comment"]').value == "" ? null : vacationForm.querySelector('textarea[name="vacation-comment"]').value,
@@ -212,11 +211,11 @@ function vacationModalInit() {
 }
 
 function sickLeaveModalInit() {
-    let sickLeaveModal = document.getElementById("sick-leave-modal");
+    const sickLeaveModal = document.getElementById("sick-leave-modal");
     if (sickLeaveModal) {
         sickLeaveForm.addEventListener("submit", (event) => {
             event.preventDefault();
-            let data = {
+            const data = {
                 toWhomId: sickLeaveForm.querySelector('input[name="sick-leave-to-whom-id"]').value,
                 endDate: sickLeaveForm.querySelector('input[name="sick-leave-end-date"]').value,
                 comment: sickLeaveForm.querySelector('textarea[name="sick-leave-comment"]').value == "" ? null : sickLeaveForm.querySelector('textarea[name="sick-leave-comment"]').value,
@@ -230,11 +229,11 @@ function sickLeaveModalInit() {
 }
 
 function dismissalModalInit() {
-    let dismissalModal = document.getElementById("dismissal-modal");
+    const dismissalModal = document.getElementById("dismissal-modal");
     if (dismissalModal) {
         dismissalForm.addEventListener("submit", (event) => {
             event.preventDefault();
-            let data = {
+            const data = {
                 toWhomId: dismissalForm.querySelector('input[name="dismissal-to-whom-id"]').value,
                 comment: dismissalForm.querySelector('textarea[name="dismissal-comment"]').value == "" ? null : dismissalForm.querySelector('textarea[name="dismissal-comment"]').value,
             };
@@ -247,11 +246,11 @@ function dismissalModalInit() {
 }
 
 function patientInactivityModalInit() {
-    let patientInactivityModal = document.getElementById("patient-inactivity-modal");
+    const patientInactivityModal = document.getElementById("patient-inactivity-modal");
     if (patientInactivityModal) {
         patientInactivityForm.addEventListener("submit", (event) => {
             event.preventDefault();
-            let data = {
+            const data = {
                 toWhomId: patientInactivityForm.querySelector('input[name="patient-inactivity-to-whom-id"]').value,
                 comment: patientInactivityForm.querySelector('input[name="patient-inactivity-comment"]').value == "" ? null : patientInactivityForm.querySelector('input[name="patient-inactivity-comment"]').value,
             };
@@ -268,6 +267,7 @@ function fetchInactivityAdd(data, whichInactivity) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
         },
         body: JSON.stringify(data),
     })
@@ -275,19 +275,19 @@ function fetchInactivityAdd(data, whichInactivity) {
             if (response.ok) {
                 if (whichInactivity == "vacation") {
                     document.getElementById("vacation-modal-close-1").click();
-                    refreshInactivity(response);
+                    refreshInactivity(response, "vacation");
                     showSuccessModal("Отпуск был успешно назначен");
                 } else if (whichInactivity == "sick-leave") {
                     document.getElementById("sick-leave-modal-close-1").click();
-                    refreshInactivity(response);
+                    refreshInactivity(response, "sick-leave");
                     showSuccessModal("Больничный был успешно назначен");
                 } else if (whichInactivity == "dismissal") {
                     document.getElementById("dismissal-modal-close-1").click();
-                    refreshInactivity(response);
+                    refreshInactivity(response, "dismissal");
                     showSuccessModal("Сотрудник был успешно уволен");
                 } else if (whichInactivity == "patient-inactivity") {
                     document.getElementById("patient-inactivity-modal-close-1").click();
-                    refreshInactivity(response);
+                    refreshInactivity(response, "patient-inactivity");
                     showSuccessModal("Пациент был успешно переведён в неактивное состояние");
                 }
             } else {
@@ -309,32 +309,41 @@ function fetchInactivityAdd(data, whichInactivity) {
         });
 }
 
-function refreshInactivity(response) {
+function refreshInactivity(response, whichInactivity) {
     response.json().then((responseJson) => {
         document.getElementById("inactivity-add").remove();
         document.getElementById("active-message").remove();
 
-        let inactivityMessage = document.createElement("p");
+        if (whichInactivity != "patient-inactivity" && document.getElementById("own-patients")) {
+            document.getElementById("own-patients").remove();
+        }
+
+        if (whichInactivity == "patient-inactivity") {
+            document.getElementById("own-doctor").remove();
+        }
+
+        const inactivityMessage = document.createElement("p");
         inactivityMessage.classList = "text-danger mb-1";
         inactivityMessage.innerText = responseJson.inactivityMessage;
 
-        let authorMessagePart = document.createElement("span");
+        const authorMessagePart = document.createElement("span");
         authorMessagePart.innerText = responseJson.authorMessagePart;
 
-        let authorFullName = document.createElement("a");
+        const authorFullName = document.createElement("a");
         authorFullName.classList = "text-secondary";
         authorFullName.innerText = responseJson.authorFullName;
         authorFullName.href = `/users/${responseJson.authorUserInformationId}`;
 
-        let whomBlock = document.createElement("p");
+        const whomBlock = document.createElement("p");
         whomBlock.classList = responseJson.comment ? "mb-1" : "mb-0";
         whomBlock.appendChild(authorMessagePart);
+        whomBlock.appendChild(document.createTextNode(" "));
         whomBlock.appendChild(authorFullName);
 
         let commentBlock;
         if (responseJson.comment) {
-            let comment = document.createElement("span");
-            comment.classList = "text-lowercase fst-italic";
+            const comment = document.createElement("span");
+            comment.classList = "fst-italic";
             comment.innerText = responseJson.comment;
 
             commentBlock = document.createElement("p");
@@ -343,7 +352,7 @@ function refreshInactivity(response) {
             commentBlock.appendChild(comment);
         }
 
-        let activityParentBlock = document.getElementById("activity-parent-block");
+        const activityParentBlock = document.getElementById("activity-parent-block");
         activityParentBlock.appendChild(inactivityMessage);
         activityParentBlock.appendChild(whomBlock);
         if (commentBlock) {

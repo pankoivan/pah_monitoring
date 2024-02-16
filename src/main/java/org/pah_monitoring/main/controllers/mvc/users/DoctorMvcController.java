@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.controllers.mvc.users;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorEditingDto;
@@ -12,12 +12,15 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
-import org.pah_monitoring.main.filtration.enums.users.*;
+import org.pah_monitoring.main.filtration.enums.users.DoctorFiltrationProperty;
+import org.pah_monitoring.main.filtration.enums.users.DoctorSortingProperty;
+import org.pah_monitoring.main.filtration.enums.users.PatientFiltrationProperty;
+import org.pah_monitoring.main.filtration.enums.users.PatientSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
-import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
-import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.PatientService;
+import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -30,9 +33,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 import java.util.Map;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Controller
 @RequestMapping("/doctors")
+@PreAuthorize("isAuthenticated()")
 public class DoctorMvcController {
 
     @Qualifier("doctorService")
@@ -67,13 +71,12 @@ public class DoctorMvcController {
             service.checkAccessRightsForObtainingConcrete(doctor);
             model.addAttribute("user", doctor);
             model.addAttribute("currentInactivity", doctor.getCurrentInactivity().orElse(null));
-            model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(doctor.getUserInformation().getPhoneNumber()));
-            model.addAttribute("genders", Gender.values());
-            model.addAttribute("currentDate", LocalDate.now());
             model.addAttribute("isSelf", checkService.isSelf(doctor));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(doctor.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(doctor.getHospital()));
-            model.addAttribute("isCurrentUserMainAdministrator", checkService.isMainAdministrator());
+            model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(doctor.getUserInformation().getPhoneNumber()));
+            model.addAttribute("genders", Gender.values());
+            model.addAttribute("currentDate", LocalDate.now());
             model.addAttribute("target", "#inactivity-selection-modal");
             pageHeaderService.addHeader(model);
             return "users/user";
@@ -85,6 +88,7 @@ public class DoctorMvcController {
     }
 
     @GetMapping("/{id}/patients")
+    @PreAuthorize("hasAnyRole('ADMINISTRATOR', 'DOCTOR')")
     public String getDoctorPatientsPage(Model model, @PathVariable("id") String pathId, @RequestParam Map<String, String> parameters) {
         try {
             Doctor doctor = service.findById(service.parsePathId(pathId));

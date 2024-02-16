@@ -24,7 +24,7 @@
                         <h1 class="fs-3 m-2 m-md-0">
                             <span id="profile-full-name" th:text="${user.userInformation.fullName}">Казимиров Иван Петрович</span>
                             <a
-                                th:if="${!isSelf && (user.isHospitalUser && isCurrentUserHospitalUserFromSameHospital || user.isMainAdministrator && isCurrentUserAdministrator || user.isAdministrator && isCurrentUserMainAdministrator)}"
+                                th:if="${!isSelf && (user.isHospitalUser && isCurrentUserHospitalUserFromSameHospital || user.isMainAdministrator && currentUser.isAdministrator || user.isAdministrator && currentUser.isMainAdministrator)}"
                                 href="#"
                                 th:href="@{/messages/__${user.userInformation.id}__}"
                                 class="text-decoration-none"
@@ -57,7 +57,7 @@
                     </h3>
                     <p class="mb-0">
                         Должность:
-                        <span id="info-post" th:text="${user.employeeInformation.post}" class="text-lowercase">Врач-кардиолог 3-го ранга</span>
+                        <span id="info-post" th:text="${user.employeeInformation.post}" class="text-lowercase">Врач-кардиолог</span>
                     </p>
                 </div>
             </div>
@@ -111,7 +111,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row" th:classappend="${user.isDoctor && (isSelf || isCurrentUserAdminFromSameHospital) || user.isPatient} ? 'mb-5'">
+            <div class="row" th:classappend="${user.isDoctor && user.isActive && (isSelf || isCurrentUserAdminFromSameHospital) || user.isPatient} ? 'mb-5'">
                 <div class="col-12" id="activity-parent-block">
                     <h3 class="fs-4">
                         Активность
@@ -129,21 +129,19 @@
                     <p th:if="${user.isActive}" class="text-success mb-0" id="active-message">Активен</p>
                     <div th:if="${user.isNotActive}" class="mb-0">
                         <p th:text="${currentInactivity.inactivityMessage}" class="text-danger mb-1">Уволен 19.01.2022</p>
-                        <div th:if="${!isCurrentUserMainAdministrator}">
-                            <p th:classappend="${currentInactivity.comment != null} ? 'mb-1' : 'mb-0'">
-                                <span th:text="${currentInactivity.authorMessagePart}">Кем уволен:</span>
-                                <a href="#" th:href="@{/users/__${currentInactivity.authorUserInformationId}__}" th:text="${currentInactivity.authorFullName}" class="text-secondary">Петров Пётр Ильич</a>
-                            </p>
-                            <p th:if="${currentInactivity.comment != null}" class="mb-0">
-                                Комментарий:
-                                <span th:text="${currentInactivity.comment}" class="text-lowercase fst-italic">Плохо работал</span>
-                            </p>
-                        </div>
+                        <p th:classappend="${currentInactivity.comment != null} ? 'mb-1' : 'mb-0'">
+                            <span th:text="${currentInactivity.authorMessagePart}">Кем уволен:</span>
+                            <a href="#" th:href="@{/users/__${currentInactivity.authorUserInformationId}__}" th:text="${currentInactivity.authorFullName}" class="text-secondary">Петров Пётр Ильич</a>
+                        </p>
+                        <p th:if="${currentInactivity.comment != null}" class="mb-0">
+                            Комментарий:
+                            <span th:text="${currentInactivity.comment}" class="fst-italic">Плохо работал</span>
+                        </p>
                     </div>
                 </div>
             </div>
             <!---->
-            <div class="row" th:if="${user.isDoctor && (isSelf || isCurrentUserAdminFromSameHospital)}">
+            <div class="row" th:if="${user.isDoctor && user.isActive && (isSelf || isCurrentUserAdminFromSameHospital)}" id="own-patients">
                 <div class="col-12">
                     <h3 class="fs-4">Пациенты</h3>
                     <p th:if="${user.hasPatients}" class="mb-1">
@@ -161,7 +159,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row mb-5" th:if="${user.isPatient && user.isActive && (isSelf || isCurrentUserOwnDoctor || isCurrentUserAdminFromSameHospital)}">
+            <div class="row mb-5" th:if="${user.isPatient && user.isActive && (isSelf || isCurrentUserOwnDoctor || isCurrentUserAdminFromSameHospital)}" id="own-doctor">
                 <div class="col-12">
                     <h3 class="fs-4">
                         Лечащий врач
@@ -197,7 +195,7 @@
                     <h3 class="fs-4">
                         Награды
                         <a href="#" th:href="@{/achievements/all}" class="text-decoration-none">
-                            <img width="24" src="../../static/svg/info.svg" th:src="@{/svg/info.svg}" alt="Информация" />
+                            <img width="20" src="../../static/svg/info.svg" th:src="@{/svg/info.svg}" alt="Информация" />
                         </a>
                     </h3>
                     <p class="mb-1">

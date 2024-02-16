@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.controllers.mvc.users;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.auxiliary.utils.PhoneNumberUtils;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
@@ -30,9 +30,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 import java.util.Map;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Controller
 @RequestMapping("/patients")
+@PreAuthorize("isAuthenticated()")
 public class PatientMvcController {
 
     @Qualifier("patientService")
@@ -65,15 +66,14 @@ public class PatientMvcController {
             service.checkAccessRightsForObtainingConcrete(patient);
             model.addAttribute("user", patient);
             model.addAttribute("currentInactivity", patient.getCurrentInactivity().orElse(null));
-            model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(patient.getUserInformation().getPhoneNumber()));
-            model.addAttribute("genders", Gender.values());
-            model.addAttribute("currentDate", LocalDate.now());
             model.addAttribute("isSelf", checkService.isSelf(patient));
             model.addAttribute("isCurrentUserHospitalUserFromSameHospital", checkService.isHospitalUserFromSameHospital(patient.getHospital()));
             model.addAttribute("isCurrentUserAdminFromSameHospital", checkService.isAdministratorFromSameHospital(patient.getHospital()));
-            model.addAttribute("isCurrentUserOwnDoctor", checkService.isOwnDoctor(patient));
             model.addAttribute("isCurrentUserDoctorFromSameHospital", checkService.isDoctorFromSameHospital(patient.getHospital()));
-            model.addAttribute("isCurrentUserMainAdministrator", checkService.isMainAdministrator());
+            model.addAttribute("isCurrentUserOwnDoctor", checkService.isOwnDoctor(patient));
+            model.addAttribute("sourcePhoneNumber", PhoneNumberUtils.toSource(patient.getUserInformation().getPhoneNumber()));
+            model.addAttribute("genders", Gender.values());
+            model.addAttribute("currentDate", LocalDate.now());
             model.addAttribute("target", "#patient-inactivity-modal");
             pageHeaderService.addHeader(model);
             return "users/user";

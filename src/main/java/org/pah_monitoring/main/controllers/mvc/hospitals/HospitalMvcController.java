@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.controllers.mvc.hospitals;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
@@ -11,10 +11,10 @@ import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceExcept
 import org.pah_monitoring.main.filtration.enums.hospitals.HospitalFiltrationProperty;
 import org.pah_monitoring.main.filtration.enums.hospitals.HospitalSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
-import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalUserStatisticsService;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
+import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalUserStatisticsService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +25,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Controller
 @RequestMapping("/hospitals")
+@PreAuthorize("isAuthenticated()")
 public class HospitalMvcController {
 
     private final HospitalService service;
@@ -52,7 +53,6 @@ public class HospitalMvcController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("isAuthenticated()")
     public String getHospitalPage(Model model, @PathVariable("id") String pathId) {
         try {
             Hospital hospital = service.findById(service.parsePathId(pathId));
@@ -62,7 +62,6 @@ public class HospitalMvcController {
             model.addAttribute("adminStat", statisticsService.getAdministratorStatistics(hospital));
             model.addAttribute("doctorStat", statisticsService.getDoctorStatistics(hospital));
             model.addAttribute("patientStat", statisticsService.getPatientStatistics(hospital));
-            model.addAttribute("isMainAdmin", checkService.isMainAdministrator());
             pageHeaderService.addHeader(model);
             return "hospitals/hospital";
         } catch (UrlValidationServiceException | DataSearchingServiceException | DataValidationServiceException e) {
