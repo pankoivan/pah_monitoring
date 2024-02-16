@@ -51,14 +51,12 @@ public class UserInformation implements BaseEntity {
     @OneToMany(mappedBy = "recipient")
     private List<UserMessage> receivedMessages;
 
-    @JsonIgnore
     public String getFullName() {
         return !patronymic.isEmpty()
                 ? "%s %s %s".formatted(lastname, name, patronymic)
                 : "%s %s".formatted(lastname, name);
     }
 
-    @JsonIgnore
     public String getFormattedBirthdate() {
         return birthdate != null
                 ? DateTimeFormatConstants.DAY_MONTH_YEAR.format(birthdate)
