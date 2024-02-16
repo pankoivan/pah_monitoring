@@ -23,7 +23,7 @@ public class MainAdminContactMvcController {
     public String getMainAdminContactsPage(Model model) {
         model.addAttribute("contacts", service.findAll());
         pageHeaderService.addHeader(model);
-        return "contacts";
+        return "main_admin_contacts/contacts";
     }
 
 }
