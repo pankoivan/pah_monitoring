@@ -64,7 +64,7 @@ public abstract class AbstractHospitalEmployeeInactivityServiceImpl
 
         if (
                 hospitalEmployee.isAdministrator() &&
-                administratorService.count() <= QuantityRestrictionConstants.MIN_NUMBER_OF_ACTIVE_ADMINS_IN_HOSPITAL
+                        administratorService.activeCount() <= QuantityRestrictionConstants.MIN_NUMBER_OF_ACTIVE_ADMINS_IN_HOSPITAL
         ) {
             throw new DataValidationServiceException(
                     "Минимальное число активных администраторов в медицинском учреждении должно составлять: %s"
@@ -74,11 +74,11 @@ public abstract class AbstractHospitalEmployeeInactivityServiceImpl
 
         if (
                 hospitalEmployee.isDoctor() &&
-                doctorService.count() <= QuantityRestrictionConstants.MIN_NUMBER_OF_ACTIVE_DOCTORS_IN_HOSPITAL
+                        doctorService.activeCount() <= QuantityRestrictionConstants.MIN_NUMBER_OF_ACTIVE_DOCTORS_IN_HOSPITAL
         ) {
             throw new DataValidationServiceException(
                     "Минимальное число активных врачей в медицинском учреждении должно составлять: %s"
-                            .formatted(QuantityRestrictionConstants.MIN_NUMBER_OF_ACTIVE_ADMINS_IN_HOSPITAL)
+                            .formatted(QuantityRestrictionConstants.MIN_NUMBER_OF_ACTIVE_DOCTORS_IN_HOSPITAL)
             );
         }
 
@@ -96,10 +96,10 @@ public abstract class AbstractHospitalEmployeeInactivityServiceImpl
 
     @Override
     public void checkAccessRightsForAdding(HospitalEmployee hospitalEmployee) throws NotEnoughRightsServiceException {
-        if (
-                !checkService.isAdministratorFromSameHospital(hospitalEmployee.getHospital()) ||
-                checkService.isSelf(hospitalEmployee)
-        ) {
+        if (!(
+                checkService.isAdministratorFromSameHospital(hospitalEmployee.getHospital()) &&
+                !checkService.isSelf(hospitalEmployee)
+        )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
     }

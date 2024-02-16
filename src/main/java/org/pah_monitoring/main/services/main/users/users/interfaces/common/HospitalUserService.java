@@ -23,6 +23,8 @@ public interface HospitalUserService
 
     int count();
 
+    int activeCount();
+
     List<T> findAll();
 
     List<T> findAll(Map<String, String> parameters, EntityFilter.PageStat pageStat);

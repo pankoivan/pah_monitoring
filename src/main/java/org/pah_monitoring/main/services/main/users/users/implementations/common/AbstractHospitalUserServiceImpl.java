@@ -33,6 +33,14 @@ public abstract class AbstractHospitalUserServiceImpl
     private CurrentUserCheckService checkService;
 
     @Override
+    public int activeCount() {
+        return (int) findAll()
+                .stream()
+                .filter(HospitalUser::isActive)
+                .count();
+    }
+
+    @Override
     public void checkDataValidityForAdding(M addingDto, BindingResult bindingResult) throws DataValidationServiceException {
 
         RegistrationSecurityCode code;
