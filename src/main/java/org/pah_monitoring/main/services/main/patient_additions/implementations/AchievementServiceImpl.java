@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.services.main.patient_additions.implementations;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.entities.main.examinations.indicators.AnalysisFile;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service
+@Transactional
 public class AchievementServiceImpl implements AchievementService {
 
     @Setter(onMethod = @__(@Autowired(required = false)))
