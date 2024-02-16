@@ -59,10 +59,20 @@
                     </div>
                     <div class="d-flex flex-row flex-wrap align-items-center justify-content-between">
                         <div>
-                            <a th:if="${each.author.id == currentUser.userInformation.id}" href="#" th:attr="data-edit=${each.id}" class="text-decoration-none">
+                            <a
+                                th:if="${(each.author.id == currentUser.userInformation.id) && (recipient.isMainAdministrator || recipient.isHospitalEmployee && !recipient.isDismissed || recipient.isPatient && recipient.isActive)}"
+                                href="#"
+                                th:attr="data-edit=${each.id}"
+                                class="text-decoration-none"
+                            >
                                 <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                             </a>
-                            <a th:if="${each.author.id == currentUser.userInformation.id}" href="#" th:attr="data-delete=${each.id}" class="text-decoration-none">
+                            <a
+                                th:if="${(each.author.id == currentUser.userInformation.id) && (recipient.isMainAdministrator || recipient.isHospitalEmployee && !recipient.isDismissed || recipient.isPatient && recipient.isActive)}"
+                                href="#"
+                                th:attr="data-delete=${each.id}"
+                                class="text-decoration-none"
+                            >
                                 <img width="20" src="../../static/svg/delete.svg" th:src="@{/svg/delete.svg}" alt="Удалить" />
                             </a>
                         </div>
