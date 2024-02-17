@@ -7,6 +7,7 @@ import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.entities.additional.indicators.FileIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.AnalysisFile;
 import org.pah_monitoring.main.entities.main.examinations.schedules.ExaminationSchedule;
@@ -55,7 +56,7 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
     }
 
     @Override
-    public FileIndicatorCard getFileIndicatorCardFor(AnalysisFile.AnalysisType type, Patient patient) {
+    public IndicatorCard getIndicatorCardFor(AnalysisFile.AnalysisType type, Patient patient) {
         return FileIndicatorCard
                 .builder()
                 .workingName(IndicatorType.valueOf(type.getName()))

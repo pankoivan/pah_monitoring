@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common;
 
-import org.pah_monitoring.main.entities.additional.indicators.FileIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.main.examinations.indicators.AnalysisFile;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -15,7 +15,7 @@ public interface FileIndicatorService<T, M> extends IndicatorService<T, M> {
 
     Optional<String> getScheduleFor(AnalysisFile.AnalysisType type, Patient patient);
 
-    FileIndicatorCard getFileIndicatorCardFor(AnalysisFile.AnalysisType type, Patient patient);
+    IndicatorCard getIndicatorCardFor(AnalysisFile.AnalysisType type, Patient patient);
 
     List<T> findAllByPatientId(AnalysisFile.AnalysisType type, Integer patientId) throws DataSearchingServiceException;
 

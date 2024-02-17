@@ -7,7 +7,7 @@ import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.CoughTablesDto;
-import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.TablesInputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Cough;
@@ -43,7 +43,7 @@ public class CoughServiceImpl extends AbstractInputIndicatorServiceImpl<Cough, C
     }
 
     @Override
-    public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
+    public IndicatorCard getIndicatorCardFor(Patient patient) {
         return TablesInputIndicatorCard
                 .builder()
                 .workingName(getIndicatorType())

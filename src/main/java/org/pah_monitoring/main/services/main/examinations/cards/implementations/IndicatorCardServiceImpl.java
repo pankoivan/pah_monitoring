@@ -3,9 +3,7 @@ package org.pah_monitoring.main.services.main.examinations.cards.implementations
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.dto.in.examinations.indicators.*;
-import org.pah_monitoring.main.entities.additional.indicators.FileIndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
-import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.entities.main.examinations.indicators.*;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -26,38 +24,38 @@ import java.util.stream.Stream;
 @Service
 public class IndicatorCardServiceImpl implements IndicatorCardService {
 
-    @Qualifier("chestPainService")
-    private InputIndicatorService<ChestPain, ChestPainAddingDto> chestPainService;
+    @Qualifier("spirometryService")
+    private InputIndicatorService<Spirometry, SpirometryAddingDto> spirometryService;
 
-    @Qualifier("coughService")
-    private InputIndicatorService<Cough, CoughAddingDto> coughService;
-
-    @Qualifier("faintingService")
-    private InputIndicatorService<Fainting, FaintingAddingDto> faintingService;
-
-    @Qualifier("liquidService")
-    private InputIndicatorService<Liquid, LiquidAddingDto> liquidService;
-
-    @Qualifier("overallHealthService")
-    private InputIndicatorService<OverallHealth, OverallHealthAddingDto> overallHealthService;
-
-    @Qualifier("physicalChangesService")
-    private InputIndicatorService<PhysicalChanges, PhysicalChangesAddingDto> physicalChangesService;
-
-    @Qualifier("pressureService")
-    private InputIndicatorService<Pressure, PressureAddingDto> pressureService;
+    @Qualifier("walkTestService")
+    private InputIndicatorService<WalkTest, WalkTestAddingDto> walkTestService;
 
     @Qualifier("pulseOximetryService")
     private InputIndicatorService<PulseOximetry, PulseOximetryAddingDto> pulseOximetryService;
 
-    @Qualifier("spirometryService")
-    private InputIndicatorService<Spirometry, SpirometryAddingDto> spirometryService;
+    @Qualifier("coughService")
+    private InputIndicatorService<Cough, CoughAddingDto> coughService;
+
+    @Qualifier("chestPainService")
+    private InputIndicatorService<ChestPain, ChestPainAddingDto> chestPainService;
+
+    @Qualifier("faintingService")
+    private InputIndicatorService<Fainting, FaintingAddingDto> faintingService;
+
+    @Qualifier("physicalChangesService")
+    private InputIndicatorService<PhysicalChanges, PhysicalChangesAddingDto> physicalChangesService;
+
+    @Qualifier("overallHealthService")
+    private InputIndicatorService<OverallHealth, OverallHealthAddingDto> overallHealthService;
 
     @Qualifier("vertigoService")
     private InputIndicatorService<Vertigo, VertigoAddingDto> vertigoService;
 
-    @Qualifier("walkTestService")
-    private InputIndicatorService<WalkTest, WalkTestAddingDto> walkTestService;
+    @Qualifier("pressureService")
+    private InputIndicatorService<Pressure, PressureAddingDto> pressureService;
+
+    @Qualifier("liquidService")
+    private InputIndicatorService<Liquid, LiquidAddingDto> liquidService;
 
     @Qualifier("weightService")
     private InputIndicatorService<Weight, WeightAddingDto> weightService;
@@ -68,36 +66,23 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
     private CurrentUserCheckService checkService;
 
     @Override
-    public List<InputIndicatorCard> getAllInputIndicatorCardsFor(Patient patient) {
-        return List.of(
-                spirometryService.getInputIndicatorCardFor(patient),
-                walkTestService.getInputIndicatorCardFor(patient),
-                pulseOximetryService.getInputIndicatorCardFor(patient),
-                coughService.getInputIndicatorCardFor(patient),
-                chestPainService.getInputIndicatorCardFor(patient),
-                faintingService.getInputIndicatorCardFor(patient),
-                physicalChangesService.getInputIndicatorCardFor(patient),
-                overallHealthService.getInputIndicatorCardFor(patient),
-                vertigoService.getInputIndicatorCardFor(patient),
-                pressureService.getInputIndicatorCardFor(patient),
-                liquidService.getInputIndicatorCardFor(patient),
-                weightService.getInputIndicatorCardFor(patient)
-        );
-    }
-
-    @Override
-    public List<FileIndicatorCard> getAllFileIndicatorCardsFor(Patient patient) {
-        return Stream.of(AnalysisFile.AnalysisType.values())
-                .map(analysisType -> analysisFileService.getFileIndicatorCardFor(analysisType, patient))
-                .toList();
-    }
-
-    @Override
     public List<IndicatorCard> getAllIndicatorCardsFor(Patient patient) {
-        List<IndicatorCard> indicatorCards = new ArrayList<>();
-        indicatorCards.addAll(getAllInputIndicatorCardsFor(patient));
-        indicatorCards.addAll(getAllFileIndicatorCardsFor(patient));
-        return indicatorCards;
+        List<IndicatorCard> cards = new ArrayList<>(List.of(
+                spirometryService.getIndicatorCardFor(patient),
+                walkTestService.getIndicatorCardFor(patient),
+                pulseOximetryService.getIndicatorCardFor(patient),
+                coughService.getIndicatorCardFor(patient),
+                chestPainService.getIndicatorCardFor(patient),
+                faintingService.getIndicatorCardFor(patient),
+                physicalChangesService.getIndicatorCardFor(patient),
+                overallHealthService.getIndicatorCardFor(patient),
+                vertigoService.getIndicatorCardFor(patient),
+                pressureService.getIndicatorCardFor(patient),
+                liquidService.getIndicatorCardFor(patient),
+                weightService.getIndicatorCardFor(patient)
+        ));
+        cards.addAll(getAllFileIndicatorCardsFor(patient));
+        return cards;
     }
 
     @Override
@@ -111,6 +96,12 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
+    }
+
+    private List<IndicatorCard> getAllFileIndicatorCardsFor(Patient patient) {
+        return Stream.of(AnalysisFile.AnalysisType.values())
+                .map(analysisType -> analysisFileService.getIndicatorCardFor(analysisType, patient))
+                .toList();
     }
 
 }

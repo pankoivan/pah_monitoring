@@ -11,7 +11,7 @@ import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.WalkTestGraphicsDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.WalkTestTablesDto;
 import org.pah_monitoring.main.entities.additional.indicators.GraphicsTablesInputIndicatorCard;
-import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Pressure;
 import org.pah_monitoring.main.entities.main.examinations.indicators.PulseOximetry;
@@ -56,7 +56,7 @@ public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl<WalkT
     }
 
     @Override
-    public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
+    public IndicatorCard getIndicatorCardFor(Patient patient) {
         return GraphicsTablesInputIndicatorCard
                 .builder()
                 .workingName(getIndicatorType())

@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common;
 
-import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -17,7 +17,7 @@ public interface InputIndicatorService<T, M> extends IndicatorService<T, M> {
 
     Optional<String> getScheduleFor(Patient patient);
 
-    InputIndicatorCard getInputIndicatorCardFor(Patient patient);
+    IndicatorCard getIndicatorCardFor(Patient patient);
 
     List<T> findAllByPatientId(Integer patientId) throws DataSearchingServiceException;
 
