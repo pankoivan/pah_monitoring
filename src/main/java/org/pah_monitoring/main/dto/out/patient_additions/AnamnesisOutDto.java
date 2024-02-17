@@ -23,8 +23,8 @@ public class AnamnesisOutDto implements OutDto {
 
     private Integer height;
 
-    private Double weight;
+    private String weight;
 
-    private Double bodyMassIndex;
+    private String bodyMassIndex;
 
 }

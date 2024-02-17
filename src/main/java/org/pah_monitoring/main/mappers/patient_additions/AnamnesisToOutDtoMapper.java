@@ -22,8 +22,10 @@ public class AnamnesisToOutDtoMapper implements BaseEntityToOutDtoMapper<Anamnes
                         .bloodClotting(mappedAnamnesis.getBloodClotting())
                         .diabetes(mappedAnamnesis.getDiabetes())
                         .height(mappedAnamnesis.getHeight())
-                        .weight(mappedAnamnesis.getWeight())
-                        .bodyMassIndex(FormulaUtils.bodyMassIndex(mappedAnamnesis.getWeight(), mappedAnamnesis.getHeight()))
+                        .weight(String.format("%.2f", mappedAnamnesis.getWeight()))
+                        .bodyMassIndex(
+                                String.format("%.2f", FormulaUtils.bodyMassIndex(mappedAnamnesis.getWeight(), mappedAnamnesis.getHeight()))
+                        )
                         .build())
                 .orElse(null);
     }
