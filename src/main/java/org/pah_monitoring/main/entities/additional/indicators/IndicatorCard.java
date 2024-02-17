@@ -17,11 +17,11 @@ public class IndicatorCard {
 
     private String filename;
 
-    private String postFormLink;
-
     private String schedule;
 
     private LocalDateTime date;
+
+    private String postFormLink;
 
     public String getFormattedDate() {
         return DateTimeFormatConstants.HOUR_MINUTE_SECOND_DAY_MONTH_YEAR.format(date);

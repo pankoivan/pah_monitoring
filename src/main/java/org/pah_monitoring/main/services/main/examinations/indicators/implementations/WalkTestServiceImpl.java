@@ -2,19 +2,16 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.PressureGraphicsDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.PulseOximetryGraphicsDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.WalkTestGraphicsDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.PressureTablesDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.PulseOximetryTablesDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.WalkTestTablesDto;
-import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.dto.in.examinations.indicators.PressureAddingDto;
 import org.pah_monitoring.main.dto.in.examinations.indicators.PulseOximetryAddingDto;
 import org.pah_monitoring.main.dto.in.examinations.indicators.WalkTestAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.WalkTestGraphicsDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.tables.WalkTestTablesDto;
+import org.pah_monitoring.main.entities.additional.indicators.GraphicsTablesInputIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Pressure;
 import org.pah_monitoring.main.entities.main.examinations.indicators.PulseOximetry;
@@ -26,6 +23,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.WalkTestRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.GraphicsTablesInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,8 +36,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("walkTestService")
-public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl
-        <WalkTest, WalkTestAddingDto, WalkTestTablesDto, WalkTestGraphicsDto> {
+public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl<WalkTest, WalkTestAddingDto>
+        implements GraphicsTablesInputIndicatorService<WalkTest, WalkTestAddingDto, WalkTestTablesDto, WalkTestGraphicsDto> {
 
     private final WalkTestRepository repository;
 
@@ -47,12 +45,10 @@ public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl
     private HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
     @Qualifier("pulseOximetryService")
-    private AbstractInputIndicatorServiceImpl<PulseOximetry, PulseOximetryAddingDto, PulseOximetryTablesDto, PulseOximetryGraphicsDto>
-            pulseOximetryService;
+    private AbstractInputIndicatorServiceImpl<PulseOximetry, PulseOximetryAddingDto> pulseOximetryService;
 
     @Qualifier("pressureService")
-    private AbstractInputIndicatorServiceImpl<Pressure, PressureAddingDto, PressureTablesDto, PressureGraphicsDto>
-            pressureService;
+    private AbstractInputIndicatorServiceImpl<Pressure, PressureAddingDto> pressureService;
 
     @Override
     public IndicatorType getIndicatorType() {
@@ -61,22 +57,22 @@ public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl
 
     @Override
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
-        return InputIndicatorCard
+        return GraphicsTablesInputIndicatorCard
                 .builder()
-                .workingName(IndicatorType.WALK_TEST.name())
+                .workingName(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("walk-test.jpg")
+                .schedule(getScheduleFor(patient).orElse(null))
+                .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/walk-test")
                 .tablesLink("/patients/%s/examinations/tables?walk-test".formatted(patient.getId()))
                 .graphicsLink("/patients/%s/examinations/graphics?walk-test".formatted(patient.getId()))
-                .schedule(getScheduleFor(patient).orElse(null))
-                .date(getLastExaminationDateFor(patient).orElse(null))
                 .build();
     }
 
     @Override
-    public List<WalkTest> findAllByPatientId(Integer id) throws DataSearchingServiceException {
-        return repository.findAllByPatientId(patientService.findById(id).getId());
+    public List<WalkTest> findAllByPatientId(Integer patientId) throws DataSearchingServiceException {
+        return repository.findAllByPatientId(patientService.findById(patientId).getId());
     }
 
     @Override
@@ -113,22 +109,18 @@ public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl
     }
 
     @Override
+    public WalkTestTablesDto toTablesOutDto() {
+        return null;
+    }
+
+    @Override
+    public WalkTestGraphicsDto toGraphicsOutDto() {
+        return null;
+    }
+
+    @Override
     protected List<InputIndicator> findAllByPatient(Patient patient) {
         return repository.findAllByPatient(patient);
-    }
-
-    @Override
-    protected WalkTestTablesDto toTablesDto(WalkTest walkTest) {
-        return WalkTestTablesDto
-                .builder()
-                .build();
-    }
-
-    @Override
-    protected WalkTestGraphicsDto toGraphicsDto(WalkTest walkTest) {
-        return WalkTestGraphicsDto
-                .builder()
-                .build();
     }
 
 }

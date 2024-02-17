@@ -2,11 +2,11 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.additional.indicators.FileIndicatorCard;
 import org.pah_monitoring.main.dto.in.examinations.indicators.AnalysisFileAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
+import org.pah_monitoring.main.entities.additional.indicators.FileIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.AnalysisFile;
 import org.pah_monitoring.main.entities.main.examinations.schedules.ExaminationSchedule;
@@ -30,7 +30,7 @@ import java.util.function.Function;
 
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
-@Service
+@Service("analysisFileService")
 public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<AnalysisFile, AnalysisFileAddingDto>
         implements FileIndicatorService<AnalysisFile, AnalysisFileAddingDto> {
 
@@ -58,13 +58,13 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
     public FileIndicatorCard getFileIndicatorCardFor(AnalysisFile.AnalysisType type, Patient patient) {
         return FileIndicatorCard
                 .builder()
-                .workingName(type.getWorkingName())
+                .workingName(IndicatorType.valueOf(type.getName()))
                 .name(type.getName())
                 .filename(type.getFilename())
-                .postFormLink(type.getPostFormRef())
-                .filesLink(type.getFilesRef().formatted(patient.getId()))
                 .schedule(getScheduleFor(type, patient).orElse(null))
                 .date(getLastExaminationDateFor(type, patient).orElse(null))
+                .postFormLink(type.getPostFormLink())
+                .filesLink(type.getFilesLink().formatted(patient.getId()))
                 .build();
     }
 

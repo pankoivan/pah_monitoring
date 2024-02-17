@@ -9,6 +9,7 @@ import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.OverallHealthGraphicsDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.OverallHealthTablesDto;
 import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.TablesInputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.OverallHealth;
 import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
@@ -17,6 +18,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.OverallHealthRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.TablesInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,8 +30,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("overallHealthService")
-public class OverallHealthServiceImpl extends AbstractInputIndicatorServiceImpl
-        <OverallHealth, OverallHealthAddingDto, OverallHealthTablesDto, OverallHealthGraphicsDto> {
+public class OverallHealthServiceImpl extends AbstractInputIndicatorServiceImpl<OverallHealth, OverallHealthAddingDto>
+        implements TablesInputIndicatorService<OverallHealth, OverallHealthAddingDto, OverallHealthTablesDto> {
 
     private final OverallHealthRepository repository;
 
@@ -43,22 +45,21 @@ public class OverallHealthServiceImpl extends AbstractInputIndicatorServiceImpl
 
     @Override
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
-        return InputIndicatorCard
+        return TablesInputIndicatorCard
                 .builder()
-                .workingName(IndicatorType.OVERALL_HEALTH.name())
+                .workingName(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("overall-health.jpg")
-                .postFormLink("/indicators/overall-health")
-                .tablesLink("/patients/%s/examinations/tables?overall-health".formatted(patient.getId()))
-                .graphicsLink("/patients/%s/examinations/graphics?overall-health".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
+                .postFormLink("/indicators/overall-health")
+                .tablesLink("/patients/%s/examinations/tables?overall-health".formatted(patient.getId()))
                 .build();
     }
 
     @Override
-    public List<OverallHealth> findAllByPatientId(Integer id) throws DataSearchingServiceException {
-        return repository.findAllByPatientId(patientService.findById(id).getId());
+    public List<OverallHealth> findAllByPatientId(Integer patientId) throws DataSearchingServiceException {
+        return repository.findAllByPatientId(patientService.findById(patientId).getId());
     }
 
     @Override
@@ -85,22 +86,13 @@ public class OverallHealthServiceImpl extends AbstractInputIndicatorServiceImpl
     }
 
     @Override
+    public OverallHealthTablesDto toTablesOutDto() {
+        return null;
+    }
+
+    @Override
     protected List<InputIndicator> findAllByPatient(Patient patient) {
         return repository.findAllByPatient(patient);
-    }
-
-    @Override
-    protected OverallHealthTablesDto toTablesDto(OverallHealth overallHealth) {
-        return OverallHealthTablesDto
-                .builder()
-                .build();
-    }
-
-    @Override
-    protected OverallHealthGraphicsDto toGraphicsDto(OverallHealth overallHealth) {
-        return OverallHealthGraphicsDto
-                .builder()
-                .build();
     }
 
 }

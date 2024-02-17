@@ -8,6 +8,7 @@ import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.LiquidGraphicsDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.LiquidTablesDto;
+import org.pah_monitoring.main.entities.additional.indicators.GraphicsTablesInputIndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Liquid;
@@ -17,6 +18,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.LiquidRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.GraphicsTablesInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,8 +30,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("liquidService")
-public class LiquidService extends AbstractInputIndicatorServiceImpl
-        <Liquid, LiquidAddingDto, LiquidTablesDto, LiquidGraphicsDto> {
+public class LiquidServiceImpl extends AbstractInputIndicatorServiceImpl<Liquid, LiquidAddingDto>
+        implements GraphicsTablesInputIndicatorService<Liquid, LiquidAddingDto, LiquidTablesDto, LiquidGraphicsDto> {
 
     private final LiquidRepository repository;
 
@@ -43,22 +45,22 @@ public class LiquidService extends AbstractInputIndicatorServiceImpl
 
     @Override
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
-        return InputIndicatorCard
+        return GraphicsTablesInputIndicatorCard
                 .builder()
-                .workingName(IndicatorType.WEIGHT.name())
+                .workingName(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("liquid.jpg")
+                .schedule(getScheduleFor(patient).orElse(null))
+                .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/liquid")
                 .tablesLink("/patients/%s/examinations/tables?liquid".formatted(patient.getId()))
                 .graphicsLink("/patients/%s/examinations/graphics?liquid".formatted(patient.getId()))
-                .schedule(getScheduleFor(patient).orElse(null))
-                .date(getLastExaminationDateFor(patient).orElse(null))
                 .build();
     }
 
     @Override
-    public List<Liquid> findAllByPatientId(Integer id) throws DataSearchingServiceException {
-        return repository.findAllByPatientId(patientService.findById(id).getId());
+    public List<Liquid> findAllByPatientId(Integer patientId) throws DataSearchingServiceException {
+        return repository.findAllByPatientId(patientService.findById(patientId).getId());
     }
 
     @Override
@@ -78,22 +80,18 @@ public class LiquidService extends AbstractInputIndicatorServiceImpl
     }
 
     @Override
+    public LiquidTablesDto toTablesOutDto() {
+        return null;
+    }
+
+    @Override
+    public LiquidGraphicsDto toGraphicsOutDto() {
+        return null;
+    }
+
+    @Override
     protected List<InputIndicator> findAllByPatient(Patient patient) {
         return repository.findAllByPatient(patient);
-    }
-
-    @Override
-    protected LiquidTablesDto toTablesDto(Liquid liquid) {
-        return LiquidTablesDto
-                .builder()
-                .build();
-    }
-
-    @Override
-    protected LiquidGraphicsDto toGraphicsDto(Liquid liquid) {
-        return LiquidGraphicsDto
-                .builder()
-                .build();
     }
 
 }

@@ -2,13 +2,13 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.CoughGraphicsDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.CoughTablesDto;
-import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.dto.in.examinations.indicators.CoughAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.tables.CoughTablesDto;
+import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.TablesInputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Cough;
 import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
@@ -17,6 +17,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.CoughRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.TablesInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,8 +29,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("coughService")
-public class CoughServiceImpl extends AbstractInputIndicatorServiceImpl
-        <Cough, CoughAddingDto, CoughTablesDto, CoughGraphicsDto> {
+public class CoughServiceImpl extends AbstractInputIndicatorServiceImpl<Cough, CoughAddingDto>
+        implements TablesInputIndicatorService<Cough, CoughAddingDto, CoughTablesDto> {
 
     private final CoughRepository repository;
 
@@ -43,22 +44,21 @@ public class CoughServiceImpl extends AbstractInputIndicatorServiceImpl
 
     @Override
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
-        return InputIndicatorCard
+        return TablesInputIndicatorCard
                 .builder()
-                .workingName(IndicatorType.COUGH.name())
+                .workingName(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("cough.jpg")
-                .postFormLink("/indicators/cough")
-                .tablesLink("/patients/%s/examinations/tables?cough".formatted(patient.getId()))
-                .graphicsLink("/patients/%s/examinations/graphics?cough".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
+                .postFormLink("/indicators/cough")
+                .tablesLink("/patients/%s/examinations/tables?cough".formatted(patient.getId()))
                 .build();
     }
 
     @Override
-    public List<Cough> findAllByPatientId(Integer id) throws DataSearchingServiceException {
-        return repository.findAllByPatientId(patientService.findById(id).getId());
+    public List<Cough> findAllByPatientId(Integer patientId) throws DataSearchingServiceException {
+        return repository.findAllByPatientId(patientService.findById(patientId).getId());
     }
 
     @Override
@@ -81,22 +81,13 @@ public class CoughServiceImpl extends AbstractInputIndicatorServiceImpl
     }
 
     @Override
+    public CoughTablesDto toTablesOutDto() {
+        return null;
+    }
+
+    @Override
     protected List<InputIndicator> findAllByPatient(Patient patient) {
         return repository.findAllByPatient(patient);
-    }
-
-    @Override
-    protected CoughTablesDto toTablesDto(Cough cough) {
-        return CoughTablesDto
-                .builder()
-                .build();
-    }
-
-    @Override
-    protected CoughGraphicsDto toGraphicsDto(Cough cough) {
-        return CoughGraphicsDto
-                .builder()
-                .build();
     }
 
 }

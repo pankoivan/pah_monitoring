@@ -8,6 +8,7 @@ import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.WeightGraphicsDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.WeightTablesDto;
+import org.pah_monitoring.main.entities.additional.indicators.GraphicsTablesInputIndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Weight;
@@ -17,6 +18,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.WeightRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.GraphicsTablesInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,8 +30,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("weightService")
-public class WeightServiceImpl extends AbstractInputIndicatorServiceImpl
-        <Weight, WeightAddingDto, WeightTablesDto, WeightGraphicsDto> {
+public class WeightServiceImpl extends AbstractInputIndicatorServiceImpl<Weight, WeightAddingDto>
+        implements GraphicsTablesInputIndicatorService<Weight, WeightAddingDto, WeightTablesDto, WeightGraphicsDto> {
 
     private final WeightRepository repository;
 
@@ -43,22 +45,22 @@ public class WeightServiceImpl extends AbstractInputIndicatorServiceImpl
 
     @Override
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
-        return InputIndicatorCard
+        return GraphicsTablesInputIndicatorCard
                 .builder()
-                .workingName(IndicatorType.WEIGHT.name())
+                .workingName(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("weight.jpg")
+                .schedule(getScheduleFor(patient).orElse(null))
+                .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/weight")
                 .tablesLink("/patients/%s/examinations/tables?weight".formatted(patient.getId()))
                 .graphicsLink("/patients/%s/examinations/graphics?weight".formatted(patient.getId()))
-                .schedule(getScheduleFor(patient).orElse(null))
-                .date(getLastExaminationDateFor(patient).orElse(null))
                 .build();
     }
 
     @Override
-    public List<Weight> findAllByPatientId(Integer id) throws DataSearchingServiceException {
-        return repository.findAllByPatientId(patientService.findById(id).getId());
+    public List<Weight> findAllByPatientId(Integer patientId) throws DataSearchingServiceException {
+        return repository.findAllByPatientId(patientService.findById(patientId).getId());
     }
 
     @Override
@@ -78,22 +80,18 @@ public class WeightServiceImpl extends AbstractInputIndicatorServiceImpl
     }
 
     @Override
+    public WeightGraphicsDto toGraphicsOutDto() {
+        return null;
+    }
+
+    @Override
+    public WeightTablesDto toTablesOutDto() {
+        return null;
+    }
+
+    @Override
     protected List<InputIndicator> findAllByPatient(Patient patient) {
         return repository.findAllByPatient(patient);
-    }
-
-    @Override
-    protected WeightTablesDto toTablesDto(Weight weight) {
-        return WeightTablesDto
-                .builder()
-                .build();
-    }
-
-    @Override
-    protected WeightGraphicsDto toGraphicsDto(Weight weight) {
-        return WeightGraphicsDto
-                .builder()
-                .build();
     }
 
 }

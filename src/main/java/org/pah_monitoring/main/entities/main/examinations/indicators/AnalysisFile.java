@@ -55,7 +55,6 @@ public class AnalysisFile implements FileIndicator {
 
         BLOOD_TEST(
                 "Развёрнутый анализ крови",
-                "BLOOD_TEST",
                 "blood-test.jpg",
                 "/patients/%s/examinations/blood-test",
                 "/indicators/blood-test"
@@ -63,7 +62,6 @@ public class AnalysisFile implements FileIndicator {
 
         ELECTROCARDIOGRAPHY(
                 "Электрокардиография",
-                "ELECTROCARDIOGRAPHY",
                 "electrocardiography.jpg",
                 "/patients/%s/examinations/electrocardiography",
                 "/indicators/electrocardiography"
@@ -71,7 +69,6 @@ public class AnalysisFile implements FileIndicator {
 
         RADIOGRAPHY(
                 "Рентгенография органов грудной клетки",
-                "RADIOGRAPHY",
                 "radiography.jpg",
                 "/patients/%s/examinations/radiography",
                 "/indicators/radiography"
@@ -79,7 +76,6 @@ public class AnalysisFile implements FileIndicator {
 
         ECHOCARDIOGRAPHY(
                 "Эхокардиография",
-                "ECHOCARDIOGRAPHY",
                 "echocardiography.jpg",
                 "/patients/%s/examinations/echocardiography",
                 "/indicators/echocardiography"
@@ -87,7 +83,6 @@ public class AnalysisFile implements FileIndicator {
 
         COMPUTED_TOMOGRAPHY(
                 "Компьютерная томография органов грудной клетки",
-                "COMPUTED_TOMOGRAPHY",
                 "computed-tomography.jpg",
                 "/patients/%s/examinations/computed-tomography",
                 "/indicators/computed-tomography"
@@ -95,7 +90,6 @@ public class AnalysisFile implements FileIndicator {
 
         SCINTIGRAPHY(
                 "Сцинтиграфия лёгких",
-                "SCINTIGRAPHY",
                 "scintigraphy.jpg",
                 "/patients/%s/examinations/scintigraphy",
                 "/indicators/scintigraphy"
@@ -103,7 +97,6 @@ public class AnalysisFile implements FileIndicator {
 
         CATHETERIZATION(
                 "Катетеризация правых отделов сердца",
-                "CATHETERIZATION",
                 "catheterization.jpg",
                 "/patients/%s/examinations/catheterization",
                 "/indicators/catheterization"
@@ -111,13 +104,11 @@ public class AnalysisFile implements FileIndicator {
 
         private final String name;
 
-        private final String workingName;
-
         private final String filename;
 
-        private final String filesRef;
+        private final String filesLink;
 
-        private final String postFormRef;
+        private final String postFormLink;
 
     }
 

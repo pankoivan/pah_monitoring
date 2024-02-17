@@ -19,8 +19,8 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 @Getter
 @Setter(onMethod = @__(@Autowired))
-public abstract class AbstractInputIndicatorServiceImpl<T, M, N, R> extends AbstractIndicatorServiceImpl<T, M>
-        implements InputIndicatorService<T, M, N, R> {
+public abstract class AbstractInputIndicatorServiceImpl<T, M> extends AbstractIndicatorServiceImpl<T, M>
+        implements InputIndicatorService<T, M> {
 
     private ExaminationScheduleService scheduleService;
 
@@ -38,26 +38,6 @@ public abstract class AbstractInputIndicatorServiceImpl<T, M, N, R> extends Abst
                 .map(ExaminationSchedule::getSchedule);
     }
 
-    @Override
-    public List<N> forTables(List<T> list) {
-        return list
-                .stream()
-                .map(this::toTablesDto)
-                .toList();
-    }
-
-    @Override
-    public List<R> forGraphics(List<T> list) {
-        return list
-                .stream()
-                .map(this::toGraphicsDto)
-                .toList();
-    }
-
     protected abstract List<InputIndicator> findAllByPatient(Patient patient);
-
-    protected abstract N toTablesDto(T entity);
-
-    protected abstract R toGraphicsDto(T entity);
 
 }

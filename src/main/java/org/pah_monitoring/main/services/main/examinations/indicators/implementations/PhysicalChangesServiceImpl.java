@@ -2,13 +2,13 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.PhysicalChangesGraphicsDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.PhysicalChangesTablesDto;
-import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.dto.in.examinations.indicators.PhysicalChangesAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.tables.PhysicalChangesTablesDto;
+import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.TablesInputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.PhysicalChanges;
 import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
@@ -17,6 +17,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.PhysicalChangesRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.TablesInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,8 +29,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("physicalChangesService")
-public class PhysicalChangesServiceImpl extends AbstractInputIndicatorServiceImpl
-        <PhysicalChanges, PhysicalChangesAddingDto, PhysicalChangesTablesDto, PhysicalChangesGraphicsDto> {
+public class PhysicalChangesServiceImpl extends AbstractInputIndicatorServiceImpl<PhysicalChanges, PhysicalChangesAddingDto>
+        implements TablesInputIndicatorService<PhysicalChanges, PhysicalChangesAddingDto, PhysicalChangesTablesDto> {
 
     private final PhysicalChangesRepository repository;
 
@@ -43,22 +44,21 @@ public class PhysicalChangesServiceImpl extends AbstractInputIndicatorServiceImp
 
     @Override
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
-        return InputIndicatorCard
+        return TablesInputIndicatorCard
                 .builder()
-                .workingName(IndicatorType.PHYSICAL_CHANGES.name())
+                .workingName(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("physical-changes.jpg")
-                .postFormLink("/indicators/physical-changes")
-                .tablesLink("/patients/%s/examinations/tables?physical-changes".formatted(patient.getId()))
-                .graphicsLink("/patients/%s/examinations/graphics?physical-changes".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
+                .postFormLink("/indicators/physical-changes")
+                .tablesLink("/patients/%s/examinations/tables?physical-changes".formatted(patient.getId()))
                 .build();
     }
 
     @Override
-    public List<PhysicalChanges> findAllByPatientId(Integer id) throws DataSearchingServiceException {
-        return repository.findAllByPatientId(patientService.findById(id).getId());
+    public List<PhysicalChanges> findAllByPatientId(Integer patientId) throws DataSearchingServiceException {
+        return repository.findAllByPatientId(patientService.findById(patientId).getId());
     }
 
     @Override
@@ -84,22 +84,13 @@ public class PhysicalChangesServiceImpl extends AbstractInputIndicatorServiceImp
     }
 
     @Override
+    public PhysicalChangesTablesDto toTablesOutDto() {
+        return null;
+    }
+
+    @Override
     protected List<InputIndicator> findAllByPatient(Patient patient) {
         return repository.findAllByPatient(patient);
-    }
-
-    @Override
-    protected PhysicalChangesTablesDto toTablesDto(PhysicalChanges physicalChanges) {
-        return PhysicalChangesTablesDto
-                .builder()
-                .build();
-    }
-
-    @Override
-    protected PhysicalChangesGraphicsDto toGraphicsDto(PhysicalChanges physicalChanges) {
-        return PhysicalChangesGraphicsDto
-                .builder()
-                .build();
     }
 
 }

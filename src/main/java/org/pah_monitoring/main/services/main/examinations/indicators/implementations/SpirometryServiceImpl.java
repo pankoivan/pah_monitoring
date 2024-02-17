@@ -2,13 +2,14 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.SpirometryGraphicsDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.SpirometryTablesDto;
-import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.dto.in.examinations.indicators.SpirometryAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.SpirometryGraphicsDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.tables.SpirometryTablesDto;
+import org.pah_monitoring.main.entities.additional.indicators.GraphicsTablesInputIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Spirometry;
 import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
@@ -17,6 +18,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.SpirometryRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.GraphicsTablesInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,8 +30,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("spirometryService")
-public class SpirometryServiceImpl extends AbstractInputIndicatorServiceImpl
-        <Spirometry, SpirometryAddingDto, SpirometryTablesDto, SpirometryGraphicsDto> {
+public class SpirometryServiceImpl extends AbstractInputIndicatorServiceImpl<Spirometry, SpirometryAddingDto>
+        implements GraphicsTablesInputIndicatorService<Spirometry, SpirometryAddingDto, SpirometryTablesDto, SpirometryGraphicsDto> {
 
     private final SpirometryRepository repository;
 
@@ -43,22 +45,22 @@ public class SpirometryServiceImpl extends AbstractInputIndicatorServiceImpl
 
     @Override
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
-        return InputIndicatorCard
+        return GraphicsTablesInputIndicatorCard
                 .builder()
-                .workingName(IndicatorType.SPIROMETRY.name())
+                .workingName(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("spirometry.jpg")
+                .schedule(getScheduleFor(patient).orElse(null))
+                .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/spirometry")
                 .tablesLink("/patients/%s/examinations/tables?spirometry".formatted(patient.getId()))
                 .graphicsLink("/patients/%s/examinations/graphics?spirometry".formatted(patient.getId()))
-                .schedule(getScheduleFor(patient).orElse(null))
-                .date(getLastExaminationDateFor(patient).orElse(null))
                 .build();
     }
 
     @Override
-    public List<Spirometry> findAllByPatientId(Integer id) throws DataSearchingServiceException {
-        return repository.findAllByPatientId(patientService.findById(id).getId());
+    public List<Spirometry> findAllByPatientId(Integer patientId) throws DataSearchingServiceException {
+        return repository.findAllByPatientId(patientService.findById(patientId).getId());
     }
 
     @Override
@@ -81,22 +83,18 @@ public class SpirometryServiceImpl extends AbstractInputIndicatorServiceImpl
     }
 
     @Override
+    public SpirometryTablesDto toTablesOutDto() {
+        return null;
+    }
+
+    @Override
+    public SpirometryGraphicsDto toGraphicsOutDto() {
+        return null;
+    }
+
+    @Override
     protected List<InputIndicator> findAllByPatient(Patient patient) {
         return repository.findAllByPatient(patient);
-    }
-
-    @Override
-    protected SpirometryTablesDto toTablesDto(Spirometry spirometry) {
-        return SpirometryTablesDto
-                .builder()
-                .build();
-    }
-
-    @Override
-    protected SpirometryGraphicsDto toGraphicsDto(Spirometry spirometry) {
-        return SpirometryGraphicsDto
-                .builder()
-                .build();
     }
 
 }

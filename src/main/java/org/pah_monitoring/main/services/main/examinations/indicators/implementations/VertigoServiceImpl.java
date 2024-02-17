@@ -2,13 +2,13 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.VertigoGraphicsDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.VertigoTablesDto;
-import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
 import org.pah_monitoring.main.dto.in.examinations.indicators.VertigoAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.tables.VertigoTablesDto;
+import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.TablesInputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Vertigo;
 import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
@@ -17,6 +17,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.VertigoRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.TablesInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,8 +29,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("vertigoService")
-public class VertigoServiceImpl extends AbstractInputIndicatorServiceImpl
-        <Vertigo, VertigoAddingDto, VertigoTablesDto, VertigoGraphicsDto> {
+public class VertigoServiceImpl extends AbstractInputIndicatorServiceImpl<Vertigo, VertigoAddingDto>
+        implements TablesInputIndicatorService<Vertigo, VertigoAddingDto, VertigoTablesDto> {
 
     private final VertigoRepository repository;
 
@@ -43,22 +44,21 @@ public class VertigoServiceImpl extends AbstractInputIndicatorServiceImpl
 
     @Override
     public InputIndicatorCard getInputIndicatorCardFor(Patient patient) {
-        return InputIndicatorCard
+        return TablesInputIndicatorCard
                 .builder()
-                .workingName(IndicatorType.VERTIGO.name())
+                .workingName(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("vertigo.jpg")
-                .postFormLink("/indicators/vertigo")
-                .tablesLink("/patients/%s/examinations/tables?vertigo".formatted(patient.getId()))
-                .graphicsLink("/patients/%s/examinations/graphics?vertigo".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
+                .postFormLink("/indicators/vertigo")
+                .tablesLink("/patients/%s/examinations/tables?vertigo".formatted(patient.getId()))
                 .build();
     }
 
     @Override
-    public List<Vertigo> findAllByPatientId(Integer id) throws DataSearchingServiceException {
-        return repository.findAllByPatientId(patientService.findById(id).getId());
+    public List<Vertigo> findAllByPatientId(Integer patientId) throws DataSearchingServiceException {
+        return repository.findAllByPatientId(patientService.findById(patientId).getId());
     }
 
     @Override
@@ -79,22 +79,13 @@ public class VertigoServiceImpl extends AbstractInputIndicatorServiceImpl
     }
 
     @Override
+    public VertigoTablesDto toTablesOutDto() {
+        return null;
+    }
+
+    @Override
     protected List<InputIndicator> findAllByPatient(Patient patient) {
         return repository.findAllByPatient(patient);
-    }
-
-    @Override
-    protected VertigoTablesDto toTablesDto(Vertigo vertigo) {
-        return VertigoTablesDto
-                .builder()
-                .build();
-    }
-
-    @Override
-    protected VertigoGraphicsDto toGraphicsDto(Vertigo vertigo) {
-        return VertigoGraphicsDto
-                .builder()
-                .build();
     }
 
 }

@@ -29,35 +29,42 @@ import java.util.stream.Stream;
 public class IndicatorCardServiceImpl implements IndicatorCardService {
 
     @Qualifier("chestPainService")
-    private InputIndicatorService<ChestPain, ChestPainAddingDto, ChestPainTablesDto, ChestPainGraphicsDto> chestPainService;
+    private InputIndicatorService<ChestPain, ChestPainAddingDto> chestPainService;
 
     @Qualifier("coughService")
-    private InputIndicatorService<Cough, CoughAddingDto, CoughTablesDto, CoughGraphicsDto> coughService;
+    private InputIndicatorService<Cough, CoughAddingDto> coughService;
 
     @Qualifier("faintingService")
-    private InputIndicatorService<Fainting, FaintingAddingDto, FaintingTablesDto, FaintingGraphicsDto> faintingService;
+    private InputIndicatorService<Fainting, FaintingAddingDto> faintingService;
+
+    @Qualifier("liquidService")
+    private InputIndicatorService<Liquid, LiquidAddingDto> liquidService;
 
     @Qualifier("overallHealthService")
-    private InputIndicatorService<OverallHealth, OverallHealthAddingDto, OverallHealthTablesDto, OverallHealthGraphicsDto> overallHealthService;
+    private InputIndicatorService<OverallHealth, OverallHealthAddingDto> overallHealthService;
 
     @Qualifier("physicalChangesService")
-    private InputIndicatorService<PhysicalChanges, PhysicalChangesAddingDto, PhysicalChangesTablesDto, PhysicalChangesGraphicsDto> physicalChangesService;
+    private InputIndicatorService<PhysicalChanges, PhysicalChangesAddingDto> physicalChangesService;
 
     @Qualifier("pressureService")
-    private InputIndicatorService<Pressure, PressureAddingDto, PressureTablesDto, PressureGraphicsDto> pressureService;
+    private InputIndicatorService<Pressure, PressureAddingDto> pressureService;
 
     @Qualifier("pulseOximetryService")
-    private InputIndicatorService<PulseOximetry, PulseOximetryAddingDto, PulseOximetryTablesDto, PulseOximetryGraphicsDto> pulseOximetryService;
+    private InputIndicatorService<PulseOximetry, PulseOximetryAddingDto> pulseOximetryService;
 
     @Qualifier("spirometryService")
-    private InputIndicatorService<Spirometry, SpirometryAddingDto, SpirometryTablesDto, SpirometryGraphicsDto> spirometryService;
+    private InputIndicatorService<Spirometry, SpirometryAddingDto> spirometryService;
 
     @Qualifier("vertigoService")
-    private InputIndicatorService<Vertigo, VertigoAddingDto, VertigoTablesDto, VertigoGraphicsDto> vertigoService;
+    private InputIndicatorService<Vertigo, VertigoAddingDto> vertigoService;
 
     @Qualifier("walkTestService")
-    private InputIndicatorService<WalkTest, WalkTestAddingDto, WalkTestTablesDto, WalkTestGraphicsDto> walkTestService;
+    private InputIndicatorService<WalkTest, WalkTestAddingDto> walkTestService;
 
+    @Qualifier("weightService")
+    private InputIndicatorService<Weight, WeightAddingDto> weightService;
+
+    @Qualifier("analysisFileService")
     private FileIndicatorService<AnalysisFile, AnalysisFileAddingDto> analysisFileService;
 
     private CurrentUserCheckService checkService;
@@ -74,7 +81,9 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
                 physicalChangesService.getInputIndicatorCardFor(patient),
                 overallHealthService.getInputIndicatorCardFor(patient),
                 vertigoService.getInputIndicatorCardFor(patient),
-                pressureService.getInputIndicatorCardFor(patient)
+                pressureService.getInputIndicatorCardFor(patient),
+                liquidService.getInputIndicatorCardFor(patient),
+                weightService.getInputIndicatorCardFor(patient)
         );
     }
 
