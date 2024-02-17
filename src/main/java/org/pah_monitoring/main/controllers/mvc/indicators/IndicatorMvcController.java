@@ -41,7 +41,7 @@ public class IndicatorMvcController {
     public String getIndicatorsPage(Model model, @PathVariable("id") String pathId) {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathId));
-            service.checkAccessRightsForObtainingAll(patient);
+            service.checkAccessRightsForObtaining(patient);
             model.addAttribute("cards", service.getAllIndicatorCardsFor(patient));
             model.addAttribute("isCurrentUserOwnDoctor", checkService.isOwnDoctor(patient));
             model.addAttribute("isCurrentUserPatient", checkService.isSelf(patient));

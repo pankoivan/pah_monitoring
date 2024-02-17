@@ -86,7 +86,7 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
     }
 
     @Override
-    public void checkAccessRightsForObtainingAll(Patient patient) throws NotEnoughRightsServiceException {
+    public void checkAccessRightsForObtaining(Patient patient) throws NotEnoughRightsServiceException {
         if (!(
                 patient.isActive() &&
                 (checkService.isSelf(patient) ||
