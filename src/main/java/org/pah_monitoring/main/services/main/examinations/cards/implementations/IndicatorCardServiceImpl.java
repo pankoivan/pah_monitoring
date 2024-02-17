@@ -3,8 +3,6 @@ package org.pah_monitoring.main.services.main.examinations.cards.implementations
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.dto.in.examinations.indicators.*;
-import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.*;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.*;
 import org.pah_monitoring.main.entities.additional.indicators.FileIndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.InputIndicatorCard;
@@ -105,8 +103,11 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
     @Override
     public void checkAccessRightsForObtainingAll(Patient patient) throws NotEnoughRightsServiceException {
         if (!(
-                checkService.isSelf(patient) ||
-                checkService.isOwnDoctor(patient)
+                patient.isActive() &&
+                (checkService.isSelf(patient) ||
+                checkService.isOwnDoctor(patient)) ||
+                patient.isNotActive() &&
+                checkService.isDoctorFromSameHospital(patient.getHospital())
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
