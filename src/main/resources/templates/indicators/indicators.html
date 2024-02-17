@@ -18,12 +18,8 @@
         <!---->
         <div class="container text-secondary my-5">
             <!---->
-            <div class="row mb-3">
-                <h2 class="text-secondary text-center fs-2">Результаты наблюдений</h2>
-            </div>
-            <!---->
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center g-3 mb-5">
-                <div class="col mx-auto" th:each="each : ${inputIndicatorCards}">
+                <div class="col mx-auto" th:each="each : ${cards}">
                     <div class="card bg-indicator text-secondary">
                         <img src="../../static/img/indicators/Давление.jpg" th:src="@{'/img/indicators/' + ${each.filename}}" class="card-img-top rounded px-2 pt-2" alt="Давление" />
                         <div class="card-body text-start">
@@ -39,49 +35,20 @@
                                 <img width="18" class="mb-1" src="../../static/svg/date.svg" th:src="@{/svg/date.svg}" alt="Дата" />
                                 Дата последней отправки: <span class="text-lowercase" th:text="${each.date != null} ? ${each.formattedDate} : 'Ни разу не отправлял'">14:48:56 20-11-2019</span>
                             </p>
-                            <p class="mb-3" th:if="${isCurrentUserOwnDoctor}">
+                            <p class="mb-3" th:if="${each.isTablesInputIndicatorCard}">
                                 <img width="18" class="mb-1" src="../../static/svg/table.svg" th:src="@{/svg/table.svg}" alt="Таблица" />
-                                <a href="#" th:href="@{${each.tablesRef}}" class="text-secondary">Посмотреть в виде таблицы</a>
+                                <a href="#" th:href="@{${each.tablesLink}}" class="text-secondary">Посмотреть в виде таблицы</a>
                             </p>
-                            <p class="mb-0" th:if="${isCurrentUserOwnDoctor}">
+                            <p class="mb-3" th:if="${each.isGraphicsTablesInputIndicatorCard}">
                                 <img width="18" class="mb-1" src="../../static/svg/graphic.svg" th:src="@{/svg/graphic.svg}" alt="График" />
-                                <a href="#" th:href="@{${each.graphicsRef}}" class="text-secondary">Посмотреть в виде графиков</a>
+                                <a href="#" th:href="@{${each.graphicsLink}}" class="text-secondary">Посмотреть в виде графиков</a>
                             </p>
-                            <p class="mb-0" th:if="${isCurrentUserPatient}">
-                                <a href="#" th:href="@{${each.postFormRef}}" class="btn btn-sm btn-primary">Перейти к отправке</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!---->
-            <div class="row mb-3">
-                <h2 class="text-secondary text-center fs-2">Результаты анализов</h2>
-            </div>
-            <!---->
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center g-3">
-                <div class="col mx-auto" th:each="each : ${fileIndicatorCards}">
-                    <div class="card bg-indicator text-secondary">
-                        <img src="../../static/img/indicators/blood-test.jpg" th:src="@{'/img/indicators/' + ${each.filename}}" class="card-img-top rounded px-2 pt-2" alt="Развёрнутый анализ крови" />
-                        <div class="card-body text-start">
-                            <h5 class="card-title text-center mb-3" th:text="${each.name}">Развёрнутый анализ крови</h5>
-                            <p th:attr="data-block=${each.workingName}" class="mb-3">
-                                <a th:attr="data-edit=${each.workingName}" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
-                                    <img width="18" class="mb-1" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
-                                </a>
-                                <img width="18" class="mb-1" th:if="${isCurrentUserPatient}" src="../../static/svg/schedule.svg" th:src="@{/svg/schedule.svg}" alt="Расписание" />
-                                Текущее расписание: <span th:attr="data-schedule=${each.workingName}" class="text-lowercase" th:text="${each.schedule != null} ? ${each.schedule} : 'Отсутствует'">Раз в полгода</span>
-                            </p>
-                            <p class="mb-3">
-                                <img width="18" class="mb-1" src="../../static/svg/date.svg" th:src="@{/svg/date.svg}" alt="Дата" />
-                                Дата последней отправки: <span class="text-lowercase" th:text="${each.date != null} ? ${each.formattedDate} : 'Ни разу не отправлял'">14:48:56 20-11-2019</span>
-                            </p>
-                            <p class="mb-0" th:if="${isCurrentUserOwnDoctor}">
+                            <p class="mb-3" th:if="${each.isFileInputIndicatorCard}">
                                 <img width="18" class="mb-1" src="../../static/svg/files.svg" th:src="@{/svg/files.svg}" alt="Файлы" />
-                                <a href="#" th:href="@{${each.filesRef}}" class="text-secondary">Посмотреть в виде файлов</a>
+                                <a href="#" th:href="@{${each.filesLink}}" class="text-secondary">Посмотреть в виде файлов</a>
                             </p>
                             <p class="mb-0" th:if="${isCurrentUserPatient}">
-                                <a href="#" th:href="@{${each.postFormRef}}" class="btn btn-sm btn-primary">Перейти к отправке</a>
+                                <a href="#" th:href="@{${each.postFormLink}}" class="btn btn-sm btn-primary">Перейти к отправке</a>
                             </p>
                         </div>
                     </div>
