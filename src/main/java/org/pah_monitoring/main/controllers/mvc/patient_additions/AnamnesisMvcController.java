@@ -1,9 +1,13 @@
 package org.pah_monitoring.main.controllers.mvc.patient_additions;
 
 import lombok.AllArgsConstructor;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.dto.out.patient_additions.AnamnesisOutDto;
 import org.pah_monitoring.main.entities.main.enums.TrueFalseEnum;
 import org.pah_monitoring.main.entities.main.patient_additions.Anamnesis;
+import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -13,6 +17,7 @@ import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMappe
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.RedirectService;
 import org.pah_monitoring.main.services.main.patient_additions.interfaces.AnamnesisService;
+import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -33,6 +38,9 @@ public class AnamnesisMvcController {
 
     private final PageHeaderService pageHeaderService;
 
+    @Qualifier("patientService")
+    private final HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
+
     @Qualifier("anamnesisMapper")
     private final BaseEntityToOutDtoMapper<Anamnesis, AnamnesisOutDto> anamnesisMapper;
 
@@ -52,15 +60,18 @@ public class AnamnesisMvcController {
     @PreAuthorize("hasAnyRole('PATIENT', 'DOCTOR')")
     public String getAnamnesisPage(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            Anamnesis anamnesis = service.findByPatientId(service.parsePathId(pathPatientId));
-            service.checkAccessRightsForObtaining(anamnesis.getPatient());
-            model.addAttribute("anamnesis", anamnesisMapper.map(anamnesis));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            service.checkAccessRightsForObtaining(patient);
+            model.addAttribute("anamnesis", anamnesisMapper.map(service.findByPatientId(patient.getId())));
             pageHeaderService.addHeader(model);
             return "patient_additions/anamnesis";
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

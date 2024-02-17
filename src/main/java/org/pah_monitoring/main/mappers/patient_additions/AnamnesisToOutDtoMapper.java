@@ -6,23 +6,26 @@ import org.pah_monitoring.main.entities.main.patient_additions.Anamnesis;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component("anamnesisMapper")
 public class AnamnesisToOutDtoMapper implements BaseEntityToOutDtoMapper<Anamnesis, AnamnesisOutDto> {
 
     @Override
     public AnamnesisOutDto map(Anamnesis anamnesis) {
-        return AnamnesisOutDto
-                .builder()
-                .patientId(anamnesis.getPatient().getId())
-                .heartDisease(anamnesis.getHeartDisease())
-                .lungDisease(anamnesis.getLungDisease())
-                .relativesDiseases(anamnesis.getRelativesDiseases())
-                .bloodClotting(anamnesis.getBloodClotting())
-                .diabetes(anamnesis.getDiabetes())
-                .height(anamnesis.getHeight())
-                .weight(anamnesis.getWeight())
-                .bodyMassIndex(FormulaUtils.bodyMassIndex(anamnesis.getWeight(), anamnesis.getHeight()))
-                .build();
+        return Optional.ofNullable(anamnesis).map(mappedAnamnesis -> AnamnesisOutDto
+                        .builder()
+                        .patientId(mappedAnamnesis.getPatient().getId())
+                        .heartDisease(mappedAnamnesis.getHeartDisease())
+                        .lungDisease(mappedAnamnesis.getLungDisease())
+                        .relativesDiseases(mappedAnamnesis.getRelativesDiseases())
+                        .bloodClotting(mappedAnamnesis.getBloodClotting())
+                        .diabetes(mappedAnamnesis.getDiabetes())
+                        .height(mappedAnamnesis.getHeight())
+                        .weight(mappedAnamnesis.getWeight())
+                        .bodyMassIndex(FormulaUtils.bodyMassIndex(mappedAnamnesis.getWeight(), mappedAnamnesis.getHeight()))
+                        .build())
+                .orElse(null);
     }
 
 }
