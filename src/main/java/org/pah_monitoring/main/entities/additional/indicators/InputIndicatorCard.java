@@ -9,6 +9,6 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @SuperBuilder
-public class InputIndicatorCard extends IndicatorCard {
+public abstract class InputIndicatorCard extends IndicatorCard {
 
 }

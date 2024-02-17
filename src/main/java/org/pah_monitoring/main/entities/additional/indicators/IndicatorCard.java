@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @SuperBuilder
-public class IndicatorCard {
+public abstract class IndicatorCard {
 
     private IndicatorType workingName;
 
@@ -26,5 +26,13 @@ public class IndicatorCard {
     public String getFormattedDate() {
         return DateTimeFormatConstants.HOUR_MINUTE_SECOND_DAY_MONTH_YEAR.format(date);
     }
+
+    public abstract boolean isFileIndicatorCard();
+
+    public abstract boolean isInputIndicatorCard();
+
+    public abstract boolean isTablesInputIndicatorCard();
+
+    public abstract boolean isGraphicsTablesInputIndicatorCard();
 
 }

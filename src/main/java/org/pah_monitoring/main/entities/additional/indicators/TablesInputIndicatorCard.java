@@ -13,4 +13,24 @@ public class TablesInputIndicatorCard extends InputIndicatorCard {
 
     private String tablesLink;
 
+    @Override
+    public boolean isFileIndicatorCard() {
+        return false;
+    }
+
+    @Override
+    public boolean isInputIndicatorCard() {
+        return true;
+    }
+
+    @Override
+    public boolean isTablesInputIndicatorCard() {
+        return true;
+    }
+
+    @Override
+    public boolean isGraphicsTablesInputIndicatorCard() {
+        return false;
+    }
+
 }

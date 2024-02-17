@@ -13,4 +13,9 @@ public class GraphicsTablesInputIndicatorCard extends TablesInputIndicatorCard {
 
     private String graphicsLink;
 
+    @Override
+    public boolean isGraphicsTablesInputIndicatorCard() {
+        return true;
+    }
+
 }

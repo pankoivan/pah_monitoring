@@ -13,4 +13,24 @@ public class FileIndicatorCard extends IndicatorCard {
 
     private String filesLink;
 
+    @Override
+    public boolean isFileIndicatorCard() {
+        return true;
+    }
+
+    @Override
+    public boolean isInputIndicatorCard() {
+        return false;
+    }
+
+    @Override
+    public boolean isTablesInputIndicatorCard() {
+        return false;
+    }
+
+    @Override
+    public boolean isGraphicsTablesInputIndicatorCard() {
+        return false;
+    }
+
 }
