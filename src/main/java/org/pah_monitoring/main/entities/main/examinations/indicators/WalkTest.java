@@ -3,7 +3,7 @@ package org.pah_monitoring.main.entities.main.examinations.indicators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
-import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
+import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.GraphicsTablesInputIndicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 
 import java.time.LocalDateTime;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "walk_test")
-public class WalkTest implements InputIndicator {
+public class WalkTest implements GraphicsTablesInputIndicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,29 +84,29 @@ public class WalkTest implements InputIndicator {
     @Getter
     public enum Breathlessness {
 
-        SCORE_0("Отсутствует"),
+        SCORE_0("Отсутствует (0)"),
 
-        SCORE_0_5("Очень-очень лёгкая"),
+        SCORE_0_5("Очень-очень лёгкая (0.5)"),
 
-        SCORE_1("Очень лёгкая"),
+        SCORE_1("Очень лёгкая (1)"),
 
-        SCORE_2("Лёгкая"),
+        SCORE_2("Лёгкая (2)"),
 
-        SCORE_3("Умеренная"),
+        SCORE_3("Умеренная (3)"),
 
-        SCORE_4("В некоторой степени тяжёлая"),
+        SCORE_4("В некоторой степени тяжёлая (4)"),
 
-        SCORE_5("Тяжёлая"),
+        SCORE_5("Тяжёлая (5)"),
 
-        SCORE_6("Тяжёлая"),
+        SCORE_6("Тяжёлая (6)"),
 
-        SCORE_7("Очень тяжёлая"),
+        SCORE_7("Очень тяжёлая (7)"),
 
-        SCORE_8("Очень тяжёлая"),
+        SCORE_8("Очень тяжёлая (8)"),
 
-        SCORE_9("Очень-очень тяжёлая"),
+        SCORE_9("Очень-очень тяжёлая (9)"),
 
-        SCORE_10("Максимальная");
+        SCORE_10("Максимальная (10)");
 
         private final String alias;
 

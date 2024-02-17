@@ -3,7 +3,7 @@ package org.pah_monitoring.main.entities.main.examinations.indicators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
-import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
+import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.TablesInputIndicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 
 import java.time.LocalDateTime;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "physical_changes")
-public class PhysicalChanges implements InputIndicator {
+public class PhysicalChanges implements TablesInputIndicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +26,14 @@ public class PhysicalChanges implements InputIndicator {
     @Column(name = "abdominal_enlargement")
     private Boolean abdominalEnlargement;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "legs_swelling")
     private LegsSwelling legsSwelling;
 
     @Column(name = "vascular_asterisks")
     private Boolean vascularAsterisks;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "skin_color")
     private SkinColor skinColor;
 
@@ -57,7 +59,7 @@ public class PhysicalChanges implements InputIndicator {
 
         MORNING("Утром"),
 
-        EVENING("Вечером"),
+        EVENING("К вечеру"),
 
         CONSTANTLY("Постоянно");
 

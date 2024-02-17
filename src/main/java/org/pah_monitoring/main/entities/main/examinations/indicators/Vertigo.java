@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.main.enums.EventDuration;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
-import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
+import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.TablesInputIndicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 
 import java.time.LocalDateTime;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "vertigo")
-public class Vertigo implements InputIndicator {
+public class Vertigo implements TablesInputIndicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

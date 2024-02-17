@@ -3,7 +3,7 @@ package org.pah_monitoring.main.entities.main.examinations.indicators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
-import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
+import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.TablesInputIndicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 
 import java.time.LocalDateTime;
@@ -16,16 +16,18 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "overall_health")
-public class OverallHealth implements InputIndicator {
+public class OverallHealth implements TablesInputIndicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "breathlessness")
     private Conditions breathlessness;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "fatigue")
     private Conditions fatigue;
 
@@ -38,6 +40,7 @@ public class OverallHealth implements InputIndicator {
     @Column(name = "concentration")
     private Boolean concentration;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "weakness")
     private Weakness weakness;
 
@@ -79,9 +82,9 @@ public class OverallHealth implements InputIndicator {
 
         AT_REST("В покое"),
 
-        NORMAL_PHYSICAL_ACTIVITY("При обычной физической активности"),
+        NORMAL_PHYSICAL_ACTIVITY("При обычной физической нагрузке"),
 
-        INCREASED_PHYSICAL_ACTIVITY("При повышенной физической активности"),
+        INCREASED_PHYSICAL_ACTIVITY("При повышенной физической нагрузке"),
 
         NO("Нет");
 

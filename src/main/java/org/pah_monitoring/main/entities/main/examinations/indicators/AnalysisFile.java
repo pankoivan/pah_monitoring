@@ -2,7 +2,7 @@ package org.pah_monitoring.main.entities.main.examinations.indicators;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.Indicator;
+import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.FileIndicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "analysis_file")
-public class AnalysisFile implements Indicator {
+public class AnalysisFile implements FileIndicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
