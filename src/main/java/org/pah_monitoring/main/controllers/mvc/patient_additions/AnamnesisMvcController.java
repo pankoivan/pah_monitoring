@@ -69,9 +69,6 @@ public class AnamnesisMvcController {
             throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
     }
 
