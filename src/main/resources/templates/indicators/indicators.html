@@ -90,39 +90,7 @@
             <!---->
         </div>
         <!---->
-        <div class="modal fade" id="schedule-editing-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-4" id="schedule-editing-modal-title">Редактирование расписания</h1>
-                        <button id="schedule-editing-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body fs-5" id="schedule-editing-modal-text">
-                        <form id="schedule-editing-form" action="#" class="border rounded text-secondary fs-5 p-3">
-                            <div class="mb-3">
-                                <label for="patient" class="form-label">Пациент</label>
-                                <input id="patient" type="text" name="patient" class="form-control" th:value="${patient.userInformation.fullName}" disabled />
-                            </div>
-                            <div class="mb-3">
-                                <label for="indicator" class="form-label">Показатель</label>
-                                <input id="indicator" type="text" name="indicator" class="form-control" disabled />
-                            </div>
-                            <div class="mb-4">
-                                <label for="schedule" class="form-label">Расписание</label>
-                                <input id="schedule" type="text" name="schedule" class="form-control" placeholder="3 раза в неделю" />
-                            </div>
-                            <div class="d-flex flex-row align-items-center justify-content-between mb-2">
-                                <button id="save" type="button" class="btn btn-primary">Сохранить</button>
-                                <button id="delete" type="button" class="btn btn-danger">Удалить</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="schedule-editing-modal-close-2" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div th:replace="${isCurrentUserOwnDoctor} ? ~{/indicators/modal/schedule-editing-modal :: schedule-editing-modal} : ~{}"></div>
         <!---->
         <div th:replace="${isCurrentUserOwnDoctor} ? ~{/fragments/modal/error-modal :: error-modal} : ~{}"></div>
         <div th:replace="${isCurrentUserOwnDoctor} ? ~{/fragments/modal/success-modal :: success-modal} : ~{}"></div>
