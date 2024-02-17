@@ -59,7 +59,7 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
     public IndicatorCard getIndicatorCardFor(AnalysisFile.AnalysisType type, Patient patient) {
         return FileIndicatorCard
                 .builder()
-                .workingName(IndicatorType.valueOf(type.getName()))
+                .workingName(IndicatorType.valueOf(type.name()))
                 .name(type.getName())
                 .filename(type.getFilename())
                 .schedule(getScheduleFor(type, patient).orElse(null))

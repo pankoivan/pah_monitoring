@@ -43,7 +43,7 @@
                                 <img width="18" class="mb-1" src="../../static/svg/graphic.svg" th:src="@{/svg/graphic.svg}" alt="График" />
                                 <a href="#" th:href="@{${each.graphicsLink}}" class="text-secondary">Посмотреть в виде графиков</a>
                             </p>
-                            <p class="mb-3" th:if="${each.isFileInputIndicatorCard}">
+                            <p class="mb-3" th:if="${each.isFileIndicatorCard}">
                                 <img width="18" class="mb-1" src="../../static/svg/files.svg" th:src="@{/svg/files.svg}" alt="Файлы" />
                                 <a href="#" th:href="@{${each.filesLink}}" class="text-secondary">Посмотреть в виде файлов</a>
                             </p>
