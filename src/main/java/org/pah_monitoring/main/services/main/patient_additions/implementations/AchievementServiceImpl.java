@@ -86,7 +86,7 @@ public class AchievementServiceImpl implements AchievementService {
     }
 
     private void historian(Patient patient) {
-        if (patient.hasAnamnesis() && !patient.hasNoAchievement(achievements.get("Историк"))) {
+        if (patient.hasAnamnesis() && patient.hasNoAchievement(achievements.get("Историк"))) {
             patientService.award(patient, achievements.get("Историк"));
         }
     }
