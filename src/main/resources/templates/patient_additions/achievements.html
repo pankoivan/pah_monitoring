@@ -26,7 +26,7 @@
                 <p th:if="${!currentUser.isPatient}">Например, за отправку анамнеза пациент получит награду "Историк", за первую отправку показателя "Т6МХ" - награду "Прогулка", за 50 отправок любых показателей - награду "Упорный".</p>
             </div>
             <!---->
-            <div class="row fs-5 mb-3" th:if="${patient != null}">
+            <div class="row fs-5 mb-5" th:if="${patient != null}">
                 <h1 class="text-center fs-3">
                     <span th:if="${isSelf}">Ваши награды</span>
                     <span th:if="${!isSelf}">
