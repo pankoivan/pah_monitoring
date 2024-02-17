@@ -34,6 +34,9 @@ public abstract class AbstractIndicatorServiceImpl<T, M> implements IndicatorSer
                     """
             );
         }
+        if (extractionService.patient().hasNoAnamnesis()) {
+            throw new DataValidationServiceException("Прежде чем отправлять результаты наблюдений, сначала отправьте анамнез");
+        }
     }
 
     @Override
