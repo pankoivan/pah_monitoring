@@ -9,8 +9,8 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @SuperBuilder
-public class FileIndicatorCard extends IndicatorCard {
+public class GraphicsTablesInputIndicatorCard extends TablesInputIndicatorCard {
 
-    private String filesLink;
+    private String graphicsLink;
 
 }

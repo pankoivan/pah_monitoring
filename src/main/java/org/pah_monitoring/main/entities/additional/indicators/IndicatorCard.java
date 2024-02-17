@@ -1,26 +1,23 @@
 package org.pah_monitoring.main.entities.additional.indicators;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
+import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 @SuperBuilder
 public class IndicatorCard {
 
-    private String workingName;
+    private IndicatorType workingName;
 
     private String name;
 
     private String filename;
 
-    private String postFormRef;
+    private String postFormLink;
 
     private String schedule;
 

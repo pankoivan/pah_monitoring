@@ -15,7 +15,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.AnalysisFileRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractIndicatorServiceImpl;
-import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.AnalysisFileService;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.FileIndicatorService;
 import org.pah_monitoring.main.services.main.examinations.schedules.interfaces.ExaminationScheduleService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ import java.util.function.Function;
 @Setter(onMethod = @__(@Autowired))
 @Service
 public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<AnalysisFile, AnalysisFileAddingDto>
-        implements AnalysisFileService<AnalysisFile, AnalysisFileAddingDto> {
+        implements FileIndicatorService<AnalysisFile, AnalysisFileAddingDto> {
 
     private final AnalysisFileRepository repository;
 
@@ -61,8 +61,8 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
                 .workingName(type.getWorkingName())
                 .name(type.getName())
                 .filename(type.getFilename())
-                .postFormRef(type.getPostFormRef())
-                .filesRef(type.getFilesRef().formatted(patient.getId()))
+                .postFormLink(type.getPostFormRef())
+                .filesLink(type.getFilesRef().formatted(patient.getId()))
                 .schedule(getScheduleFor(type, patient).orElse(null))
                 .date(getLastExaminationDateFor(type, patient).orElse(null))
                 .build();

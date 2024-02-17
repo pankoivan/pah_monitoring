@@ -48,9 +48,9 @@ public class ChestPainServiceImpl extends AbstractInputIndicatorServiceImpl
                 .workingName(IndicatorType.CHEST_PAIN.name())
                 .name(getIndicatorType().getAlias())
                 .filename("chest-pain.jpg")
-                .postFormRef("/indicators/chest-pain")
-                .tablesRef("/patients/%s/examinations/tables?chest-pain".formatted(patient.getId()))
-                .graphicsRef("/patients/%s/examinations/graphics?chest-pain".formatted(patient.getId()))
+                .postFormLink("/indicators/chest-pain")
+                .tablesLink("/patients/%s/examinations/tables?chest-pain".formatted(patient.getId()))
+                .graphicsLink("/patients/%s/examinations/graphics?chest-pain".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .build();

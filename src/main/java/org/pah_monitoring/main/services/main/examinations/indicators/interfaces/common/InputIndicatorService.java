@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-public interface InputIndicatorService<T, M, N, R> extends IndicatorService<T, M> {
+public interface InputIndicatorService<T, M> extends IndicatorService<T, M> {
 
     IndicatorType getIndicatorType();
 
@@ -19,10 +19,6 @@ public interface InputIndicatorService<T, M, N, R> extends IndicatorService<T, M
 
     InputIndicatorCard getInputIndicatorCardFor(Patient patient);
 
-    List<T> findAllByPatientId(Integer id) throws DataSearchingServiceException;
-
-    List<N> forTables(List<T> list);
-
-    List<R> forGraphics(List<T> list);
+    List<T> findAllByPatientId(Integer patientId) throws DataSearchingServiceException;
 
 }

@@ -48,9 +48,9 @@ public class PulseOximetryServiceImpl extends AbstractInputIndicatorServiceImpl
                 .workingName(IndicatorType.PULSE_OXIMETRY.name())
                 .name(getIndicatorType().getAlias())
                 .filename("pulse-oximetry.jpg")
-                .postFormRef("/indicators/pulse-oximetry")
-                .tablesRef("/patients/%s/examinations/tables?pulse-oximetry".formatted(patient.getId()))
-                .graphicsRef("/patients/%s/examinations/graphics?pulse-oximetry".formatted(patient.getId()))
+                .postFormLink("/indicators/pulse-oximetry")
+                .tablesLink("/patients/%s/examinations/tables?pulse-oximetry".formatted(patient.getId()))
+                .graphicsLink("/patients/%s/examinations/graphics?pulse-oximetry".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .build();

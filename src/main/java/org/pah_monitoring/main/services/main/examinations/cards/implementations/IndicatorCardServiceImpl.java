@@ -13,7 +13,7 @@ import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.examinations.cards.interfaces.IndicatorCardService;
-import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.AnalysisFileService;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.FileIndicatorService;
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.InputIndicatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -58,7 +58,7 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
     @Qualifier("walkTestService")
     private InputIndicatorService<WalkTest, WalkTestAddingDto, WalkTestTablesDto, WalkTestGraphicsDto> walkTestService;
 
-    private AnalysisFileService<AnalysisFile, AnalysisFileAddingDto> analysisFileService;
+    private FileIndicatorService<AnalysisFile, AnalysisFileAddingDto> analysisFileService;
 
     private CurrentUserCheckService checkService;
 

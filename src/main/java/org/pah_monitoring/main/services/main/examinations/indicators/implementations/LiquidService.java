@@ -48,9 +48,9 @@ public class LiquidService extends AbstractInputIndicatorServiceImpl
                 .workingName(IndicatorType.WEIGHT.name())
                 .name(getIndicatorType().getAlias())
                 .filename("liquid.jpg")
-                .postFormRef("/indicators/liquid")
-                .tablesRef("/patients/%s/examinations/tables?liquid".formatted(patient.getId()))
-                .graphicsRef("/patients/%s/examinations/graphics?liquid".formatted(patient.getId()))
+                .postFormLink("/indicators/liquid")
+                .tablesLink("/patients/%s/examinations/tables?liquid".formatted(patient.getId()))
+                .graphicsLink("/patients/%s/examinations/graphics?liquid".formatted(patient.getId()))
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .build();

@@ -9,8 +9,6 @@ public interface IndicatorService<T, M> extends DataAddingValidationService<M> {
 
     T add(M addingDto) throws DataSavingServiceException;
 
-    void checkAccessRightsForAdding(Patient patient) throws NotEnoughRightsServiceException;
-
-    void checkAccessRightsForObtainingAll(Patient patient) throws NotEnoughRightsServiceException;
+    void checkAccessRightsForObtaining(Patient patient) throws NotEnoughRightsServiceException;
 
 }

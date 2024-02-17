@@ -37,18 +37,11 @@ public abstract class AbstractIndicatorServiceImpl<T, M> implements IndicatorSer
     }
 
     @Override
-    public void checkAccessRightsForObtainingAll(Patient patient) throws NotEnoughRightsServiceException {
+    public void checkAccessRightsForObtaining(Patient patient) throws NotEnoughRightsServiceException {
         if (!(
                 checkService.isSelf(patient) ||
                 checkService.isOwnDoctor(patient)
         )) {
-            throw new NotEnoughRightsServiceException("Недостаточно прав");
-        }
-    }
-
-    @Override
-    public void checkAccessRightsForAdding(Patient patient) throws NotEnoughRightsServiceException {
-        if (!checkService.isPatient()) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
     }
