@@ -16,6 +16,7 @@ import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceExcept
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.RedirectService;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.patient_additions.interfaces.AnamnesisService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AnamnesisMvcController {
 
     private final AnamnesisService service;
+
+    private final CurrentUserCheckService checkService;
 
     private final RedirectService redirectService;
 
@@ -63,6 +66,8 @@ public class AnamnesisMvcController {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             service.checkAccessRightsForObtaining(patient);
             model.addAttribute("anamnesis", anamnesisMapper.map(service.findByPatientId(patient.getId())));
+            model.addAttribute("patient", patient);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "patient_additions/anamnesis";
         } catch (NotEnoughRightsServiceException e) {

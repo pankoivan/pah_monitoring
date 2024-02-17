@@ -4,13 +4,13 @@ anamnesisForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const data = {
-        heartDisease: userRegistrationForm.querySelector('input[name="heartDisease"]:checked').value,
-        lungDisease: userRegistrationForm.querySelector('input[name="lungDisease"]:checked').value,
-        relativesDiseases: userRegistrationForm.querySelector('input[name="relativesDiseases"]:checked').value,
-        bloodClotting: userRegistrationForm.querySelector('input[name="bloodClotting"]:checked').value,
-        diabetes: userRegistrationForm.querySelector('input[name="diabetes"]:checked').value,
-        height: userRegistrationForm.querySelector('input[name="height"]').value,
-        weight: userRegistrationForm.querySelector('input[name="weight"]').value,
+        heartDisease: checked(anamnesisForm.querySelector('input[name="heartDisease"]:checked')),
+        lungDisease: checked(anamnesisForm.querySelector('input[name="lungDisease"]:checked')),
+        relativesDiseases: checked(anamnesisForm.querySelector('input[name="relativesDiseases"]:checked')),
+        bloodClotting: checked(anamnesisForm.querySelector('input[name="bloodClotting"]:checked')),
+        diabetes: checked(anamnesisForm.querySelector('input[name="diabetes"]:checked')),
+        height: anamnesisForm.querySelector('input[name="height"]').value,
+        weight: anamnesisForm.querySelector('input[name="weight"]').value,
     };
 
     fetchAdd(data);
@@ -71,4 +71,8 @@ function fillSuccessModalText(responseJson) {
     successModalText.appendChild(document.createTextNode("Перейти к просмотру "));
     successModalText.appendChild(toAnamnesis);
     successModalText.appendChild(document.createTextNode("."));
+}
+
+function checked(checked) {
+    return checked ? checked.value : checked;
 }

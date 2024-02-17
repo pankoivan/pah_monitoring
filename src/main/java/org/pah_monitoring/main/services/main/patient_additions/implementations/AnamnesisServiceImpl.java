@@ -49,6 +49,7 @@ public class AnamnesisServiceImpl implements AnamnesisService {
                             .diabetes(addingDto.getDiabetes())
                             .height(addingDto.getHeight())
                             .weight(addingDto.getWeight())
+                            .patient(extractionService.patient())
                             .build()
             );
         } catch (Exception e) {
@@ -62,7 +63,7 @@ public class AnamnesisServiceImpl implements AnamnesisService {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
         try {
-            if (extractionService.patient().hasNoAnamnesis()) {
+            if (extractionService.patient().hasAnamnesis()) {
                 throw new DataValidationServiceException("Нельзя отправить больше одного анамнеза");
             }
         } catch (NullPointerException | ClassCastException e) {

@@ -18,6 +18,10 @@
         <!---->
         <div class="container text-secondary my-5">
             <!---->
+            <div class="row fs-5 mb-5">
+                <h1 class="text-center fs-3">Анамнез</h1>
+            </div>
+            <!---->
             <div class="row">
                 <div class="col-12">
                     <form action="#" method="post" id="anamnesis-form" class="fs-5">
@@ -29,7 +33,7 @@
                             </div>
                         </div>
                         <div class="mb-5">
-                            <h4 class="fs-4">Имеется ли у вас хроническое заболевание лёгких?</h4>
+                            <h4 class="fs-4">Имеются ли у вас хронические заболевания лёгких?</h4>
                             <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
                                 <label class="form-check-label" th:for="'lungDisease' + ${each}" th:text="${each.yesNo}">Нет</label>
                                 <input th:id="'lungDisease' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="lungDisease" />
@@ -75,7 +79,7 @@
         <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
-        <script src="../../static/js/patient-additions/anamnesis-form.js" th:src="@{/js/patient-additions/anamnesis-form.js}"></script>
+        <script src="../../static/js/patient_additions/anamnesis-form.js" th:src="@{/js/patient_additions/anamnesis-form.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>
