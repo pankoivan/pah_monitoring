@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.entities.main.users.info;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
@@ -52,7 +51,7 @@ public class UserInformation implements BaseEntity {
     private List<UserMessage> receivedMessages;
 
     public String getFullName() {
-        return !patronymic.isEmpty()
+        return patronymic != null
                 ? "%s %s %s".formatted(lastname, name, patronymic)
                 : "%s %s".formatted(lastname, name);
     }
