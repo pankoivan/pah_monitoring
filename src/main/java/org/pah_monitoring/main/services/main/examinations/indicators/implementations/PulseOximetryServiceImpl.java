@@ -69,7 +69,7 @@ public class PulseOximetryServiceImpl extends AbstractInputIndicatorServiceImpl
                             .builder()
                             .oxygenPercentage(addingDto.getOxygenPercentage())
                             .pulseRate(addingDto.getPulseRate())
-                            .afterExercise(addingDto.getDuringExercise())
+                            .afterExercise(addingDto.getAfterExercise())
                             .date(LocalDateTime.now())
                             .patient(getExtractionService().patient())
                             .build()

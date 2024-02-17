@@ -69,7 +69,7 @@ public class PressureServiceImpl extends AbstractInputIndicatorServiceImpl
                             .builder()
                             .upper(addingDto.getUpper())
                             .lower(addingDto.getLower())
-                            .afterExercise(addingDto.getDuringExercise())
+                            .afterExercise(addingDto.getAfterExercise())
                             .date(LocalDateTime.now())
                             .patient(getExtractionService().patient())
                             .build()

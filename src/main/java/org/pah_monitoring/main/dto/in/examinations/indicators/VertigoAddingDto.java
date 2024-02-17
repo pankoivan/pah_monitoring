@@ -7,10 +7,10 @@ import org.pah_monitoring.main.entities.main.enums.EventDuration;
 @Data
 public class VertigoAddingDto {
 
-    @NotNull(message = "Поле \"duration\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Продолжительность\" является обязательным")
     private EventDuration duration;
 
-    @NotNull(message = "Поле \"nausea\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Тошнота\" является обязательным")
     private Boolean nausea;
 
 }

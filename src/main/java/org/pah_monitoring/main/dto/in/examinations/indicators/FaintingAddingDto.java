@@ -7,10 +7,10 @@ import org.pah_monitoring.main.entities.main.enums.EventDuration;
 @Data
 public class FaintingAddingDto {
 
-    @NotNull(message = "Поле \"duration\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Продолжительность\" является обязательным")
     private EventDuration duration;
 
-    @NotNull(message = "Поле \"duringExercise\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Во время упражнения\" является обязательным")
     private Boolean duringExercise;
 
 }

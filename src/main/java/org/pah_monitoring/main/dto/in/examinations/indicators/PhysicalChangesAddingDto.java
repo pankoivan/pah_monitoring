@@ -7,28 +7,25 @@ import org.pah_monitoring.main.entities.main.examinations.indicators.PhysicalCha
 @Data
 public class PhysicalChangesAddingDto {
 
-    @NotNull(message = "Поле \"abdominalEnlargement\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Увеличение живота без переедания\" является обязательным")
     private Boolean abdominalEnlargement;
 
-    @NotNull(message = "Поле \"legsSwelling\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Отёки ног\" является обязательным")
     private PhysicalChanges.LegsSwelling legsSwelling;
 
-    @NotNull(message = "Поле \"vascularAsterisks\" не должно отсутствовать")
+    @NotNull(message = "Поле \"«Сосудистые звёздочки» или «паутинки» на коже\" является обязательным")
     private Boolean vascularAsterisks;
 
-    @NotNull(message = "Поле \"skinColor\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Цвет губ и кожи\" является обязательным")
     private PhysicalChanges.SkinColor skinColor;
 
-    @NotNull(message = "Поле \"acrocyanosis\" не должно отсутствовать")
-    private Boolean acrocyanosis;
-
-    @NotNull(message = "Поле \"fingersPhalanges\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Утолщённые пальцы\" является обязательным")
     private Boolean fingersPhalanges;
 
-    @NotNull(message = "Поле \"chest\" не должно отсутствовать")
+    @NotNull(message = "Поле \"«Бочкообразная» грудная клетка\" является обязательным")
     private Boolean chest;
 
-    @NotNull(message = "Поле \"neckVeins\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Набухание шейных вен\" является обязательным")
     private Boolean neckVeins;
 
 }

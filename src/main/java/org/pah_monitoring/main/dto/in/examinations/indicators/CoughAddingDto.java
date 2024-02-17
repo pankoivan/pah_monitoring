@@ -7,16 +7,16 @@ import org.pah_monitoring.main.entities.main.examinations.indicators.Cough;
 @Data
 public class CoughAddingDto {
 
-    @NotNull(message = "Поле \"type\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Тип\" является обязательным")
     private Cough.Type type;
 
-    @NotNull(message = "Поле \"power\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Сила\" является обязательным")
     private Cough.Power power;
 
-    @NotNull(message = "Поле \"timbre\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Тембр\" является обязательным")
     private Cough.Timbre timbre;
 
-    @NotNull(message = "Поле \"hemoptysis\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Кровохарканье\" является обязательным")
     private Boolean hemoptysis;
 
 }

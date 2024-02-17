@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class WeightAddingDto {
 
-    @NotNull(message = "Поле \"weight\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Вес\" является обязательным")
     @Min(value = 0, message = "Вес не может быть отрицательным")
     @Max(value = 250, message = "Вес не может превышать 250 кг")
     private Double weight;

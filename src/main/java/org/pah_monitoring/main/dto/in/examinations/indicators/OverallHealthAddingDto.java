@@ -7,28 +7,28 @@ import org.pah_monitoring.main.entities.main.examinations.indicators.OverallHeal
 @Data
 public class OverallHealthAddingDto {
 
-    @NotNull(message = "Поле \"breathlessness\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Одышка\" является обязательным")
     private OverallHealth.Conditions breathlessness;
 
-    @NotNull(message = "Поле \"fatigue\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Усталость\" является обязательным")
     private OverallHealth.Conditions fatigue;
 
-    @NotNull(message = "Поле \"restFeeling\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Отсутствие ощущения отдыха после полноценного ночного сна\" является обязательным")
     private Boolean restFeeling;
 
-    @NotNull(message = "Поле \"drowsiness\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Повышенная сонливость в дневное время суток\" является обязательным")
     private Boolean drowsiness;
 
-    @NotNull(message = "Поле \"concentration\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Снижение способности концентрироваться\" является обязательным")
     private Boolean concentration;
 
-    @NotNull(message = "Поле \"weakness\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Слабость\" является обязательным")
     private OverallHealth.Weakness weakness;
 
-    @NotNull(message = "Поле \"appetite\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Снижение аппетита\" является обязательным")
     private Boolean appetite;
 
-    @NotNull(message = "Поле \"coldExtremities\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Холодные конечности\" является обязательным")
     private OverallHealth.ColdExtremities coldExtremities;
 
 }

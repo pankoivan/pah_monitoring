@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class LiquidAddingDto {
 
-    @NotNull(message = "Поле \"liquid\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Количество жидкости в день\" является обязательным")
     @Min(value = 0, message = "Количество потребляемой в день жидкости не может быть отрицательным")
     @Max(value = 16, message = "Количество потребляемой в день жидкости не может превышать 16 л")
     private Double liquid;
