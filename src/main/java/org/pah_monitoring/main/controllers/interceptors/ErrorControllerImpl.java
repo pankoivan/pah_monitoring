@@ -32,17 +32,21 @@ public class ErrorControllerImpl implements ErrorController {
             case "403" -> addToModel(model, HttpErrorText.title403, HttpErrorText.text403);
             case "404" -> addToModel(model, HttpErrorText.title404, HttpErrorText.text404);
             case "405" -> addToModel(model, HttpErrorText.title405, HttpErrorText.text405);
-            case "500" ->
-                    addToModel(model, HttpErrorText.titleUnexpectedServerError, HttpErrorText.textUnexpectedServerError);
-            default ->
+            case "500" -> addToModel(model, HttpErrorText.titleUnexpectedServerError, HttpErrorText.textUnexpectedServerError);
+            default -> {
+                if (code.matches("^4[0-9]{2}$")) {
                     addToModel(model, HttpErrorText.titleXxx.formatted(code), HttpErrorText.textNotHandledXxx.formatted(code));
+                } else {
+                    addToModel(model, HttpErrorText.titleUnexpectedServerError, HttpErrorText.textUnexpectedServerError);
+                }
+            }
         }
 
         return "errors/error";
 
     }
 
-    private void addToModel(Model model, Object errorTitle, Object errorText) {
+    private void addToModel(Model model, String errorTitle, String errorText) {
         model.addAttribute("errorTitle", errorTitle);
         model.addAttribute("errorText", errorText);
     }

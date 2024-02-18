@@ -1,8 +1,6 @@
 package org.pah_monitoring.main.controllers.interceptors;
 
 import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.http.HttpServletRequest;
-import org.pah_monitoring.auxiliary.text.HttpErrorText;
 import org.pah_monitoring.main.exceptions.common.CheckedException;
 import org.pah_monitoring.main.exceptions.common.UncheckedException;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
@@ -11,11 +9,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.ui.Model;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ServerWebInputException;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -33,15 +29,17 @@ public class GlobalExceptionInterceptor {
             HttpClientErrorException.BadRequest.class,
             UrlValidationMvcControllerException.class
     })
-    public String error400(Model model) {
-        addToModel(model, HttpErrorText.title400, HttpErrorText.text400);
-        return "errors/error";
+    public String error400(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.BAD_REQUEST.value());
+        return "redirect:/error";
     }
 
-    @ExceptionHandler({HttpClientErrorException.Unauthorized.class})
-    public String error401(Model model) {
-        addToModel(model, HttpErrorText.title401, HttpErrorText.text401);
-        return "errors/error";
+    @ExceptionHandler({
+            HttpClientErrorException.Unauthorized.class
+    })
+    public String error401(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.UNAUTHORIZED.value());
+        return "redirect:/error";
     }
 
     @ExceptionHandler({
@@ -54,33 +52,39 @@ public class GlobalExceptionInterceptor {
         return "redirect:/error";
     }
 
-    @ExceptionHandler({NoHandlerFoundException.class, HttpClientErrorException.NotFound.class})
-    public String error404(Model model) {
-        addToModel(model, HttpErrorText.title404, HttpErrorText.text404);
-        return "errors/error";
+    @ExceptionHandler({
+            NoHandlerFoundException.class,
+            HttpClientErrorException.NotFound.class
+    })
+    public String error404(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.NOT_FOUND.value());
+        return "redirect:/error";
     }
 
-    @ExceptionHandler({HttpRequestMethodNotSupportedException.class, HttpClientErrorException.MethodNotAllowed.class})
-    public String error405(Model model) {
-        addToModel(model, HttpErrorText.title405, HttpErrorText.text405);
-        return "errors/error";
+    @ExceptionHandler({
+            HttpRequestMethodNotSupportedException.class,
+            HttpClientErrorException.MethodNotAllowed.class
+    })
+    public String error405(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.METHOD_NOT_ALLOWED.value());
+        return "redirect:/error";
     }
 
-    @ExceptionHandler({UncheckedException.class, CheckedException.class})
-    public String unexpectedServerErrorByMyExceptions(Model model) {
-        addToModel(model, HttpErrorText.titleUnexpectedServerError, HttpErrorText.textUnexpectedServerError);
-        return "errors/error";
+    @ExceptionHandler({
+            UncheckedException.class,
+            CheckedException.class
+    })
+    public String unexpectedServerErrorByMyExceptions(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return "redirect:/error";
     }
 
-    @ExceptionHandler(Exception.class)
-    public String unexpectedServerErrorByOtherExceptions(Model model) {
-        addToModel(model, HttpErrorText.titleUnexpectedServerError, HttpErrorText.textUnexpectedServerError);
-        return "errors/error";
-    }
-
-    private void addToModel(Model model, Object errorTitle, Object errorText) {
-        model.addAttribute("errorTitle", errorTitle);
-        model.addAttribute("errorText", errorText);
+    @ExceptionHandler({
+            Exception.class
+    })
+    public String unexpectedServerErrorByOtherExceptions(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return "redirect:/error";
     }
 
 }
