@@ -52,7 +52,7 @@ public class WeightServiceImpl extends AbstractInputIndicatorServiceImpl<Weight,
                 .filename("weight.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
-                .postFormLink("/indicators/weight")
+                .postFormLink("/indicators/form/weight")
                 .tablesLink("/patients/%s/examinations/tables?weight".formatted(patient.getId()))
                 .graphicsLink("/patients/%s/examinations/graphics?weight".formatted(patient.getId()))
                 .build();

@@ -52,7 +52,7 @@ public class PressureServiceImpl extends AbstractInputIndicatorServiceImpl<Press
                 .filename("pressure.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
-                .postFormLink("/indicators/pressure")
+                .postFormLink("/indicators/form/pressure")
                 .tablesLink("/patients/%s/examinations/tables?pressure".formatted(patient.getId()))
                 .graphicsLink("/patients/%s/examinations/graphics?pressure".formatted(patient.getId()))
                 .build();

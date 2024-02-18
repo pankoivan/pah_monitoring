@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/indicators")
+@RequestMapping("/indicators/form")
 @PreAuthorize("hasRole('PATIENT')")
 public class IndicatorMvcController {
 

@@ -64,7 +64,7 @@ public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl<WalkT
                 .filename("walk-test.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
-                .postFormLink("/indicators/walk-test")
+                .postFormLink("/indicators/form/walk-test")
                 .tablesLink("/patients/%s/examinations/tables?walk-test".formatted(patient.getId()))
                 .graphicsLink("/patients/%s/examinations/graphics?walk-test".formatted(patient.getId()))
                 .build();
