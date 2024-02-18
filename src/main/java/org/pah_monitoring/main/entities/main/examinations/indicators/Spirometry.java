@@ -3,7 +3,7 @@ package org.pah_monitoring.main.entities.main.examinations.indicators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
-import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.GraphicsTablesInputIndicator;
+import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.GraphicTableInputIndicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 
 import java.time.LocalDateTime;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "spirometry")
-public class Spirometry implements GraphicsTablesInputIndicator {
+public class Spirometry implements GraphicTableInputIndicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

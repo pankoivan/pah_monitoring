@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @SuperBuilder
-public class TablesInputIndicatorCard extends InputIndicatorCard {
+public class TableInputIndicatorCard extends InputIndicatorCard {
 
     private String tablesLink;
 
@@ -24,12 +24,12 @@ public class TablesInputIndicatorCard extends InputIndicatorCard {
     }
 
     @Override
-    public boolean isTablesInputIndicatorCard() {
+    public boolean isTableInputIndicatorCard() {
         return true;
     }
 
     @Override
-    public boolean isGraphicsTablesInputIndicatorCard() {
+    public boolean isGraphicTableInputIndicatorCard() {
         return false;
     }
 

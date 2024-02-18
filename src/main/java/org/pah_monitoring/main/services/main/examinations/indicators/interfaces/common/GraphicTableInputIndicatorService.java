@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common;
 
-public interface GraphicsTablesInputIndicatorService<T, M, N, R> extends TablesInputIndicatorService<T, M, N> {
+public interface GraphicTableInputIndicatorService<T, M, N, R> extends TableInputIndicatorService<T, M, N> {
 
     R toGraphicsOutDto();
 

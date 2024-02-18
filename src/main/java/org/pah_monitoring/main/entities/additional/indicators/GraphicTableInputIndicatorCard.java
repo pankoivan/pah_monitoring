@@ -9,12 +9,12 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @SuperBuilder
-public class GraphicsTablesInputIndicatorCard extends TablesInputIndicatorCard {
+public class GraphicTableInputIndicatorCard extends TableInputIndicatorCard {
 
     private String graphicsLink;
 
     @Override
-    public boolean isGraphicsTablesInputIndicatorCard() {
+    public boolean isGraphicTableInputIndicatorCard() {
         return true;
     }
 

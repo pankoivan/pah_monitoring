@@ -24,12 +24,12 @@ public class FileIndicatorCard extends IndicatorCard {
     }
 
     @Override
-    public boolean isTablesInputIndicatorCard() {
+    public boolean isTableInputIndicatorCard() {
         return false;
     }
 
     @Override
-    public boolean isGraphicsTablesInputIndicatorCard() {
+    public boolean isGraphicTableInputIndicatorCard() {
         return false;
     }
 

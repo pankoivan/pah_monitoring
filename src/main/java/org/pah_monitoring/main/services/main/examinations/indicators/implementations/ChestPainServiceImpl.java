@@ -8,7 +8,7 @@ import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.ChestPainTablesDto;
 import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
-import org.pah_monitoring.main.entities.additional.indicators.TablesInputIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.TableInputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.ChestPain;
 import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
@@ -17,7 +17,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.ChestPainRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
-import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.TablesInputIndicatorService;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.TableInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,7 +30,7 @@ import java.util.List;
 @Setter(onMethod = @__(@Autowired))
 @Service("chestPainService")
 public class ChestPainServiceImpl extends AbstractInputIndicatorServiceImpl<ChestPain, ChestPainAddingDto>
-        implements TablesInputIndicatorService<ChestPain, ChestPainAddingDto, ChestPainTablesDto> {
+        implements TableInputIndicatorService<ChestPain, ChestPainAddingDto, ChestPainTablesDto> {
 
     private final ChestPainRepository repository;
 
@@ -44,7 +44,7 @@ public class ChestPainServiceImpl extends AbstractInputIndicatorServiceImpl<Ches
 
     @Override
     public IndicatorCard getIndicatorCardFor(Patient patient) {
-        return TablesInputIndicatorCard
+        return TableInputIndicatorCard
                 .builder()
                 .workingName(getIndicatorType())
                 .name(getIndicatorType().getAlias())

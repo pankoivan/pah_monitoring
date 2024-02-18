@@ -35,11 +35,11 @@
                                 <img width="18" class="mb-1" src="../../static/svg/date.svg" th:src="@{/svg/date.svg}" alt="Дата" />
                                 Дата последней отправки: <span class="text-lowercase" th:text="${each.date != null} ? ${each.formattedDate} : 'Ни разу не отправлял'">14:48:56 20-11-2019</span>
                             </p>
-                            <p class="mb-3" th:if="${each.isTablesInputIndicatorCard}">
+                            <p class="mb-3" th:if="${each.isTableInputIndicatorCard}">
                                 <img width="18" class="mb-1" src="../../static/svg/table.svg" th:src="@{/svg/table.svg}" alt="Таблица" />
                                 <a href="#" th:href="@{${each.tablesLink}}" class="text-secondary">Посмотреть в виде таблицы</a>
                             </p>
-                            <p class="mb-3" th:if="${each.isGraphicsTablesInputIndicatorCard}">
+                            <p class="mb-3" th:if="${each.isGraphicTableInputIndicatorCard}">
                                 <img width="18" class="mb-1" src="../../static/svg/graphic.svg" th:src="@{/svg/graphic.svg}" alt="График" />
                                 <a href="#" th:href="@{${each.graphicsLink}}" class="text-secondary">Посмотреть в виде графиков</a>
                             </p>

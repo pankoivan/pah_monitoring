@@ -31,8 +31,8 @@ public abstract class IndicatorCard {
 
     public abstract boolean isInputIndicatorCard();
 
-    public abstract boolean isTablesInputIndicatorCard();
+    public abstract boolean isTableInputIndicatorCard();
 
-    public abstract boolean isGraphicsTablesInputIndicatorCard();
+    public abstract boolean isGraphicTableInputIndicatorCard();
 
 }

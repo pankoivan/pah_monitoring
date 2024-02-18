@@ -8,7 +8,7 @@ import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.LiquidGraphicsDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.LiquidTablesDto;
-import org.pah_monitoring.main.entities.additional.indicators.GraphicsTablesInputIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.GraphicTableInputIndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Liquid;
@@ -18,7 +18,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.LiquidRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
-import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.GraphicsTablesInputIndicatorService;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.GraphicTableInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,7 +31,7 @@ import java.util.List;
 @Setter(onMethod = @__(@Autowired))
 @Service("liquidService")
 public class LiquidServiceImpl extends AbstractInputIndicatorServiceImpl<Liquid, LiquidAddingDto>
-        implements GraphicsTablesInputIndicatorService<Liquid, LiquidAddingDto, LiquidTablesDto, LiquidGraphicsDto> {
+        implements GraphicTableInputIndicatorService<Liquid, LiquidAddingDto, LiquidTablesDto, LiquidGraphicsDto> {
 
     private final LiquidRepository repository;
 
@@ -45,7 +45,7 @@ public class LiquidServiceImpl extends AbstractInputIndicatorServiceImpl<Liquid,
 
     @Override
     public IndicatorCard getIndicatorCardFor(Patient patient) {
-        return GraphicsTablesInputIndicatorCard
+        return GraphicTableInputIndicatorCard
                 .builder()
                 .workingName(getIndicatorType())
                 .name(getIndicatorType().getAlias())

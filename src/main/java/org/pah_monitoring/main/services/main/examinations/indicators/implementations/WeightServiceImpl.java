@@ -8,7 +8,7 @@ import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.WeightGraphicsDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.WeightTablesDto;
-import org.pah_monitoring.main.entities.additional.indicators.GraphicsTablesInputIndicatorCard;
+import org.pah_monitoring.main.entities.additional.indicators.GraphicTableInputIndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Weight;
@@ -18,7 +18,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceExceptio
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.WeightRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
-import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.GraphicsTablesInputIndicatorService;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.GraphicTableInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,7 +31,7 @@ import java.util.List;
 @Setter(onMethod = @__(@Autowired))
 @Service("weightService")
 public class WeightServiceImpl extends AbstractInputIndicatorServiceImpl<Weight, WeightAddingDto>
-        implements GraphicsTablesInputIndicatorService<Weight, WeightAddingDto, WeightTablesDto, WeightGraphicsDto> {
+        implements GraphicTableInputIndicatorService<Weight, WeightAddingDto, WeightTablesDto, WeightGraphicsDto> {
 
     private final WeightRepository repository;
 
@@ -45,7 +45,7 @@ public class WeightServiceImpl extends AbstractInputIndicatorServiceImpl<Weight,
 
     @Override
     public IndicatorCard getIndicatorCardFor(Patient patient) {
-        return GraphicsTablesInputIndicatorCard
+        return GraphicTableInputIndicatorCard
                 .builder()
                 .workingName(getIndicatorType())
                 .name(getIndicatorType().getAlias())

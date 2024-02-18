@@ -1,5 +1,5 @@
 package org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces;
 
-public interface TablesInputIndicator extends InputIndicator {
+public interface TableInputIndicator extends InputIndicator {
 
 }
