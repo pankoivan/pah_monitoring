@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.controllers.interceptors;
+package org.pah_monitoring.main.controllers.errors;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

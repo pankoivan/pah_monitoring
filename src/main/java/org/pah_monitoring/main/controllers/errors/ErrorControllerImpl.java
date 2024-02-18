@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.controllers.interceptors;
+package org.pah_monitoring.main.controllers.errors;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
