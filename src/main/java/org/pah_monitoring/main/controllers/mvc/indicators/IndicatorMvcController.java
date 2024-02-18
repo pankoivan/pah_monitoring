@@ -17,14 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndicatorMvcController {
 
     @GetMapping("/spirometry")
-    public String spirometry(Model model) {
+    public String spirometry() {
         return "spirometry";
     }
 
     @GetMapping("/walk-test")
     public String walkTest(Model model) {
-        model.addAttribute("oxygenSupport", TrueFalseEnum.values());
-        model.addAttribute("auxiliaryDevices", TrueFalseEnum.values());
+        model.addAttribute("trueFalse", TrueFalseEnum.values());
         model.addAttribute("breathlessness", WalkTest.Breathlessness.values());
         return "walk-test";
     }
@@ -47,14 +46,14 @@ public class IndicatorMvcController {
     @GetMapping("/chest-pain")
     public String chestPain(Model model) {
         model.addAttribute("type", ChestPain.Type.values());
-        model.addAttribute("duration", EventDuration.values());
+        model.addAttribute("duration", EventDuration.forChestPain());
         model.addAttribute("nitroglycerin", ChestPain.Nitroglycerin.values());
         return "chest-pain";
     }
 
     @GetMapping("/fainting")
     public String fainting(Model model) {
-        model.addAttribute("duration", EventDuration.values());
+        model.addAttribute("duration", EventDuration.forFainting());
         model.addAttribute("trueFalse", TrueFalseEnum.values());
         return "fainting";
     }
@@ -69,7 +68,7 @@ public class IndicatorMvcController {
 
     @GetMapping("/overall-health")
     public String overallHealth(Model model) {
-        model.addAttribute("conditions", TrueFalseEnum.values());
+        model.addAttribute("conditions", OverallHealth.Conditions.values());
         model.addAttribute("trueFalse", TrueFalseEnum.values());
         model.addAttribute("weakness", OverallHealth.Weakness.values());
         model.addAttribute("coldExtremities", OverallHealth.ColdExtremities.values());
@@ -78,7 +77,7 @@ public class IndicatorMvcController {
 
     @GetMapping("/vertigo")
     public String vertigo(Model model) {
-        model.addAttribute("duration", EventDuration.values());
+        model.addAttribute("duration", EventDuration.forVertigo());
         model.addAttribute("trueFalse", TrueFalseEnum.values());
         return "vertigo";
     }
@@ -90,12 +89,12 @@ public class IndicatorMvcController {
     }
 
     @GetMapping("/liquid")
-    public String liquid(Model model) {
+    public String liquid() {
         return "liquid";
     }
 
     @GetMapping("/weight")
-    public String weight(Model model) {
+    public String weight() {
         return "weight";
     }
 
