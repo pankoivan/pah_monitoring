@@ -38,4 +38,4 @@ mvnw
 mvnw.cmd
 
 ### Logs ###
-logs
+/logs/
