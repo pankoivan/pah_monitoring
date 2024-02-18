@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.EnumSet;
+
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public enum EventDuration {
@@ -16,8 +18,6 @@ public enum EventDuration {
 
     DAYS("Дни"),
 
-    FEW_MINUTES("Несколько минут"),
-
     HALF_HOUR("Полчаса"),
 
     HOUR("Час"),
@@ -27,5 +27,17 @@ public enum EventDuration {
     MORE("Больше");
 
     private final String alias;
+
+    public static EnumSet<EventDuration> forChestPain() {
+        return EnumSet.of(MINUTES, HOUR, DAYS);
+    }
+
+    public static EnumSet<EventDuration> forFainting() {
+        return EnumSet.of(MINUTES, HALF_HOUR, HOUR, MORE);
+    }
+
+    public static EnumSet<EventDuration> forVertigo() {
+        return EnumSet.of(SECONDS, MINUTES, HALF_HOUR, HOUR, DAYS);
+    }
 
 }
