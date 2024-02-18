@@ -18,20 +18,20 @@ public class IndicatorMvcController {
 
     @GetMapping("/spirometry")
     public String spirometry() {
-        return "spirometry";
+        return "indicators/forms/spirometry-form";
     }
 
     @GetMapping("/walk-test")
     public String walkTest(Model model) {
         model.addAttribute("trueFalse", TrueFalseEnum.values());
         model.addAttribute("breathlessness", WalkTest.Breathlessness.values());
-        return "walk-test";
+        return "indicators/forms/walk-test-form";
     }
 
     @GetMapping("/pulse-oximetry")
     public String pulseOximetry(Model model) {
         model.addAttribute("trueFalse", TrueFalseEnum.values());
-        return "pulse-oximetry";
+        return "indicators/forms/pulse-oximetry-form";
     }
 
     @GetMapping("/cough")
@@ -40,7 +40,7 @@ public class IndicatorMvcController {
         model.addAttribute("power", Cough.Power.values());
         model.addAttribute("timbre", Cough.Timbre.values());
         model.addAttribute("trueFalse", TrueFalseEnum.values());
-        return "cough";
+        return "indicators/forms/cough-form";
     }
 
     @GetMapping("/chest-pain")
@@ -48,14 +48,14 @@ public class IndicatorMvcController {
         model.addAttribute("type", ChestPain.Type.values());
         model.addAttribute("duration", EventDuration.forChestPain());
         model.addAttribute("nitroglycerin", ChestPain.Nitroglycerin.values());
-        return "chest-pain";
+        return "indicators/forms/chest-pain-form";
     }
 
     @GetMapping("/fainting")
     public String fainting(Model model) {
         model.addAttribute("duration", EventDuration.forFainting());
         model.addAttribute("trueFalse", TrueFalseEnum.values());
-        return "fainting";
+        return "indicators/forms/fainting-form";
     }
 
     @GetMapping("/physical-changes")
@@ -63,7 +63,7 @@ public class IndicatorMvcController {
         model.addAttribute("trueFalse", TrueFalseEnum.values());
         model.addAttribute("legsSwelling", PhysicalChanges.LegsSwelling.values());
         model.addAttribute("skinColor", PhysicalChanges.SkinColor.values());
-        return "physical-changes";
+        return "indicators/forms/physical-changes-form";
     }
 
     @GetMapping("/overall-health")
@@ -72,30 +72,30 @@ public class IndicatorMvcController {
         model.addAttribute("trueFalse", TrueFalseEnum.values());
         model.addAttribute("weakness", OverallHealth.Weakness.values());
         model.addAttribute("coldExtremities", OverallHealth.ColdExtremities.values());
-        return "overall-health";
+        return "indicators/forms/overall-health-form";
     }
 
     @GetMapping("/vertigo")
     public String vertigo(Model model) {
         model.addAttribute("duration", EventDuration.forVertigo());
         model.addAttribute("trueFalse", TrueFalseEnum.values());
-        return "vertigo";
+        return "indicators/forms/vertigo-form";
     }
 
     @GetMapping("/pressure")
     public String pressure(Model model) {
         model.addAttribute("trueFalse", TrueFalseEnum.values());
-        return "pressure";
+        return "indicators/pressure-form";
     }
 
     @GetMapping("/liquid")
     public String liquid() {
-        return "liquid";
+        return "indicators/forms/liquid-form";
     }
 
     @GetMapping("/weight")
     public String weight() {
-        return "weight";
+        return "indicators/forms/weight-form";
     }
 
     /*@GetMapping("/analysis-file")
