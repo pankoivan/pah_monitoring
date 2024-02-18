@@ -1,20 +1,25 @@
 package org.pah_monitoring.main.controllers.interceptors;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpServletRequest;
 import org.pah_monitoring.auxiliary.text.HttpErrorText;
 import org.pah_monitoring.main.exceptions.common.CheckedException;
 import org.pah_monitoring.main.exceptions.common.UncheckedException;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ServerWebInputException;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @ControllerAdvice
 @Order(2000)
@@ -44,9 +49,9 @@ public class GlobalExceptionInterceptor {
             HttpClientErrorException.Forbidden.class,
             NotEnoughRightsMvcControllerException.class
     })
-    public String error403(Model model) {
-        addToModel(model, HttpErrorText.title403, HttpErrorText.text403);
-        return "errors/error";
+    public String error403(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.FORBIDDEN.value());
+        return "redirect:/error";
     }
 
     @ExceptionHandler({NoHandlerFoundException.class, HttpClientErrorException.NotFound.class})
