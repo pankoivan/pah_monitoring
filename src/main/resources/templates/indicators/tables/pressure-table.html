@@ -7,29 +7,28 @@
         <title>Давление</title>
         <link href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
         <link href="../../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
-        <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+        <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" th:href="@{https://unpkg.com/gridjs/dist/theme/mermaid.min.css}" rel="stylesheet" />
         <link rel="apple-touch-icon" sizes="180x180" href="../../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
         <link rel="icon" type="image/png" sizes="32x32" href="../../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
         <link rel="icon" type="image/png" sizes="16x16" href="../../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
     </head>
 
-    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-main">
-        <div class="container">
-            <div id="table"></div>
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary my-5">
+            <div class="row">
+                <div class="col-12">
+                    <div id="table"></div>
+                </div>
+            </div>
         </div>
-        <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
-        <script>
-            new gridjs.Grid({
-                search: true,
-                columns: ["Name", "Email", "Phone Number"],
-                data: [
-                    ["John", "john@example.com", "(353) 01 222 3333"],
-                    ["Mark", "mark@gmail.com", "(01) 22 888 4444"],
-                    ["Eoin", "eoin@gmail.com", "0097 22 654 00033"],
-                    ["Sarah", "sarahcdd@gmail.com", "+322 876 1233"],
-                    ["Afshin", "afshin@mail.com", "(353) 22 87 8356"],
-                ],
-            }).render(document.getElementById("table"));
-        </script>
+        <!---->
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js" th:src="@{https://unpkg.com/gridjs/dist/gridjs.umd.js}"></script>
+        <script src="../../../static/js/indicators/tables/pressure-table.js" th:src="@{/js/indicators/tables/pressure-table.js}"></script>
     </body>
 </html>

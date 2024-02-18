@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 @Controller
 @RequestMapping("/indicators/form")
-@PreAuthorize("hasRole('PATIENT')")
+//@PreAuthorize("hasRole('PATIENT')")
+@PreAuthorize("permitAll()")
 public class IndicatorMvcController {
 
     private final PageHeaderService pageHeaderService;
@@ -111,6 +112,12 @@ public class IndicatorMvcController {
     public String weight(Model model) {
         pageHeaderService.addHeader(model);
         return "indicators/forms/weight-form";
+    }
+
+    @GetMapping("/temp")
+    public String temp(Model model) {
+        pageHeaderService.addHeader(model);
+        return "indicators/tables/pressure-table";
     }
 
     /*@GetMapping("/analysis-file")
