@@ -18,7 +18,7 @@ public class PressureAddingDto {
     @Max(value = 160, message = "Нижнее давление должно лежать в диапазоне от 30 до 160 мм рт. ст.")
     private Integer lower;
 
-    @NotNull(message = "Поле \"После упражнения\" является обязательным")
+    @NotNull(message = "Поле \"После нагрузки\" является обязательным")
     private Boolean afterExercise;
 
 }

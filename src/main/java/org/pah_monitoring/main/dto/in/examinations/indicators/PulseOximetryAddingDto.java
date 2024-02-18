@@ -18,7 +18,7 @@ public class PulseOximetryAddingDto {
     @Max(value = 240, message = "Пульс должен лежать в диапазоне от 30 до 240 уд/мин")
     private Integer pulseRate;
 
-    @NotNull(message = "Поле \"После упражнения\" является обязательным")
+    @NotNull(message = "Поле \"После нагрузки\" является обязательным")
     private Boolean afterExercise;
 
 }

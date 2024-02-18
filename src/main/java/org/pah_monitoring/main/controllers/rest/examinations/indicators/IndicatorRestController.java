@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.controllers.rest.examinations.indicators;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.examinations.indicators.*;
 import org.pah_monitoring.main.entities.main.examinations.indicators.*;
@@ -63,7 +64,7 @@ public class IndicatorRestController {
     private FileIndicatorService<AnalysisFile, AnalysisFileAddingDto> analysisFileService;
 
     @PostMapping("/spirometry")
-    public void addSpirometry(@RequestBody SpirometryAddingDto addingDto, BindingResult bindingResult) {
+    public void addSpirometry(@RequestBody @Valid SpirometryAddingDto addingDto, BindingResult bindingResult) {
         try {
             spirometryService.checkDataValidityForAdding(addingDto, bindingResult);
             spirometryService.add(addingDto);
@@ -75,7 +76,7 @@ public class IndicatorRestController {
     }
 
     @PostMapping("/walk-test")
-    public void addWalkTest(@RequestBody WalkTestAddingDto addingDto, BindingResult bindingResult) {
+    public void addWalkTest(@RequestBody @Valid WalkTestAddingDto addingDto, BindingResult bindingResult) {
         try {
             walkTestService.checkDataValidityForAdding(addingDto, bindingResult);
             walkTestService.add(addingDto);
@@ -87,7 +88,7 @@ public class IndicatorRestController {
     }
 
     @PostMapping("/pulse-oximetry")
-    public void addPulseOximetry(@RequestBody PulseOximetryAddingDto addingDto, BindingResult bindingResult) {
+    public void addPulseOximetry(@RequestBody @Valid PulseOximetryAddingDto addingDto, BindingResult bindingResult) {
         try {
             pulseOximetryService.checkDataValidityForAdding(addingDto, bindingResult);
             pulseOximetryService.add(addingDto);
@@ -99,7 +100,7 @@ public class IndicatorRestController {
     }
 
     @PostMapping("/cough")
-    public void addCough(@RequestBody CoughAddingDto addingDto, BindingResult bindingResult) {
+    public void addCough(@RequestBody @Valid CoughAddingDto addingDto, BindingResult bindingResult) {
         try {
             coughService.checkDataValidityForAdding(addingDto, bindingResult);
             coughService.add(addingDto);
@@ -111,7 +112,7 @@ public class IndicatorRestController {
     }
 
     @PostMapping("/chest-pain")
-    public void addChestPain(@RequestBody ChestPainAddingDto addingDto, BindingResult bindingResult) {
+    public void addChestPain(@RequestBody @Valid ChestPainAddingDto addingDto, BindingResult bindingResult) {
         try {
             chestPainService.checkDataValidityForAdding(addingDto, bindingResult);
             chestPainService.add(addingDto);
@@ -123,7 +124,7 @@ public class IndicatorRestController {
     }
 
     @PostMapping("/fainting")
-    public void addFainting(@RequestBody FaintingAddingDto addingDto, BindingResult bindingResult) {
+    public void addFainting(@RequestBody @Valid FaintingAddingDto addingDto, BindingResult bindingResult) {
         try {
             faintingService.checkDataValidityForAdding(addingDto, bindingResult);
             faintingService.add(addingDto);
@@ -135,7 +136,7 @@ public class IndicatorRestController {
     }
 
     @PostMapping("/physical-changes")
-    public void addPhysicalChanges(@RequestBody PhysicalChangesAddingDto addingDto, BindingResult bindingResult) {
+    public void addPhysicalChanges(@RequestBody @Valid PhysicalChangesAddingDto addingDto, BindingResult bindingResult) {
         try {
             physicalChangesService.checkDataValidityForAdding(addingDto, bindingResult);
             physicalChangesService.add(addingDto);
@@ -147,7 +148,7 @@ public class IndicatorRestController {
     }
 
     @PostMapping("/overall-health")
-    public void addOverallHealth(@RequestBody OverallHealthAddingDto addingDto, BindingResult bindingResult) {
+    public void addOverallHealth(@RequestBody @Valid OverallHealthAddingDto addingDto, BindingResult bindingResult) {
         try {
             overallHealthService.checkDataValidityForAdding(addingDto, bindingResult);
             overallHealthService.add(addingDto);
@@ -159,7 +160,7 @@ public class IndicatorRestController {
     }
 
     @PostMapping("/vertigo")
-    public void addVertigo(@RequestBody VertigoAddingDto addingDto, BindingResult bindingResult) {
+    public void addVertigo(@RequestBody @Valid VertigoAddingDto addingDto, BindingResult bindingResult) {
         try {
             vertigoService.checkDataValidityForAdding(addingDto, bindingResult);
             vertigoService.add(addingDto);
@@ -171,7 +172,7 @@ public class IndicatorRestController {
     }
 
     @PostMapping("/pressure")
-    public void addPressure(@RequestBody PressureAddingDto addingDto, BindingResult bindingResult) {
+    public void addPressure(@RequestBody @Valid PressureAddingDto addingDto, BindingResult bindingResult) {
         try {
             pressureService.checkDataValidityForAdding(addingDto, bindingResult);
             pressureService.add(addingDto);
@@ -183,7 +184,7 @@ public class IndicatorRestController {
     }
 
     @PostMapping("/liquid")
-    public void addLiquid(@RequestBody LiquidAddingDto addingDto, BindingResult bindingResult) {
+    public void addLiquid(@RequestBody @Valid LiquidAddingDto addingDto, BindingResult bindingResult) {
         try {
             liquidService.checkDataValidityForAdding(addingDto, bindingResult);
             liquidService.add(addingDto);
@@ -195,7 +196,7 @@ public class IndicatorRestController {
     }
 
     @PostMapping("/weight")
-    public void addWeight(@RequestBody WeightAddingDto addingDto, BindingResult bindingResult) {
+    public void addWeight(@RequestBody @Valid WeightAddingDto addingDto, BindingResult bindingResult) {
         try {
             weightService.checkDataValidityForAdding(addingDto, bindingResult);
             weightService.add(addingDto);
