@@ -22,14 +22,12 @@ public enum EventDuration {
 
     HOUR("Час"),
 
-    WHOLE_DAY("Целый день"),
-
     MORE("Больше");
 
     private final String alias;
 
     public static EnumSet<EventDuration> forChestPain() {
-        return EnumSet.of(MINUTES, HOUR, DAYS);
+        return EnumSet.of(MINUTES, HOURS, DAYS);
     }
 
     public static EnumSet<EventDuration> forFainting() {
