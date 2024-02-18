@@ -33,6 +33,13 @@
                             <label for="lower" class="form-label fw-semibold fs-4">Нижнее (мм рт.ст.)</label>
                             <input type="number" name="lower" id="lower" class="form-control" placeholder="64.9" />
                         </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">После нагрузки?</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                                <label class="form-check-label" th:for="'afterExercise' + ${each}" th:text="${each.yesNo}">Да</label>
+                                <input th:id="'afterExercise' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="afterExercise" />
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-lg btn-primary">Отправить</button>
                     </form>
                 </div>

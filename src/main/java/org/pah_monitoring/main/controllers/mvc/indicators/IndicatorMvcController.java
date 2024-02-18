@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.entities.main.enums.EventDuration;
 import org.pah_monitoring.main.entities.main.enums.TrueFalseEnum;
 import org.pah_monitoring.main.entities.main.examinations.indicators.*;
+import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @PreAuthorize("hasRole('PATIENT')")
 public class IndicatorMvcController {
 
+    private final PageHeaderService pageHeaderService;
+
     @GetMapping("/spirometry")
-    public String spirometry() {
+    public String spirometry(Model model) {
+        pageHeaderService.addHeader(model);
         return "indicators/forms/spirometry-form";
     }
 
@@ -25,12 +29,14 @@ public class IndicatorMvcController {
     public String walkTest(Model model) {
         model.addAttribute("trueFalse", TrueFalseEnum.values());
         model.addAttribute("breathlessness", WalkTest.Breathlessness.values());
+        pageHeaderService.addHeader(model);
         return "indicators/forms/walk-test-form";
     }
 
     @GetMapping("/pulse-oximetry")
     public String pulseOximetry(Model model) {
         model.addAttribute("trueFalse", TrueFalseEnum.values());
+        pageHeaderService.addHeader(model);
         return "indicators/forms/pulse-oximetry-form";
     }
 
@@ -40,6 +46,7 @@ public class IndicatorMvcController {
         model.addAttribute("power", Cough.Power.values());
         model.addAttribute("timbre", Cough.Timbre.values());
         model.addAttribute("trueFalse", TrueFalseEnum.values());
+        pageHeaderService.addHeader(model);
         return "indicators/forms/cough-form";
     }
 
@@ -48,6 +55,7 @@ public class IndicatorMvcController {
         model.addAttribute("type", ChestPain.Type.values());
         model.addAttribute("duration", EventDuration.forChestPain());
         model.addAttribute("nitroglycerin", ChestPain.Nitroglycerin.values());
+        pageHeaderService.addHeader(model);
         return "indicators/forms/chest-pain-form";
     }
 
@@ -55,6 +63,7 @@ public class IndicatorMvcController {
     public String fainting(Model model) {
         model.addAttribute("duration", EventDuration.forFainting());
         model.addAttribute("trueFalse", TrueFalseEnum.values());
+        pageHeaderService.addHeader(model);
         return "indicators/forms/fainting-form";
     }
 
@@ -63,6 +72,7 @@ public class IndicatorMvcController {
         model.addAttribute("trueFalse", TrueFalseEnum.values());
         model.addAttribute("legsSwelling", PhysicalChanges.LegsSwelling.values());
         model.addAttribute("skinColor", PhysicalChanges.SkinColor.values());
+        pageHeaderService.addHeader(model);
         return "indicators/forms/physical-changes-form";
     }
 
@@ -72,6 +82,7 @@ public class IndicatorMvcController {
         model.addAttribute("trueFalse", TrueFalseEnum.values());
         model.addAttribute("weakness", OverallHealth.Weakness.values());
         model.addAttribute("coldExtremities", OverallHealth.ColdExtremities.values());
+        pageHeaderService.addHeader(model);
         return "indicators/forms/overall-health-form";
     }
 
@@ -79,22 +90,26 @@ public class IndicatorMvcController {
     public String vertigo(Model model) {
         model.addAttribute("duration", EventDuration.forVertigo());
         model.addAttribute("trueFalse", TrueFalseEnum.values());
+        pageHeaderService.addHeader(model);
         return "indicators/forms/vertigo-form";
     }
 
     @GetMapping("/pressure")
     public String pressure(Model model) {
         model.addAttribute("trueFalse", TrueFalseEnum.values());
-        return "indicators/pressure-form";
+        pageHeaderService.addHeader(model);
+        return "indicators/forms/pressure-form";
     }
 
     @GetMapping("/liquid")
-    public String liquid() {
+    public String liquid(Model model) {
+        pageHeaderService.addHeader(model);
         return "indicators/forms/liquid-form";
     }
 
     @GetMapping("/weight")
-    public String weight() {
+    public String weight(Model model) {
+        pageHeaderService.addHeader(model);
         return "indicators/forms/weight-form";
     }
 
