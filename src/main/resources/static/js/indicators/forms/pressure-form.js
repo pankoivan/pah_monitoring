@@ -22,6 +22,7 @@ function fetchAdd(data) {
     })
         .then((response) => {
             if (response.ok) {
+                pressureForm.reset();
                 showSuccessModal(response);
             } else {
                 showErrorModal(response);
