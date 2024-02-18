@@ -8,6 +8,8 @@ import org.pah_monitoring.main.dto.out.common.interfaces.OutDto;
 @Builder
 public class PressureTablesDto implements OutDto {
 
+    private String formattedDate;
+
     private Integer upper;
 
     private Integer lower;
