@@ -63,10 +63,10 @@ public class IndicatorRestController {
     private FileIndicatorService<AnalysisFile, AnalysisFileAddingDto> analysisFileService;
 
     @PostMapping("spirometry")
-    public Spirometry addSpirometry(@RequestBody SpirometryAddingDto addingDto, BindingResult bindingResult) {
+    public void addSpirometry(@RequestBody SpirometryAddingDto addingDto, BindingResult bindingResult) {
         try {
             spirometryService.checkDataValidityForAdding(addingDto, bindingResult);
-            return spirometryService.add(addingDto);
+            spirometryService.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -75,10 +75,10 @@ public class IndicatorRestController {
     }
 
     @PostMapping("walk-test")
-    public WalkTest addWalkTest(@RequestBody WalkTestAddingDto addingDto, BindingResult bindingResult) {
+    public void addWalkTest(@RequestBody WalkTestAddingDto addingDto, BindingResult bindingResult) {
         try {
             walkTestService.checkDataValidityForAdding(addingDto, bindingResult);
-            return walkTestService.add(addingDto);
+            walkTestService.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -87,10 +87,10 @@ public class IndicatorRestController {
     }
 
     @PostMapping("pulse-oximetry")
-    public PulseOximetry addPulseOximetry(@RequestBody PulseOximetryAddingDto addingDto, BindingResult bindingResult) {
+    public void addPulseOximetry(@RequestBody PulseOximetryAddingDto addingDto, BindingResult bindingResult) {
         try {
             pulseOximetryService.checkDataValidityForAdding(addingDto, bindingResult);
-            return pulseOximetryService.add(addingDto);
+            pulseOximetryService.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -99,10 +99,10 @@ public class IndicatorRestController {
     }
 
     @PostMapping("cough")
-    public Cough addCough(@RequestBody CoughAddingDto addingDto, BindingResult bindingResult) {
+    public void addCough(@RequestBody CoughAddingDto addingDto, BindingResult bindingResult) {
         try {
             coughService.checkDataValidityForAdding(addingDto, bindingResult);
-            return coughService.add(addingDto);
+            coughService.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -111,10 +111,10 @@ public class IndicatorRestController {
     }
 
     @PostMapping("chest-pain")
-    public ChestPain addChestPain(@RequestBody ChestPainAddingDto addingDto, BindingResult bindingResult) {
+    public void addChestPain(@RequestBody ChestPainAddingDto addingDto, BindingResult bindingResult) {
         try {
             chestPainService.checkDataValidityForAdding(addingDto, bindingResult);
-            return chestPainService.add(addingDto);
+            chestPainService.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -123,10 +123,10 @@ public class IndicatorRestController {
     }
 
     @PostMapping("fainting")
-    public Fainting addFainting(@RequestBody FaintingAddingDto addingDto, BindingResult bindingResult) {
+    public void addFainting(@RequestBody FaintingAddingDto addingDto, BindingResult bindingResult) {
         try {
             faintingService.checkDataValidityForAdding(addingDto, bindingResult);
-            return faintingService.add(addingDto);
+            faintingService.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -135,10 +135,10 @@ public class IndicatorRestController {
     }
 
     @PostMapping("physical-changes")
-    public PhysicalChanges addPhysicalChanges(@RequestBody PhysicalChangesAddingDto addingDto, BindingResult bindingResult) {
+    public void addPhysicalChanges(@RequestBody PhysicalChangesAddingDto addingDto, BindingResult bindingResult) {
         try {
             physicalChangesService.checkDataValidityForAdding(addingDto, bindingResult);
-            return physicalChangesService.add(addingDto);
+            physicalChangesService.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -147,10 +147,10 @@ public class IndicatorRestController {
     }
 
     @PostMapping("overall-health")
-    public OverallHealth addOverallHealth(@RequestBody OverallHealthAddingDto addingDto, BindingResult bindingResult) {
+    public void addOverallHealth(@RequestBody OverallHealthAddingDto addingDto, BindingResult bindingResult) {
         try {
             overallHealthService.checkDataValidityForAdding(addingDto, bindingResult);
-            return overallHealthService.add(addingDto);
+            overallHealthService.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -159,10 +159,10 @@ public class IndicatorRestController {
     }
 
     @PostMapping("vertigo")
-    public Vertigo addVertigo(@RequestBody VertigoAddingDto addingDto, BindingResult bindingResult) {
+    public void addVertigo(@RequestBody VertigoAddingDto addingDto, BindingResult bindingResult) {
         try {
             vertigoService.checkDataValidityForAdding(addingDto, bindingResult);
-            return vertigoService.add(addingDto);
+            vertigoService.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -171,10 +171,10 @@ public class IndicatorRestController {
     }
 
     @PostMapping("pressure")
-    public Pressure addPressure(@RequestBody PressureAddingDto addingDto, BindingResult bindingResult) {
+    public void addPressure(@RequestBody PressureAddingDto addingDto, BindingResult bindingResult) {
         try {
             pressureService.checkDataValidityForAdding(addingDto, bindingResult);
-            return pressureService.add(addingDto);
+            pressureService.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -183,10 +183,10 @@ public class IndicatorRestController {
     }
 
     @PostMapping("liquid")
-    public Liquid addLiquid(@RequestBody LiquidAddingDto addingDto, BindingResult bindingResult) {
+    public void addLiquid(@RequestBody LiquidAddingDto addingDto, BindingResult bindingResult) {
         try {
             liquidService.checkDataValidityForAdding(addingDto, bindingResult);
-            return liquidService.add(addingDto);
+            liquidService.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -195,10 +195,10 @@ public class IndicatorRestController {
     }
 
     @PostMapping("weight")
-    public Weight addWeight(@RequestBody WeightAddingDto addingDto, BindingResult bindingResult) {
+    public void addWeight(@RequestBody WeightAddingDto addingDto, BindingResult bindingResult) {
         try {
             weightService.checkDataValidityForAdding(addingDto, bindingResult);
-            return weightService.add(addingDto);
+            weightService.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -207,10 +207,10 @@ public class IndicatorRestController {
     }
 
     @PostMapping("analysis-file")
-    public AnalysisFile addAnalysisFile(@RequestBody AnalysisFileAddingDto addingDto, BindingResult bindingResult) {
+    public void addAnalysisFile(@RequestBody AnalysisFileAddingDto addingDto, BindingResult bindingResult) {
         try {
             analysisFileService.checkDataValidityForAdding(addingDto, bindingResult);
-            return analysisFileService.add(addingDto);
+            analysisFileService.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
