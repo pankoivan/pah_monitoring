@@ -1,10 +1,18 @@
 package org.pah_monitoring.main.services.main.users.inactivity.implementations.common;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.QuantityRestrictionConstants;
 import org.pah_monitoring.main.dto.in.users.inactivity.common.InactivityAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorSavingDto;
+import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorSavingDto;
 import org.pah_monitoring.main.entities.main.users.inactivity.common.Inactivity;
+import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
 import org.pah_monitoring.main.entities.main.users.users.common.HospitalUser;
@@ -15,12 +23,15 @@ import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserC
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserExtractionService;
 import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchingService;
 import org.pah_monitoring.main.services.main.users.inactivity.interfaces.common.InactivityService;
+import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
 @RequiredArgsConstructor
+@Getter
 @Setter(onMethod = @__(@Autowired))
 public abstract class AbstractHospitalEmployeeInactivityServiceImpl
         <T extends Inactivity, M extends InactivityAddingDto, N extends HospitalEmployee> implements InactivityService<T, M, N> {
@@ -30,6 +41,12 @@ public abstract class AbstractHospitalEmployeeInactivityServiceImpl
     private CurrentUserExtractionService extractionService;
 
     private CurrentUserCheckService checkService;
+
+    @Qualifier("administratorService")
+    private HospitalUserService<Administrator, AdministratorAddingDto, AdministratorEditingDto, AdministratorSavingDto> administratorService;
+
+    @Qualifier("doctorService")
+    private HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> doctorService;
 
     @Override
     public void checkDataValidityForAdding(M addingDto, BindingResult bindingResult) throws DataValidationServiceException {
@@ -53,26 +70,30 @@ public abstract class AbstractHospitalEmployeeInactivityServiceImpl
             throw new DataValidationServiceException("Нельзя назначить отпуск или больничный самому себе, а также уволить самого себя");
         }
 
-        if (
-                hospitalEmployee.isAdministrator() &&
-                        activeCount(extractionService.administrator().getHospital().getAdministrators())
-                                <= QuantityRestrictionConstants.MIN_NUMBER_OF_ACTIVE_ADMINS_IN_HOSPITAL
-        ) {
-            throw new DataValidationServiceException(
-                    "Минимальное число активных администраторов в медицинском учреждении должно составлять: %s"
-                            .formatted(QuantityRestrictionConstants.MIN_NUMBER_OF_ACTIVE_ADMINS_IN_HOSPITAL)
-            );
-        }
+        try {
+            if (
+                    hospitalEmployee.isAdministrator() &&
+                            activeCount(administratorService.findAllByHospitalId(extractionService.administrator().getHospital().getId()))
+                                    <= QuantityRestrictionConstants.MIN_NUMBER_OF_ACTIVE_ADMINS_IN_HOSPITAL
+            ) {
+                throw new DataValidationServiceException(
+                        "Минимальное число активных администраторов в медицинском учреждении должно составлять: %s"
+                                .formatted(QuantityRestrictionConstants.MIN_NUMBER_OF_ACTIVE_ADMINS_IN_HOSPITAL)
+                );
+            }
 
-        if (
-                hospitalEmployee.isDoctor() &&
-                        activeCount(extractionService.administrator().getHospital().getDoctors())
-                                <= QuantityRestrictionConstants.MIN_NUMBER_OF_ACTIVE_DOCTORS_IN_HOSPITAL
-        ) {
-            throw new DataValidationServiceException(
-                    "Минимальное число активных врачей в медицинском учреждении должно составлять: %s"
-                            .formatted(QuantityRestrictionConstants.MIN_NUMBER_OF_ACTIVE_DOCTORS_IN_HOSPITAL)
-            );
+            if (
+                    hospitalEmployee.isDoctor() &&
+                            activeCount(doctorService.findAllByHospitalId(extractionService.administrator().getHospital().getId()))
+                                    <= QuantityRestrictionConstants.MIN_NUMBER_OF_ACTIVE_DOCTORS_IN_HOSPITAL
+            ) {
+                throw new DataValidationServiceException(
+                        "Минимальное число активных врачей в медицинском учреждении должно составлять: %s"
+                                .formatted(QuantityRestrictionConstants.MIN_NUMBER_OF_ACTIVE_DOCTORS_IN_HOSPITAL)
+                );
+            }
+        } catch (DataSearchingServiceException e) {
+            throw new DataValidationServiceException(e.getMessage(), e);
         }
 
         if (
