@@ -5,6 +5,7 @@ import org.pah_monitoring.main.entities.main.enums.EventDuration;
 import org.pah_monitoring.main.entities.main.enums.TrueFalseEnum;
 import org.pah_monitoring.main.entities.main.examinations.indicators.*;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserExtractionService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 @Controller
 @RequestMapping("/indicators/form")
-//@PreAuthorize("hasRole('PATIENT')")
-@PreAuthorize("permitAll()")
+@PreAuthorize("hasRole('PATIENT')")
+//@PreAuthorize("permitAll()")
 public class IndicatorMvcController {
 
     private final PageHeaderService pageHeaderService;

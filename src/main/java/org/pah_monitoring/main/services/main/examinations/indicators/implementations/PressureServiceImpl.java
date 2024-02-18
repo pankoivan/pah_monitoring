@@ -31,7 +31,7 @@ import java.util.List;
 @Setter(onMethod = @__(@Autowired))
 @Service("pressureService")
 public class PressureServiceImpl extends AbstractInputIndicatorServiceImpl<Pressure, PressureAddingDto>
-        implements GraphicTableInputIndicatorService<Pressure, PressureAddingDto, PressureTablesDto, PressureGraphicsDto> {
+        implements GraphicTableInputIndicatorService<Pressure, PressureAddingDto, List<PressureTablesDto>, PressureGraphicsDto> {
 
     private final PressureRepository repository;
 
@@ -82,7 +82,7 @@ public class PressureServiceImpl extends AbstractInputIndicatorServiceImpl<Press
     }
 
     @Override
-    public PressureTablesDto toTablesOutDto() {
+    public List<PressureTablesDto> toTablesOutDto() {
         return null;
     }
 

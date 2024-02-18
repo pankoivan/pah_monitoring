@@ -18,11 +18,17 @@
         <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
         <!---->
         <div class="container text-secondary my-5">
+            <!---->
+            <div class="row fs-5 mb-5">
+                <h1 class="text-center fs-3">Давление</h1>
+            </div>
+            <!---->
             <div class="row">
                 <div class="col-12">
-                    <div id="table"></div>
+                    <div id="table" th:attr="data-patient=${currentUser.id}"></div>
                 </div>
             </div>
+            <!---->
         </div>
         <!---->
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
@@ -30,5 +36,6 @@
         <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js" th:src="@{https://unpkg.com/gridjs/dist/gridjs.umd.js}"></script>
         <script src="../../../static/js/indicators/tables/pressure-table.js" th:src="@{/js/indicators/tables/pressure-table.js}"></script>
+        <!---->
     </body>
 </html>
