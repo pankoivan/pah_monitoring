@@ -3,6 +3,7 @@ package org.pah_monitoring.main.controllers.errors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.common.BadRequestRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.forbidden.NotEnoughRightsRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.common.InternalServerErrorRestControllerException;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 @Order(1000)
 @PreAuthorize("permitAll()")
+@Slf4j
 public class RestExceptionInterceptor {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -36,6 +38,7 @@ public class RestExceptionInterceptor {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(InternalServerErrorRestControllerException.class)
     public ResponseEntity<ExceptionEntity> internalServerError(InternalServerErrorRestControllerException e) {
+        log.error(e.getMessage(), e);
         ExceptionEntity json = new ExceptionEntity(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
         return new ResponseEntity<>(json, HttpStatus.INTERNAL_SERVER_ERROR);
     }

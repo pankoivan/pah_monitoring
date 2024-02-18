@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.controllers.errors;
 
 import jakarta.servlet.RequestDispatcher;
+import lombok.extern.slf4j.Slf4j;
 import org.pah_monitoring.main.exceptions.common.CheckedException;
 import org.pah_monitoring.main.exceptions.common.UncheckedException;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
@@ -20,9 +21,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @ControllerAdvice
 @Order(2000)
 @PreAuthorize("permitAll()")
+@Slf4j
 public class GlobalExceptionInterceptor {
-
-    // todo: add exceptions to methods parameters for future use in logging (and add logging)
 
     @ExceptionHandler({
             ServerWebInputException.class,
@@ -74,7 +74,8 @@ public class GlobalExceptionInterceptor {
             UncheckedException.class,
             CheckedException.class
     })
-    public String unexpectedServerErrorByMyExceptions(RedirectAttributes redirectAttributes) {
+    public String unexpectedServerErrorByMyExceptions(RedirectAttributes redirectAttributes, Exception e) {
+        log.error(e.getMessage(), e);
         redirectAttributes.addFlashAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.INTERNAL_SERVER_ERROR.value());
         return "redirect:/error";
     }
@@ -82,7 +83,8 @@ public class GlobalExceptionInterceptor {
     @ExceptionHandler({
             Exception.class
     })
-    public String unexpectedServerErrorByOtherExceptions(RedirectAttributes redirectAttributes) {
+    public String unexpectedServerErrorByOtherExceptions(RedirectAttributes redirectAttributes, Exception e) {
+        log.error(e.getMessage(), e);
         redirectAttributes.addFlashAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.INTERNAL_SERVER_ERROR.value());
         return "redirect:/error";
     }
