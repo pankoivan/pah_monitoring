@@ -25,10 +25,10 @@
                         <div class="card-body text-start">
                             <h5 class="card-title text-center mb-3" th:text="${each.name}">Давление</h5>
                             <p th:attr="data-block=${each.indicatorType}" class="mb-3">
-                                <a th:attr="data-edit=${each.indicatorType}" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
+                                <a th:attr="data-edit=${each.indicatorType}" th:if="${currentUser.isDoctor}" href="#" class="text-decoration-none">
                                     <img width="18" class="mb-1" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                                 </a>
-                                <img width="18" class="mb-1" th:if="${isCurrentUserPatient}" src="../../static/svg/schedule.svg" th:src="@{/svg/schedule.svg}" alt="Расписание" />
+                                <img width="18" class="mb-1" th:if="${currentUser.isPatient}" src="../../static/svg/schedule.svg" th:src="@{/svg/schedule.svg}" alt="Расписание" />
                                 Текущее расписание: <span th:attr="data-schedule=${each.indicatorType}" class="text-lowercase" th:text="${each.schedule != null} ? ${each.schedule} : 'Отсутствует'">Три раза в неделю</span>
                             </p>
                             <p class="mb-3">
@@ -47,7 +47,7 @@
                                 <img width="18" class="mb-1" src="../../static/svg/files.svg" th:src="@{/svg/files.svg}" alt="Файлы" />
                                 <a href="#" th:href="@{${each.filesLink}}" class="text-secondary">Посмотреть в виде файлов</a>
                             </p>
-                            <p class="mb-0" th:if="${isCurrentUserPatient}">
+                            <p class="mb-0" th:if="${currentUser.isPatient}">
                                 <a href="#" th:href="@{${each.postFormLink}}" class="btn btn-sm btn-primary">Перейти к отправке</a>
                             </p>
                         </div>
@@ -57,10 +57,10 @@
             <!---->
         </div>
         <!---->
-        <div th:replace="${isCurrentUserOwnDoctor} ? ~{/indicators/modal/schedule-editing-modal :: schedule-editing-modal} : ~{}"></div>
+        <div th:replace="${currentUser.isDoctor} ? ~{/indicators/modal/schedule-editing-modal :: schedule-editing-modal} : ~{}"></div>
         <!---->
-        <div th:replace="${isCurrentUserOwnDoctor} ? ~{/fragments/modal/error-modal :: error-modal} : ~{}"></div>
-        <div th:replace="${isCurrentUserOwnDoctor} ? ~{/fragments/modal/success-modal :: success-modal} : ~{}"></div>
+        <div th:replace="${currentUser.isDoctor} ? ~{/fragments/modal/error-modal :: error-modal} : ~{}"></div>
+        <div th:replace="${currentUser.isDoctor} ? ~{/fragments/modal/success-modal :: success-modal} : ~{}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
         <script src="../../static/js/indicators/indicators.js" th:src="@{/js/indicators/indicators.js}"></script>
