@@ -11,4 +11,6 @@ public class WeightTableDto {
 
     private String weight;
 
+    private String bodyMassIndex;
+
 }
