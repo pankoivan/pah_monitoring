@@ -45,13 +45,13 @@ public class PhysicalChangesServiceImpl extends AbstractInputIndicatorServiceImp
     public IndicatorCard getIndicatorCardFor(Patient patient) {
         return TableInputIndicatorCard
                 .builder()
-                .workingName(getIndicatorType())
+                .indicatorType(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("physical-changes.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/physical-changes")
-                .tablesLink("/patients/%s/examinations/tables?physical-changes".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables?physical-changes".formatted(patient.getId()))
                 .build();
     }
 

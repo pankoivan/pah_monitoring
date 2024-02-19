@@ -2,7 +2,6 @@ package org.pah_monitoring.main.entities.additional.indicators;
 
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
-import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 
 import java.time.LocalDateTime;
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
 @SuperBuilder
 public abstract class IndicatorCard {
 
-    private IndicatorType workingName;
+    private IndicatorType indicatorType;
 
     private String name;
 
@@ -21,11 +20,9 @@ public abstract class IndicatorCard {
 
     private LocalDateTime date;
 
-    private String postFormLink;
+    private String formattedDate;
 
-    public String getFormattedDate() {
-        return DateTimeFormatConstants.HOUR_MINUTE_SECOND_DAY_MONTH_YEAR.format(date);
-    }
+    private String postFormLink;
 
     public abstract boolean isFileIndicatorCard();
 

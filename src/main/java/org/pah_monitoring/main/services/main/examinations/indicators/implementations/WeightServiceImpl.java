@@ -46,14 +46,14 @@ public class WeightServiceImpl extends AbstractInputIndicatorServiceImpl<Weight,
     public IndicatorCard getIndicatorCardFor(Patient patient) {
         return GraphicTableInputIndicatorCard
                 .builder()
-                .workingName(getIndicatorType())
+                .indicatorType(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("weight.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/weight")
-                .tablesLink("/patients/%s/examinations/tables?weight".formatted(patient.getId()))
-                .graphicsLink("/patients/%s/examinations/graphics?weight".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables?weight".formatted(patient.getId()))
+                .graphicLink("/patients/%s/examinations/graphics?weight".formatted(patient.getId()))
                 .build();
     }
 

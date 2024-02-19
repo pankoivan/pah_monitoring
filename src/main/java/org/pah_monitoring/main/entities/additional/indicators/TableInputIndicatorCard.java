@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class TableInputIndicatorCard extends InputIndicatorCard {
 
-    private String tablesLink;
+    private String tableLink;
 
     @Override
     public boolean isFileIndicatorCard() {

@@ -45,13 +45,13 @@ public class CoughServiceImpl extends AbstractInputIndicatorServiceImpl<Cough, C
     public IndicatorCard getIndicatorCardFor(Patient patient) {
         return TableInputIndicatorCard
                 .builder()
-                .workingName(getIndicatorType())
+                .indicatorType(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("cough.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/cough")
-                .tablesLink("/patients/%s/examinations/tables?cough".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables?cough".formatted(patient.getId()))
                 .build();
     }
 

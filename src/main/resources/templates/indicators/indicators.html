@@ -24,12 +24,12 @@
                         <img src="../../static/img/indicators/Давление.jpg" th:src="@{'/img/indicators/' + ${each.filename}}" class="card-img-top rounded px-2 pt-2" alt="Давление" />
                         <div class="card-body text-start">
                             <h5 class="card-title text-center mb-3" th:text="${each.name}">Давление</h5>
-                            <p th:attr="data-block=${each.workingName}" class="mb-3">
-                                <a th:attr="data-edit=${each.workingName}" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
+                            <p th:attr="data-block=${each.indicatorType}" class="mb-3">
+                                <a th:attr="data-edit=${each.indicatorType}" th:if="${isCurrentUserOwnDoctor}" href="#" class="text-decoration-none">
                                     <img width="18" class="mb-1" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
                                 </a>
                                 <img width="18" class="mb-1" th:if="${isCurrentUserPatient}" src="../../static/svg/schedule.svg" th:src="@{/svg/schedule.svg}" alt="Расписание" />
-                                Текущее расписание: <span th:attr="data-schedule=${each.workingName}" class="text-lowercase" th:text="${each.schedule != null} ? ${each.schedule} : 'Отсутствует'">Три раза в неделю</span>
+                                Текущее расписание: <span th:attr="data-schedule=${each.indicatorType}" class="text-lowercase" th:text="${each.schedule != null} ? ${each.schedule} : 'Отсутствует'">Три раза в неделю</span>
                             </p>
                             <p class="mb-3">
                                 <img width="18" class="mb-1" src="../../static/svg/date.svg" th:src="@{/svg/date.svg}" alt="Дата" />

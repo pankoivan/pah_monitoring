@@ -45,13 +45,13 @@ public class VertigoServiceImpl extends AbstractInputIndicatorServiceImpl<Vertig
     public IndicatorCard getIndicatorCardFor(Patient patient) {
         return TableInputIndicatorCard
                 .builder()
-                .workingName(getIndicatorType())
+                .indicatorType(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("vertigo.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/vertigo")
-                .tablesLink("/patients/%s/examinations/tables?vertigo".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables?vertigo".formatted(patient.getId()))
                 .build();
     }
 

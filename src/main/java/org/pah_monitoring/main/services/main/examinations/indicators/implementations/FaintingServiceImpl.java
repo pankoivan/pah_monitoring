@@ -45,13 +45,13 @@ public class FaintingServiceImpl extends AbstractInputIndicatorServiceImpl
     public IndicatorCard getIndicatorCardFor(Patient patient) {
         return TableInputIndicatorCard
                 .builder()
-                .workingName(getIndicatorType())
+                .indicatorType(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("fainting.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/fainting")
-                .tablesLink("/patients/%s/examinations/tables?fainting".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables?fainting".formatted(patient.getId()))
                 .build();
     }
 

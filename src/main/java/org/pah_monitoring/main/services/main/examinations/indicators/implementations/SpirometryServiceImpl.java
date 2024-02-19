@@ -46,14 +46,14 @@ public class SpirometryServiceImpl extends AbstractInputIndicatorServiceImpl<Spi
     public IndicatorCard getIndicatorCardFor(Patient patient) {
         return GraphicTableInputIndicatorCard
                 .builder()
-                .workingName(getIndicatorType())
+                .indicatorType(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("spirometry.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/spirometry")
-                .tablesLink("/patients/%s/examinations/tables?spirometry".formatted(patient.getId()))
-                .graphicsLink("/patients/%s/examinations/graphics?spirometry".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables?spirometry".formatted(patient.getId()))
+                .graphicLink("/patients/%s/examinations/graphics?spirometry".formatted(patient.getId()))
                 .build();
     }
 

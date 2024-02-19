@@ -59,13 +59,13 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
     public IndicatorCard getIndicatorCardFor(AnalysisFile.AnalysisType type, Patient patient) {
         return FileIndicatorCard
                 .builder()
-                .workingName(IndicatorType.valueOf(type.name()))
+                .indicatorType(IndicatorType.valueOf(type.name()))
                 .name(type.getName())
                 .filename(type.getFilename())
                 .schedule(getScheduleFor(type, patient).orElse(null))
                 .date(getLastExaminationDateFor(type, patient).orElse(null))
                 .postFormLink(type.getPostFormLink())
-                .filesLink(type.getFilesLink().formatted(patient.getId()))
+                .fileLink(type.getFilesLink().formatted(patient.getId()))
                 .build();
     }
 

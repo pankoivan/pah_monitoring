@@ -45,13 +45,13 @@ public class OverallHealthServiceImpl extends AbstractInputIndicatorServiceImpl<
     public IndicatorCard getIndicatorCardFor(Patient patient) {
         return TableInputIndicatorCard
                 .builder()
-                .workingName(getIndicatorType())
+                .indicatorType(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("overall-health.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/overall-health")
-                .tablesLink("/patients/%s/examinations/tables?overall-health".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables?overall-health".formatted(patient.getId()))
                 .build();
     }
 

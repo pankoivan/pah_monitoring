@@ -45,6 +45,19 @@ public class Anamnesis implements BaseEntity {
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
+    @Override
+    public boolean equals(Object o) {
+        return (this == o)
+                || ((o instanceof Anamnesis other))
+                && (id != null)
+                && (id.equals(other.id));
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
     public enum BloodClotting {
@@ -57,19 +70,6 @@ public class Anamnesis implements BaseEntity {
 
         private final String alias;
 
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return (this == o)
-                || ((o instanceof Anamnesis other))
-                && (id != null)
-                && (id.equals(other.id));
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
     }
 
 }

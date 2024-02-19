@@ -46,14 +46,14 @@ public class PulseOximetryServiceImpl extends AbstractInputIndicatorServiceImpl<
     public IndicatorCard getIndicatorCardFor(Patient patient) {
         return GraphicTableInputIndicatorCard
                 .builder()
-                .workingName(getIndicatorType())
+                .indicatorType(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("pulse-oximetry.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/pulse-oximetry")
-                .tablesLink("/patients/%s/examinations/tables?pulse-oximetry".formatted(patient.getId()))
-                .graphicsLink("/patients/%s/examinations/graphics?pulse-oximetry".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables?pulse-oximetry".formatted(patient.getId()))
+                .graphicLink("/patients/%s/examinations/graphics?pulse-oximetry".formatted(patient.getId()))
                 .build();
     }
 

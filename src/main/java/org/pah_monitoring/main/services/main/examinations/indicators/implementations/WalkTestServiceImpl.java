@@ -58,14 +58,14 @@ public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl<WalkT
     public IndicatorCard getIndicatorCardFor(Patient patient) {
         return GraphicTableInputIndicatorCard
                 .builder()
-                .workingName(getIndicatorType())
+                .indicatorType(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("walk-test.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/walk-test")
-                .tablesLink("/patients/%s/examinations/tables?walk-test".formatted(patient.getId()))
-                .graphicsLink("/patients/%s/examinations/graphics?walk-test".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables?walk-test".formatted(patient.getId()))
+                .graphicLink("/patients/%s/examinations/graphics?walk-test".formatted(patient.getId()))
                 .build();
     }
 

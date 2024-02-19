@@ -45,13 +45,13 @@ public class ChestPainServiceImpl extends AbstractInputIndicatorServiceImpl<Ches
     public IndicatorCard getIndicatorCardFor(Patient patient) {
         return TableInputIndicatorCard
                 .builder()
-                .workingName(getIndicatorType())
+                .indicatorType(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("chest-pain.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/chest-pain")
-                .tablesLink("/patients/%s/examinations/tables?chest-pain".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables?chest-pain".formatted(patient.getId()))
                 .build();
     }
 

@@ -46,14 +46,14 @@ public class LiquidServiceImpl extends AbstractInputIndicatorServiceImpl<Liquid,
     public IndicatorCard getIndicatorCardFor(Patient patient) {
         return GraphicTableInputIndicatorCard
                 .builder()
-                .workingName(getIndicatorType())
+                .indicatorType(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("liquid.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/liquid")
-                .tablesLink("/patients/%s/examinations/tables?liquid".formatted(patient.getId()))
-                .graphicsLink("/patients/%s/examinations/graphics?liquid".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables?liquid".formatted(patient.getId()))
+                .graphicLink("/patients/%s/examinations/graphics?liquid".formatted(patient.getId()))
                 .build();
     }
 

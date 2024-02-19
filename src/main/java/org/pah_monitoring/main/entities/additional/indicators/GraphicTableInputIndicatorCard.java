@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class GraphicTableInputIndicatorCard extends TableInputIndicatorCard {
 
-    private String graphicsLink;
+    private String graphicLink;
 
     @Override
     public boolean isGraphicTableInputIndicatorCard() {

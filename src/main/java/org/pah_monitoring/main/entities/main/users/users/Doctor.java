@@ -69,7 +69,10 @@ public class Doctor extends HospitalEmployee implements UserDetails {
     }
 
     public boolean hasPatientById(Integer id) {
-        return !patients.isEmpty() && patients.stream().map(Patient::getId).toList().contains(id);
+        return !patients.isEmpty() && patients.stream()
+                .map(Patient::getId)
+                .toList()
+                .contains(id);
     }
 
     @Override

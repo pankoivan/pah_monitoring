@@ -46,14 +46,14 @@ public class PressureServiceImpl extends AbstractInputIndicatorServiceImpl<Press
     public IndicatorCard getIndicatorCardFor(Patient patient) {
         return GraphicTableInputIndicatorCard
                 .builder()
-                .workingName(getIndicatorType())
+                .indicatorType(getIndicatorType())
                 .name(getIndicatorType().getAlias())
                 .filename("pressure.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/pressure")
-                .tablesLink("/patients/%s/examinations/tables?pressure".formatted(patient.getId()))
-                .graphicsLink("/patients/%s/examinations/graphics?pressure".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables?pressure".formatted(patient.getId()))
+                .graphicLink("/patients/%s/examinations/graphics?pressure".formatted(patient.getId()))
                 .build();
     }
 

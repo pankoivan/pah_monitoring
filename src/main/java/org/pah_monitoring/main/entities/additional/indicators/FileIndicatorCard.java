@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class FileIndicatorCard extends IndicatorCard {
 
-    private String filesLink;
+    private String fileLink;
 
     @Override
     public boolean isFileIndicatorCard() {
