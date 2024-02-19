@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class WalkTestGraphicsDto {
+public class PulseOximetryGraphicDto {
 
 }

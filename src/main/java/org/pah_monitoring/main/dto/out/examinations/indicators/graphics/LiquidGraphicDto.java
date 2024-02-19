@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class PhysicalChangesGraphicsDto {
+public class LiquidGraphicDto {
 
 }
