@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.repositorites.examinations.indicators.common;
 
-import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 
 import java.util.List;

@@ -3,7 +3,6 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.main.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.InputIndicatorService;

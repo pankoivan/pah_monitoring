@@ -12,7 +12,6 @@ import org.pah_monitoring.main.entities.additional.indicators.GraphicTableInputI
 import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.PulseOximetry;
-import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.InputIndicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;

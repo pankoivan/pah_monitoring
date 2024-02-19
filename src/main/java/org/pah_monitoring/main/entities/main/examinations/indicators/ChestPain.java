@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.main.entities.main.enums.EventDuration;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
-import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.TableInputIndicator;
+import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.Indicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 
 import java.time.LocalDateTime;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "chest_pain")
-public class ChestPain implements TableInputIndicator {
+public class ChestPain implements Indicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,7 +57,7 @@ public class ChestPain implements TableInputIndicator {
     }
 
     @Override
-    public IndicatorType getIndicatorGroup() {
+    public IndicatorType getIndicatorType() {
         return IndicatorType.CHEST_PAIN;
     }
 
