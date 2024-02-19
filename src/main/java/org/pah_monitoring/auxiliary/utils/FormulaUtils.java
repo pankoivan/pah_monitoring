@@ -9,8 +9,8 @@ public final class FormulaUtils {
         return weight / ((double) (height * height) / 10000);
     }
 
-    public static double tlc(double rlc, double vlc) {
-        return rlc + vlc;
+    public static double tlc(double rlv, double vlc) {
+        return rlv + vlc;
     }
 
     public static double tiffnoIndex(double vfe1, double vlc) {
