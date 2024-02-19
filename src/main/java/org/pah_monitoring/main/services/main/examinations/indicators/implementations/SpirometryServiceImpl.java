@@ -6,18 +6,16 @@ import org.pah_monitoring.main.dto.in.examinations.indicators.SpirometryAddingDt
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.SpirometryGraphicsDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.SpirometryTablesDto;
 import org.pah_monitoring.main.entities.additional.indicators.GraphicTableInputIndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Spirometry;
+import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.Indicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.SpirometryRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
-import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.GraphicTableInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,8 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("spirometryService")
-public class SpirometryServiceImpl extends AbstractInputIndicatorServiceImpl<Spirometry, SpirometryAddingDto>
-        implements GraphicTableInputIndicatorService<Spirometry, SpirometryAddingDto, SpirometryTablesDto, SpirometryGraphicsDto> {
+public class SpirometryServiceImpl extends AbstractInputIndicatorServiceImpl<Spirometry, SpirometryAddingDto> {
 
     private final SpirometryRepository repository;
 
@@ -52,8 +49,8 @@ public class SpirometryServiceImpl extends AbstractInputIndicatorServiceImpl<Spi
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/spirometry")
-                .tableLink("/patients/%s/examinations/tables?spirometry".formatted(patient.getId()))
-                .graphicLink("/patients/%s/examinations/graphics?spirometry".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables/spirometry".formatted(patient.getId()))
+                .graphicLink("/patients/%s/examinations/graphics/spirometry".formatted(patient.getId()))
                 .build();
     }
 
@@ -82,17 +79,7 @@ public class SpirometryServiceImpl extends AbstractInputIndicatorServiceImpl<Spi
     }
 
     @Override
-    public SpirometryTablesDto toTablesOutDto() {
-        return null;
-    }
-
-    @Override
-    public SpirometryGraphicsDto toGraphicsOutDto() {
-        return null;
-    }
-
-    @Override
-    protected List<InputIndicator> findAllByPatient(Patient patient) {
+    protected List<Indicator> findAllByPatient(Patient patient) {
         return repository.findAllByPatient(patient);
     }
 

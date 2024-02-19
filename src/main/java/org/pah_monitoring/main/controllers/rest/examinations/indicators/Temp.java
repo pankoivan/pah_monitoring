@@ -10,7 +10,6 @@ import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidat
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoListMapper;
-import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.GraphicTableInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.PatientService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;

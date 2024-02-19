@@ -8,21 +8,19 @@ import org.pah_monitoring.main.dto.in.examinations.indicators.WalkTestAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.WalkTestGraphicsDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.WalkTestTablesDto;
 import org.pah_monitoring.main.entities.additional.indicators.GraphicTableInputIndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Pressure;
 import org.pah_monitoring.main.entities.main.examinations.indicators.PulseOximetry;
 import org.pah_monitoring.main.entities.main.examinations.indicators.WalkTest;
+import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.Indicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.WalkTestRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
-import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.GraphicTableInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,8 +33,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("walkTestService")
-public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl<WalkTest, WalkTestAddingDto>
-        implements GraphicTableInputIndicatorService<WalkTest, WalkTestAddingDto, WalkTestTablesDto, WalkTestGraphicsDto> {
+public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl<WalkTest, WalkTestAddingDto> {
 
     private final WalkTestRepository repository;
 
@@ -64,8 +61,8 @@ public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl<WalkT
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/walk-test")
-                .tableLink("/patients/%s/examinations/tables?walk-test".formatted(patient.getId()))
-                .graphicLink("/patients/%s/examinations/graphics?walk-test".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables/walk-test".formatted(patient.getId()))
+                .graphicLink("/patients/%s/examinations/graphics/walk-test".formatted(patient.getId()))
                 .build();
     }
 
@@ -108,17 +105,7 @@ public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl<WalkT
     }
 
     @Override
-    public WalkTestTablesDto toTablesOutDto() {
-        return null;
-    }
-
-    @Override
-    public WalkTestGraphicsDto toGraphicsOutDto() {
-        return null;
-    }
-
-    @Override
-    protected List<InputIndicator> findAllByPatient(Patient patient) {
+    protected List<Indicator> findAllByPatient(Patient patient) {
         return repository.findAllByPatient(patient);
     }
 

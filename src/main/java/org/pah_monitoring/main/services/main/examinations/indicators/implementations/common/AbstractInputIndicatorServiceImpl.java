@@ -3,6 +3,7 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.Indicator;
 import org.pah_monitoring.main.entities.main.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.InputIndicatorService;
@@ -27,7 +28,7 @@ public abstract class AbstractInputIndicatorServiceImpl<T, M> extends AbstractIn
     public Optional<LocalDateTime> getLastExaminationDateFor(Patient patient) {
         return findAllByPatient(patient)
                 .stream()
-                .map(InputIndicator::getDate)
+                .map(Indicator::getDate)
                 .max(Comparator.comparing(Function.identity()));
     }
 
@@ -37,6 +38,6 @@ public abstract class AbstractInputIndicatorServiceImpl<T, M> extends AbstractIn
                 .map(ExaminationSchedule::getSchedule);
     }
 
-    protected abstract List<InputIndicator> findAllByPatient(Patient patient);
+    protected abstract List<Indicator> findAllByPatient(Patient patient);
 
 }

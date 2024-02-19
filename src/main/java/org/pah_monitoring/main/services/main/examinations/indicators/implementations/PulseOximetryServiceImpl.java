@@ -6,18 +6,16 @@ import org.pah_monitoring.main.dto.in.examinations.indicators.PulseOximetryAddin
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.PulseOximetryGraphicsDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.PulseOximetryTablesDto;
 import org.pah_monitoring.main.entities.additional.indicators.GraphicTableInputIndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.PulseOximetry;
+import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.Indicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.PulseOximetryRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
-import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.GraphicTableInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,8 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("pulseOximetryService")
-public class PulseOximetryServiceImpl extends AbstractInputIndicatorServiceImpl<PulseOximetry, PulseOximetryAddingDto>
-        implements GraphicTableInputIndicatorService<PulseOximetry, PulseOximetryAddingDto, PulseOximetryTablesDto, PulseOximetryGraphicsDto> {
+public class PulseOximetryServiceImpl extends AbstractInputIndicatorServiceImpl<PulseOximetry, PulseOximetryAddingDto> {
 
     private final PulseOximetryRepository repository;
 
@@ -52,8 +49,8 @@ public class PulseOximetryServiceImpl extends AbstractInputIndicatorServiceImpl<
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/pulse-oximetry")
-                .tableLink("/patients/%s/examinations/tables?pulse-oximetry".formatted(patient.getId()))
-                .graphicLink("/patients/%s/examinations/graphics?pulse-oximetry".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables/pulse-oximetry".formatted(patient.getId()))
+                .graphicLink("/patients/%s/examinations/graphics/pulse-oximetry".formatted(patient.getId()))
                 .build();
     }
 
@@ -81,17 +78,7 @@ public class PulseOximetryServiceImpl extends AbstractInputIndicatorServiceImpl<
     }
 
     @Override
-    public PulseOximetryTablesDto toTablesOutDto() {
-        return null;
-    }
-
-    @Override
-    public PulseOximetryGraphicsDto toGraphicsOutDto() {
-        return null;
-    }
-
-    @Override
-    protected List<InputIndicator> findAllByPatient(Patient patient) {
+    protected List<Indicator> findAllByPatient(Patient patient) {
         return repository.findAllByPatient(patient);
     }
 

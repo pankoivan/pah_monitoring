@@ -11,12 +11,12 @@ import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.TableInputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Cough;
+import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.Indicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.CoughRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
-import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.TableInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,8 +28,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("coughService")
-public class CoughServiceImpl extends AbstractInputIndicatorServiceImpl<Cough, CoughAddingDto>
-        implements TableInputIndicatorService<Cough, CoughAddingDto, CoughTablesDto> {
+public class CoughServiceImpl extends AbstractInputIndicatorServiceImpl<Cough, CoughAddingDto> {
 
     private final CoughRepository repository;
 
@@ -51,7 +50,7 @@ public class CoughServiceImpl extends AbstractInputIndicatorServiceImpl<Cough, C
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/cough")
-                .tableLink("/patients/%s/examinations/tables?cough".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables/cough".formatted(patient.getId()))
                 .build();
     }
 
@@ -80,12 +79,7 @@ public class CoughServiceImpl extends AbstractInputIndicatorServiceImpl<Cough, C
     }
 
     @Override
-    public CoughTablesDto toTablesOutDto() {
-        return null;
-    }
-
-    @Override
-    protected List<InputIndicator> findAllByPatient(Patient patient) {
+    protected List<Indicator> findAllByPatient(Patient patient) {
         return repository.findAllByPatient(patient);
     }
 

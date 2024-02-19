@@ -6,17 +6,16 @@ import org.pah_monitoring.main.dto.in.examinations.indicators.ChestPainAddingDto
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.ChestPainTablesDto;
 import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.TableInputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.ChestPain;
+import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.Indicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.ChestPainRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
-import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.TableInputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,8 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("chestPainService")
-public class ChestPainServiceImpl extends AbstractInputIndicatorServiceImpl<ChestPain, ChestPainAddingDto>
-        implements TableInputIndicatorService<ChestPain, ChestPainAddingDto, ChestPainTablesDto> {
+public class ChestPainServiceImpl extends AbstractInputIndicatorServiceImpl<ChestPain, ChestPainAddingDto> {
 
     private final ChestPainRepository repository;
 
@@ -51,7 +49,7 @@ public class ChestPainServiceImpl extends AbstractInputIndicatorServiceImpl<Ches
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
                 .postFormLink("/indicators/form/chest-pain")
-                .tableLink("/patients/%s/examinations/tables?chest-pain".formatted(patient.getId()))
+                .tableLink("/patients/%s/examinations/tables/chest-pain".formatted(patient.getId()))
                 .build();
     }
 
@@ -79,12 +77,7 @@ public class ChestPainServiceImpl extends AbstractInputIndicatorServiceImpl<Ches
     }
 
     @Override
-    public ChestPainTablesDto toTablesOutDto() {
-        return null;
-    }
-
-    @Override
-    protected List<InputIndicator> findAllByPatient(Patient patient) {
+    protected List<Indicator> findAllByPatient(Patient patient) {
         return repository.findAllByPatient(patient);
     }
 
