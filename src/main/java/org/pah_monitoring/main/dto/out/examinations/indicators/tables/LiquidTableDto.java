@@ -5,6 +5,10 @@ import lombok.Data;
 
 @Data
 @Builder
-public class LiquidTablesDto {
+public class LiquidTableDto {
+
+    private String formattedDate;
+
+    private String liquid;
 
 }

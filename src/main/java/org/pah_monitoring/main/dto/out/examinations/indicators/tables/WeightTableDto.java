@@ -5,6 +5,10 @@ import lombok.Data;
 
 @Data
 @Builder
-public class PulseOximetryTablesDto {
+public class WeightTableDto {
+
+    private String formattedDate;
+
+    private String weight;
 
 }

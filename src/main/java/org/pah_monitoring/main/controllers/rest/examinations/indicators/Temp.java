@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.dto.in.examinations.indicators.PressureAddingDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.PressureGraphicsDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.PressureTablesDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.tables.PressureTableDto;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Pressure;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -29,10 +29,10 @@ public class Temp {
     private final PatientService patientService;
 
     @Qualifier("pressureService")
-    private final GraphicTableInputIndicatorService<Pressure, PressureAddingDto, List<PressureTablesDto>, PressureGraphicsDto> pressureService;
+    private final GraphicTableInputIndicatorService<Pressure, PressureAddingDto, List<PressureTableDto>, PressureGraphicsDto> pressureService;
 
     @GetMapping("/tables/pressure/for/{patientId}")
-    public List<PressureTablesDto> get(@PathVariable("patientId") String pathPatientId) {
+    public List<PressureTableDto> get(@PathVariable("patientId") String pathPatientId) {
         try {
             System.out.println(new Mapper().mapList(pressureService.findAllByPatientId(patientService.parsePathId(pathPatientId))));
             return new Mapper().mapList(pressureService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
@@ -41,11 +41,11 @@ public class Temp {
         }
     }
 
-    private static class Mapper implements BaseEntityToOutDtoListMapper<Pressure, PressureTablesDto> {
+    private static class Mapper implements BaseEntityToOutDtoListMapper<Pressure, PressureTableDto> {
 
         @Override
-        public PressureTablesDto map(Pressure pressure) {
-            return PressureTablesDto
+        public PressureTableDto map(Pressure pressure) {
+            return PressureTableDto
                     .builder()
                     .formattedDate(DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(pressure.getDate()))
                     .upper(pressure.getUpper())

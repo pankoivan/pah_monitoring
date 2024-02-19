@@ -5,6 +5,12 @@ import lombok.Data;
 
 @Data
 @Builder
-public class OverallHealthTablesDto {
+public class FaintingTableDto {
+
+    private String formattedDate;
+
+    private String duration;
+
+    private String duringExercise;
 
 }

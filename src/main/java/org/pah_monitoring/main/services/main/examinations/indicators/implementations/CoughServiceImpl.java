@@ -6,7 +6,6 @@ import org.pah_monitoring.main.dto.in.examinations.indicators.CoughAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
-import org.pah_monitoring.main.dto.out.examinations.indicators.tables.CoughTablesDto;
 import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.additional.indicators.TableInputIndicatorCard;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;

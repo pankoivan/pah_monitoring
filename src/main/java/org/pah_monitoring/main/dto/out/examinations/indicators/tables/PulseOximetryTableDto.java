@@ -2,17 +2,16 @@ package org.pah_monitoring.main.dto.out.examinations.indicators.tables;
 
 import lombok.Builder;
 import lombok.Data;
-import org.pah_monitoring.main.dto.out.common.interfaces.OutDto;
 
 @Data
 @Builder
-public class PressureTablesDto implements OutDto {
+public class PulseOximetryTableDto {
 
     private String formattedDate;
 
-    private Integer upper;
+    private String oxygenPercentage;
 
-    private Integer lower;
+    private String pulseRate;
 
     private String afterExercise;
 
