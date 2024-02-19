@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/patients/{id}/indicators")
+@RequestMapping("/patients/{patientId}/indicators")
 @PreAuthorize("hasAnyRole('DOCTOR', 'PATIENT')")
 public class IndicatorCardMvcController {
 
@@ -35,9 +35,9 @@ public class IndicatorCardMvcController {
     private final PageHeaderService pageHeaderService;
 
     @GetMapping
-    public String getIndicatorsPage(Model model, @PathVariable("id") String pathId) {
+    public String getIndicatorsPage(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathId));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             service.checkAccessRightsForObtaining(patient);
             model.addAttribute("cards", service.getAllIndicatorCardsFor(patient));
             model.addAttribute("patient", patient);
