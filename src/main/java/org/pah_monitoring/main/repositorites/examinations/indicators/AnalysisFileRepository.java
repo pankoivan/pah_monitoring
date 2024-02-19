@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface AnalysisFileRepository extends JpaRepository<AnalysisFile, Integer> {
 
-    List<AnalysisFile> findAllByAnalysisTypeAndPatientId(AnalysisFile.AnalysisType type, Integer id);
+    List<AnalysisFile> findAllByAnalysisTypeAndPatientId(AnalysisFile.AnalysisType analysisType, Integer patientId);
 
 }
