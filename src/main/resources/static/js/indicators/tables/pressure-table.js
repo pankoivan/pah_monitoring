@@ -22,7 +22,7 @@ new gridjs.Grid({
         },
     },
     server: {
-        url: "http://localhost:8080/rest/indicators/tables/pressure/for/" + patientId,
+        url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/pressure`,
         then: (pressures) => pressures.map((pressure) => [pressure.formattedDate, pressure.upper, pressure.lower, pressure.afterExercise, "Byb", "Pyp", "Bob"]),
     },
 }).render(document.getElementById("table"));
