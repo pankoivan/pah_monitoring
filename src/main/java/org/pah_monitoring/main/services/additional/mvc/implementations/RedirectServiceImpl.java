@@ -54,7 +54,7 @@ public class RedirectServiceImpl implements RedirectService {
 
     @Override
     public String patientAnamnesisRedirect() {
-        return "/anamnesis/for/%s".formatted(extractionService.patient().getId());
+        return "redirect:/anamnesis/for/%s".formatted(extractionService.patient().getId());
     }
 
 }

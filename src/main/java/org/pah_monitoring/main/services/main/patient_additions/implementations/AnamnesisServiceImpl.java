@@ -39,7 +39,7 @@ public class AnamnesisServiceImpl implements AnamnesisService {
     @Override
     public Anamnesis add(AnamnesisAddingDto addingDto) throws DataSavingServiceException {
         try {
-            return repository.save(
+            Anamnesis anamnesis = repository.save(
                     Anamnesis
                             .builder()
                             .heartDisease(addingDto.getHeartDisease())
@@ -52,6 +52,8 @@ public class AnamnesisServiceImpl implements AnamnesisService {
                             .patient(extractionService.patient())
                             .build()
             );
+            extractionService.patient().setAnamnesis(anamnesis);
+            return anamnesis;
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
@@ -64,7 +66,7 @@ public class AnamnesisServiceImpl implements AnamnesisService {
         }
         try {
             if (extractionService.patient().hasAnamnesis()) {
-                throw new DataValidationServiceException("Нельзя отправить больше одного анамнеза");
+                throw new DataValidationServiceException("Анамнез не может быть отправлен больше одного раза");
             }
         } catch (NullPointerException | ClassCastException e) {
             throw new DataValidationServiceException(e.getMessage(), e);
