@@ -36,7 +36,7 @@
                             <h4 class="fs-4">Отёки ног</h4>
                             <div class="form-check form-check-inline" th:each="each : ${legsSwelling}">
                                 <label class="form-check-label" th:for="'legsSwelling' + ${each}" th:text="${each.alias}">К вечеру</label>
-                                <input th:id="'legsSwelling' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="legsSwelling" />
+                                <input th:id="'legsSwelling' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="legsSwelling" />
                             </div>
                         </div>
                         <div class="mb-5">
@@ -50,7 +50,7 @@
                             <h4 class="fs-4">Цвет губ и кожи</h4>
                             <div class="form-check form-check-inline" th:each="each : ${skinColor}">
                                 <label class="form-check-label" th:for="'skinColor' + ${each}" th:text="${each.alias}">Желтоватый</label>
-                                <input th:id="'skinColor' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="skinColor" />
+                                <input th:id="'skinColor' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="skinColor" />
                             </div>
                         </div>
                         <div class="mb-5">

@@ -29,27 +29,27 @@
                             <h4 class="fs-4">Тип</h4>
                             <div class="form-check form-check-inline" th:each="each : ${type}">
                                 <label class="form-check-label" th:for="'type' + ${each}" th:text="${each.alias}">Сухой</label>
-                                <input th:id="'type' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="type" />
+                                <input th:id="'type' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="type" />
                             </div>
                         </div>
                         <div class="mb-5">
                             <h4 class="fs-4">Сила</h4>
                             <div class="form-check form-check-inline" th:each="each : ${power}">
                                 <label class="form-check-label" th:for="'power' + ${each}" th:text="${each.alias}">Покашливание</label>
-                                <input th:id="'power' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="power" />
+                                <input th:id="'power' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="power" />
                             </div>
                         </div>
                         <div class="mb-5">
                             <h4 class="fs-4">Тембр</h4>
                             <div class="form-check form-check-inline" th:each="each : ${timbre}">
                                 <label class="form-check-label" th:for="'timbre' + ${each}" th:text="${each.alias}">Звонкий грудной</label>
-                                <input th:id="'timbre' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="timbre" />
+                                <input th:id="'timbre' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="timbre" />
                             </div>
                         </div>
                         <div class="mb-5">
-                            <h4 class="fs-4">Было ли у вас кровохарканье?</h4>
+                            <h4 class="fs-4">Кровохарканье</h4>
                             <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
-                                <label class="form-check-label" th:for="'hemoptysis' + ${each}" th:text="${each.yesNo}">Нет</label>
+                                <label class="form-check-label" th:for="'hemoptysis' + ${each}" th:text="${each.hasNot}">Нет</label>
                                 <input th:id="'hemoptysis' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="hemoptysis" />
                             </div>
                         </div>

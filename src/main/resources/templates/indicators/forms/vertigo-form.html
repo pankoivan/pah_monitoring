@@ -29,7 +29,7 @@
                             <h4 class="fs-4">Длительность</h4>
                             <div class="form-check form-check-inline" th:each="each : ${duration}">
                                 <label class="form-check-label" th:for="'duration' + ${each}" th:text="${each.alias}">Полчаса</label>
-                                <input th:id="'duration' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="duration" />
+                                <input th:id="'duration' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="duration" />
                             </div>
                         </div>
                         <div class="mb-5">

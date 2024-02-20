@@ -29,11 +29,11 @@
                             <h4 class="fs-4">Продолжительность</h4>
                             <div class="form-check form-check-inline" th:each="each : ${duration}">
                                 <label class="form-check-label" th:for="'duration' + ${each}" th:text="${each.alias}">Часы</label>
-                                <input th:id="'duration' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="duration" />
+                                <input th:id="'duration' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="duration" />
                             </div>
                         </div>
                         <div class="mb-5">
-                            <h4 class="fs-4">Было ли у вас кровохарканье при кашле?</h4>
+                            <h4 class="fs-4">При физической нагрузке</h4>
                             <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
                                 <label class="form-check-label" th:for="'duringExercise' + ${each}" th:text="${each.yesNo}">Нет</label>
                                 <input th:id="'duringExercise' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="duringExercise" />

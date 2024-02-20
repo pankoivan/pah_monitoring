@@ -29,21 +29,21 @@
                             <h4 class="fs-4">Тип</h4>
                             <div class="form-check form-check-inline" th:each="each : ${type}">
                                 <label class="form-check-label" th:for="'type' + ${each}" th:text="${each.alias}">Давящая</label>
-                                <input th:id="'type' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="type" />
+                                <input th:id="'type' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="type" />
                             </div>
                         </div>
                         <div class="mb-5">
                             <h4 class="fs-4">Продолжительность</h4>
                             <div class="form-check form-check-inline" th:each="each : ${duration}">
                                 <label class="form-check-label" th:for="'duration' + ${each}" th:text="${each.alias}">Часы</label>
-                                <input th:id="'duration' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="duration" />
+                                <input th:id="'duration' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="duration" />
                             </div>
                         </div>
                         <div class="mb-5">
                             <h4 class="fs-4">Помог ли вам приём нитроглицерина?</h4>
                             <div class="form-check form-check-inline" th:each="each : ${nitroglycerin}">
                                 <label class="form-check-label" th:for="'nitroglycerin' + ${each}" th:text="${each.alias}">Не принимал</label>
-                                <input th:id="'nitroglycerin' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="nitroglycerin" />
+                                <input th:id="'nitroglycerin' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="nitroglycerin" />
                             </div>
                         </div>
                         <button type="submit" class="btn btn-lg btn-primary">Отправить</button>

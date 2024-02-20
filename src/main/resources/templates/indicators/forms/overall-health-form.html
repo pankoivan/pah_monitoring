@@ -29,14 +29,14 @@
                             <h4 class="fs-4">Одышка</h4>
                             <div class="form-check form-check-inline" th:each="each : ${conditions}">
                                 <label class="form-check-label" th:for="'breathlessness' + ${each}" th:text="${each.alias}">В покое</label>
-                                <input th:id="'breathlessness' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="breathlessness" />
+                                <input th:id="'breathlessness' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="breathlessness" />
                             </div>
                         </div>
                         <div class="mb-5">
                             <h4 class="fs-4">Усталость</h4>
                             <div class="form-check form-check-inline" th:each="each : ${conditions}">
                                 <label class="form-check-label" th:for="'fatigue' + ${each}" th:text="${each.alias}">В покое</label>
-                                <input th:id="'fatigue' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="fatigue" />
+                                <input th:id="'fatigue' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="fatigue" />
                             </div>
                         </div>
                         <div class="mb-5">
@@ -63,8 +63,8 @@
                         <div class="mb-5">
                             <h4 class="fs-4">Слабость</h4>
                             <div class="form-check form-check-inline" th:each="each : ${weakness}">
-                                <label class="form-check-label" th:for="'weakness' + ${each}" th:text="${each.yesNo}">Острый вид</label>
-                                <input th:id="'weakness' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="weakness" />
+                                <label class="form-check-label" th:for="'weakness' + ${each}" th:text="${each.alias}">Острый вид</label>
+                                <input th:id="'weakness' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="weakness" />
                             </div>
                         </div>
                         <div class="mb-5">
@@ -78,7 +78,7 @@
                             <h4 class="fs-4">Холодные конечности</h4>
                             <div class="form-check form-check-inline" th:each="each : ${coldExtremities}">
                                 <label class="form-check-label" th:for="'coldExtremities' + ${each}" th:text="${each.alias}">Короткое время</label>
-                                <input th:id="'coldExtremities' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="coldExtremities" />
+                                <input th:id="'coldExtremities' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="coldExtremities" />
                             </div>
                         </div>
                         <button type="submit" class="btn btn-lg btn-primary">Отправить</button>
