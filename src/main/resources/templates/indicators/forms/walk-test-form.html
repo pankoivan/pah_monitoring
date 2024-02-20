@@ -24,93 +24,97 @@
                 </div>
             </div>
             <!---->
-            <div class="row mb-5">
-                <div class="col-12">
-                    <div class="mb-5">
-                        <h4 class="fs-4">Кислородная поддержка</h4>
-                        <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
-                            <label class="form-check-label" th:for="'oxygenSupport' + ${each}" th:text="${each.hasNot}">Нет</label>
-                            <input th:id="'oxygenSupport' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="oxygenSupport" />
+            <form action="#" method="post" id="walk-test-form" class="fs-5">
+                <!---->
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <div class="mb-5">
+                            <h4 class="fs-4">Кислородная поддержка</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                                <label class="form-check-label" th:for="'oxygenSupport' + ${each}" th:text="${each.hasNot}">Нет</label>
+                                <input th:id="'oxygenSupport' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="oxygenSupport" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Вспомогательные устройства для ходьбы</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                                <label class="form-check-label" th:for="'auxiliaryDevices' + ${each}" th:text="${each.hasNot}">Есть</label>
+                                <input th:id="'auxiliaryDevices' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="auxiliaryDevices" />
+                            </div>
+                        </div>
+                        <div class="mb-5 col-12 col-md-6 col-lg-4">
+                            <label for="distance" class="form-label fw-semibold fs-4">Дистанция (м)</label>
+                            <input type="number" step="0.01" name="distance" id="distance" class="form-control" placeholder="784.31" />
+                        </div>
+                        <div class="mb-5 col-12 col-md-6 col-lg-4">
+                            <label for="numberOfStops" class="form-label fw-semibold fs-4">Количество остановок</label>
+                            <input type="number" name="numberOfStops" id="numberOfStops" class="form-control" placeholder="2" />
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <label for="breathlessness" class="form-label fw-semibold fs-4">Одышка по шкале Борга</label>
+                            <select name="breathlessness" id="breathlessness" class="form-select">
+                                <option th:each="each : ${expirationDateList}" th:text="${each.alias}" th:value="${each}">Очень-очень тяжёлая (9)</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="mb-5">
-                        <h4 class="fs-4">Вспомогательные устройства для ходьбы</h4>
-                        <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
-                            <label class="form-check-label" th:for="'auxiliaryDevices' + ${each}" th:text="${each.hasNot}">Есть</label>
-                            <input th:id="'auxiliaryDevices' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="auxiliaryDevices" />
+                </div>
+                <!---->
+                <div class="row fs-5 mb-5">
+                    <div class="col-12">
+                        <h1 class="text-center fs-3 mb-0">Т6МХ: показатели до нагрузки</h1>
+                    </div>
+                </div>
+                <!---->
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <div class="mb-5 col-12 col-md-6 col-lg-4">
+                            <label for="upperBefore" class="form-label fw-semibold fs-4">Верхнее давление (мм рт.ст.)</label>
+                            <input type="number" name="upperBefore" id="upperBefore" class="form-control" placeholder="120" />
+                        </div>
+                        <div class="mb-5 col-12 col-md-6 col-lg-4">
+                            <label for="lowerBefore" class="form-label fw-semibold fs-4">Нижнее давление (мм рт.ст.)</label>
+                            <input type="number" name="lowerBefore" id="lowerBefore" class="form-control" placeholder="80" />
+                        </div>
+                        <div class="mb-5 col-12 col-md-6 col-lg-4">
+                            <label for="oxygenPercentageBefore" class="form-label fw-semibold fs-4">Содержание кислорода в крови (%)</label>
+                            <input type="number" step="0.01" name="oxygenPercentageBefore" id="oxygenPercentageBefore" class="form-control" placeholder="98.21" />
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <label for="pulseRateBefore" class="form-label fw-semibold fs-4">Пульс (уд/мин)</label>
+                            <input type="number" name="pulseRateBefore" id="pulseRateBefore" class="form-control" placeholder="75" />
                         </div>
                     </div>
-                    <div class="mb-5 col-12 col-md-6 col-lg-4">
-                        <label for="distance" class="form-label fw-semibold fs-4">Дистанция (м)</label>
-                        <input type="number" step="0.01" name="distance" id="distance" class="form-control" placeholder="784.31" />
-                    </div>
-                    <div class="mb-5 col-12 col-md-6 col-lg-4">
-                        <label for="numberOfStops" class="form-label fw-semibold fs-4">Количество остановок</label>
-                        <input type="number" name="numberOfStops" id="numberOfStops" class="form-control" placeholder="2" />
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <label for="breathlessness" class="form-label fw-semibold fs-4">Одышка по шкале Борга</label>
-                        <select name="breathlessness" id="breathlessness" class="form-select">
-                            <option th:each="each : ${expirationDateList}" th:text="${each.alias}" th:value="${each}">Очень-очень тяжёлая (9)</option>
-                        </select>
+                </div>
+                <!---->
+                <div class="row fs-5 mb-5">
+                    <div class="col-12">
+                        <h1 class="text-center fs-3 mb-0">Т6МХ: показатели после нагрузки</h1>
                     </div>
                 </div>
-            </div>
-            <!---->
-            <div class="row fs-5 mb-5">
-                <div class="col-12">
-                    <h1 class="text-center fs-3 mb-0">Т6МХ: показатели до нагрузки</h1>
-                </div>
-            </div>
-            <!---->
-            <div class="row mb-5">
-                <div class="col-12">
-                    <div class="mb-5 col-12 col-md-6 col-lg-4">
-                        <label for="upperBefore" class="form-label fw-semibold fs-4">Верхнее давление (мм рт.ст.)</label>
-                        <input type="number" name="upperBefore" id="upperBefore" class="form-control" placeholder="177" />
-                    </div>
-                    <div class="mb-5 col-12 col-md-6 col-lg-4">
-                        <label for="lowerBefore" class="form-label fw-semibold fs-4">Нижнее давление (мм рт.ст.)</label>
-                        <input type="number" name="lowerBefore" id="lowerBefore" class="form-control" placeholder="64.9" />
-                    </div>
-                    <div class="mb-5 col-12 col-md-6 col-lg-4">
-                        <label for="oxygenPercentageBefore" class="form-label fw-semibold fs-4">Содержание кислорода в крови (%)</label>
-                        <input type="number" step="0.01" name="oxygenPercentageBefore" id="oxygenPercentageBefore" class="form-control" placeholder="98.21" />
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <label for="pulseRateBefore" class="form-label fw-semibold fs-4">Пульс (уд/мин)</label>
-                        <input type="number" name="pulseRateBefore" id="pulseRateBefore" class="form-control" placeholder="114" />
+                <!---->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-5 col-12 col-md-6 col-lg-4">
+                            <label for="upperAfter" class="form-label fw-semibold fs-4">Верхнее давление (мм рт.ст.)</label>
+                            <input type="number" name="upperAfter" id="upperAfter" class="form-control" placeholder="180" />
+                        </div>
+                        <div class="mb-5 col-12 col-md-6 col-lg-4">
+                            <label for="lowerAfter" class="form-label fw-semibold fs-4">Нижнее давление (мм рт.ст.)</label>
+                            <input type="number" name="lowerAfter" id="lowerAfter" class="form-control" placeholder="110" />
+                        </div>
+                        <div class="mb-5 col-12 col-md-6 col-lg-4">
+                            <label for="oxygenPercentageAfter" class="form-label fw-semibold fs-4">Содержание кислорода в крови (%)</label>
+                            <input type="number" step="0.01" name="oxygenPercentageAfter" id="oxygenPercentageAfter" class="form-control" placeholder="97.3" />
+                        </div>
+                        <div class="mb-5 col-12 col-md-6 col-lg-4">
+                            <label for="pulseRateAfter" class="form-label fw-semibold fs-4">Пульс (уд/мин)</label>
+                            <input type="number" name="pulseRateAfter" id="pulseRateAfter" class="form-control" placeholder="135" />
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary">Отправить</button>
                     </div>
                 </div>
-            </div>
-            <!---->
-            <div class="row fs-5 mb-5">
-                <div class="col-12">
-                    <h1 class="text-center fs-3 mb-0">Т6МХ: показатели после нагрузки</h1>
-                </div>
-            </div>
-            <!---->
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-5 col-12 col-md-6 col-lg-4">
-                        <label for="upperAfter" class="form-label fw-semibold fs-4">Верхнее давление (мм рт.ст.)</label>
-                        <input type="number" name="upperAfter" id="upperAfter" class="form-control" placeholder="177" />
-                    </div>
-                    <div class="mb-5 col-12 col-md-6 col-lg-4">
-                        <label for="lowerAfter" class="form-label fw-semibold fs-4">Нижнее давление (мм рт.ст.)</label>
-                        <input type="number" name="lowerAfter" id="lowerAfter" class="form-control" placeholder="64.9" />
-                    </div>
-                    <div class="mb-5 col-12 col-md-6 col-lg-4">
-                        <label for="oxygenPercentageAfter" class="form-label fw-semibold fs-4">Содержание кислорода в крови (%)</label>
-                        <input type="number" step="0.01" name="oxygenPercentageAfter" id="oxygenPercentageAfter" class="form-control" placeholder="98.21" />
-                    </div>
-                    <div class="mb-5 col-12 col-md-6 col-lg-4">
-                        <label for="pulseRateAfter" class="form-label fw-semibold fs-4">Пульс (уд/мин)</label>
-                        <input type="number" name="pulseRateAfter" id="pulseRateAfter" class="form-control" placeholder="114" />
-                    </div>
-                    <button id="submit" type="button" class="btn btn-lg btn-primary">Отправить</button>
-                </div>
-            </div>
+                <!---->
+            </form>
             <!---->
         </div>
         <!---->
