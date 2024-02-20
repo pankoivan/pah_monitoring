@@ -48,7 +48,7 @@ public class ChestPainServiceImpl extends AbstractInputIndicatorServiceImpl<Ches
                 .filename("chest-pain.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
-                .postFormLink("/indicators/form/chest-pain")
+                .postFormLink("/indicators/forms/chest-pain")
                 .tableLink("/patients/%s/examinations/tables/chest-pain".formatted(patient.getId()))
                 .build();
     }

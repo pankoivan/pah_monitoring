@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/indicators/form")
+@RequestMapping("/indicators/forms")
 @PreAuthorize("hasRole('PATIENT')")
 public class IndicatorFormMvcController {
 

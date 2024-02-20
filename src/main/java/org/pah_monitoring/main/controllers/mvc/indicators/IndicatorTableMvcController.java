@@ -4,15 +4,11 @@ import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
-import org.pah_monitoring.main.entities.main.enums.EventDuration;
-import org.pah_monitoring.main.entities.main.enums.TrueFalseEnum;
-import org.pah_monitoring.main.entities.main.examinations.indicators.*;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
-import org.pah_monitoring.main.services.main.examinations.cards.interfaces.IndicatorCardService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/patients/{patientId}/examinations/tables")
 @PreAuthorize("hasAnyRole('DOCTOR', 'PATIENT')")
-public class TableIndicatorMvcController {
+public class IndicatorTableMvcController {
 
     @Qualifier("patientService")
     private final HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
@@ -49,7 +45,7 @@ public class TableIndicatorMvcController {
         try {
             model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
             pageHeaderService.addHeader(model);
-            return "indicators/forms/spirometry-form";
+            return "indicators/tables/walk-test-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }
@@ -60,7 +56,7 @@ public class TableIndicatorMvcController {
         try {
             model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
             pageHeaderService.addHeader(model);
-            return "indicators/forms/spirometry-form";
+            return "indicators/tables/pulse-oximetry-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }
@@ -71,7 +67,7 @@ public class TableIndicatorMvcController {
         try {
             model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
             pageHeaderService.addHeader(model);
-            return "indicators/forms/spirometry-form";
+            return "indicators/tables/cough-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }
@@ -82,7 +78,7 @@ public class TableIndicatorMvcController {
         try {
             model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
             pageHeaderService.addHeader(model);
-            return "indicators/forms/spirometry-form";
+            return "indicators/tables/chest-pain-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }
@@ -93,7 +89,7 @@ public class TableIndicatorMvcController {
         try {
             model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
             pageHeaderService.addHeader(model);
-            return "indicators/forms/spirometry-form";
+            return "indicators/tables/fainting-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }
@@ -104,7 +100,7 @@ public class TableIndicatorMvcController {
         try {
             model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
             pageHeaderService.addHeader(model);
-            return "indicators/forms/spirometry-form";
+            return "indicators/tables/physical-changes-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }
@@ -115,7 +111,7 @@ public class TableIndicatorMvcController {
         try {
             model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
             pageHeaderService.addHeader(model);
-            return "indicators/forms/spirometry-form";
+            return "indicators/tables/overall-health-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }
@@ -126,7 +122,7 @@ public class TableIndicatorMvcController {
         try {
             model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
             pageHeaderService.addHeader(model);
-            return "indicators/forms/spirometry-form";
+            return "indicators/tables/vertigo-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }
@@ -137,7 +133,7 @@ public class TableIndicatorMvcController {
         try {
             model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
             pageHeaderService.addHeader(model);
-            return "indicators/forms/spirometry-form";
+            return "indicators/tables/pressure-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }
@@ -148,7 +144,7 @@ public class TableIndicatorMvcController {
         try {
             model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
             pageHeaderService.addHeader(model);
-            return "indicators/forms/spirometry-form";
+            return "indicators/tables/liquid-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }
@@ -159,7 +155,7 @@ public class TableIndicatorMvcController {
         try {
             model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
             pageHeaderService.addHeader(model);
-            return "indicators/forms/spirometry-form";
+            return "indicators/tables/weight-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         }

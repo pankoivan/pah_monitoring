@@ -48,7 +48,7 @@ public class SpirometryServiceImpl extends AbstractInputIndicatorServiceImpl<Spi
                 .filename("spirometry.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
-                .postFormLink("/indicators/form/spirometry")
+                .postFormLink("/indicators/forms/spirometry")
                 .tableLink("/patients/%s/examinations/tables/spirometry".formatted(patient.getId()))
                 .graphicLink("/patients/%s/examinations/graphics/spirometry".formatted(patient.getId()))
                 .build();

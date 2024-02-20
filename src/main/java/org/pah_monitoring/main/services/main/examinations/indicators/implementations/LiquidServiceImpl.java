@@ -48,7 +48,7 @@ public class LiquidServiceImpl extends AbstractInputIndicatorServiceImpl<Liquid,
                 .filename("liquid.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
-                .postFormLink("/indicators/form/liquid")
+                .postFormLink("/indicators/forms/liquid")
                 .tableLink("/patients/%s/examinations/tables/liquid".formatted(patient.getId()))
                 .graphicLink("/patients/%s/examinations/graphics/liquid".formatted(patient.getId()))
                 .build();

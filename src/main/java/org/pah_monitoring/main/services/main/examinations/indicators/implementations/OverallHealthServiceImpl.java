@@ -48,7 +48,7 @@ public class OverallHealthServiceImpl extends AbstractInputIndicatorServiceImpl<
                 .filename("overall-health.jpg")
                 .schedule(getScheduleFor(patient).orElse(null))
                 .date(getLastExaminationDateFor(patient).orElse(null))
-                .postFormLink("/indicators/form/overall-health")
+                .postFormLink("/indicators/forms/overall-health")
                 .tableLink("/patients/%s/examinations/tables/overall-health".formatted(patient.getId()))
                 .build();
     }

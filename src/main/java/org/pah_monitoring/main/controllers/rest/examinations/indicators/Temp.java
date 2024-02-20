@@ -21,7 +21,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/rest/patients/{patientId}/examinations/tables")
+@RequestMapping("/rest/patients/{patientId}/examinations/table")
 @PreAuthorize("hasRole('PATIENT')")
 public class Temp {
 
