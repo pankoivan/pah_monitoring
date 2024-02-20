@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Кашель</title>
+        <link href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary my-5">
+            <!---->
+            <div class="row fs-5 mb-5">
+                <h1 class="text-center fs-3 mb-0">Кашель</h1>
+            </div>
+            <!---->
+            <div class="row">
+                <div class="col-12">
+                    <form action="#" method="post" id="cough-form" class="fs-5">
+                        <div class="mb-5">
+                            <h4 class="fs-4">Тип</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${type}">
+                                <label class="form-check-label" th:for="'type' + ${each}" th:text="${each.alias}">Сухой</label>
+                                <input th:id="'type' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="type" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Сила</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${power}">
+                                <label class="form-check-label" th:for="'power' + ${each}" th:text="${each.alias}">Покашливание</label>
+                                <input th:id="'power' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="power" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Тембр</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${timbre}">
+                                <label class="form-check-label" th:for="'timbre' + ${each}" th:text="${each.alias}">Звонкий грудной</label>
+                                <input th:id="'timbre' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="timbre" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Было ли у вас кровохарканье?</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                                <label class="form-check-label" th:for="'hemoptysis' + ${each}" th:text="${each.yesNo}">Нет</label>
+                                <input th:id="'hemoptysis' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="hemoptysis" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary">Отправить</button>
+                    </form>
+                </div>
+            </div>
+            <!---->
+        </div>
+        <!---->
+        <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
+        <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../../static/js/indicators/forms/cough-form.js" th:src="@{/js/indicators/forms/cough-form.js}"></script>
+        <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
+    </body>
+</html>

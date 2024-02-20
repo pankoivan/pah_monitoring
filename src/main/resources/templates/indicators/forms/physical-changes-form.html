@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Физические изменения</title>
+        <link href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary my-5">
+            <!---->
+            <div class="row fs-5 mb-5">
+                <h1 class="text-center fs-3 mb-0">Физические изменения</h1>
+            </div>
+            <!---->
+            <div class="row">
+                <div class="col-12">
+                    <form action="#" method="post" id="physical-changes-form" class="fs-5">
+                        <div class="mb-5">
+                            <h4 class="fs-4">Увеличение живота без переедания</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                                <label class="form-check-label" th:for="'abdominalEnlargement' + ${each}" th:text="${each.yesNo}">Да</label>
+                                <input th:id="'abdominalEnlargement' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="abdominalEnlargement" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Отёки ног</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${legsSwelling}">
+                                <label class="form-check-label" th:for="'legsSwelling' + ${each}" th:text="${each.alias}">К вечеру</label>
+                                <input th:id="'legsSwelling' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="legsSwelling" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">«Сосудистые звёздочки» или «паутинки» на коже</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                                <label class="form-check-label" th:for="'vascularAsterisks' + ${each}" th:text="${each.hasNot}">Есть</label>
+                                <input th:id="'vascularAsterisks' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="vascularAsterisks" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Цвет губ и кожи</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${skinColor}">
+                                <label class="form-check-label" th:for="'skinColor' + ${each}" th:text="${each.alias}">Желтоватый</label>
+                                <input th:id="'skinColor' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="skinColor" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Утолщённые пальцы</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                                <label class="form-check-label" th:for="'fingersPhalanges' + ${each}" th:text="${each.yesNo}">Да</label>
+                                <input th:id="'fingersPhalanges' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="fingersPhalanges" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">«Бочкообразная» грудная клетка</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                                <label class="form-check-label" th:for="'chest' + ${each}" th:text="${each.yesNo}">Да</label>
+                                <input th:id="'chest' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="chest" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Набухание шейных вен</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                                <label class="form-check-label" th:for="'neckVeins' + ${each}" th:text="${each.hasNot}">Нет</label>
+                                <input th:id="'neckVeins' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="neckVeins" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary">Отправить</button>
+                    </form>
+                </div>
+            </div>
+            <!---->
+        </div>
+        <!---->
+        <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
+        <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../../static/js/indicators/forms/physical-changes-form.js" th:src="@{/js/indicators/forms/physical-changes-form.js}"></script>
+        <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
+    </body>
+</html>

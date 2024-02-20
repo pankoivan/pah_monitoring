@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Боль в груди</title>
+        <link href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary my-5">
+            <!---->
+            <div class="row fs-5 mb-5">
+                <h1 class="text-center fs-3 mb-0">Боль в груди</h1>
+            </div>
+            <!---->
+            <div class="row">
+                <div class="col-12">
+                    <form action="#" method="post" id="chest-pain-form" class="fs-5">
+                        <div class="mb-5">
+                            <h4 class="fs-4">Тип</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${type}">
+                                <label class="form-check-label" th:for="'type' + ${each}" th:text="${each.alias}">Давящая</label>
+                                <input th:id="'type' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="type" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Продолжительность</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${duration}">
+                                <label class="form-check-label" th:for="'duration' + ${each}" th:text="${each.alias}">Часы</label>
+                                <input th:id="'duration' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="duration" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Помог ли вам приём нитроглицерина?</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${nitroglycerin}">
+                                <label class="form-check-label" th:for="'nitroglycerin' + ${each}" th:text="${each.alias}">Не принимал</label>
+                                <input th:id="'nitroglycerin' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="nitroglycerin" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary">Отправить</button>
+                    </form>
+                </div>
+            </div>
+            <!---->
+        </div>
+        <!---->
+        <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
+        <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../../static/js/indicators/forms/chest-pain-form.js" th:src="@{/js/indicators/forms/chest-pain-form.js}"></script>
+        <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
+    </body>
+</html>

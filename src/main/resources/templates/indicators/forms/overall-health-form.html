@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Общее самочувствие</title>
+        <link href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary my-5">
+            <!---->
+            <div class="row fs-5 mb-5">
+                <h1 class="text-center fs-3 mb-0">Общее самочувствие</h1>
+            </div>
+            <!---->
+            <div class="row">
+                <div class="col-12">
+                    <form action="#" method="post" id="overall-health-form" class="fs-5">
+                        <div class="mb-5">
+                            <h4 class="fs-4">Одышка</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${conditions}">
+                                <label class="form-check-label" th:for="'breathlessness' + ${each}" th:text="${each.alias}">В покое</label>
+                                <input th:id="'breathlessness' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="breathlessness" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Усталость</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${conditions}">
+                                <label class="form-check-label" th:for="'fatigue' + ${each}" th:text="${each.alias}">В покое</label>
+                                <input th:id="'fatigue' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="fatigue" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Отсутствие ощущения отдыха после полноценного ночного сна</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                                <label class="form-check-label" th:for="'restFeeling' + ${each}" th:text="${each.yesNo}">Да</label>
+                                <input th:id="'restFeeling' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="restFeeling" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Повышенная сонливость в дневное время суток</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                                <label class="form-check-label" th:for="'drowsiness' + ${each}" th:text="${each.yesNo}">Нет</label>
+                                <input th:id="'drowsiness' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="drowsiness" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Снижение способности концентрироваться</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                                <label class="form-check-label" th:for="'concentration' + ${each}" th:text="${each.yesNo}">Да</label>
+                                <input th:id="'concentration' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="concentration" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Слабость</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${weakness}">
+                                <label class="form-check-label" th:for="'weakness' + ${each}" th:text="${each.yesNo}">Острый вид</label>
+                                <input th:id="'weakness' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="weakness" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Снижение аппетита</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                                <label class="form-check-label" th:for="'appetite' + ${each}" th:text="${each.yesNo}">Да</label>
+                                <input th:id="'appetite' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="appetite" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <h4 class="fs-4">Холодные конечности</h4>
+                            <div class="form-check form-check-inline" th:each="each : ${coldExtremities}">
+                                <label class="form-check-label" th:for="'coldExtremities' + ${each}" th:text="${each.alias}">Короткое время</label>
+                                <input th:id="'coldExtremities' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="coldExtremities" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary">Отправить</button>
+                    </form>
+                </div>
+            </div>
+            <!---->
+        </div>
+        <!---->
+        <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
+        <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../../static/js/indicators/forms/overall-health-form.js" th:src="@{/js/indicators/forms/overall-health-form.js}"></script>
+        <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
+    </body>
+</html>
