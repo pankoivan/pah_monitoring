@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Т6МХ</title>
+        <link href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary my-5">
+            <!---->
+            <div class="row fs-5 mb-5">
+                <h1 class="text-center fs-3 mb-0">Т6МХ: общие данные</h1>
+            </div>
+            <!---->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="mb-5">
+                        <h4 class="fs-4">Кислородная поддержка</h4>
+                        <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                            <label class="form-check-label" th:for="'oxygenSupport' + ${each}" th:text="${each.hasNot}">Нет</label>
+                            <input th:id="'oxygenSupport' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="oxygenSupport" />
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Вспомогательные устройства для ходьбы</h4>
+                        <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
+                            <label class="form-check-label" th:for="'auxiliaryDevices' + ${each}" th:text="${each.hasNot}">Есть</label>
+                            <input th:id="'auxiliaryDevices' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="auxiliaryDevices" />
+                        </div>
+                    </div>
+                    <div class="mb-5 col-12 col-md-6 col-lg-4">
+                        <label for="distance" class="form-label fw-semibold fs-4">Дистанция (м)</label>
+                        <input type="number" step="0.01" name="distance" id="distance" class="form-control" placeholder="784.31" />
+                    </div>
+                    <div class="mb-5 col-12 col-md-6 col-lg-4">
+                        <label for="numberOfStops" class="form-label fw-semibold fs-4">Количество остановок</label>
+                        <input type="number" name="numberOfStops" id="numberOfStops" class="form-control" placeholder="2" />
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <label for="breathlessness" class="form-label fw-semibold fs-4">Одышка по шкале Борга</label>
+                        <select name="breathlessness" id="breathlessness" class="form-select">
+                            <option th:each="each : ${expirationDateList}" th:text="${each.alias}" th:value="${each}">Очень-очень тяжёлая (9)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div class="row fs-5 mb-5">
+                <h1 class="text-center fs-3 mb-0">Т6МХ: показатели до нагрузки</h1>
+            </div>
+            <!---->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="mb-5 col-12 col-md-6 col-lg-4">
+                        <label for="upperBefore" class="form-label fw-semibold fs-4">Верхнее давление (мм рт.ст.)</label>
+                        <input type="number" name="upperBefore" id="upperBefore" class="form-control" placeholder="177" />
+                    </div>
+                    <div class="mb-5 col-12 col-md-6 col-lg-4">
+                        <label for="lowerBefore" class="form-label fw-semibold fs-4">Нижнее давление (мм рт.ст.)</label>
+                        <input type="number" name="lowerBefore" id="lowerBefore" class="form-control" placeholder="64.9" />
+                    </div>
+                    <div class="mb-5 col-12 col-md-6 col-lg-4">
+                        <label for="oxygenPercentageBefore" class="form-label fw-semibold fs-4">Содержание кислорода в крови (%)</label>
+                        <input type="number" step="0.01" name="oxygenPercentageBefore" id="oxygenPercentageBefore" class="form-control" placeholder="98.21" />
+                    </div>
+                    <div class="mb col-12 col-md-6 col-lg-4">
+                        <label for="pulseRateBefore" class="form-label fw-semibold fs-4">Пульс (уд/мин)</label>
+                        <input type="number" name="pulseRateBefore" id="pulseRateBefore" class="form-control" placeholder="114" />
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div class="row fs-5 mb-5">
+                <h1 class="text-center fs-3 mb-0">Т6МХ: показатели после нагрузки</h1>
+            </div>
+            <!---->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="mb-5 col-12 col-md-6 col-lg-4">
+                        <label for="upperAfter" class="form-label fw-semibold fs-4">Верхнее давление (мм рт.ст.)</label>
+                        <input type="number" name="upperAfter" id="upperAfter" class="form-control" placeholder="177" />
+                    </div>
+                    <div class="mb-5 col-12 col-md-6 col-lg-4">
+                        <label for="lowerAfter" class="form-label fw-semibold fs-4">Нижнее давление (мм рт.ст.)</label>
+                        <input type="number" name="lowerAfter" id="lowerAfter" class="form-control" placeholder="64.9" />
+                    </div>
+                    <div class="mb-5 col-12 col-md-6 col-lg-4">
+                        <label for="oxygenPercentageAfter" class="form-label fw-semibold fs-4">Содержание кислорода в крови (%)</label>
+                        <input type="number" step="0.01" name="oxygenPercentageAfter" id="oxygenPercentageAfter" class="form-control" placeholder="98.21" />
+                    </div>
+                    <div class="mb-5 col-12 col-md-6 col-lg-4">
+                        <label for="pulseRateAfter" class="form-label fw-semibold fs-4">Пульс (уд/мин)</label>
+                        <input type="number" name="pulseRateAfter" id="pulseRateAfter" class="form-control" placeholder="114" />
+                    </div>
+                    <button id="submit" type="button" class="btn btn-lg btn-primary">Отправить</button>
+                </div>
+            </div>
+            <!---->
+        </div>
+        <!---->
+        <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
+        <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../../static/js/indicators/forms/walk-test-form.js" th:src="@{/js/indicators/forms/walk-test-form.js}"></script>
+        <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
+    </body>
+</html>
