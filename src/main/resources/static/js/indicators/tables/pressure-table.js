@@ -6,7 +6,7 @@ new gridjs.Grid({
     search: true,
     sort: true,
     pagination: {
-        limit: 3,
+        limit: 10,
     },
     language: {
         search: {
