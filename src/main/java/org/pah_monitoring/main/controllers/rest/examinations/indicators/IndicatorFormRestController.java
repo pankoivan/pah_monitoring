@@ -22,46 +22,46 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/rest/indicators/add")
 @PreAuthorize("hasRole('PATIENT')")
-public class IndicatorRestController {
+public class IndicatorFormRestController {
 
     @Qualifier("spirometryService")
-    private InputIndicatorService<Spirometry, SpirometryAddingDto> spirometryService;
+    private final InputIndicatorService<Spirometry, SpirometryAddingDto> spirometryService;
 
     @Qualifier("walkTestService")
-    private InputIndicatorService<WalkTest, WalkTestAddingDto> walkTestService;
+    private final InputIndicatorService<WalkTest, WalkTestAddingDto> walkTestService;
 
     @Qualifier("pulseOximetryService")
-    private InputIndicatorService<PulseOximetry, PulseOximetryAddingDto> pulseOximetryService;
+    private final InputIndicatorService<PulseOximetry, PulseOximetryAddingDto> pulseOximetryService;
 
     @Qualifier("coughService")
-    private InputIndicatorService<Cough, CoughAddingDto> coughService;
+    private final InputIndicatorService<Cough, CoughAddingDto> coughService;
 
     @Qualifier("chestPainService")
-    private InputIndicatorService<ChestPain, ChestPainAddingDto> chestPainService;
+    private final InputIndicatorService<ChestPain, ChestPainAddingDto> chestPainService;
 
     @Qualifier("faintingService")
-    private InputIndicatorService<Fainting, FaintingAddingDto> faintingService;
+    private final InputIndicatorService<Fainting, FaintingAddingDto> faintingService;
 
     @Qualifier("physicalChangesService")
-    private InputIndicatorService<PhysicalChanges, PhysicalChangesAddingDto> physicalChangesService;
+    private final InputIndicatorService<PhysicalChanges, PhysicalChangesAddingDto> physicalChangesService;
 
     @Qualifier("overallHealthService")
-    private InputIndicatorService<OverallHealth, OverallHealthAddingDto> overallHealthService;
+    private final InputIndicatorService<OverallHealth, OverallHealthAddingDto> overallHealthService;
 
     @Qualifier("vertigoService")
-    private InputIndicatorService<Vertigo, VertigoAddingDto> vertigoService;
+    private final InputIndicatorService<Vertigo, VertigoAddingDto> vertigoService;
 
     @Qualifier("pressureService")
-    private InputIndicatorService<Pressure, PressureAddingDto> pressureService;
+    private final InputIndicatorService<Pressure, PressureAddingDto> pressureService;
 
     @Qualifier("liquidService")
-    private InputIndicatorService<Liquid, LiquidAddingDto> liquidService;
+    private final InputIndicatorService<Liquid, LiquidAddingDto> liquidService;
 
     @Qualifier("weightService")
-    private InputIndicatorService<Weight, WeightAddingDto> weightService;
+    private final InputIndicatorService<Weight, WeightAddingDto> weightService;
 
     @Qualifier("analysisFileService")
-    private FileIndicatorService<AnalysisFile, AnalysisFileAddingDto> analysisFileService;
+    private final FileIndicatorService<AnalysisFile, AnalysisFileAddingDto> analysisFileService;
 
     @PostMapping("/spirometry")
     public void addSpirometry(@RequestBody @Valid SpirometryAddingDto addingDto, BindingResult bindingResult) {
