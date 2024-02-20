@@ -19,7 +19,9 @@
         <div class="container text-secondary my-5">
             <!---->
             <div class="row fs-5 mb-5">
-                <h1 class="text-center fs-3 mb-0">Боль в груди</h1>
+                <div class="col-12">
+                    <h1 class="text-center fs-3 mb-0">Боль в груди</h1>
+                </div>
             </div>
             <!---->
             <div class="row">
@@ -40,7 +42,7 @@
                             </div>
                         </div>
                         <div class="mb-5">
-                            <h4 class="fs-4">Помог ли вам приём нитроглицерина?</h4>
+                            <h4 class="fs-4">Помог ли приём нитроглицерина</h4>
                             <div class="form-check form-check-inline" th:each="each : ${nitroglycerin}">
                                 <label class="form-check-label" th:for="'nitroglycerin' + ${each}" th:text="${each.alias}">Не принимал</label>
                                 <input th:id="'nitroglycerin' + ${each}" type="radio" class="form-check-input" th:value="${each}" name="nitroglycerin" />

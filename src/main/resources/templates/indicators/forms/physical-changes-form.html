@@ -19,7 +19,9 @@
         <div class="container text-secondary my-5">
             <!---->
             <div class="row fs-5 mb-5">
-                <h1 class="text-center fs-3 mb-0">Физические изменения</h1>
+                <div class="col-12">
+                    <h1 class="text-center fs-3 mb-0">Физические изменения</h1>
+                </div>
             </div>
             <!---->
             <div class="row">
@@ -28,7 +30,7 @@
                         <div class="mb-5">
                             <h4 class="fs-4">Увеличение живота без переедания</h4>
                             <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
-                                <label class="form-check-label" th:for="'abdominalEnlargement' + ${each}" th:text="${each.yesNo}">Да</label>
+                                <label class="form-check-label" th:for="'abdominalEnlargement' + ${each}" th:text="${each.hasNot}">Нет</label>
                                 <input th:id="'abdominalEnlargement' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="abdominalEnlargement" />
                             </div>
                         </div>

@@ -19,7 +19,9 @@
         <div class="container text-secondary my-5">
             <!---->
             <div class="row fs-5 mb-5">
-                <h1 class="text-center fs-3 mb-0">Общее самочувствие</h1>
+                <div class="col-12">
+                    <h1 class="text-center fs-3 mb-0">Общее самочувствие</h1>
+                </div>
             </div>
             <!---->
             <div class="row">
@@ -42,21 +44,21 @@
                         <div class="mb-5">
                             <h4 class="fs-4">Отсутствие ощущения отдыха после полноценного ночного сна</h4>
                             <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
-                                <label class="form-check-label" th:for="'restFeeling' + ${each}" th:text="${each.yesNo}">Да</label>
+                                <label class="form-check-label" th:for="'restFeeling' + ${each}" th:text="${each.hasNot}">Есть</label>
                                 <input th:id="'restFeeling' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="restFeeling" />
                             </div>
                         </div>
                         <div class="mb-5">
                             <h4 class="fs-4">Повышенная сонливость в дневное время суток</h4>
                             <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
-                                <label class="form-check-label" th:for="'drowsiness' + ${each}" th:text="${each.yesNo}">Нет</label>
+                                <label class="form-check-label" th:for="'drowsiness' + ${each}" th:text="${each.hasNot}">Нет</label>
                                 <input th:id="'drowsiness' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="drowsiness" />
                             </div>
                         </div>
                         <div class="mb-5">
                             <h4 class="fs-4">Снижение способности концентрироваться</h4>
                             <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
-                                <label class="form-check-label" th:for="'concentration' + ${each}" th:text="${each.yesNo}">Да</label>
+                                <label class="form-check-label" th:for="'concentration' + ${each}" th:text="${each.hasNot}">Есть</label>
                                 <input th:id="'concentration' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="concentration" />
                             </div>
                         </div>
@@ -70,7 +72,7 @@
                         <div class="mb-5">
                             <h4 class="fs-4">Снижение аппетита</h4>
                             <div class="form-check form-check-inline" th:each="each : ${trueFalse}">
-                                <label class="form-check-label" th:for="'appetite' + ${each}" th:text="${each.yesNo}">Да</label>
+                                <label class="form-check-label" th:for="'appetite' + ${each}" th:text="${each.hasNot}">Есть</label>
                                 <input th:id="'appetite' + ${each}" type="radio" class="form-check-input" th:value="${each.value}" name="appetite" />
                             </div>
                         </div>
