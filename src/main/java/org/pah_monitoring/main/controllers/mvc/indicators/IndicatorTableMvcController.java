@@ -9,6 +9,7 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,12 +28,16 @@ public class IndicatorTableMvcController {
     @Qualifier("patientService")
     private final HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
+    private final CurrentUserCheckService checkService;
+
     private final PageHeaderService pageHeaderService;
 
     @GetMapping("/spirometry")
     public String spirometry(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            model.addAttribute("patient", patient);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "indicators/tables/spirometry-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
@@ -43,7 +48,9 @@ public class IndicatorTableMvcController {
     @GetMapping("/walk-test")
     public String walkTest(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            model.addAttribute("patient", patient);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "indicators/tables/walk-test-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
@@ -54,7 +61,9 @@ public class IndicatorTableMvcController {
     @GetMapping("/pulse-oximetry")
     public String pulseOximetry(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            model.addAttribute("patient", patient);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "indicators/tables/pulse-oximetry-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
@@ -65,7 +74,9 @@ public class IndicatorTableMvcController {
     @GetMapping("/cough")
     public String cough(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            model.addAttribute("patient", patient);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "indicators/tables/cough-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
@@ -76,7 +87,9 @@ public class IndicatorTableMvcController {
     @GetMapping("/chest-pain")
     public String chestPain(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            model.addAttribute("patient", patient);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "indicators/tables/chest-pain-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
@@ -87,7 +100,9 @@ public class IndicatorTableMvcController {
     @GetMapping("/fainting")
     public String fainting(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            model.addAttribute("patient", patient);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "indicators/tables/fainting-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
@@ -98,7 +113,9 @@ public class IndicatorTableMvcController {
     @GetMapping("/physical-changes")
     public String physicalChanges(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            model.addAttribute("patient", patient);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "indicators/tables/physical-changes-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
@@ -109,7 +126,9 @@ public class IndicatorTableMvcController {
     @GetMapping("/overall-health")
     public String overallHealth(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            model.addAttribute("patient", patient);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "indicators/tables/overall-health-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
@@ -120,7 +139,9 @@ public class IndicatorTableMvcController {
     @GetMapping("/vertigo")
     public String vertigo(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            model.addAttribute("patient", patient);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "indicators/tables/vertigo-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
@@ -131,7 +152,9 @@ public class IndicatorTableMvcController {
     @GetMapping("/pressure")
     public String pressure(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            model.addAttribute("patient", patient);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "indicators/tables/pressure-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
@@ -142,7 +165,9 @@ public class IndicatorTableMvcController {
     @GetMapping("/liquid")
     public String liquid(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            model.addAttribute("patient", patient);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "indicators/tables/liquid-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
@@ -153,7 +178,9 @@ public class IndicatorTableMvcController {
     @GetMapping("/weight")
     public String weight(Model model, @PathVariable("patientId") String pathPatientId) {
         try {
-            model.addAttribute("patient", patientService.findById(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            model.addAttribute("patient", patient);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "indicators/tables/weight-table";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
