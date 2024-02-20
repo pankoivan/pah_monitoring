@@ -37,15 +37,15 @@
                             </p>
                             <p class="mb-3" th:if="${each.isTableInputIndicatorCard}">
                                 <img width="18" class="mb-1" src="../../static/svg/table.svg" th:src="@{/svg/table.svg}" alt="Таблица" />
-                                <a href="#" th:href="@{${each.tablesLink}}" class="text-secondary">Посмотреть в виде таблицы</a>
+                                <a href="#" th:href="@{${each.tableLink}}" class="text-secondary">Посмотреть в виде таблицы</a>
                             </p>
                             <p class="mb-3" th:if="${each.isGraphicTableInputIndicatorCard}">
                                 <img width="18" class="mb-1" src="../../static/svg/graphic.svg" th:src="@{/svg/graphic.svg}" alt="График" />
-                                <a href="#" th:href="@{${each.graphicsLink}}" class="text-secondary">Посмотреть в виде графиков</a>
+                                <a href="#" th:href="@{${each.graphicLink}}" class="text-secondary">Посмотреть в виде графиков</a>
                             </p>
                             <p class="mb-3" th:if="${each.isFileIndicatorCard}">
                                 <img width="18" class="mb-1" src="../../static/svg/files.svg" th:src="@{/svg/files.svg}" alt="Файлы" />
-                                <a href="#" th:href="@{${each.filesLink}}" class="text-secondary">Посмотреть в виде файлов</a>
+                                <a href="#" th:href="@{${each.fileLink}}" class="text-secondary">Посмотреть в виде файлов</a>
                             </p>
                             <p class="mb-0" th:if="${currentUser.isPatient}">
                                 <a href="#" th:href="@{${each.postFormLink}}" class="btn btn-sm btn-primary">Перейти к отправке</a>

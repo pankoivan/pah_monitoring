@@ -112,7 +112,7 @@ public class AnalysisFile implements Indicator {
 
         private final String filename;
 
-        private final String filesLink;
+        private final String fileLink;
 
         private final String postFormLink;
 

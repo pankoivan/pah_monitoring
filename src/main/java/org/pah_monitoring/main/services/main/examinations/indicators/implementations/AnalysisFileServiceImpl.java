@@ -65,7 +65,7 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
                 .schedule(getScheduleFor(type, patient).orElse(null))
                 .date(getLastExaminationDateFor(type, patient).orElse(null))
                 .postFormLink(type.getPostFormLink())
-                .fileLink(type.getFilesLink().formatted(patient.getId()))
+                .fileLink(type.getFileLink().formatted(patient.getId()))
                 .build();
     }
 
