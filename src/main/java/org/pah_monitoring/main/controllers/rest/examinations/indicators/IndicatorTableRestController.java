@@ -183,7 +183,6 @@ public class IndicatorTableRestController {
     @GetMapping("/pressure")
     public List<PressureTableDto> getPressureTable(@PathVariable("patientId") String pathPatientId) {
         try {
-            System.out.println(pressureTableMapper.mapList(pressureService.findAllByPatientId(patientService.parsePathId(pathPatientId))));
             return pressureTableMapper.mapList(pressureService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
