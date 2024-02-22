@@ -28,4 +28,6 @@ public class PhysicalChangesToTableDtoMapper implements BaseEntityToOutDtoListMa
         return bool ? "Да" : "Нет";
     }
 
+    // todo: additional view
+
 }

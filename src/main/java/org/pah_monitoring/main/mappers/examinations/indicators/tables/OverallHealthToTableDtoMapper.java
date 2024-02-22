@@ -29,4 +29,6 @@ public class OverallHealthToTableDtoMapper implements BaseEntityToOutDtoListMapp
         return bool ? "Да" : "Нет";
     }
 
+    // todo: additional view
+
 }
