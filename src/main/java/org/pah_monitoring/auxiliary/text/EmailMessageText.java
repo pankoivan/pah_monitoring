@@ -27,4 +27,19 @@ public final class EmailMessageText {
             Срок действия выданного кода истечёт <b>%s</b>. Успейте зарегистрироваться до этого времени!
             """;
 
+    public static final String patientDoctorAssigningTitle = "Новый лечащий врач";
+
+    public static final String patientDoctorAssigningText = """
+            <b>Здравствуйте!</b>
+            
+            <br/><br/>
+            
+            Уведомляем вас о том, что теперь вашим лечащим врачом является <a href="http://localhost:8080/doctors/%s">%s</a>
+            
+            <br/><br/>
+            
+            С этого момента он будет заниматься просмотром и анализом отправляемых вами показателей и выдавать дальнейшие
+             указания. Для общения с ним вы можете использовать <a href="http://localhost:8080/messages/%s">личные сообщения</a>.
+            """;
+
 }
