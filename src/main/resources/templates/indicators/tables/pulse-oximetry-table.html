@@ -4,8 +4,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title th:if="${isSelf}">Ваша пульсоксиметрия</title>
-        <title th:if="${!isSelf}" th:text="'Пульсоксиметрия пациента &laquo;' + ${patient.userInformation.fullName} + '&raquo;'">Пульсоксиметрия пациента "Иванов Степан Петрович"</title>
+        <title th:if="${isSelf}">Динамика вашей пульсоксиметрии</title>
+        <title th:if="${!isSelf}" th:text="'Динамика пульсоксиметрии пациента &laquo;' + ${patient.userInformation.fullName} + '&raquo;'">Динамика пульсоксиметрии пациента "Иванов Степан Петрович"</title>
         <link href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
         <link href="../../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
         <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" th:href="@{https://unpkg.com/gridjs/dist/theme/mermaid.min.css}" rel="stylesheet" />
@@ -21,9 +21,9 @@
         <div class="container text-secondary my-5">
             <!---->
             <div class="row fs-5 mb-5">
-                <h1 th:if="${isSelf}" class="text-center fs-3 mb-0">Ваша пульсоксиметрия</h1>
+                <h1 th:if="${isSelf}" class="text-center fs-3 mb-0">Динамика вашей пульсоксиметрии</h1>
                 <h1 th:if="${!isSelf}" class="text-center fs-3 mb-0">
-                    Пульсоксиметрия пациента
+                    Динамика пульсоксиметрии пациента
                     <span th:text="${patient.userInformation.fullName}" class="fw-bold">Петров Сергей Иванович</span>
                 </h1>
             </div>
