@@ -61,7 +61,9 @@ public class PhysicalChanges implements Indicator {
 
         EVENING("К вечеру"),
 
-        CONSTANTLY("Постоянно");
+        CONSTANTLY("Постоянно"),
+
+        NO("Нет");
 
         private final String alias;
 
