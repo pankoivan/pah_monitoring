@@ -46,14 +46,14 @@ public final class EmailMessageText {
 
     public static final String patientAwardingText = """
             <b>Поздравляем!</b>
-                        
+            
             <br/><br/>
-                        
+            
             Вам была вручена награда <b>%s</b>. Описание: «%s».
-                        
+            
             <br/><br/>
-                        
-            Вы можете посмотреть её в <a href="http://localhost:8080/achievements/for/%s">списке своих наград</a>.
+            
+            Вы можете посмотреть её в списке своих наград.
             """;
 
 }
