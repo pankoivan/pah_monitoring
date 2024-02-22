@@ -27,8 +27,8 @@ function fetchAdd(data) {
         body: JSON.stringify(data),
     })
         .then((response) => {
+            document.getElementById("code-generation-modal-close-1").click();
             if (response.ok) {
-                document.getElementById("code-generation-modal-close-1").click();
                 showSuccessModalForCodeGeneration(response);
             } else {
                 showErrorModalForCodeGeneration(response);
