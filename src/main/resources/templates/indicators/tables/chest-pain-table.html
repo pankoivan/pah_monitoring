@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title th:if="${isSelf}">Ваша боль в груди</title>
+        <title th:if="${!isSelf}" th:text="'Боль в груди пациента &laquo;' + ${patient.userInformation.fullName} + '&raquo;'">Боль в груди пациента "Иванов Степан Петрович"</title>
+        <link href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" th:href="@{https://unpkg.com/gridjs/dist/theme/mermaid.min.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary my-5">
+            <!---->
+            <div class="row fs-5 mb-5">
+                <h1 th:if="${isSelf}" class="text-center fs-3 mb-0">Ваша боль в груди</h1>
+                <h1 th:if="${!isSelf}" class="text-center fs-3 mb-0">
+                    Боль в груди пациента
+                    <span th:text="${patient.userInformation.fullName}" class="fw-bold">Петров Сергей Иванович</span>
+                </h1>
+            </div>
+            <!---->
+            <div class="row">
+                <div class="col-12">
+                    <div id="table" th:attr="data-patient=${patient.id}"></div>
+                </div>
+            </div>
+            <!---->
+        </div>
+        <!---->
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js" th:src="@{https://unpkg.com/gridjs/dist/gridjs.umd.js}"></script>
+        <script src="../../../static/js/indicators/tables/chest-pain-table.js" th:src="@{/js/indicators/tables/chest-pain-table.js}"></script>
+        <!---->
+    </body>
+</html>
