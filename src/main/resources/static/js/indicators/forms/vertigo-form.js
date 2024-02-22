@@ -1,11 +1,11 @@
 const vertigoForm = document.getElementById("vertigo-form");
 
-walkTestForm.addEventListener("submit", (event) => {
+vertigoForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const data = {
-        duration: checked(walkTestForm.querySelector('input[name="duration"]:checked')),
-        nausea: checked(walkTestForm.querySelector('input[name="nausea"]:checked')),
+        duration: checked(vertigoForm.querySelector('input[name="duration"]:checked')),
+        nausea: checked(vertigoForm.querySelector('input[name="nausea"]:checked')),
     };
 
     fetchAdd(data);
@@ -21,7 +21,7 @@ function fetchAdd(data) {
     })
         .then((response) => {
             if (response.ok) {
-                walkTestForm.reset();
+                vertigoForm.reset();
                 showSuccessModal(response);
             } else {
                 showErrorModal(response);

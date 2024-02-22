@@ -8,20 +8,24 @@ walkTestForm.addEventListener("submit", (event) => {
         auxiliaryDevices: checked(walkTestForm.querySelector('input[name="auxiliaryDevices"]:checked')),
         distance: walkTestForm.querySelector('input[name="distance"]').value,
         numberOfStops: walkTestForm.querySelector('input[name="numberOfStops"]').value,
-        breathlessness: checked(walkTestForm.querySelector('select[name="breathlessness"]')).value,
+        breathlessness: walkTestForm.querySelector('select[name="breathlessness"]').value,
         pressureBefore: {
+            afterExercise: false,
             upper: walkTestForm.querySelector('input[name="upperBefore"]').value,
             lower: walkTestForm.querySelector('input[name="lowerBefore"]').value,
         },
         pulseOximetryBefore: {
+            afterExercise: false,
             oxygenPercentage: walkTestForm.querySelector('input[name="oxygenPercentageBefore"]').value,
             pulseRate: walkTestForm.querySelector('input[name="pulseRateBefore"]').value,
         },
         pressureAfter: {
+            afterExercise: true,
             upper: walkTestForm.querySelector('input[name="upperAfter"]').value,
             lower: walkTestForm.querySelector('input[name="lowerAfter"]').value,
         },
         pulseOximetryAfter: {
+            afterExercise: true,
             oxygenPercentage: walkTestForm.querySelector('input[name="oxygenPercentageAfter"]').value,
             pulseRate: walkTestForm.querySelector('input[name="pulseRateAfter"]').value,
         },
@@ -40,7 +44,7 @@ function fetchAdd(data) {
     })
         .then((response) => {
             if (response.ok) {
-                pulseOximetryForm.reset();
+                walkTestForm.reset();
                 showSuccessModal(response);
             } else {
                 showErrorModal(response);

@@ -53,7 +53,7 @@
                         <div class="col-12 col-md-6 col-lg-4">
                             <label for="breathlessness" class="form-label fw-semibold fs-4">Одышка по шкале Борга</label>
                             <select name="breathlessness" id="breathlessness" class="form-select">
-                                <option th:each="each : ${expirationDateList}" th:text="${each.alias}" th:value="${each}">Очень-очень тяжёлая (9)</option>
+                                <option th:each="each : ${breathlessness}" th:text="${each.alias}" th:value="${each}">Очень-очень тяжёлая (9)</option>
                             </select>
                         </div>
                     </div>
