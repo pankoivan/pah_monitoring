@@ -92,43 +92,43 @@ public class AchievementServiceImpl implements AchievementService {
     }
 
     private void inhaleExhale(Patient patient) {
-        if (patient.getSpirometries().size() == 1 && patient.hasNoAchievement(achievements.get("Вдох-выдох"))) {
+        if (!patient.getSpirometries().isEmpty() && patient.hasNoAchievement(achievements.get("Вдох-выдох"))) {
             patientService.award(patient, achievements.get("Вдох-выдох"));
         }
     }
 
     private void walk(Patient patient) {
-        if (patient.getWalkTests().size() == 1 && patient.hasNoAchievement(achievements.get("Прогулка"))) {
+        if (!patient.getWalkTests().isEmpty() && patient.hasNoAchievement(achievements.get("Прогулка"))) {
             patientService.award(patient, achievements.get("Прогулка"));
         }
     }
 
     private void unconscious(Patient patient) {
-        if (patient.getFaintings().size() == 1 && patient.hasNoAchievement(achievements.get("Без сознания"))) {
+        if (!patient.getFaintings().isEmpty() && patient.hasNoAchievement(achievements.get("Без сознания"))) {
             patientService.award(patient, achievements.get("Без сознания"));
         }
     }
 
     private void transformation(Patient patient) {
-        if (patient.getPhysicalChanges().size() == 1 && patient.hasNoAchievement(achievements.get("Трансформация"))) {
+        if (!patient.getPhysicalChanges().isEmpty() && patient.hasNoAchievement(achievements.get("Трансформация"))) {
             patientService.award(patient, achievements.get("Трансформация"));
         }
     }
 
     private void athlete(Patient patient) {
-        if (patient.getOverallHealths().size() == 1 && patient.hasNoAchievement(achievements.get("Спортсмен"))) {
+        if (!patient.getOverallHealths().isEmpty() && patient.hasNoAchievement(achievements.get("Спортсмен"))) {
             patientService.award(patient, achievements.get("Спортсмен"));
         }
     }
 
     private void waterBalance(Patient patient) {
-        if (patient.getLiquids().size() == 1 && patient.hasNoAchievement(achievements.get("Водный баланс"))) {
+        if (!patient.getLiquids().isEmpty() && patient.hasNoAchievement(achievements.get("Водный баланс"))) {
             patientService.award(patient, achievements.get("Водный баланс"));
         }
     }
 
     private void diet(Patient patient) {
-        if (patient.getWeights().size() == 1 && patient.hasNoAchievement(achievements.get("Диета"))) {
+        if (!patient.getWeights().isEmpty() && patient.hasNoAchievement(achievements.get("Диета"))) {
             patientService.award(patient, achievements.get("Диета"));
         }
     }
@@ -138,43 +138,43 @@ public class AchievementServiceImpl implements AchievementService {
                 .stream()
                 .filter(analysisFile -> analysisFile.getAnalysisType() == AnalysisFile.AnalysisType.CATHETERIZATION)
                 .count();
-        if (catheterizationCount == 1 && patient.hasNoAchievement(achievements.get("Отчаянный"))) {
+        if (catheterizationCount >= 1 && patient.hasNoAchievement(achievements.get("Отчаянный"))) {
             patientService.award(patient, achievements.get("Отчаянный"));
         }
     }
 
     private void beginner(Patient patient) {
-        if (patient.getIndicatorsCount() == 5 && patient.hasNoAchievement(achievements.get("Начинающий"))) {
+        if (patient.getIndicatorsCount() >= 5 && patient.hasNoAchievement(achievements.get("Начинающий"))) {
             patientService.award(patient, achievements.get("Начинающий"));
         }
     }
 
     private void verified(Patient patient) {
-        if (patient.getIndicatorsCount() == 10 && patient.hasNoAchievement(achievements.get("Проверенный"))) {
+        if (patient.getIndicatorsCount() >= 10 && patient.hasNoAchievement(achievements.get("Проверенный"))) {
             patientService.award(patient, achievements.get("Проверенный"));
         }
     }
 
     private void diligent(Patient patient) {
-        if (patient.getIndicatorsCount() == 20 && patient.hasNoAchievement(achievements.get("Старательный"))) {
+        if (patient.getIndicatorsCount() >= 20 && patient.hasNoAchievement(achievements.get("Старательный"))) {
             patientService.award(patient, achievements.get("Старательный"));
         }
     }
 
     private void persistent(Patient patient) {
-        if (patient.getIndicatorsCount() == 50 && patient.hasNoAchievement(achievements.get("Упорный"))) {
+        if (patient.getIndicatorsCount() >= 50 && patient.hasNoAchievement(achievements.get("Упорный"))) {
             patientService.award(patient, achievements.get("Упорный"));
         }
     }
 
     private void purposeful(Patient patient) {
-        if (patient.getIndicatorsCount() == 100 && patient.hasNoAchievement(achievements.get("Целеустремлённый"))) {
+        if (patient.getIndicatorsCount() >= 100 && patient.hasNoAchievement(achievements.get("Целеустремлённый"))) {
             patientService.award(patient, achievements.get("Целеустремлённый"));
         }
     }
 
     private void unshakable(Patient patient) {
-        if (patient.getIndicatorsCount() == 250 && patient.hasNoAchievement(achievements.get("Непоколебимый"))) {
+        if (patient.getIndicatorsCount() >= 250 && patient.hasNoAchievement(achievements.get("Непоколебимый"))) {
             patientService.award(patient, achievements.get("Непоколебимый"));
         }
     }
