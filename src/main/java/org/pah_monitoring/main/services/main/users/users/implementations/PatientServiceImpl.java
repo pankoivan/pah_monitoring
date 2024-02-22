@@ -77,9 +77,11 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
     @Override
     public void assignToDoctorAndSend(Patient patient, Doctor doctor) {
         assignToDoctor(patient, doctor);
-        try {
-            doctorAssigningEmailSender.send(patient.getUserSecurityInformation().getEmail(), doctor);
-        } catch (EmailSendingException ignored) {}
+        new Thread(() -> {
+            try {
+                doctorAssigningEmailSender.send(patient.getUserSecurityInformation().getEmail(), doctor);
+            } catch (EmailSendingException ignored) {}
+        }).start();
     }
 
     @Override
