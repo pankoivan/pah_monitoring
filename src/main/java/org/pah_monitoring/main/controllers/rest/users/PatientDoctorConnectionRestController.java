@@ -42,7 +42,7 @@ public class PatientDoctorConnectionRestController {
             Doctor doctor = doctorService.findById(assigningDto.getDoctorId());
             patientService.checkAccessRightsForDoctorAssigning(patient, doctor);
             patientService.checkDataValidityForDoctorAssigning(assigningDto, bindingResult);
-            patientService.assignToDoctor(patient, doctor);
+            patientService.assignToDoctorAndSend(patient, doctor);
             return Map.of(
                     "patientFullName", patient.getUserInformation().getFullName(),
                     "doctorFullName", doctor.getEmployeeInformation().getUserInformation().getFullName()

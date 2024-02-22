@@ -9,10 +9,12 @@ import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient_doctor.PatientDoctorAssigningDto;
+import org.pah_monitoring.main.email.interfaces.EmailSender;
 import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.patient_additions.Achievement;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
+import org.pah_monitoring.main.exceptions.email.EmailSendingException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
@@ -53,6 +55,9 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
     @Qualifier("doctorService")
     private HospitalUserService<Doctor, DoctorAddingDto, DoctorEditingDto, DoctorSavingDto> doctorService;
 
+    @Qualifier("doctorAssigningEmailSender")
+    private EmailSender<Doctor> doctorAssigningEmailSender;
+
     @Override
     public void award(Patient patient, Achievement achievement) {
         if (patient.isActive()) {
@@ -67,6 +72,14 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
             patient.setDoctor(doctor);
             repository.save(patient);
         }
+    }
+
+    @Override
+    public void assignToDoctorAndSend(Patient patient, Doctor doctor) {
+        assignToDoctor(patient, doctor);
+        try {
+            doctorAssigningEmailSender.send(patient.getUserSecurityInformation().getEmail(), doctor);
+        } catch (EmailSendingException ignored) {}
     }
 
     @Override

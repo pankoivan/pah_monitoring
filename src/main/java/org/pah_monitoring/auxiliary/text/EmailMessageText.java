@@ -34,7 +34,7 @@ public final class EmailMessageText {
             
             <br/><br/>
             
-            Уведомляем вас о том, что теперь вашим лечащим врачом является <a href="http://localhost:8080/doctors/%s">%s</a>
+            Уведомляем вас о том, что теперь вашим лечащим врачом является <a href="http://localhost:8080/doctors/%s">%s</a>.
             
             <br/><br/>
             

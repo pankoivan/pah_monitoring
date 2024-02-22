@@ -23,6 +23,8 @@ public interface PatientService extends HospitalUserService<Patient, PatientAddi
 
     void assignToDoctor(Patient patient, Doctor doctor);
 
+    void assignToDoctorAndSend(Patient patient, Doctor doctor);
+
     void removeFromDoctor(Patient patient);
 
     List<Patient> findAllByDoctorId(Integer doctorId) throws DataSearchingServiceException;
