@@ -3,8 +3,10 @@ package org.pah_monitoring.main.services.main.security_codes.implementations;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.dto.in.security_codes.RegistrationSecurityCodeByAdminAddingDto;
+import org.pah_monitoring.main.email.interfaces.EmailSender;
 import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurityCode;
+import org.pah_monitoring.main.exceptions.email.EmailSendingException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.security_codes.RegistrationSecurityCodeRepository;
@@ -13,6 +15,7 @@ import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalRegist
 import org.pah_monitoring.main.services.main.security_codes.interfaces.RegistrationSecurityCodeGenerationService;
 import org.pah_monitoring.main.services.main.users.info.interfaces.UserSecurityInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -33,8 +36,11 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
 
     private CurrentUserExtractionService extractionService;
 
+    @Qualifier("codeEmailSender")
+    private EmailSender<RegistrationSecurityCode> codeEmailSender;
+
     @Override
-    public RegistrationSecurityCode add(RegistrationSecurityCodeByAdminAddingDto addingDto) throws DataSavingServiceException {
+    public RegistrationSecurityCode generate(RegistrationSecurityCodeByAdminAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(
                     RegistrationSecurityCode
@@ -49,6 +55,21 @@ public class RegistrationSecurityCodeGenerationByAdminServiceImpl
         } catch (Exception e) {
             throw new DataSavingServiceException("DTO-сущность \"%s\" не была сохранена".formatted(addingDto), e);
         }
+    }
+
+    @Override
+    public RegistrationSecurityCode generateAndSend(RegistrationSecurityCodeByAdminAddingDto addingDto)
+            throws DataSavingServiceException, EmailSendingException {
+
+        RegistrationSecurityCode code = generate(addingDto);
+        try {
+            codeEmailSender.send(code.getEmail(), code);
+        } catch (EmailSendingException e) {
+            repository.deleteById(code.getId());
+            throw e;
+        }
+        return code;
+
     }
 
     @Override

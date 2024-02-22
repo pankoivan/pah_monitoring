@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.common.BadRequestRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.forbidden.NotEnoughRightsRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.common.InternalServerErrorRestControllerException;
+import org.pah_monitoring.main.exceptions.email.EmailSendingException;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,14 @@ public class RestExceptionInterceptor {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(InternalServerErrorRestControllerException.class)
     public ResponseEntity<ExceptionEntity> internalServerError(InternalServerErrorRestControllerException e) {
+        log.error(e.getMessage(), e);
+        ExceptionEntity json = new ExceptionEntity(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        return new ResponseEntity<>(json, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(EmailSendingException.class)
+    public ResponseEntity<ExceptionEntity> internalServerError(EmailSendingException e) {
         log.error(e.getMessage(), e);
         ExceptionEntity json = new ExceptionEntity(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
         return new ResponseEntity<>(json, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.security_codes.RegistrationSecurityCodeByAdminAddingDto;
 import org.pah_monitoring.main.dto.in.security_codes.RegistrationSecurityCodeByMainAdminAddingDto;
 import org.pah_monitoring.main.dto.out.security_codes.RegistrationSecurityCodeOutDto;
-import org.pah_monitoring.main.email.interfaces.EmailSender;
 import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurityCode;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
@@ -39,9 +38,6 @@ public class RegistrationSecurityCodeRestController {
     @Qualifier("codeGeneratorByAdmin")
     private final RegistrationSecurityCodeGenerationService<RegistrationSecurityCodeByAdminAddingDto> codeGeneratorByAdmin;
 
-    @Qualifier("codeEmailSender")
-    private final EmailSender<RegistrationSecurityCode> codeEmailSender;
-
     @Qualifier("codeMapper")
     private final BaseEntityToOutDtoMapper<RegistrationSecurityCode, RegistrationSecurityCodeOutDto> codeMapper;
 
@@ -59,8 +55,7 @@ public class RegistrationSecurityCodeRestController {
                                                               BindingResult bindingResult) {
         try {
             codeGeneratorByMainAdmin.checkDataValidityForAdding(addingDto, bindingResult);
-            RegistrationSecurityCode code = codeGeneratorByMainAdmin.add(addingDto);
-            codeEmailSender.send(code.getEmail(), code);
+            RegistrationSecurityCode code = codeGeneratorByMainAdmin.generateAndSend(addingDto);
             hospitalService.upgrade(code.getHospital());
             return codeMapper.map(code);
         } catch (DataValidationServiceException e) {
@@ -76,8 +71,7 @@ public class RegistrationSecurityCodeRestController {
                                                           BindingResult bindingResult) {
         try {
             codeGeneratorByAdmin.checkDataValidityForAdding(addingDto, bindingResult);
-            RegistrationSecurityCode code = codeGeneratorByAdmin.add(addingDto);
-            codeEmailSender.send(code.getEmail(), code);
+            RegistrationSecurityCode code = codeGeneratorByAdmin.generateAndSend(addingDto);
             return codeMapper.map(code);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);

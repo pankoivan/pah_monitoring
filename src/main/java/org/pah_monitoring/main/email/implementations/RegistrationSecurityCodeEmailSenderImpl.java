@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.email.implementations;
 
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
@@ -7,10 +8,11 @@ import org.pah_monitoring.auxiliary.text.ApplicationNameText;
 import org.pah_monitoring.auxiliary.text.EmailMessageText;
 import org.pah_monitoring.main.email.interfaces.EmailSender;
 import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurityCode;
+import org.pah_monitoring.main.exceptions.email.EmailSendingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -29,39 +31,38 @@ public class RegistrationSecurityCodeEmailSenderImpl implements EmailSender<Regi
     private final boolean enabled;
 
     @Override
-    public void send(String recipient, RegistrationSecurityCode code) {
+    public void send(String recipient, RegistrationSecurityCode code) throws EmailSendingException {
         if (enabled) {
-            allowedRecipients(recipient); // todo: delete in final version
+            try {
+                //allowedRecipients(recipient); // todo: delete in final version
+                MimeMessage message = mailSender.createMimeMessage();
+                MimeMessageHelper helper = new MimeMessageHelper(message);
 
-            SimpleMailMessage message = new SimpleMailMessage();
+                helper.setFrom(applicationEmail);
+                helper.setTo(recipient);
+                helper.setSubject(EmailMessageText.registrationCodeTitle);
 
-            message.setFrom(applicationEmail);
+                helper.setText(EmailMessageText.registrationCodeText.formatted(
+                        ApplicationNameText.applicationName,
+                        code.getHospital().getName(),
+                        code.getRole().getAlias(),
+                        code.getCode().toString(),
+                        DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(code.getExpirationDate())
+                ), true);
 
-            message.setTo(recipient);
+                throw new RuntimeException("Test");
 
-            message.setSubject(
-                    EmailMessageText.registrationCodeTitle.formatted(ApplicationNameText.applicationName)
-            );
-
-            message.setText(EmailMessageText.registrationCodeText.formatted(
-                    ApplicationNameText.applicationName,
-                    code.getHospital().getName(),
-                    code.getRole().getAlias(),
-                    code.getCode().toString(),
-                    DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(code.getExpirationDate())
-            ));
-
-            mailSender.send(message);
+                //mailSender.send(message);
+            } catch (Exception e) {
+                throw new EmailSendingException("Произошла ошибка при генерации кода. Повторите попытку позже", e);
+            }
         }
     }
 
     // todo: delete in final version
 
     private void allowedRecipients(String to) {
-        if (!List.of(
-                "pank-tanya@yandex.ru",
-                "ivan.tornado2@yandex.ru"
-        ).contains(to)) {
+        if (!List.of("pank-tanya@yandex.ru", "ivan.tornado2@yandex.ru").contains(to)) {
             throw new Error("Recipient \"%s\" is not allowed".formatted(to));
         }
     }
