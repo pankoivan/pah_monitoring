@@ -14,7 +14,7 @@ public final class FormulaUtils {
     }
 
     public static double tiffnoIndex(double vfe1, double vlc) {
-        return vfe1 / vlc;
+        return vfe1 / vlc * 100;
     }
 
 }
