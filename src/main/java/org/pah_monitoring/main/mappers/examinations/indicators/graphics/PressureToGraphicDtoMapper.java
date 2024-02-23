@@ -10,7 +10,13 @@ public class PressureToGraphicDtoMapper implements BaseEntityToOutDtoListMapper<
 
     @Override
     public PressureGraphicDto map(Pressure pressure) {
-        return null;
+        return PressureGraphicDto
+                .builder()
+                .formattedDate(pressure.getFormattedDate())
+                .upper(String.valueOf(pressure.getUpper()))
+                .lower(String.valueOf(pressure.getLower()))
+                .afterExercise(String.valueOf(pressure.getAfterExercise()))
+                .build();
     }
 
 }

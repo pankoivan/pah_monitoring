@@ -8,4 +8,12 @@ import org.pah_monitoring.main.dto.out.common.interfaces.OutDto;
 @Builder
 public class PressureGraphicDto implements OutDto {
 
+    private String formattedDate;
+
+    private String upper;
+
+    private String lower;
+
+    private String afterExercise;
+
 }
