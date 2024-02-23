@@ -75,6 +75,13 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
     }
 
     @Override
+    public AnalysisFile findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Показатель \"Файл\" с id \"%s\" не существует".formatted(id))
+        );
+    }
+
+    @Override
     public AnalysisFile add(AnalysisFileAddingDto addingDto) throws DataSavingServiceException {
         return AnalysisFile
                 .builder()

@@ -59,6 +59,13 @@ public class ChestPainServiceImpl extends AbstractInputIndicatorServiceImpl<Ches
     }
 
     @Override
+    public ChestPain findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Показатель \"Боль в груди\" с id \"%s\" не существует".formatted(id))
+        );
+    }
+
+    @Override
     public ChestPain add(ChestPainAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(

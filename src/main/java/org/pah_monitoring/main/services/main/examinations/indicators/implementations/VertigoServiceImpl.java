@@ -59,6 +59,13 @@ public class VertigoServiceImpl extends AbstractInputIndicatorServiceImpl<Vertig
     }
 
     @Override
+    public Vertigo findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Показатель \"Головокружение\" с id \"%s\" не существует".formatted(id))
+        );
+    }
+
+    @Override
     public Vertigo add(VertigoAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(

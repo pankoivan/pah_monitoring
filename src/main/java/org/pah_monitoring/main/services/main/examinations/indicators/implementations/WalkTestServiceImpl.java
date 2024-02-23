@@ -72,6 +72,13 @@ public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl<WalkT
     }
 
     @Override
+    public WalkTest findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Показатель \"Т6МХ\" с id \"%s\" не существует".formatted(id))
+        );
+    }
+
+    @Override
     public WalkTest add(WalkTestAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(

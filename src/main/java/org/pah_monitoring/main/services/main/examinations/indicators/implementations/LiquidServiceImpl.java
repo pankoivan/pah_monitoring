@@ -60,6 +60,13 @@ public class LiquidServiceImpl extends AbstractInputIndicatorServiceImpl<Liquid,
     }
 
     @Override
+    public Liquid findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Показатель \"Питьевой режим\" с id \"%s\" не существует".formatted(id))
+        );
+    }
+
+    @Override
     public Liquid add(LiquidAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(

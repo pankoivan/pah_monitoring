@@ -59,6 +59,13 @@ public class CoughServiceImpl extends AbstractInputIndicatorServiceImpl<Cough, C
     }
 
     @Override
+    public Cough findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Показатель \"Кашель\" с id \"%s\" не существует".formatted(id))
+        );
+    }
+
+    @Override
     public Cough add(CoughAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(

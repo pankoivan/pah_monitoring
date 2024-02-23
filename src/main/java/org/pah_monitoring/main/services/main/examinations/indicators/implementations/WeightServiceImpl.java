@@ -60,6 +60,13 @@ public class WeightServiceImpl extends AbstractInputIndicatorServiceImpl<Weight,
     }
 
     @Override
+    public Weight findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Показатель \"Вес\" с id \"%s\" не существует".formatted(id))
+        );
+    }
+
+    @Override
     public Weight add(WeightAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(

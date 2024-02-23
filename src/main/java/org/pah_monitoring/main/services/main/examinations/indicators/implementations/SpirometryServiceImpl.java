@@ -60,6 +60,13 @@ public class SpirometryServiceImpl extends AbstractInputIndicatorServiceImpl<Spi
     }
 
     @Override
+    public Spirometry findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Показатель \"Спирометрия\" с id \"%s\" не существует".formatted(id))
+        );
+    }
+
+    @Override
     public Spirometry add(SpirometryAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(

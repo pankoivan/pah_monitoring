@@ -59,6 +59,13 @@ public class PhysicalChangesServiceImpl extends AbstractInputIndicatorServiceImp
     }
 
     @Override
+    public PhysicalChanges findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Показатель \"Физические изменения\" с id \"%s\" не существует".formatted(id))
+        );
+    }
+
+    @Override
     public PhysicalChanges add(PhysicalChangesAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(

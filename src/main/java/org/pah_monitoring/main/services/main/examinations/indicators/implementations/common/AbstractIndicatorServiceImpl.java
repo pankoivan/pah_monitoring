@@ -38,7 +38,8 @@ public abstract class AbstractIndicatorServiceImpl<T, M> implements IndicatorSer
             throw new DataValidationServiceException("""
                     Вы не можете отправлять результаты наблюдений, так как на данный момент у вас ещё не отправлен анамнез.\
                      Прежде чем отправлять результаты наблюдений, вам необходимо сначала отправить ваш анамнез
-                    """);
+                    """
+            );
         }
     }
 

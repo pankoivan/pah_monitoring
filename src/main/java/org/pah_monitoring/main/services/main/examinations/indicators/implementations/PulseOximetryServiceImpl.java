@@ -60,6 +60,13 @@ public class PulseOximetryServiceImpl extends AbstractInputIndicatorServiceImpl<
     }
 
     @Override
+    public PulseOximetry findById(Integer id) throws DataSearchingServiceException {
+        return repository.findById(id).orElseThrow(
+                () -> new DataSearchingServiceException("Показатель \"Пульсоксиметрия\" с id \"%s\" не существует".formatted(id))
+        );
+    }
+
+    @Override
     public PulseOximetry add(PulseOximetryAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(
