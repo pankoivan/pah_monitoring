@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces;
 
+import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.entities.main.common.interfaces.BaseEntity;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 
@@ -10,5 +11,9 @@ public interface Indicator extends BaseEntity {
     IndicatorType getIndicatorType();
 
     LocalDateTime getDate();
+
+    default String getFormattedDate() {
+        return DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(getDate());
+    }
 
 }

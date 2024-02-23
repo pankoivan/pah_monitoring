@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.mappers.examinations.indicators.tables;
 
-import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.CoughTableDto;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Cough;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoListMapper;
@@ -13,7 +12,7 @@ public class CoughToTableDtoMapper implements BaseEntityToOutDtoListMapper<Cough
     public CoughTableDto map(Cough cough) {
         return CoughTableDto
                 .builder()
-                .formattedDate(DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(cough.getDate()))
+                .formattedDate(cough.getFormattedDate())
                 .type(cough.getType().getAlias())
                 .power(cough.getPower().getAlias())
                 .timbre(cough.getTimbre().getAlias())

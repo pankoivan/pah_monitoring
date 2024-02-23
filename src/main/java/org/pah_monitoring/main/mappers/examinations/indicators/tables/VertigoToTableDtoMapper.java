@@ -13,7 +13,7 @@ public class VertigoToTableDtoMapper implements BaseEntityToOutDtoListMapper<Ver
     public VertigoTableDto map(Vertigo vertigo) {
         return VertigoTableDto
                 .builder()
-                .formattedDate(DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(vertigo.getDate()))
+                .formattedDate(vertigo.getFormattedDate())
                 .duration(vertigo.getDuration().getAlias())
                 .nausea(nausea(vertigo.getNausea()))
                 .build();

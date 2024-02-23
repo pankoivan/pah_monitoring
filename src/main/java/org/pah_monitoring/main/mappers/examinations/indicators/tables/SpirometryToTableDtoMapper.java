@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.mappers.examinations.indicators.tables;
 
-import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.auxiliary.utils.FormulaUtils;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.SpirometryTableDto;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Spirometry;
@@ -14,7 +13,7 @@ public class SpirometryToTableDtoMapper implements BaseEntityToOutDtoListMapper<
     public SpirometryTableDto map(Spirometry spirometry) {
         return SpirometryTableDto
                 .builder()
-                .formattedDate(DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(spirometry.getDate()))
+                .formattedDate(spirometry.getFormattedDate())
                 .vlc(String.format("%.2f", spirometry.getVlc()))
                 .avlc(String.format("%.2f", spirometry.getAvlc()))
                 .rlv(String.format("%.2f", spirometry.getRlv()))

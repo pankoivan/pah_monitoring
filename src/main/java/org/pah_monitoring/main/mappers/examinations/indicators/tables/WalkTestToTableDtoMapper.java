@@ -30,7 +30,7 @@ public class WalkTestToTableDtoMapper implements BaseEntityToOutDtoListMapper<Wa
     public WalkTestTableDto map(WalkTest walkTest) {
         return WalkTestTableDto
                 .builder()
-                .formattedDate(DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(walkTest.getDate()))
+                .formattedDate(walkTest.getFormattedDate())
                 .oxygenSupport(hasNot(walkTest.getOxygenSupport()))
                 .auxiliaryDevices(hasNot(walkTest.getAuxiliaryDevices()))
                 .distance(String.format("%.2f", walkTest.getDistance()))
