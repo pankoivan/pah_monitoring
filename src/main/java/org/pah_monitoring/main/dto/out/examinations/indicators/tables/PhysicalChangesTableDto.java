@@ -8,20 +8,8 @@ import org.pah_monitoring.main.dto.out.common.interfaces.OutDto;
 @Builder
 public class PhysicalChangesTableDto implements OutDto {
 
+    private String id;
+
     private String formattedDate;
-
-    private String abdominalEnlargement;
-
-    private String legsSwelling;
-
-    private String vascularAsterisks;
-
-    private String skinColor;
-
-    private String fingersPhalanges;
-
-    private String chest;
-
-    private String neckVeins;
 
 }

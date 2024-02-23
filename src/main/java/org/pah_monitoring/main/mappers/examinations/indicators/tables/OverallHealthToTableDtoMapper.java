@@ -13,22 +13,9 @@ public class OverallHealthToTableDtoMapper implements BaseEntityToOutDtoListMapp
     public OverallHealthTableDto map(OverallHealth overallHealth) {
         return OverallHealthTableDto
                 .builder()
+                .id(String.valueOf(overallHealth.getId()))
                 .formattedDate(DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(overallHealth.getDate()))
-                .breathlessness(overallHealth.getBreathlessness().getAlias())
-                .fatigue(overallHealth.getFatigue().getAlias())
-                .restFeeling(yesNo(overallHealth.getRestFeeling()))
-                .drowsiness(yesNo(overallHealth.getDrowsiness()))
-                .concentration(yesNo(overallHealth.getConcentration()))
-                .weakness(overallHealth.getWeakness().getAlias())
-                .appetite(yesNo(overallHealth.getAppetite()))
-                .coldExtremities(overallHealth.getColdExtremities().getAlias())
                 .build();
     }
-
-    private String yesNo(Boolean bool) {
-        return bool ? "Да" : "Нет";
-    }
-
-    // todo: additional view
 
 }

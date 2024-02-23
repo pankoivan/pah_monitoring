@@ -13,21 +13,9 @@ public class PhysicalChangesToTableDtoMapper implements BaseEntityToOutDtoListMa
     public PhysicalChangesTableDto map(PhysicalChanges physicalChanges) {
         return PhysicalChangesTableDto
                 .builder()
+                .id(String.valueOf(physicalChanges.getId()))
                 .formattedDate(DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(physicalChanges.getDate()))
-                .abdominalEnlargement(yesNo(physicalChanges.getAbdominalEnlargement()))
-                .legsSwelling(physicalChanges.getLegsSwelling().getAlias())
-                .vascularAsterisks(yesNo(physicalChanges.getVascularAsterisks()))
-                .skinColor(physicalChanges.getSkinColor().getAlias())
-                .fingersPhalanges(yesNo(physicalChanges.getFingersPhalanges()))
-                .chest(yesNo(physicalChanges.getChest()))
-                .neckVeins(yesNo(physicalChanges.getNeckVeins()))
                 .build();
     }
-
-    private String yesNo(Boolean bool) {
-        return bool ? "Да" : "Нет";
-    }
-
-    // todo: additional view
 
 }
