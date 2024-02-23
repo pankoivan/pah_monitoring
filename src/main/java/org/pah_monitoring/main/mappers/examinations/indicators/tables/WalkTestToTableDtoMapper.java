@@ -31,8 +31,8 @@ public class WalkTestToTableDtoMapper implements BaseEntityToOutDtoListMapper<Wa
         return WalkTestTableDto
                 .builder()
                 .formattedDate(DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(walkTest.getDate()))
-                .oxygenSupport(yesNo(walkTest.getOxygenSupport()))
-                .auxiliaryDevices(yesNo(walkTest.getAuxiliaryDevices()))
+                .oxygenSupport(hasNot(walkTest.getOxygenSupport()))
+                .auxiliaryDevices(hasNot(walkTest.getAuxiliaryDevices()))
                 .distance(String.format("%.2f", walkTest.getDistance()))
                 .numberOfStops(String.valueOf(walkTest.getNumberOfStops()))
                 .breathlessness(walkTest.getBreathlessness().getAlias())
@@ -43,8 +43,8 @@ public class WalkTestToTableDtoMapper implements BaseEntityToOutDtoListMapper<Wa
                 .build();
     }
 
-    private String yesNo(Boolean bool) {
-        return bool ? "Да" : "Нет";
+    private String hasNot(Boolean bool) {
+        return bool ? "Есть" : "Нет";
     }
 
 }
