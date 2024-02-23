@@ -1,7 +1,7 @@
 const patientId = document.querySelector("div[data-patient]").dataset.patient;
 
 new gridjs.Grid({
-    columns: ["Дата", "Верхнее", "Нижнее", "После нагрузки"],
+    columns: ["Дата", "Верхнее (мм рт.ст.)", "Нижнее (мм рт.ст.)", "После нагрузки"],
     resizable: true,
     search: true,
     sort: true,
