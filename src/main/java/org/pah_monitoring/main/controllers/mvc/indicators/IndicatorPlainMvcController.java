@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/patients/{patientId}/examinations/")
+@RequestMapping("/patients/{patientId}/examinations/plain")
 @PreAuthorize("hasAnyRole('DOCTOR', 'PATIENT')")
 public class IndicatorPlainMvcController {
 

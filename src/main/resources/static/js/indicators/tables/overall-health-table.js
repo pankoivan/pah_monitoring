@@ -32,6 +32,6 @@ new gridjs.Grid({
     },
     server: {
         url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/overall-health`,
-        then: (overallHealths) => overallHealths.map((overallHealth) => [overallHealth.formattedDate, gridjs.html(`<a href="/patients/${patientId}/examinations/overall-health/${overallHealth.id}" class="text-secondary">Анкета</a>`)]),
+        then: (overallHealths) => overallHealths.map((overallHealth) => [overallHealth.formattedDate, gridjs.html(`<a href="/patients/${patientId}/examinations/plain/overall-health/${overallHealth.id}" class="text-secondary">Анкета</a>`)]),
     },
 }).render(document.getElementById("table"));

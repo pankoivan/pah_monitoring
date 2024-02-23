@@ -32,6 +32,6 @@ new gridjs.Grid({
     },
     server: {
         url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/physical-changes`,
-        then: (physicalChanges) => physicalChanges.map((physicalChanges) => [physicalChanges.formattedDate, gridjs.html(`<a href="/patients/${patientId}/examinations/physical-changes/${physicalChanges.id}" class="text-secondary">Анкета</a>`)]),
+        then: (physicalChanges) => physicalChanges.map((physicalChanges) => [physicalChanges.formattedDate, gridjs.html(`<a href="/patients/${patientId}/examinations/plain/physical-changes/${physicalChanges.id}" class="text-secondary">Анкета</a>`)]),
     },
 }).render(document.getElementById("table"));
