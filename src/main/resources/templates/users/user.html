@@ -183,10 +183,10 @@
                     <h3 class="fs-4">История лечения</h3>
                     <p class="mb-1">
                         <span th:if="${isSelf}">
-                            <a href="#" th:href="@{${user.hasAnamnesis} ? '/anamnesis/for/__${currentUser.id}__' : '/anamnesis/form'}" class="text-secondary">Перейти к анамнезу</a>
+                            <a href="#" th:href="@{${user.hasAnamnesis} ? '/anamnesis/for/__${user.id}__' : '/anamnesis/form'}" class="text-secondary">Перейти к анамнезу</a>
                         </span>
                         <span th:if="${!isSelf}">
-                            <a href="#" th:href="@{/anamnesis/for/__${currentUser.id}__}" class="text-secondary">Перейти к анамнезу</a>
+                            <a href="#" th:href="@{/anamnesis/for/__${user.id}__}" class="text-secondary">Перейти к анамнезу</a>
                         </span>
                     </p>
                     <p class="mb-0">
