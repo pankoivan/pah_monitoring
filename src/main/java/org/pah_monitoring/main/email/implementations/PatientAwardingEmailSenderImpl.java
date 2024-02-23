@@ -47,7 +47,7 @@ public class PatientAwardingEmailSenderImpl implements EmailSender<Achievement> 
 
                 mailSender.send(message);
             } catch (Exception e) {
-                throw new EmailSendingException("Произошла ошибка при уведомлении пациента о назначенном лечащем враче", e);
+                throw new EmailSendingException("Произошла ошибка при уведомлении пациента о полученной награде", e);
             }
         }
     }
