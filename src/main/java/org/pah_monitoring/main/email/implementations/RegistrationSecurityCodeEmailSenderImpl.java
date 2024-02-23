@@ -52,7 +52,11 @@ public class RegistrationSecurityCodeEmailSenderImpl implements EmailSender<Regi
 
                 mailSender.send(message);
             } catch (Exception e) {
-                throw new EmailSendingException("Произошла ошибка при генерации кода. Повторите попытку позже", e);
+                throw new EmailSendingException("""
+                        Произошла ошибка при отправке сгенерированного кода на указанную почту. Убедитесь в корректности\
+                         формата почты и повторите попытку через какое-то время
+                        """, e
+                );
             }
         }
     }
