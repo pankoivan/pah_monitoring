@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title th:if="${isSelf}" th:text="'Ваши физические изменения от ' + ${physicalChanges.formattedDate}">Ваши физические изменения от 19-01-2020 14:34:41</title>
+        <title th:if="${!isSelf}" th:text="'Физические изменения пациента &laquo;' + ${patient.userInformation.fullName} + '&raquo; от ' + ${physicalChanges.formattedDate}">
+            Физические изменения пациента "Иванов Степан Петрович" от 19-01-2020 14:34:41
+        </title>
+        <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary my-5">
+            <!---->
+            <div class="row fs-5 mb-5">
+                <div class="col-12">
+                    <h1 class="text-center fs-3 mb-0">
+                        <span th:if="${isSelf}">
+                            Ваши физические изменения от
+                            <span th:text="${physicalChanges.formattedDate}">19-01-2020 14:34:41</span>
+                        </span>
+                        <span th:if="${!isSelf}">
+                            Физические изменения пациента
+                            <span th:text="${patient.userInformation.fullName}" class="fw-bold">Иванов Степан Петрович</span>
+                            от
+                            <span th:text="${physicalChanges.formattedDate}" class="fw-bold">19-01-2020 14:34:41</span>
+                        </span>
+                    </h1>
+                </div>
+            </div>
+            <!---->
+            <div class="row fs-5">
+                <div class="col-12">
+                    <div class="mb-5">
+                        <h4 class="fs-4">Увеличение живота без переедания</h4>
+                        <span th:if="${physicalChanges.abdominalEnlargement}">Есть</span>
+                        <span th:if="${!physicalChanges.abdominalEnlargement}">Нет</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Отёки ног</h4>
+                        <span th:text="${physicalChanges.legsSwelling.alias}">Постоянно</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">«Сосудистые звёздочки» или «паутинки» на коже</h4>
+                        <span th:if="${physicalChanges.vascularAsterisks}">Есть</span>
+                        <span th:if="${!physicalChanges.vascularAsterisks}">Нет</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Цвет губ и кожи</h4>
+                        <span th:text="${physicalChanges.skinColor.alias}">Синюшный</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Утолщённые пальцы</h4>
+                        <span th:if="${physicalChanges.fingersPhalanges}">Да</span>
+                        <span th:if="${!physicalChanges.fingersPhalanges}">Нет</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">«Бочкообразная» грудная клетка</h4>
+                        <span th:if="${physicalChanges.chest}">Да</span>
+                        <span th:if="${!physicalChanges.chest}">Нет</span>
+                    </div>
+                    <div>
+                        <h4 class="fs-4">Набухание шейных вен</h4>
+                        <span th:if="${physicalChanges.neckVeins}">Есть</span>
+                        <span th:if="${!physicalChanges.neckVeins}">Нет</span>
+                    </div>
+                </div>
+            </div>
+            <!---->
+        </div>
+        <!---->
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
+    </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title th:if="${isSelf}" th:text="'Ваше общее самочувствие от ' + ${overallHealth.formattedDate}">Ваше общее самочувствие от 19-01-2020 14:34:41</title>
+        <title th:if="${!isSelf}" th:text="'Общее самочувствие пациента &laquo;' + ${patient.userInformation.fullName} + '&raquo; от ' + ${overallHealth.formattedDate}">Общее самочувствие пациента "Иванов Степан Петрович" от 19-01-2020 14:34:41</title>
+        <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary my-5">
+            <!---->
+            <div class="row fs-5 mb-5">
+                <div class="col-12">
+                    <h1 class="text-center fs-3 mb-0">
+                        <span th:if="${isSelf}">
+                            Ваше общее самочувствие от
+                            <span th:text="${overallHealth.formattedDate}">19-01-2020 14:34:41</span>
+                        </span>
+                        <span th:if="${!isSelf}">
+                            Общее самочувствие пациента
+                            <span th:text="${patient.userInformation.fullName}" class="fw-bold">Иванов Степан Петрович</span>
+                            от
+                            <span th:text="${overallHealth.formattedDate}" class="fw-bold">19-01-2020 14:34:41</span>
+                        </span>
+                    </h1>
+                </div>
+            </div>
+            <!---->
+            <div class="row fs-5">
+                <div class="col-12">
+                    <div class="mb-5">
+                        <h4 class="fs-4">Одышка</h4>
+                        <span th:text="${overallHealth.breathlessness.alias}">В покое</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Усталость</h4>
+                        <span th:text="${overallHealth.fatigue.alias}">В покое</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Отсутствие ощущения отдыха после полноценного ночного сна</h4>
+                        <span th:if="${overallHealth.restFeeling}">Есть</span>
+                        <span th:if="${!overallHealth.restFeeling}">Нет</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Повышенная сонливость в дневное время суток</h4>
+                        <span th:if="${overallHealth.drowsiness}">Есть</span>
+                        <span th:if="${!overallHealth.drowsiness}">Нет</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Снижение способности концентрироваться</h4>
+                        <span th:if="${overallHealth.concentration}">Есть</span>
+                        <span th:if="${!overallHealth.concentration}">Нет</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Слабость</h4>
+                        <span th:text="${overallHealth.weakness.alias}">Острый вид</span>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="fs-4">Снижение аппетита</h4>
+                        <span th:if="${overallHealth.appetite}">Есть</span>
+                        <span th:if="${!overallHealth.appetite}">Нет</span>
+                    </div>
+                    <div>
+                        <h4 class="fs-4">Холодные конечности</h4>
+                        <span th:text="${overallHealth.coldExtremities.alias}">Короткое время</span>
+                    </div>
+                </div>
+            </div>
+            <!---->
+        </div>
+        <!---->
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
+    </body>
+</html>
