@@ -14,6 +14,6 @@ public class PressureGraphicDto implements OutDto {
 
     private String lower;
 
-    private String afterExercise;
+    private Boolean afterExercise;
 
 }
