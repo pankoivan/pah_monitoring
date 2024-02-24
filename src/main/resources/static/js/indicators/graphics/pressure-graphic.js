@@ -30,17 +30,17 @@ function beforeExercisePressureTable(pressures) {
     new Chart(document.getElementById("before"), {
         type: "line",
         data: {
-            labels: pressureDate(pressuresBeforeExercise(pressures)),
+            labels: spirometryDate(pressuresBeforeExercise(pressures)),
             datasets: [
                 {
                     label: "Верхнее давление до нагрузки (мм рт. ст.)",
-                    data: pressureUpper(pressuresBeforeExercise(pressures)),
+                    data: spirometryVlc(pressuresBeforeExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
                 },
                 {
                     label: "Нижнее давление до нагрузки (мм рт. ст.)",
-                    data: pressureLower(pressuresBeforeExercise(pressures)),
+                    data: spirometryRlc(pressuresBeforeExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
                 },
@@ -55,17 +55,17 @@ function afterExercisePressureTable(pressures) {
     new Chart(document.getElementById("after"), {
         type: "line",
         data: {
-            labels: pressureDate(pressuresAfterExercise(pressures)),
+            labels: spirometryDate(pressuresAfterExercise(pressures)),
             datasets: [
                 {
                     label: "Верхнее давление после нагрузки (мм рт. ст.)",
-                    data: pressureUpper(pressuresAfterExercise(pressures)),
+                    data: spirometryVlc(pressuresAfterExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
                 },
                 {
                     label: "Нижнее давление после нагрузки (мм рт. ст.)",
-                    data: pressureLower(pressuresAfterExercise(pressures)),
+                    data: spirometryRlc(pressuresAfterExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
                 },
@@ -82,14 +82,14 @@ function pressuresAfterExercise(pressures) {
     return pressures.filter((pressure) => pressure.afterExercise == true);
 }
 
-function pressureUpper(pressures) {
+function spirometryVlc(pressures) {
     return pressures.map((pressure) => pressure.upper);
 }
 
-function pressureLower(pressures) {
+function spirometryRlc(pressures) {
     return pressures.map((pressure) => pressure.lower);
 }
 
-function pressureDate(pressures) {
+function spirometryDate(pressures) {
     return pressures.map((pressure) => pressure.formattedDate);
 }
