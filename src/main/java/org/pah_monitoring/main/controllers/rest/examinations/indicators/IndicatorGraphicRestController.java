@@ -63,10 +63,55 @@ public class IndicatorGraphicRestController {
     @Qualifier("weightGraphicMapper")
     private final BaseEntityToOutDtoListMapper<Weight, WeightGraphicDto> weightGraphicMapper;
 
+    @GetMapping("/spirometry")
+    public List<SpirometryGraphicDto> getSpirometryGraphic(@PathVariable("patientId") String pathPatientId) {
+        try {
+            return spirometryGraphicMapper.mapList(spirometryService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
+            throw new UrlValidationRestControllerException(e.getMessage(), e);
+        }
+    }
+
+    @GetMapping("/walk-test")
+    public List<WalkTestGraphicDto> getWalkTestGraphic(@PathVariable("patientId") String pathPatientId) {
+        try {
+            return walkTestGraphicMapper.mapList(walkTestService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
+            throw new UrlValidationRestControllerException(e.getMessage(), e);
+        }
+    }
+
     @GetMapping("/pressure")
     public List<PressureGraphicDto> getPressureGraphic(@PathVariable("patientId") String pathPatientId) {
         try {
             return pressureGraphicMapper.mapList(pressureService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
+            throw new UrlValidationRestControllerException(e.getMessage(), e);
+        }
+    }
+
+    @GetMapping("/pulse-oximetry")
+    public List<PulseOximetryGraphicDto> getPulseOximetryGraphic(@PathVariable("patientId") String pathPatientId) {
+        try {
+            return pulseOximetryGraphicMapper.mapList(pulseOximetryService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
+            throw new UrlValidationRestControllerException(e.getMessage(), e);
+        }
+    }
+
+    @GetMapping("/liquid")
+    public List<LiquidGraphicDto> getLiquidGraphic(@PathVariable("patientId") String pathPatientId) {
+        try {
+            return liquidGraphicMapper.mapList(liquidService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
+            throw new UrlValidationRestControllerException(e.getMessage(), e);
+        }
+    }
+
+    @GetMapping("/weight")
+    public List<WeightGraphicDto> getWeightGraphic(@PathVariable("patientId") String pathPatientId) {
+        try {
+            return weightGraphicMapper.mapList(weightService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
         }
