@@ -15,9 +15,10 @@ public class WeightToGraphicDtoMapper implements BaseEntityToOutDtoListMapper<We
         return WeightGraphicDto
                 .builder()
                 .formattedDate(weight.getFormattedDate())
-                .weight(String.format("%.2f", weight.getWeight()))
+                .weight(String.format("%.2f", weight.getWeight()).replaceAll(",", "."))
                 .bodyMassIndex(
                         String.format("%.2f", FormulaUtils.bodyMassIndex(weight.getWeight(), weight.getPatient().getAnamnesis().getHeight()))
+                                .replaceAll(",", ".")
                 )
                 .build();
     }
