@@ -8,4 +8,10 @@ import org.pah_monitoring.main.dto.out.common.interfaces.OutDto;
 @Builder
 public class WeightGraphicDto implements OutDto {
 
+    private String formattedDate;
+
+    private String weight;
+
+    private String bodyMassIndex;
+
 }

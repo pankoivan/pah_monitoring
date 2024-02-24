@@ -10,7 +10,11 @@ public class LiquidToGraphicDtoMapper implements BaseEntityToOutDtoListMapper<Li
 
     @Override
     public LiquidGraphicDto map(Liquid liquid) {
-        return null;
+        return LiquidGraphicDto
+                .builder()
+                .formattedDate(liquid.getFormattedDate())
+                .liquid(String.format("%.2f", liquid.getLiquid()))
+                .build();
     }
 
 }

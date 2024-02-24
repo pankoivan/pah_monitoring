@@ -8,4 +8,12 @@ import org.pah_monitoring.main.dto.out.common.interfaces.OutDto;
 @Builder
 public class PulseOximetryGraphicDto implements OutDto {
 
+    private String formattedDate;
+
+    private String oxygenPercentage;
+
+    private String pulseRate;
+
+    private Boolean afterExercise;
+
 }
