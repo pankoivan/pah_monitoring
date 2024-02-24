@@ -25,7 +25,22 @@
             </div>
             <!---->
             <div class="row">
-                <div class="col-12"></div>
+                <div class="col-12">
+                    <form action="#" method="post" id="file-form" class="fs-5">
+                        <div class="mb-3">
+                            <label for="file1" class="form-label">Первый файл</label>
+                            <div class="d-flex flex-row align-items-center justify-content-between">
+                                <input type="file" name="file1" id="file1" class="form-control flex-grow-1 me-2" />
+                                <a href="#" class="text-decoration-none mx-2">
+                                    <img width="32" src="../../../static/svg/minus.svg" th:src="@{/svg/message.svg}" alt="Сообщение" />
+                                </a>
+                                <a href="#" class="text-decoration-none mx-2">
+                                    <img width="32" src="../../../static/svg/plus.svg" th:src="@{/svg/message.svg}" alt="Сообщение" />
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
             <!---->
         </div>
@@ -34,7 +49,7 @@
         <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
-        <script src="../../../static/js/indicators/forms/chest-pain-form.js" th:src="@{/js/indicators/forms/chest-pain-form.js}"></script>
+        <script src="../../../static/js/indicators/forms/analysis-file-form.js" th:src="@{/js/indicators/forms/analysis-file-form.js}"></script>
         <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>
