@@ -13,7 +13,7 @@ public class LiquidToGraphicDtoMapper implements BaseEntityToOutDtoListMapper<Li
         return LiquidGraphicDto
                 .builder()
                 .formattedDate(liquid.getFormattedDate())
-                .liquid(String.format("%.2f", liquid.getLiquid()))
+                .liquid(String.format("%.2f", liquid.getLiquid()).replaceAll(",", "."))
                 .build();
     }
 
