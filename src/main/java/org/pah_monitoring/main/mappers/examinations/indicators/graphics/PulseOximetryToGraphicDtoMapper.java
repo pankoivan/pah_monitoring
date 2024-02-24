@@ -14,7 +14,7 @@ public class PulseOximetryToGraphicDtoMapper implements BaseEntityToOutDtoListMa
         return PulseOximetryGraphicDto
                 .builder()
                 .formattedDate(pulseOximetry.getFormattedDate())
-                .oxygenPercentage(String.format("%.2f", pulseOximetry.getOxygenPercentage()))
+                .oxygenPercentage(String.format("%.2f", pulseOximetry.getOxygenPercentage()).replaceAll(",", "."))
                 .pulseRate(String.valueOf(pulseOximetry.getPulseRate()))
                 .afterExercise(pulseOximetry.getAfterExercise())
                 .build();
