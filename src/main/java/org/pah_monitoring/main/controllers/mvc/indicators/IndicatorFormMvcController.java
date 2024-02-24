@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @AllArgsConstructor
@@ -113,7 +114,7 @@ public class IndicatorFormMvcController {
         return "indicators/forms/weight-form";
     }
 
-    @GetMapping({
+    /*@GetMapping({
             "/analysis-file/blood-test",
             "/analysis-file/electrocardiography",
             "/analysis-file/radiography",
@@ -121,8 +122,10 @@ public class IndicatorFormMvcController {
             "/analysis-file/computed-tomography",
             "/analysis-file/scintigraphy",
             "/analysis-file/catheterization"
-    })
-    public String getAnalysisFileForm(Model model) {
+    })*/
+    @GetMapping("/analysis-file/{concrete}")
+    public String getAnalysisFileForm(Model model, @PathVariable("concrete") String concrete) {
+        model.addAttribute("name", AnalysisFile.AnalysisType.ofUrl(concrete).getName());
         pageHeaderService.addHeader(model);
         return "indicators/forms/analysis-file-form";
     }
