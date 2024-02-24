@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.examinations.indicators.*;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.*;
 import org.pah_monitoring.main.entities.main.examinations.indicators.*;
+import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.UrlValidationRestControllerException;
+import org.pah_monitoring.main.exceptions.controller.rest.forbidden.NotEnoughRightsRestControllerException;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoListMapper;
@@ -102,108 +105,156 @@ public class IndicatorTableRestController {
     @GetMapping("/spirometry")
     public List<SpirometryTableDto> getSpirometryTable(@PathVariable("patientId") String pathPatientId) {
         try {
-            return spirometryTableMapper.mapList(spirometryService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            spirometryService.checkAccessRightsForObtaining(patient);
+            return spirometryTableMapper.mapList(spirometryService.findAllByPatientId(patient.getId()));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         }
     }
 
     @GetMapping("/walk-test")
     public List<WalkTestTableDto> getWalkTestTable(@PathVariable("patientId") String pathPatientId) {
         try {
-            return walkTestTableMapper.mapList(walkTestService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            walkTestService.checkAccessRightsForObtaining(patient);
+            return walkTestTableMapper.mapList(walkTestService.findAllByPatientId(patient.getId()));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         }
     }
 
     @GetMapping("/pulse-oximetry")
     public List<PulseOximetryTableDto> getPulseOximetryTable(@PathVariable("patientId") String pathPatientId) {
         try {
-            return pulseOximetryTableMapper.mapList(pulseOximetryService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            pulseOximetryService.checkAccessRightsForObtaining(patient);
+            return pulseOximetryTableMapper.mapList(pulseOximetryService.findAllByPatientId(patient.getId()));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         }
     }
 
     @GetMapping("/cough")
     public List<CoughTableDto> getCoughTable(@PathVariable("patientId") String pathPatientId) {
         try {
-            return coughTableMapper.mapList(coughService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            coughService.checkAccessRightsForObtaining(patient);
+            return coughTableMapper.mapList(coughService.findAllByPatientId(patient.getId()));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         }
     }
 
     @GetMapping("/chest-pain")
     public List<ChestPainTableDto> getChestPainTable(@PathVariable("patientId") String pathPatientId) {
         try {
-            return chestPainTableMapper.mapList(chestPainService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            chestPainService.checkAccessRightsForObtaining(patient);
+            return chestPainTableMapper.mapList(chestPainService.findAllByPatientId(patient.getId()));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         }
     }
 
     @GetMapping("/fainting")
     public List<FaintingTableDto> getFaintingTable(@PathVariable("patientId") String pathPatientId) {
         try {
-            return faintingTableMapper.mapList(faintingService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            faintingService.checkAccessRightsForObtaining(patient);
+            return faintingTableMapper.mapList(faintingService.findAllByPatientId(patient.getId()));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         }
     }
 
     @GetMapping("/physical-changes")
     public List<PhysicalChangesTableDto> getPhysicalChangesTable(@PathVariable("patientId") String pathPatientId) {
         try {
-            return physicalChangesTableMapper.mapList(physicalChangesService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            physicalChangesService.checkAccessRightsForObtaining(patient);
+            return physicalChangesTableMapper.mapList(physicalChangesService.findAllByPatientId(patient.getId()));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         }
     }
 
     @GetMapping("/overall-health")
     public List<OverallHealthTableDto> getOverallHealthTable(@PathVariable("patientId") String pathPatientId) {
         try {
-            return overallHealthTableMapper.mapList(overallHealthService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            overallHealthService.checkAccessRightsForObtaining(patient);
+            return overallHealthTableMapper.mapList(overallHealthService.findAllByPatientId(patient.getId()));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         }
     }
 
     @GetMapping("/vertigo")
     public List<VertigoTableDto> getVertigoTable(@PathVariable("patientId") String pathPatientId) {
         try {
-            return vertigoTableMapper.mapList(vertigoService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            vertigoService.checkAccessRightsForObtaining(patient);
+            return vertigoTableMapper.mapList(vertigoService.findAllByPatientId(patient.getId()));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         }
     }
 
     @GetMapping("/pressure")
     public List<PressureTableDto> getPressureTable(@PathVariable("patientId") String pathPatientId) {
         try {
-            return pressureTableMapper.mapList(pressureService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            pressureService.checkAccessRightsForObtaining(patient);
+            return pressureTableMapper.mapList(pressureService.findAllByPatientId(patient.getId()));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         }
     }
 
     @GetMapping("/liquid")
     public List<LiquidTableDto> getLiquidTable(@PathVariable("patientId") String pathPatientId) {
         try {
-            return liquidTableMapper.mapList(liquidService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            liquidService.checkAccessRightsForObtaining(patient);
+            return liquidTableMapper.mapList(liquidService.findAllByPatientId(patient.getId()));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         }
     }
 
     @GetMapping("/weight")
     public List<WeightTableDto> getWeightTable(@PathVariable("patientId") String pathPatientId) {
         try {
-            return weightTableMapper.mapList(weightService.findAllByPatientId(patientService.parsePathId(pathPatientId)));
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            weightService.checkAccessRightsForObtaining(patient);
+            return weightTableMapper.mapList(weightService.findAllByPatientId(patient.getId()));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         }
     }
 
