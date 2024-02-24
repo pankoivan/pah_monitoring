@@ -15,12 +15,12 @@ public class SpirometryToGraphicDtoMapper implements BaseEntityToOutDtoListMappe
         return SpirometryGraphicDto
                 .builder()
                 .formattedDate(spirometry.getFormattedDate())
-                .vlc(String.format("%.2f", spirometry.getVlc()))
-                .avlc(String.format("%.2f", spirometry.getAvlc()))
-                .rlv(String.format("%.2f", spirometry.getRlv()))
-                .vfe1(String.format("%.2f", spirometry.getVfe1()))
-                .tlc(String.format("%.2f", FormulaUtils.tlc(spirometry.getRlv(), spirometry.getVlc())))
-                .tiffnoIndex(String.format("%.2f", FormulaUtils.tiffnoIndex(spirometry.getVfe1(), spirometry.getVlc())))
+                .vlc(String.format("%.2f", spirometry.getVlc()).replaceAll(",", "."))
+                .avlc(String.format("%.2f", spirometry.getAvlc()).replaceAll(",", "."))
+                .rlv(String.format("%.2f", spirometry.getRlv()).replaceAll(",", "."))
+                .vfe1(String.format("%.2f", spirometry.getVfe1()).replaceAll(",", "."))
+                .tlc(String.format("%.2f", FormulaUtils.tlc(spirometry.getRlv(), spirometry.getVlc())).replaceAll(",", "."))
+                .tiffnoIndex(String.format("%.2f", FormulaUtils.tiffnoIndex(spirometry.getVfe1(), spirometry.getVlc())).replaceAll(",", "."))
                 .build();
     }
 

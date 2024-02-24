@@ -46,7 +46,7 @@ function mainSpirometryTable(spirometries) {
                 },
                 {
                     label: "ООЛ (л)",
-                    data: spirometryRlc(spirometries),
+                    data: spirometryRlv(spirometries),
                     borderWidth: 1,
                     tension: 0.1,
                 },
@@ -72,10 +72,12 @@ function tiffnoIndexSpirometryTable(spirometries) {
         type: "line",
         data: {
             labels: spirometryDate(spirometries),
+            //labels: ["ab", "byb", "pep"],
             datasets: [
                 {
                     label: "Индекс Тиффно (%)",
                     data: spirometryTiffnoIndex(spirometries),
+                    //data: ["1", "10", "3"],
                     borderWidth: 1,
                     tension: 0.1,
                 },
@@ -92,8 +94,8 @@ function spirometryAvlc(spirometries) {
     return spirometries.map((spirometry) => spirometry.avlc);
 }
 
-function spirometryRlc(spirometries) {
-    return spirometries.map((spirometry) => spirometry.rlc);
+function spirometryRlv(spirometries) {
+    return spirometries.map((spirometry) => spirometry.rlv);
 }
 
 function spirometryVfe1(spirometries) {
@@ -105,6 +107,7 @@ function spirometryTlc(spirometries) {
 }
 
 function spirometryTiffnoIndex(spirometries) {
+    console.log(spirometries.map((spirometry) => spirometry.tiffnoIndex));
     return spirometries.map((spirometry) => spirometry.tiffnoIndex);
 }
 

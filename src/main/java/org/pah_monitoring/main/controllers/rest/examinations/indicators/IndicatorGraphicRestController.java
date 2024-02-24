@@ -71,6 +71,7 @@ public class IndicatorGraphicRestController {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             spirometryService.checkAccessRightsForObtaining(patient);
+            System.out.println(spirometryGraphicMapper.mapList(spirometryService.findAllByPatientId(patient.getId())));
             return spirometryGraphicMapper.mapList(spirometryService.findAllByPatientId(patient.getId()));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
