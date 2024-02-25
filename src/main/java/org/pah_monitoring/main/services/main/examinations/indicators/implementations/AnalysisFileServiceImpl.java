@@ -2,6 +2,7 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.auxiliary.text.ApplicationErrorText;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
@@ -12,6 +13,7 @@ import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.AnalysisFile;
 import org.pah_monitoring.main.entities.main.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
+import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.AnalysisFileRepository;
@@ -25,6 +27,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -89,9 +93,15 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
     }
 
     @Override
-    public AnalysisFile add(MultipartFile file, AnalysisFile.AnalysisType analysisType) {
-        System.out.println(file.getOriginalFilename());
-        System.out.println(analysisType);
+    public AnalysisFile add(MultipartFile file, AnalysisFile.AnalysisType analysisType) throws DataSavingServiceException {
+        try {
+            String fileName = generateFileName(file);
+            System.out.println(fileName);
+            System.out.println(Paths.get(uploadPath, fileName));
+            file.transferTo(Paths.get(uploadPath, fileName));
+        } catch (Exception e) {
+            throw new DataSavingServiceException(e.getMessage(), e);
+        }
         return null;
     }
 
@@ -106,14 +116,24 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
         if (file == null) {
             throw new DataValidationServiceException("Файл не выбран");
         }
-        if (notAllowedExtension(file)) {
+        if (!allowedExtensions.contains(getExtension(file))) {
             throw new DataValidationServiceException("Поддерживаемые форматы: %s".formatted(String.join(", ", allowedExtensions)));
         }
     }
 
-    private boolean notAllowedExtension(MultipartFile file) {
+    private String generateFileName(MultipartFile file) {
+        Patient patient = getExtractionService().patient();
+        return "%s (%s) %s.%s".formatted(
+                patient.getUserInformation().getLastname(),
+                patient.getId(),
+                DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(LocalDateTime.now()).replaceAll(":", "."),
+                getExtension(file)
+        );
+    }
+
+    private String getExtension(MultipartFile file) {
         String fileName = file.getOriginalFilename();
-        return !fileName.contains(".") || !allowedExtensions.contains(fileName.substring(fileName.lastIndexOf(".")));
+        return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
 }
