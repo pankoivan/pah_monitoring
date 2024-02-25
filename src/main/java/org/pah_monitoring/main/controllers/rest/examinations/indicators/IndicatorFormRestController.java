@@ -11,12 +11,11 @@ import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceExce
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.FileIndicatorService;
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.InputIndicatorService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.datasource.embedded.ConnectionProperties;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @RestController
@@ -207,16 +206,19 @@ public class IndicatorFormRestController {
         }
     }
 
-    /*@PostMapping("analysis-file")
-    public void addAnalysisFile(@RequestBody AnalysisFileAddingDto addingDto, BindingResult bindingResult) {
-        try {
+    @PostMapping("/analysis-file")
+    public void addAnalysisFile(@RequestPart("file") MultipartFile file) {
+        /*try {
             analysisFileService.checkDataValidityForAdding(addingDto, bindingResult);
             analysisFileService.add(addingDto);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
             throw new DataSavingRestControllerException(e.getMessage(), e);
-        }
-    }*/
+        }*/
+        System.out.println(file.getName());
+        System.out.println(file.getOriginalFilename());
+        System.out.println(file.getSize());
+    }
 
 }
