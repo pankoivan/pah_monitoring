@@ -114,15 +114,6 @@ public class IndicatorFormMvcController {
         return "indicators/forms/weight-form";
     }
 
-    /*@GetMapping({
-            "/analysis-file/blood-test",
-            "/analysis-file/electrocardiography",
-            "/analysis-file/radiography",
-            "/analysis-file/echocardiography",
-            "/analysis-file/computed-tomography",
-            "/analysis-file/scintigraphy",
-            "/analysis-file/catheterization"
-    })*/
     @GetMapping("/analysis-file/{concrete}")
     public String getAnalysisFileForm(Model model, @PathVariable("concrete") String concrete) {
         model.addAttribute("name", AnalysisFile.AnalysisType.ofUrl(concrete).getName());
