@@ -41,8 +41,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 )
+                // todo: access rights for /uploads/** later
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/uploads/**").hasAnyRole(Role.DOCTOR.name(), Role.PATIENT.name()) // todo: improve
                         .anyRequest().permitAll()
                 )
                 // todo: remove csrf in final version
