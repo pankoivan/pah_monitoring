@@ -206,8 +206,8 @@ public class IndicatorFormRestController {
         }
     }
 
-    @PostMapping("/analysis-file")
-    public void addAnalysisFile(@RequestPart("file") MultipartFile file) {
+    @PostMapping("/analysis-file/{concrete}")
+    public void addAnalysisFile(@RequestPart("file") MultipartFile file, @PathVariable("concrete") String concrete) {
         /*try {
             analysisFileService.checkDataValidityForAdding(addingDto, bindingResult);
             analysisFileService.add(addingDto);
@@ -216,9 +216,10 @@ public class IndicatorFormRestController {
         } catch (DataSavingServiceException e) {
             throw new DataSavingRestControllerException(e.getMessage(), e);
         }*/
-        System.out.println(file.getName());
+        analysisFileService.add(file, AnalysisFile.AnalysisType.fromUrlPart(concrete));
+        /*System.out.println(file.getName());
         System.out.println(file.getOriginalFilename());
-        System.out.println(file.getSize());
+        System.out.println(file.getSize());*/
     }
 
 }

@@ -116,7 +116,7 @@ public class IndicatorFormMvcController {
 
     @GetMapping("/analysis-file/{concrete}")
     public String getAnalysisFileForm(Model model, @PathVariable("concrete") String concrete) {
-        model.addAttribute("name", AnalysisFile.AnalysisType.ofUrl(concrete).getName());
+        model.addAttribute("name", AnalysisFile.AnalysisType.fromUrlPart(concrete).getName());
         pageHeaderService.addHeader(model);
         return "indicators/forms/analysis-file-form";
     }

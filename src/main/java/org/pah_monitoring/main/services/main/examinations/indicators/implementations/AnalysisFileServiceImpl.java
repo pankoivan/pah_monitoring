@@ -22,6 +22,7 @@ import org.pah_monitoring.main.services.main.users.users.interfaces.common.Hospi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -81,11 +82,10 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
         );
     }
 
-    @Override
-    public AnalysisFile add(AnalysisFileAddingDto addingDto) throws DataSavingServiceException {
-        return AnalysisFile
-                .builder()
-                .build();
+    public AnalysisFile add(MultipartFile file, AnalysisFile.AnalysisType analysisType) {
+        System.out.println(file.getOriginalFilename());
+        System.out.println(analysisType);
+        return null;
     }
 
 }

@@ -116,7 +116,7 @@ public class AnalysisFile implements Indicator {
 
         private final String postFormLink;
 
-        public static AnalysisType ofUrl(String url) {
+        public static AnalysisType fromUrlPart(String url) {
             try {
                 return AnalysisType.valueOf(url.toUpperCase().replaceAll("-", "_"));
             } catch (NullPointerException | IllegalArgumentException e) {

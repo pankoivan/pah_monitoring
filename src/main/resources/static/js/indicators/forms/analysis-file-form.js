@@ -6,7 +6,7 @@ fileForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("file", fileForm.querySelector("file").files[0]);
+    formData.append("file", fileForm.querySelector('input[name="file"]').files[0]);
 
     fetchAdd(formData);
 });
