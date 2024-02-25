@@ -27,7 +27,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -95,14 +94,19 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
     @Override
     public AnalysisFile add(MultipartFile file, AnalysisFile.AnalysisType analysisType) throws DataSavingServiceException {
         try {
-            String fileName = generateFileName(file);
-            System.out.println(fileName);
-            System.out.println(Paths.get(uploadPath, fileName));
-            file.transferTo(Paths.get(uploadPath, fileName));
+            String filename = generateFilename(file);
+            file.transferTo(Paths.get(uploadPath, filename));
+            return repository.save(AnalysisFile
+                    .builder()
+                    .filename(filename)
+                    .analysisType(analysisType)
+                    .date(LocalDateTime.now())
+                    .patient(getExtractionService().patient())
+                    .build()
+            );
         } catch (Exception e) {
             throw new DataSavingServiceException(e.getMessage(), e);
         }
-        return null;
     }
 
     @Override
@@ -121,7 +125,7 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
         }
     }
 
-    private String generateFileName(MultipartFile file) {
+    private String generateFilename(MultipartFile file) {
         Patient patient = getExtractionService().patient();
         return "%s (%s) %s.%s".formatted(
                 patient.getUserInformation().getLastname(),
@@ -132,8 +136,8 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
     }
 
     private String getExtension(MultipartFile file) {
-        String fileName = file.getOriginalFilename();
-        return fileName.substring(fileName.lastIndexOf(".") + 1);
+        String filename = file.getOriginalFilename();
+        return filename.substring(filename.lastIndexOf(".") + 1);
     }
 
 }
