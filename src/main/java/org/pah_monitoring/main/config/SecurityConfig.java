@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.config;
 
+import org.pah_monitoring.main.entities.main.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,7 +42,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/css/**", "/js/**", "/img/**", "/favicon/**", "/uploads/**").permitAll()
+                        .requestMatchers("/uploads/**").hasAnyRole(Role.DOCTOR.name(), Role.PATIENT.name()) // todo: improve
                         .anyRequest().permitAll()
                 )
                 // todo: remove csrf in final version
