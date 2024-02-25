@@ -1,16 +1,18 @@
+const whichFile = document.location.pathname.split("/").pop();
+
 const fileForm = document.getElementById("file-form");
 
 fileForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("file", document.getElementById("file").files[0]);
+    formData.append("file", fileForm.querySelector("file").files[0]);
 
     fetchAdd(formData);
 });
 
 function fetchAdd(formData) {
-    fetch("http://localhost:8080/rest/indicators/add/analysis-file", {
+    fetch(`http://localhost:8080/rest/indicators/add/analysis-file/${whichFile}`, {
         method: "POST",
         body: formData,
     })
@@ -28,7 +30,7 @@ function fetchAdd(formData) {
 }
 
 function showSuccessModal() {
-    document.getElementById("success-modal-text").innerText = "Файл развёрнутого анализа крови был успешно отправлен";
+    document.getElementById("success-modal-text").innerText = "Файл был успешно отправлен";
     new bootstrap.Modal(document.getElementById("success-modal")).show();
 }
 
