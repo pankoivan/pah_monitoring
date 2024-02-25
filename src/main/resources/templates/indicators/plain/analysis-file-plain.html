@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title th:if="${isSelf}">Ваши файлы</title>
+        <title th:if="${!isSelf}" th:text="'Файлы пациента &laquo;' + ${patient.userInformation.fullName}">Файлы пациента "Иванов Степан Петрович"</title>
+        <link href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary my-5">
+            <!---->
+            <div class="row fs-5 mb-5">
+                <div class="col-12">
+                    <h1 class="text-center fs-3 mb-0">
+                        <span th:if="${isSelf}"> Ваши файлы </span>
+                        <span th:if="${!isSelf}">
+                            Файлы пациента
+                            <span th:text="${patient.userInformation.fullName}" class="fw-bold">Иванов Степан Петрович</span>
+                        </span>
+                    </h1>
+                </div>
+            </div>
+            <!---->
+            <div class="row fs-5" th:each="each, status : ${files}" th:classappend="${!status.last} ? 'mb-3'">
+                <div class="col-12">
+                    <img width="28" src="../../../static/svg/pdf.svg" th:src="@{/svg/pdf.svg}" alt="PDF" />
+                    <a href="#" th:href="@{/uploads/__${each.filename}__}" th:text="${each.filename}" class="text-secondary">Киров (1) 17-09-2019 12:58:57</a>
+                </div>
+            </div>
+            <!---->
+        </div>
+        <!---->
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
+    </body>
+</html>

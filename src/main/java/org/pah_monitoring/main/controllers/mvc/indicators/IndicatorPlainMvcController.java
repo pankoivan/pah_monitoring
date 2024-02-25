@@ -6,6 +6,7 @@ import org.pah_monitoring.main.dto.in.examinations.indicators.PhysicalChangesAdd
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
+import org.pah_monitoring.main.entities.main.examinations.indicators.AnalysisFile;
 import org.pah_monitoring.main.entities.main.examinations.indicators.OverallHealth;
 import org.pah_monitoring.main.entities.main.examinations.indicators.PhysicalChanges;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
@@ -16,6 +17,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.FileIndicatorService;
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.InputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,6 +42,9 @@ public class IndicatorPlainMvcController {
 
     @Qualifier("overallHealthService")
     private final InputIndicatorService<OverallHealth, OverallHealthAddingDto> overallHealthService;
+
+    @Qualifier("analysisFileService")
+    private final FileIndicatorService<AnalysisFile> analysisFileService;
 
     private final CurrentUserCheckService checkService;
 
@@ -76,6 +81,24 @@ public class IndicatorPlainMvcController {
             model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
             return "indicators/plain/overall-health-plain";
+        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
+            throw new UrlValidationMvcControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
+        }
+    }
+
+    @GetMapping("/blood-test")
+    public String temp(Model model,
+                       @PathVariable("patientId") String pathPatientId) {
+        try {
+            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
+            analysisFileService.checkAccessRightsForObtaining(patient);
+            model.addAttribute("files", analysisFileService.findAllByPatientId(AnalysisFile.AnalysisType.BLOOD_TEST, patient.getId()));
+            model.addAttribute("patient", patient);
+            model.addAttribute("isSelf", checkService.isSelf(patient));
+            pageHeaderService.addHeader(model);
+            return "indicators/plain/analysis-file-plain";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
