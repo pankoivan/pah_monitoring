@@ -34,7 +34,7 @@ public class IndicatorTableMvcController {
     private final HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
     @Qualifier("spirometryService")
-    private final IndicatorService<Spirometry, SpirometryAddingDto> accessRightsCheckService;
+    private final IndicatorService<Spirometry> accessRightsCheckService;
 
     private final CurrentUserCheckService checkService;
 

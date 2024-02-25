@@ -61,7 +61,7 @@ public class IndicatorCardServiceImpl implements IndicatorCardService {
     private InputIndicatorService<Weight, WeightAddingDto> weightService;
 
     @Qualifier("analysisFileService")
-    private FileIndicatorService<AnalysisFile, AnalysisFileAddingDto> analysisFileService;
+    private FileIndicatorService<AnalysisFile> analysisFileService;
 
     private CurrentUserCheckService checkService;
 

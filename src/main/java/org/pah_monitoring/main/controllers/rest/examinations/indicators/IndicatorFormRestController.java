@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.controllers.rest.examinations.indicators;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.examinations.indicators.*;
 import org.pah_monitoring.main.entities.main.examinations.indicators.*;
@@ -11,7 +12,6 @@ import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceExce
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.FileIndicatorService;
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.InputIndicatorService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.datasource.embedded.ConnectionProperties;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -60,7 +60,7 @@ public class IndicatorFormRestController {
     private final InputIndicatorService<Weight, WeightAddingDto> weightService;
 
     @Qualifier("analysisFileService")
-    private final FileIndicatorService<AnalysisFile, AnalysisFileAddingDto> analysisFileService;
+    private final FileIndicatorService<AnalysisFile> analysisFileService;
 
     @PostMapping("/spirometry")
     public void addSpirometry(@RequestBody @Valid SpirometryAddingDto addingDto, BindingResult bindingResult) {
@@ -207,19 +207,16 @@ public class IndicatorFormRestController {
     }
 
     @PostMapping("/analysis-file/{concrete}")
-    public void addAnalysisFile(@RequestPart("file") MultipartFile file, @PathVariable("concrete") String concrete) {
-        /*try {
-            analysisFileService.checkDataValidityForAdding(addingDto, bindingResult);
-            analysisFileService.add(addingDto);
+    public void addAnalysisFile(@RequestPart(value = "file", required = false) MultipartFile file,
+                                @PathVariable("concrete") String concrete) {
+        try {
+            analysisFileService.checkDataValidityForAdding(file);
+            analysisFileService.add(file, AnalysisFile.AnalysisType.fromUrlPart(concrete));
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
             throw new DataSavingRestControllerException(e.getMessage(), e);
-        }*/
-        analysisFileService.add(file, AnalysisFile.AnalysisType.fromUrlPart(concrete));
-        /*System.out.println(file.getName());
-        System.out.println(file.getOriginalFilename());
-        System.out.println(file.getSize());*/
+        }
     }
 
 }
