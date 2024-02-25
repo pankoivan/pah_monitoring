@@ -20,6 +20,7 @@ import org.pah_monitoring.main.services.main.examinations.schedules.interfaces.E
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,6 +35,12 @@ import java.util.function.Function;
 @Setter(onMethod = @__(@Autowired))
 @Service("analysisFileService")
 public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<AnalysisFile> implements FileIndicatorService<AnalysisFile> {
+
+    @Value("${my.file.upload-path}")
+    private final String uploadPath;
+
+    @Value("${my.file.allowed-extensions}")
+    private final List<String> allowedExtensions;
 
     private final AnalysisFileRepository repository;
 
