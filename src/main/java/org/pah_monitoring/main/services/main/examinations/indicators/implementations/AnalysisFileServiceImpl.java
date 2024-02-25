@@ -2,6 +2,7 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.auxiliary.text.ApplicationErrorText;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
@@ -22,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
@@ -97,27 +97,23 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
 
     @Override
     public void checkDataValidityForAdding(MultipartFile file) throws DataValidationServiceException {
-        if (getExtractionService().patient().getDoctor() == null) {
-            throw new DataValidationServiceException("""
-                    Вы не можете отправлять результаты наблюдений, так как на данный момент за вами не закреплён ни\
-                     один врач. Ожидайте, пока администраторы назначат вам какого-нибудь врача, или обратитесь к ним\
-                     посредством личных сообщений в случае долгого ожидания
-                    """
-            );
+        if (getExtractionService().patient().hasNoDoctor()) {
+            throw new DataValidationServiceException(ApplicationErrorText.HAS_NO_DOCTOR);
         }
         if (getExtractionService().patient().hasNoAnamnesis()) {
-            throw new DataValidationServiceException("""
-                    Вы не можете отправлять результаты наблюдений, так как на данный момент у вас ещё не отправлен анамнез.\
-                     Прежде чем отправлять результаты наблюдений, вам необходимо сначала отправить ваш анамнез
-                    """
-            );
+            throw new DataValidationServiceException(ApplicationErrorText.HAS_NO_ANAMNESIS);
         }
         if (file == null) {
-            throw new DataValidationServiceException("Выберите файл");
+            throw new DataValidationServiceException("Файл не выбран");
         }
-        if (!file.getOriginalFilename().endsWith(".pdf")) {
-            throw new DataValidationServiceException("Только pdf");
+        if (notAllowedExtension(file)) {
+            throw new DataValidationServiceException("Поддерживаемые форматы: %s".formatted(String.join(", ", allowedExtensions)));
         }
+    }
+
+    private boolean notAllowedExtension(MultipartFile file) {
+        String fileName = file.getOriginalFilename();
+        return !fileName.contains(".") || !allowedExtensions.contains(fileName.substring(fileName.lastIndexOf(".")));
     }
 
 }
