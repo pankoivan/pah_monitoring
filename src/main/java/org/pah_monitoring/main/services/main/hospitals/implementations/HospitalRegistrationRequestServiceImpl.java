@@ -10,7 +10,6 @@ import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceExcept
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.exceptions.utils.PhoneNumberUtilsException;
 import org.pah_monitoring.main.repositorites.hospitals.HospitalRegistrationRequestRepository;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalRegistrationRequestService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
@@ -102,15 +101,11 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
             );
         }
 
-        try {
-            if (repository.existsByPhoneNumber(PhoneNumberUtils.toReadable(addingDto.getPhoneNumber()))) {
-                throw new DataValidationServiceException(
-                        "Человек с номером телефона \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
-                                .formatted(addingDto.getPhoneNumber())
-                );
-            }
-        } catch (PhoneNumberUtilsException e) {
-            throw new DataValidationServiceException(e.getMessage(), e);
+        if (repository.existsByPhoneNumber(PhoneNumberUtils.toReadable(addingDto.getPhoneNumber()))) {
+            throw new DataValidationServiceException(
+                    "Человек с номером телефона \"%s\" уже подавал заявку на регистрацию медицинского учреждения"
+                            .formatted(addingDto.getPhoneNumber())
+            );
         }
 
         if (repository.existsByEmail(addingDto.getEmail())) {
