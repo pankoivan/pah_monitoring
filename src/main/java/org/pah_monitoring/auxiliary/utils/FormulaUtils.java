@@ -6,7 +6,7 @@ import lombok.experimental.UtilityClass;
 public final class FormulaUtils {
 
     public static double bodyMassIndex(double weight, int height) {
-        return weight / ((double) (height * height) / 10000);
+        return weight / (double) (height * height / 10000);
     }
 
     public static double tlc(double rlv, double vlc) {
