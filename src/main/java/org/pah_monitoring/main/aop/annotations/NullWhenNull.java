@@ -1,4 +1,4 @@
-package org.pah_monitoring.aop.annotations;
+package org.pah_monitoring.main.aop.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

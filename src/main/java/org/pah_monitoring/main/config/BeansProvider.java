@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.config;
 
-import org.pah_monitoring.aop.processors.AnnotationProcessor;
+import org.pah_monitoring.main.aop.processors.AnnotationProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
