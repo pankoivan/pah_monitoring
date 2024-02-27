@@ -8,7 +8,7 @@ public final class UrlUtils {
 
     public static String buildUrlWithGetParameters(String baseUrl, Object... parameters) throws UrlUtilsException {
 
-        if (parameters.length == 0 || parameters.length % 2 != 0) {
+        if (baseUrl == null || parameters.length == 0 || parameters.length % 2 != 0) {
             throw new UrlUtilsException("Некорректный набор параметров");
         }
 
