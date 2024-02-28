@@ -15,8 +15,8 @@ public class PressureToGraphicDtoMapper implements BaseEntityToOutDtoListMapper<
         return PressureGraphicDto
                 .builder()
                 .formattedDate(pressure.getFormattedDate())
-                .upper(String.valueOf(pressure.getUpper()))
-                .lower(String.valueOf(pressure.getLower()))
+                .upper(pressure.getUpper())
+                .lower(pressure.getLower())
                 .afterExercise(pressure.getAfterExercise())
                 .build();
     }

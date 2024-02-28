@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.mappers.examinations.indicators.graphics;
 
+import org.pah_monitoring.auxiliary.utils.NumberUtils;
 import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.LiquidGraphicDto;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Liquid;
@@ -15,7 +16,7 @@ public class LiquidToGraphicDtoMapper implements BaseEntityToOutDtoListMapper<Li
         return LiquidGraphicDto
                 .builder()
                 .formattedDate(liquid.getFormattedDate())
-                .liquid(String.format("%.2f", liquid.getLiquid()).replaceAll(",", "."))
+                .liquid(NumberUtils.round(liquid.getLiquid(), 2))
                 .build();
     }
 
