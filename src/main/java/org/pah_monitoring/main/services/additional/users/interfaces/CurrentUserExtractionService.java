@@ -4,9 +4,9 @@ import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.MainAdministrator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
-import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
-import org.pah_monitoring.main.entities.main.users.users.common.HospitalUser;
-import org.pah_monitoring.main.entities.main.users.users.common.User;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalEmployee;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalUser;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
 
 public interface CurrentUserExtractionService {
 

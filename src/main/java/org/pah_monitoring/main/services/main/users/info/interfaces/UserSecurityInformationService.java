@@ -4,7 +4,7 @@ import org.pah_monitoring.main.dto.in.users.info.security.UserSecurityInformatio
 import org.pah_monitoring.main.dto.in.users.info.security.UserSecurityInformationEditingDto;
 import org.pah_monitoring.main.dto.in.users.info.security.UserSecurityInformationSavingDto;
 import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
-import org.pah_monitoring.main.entities.main.users.users.common.User;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.services.main.users.info.interfaces.common.UserInfoService;
 

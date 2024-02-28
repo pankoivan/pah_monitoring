@@ -5,7 +5,7 @@ import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.MainAdministrator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
-import org.pah_monitoring.main.entities.main.users.users.common.User;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;

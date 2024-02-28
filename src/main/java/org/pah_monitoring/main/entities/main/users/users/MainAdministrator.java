@@ -5,7 +5,7 @@ import lombok.*;
 import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
-import org.pah_monitoring.main.entities.main.users.users.common.User;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,7 +20,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "main_administrator")
-public class MainAdministrator extends User implements UserDetails {
+public class MainAdministrator implements User, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

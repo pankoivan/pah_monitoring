@@ -8,7 +8,7 @@ import org.pah_monitoring.main.entities.main.users.inactivity.PatientInactivity;
 import org.pah_monitoring.main.entities.main.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.entities.main.users.info.UserSecurityInformation;
-import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalEmployee;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -23,7 +23,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "doctor")
-public class Doctor extends HospitalEmployee implements UserDetails {
+public class Doctor implements HospitalEmployee, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

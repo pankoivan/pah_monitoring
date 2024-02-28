@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc.messages;
 
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.entities.main.users.users.common.User;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;

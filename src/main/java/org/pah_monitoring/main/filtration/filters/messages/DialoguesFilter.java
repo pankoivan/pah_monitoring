@@ -1,6 +1,6 @@
 package org.pah_monitoring.main.filtration.filters.messages;
 
-import org.pah_monitoring.main.entities.main.users.users.common.User;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
 import org.pah_monitoring.main.filtration.enums.messages.DialoguesFiltrationProperty;
 import org.pah_monitoring.main.filtration.enums.messages.DialoguesSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.AbstractEntityFilter;

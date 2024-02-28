@@ -2,8 +2,8 @@ package org.pah_monitoring.main.services.additional.users.implementations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
-import org.pah_monitoring.main.entities.main.users.users.common.User;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalEmployee;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.repositorites.users.users.AdministratorRepository;
 import org.pah_monitoring.main.repositorites.users.users.DoctorRepository;

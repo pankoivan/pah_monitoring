@@ -13,7 +13,7 @@ import org.pah_monitoring.main.entities.main.users.inactivity.SickLeave;
 import org.pah_monitoring.main.entities.main.users.inactivity.Vacation;
 import org.pah_monitoring.main.entities.main.users.inactivity.common.interfaces.Inactivity;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
-import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalEmployee;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.forbidden.NotEnoughRightsRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;

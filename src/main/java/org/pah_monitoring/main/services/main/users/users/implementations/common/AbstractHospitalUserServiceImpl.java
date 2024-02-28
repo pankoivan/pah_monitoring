@@ -10,7 +10,7 @@ import org.pah_monitoring.main.dto.in.users.users.common.interfaces.HospitalUser
 import org.pah_monitoring.main.entities.main.enums.Role;
 import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 import org.pah_monitoring.main.entities.main.security_codes.RegistrationSecurityCode;
-import org.pah_monitoring.main.entities.main.users.users.common.HospitalUser;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.HospitalUser;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;

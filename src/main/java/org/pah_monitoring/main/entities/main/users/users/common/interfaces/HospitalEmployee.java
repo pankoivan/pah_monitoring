@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.entities.main.users.users.common;
+package org.pah_monitoring.main.entities.main.users.users.common.interfaces;
 
 import org.pah_monitoring.main.entities.main.users.inactivity.Dismissal;
 import org.pah_monitoring.main.entities.main.users.inactivity.SickLeave;
@@ -9,34 +9,34 @@ import org.pah_monitoring.main.entities.main.users.info.EmployeeInformation;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public abstract class HospitalEmployee extends HospitalUser {
+public interface HospitalEmployee extends HospitalUser {
 
-    public abstract EmployeeInformation getEmployeeInformation();
+    EmployeeInformation getEmployeeInformation();
 
-    public boolean isOnVacation() {
+    default boolean isOnVacation() {
         return getCurrentVacation().isPresent();
     }
 
-    public boolean isOnSickLeave() {
+    default boolean isOnSickLeave() {
         return getCurrentSickLeave().isPresent();
     }
 
-    public boolean isDismissed() {
+    default boolean isDismissed() {
         return getCurrentDismissal().isPresent();
     }
 
     @Override
-    public boolean isActive() {
+    default boolean isActive() {
         return !isDismissed() && !isOnVacation() && !isOnSickLeave();
     }
 
     @Override
-    public boolean isNotActive() {
+    default boolean isNotActive() {
         return !isActive();
     }
 
     @Override
-    public Optional<Inactivity> getCurrentInactivity() {
+    default Optional<Inactivity> getCurrentInactivity() {
         if (getCurrentVacation().isPresent()) {
             return Optional.of(getCurrentVacation().get());
         } else if (getCurrentSickLeave().isPresent()) {
