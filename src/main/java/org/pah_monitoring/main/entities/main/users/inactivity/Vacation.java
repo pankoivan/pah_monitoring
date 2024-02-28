@@ -3,7 +3,7 @@ package org.pah_monitoring.main.entities.main.users.inactivity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
-import org.pah_monitoring.main.entities.main.users.inactivity.common.Inactivity;
+import org.pah_monitoring.main.entities.main.users.inactivity.common.interfaces.Inactivity;
 import org.pah_monitoring.main.entities.main.users.info.EmployeeInformation;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;
 
@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Builder
 @Entity
 @Table(name = "vacation")
-public class Vacation extends Inactivity {
+public class Vacation implements Inactivity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

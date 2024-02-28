@@ -11,7 +11,7 @@ import org.pah_monitoring.main.entities.main.users.inactivity.Dismissal;
 import org.pah_monitoring.main.entities.main.users.inactivity.PatientInactivity;
 import org.pah_monitoring.main.entities.main.users.inactivity.SickLeave;
 import org.pah_monitoring.main.entities.main.users.inactivity.Vacation;
-import org.pah_monitoring.main.entities.main.users.inactivity.common.Inactivity;
+import org.pah_monitoring.main.entities.main.users.inactivity.common.interfaces.Inactivity;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;

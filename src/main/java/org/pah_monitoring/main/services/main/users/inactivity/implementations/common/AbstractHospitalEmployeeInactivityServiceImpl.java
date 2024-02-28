@@ -11,7 +11,7 @@ import org.pah_monitoring.main.dto.in.users.users.administrator.AdministratorSav
 import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.doctor.DoctorSavingDto;
-import org.pah_monitoring.main.entities.main.users.inactivity.common.Inactivity;
+import org.pah_monitoring.main.entities.main.users.inactivity.common.interfaces.Inactivity;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.common.HospitalEmployee;
