@@ -49,7 +49,7 @@ public class ExaminationScheduleRestController {
     @PreAuthorize("hasAnyRole('DOCTOR', 'PATIENT')")
     public Map<IndicatorType, ExaminationScheduleOutDto> get(@PathVariable("patientId") String pathPatientId) {
         try {
-            return examinationScheduleMapper.forPatient(patientService.findById(patientService.parsePathId(pathPatientId)));
+            return examinationScheduleMapper.allSchedulesFor(patientService.findById(patientService.parsePathId(pathPatientId)));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
         }

@@ -38,7 +38,7 @@ public class SpecialExaminationScheduleToOutDtoMapper implements BaseEntityToOut
                 .build();
     }
 
-    public Map<IndicatorType, ExaminationScheduleOutDto> forPatient(Patient patient) {
+    public Map<IndicatorType, ExaminationScheduleOutDto> allSchedulesFor(Patient patient) {
         return Stream.of(IndicatorType.values())
                 .map(indicatorType -> {
                             Optional<ExaminationSchedule> schedule = service.findConcrete(indicatorType, patient);
