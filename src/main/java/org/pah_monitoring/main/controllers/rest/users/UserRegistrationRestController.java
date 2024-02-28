@@ -15,6 +15,7 @@ import org.pah_monitoring.main.dto.out.users.users.common.UserOutDto;
 import org.pah_monitoring.main.entities.main.users.users.Administrator;
 import org.pah_monitoring.main.entities.main.users.users.Doctor;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
+import org.pah_monitoring.main.entities.main.users.users.common.User;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.DataValidationRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataDeletionRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
@@ -49,14 +50,8 @@ public class UserRegistrationRestController {
     @Qualifier("patientService")
     private final HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
-    @Qualifier("administratorMapper")
-    private final BaseEntityToOutDtoMapper<Administrator, UserOutDto> administratorMapper;
-
-    @Qualifier("doctorMapper")
-    private final BaseEntityToOutDtoMapper<Doctor, UserOutDto> doctorMapper;
-
-    @Qualifier("patientMapper")
-    private final BaseEntityToOutDtoMapper<Patient, UserOutDto> patientMapper;
+    @Qualifier("userMapper")
+    private final BaseEntityToOutDtoMapper<User, UserOutDto> userMapper;
 
     private final RegistrationSecurityCodeService codeService;
 
@@ -69,7 +64,7 @@ public class UserRegistrationRestController {
             Administrator administrator = administratorService.add(addingDto);
             codeService.deleteByEmail(administrator.getUserSecurityInformation().getEmail());
             hospitalService.upgrade(administrator.getHospital());
-            return administratorMapper.map(administrator);
+            return userMapper.map(administrator);
         } catch (DataValidationServiceException | DataSearchingServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -85,7 +80,7 @@ public class UserRegistrationRestController {
             doctorService.checkDataValidityForAdding(addingDto, bindingResult);
             Doctor doctor = doctorService.add(addingDto);
             codeService.deleteByEmail(doctor.getUserSecurityInformation().getEmail());
-            return doctorMapper.map(doctor);
+            return userMapper.map(doctor);
         } catch (DataValidationServiceException | DataSearchingServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
@@ -101,7 +96,7 @@ public class UserRegistrationRestController {
             patientService.checkDataValidityForAdding(addingDto, bindingResult);
             Patient patient = patientService.add(addingDto);
             codeService.deleteByEmail(patient.getUserSecurityInformation().getEmail());
-            return patientMapper.map(patient);
+            return userMapper.map(patient);
         } catch (DataValidationServiceException | DataSearchingServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
