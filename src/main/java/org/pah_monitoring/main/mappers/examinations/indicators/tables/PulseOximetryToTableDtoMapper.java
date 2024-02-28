@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.mappers.examinations.indicators.tables;
 
+import org.pah_monitoring.auxiliary.utils.NumberUtils;
 import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.PulseOximetryTableDto;
 import org.pah_monitoring.main.entities.main.examinations.indicators.PulseOximetry;
@@ -15,8 +16,8 @@ public class PulseOximetryToTableDtoMapper implements BaseEntityToOutDtoListMapp
         return PulseOximetryTableDto
                 .builder()
                 .formattedDate(pulseOximetry.getFormattedDate())
-                .oxygenPercentage(String.format("%.2f", pulseOximetry.getOxygenPercentage()))
-                .pulseRate(String.valueOf(pulseOximetry.getPulseRate()))
+                .oxygenPercentage(NumberUtils.round(pulseOximetry.getOxygenPercentage(), 2))
+                .pulseRate(NumberUtils.round(pulseOximetry.getPulseRate(), 2))
                 .afterExercise(afterExercise(pulseOximetry.getAfterExercise()))
                 .build();
     }

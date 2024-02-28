@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.mappers.examinations.indicators.tables;
 
 import org.pah_monitoring.auxiliary.utils.FormulaUtils;
+import org.pah_monitoring.auxiliary.utils.NumberUtils;
 import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.WeightTableDto;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Weight;
@@ -16,9 +17,9 @@ public class WeightToTableDtoMapper implements BaseEntityToOutDtoListMapper<Weig
         return WeightTableDto
                 .builder()
                 .formattedDate(weight.getFormattedDate())
-                .weight(String.format("%.2f", weight.getWeight()))
+                .weight(NumberUtils.round(weight.getWeight(), 2))
                 .bodyMassIndex(
-                        String.format("%.2f", FormulaUtils.bodyMassIndex(weight.getWeight(), weight.getPatient().getAnamnesis().getHeight()))
+                        NumberUtils.round(FormulaUtils.bodyMassIndex(weight.getWeight(), weight.getPatient().getAnamnesis().getHeight()), 2)
                 )
                 .build();
     }

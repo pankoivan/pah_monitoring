@@ -2,7 +2,7 @@ package org.pah_monitoring.main.mappers.examinations.indicators.tables;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
+import org.pah_monitoring.auxiliary.utils.NumberUtils;
 import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.PressureTableDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.PulseOximetryTableDto;
@@ -35,8 +35,8 @@ public class WalkTestToTableDtoMapper implements BaseEntityToOutDtoListMapper<Wa
                 .formattedDate(walkTest.getFormattedDate())
                 .oxygenSupport(hasNot(walkTest.getOxygenSupport()))
                 .auxiliaryDevices(hasNot(walkTest.getAuxiliaryDevices()))
-                .distance(String.format("%.2f", walkTest.getDistance()))
-                .numberOfStops(String.valueOf(walkTest.getNumberOfStops()))
+                .distance(NumberUtils.round(walkTest.getDistance(), 2))
+                .numberOfStops(walkTest.getNumberOfStops())
                 .breathlessness(walkTest.getBreathlessness().getAlias())
                 .pulseOximetryBefore(pulseOximetryTableMapper.map(walkTest.getPulseOximetryBefore()))
                 .pulseOximetryAfter(pulseOximetryTableMapper.map(walkTest.getPulseOximetryAfter()))
@@ -45,7 +45,7 @@ public class WalkTestToTableDtoMapper implements BaseEntityToOutDtoListMapper<Wa
                 .build();
     }
 
-    private String hasNot(Boolean bool) {
+    private String hasNot(boolean bool) {
         return bool ? "Есть" : "Нет";
     }
 

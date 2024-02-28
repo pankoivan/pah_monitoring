@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.mappers.examinations.indicators.tables;
 
+import org.pah_monitoring.auxiliary.utils.NumberUtils;
 import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.LiquidTableDto;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Liquid;
@@ -15,7 +16,7 @@ public class LiquidToTableDtoMapper implements BaseEntityToOutDtoListMapper<Liqu
         return LiquidTableDto
                 .builder()
                 .formattedDate(liquid.getFormattedDate())
-                .liquid(String.format("%.2f", liquid.getLiquid()))
+                .liquid(NumberUtils.round(liquid.getLiquid(), 2))
                 .build();
     }
 

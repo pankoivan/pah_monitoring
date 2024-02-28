@@ -15,8 +15,8 @@ public class PressureToTableDtoMapper implements BaseEntityToOutDtoListMapper<Pr
         return PressureTableDto
                 .builder()
                 .formattedDate(pressure.getFormattedDate())
-                .upper(String.valueOf(pressure.getUpper()))
-                .lower(String.valueOf(pressure.getLower()))
+                .upper(pressure.getUpper())
+                .lower(pressure.getLower())
                 .afterExercise(afterExercise(pressure.getAfterExercise()))
                 .build();
     }
