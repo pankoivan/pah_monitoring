@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.mappers.examinations.indicators.graphics;
 
+import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.PressureGraphicDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.PulseOximetryGraphicDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.WalkTestGraphicDto;
@@ -24,6 +25,7 @@ public class WalkTestToGraphicDtoMapper implements BaseEntityToOutDtoListMapper<
     private BaseEntityToOutDtoMapper<Pressure, PressureGraphicDto> pressureGraphicMapper;
 
     @Override
+    @NullWhenNull
     public WalkTestGraphicDto map(WalkTest walkTest) {
         return WalkTestGraphicDto
                 .builder()

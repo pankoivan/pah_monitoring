@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.mappers.examinations.indicators.tables;
 
 import org.pah_monitoring.auxiliary.utils.FormulaUtils;
+import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.SpirometryTableDto;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Spirometry;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoListMapper;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class SpirometryToTableDtoMapper implements BaseEntityToOutDtoListMapper<Spirometry, SpirometryTableDto> {
 
     @Override
+    @NullWhenNull
     public SpirometryTableDto map(Spirometry spirometry) {
         return SpirometryTableDto
                 .builder()

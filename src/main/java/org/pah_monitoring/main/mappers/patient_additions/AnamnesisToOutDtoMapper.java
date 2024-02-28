@@ -1,6 +1,7 @@
 package org.pah_monitoring.main.mappers.patient_additions;
 
 import org.pah_monitoring.auxiliary.utils.FormulaUtils;
+import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.patient_additions.AnamnesisOutDto;
 import org.pah_monitoring.main.entities.main.patient_additions.Anamnesis;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
@@ -12,6 +13,7 @@ import java.util.Optional;
 public class AnamnesisToOutDtoMapper implements BaseEntityToOutDtoMapper<Anamnesis, AnamnesisOutDto> {
 
     @Override
+    @NullWhenNull
     public AnamnesisOutDto map(Anamnesis anamnesis) {
         return Optional.ofNullable(anamnesis).map(mappedAnamnesis -> AnamnesisOutDto
                         .builder()

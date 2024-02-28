@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.mappers.examinations.indicators.tables;
 
+import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.CoughTableDto;
 import org.pah_monitoring.main.entities.main.examinations.indicators.Cough;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoListMapper;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 public class CoughToTableDtoMapper implements BaseEntityToOutDtoListMapper<Cough, CoughTableDto> {
 
     @Override
+    @NullWhenNull
     public CoughTableDto map(Cough cough) {
         return CoughTableDto
                 .builder()

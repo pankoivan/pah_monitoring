@@ -2,6 +2,7 @@ package org.pah_monitoring.main.mappers.examinations.schedules;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.examinations.schedules.ExaminationScheduleOutDto;
 import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.schedules.ExaminationSchedule;
@@ -25,6 +26,7 @@ public class SpecialExaminationScheduleToOutDtoMapper implements BaseEntityToOut
     private ExaminationScheduleService service;
 
     @Override
+    @NullWhenNull
     public ExaminationScheduleOutDto map(ExaminationSchedule examinationSchedule) {
         return ExaminationScheduleOutDto
                 .builder()

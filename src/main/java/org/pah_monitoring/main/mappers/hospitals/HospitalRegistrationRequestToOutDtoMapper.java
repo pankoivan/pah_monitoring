@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.mappers.hospitals;
 
+import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.hospitals.HospitalRegistrationRequestOutDto;
 import org.pah_monitoring.main.entities.main.hospitals.HospitalRegistrationRequest;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
@@ -10,6 +11,7 @@ public class HospitalRegistrationRequestToOutDtoMapper
         implements BaseEntityToOutDtoMapper<HospitalRegistrationRequest, HospitalRegistrationRequestOutDto> {
 
     @Override
+    @NullWhenNull
     public HospitalRegistrationRequestOutDto map(HospitalRegistrationRequest hospitalRegistrationRequest) {
         return HospitalRegistrationRequestOutDto
                 .builder()

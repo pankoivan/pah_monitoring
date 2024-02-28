@@ -3,6 +3,7 @@ package org.pah_monitoring.main.mappers.examinations.indicators.tables;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
+import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.PressureTableDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.PulseOximetryTableDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.tables.WalkTestTableDto;
@@ -27,6 +28,7 @@ public class WalkTestToTableDtoMapper implements BaseEntityToOutDtoListMapper<Wa
     private BaseEntityToOutDtoMapper<Pressure, PressureTableDto> pressureTableMapper;
 
     @Override
+    @NullWhenNull
     public WalkTestTableDto map(WalkTest walkTest) {
         return WalkTestTableDto
                 .builder()

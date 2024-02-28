@@ -1,5 +1,6 @@
 package org.pah_monitoring.main.mappers.users.inactivity.common;
 
+import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.users.inactivity.common.InactivityOutDto;
 import org.pah_monitoring.main.entities.main.users.inactivity.common.interfaces.Inactivity;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 public class InactivityToOutDtoMapper implements BaseEntityToOutDtoMapper<Inactivity, InactivityOutDto> {
 
     @Override
+    @NullWhenNull
     public InactivityOutDto map(Inactivity inactivity) {
         return InactivityOutDto
                 .builder()

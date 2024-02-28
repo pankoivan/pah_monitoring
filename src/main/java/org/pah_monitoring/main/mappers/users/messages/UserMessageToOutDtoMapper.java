@@ -2,6 +2,7 @@ package org.pah_monitoring.main.mappers.users.messages;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.users.messages.UserMessageOutDto;
 import org.pah_monitoring.main.entities.main.users.messages.UserMessage;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoListMapper;
@@ -17,6 +18,7 @@ public class UserMessageToOutDtoMapper implements BaseEntityToOutDtoListMapper<U
     private CurrentUserCheckService checkService;
 
     @Override
+    @NullWhenNull
     public UserMessageOutDto map(UserMessage userMessage) {
         return UserMessageOutDto
                 .builder()
