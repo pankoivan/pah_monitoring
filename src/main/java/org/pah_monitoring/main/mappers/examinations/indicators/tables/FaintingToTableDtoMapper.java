@@ -20,7 +20,7 @@ public class FaintingToTableDtoMapper implements BaseEntityToOutDtoListMapper<Fa
                 .build();
     }
 
-    private String duringExercise(Boolean duringExercise) {
+    private String duringExercise(boolean duringExercise) {
         return duringExercise ? "Да" : "Нет";
     }
 

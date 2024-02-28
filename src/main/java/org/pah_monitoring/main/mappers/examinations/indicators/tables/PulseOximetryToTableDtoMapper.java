@@ -22,7 +22,7 @@ public class PulseOximetryToTableDtoMapper implements BaseEntityToOutDtoListMapp
                 .build();
     }
 
-    private String afterExercise(Boolean afterExercise) {
+    private String afterExercise(boolean afterExercise) {
         return afterExercise ? "Да" : "Нет";
     }
 

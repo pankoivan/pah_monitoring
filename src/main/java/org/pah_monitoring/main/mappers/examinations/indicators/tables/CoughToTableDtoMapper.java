@@ -22,7 +22,7 @@ public class CoughToTableDtoMapper implements BaseEntityToOutDtoListMapper<Cough
                 .build();
     }
 
-    private String hemoptysis(Boolean hemoptysis) {
+    private String hemoptysis(boolean hemoptysis) {
         return hemoptysis ? "Есть" : "Нет";
     }
 

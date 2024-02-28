@@ -21,7 +21,7 @@ public class PressureToTableDtoMapper implements BaseEntityToOutDtoListMapper<Pr
                 .build();
     }
 
-    private String afterExercise(Boolean afterExercise) {
+    private String afterExercise(boolean afterExercise) {
         return afterExercise ? "Да" : "Нет";
     }
 

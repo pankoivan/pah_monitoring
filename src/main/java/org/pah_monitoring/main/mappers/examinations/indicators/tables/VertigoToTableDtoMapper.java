@@ -20,7 +20,7 @@ public class VertigoToTableDtoMapper implements BaseEntityToOutDtoListMapper<Ver
                 .build();
     }
 
-    public String nausea(Boolean nausea) {
+    public String nausea(boolean nausea) {
         return nausea ? "Есть" : "Нет";
     }
 
