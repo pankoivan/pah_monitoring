@@ -42,36 +42,31 @@
                 <div class="col-12">
                     <div class="mb-5">
                         <h4 class="fs-4">Увеличение живота без переедания</h4>
-                        <span th:if="${physicalChanges.abdominalEnlargement}">Есть</span>
-                        <span th:if="${!physicalChanges.abdominalEnlargement}">Нет</span>
+                        <span th:text="${physicalChanges.abdominalEnlargement}">Есть</span>
                     </div>
                     <div class="mb-5">
                         <h4 class="fs-4">Отёки ног</h4>
-                        <span th:text="${physicalChanges.legsSwelling.alias}">Постоянно</span>
+                        <span th:text="${physicalChanges.legsSwelling}">Постоянно</span>
                     </div>
                     <div class="mb-5">
                         <h4 class="fs-4">«Сосудистые звёздочки» или «паутинки» на коже</h4>
-                        <span th:if="${physicalChanges.vascularAsterisks}">Есть</span>
-                        <span th:if="${!physicalChanges.vascularAsterisks}">Нет</span>
+                        <span th:text="${physicalChanges.vascularAsterisks}">Есть</span>
                     </div>
                     <div class="mb-5">
                         <h4 class="fs-4">Цвет губ и кожи</h4>
-                        <span th:text="${physicalChanges.skinColor.alias}">Синюшный</span>
+                        <span th:text="${physicalChanges.skinColor}">Синюшный</span>
                     </div>
                     <div class="mb-5">
                         <h4 class="fs-4">Утолщённые пальцы</h4>
-                        <span th:if="${physicalChanges.fingersPhalanges}">Да</span>
-                        <span th:if="${!physicalChanges.fingersPhalanges}">Нет</span>
+                        <span th:text="${physicalChanges.fingersPhalanges}">Да</span>
                     </div>
                     <div class="mb-5">
                         <h4 class="fs-4">«Бочкообразная» грудная клетка</h4>
-                        <span th:if="${physicalChanges.chest}">Да</span>
-                        <span th:if="${!physicalChanges.chest}">Нет</span>
+                        <span th:text="${physicalChanges.chest}">Да</span>
                     </div>
                     <div>
                         <h4 class="fs-4">Набухание шейных вен</h4>
-                        <span th:if="${physicalChanges.neckVeins}">Есть</span>
-                        <span th:if="${!physicalChanges.neckVeins}">Нет</span>
+                        <span th:text="${physicalChanges.neckVeins}">Есть</span>
                     </div>
                 </div>
             </div>

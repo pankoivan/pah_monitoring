@@ -40,39 +40,35 @@
                 <div class="col-12">
                     <div class="mb-5">
                         <h4 class="fs-4">Одышка</h4>
-                        <span th:text="${overallHealth.breathlessness.alias}">В покое</span>
+                        <span th:text="${overallHealth.breathlessness}">В покое</span>
                     </div>
                     <div class="mb-5">
                         <h4 class="fs-4">Усталость</h4>
-                        <span th:text="${overallHealth.fatigue.alias}">В покое</span>
+                        <span th:text="${overallHealth.fatigue}">В покое</span>
                     </div>
                     <div class="mb-5">
                         <h4 class="fs-4">Отсутствие ощущения отдыха после полноценного ночного сна</h4>
-                        <span th:if="${overallHealth.restFeeling}">Есть</span>
-                        <span th:if="${!overallHealth.restFeeling}">Нет</span>
+                        <span th:text="${overallHealth.restFeeling}">Есть</span>
                     </div>
                     <div class="mb-5">
                         <h4 class="fs-4">Повышенная сонливость в дневное время суток</h4>
-                        <span th:if="${overallHealth.drowsiness}">Есть</span>
-                        <span th:if="${!overallHealth.drowsiness}">Нет</span>
+                        <span th:text="${overallHealth.drowsiness}">Нет</span>
                     </div>
                     <div class="mb-5">
                         <h4 class="fs-4">Снижение способности концентрироваться</h4>
-                        <span th:if="${overallHealth.concentration}">Есть</span>
-                        <span th:if="${!overallHealth.concentration}">Нет</span>
+                        <span th:text="${overallHealth.concentration}">Есть</span>
                     </div>
                     <div class="mb-5">
                         <h4 class="fs-4">Слабость</h4>
-                        <span th:text="${overallHealth.weakness.alias}">Острый вид</span>
+                        <span th:text="${overallHealth.weakness}">Острый вид</span>
                     </div>
                     <div class="mb-5">
                         <h4 class="fs-4">Снижение аппетита</h4>
-                        <span th:if="${overallHealth.appetite}">Есть</span>
-                        <span th:if="${!overallHealth.appetite}">Нет</span>
+                        <span th:text="${overallHealth.appetite}">Нет</span>
                     </div>
                     <div>
                         <h4 class="fs-4">Холодные конечности</h4>
-                        <span th:text="${overallHealth.coldExtremities.alias}">Короткое время</span>
+                        <span th:text="${overallHealth.coldExtremities}">Короткое время</span>
                     </div>
                 </div>
             </div>
