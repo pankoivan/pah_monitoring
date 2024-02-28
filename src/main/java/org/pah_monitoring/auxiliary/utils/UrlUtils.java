@@ -1,6 +1,7 @@
 package org.pah_monitoring.auxiliary.utils;
 
 import lombok.experimental.UtilityClass;
+import org.pah_monitoring.auxiliary.text.ExceptionText;
 import org.pah_monitoring.main.exceptions.utils.UrlUtilsException;
 
 @UtilityClass
@@ -9,7 +10,7 @@ public final class UrlUtils {
     public static String buildUrlWithGetParameters(String baseUrl, Object... parameters) throws UrlUtilsException {
 
         if (baseUrl == null || parameters.length == 0 || parameters.length % 2 != 0) {
-            throw new UrlUtilsException("Некорректный набор параметров");
+            throw new UrlUtilsException(ExceptionText.URL_UTILS_EXCEPTION);
         }
 
         StringBuilder sb = new StringBuilder(baseUrl);

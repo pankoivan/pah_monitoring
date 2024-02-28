@@ -3,14 +3,18 @@ package org.pah_monitoring.auxiliary.text;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public final class ApplicationErrorText {
+public final class ExceptionText {
+
+    public static final String URL_UTILS_EXCEPTION = "Некорректный набор параметров.";
+
+    public static final String UUID_UTILS_EXCEPTION = "Некорректный формат UUID: \"%s\".";
 
     public static final String MESSAGE_CONVERSION = """
             Произошла ошибка при преобразовании между JSON и Java-объектом. Это может быть связано с несовпадением типов\
              полей или с пустотой участвующих в преобразовании данных.
             """;
 
-    public static final String MAX_FILE_SIZE_EXCEEDED = "Превышен максимальный размер файла";
+    public static final String MAX_FILE_SIZE_EXCEEDED = "Превышен максимальный размер файла.";
 
     public static final String HAS_NO_DOCTOR = """
             Вы не можете отправлять результаты наблюдений, так как на данный момент за вами не закреплён ни\
