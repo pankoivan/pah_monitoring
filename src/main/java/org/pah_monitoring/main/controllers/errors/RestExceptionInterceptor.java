@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.pah_monitoring.auxiliary.text.ExceptionText;
 import org.pah_monitoring.main.exceptions.controller.rest.bad_request.common.BadRequestRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.forbidden.NotEnoughRightsRestControllerException;
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.common.InternalServerErrorRestControllerException;
@@ -35,14 +34,14 @@ public class RestExceptionInterceptor {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageConversionException.class)
     public ResponseEntity<ExceptionEntity> badRequest(HttpMessageConversionException e) {
-        ExceptionEntity json = new ExceptionEntity(HttpStatus.BAD_REQUEST.value(), ExceptionText.MESSAGE_CONVERSION);
+        ExceptionEntity json = new ExceptionEntity(HttpStatus.BAD_REQUEST.value(), "Ошибка преобразования между JSON и Java-объектом");
         return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<ExceptionEntity> badRequest(MaxUploadSizeExceededException e) {
-        ExceptionEntity json = new ExceptionEntity(HttpStatus.BAD_REQUEST.value(), ExceptionText.MAX_FILE_SIZE_EXCEEDED);
+        ExceptionEntity json = new ExceptionEntity(HttpStatus.BAD_REQUEST.value(), "Превышен максимальный размер файла");
         return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
     }
 

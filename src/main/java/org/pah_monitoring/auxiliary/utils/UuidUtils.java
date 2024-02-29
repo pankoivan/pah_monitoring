@@ -1,7 +1,6 @@
 package org.pah_monitoring.auxiliary.utils;
 
 import lombok.experimental.UtilityClass;
-import org.pah_monitoring.auxiliary.text.ExceptionText;
 import org.pah_monitoring.main.exceptions.utils.UuidUtilsException;
 
 import java.util.UUID;
@@ -13,7 +12,7 @@ public final class UuidUtils {
         try {
             return UUID.fromString(stringUuid);
         } catch (NullPointerException | IllegalArgumentException e) {
-            throw new UuidUtilsException(ExceptionText.UUID_UTILS_EXCEPTION.formatted(stringUuid), e);
+            throw new UuidUtilsException("Некорректный формат UUID: \"%s\"".formatted(stringUuid), e);
         }
     }
 

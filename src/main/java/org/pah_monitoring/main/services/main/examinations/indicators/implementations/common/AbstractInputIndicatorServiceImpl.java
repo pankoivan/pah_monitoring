@@ -31,20 +31,11 @@ public abstract class AbstractInputIndicatorServiceImpl<T, M> extends AbstractIn
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-        if (getExtractionService().patient().getDoctor() == null) {
-            throw new DataValidationServiceException("""
-                    Вы не можете отправлять результаты наблюдений, так как на данный момент за вами не закреплён ни\
-                     один врач. Ожидайте, пока администраторы назначат вам какого-нибудь врача, или обратитесь к ним\
-                     посредством личных сообщений в случае долгого ожидания
-                    """
-            );
-        }
         if (getExtractionService().patient().hasNoAnamnesis()) {
-            throw new DataValidationServiceException("""
-                    Вы не можете отправлять результаты наблюдений, так как на данный момент у вас ещё не отправлен анамнез.\
-                     Прежде чем отправлять результаты наблюдений, вам необходимо сначала отправить ваш анамнез
-                    """
-            );
+            throw new DataValidationServiceException(HAS_NO_ANAMNESIS);
+        }
+        if (getExtractionService().patient().hasNoDoctor()) {
+            throw new DataValidationServiceException(HAS_NO_DOCTOR);
         }
     }
 

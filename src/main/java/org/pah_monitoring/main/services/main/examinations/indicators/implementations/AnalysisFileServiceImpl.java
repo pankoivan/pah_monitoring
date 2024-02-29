@@ -3,7 +3,6 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
-import org.pah_monitoring.auxiliary.text.ExceptionText;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
@@ -111,11 +110,11 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
 
     @Override
     public void checkDataValidityForAdding(MultipartFile file) throws DataValidationServiceException {
-        if (getExtractionService().patient().hasNoDoctor()) {
-            throw new DataValidationServiceException(ExceptionText.HAS_NO_DOCTOR);
-        }
         if (getExtractionService().patient().hasNoAnamnesis()) {
-            throw new DataValidationServiceException(ExceptionText.HAS_NO_ANAMNESIS);
+            throw new DataValidationServiceException(HAS_NO_ANAMNESIS);
+        }
+        if (getExtractionService().patient().hasNoDoctor()) {
+            throw new DataValidationServiceException(HAS_NO_DOCTOR);
         }
         if (file == null) {
             throw new DataValidationServiceException("Файл не выбран");
