@@ -62,49 +62,49 @@ public class AnalysisFile implements Indicator {
         BLOOD_TEST(
                 "Развёрнутый анализ крови",
                 "blood-test.jpg",
-                "/patients/%s/examinations/blood-test",
+                "/patients/%s/examinations/plain/analysis-file/blood-test",
                 "/indicators/forms/analysis-file/blood-test"
         ),
 
         ELECTROCARDIOGRAPHY(
                 "Электрокардиография",
                 "electrocardiography.jpg",
-                "/patients/%s/examinations/electrocardiography",
+                "/patients/%s/examinations/plain/analysis-file/electrocardiography",
                 "/indicators/forms/analysis-file/electrocardiography"
         ),
 
         RADIOGRAPHY(
                 "Рентгенография органов грудной клетки",
                 "radiography.jpg",
-                "/patients/%s/examinations/radiography",
+                "/patients/%s/examinations/plain/analysis-file/radiography",
                 "/indicators/forms/analysis-file/radiography"
         ),
 
         ECHOCARDIOGRAPHY(
                 "Эхокардиография",
                 "echocardiography.jpg",
-                "/patients/%s/examinations/echocardiography",
+                "/patients/%s/examinations/plain/analysis-file/echocardiography",
                 "/indicators/forms/analysis-file/echocardiography"
         ),
 
         COMPUTED_TOMOGRAPHY(
                 "Компьютерная томография органов грудной клетки",
                 "computed-tomography.jpg",
-                "/patients/%s/examinations/computed-tomography",
+                "/patients/%s/examinations/plain/analysis-file/computed-tomography",
                 "/indicators/forms/analysis-file/computed-tomography"
         ),
 
         SCINTIGRAPHY(
                 "Сцинтиграфия лёгких",
                 "scintigraphy.jpg",
-                "/patients/%s/examinations/scintigraphy",
+                "/patients/%s/examinations/plain/analysis-file/scintigraphy",
                 "/indicators/forms/analysis-file/scintigraphy"
         ),
 
         CATHETERIZATION(
                 "Катетеризация правых отделов сердца",
                 "catheterization.jpg",
-                "/patients/%s/examinations/catheterization",
+                "/patients/%s/examinations/plain/analysis-file/catheterization",
                 "/indicators/forms/analysis-file/catheterization"
         );
 
@@ -116,9 +116,9 @@ public class AnalysisFile implements Indicator {
 
         private final String postFormLink;
 
-        public static AnalysisType fromUrlPart(String url) {
+        public static AnalysisType fromUrlPart(String urlPart) {
             try {
-                return AnalysisType.valueOf(url.toUpperCase().replaceAll("-", "_"));
+                return AnalysisType.valueOf(urlPart.toUpperCase().replaceAll("-", "_"));
             } catch (NullPointerException | IllegalArgumentException e) {
                 return BLOOD_TEST;
             }

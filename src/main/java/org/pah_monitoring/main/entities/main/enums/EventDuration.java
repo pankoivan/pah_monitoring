@@ -35,7 +35,7 @@ public enum EventDuration {
     }
 
     public static EnumSet<EventDuration> forVertigo() {
-        return EnumSet.of(SECONDS, MINUTES, HALF_HOUR, HOUR);
+        return EnumSet.of(SECONDS, MINUTES, HALF_HOUR, HOUR, MORE);
     }
 
 }

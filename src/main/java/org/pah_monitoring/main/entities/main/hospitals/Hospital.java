@@ -84,9 +84,9 @@ public class Hospital implements BaseEntity {
     @Getter
     public enum CurrentState {
 
-        WAITING_CODE("Ожидает выдачу кода"),
+        WAITING_CODE("Ожидает выдачи кода"),
 
-        WAITING_REGISTRATION("Ожидает регистрацию администратора"),
+        WAITING_REGISTRATION("Ожидает регистрации администратора"),
 
         REGISTERED("Зарегистрировано");
 

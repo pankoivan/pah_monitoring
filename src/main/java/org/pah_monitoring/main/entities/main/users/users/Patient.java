@@ -157,7 +157,7 @@ public class Patient implements HospitalUser, UserDetails {
     }
 
     public boolean hasNoAchievement(Achievement achievement) {
-        return !achievements.contains(achievement);
+        return !hasAchievement(achievement);
     }
 
     @Override

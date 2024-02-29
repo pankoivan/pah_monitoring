@@ -29,6 +29,7 @@ public class Anamnesis implements BaseEntity {
     @Column(name = "relatives_diseases")
     private Boolean relativesDiseases;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "blood_clotting")
     private Anamnesis.BloodClotting bloodClotting;
 

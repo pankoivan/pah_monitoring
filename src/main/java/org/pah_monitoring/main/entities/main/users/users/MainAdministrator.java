@@ -42,7 +42,7 @@ public class MainAdministrator implements User, UserDetails {
 
     @Override
     public boolean isNotActive() {
-        return !isActive();
+        return false;
     }
 
     @Override

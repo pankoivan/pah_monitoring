@@ -18,6 +18,6 @@ public enum ExpirationDate {
 
     private final String alias;
 
-    private final Integer days;
+    private final int days;
 
 }
