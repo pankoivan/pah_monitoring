@@ -16,14 +16,14 @@ public class WalkTestAddingDto {
     @NotNull(message = "Поле \"Вспомогательные устройства\" является обязательным")
     private Boolean auxiliaryDevices;
 
-    @NotNull(message = "Поле \"Расстояние\" является обязательным")
+    @NotNull(message = "Поле \"Дистанция\" является обязательным")
     @Min(value = 0, message = "Дистанция должна лежать в диапазоне от 0 до 1500 м")
     @Max(value = 1500, message = "Дистанция должна лежать в диапазоне от 0 до 1500 м")
     private Double distance;
 
-    @NotNull(message = "Поле \"Процент кислорода\" является обязательным")
-    @Min(value = 0, message = "Число остановок должно лежать в диапазоне от 0 до 60")
-    @Max(value = 60, message = "Число остановок должно лежать в диапазоне от 0 до 60")
+    @NotNull(message = "Поле \"Количество остановок\" является обязательным")
+    @Min(value = 0, message = "Количество остановок должно лежать в диапазоне от 0 до 60")
+    @Max(value = 60, message = "Количество остановок должно лежать в диапазоне от 0 до 60")
     private Integer numberOfStops;
 
     @NotNull(message = "Поле \"Одышка по шкале Борга\" является обязательным")

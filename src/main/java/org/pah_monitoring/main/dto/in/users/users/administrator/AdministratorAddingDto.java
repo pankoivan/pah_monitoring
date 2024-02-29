@@ -5,9 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.pah_monitoring.main.dto.in.users.users.common.interfaces.HospitalUserAddingInfo;
 import org.pah_monitoring.main.dto.in.users.info.employee.EmployeeInformationAddingDto;
 import org.pah_monitoring.main.dto.in.users.info.security.UserSecurityInformationAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.common.interfaces.HospitalUserAddingInfo;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

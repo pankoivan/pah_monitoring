@@ -14,7 +14,7 @@ public class ChestPainAddingDto {
     @NotNull(message = "Поле \"Продолжительность\" является обязательным")
     private EventDuration duration;
 
-    @NotNull(message = "Поле \"Помог ли приём нитроглицерина\" является обязательным")
+    @NotNull(message = "Поле \"Нитроглицерин\" является обязательным")
     private ChestPain.Nitroglycerin nitroglycerin;
 
 }
