@@ -7,10 +7,10 @@ import org.pah_monitoring.main.services.main.validation.interfaces.url.UrlValida
 
 public interface UserSearchingService extends UrlValidationService {
 
-    User findUserByUserSecurityInformationId(Integer id) throws DataSearchingServiceException;
+    User findUserByUserSecurityInformationId(Integer userSecurityInformationId) throws DataSearchingServiceException;
 
-    User findUserByUserInformationId(Integer id) throws DataSearchingServiceException;
+    User findUserByUserInformationId(Integer userInformationId) throws DataSearchingServiceException;
 
-    HospitalEmployee findHospitalEmployeeByEmployeeInformationId(Integer id) throws DataSearchingServiceException;
+    HospitalEmployee findHospitalEmployeeByEmployeeInformationId(Integer employeeInformationId) throws DataSearchingServiceException;
 
 }

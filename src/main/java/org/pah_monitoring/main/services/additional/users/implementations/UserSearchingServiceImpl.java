@@ -30,45 +30,45 @@ public class UserSearchingServiceImpl implements UserSearchingService {
     private final PatientRepository patientRepository;
 
     @Override
-    public User findUserByUserSecurityInformationId(Integer id) throws DataSearchingServiceException {
+    public User findUserByUserSecurityInformationId(Integer securityInformationId) throws DataSearchingServiceException {
         return Stream.of(
-                        mainAdministratorRepository.findByUserSecurityInformationId(id).orElse(null),
-                        administratorRepository.findByUserSecurityInformationId(id).orElse(null),
-                        doctorRepository.findByUserSecurityInformationId(id).orElse(null),
-                        patientRepository.findByUserSecurityInformationId(id).orElse(null)
+                        mainAdministratorRepository.findByUserSecurityInformationId(securityInformationId).orElse(null),
+                        administratorRepository.findByUserSecurityInformationId(securityInformationId).orElse(null),
+                        doctorRepository.findByUserSecurityInformationId(securityInformationId).orElse(null),
+                        patientRepository.findByUserSecurityInformationId(securityInformationId).orElse(null)
                 )
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElseThrow(() -> new DataSearchingServiceException(
-                        "Не существует пользователя, у которого id логин-информации равен \"%s\"".formatted(id))
+                        "Не существует пользователя, у которого id логин-информации равен \"%s\"".formatted(securityInformationId))
                 );
     }
 
     @Override
-    public User findUserByUserInformationId(Integer id) throws DataSearchingServiceException {
+    public User findUserByUserInformationId(Integer userInformationId) throws DataSearchingServiceException {
         return Stream.of(
-                        mainAdministratorRepository.findByUserInformationId(id).orElse(null),
-                        administratorRepository.findByEmployeeInformationUserInformationId(id).orElse(null),
-                        doctorRepository.findByEmployeeInformationUserInformationId(id).orElse(null),
-                        patientRepository.findByUserInformationId(id).orElse(null)
+                        mainAdministratorRepository.findByUserInformationId(userInformationId).orElse(null),
+                        administratorRepository.findByEmployeeInformationUserInformationId(userInformationId).orElse(null),
+                        doctorRepository.findByEmployeeInformationUserInformationId(userInformationId).orElse(null),
+                        patientRepository.findByUserInformationId(userInformationId).orElse(null)
                 )
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElseThrow(() -> new DataSearchingServiceException(
-                        "Не существует пользователя, у которого id общей информации равен \"%s\"".formatted(id))
+                        "Не существует пользователя, у которого id общей информации равен \"%s\"".formatted(userInformationId))
                 );
     }
 
     @Override
-    public HospitalEmployee findHospitalEmployeeByEmployeeInformationId(Integer id) throws DataSearchingServiceException {
+    public HospitalEmployee findHospitalEmployeeByEmployeeInformationId(Integer employeeInformationId) throws DataSearchingServiceException {
         return Stream.of(
-                        administratorRepository.findByEmployeeInformationId(id).orElse(null),
-                        doctorRepository.findByEmployeeInformationId(id).orElse(null)
+                        administratorRepository.findByEmployeeInformationId(employeeInformationId).orElse(null),
+                        doctorRepository.findByEmployeeInformationId(employeeInformationId).orElse(null)
                 )
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElseThrow(() -> new DataSearchingServiceException(
-                        "Не существует пользователя, у которого id рабочей информации равен \"%s\"".formatted(id))
+                        "Не существует пользователя, у которого id рабочей информации равен \"%s\"".formatted(employeeInformationId))
                 );
     }
 

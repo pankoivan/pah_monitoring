@@ -1,10 +1,12 @@
 package org.pah_monitoring.main.services.additional.users.implementations;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.pah_monitoring.main.repositorites.users.users.AdministratorRepository;
 import org.pah_monitoring.main.repositorites.users.users.DoctorRepository;
 import org.pah_monitoring.main.repositorites.users.users.MainAdministratorRepository;
 import org.pah_monitoring.main.repositorites.users.users.PatientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,7 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Setter(onMethod = @__(@Autowired))
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -35,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 )
                 .filter(Objects::nonNull)
                 .findFirst()
-                .orElseThrow(() -> new UsernameNotFoundException("Пользователь с почтой \"%s\" не существует".formatted(email)));
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователя с почтой \"%s\" не существует".formatted(email)));
     }
 
 }
