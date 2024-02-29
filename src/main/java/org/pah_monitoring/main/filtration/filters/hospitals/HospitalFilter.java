@@ -17,7 +17,8 @@ public class HospitalFilter extends AbstractEntityFilter<Hospital> {
     public Stream<Hospital> searched(List<Hospital> hospitals, String searching) {
         return searching == null || searching.isEmpty()
                 ? hospitals.stream()
-                : hospitals.stream().filter(hospital -> hospital.getName().toLowerCase().contains(searching.toLowerCase()));
+                : hospitals.stream()
+                    .filter(hospital -> hospital.getName().toLowerCase().contains(searching.toLowerCase()));
     }
 
     public Stream<Hospital> filtered(Stream<Hospital> hospitals, String filtration) {

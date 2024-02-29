@@ -18,9 +18,8 @@ public class DoctorFilter extends AbstractEntityFilter<Doctor> {
     public Stream<Doctor> searched(List<Doctor> doctors, String searching) {
         return searching == null || searching.isEmpty()
                 ? doctors.stream()
-                : doctors.stream().filter(
-                        doctor -> doctor.getUserInformation().getFullName().toLowerCase().contains(searching.toLowerCase())
-                );
+                : doctors.stream()
+                    .filter(doctor -> doctor.getUserInformation().getFullName().toLowerCase().contains(searching.toLowerCase()));
     }
 
     @Override

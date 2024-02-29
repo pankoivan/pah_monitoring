@@ -18,9 +18,8 @@ public class AdministratorFilter extends AbstractEntityFilter<Administrator> {
     public Stream<Administrator> searched(List<Administrator> administrators, String searching) {
         return searching == null || searching.isEmpty()
                 ? administrators.stream()
-                : administrators.stream().filter(
-                        administrator -> administrator.getUserInformation().getFullName().toLowerCase().contains(searching.toLowerCase())
-                );
+                : administrators.stream()
+                    .filter(administrator -> administrator.getUserInformation().getFullName().toLowerCase().contains(searching.toLowerCase()));
     }
 
     @Override

@@ -18,9 +18,8 @@ public class DialoguesFilter extends AbstractEntityFilter<User> {
     public Stream<User> searched(List<User> recipients, String searching) {
         return searching == null || searching.isEmpty()
                 ? recipients.stream()
-                : recipients.stream().filter(
-                        administrator -> administrator.getUserInformation().getFullName().toLowerCase().contains(searching.toLowerCase())
-                );
+                : recipients.stream()
+                    .filter(administrator -> administrator.getUserInformation().getFullName().toLowerCase().contains(searching.toLowerCase()));
     }
 
     @Override
@@ -38,7 +37,6 @@ public class DialoguesFilter extends AbstractEntityFilter<User> {
         return sortingProperty.map(dialoguesSortingProperty -> switch (dialoguesSortingProperty) {
             case FULL_NAME -> recipients.sorted(Comparator.comparing(recipient -> recipient.getUserInformation().getFullName()));
             case PHONE_NUMBER -> recipients.sorted(Comparator.comparing(recipient -> recipient.getUserInformation().getPhoneNumber()));
-            case ROLE -> recipients.sorted(Comparator.comparing(User::getRole));
         }).orElse(recipients);
     }
 

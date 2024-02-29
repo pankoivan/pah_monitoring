@@ -16,9 +16,9 @@ public enum DialogueSortingProperty {
 
     private final String alias;
 
-    public static Optional<DialogueSortingProperty> optionalValueOf(String filtration) {
+    public static Optional<DialogueSortingProperty> optionalValueOf(String sorting) {
         try {
-            return Optional.of(DialogueSortingProperty.valueOf(filtration));
+            return Optional.of(DialogueSortingProperty.valueOf(sorting));
         } catch (NullPointerException | IllegalArgumentException e) {
             return Optional.empty();
         }

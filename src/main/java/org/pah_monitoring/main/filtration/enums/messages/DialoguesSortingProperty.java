@@ -12,15 +12,13 @@ public enum DialoguesSortingProperty {
 
     FULL_NAME("ФИО"),
 
-    PHONE_NUMBER("Номер телефона"),
-
-    ROLE("Роль");
+    PHONE_NUMBER("Номер телефона");
 
     private final String alias;
 
-    public static Optional<DialoguesSortingProperty> optionalValueOf(String filtration) {
+    public static Optional<DialoguesSortingProperty> optionalValueOf(String sorting) {
         try {
-            return Optional.of(DialoguesSortingProperty.valueOf(filtration));
+            return Optional.of(DialoguesSortingProperty.valueOf(sorting));
         } catch (NullPointerException | IllegalArgumentException e) {
             return Optional.empty();
         }
