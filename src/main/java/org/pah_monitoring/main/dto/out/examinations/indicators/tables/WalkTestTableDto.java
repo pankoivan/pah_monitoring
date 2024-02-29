@@ -14,9 +14,9 @@ public class WalkTestTableDto implements OutDto {
 
     private String auxiliaryDevices;
 
-    private String distance;
+    private Double distance;
 
-    private String numberOfStops;
+    private Integer numberOfStops;
 
     private String breathlessness;
 

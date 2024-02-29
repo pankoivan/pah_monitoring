@@ -10,9 +10,9 @@ public class PressureGraphicDto implements OutDto {
 
     private String formattedDate;
 
-    private String upper;
+    private Integer upper;
 
-    private String lower;
+    private Integer lower;
 
     private Boolean afterExercise;
 

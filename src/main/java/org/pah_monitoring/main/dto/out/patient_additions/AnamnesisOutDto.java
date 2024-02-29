@@ -3,7 +3,6 @@ package org.pah_monitoring.main.dto.out.patient_additions;
 import lombok.Builder;
 import lombok.Data;
 import org.pah_monitoring.main.dto.out.common.interfaces.OutDto;
-import org.pah_monitoring.main.entities.main.patient_additions.Anamnesis;
 
 @Data
 @Builder
@@ -11,20 +10,20 @@ public class AnamnesisOutDto implements OutDto {
 
     private Integer patientId;
 
-    private Boolean heartDisease;
+    private String heartDisease;
 
-    private Boolean lungDisease;
+    private String lungDisease;
 
-    private Boolean relativesDiseases;
+    private String relativesDiseases;
 
-    private Anamnesis.BloodClotting bloodClotting;
+    private String bloodClotting;
 
-    private Boolean diabetes;
+    private String diabetes;
 
     private Integer height;
 
-    private String weight;
+    private Double weight;
 
-    private String bodyMassIndex;
+    private Double bodyMassIndex;
 
 }

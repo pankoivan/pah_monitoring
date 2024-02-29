@@ -10,8 +10,8 @@ public class WeightTableDto implements OutDto {
 
     private String formattedDate;
 
-    private String weight;
+    private Double weight;
 
-    private String bodyMassIndex;
+    private Double bodyMassIndex;
 
 }

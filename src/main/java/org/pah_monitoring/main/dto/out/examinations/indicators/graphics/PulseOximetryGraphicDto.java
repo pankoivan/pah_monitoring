@@ -10,9 +10,9 @@ public class PulseOximetryGraphicDto implements OutDto {
 
     private String formattedDate;
 
-    private String oxygenPercentage;
+    private Double oxygenPercentage;
 
-    private String pulseRate;
+    private Integer pulseRate;
 
     private Boolean afterExercise;
 

@@ -10,6 +10,6 @@ public class LiquidGraphicDto implements OutDto {
 
     private String formattedDate;
 
-    private String liquid;
+    private Double liquid;
 
 }

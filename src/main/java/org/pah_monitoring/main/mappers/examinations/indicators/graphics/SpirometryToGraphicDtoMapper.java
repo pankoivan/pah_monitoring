@@ -22,7 +22,7 @@ public class SpirometryToGraphicDtoMapper implements BaseEntityToOutDtoListMappe
                 .rlv(NumberUtils.round(spirometry.getRlv(), 2))
                 .vfe1(NumberUtils.round(spirometry.getVfe1(), 2))
                 .tlc(NumberUtils.round(FormulaUtils.tlc(spirometry.getRlv(), spirometry.getVlc()), 2))
-                .tiffnoIndex(FormulaUtils.tiffnoIndex(spirometry.getVfe1(), spirometry.getVlc()), 2)
+                .tiffnoIndex(NumberUtils.round(FormulaUtils.tiffnoIndex(spirometry.getVfe1(), spirometry.getVlc()), 2))
                 .build();
     }
 

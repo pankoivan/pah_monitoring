@@ -17,7 +17,7 @@ public class PulseOximetryToTableDtoMapper implements BaseEntityToOutDtoListMapp
                 .builder()
                 .formattedDate(pulseOximetry.getFormattedDate())
                 .oxygenPercentage(NumberUtils.round(pulseOximetry.getOxygenPercentage(), 2))
-                .pulseRate(NumberUtils.round(pulseOximetry.getPulseRate(), 2))
+                .pulseRate(pulseOximetry.getPulseRate())
                 .afterExercise(afterExercise(pulseOximetry.getAfterExercise()))
                 .build();
     }

@@ -10,16 +10,16 @@ public class SpirometryTableDto implements OutDto {
 
     private String formattedDate;
 
-    private String vlc;
+    private Double vlc;
 
-    private String avlc;
+    private Double avlc;
 
-    private String rlv;
+    private Double rlv;
 
-    private String vfe1;
+    private Double vfe1;
 
-    private String tlc;
+    private Double tlc;
 
-    private String tiffnoIndex;
+    private Double tiffnoIndex;
 
 }
