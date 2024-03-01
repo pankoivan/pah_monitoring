@@ -40,14 +40,14 @@ public class ExaminationScheduleServiceImpl implements ExaminationScheduleServic
     private CurrentUserCheckService checkService;
 
     @Override
-    public Optional<ExaminationSchedule> findConcrete(IndicatorType type, Patient patient) {
-        return repository.findByIndicatorTypeAndPatientId(type, patient.getId());
+    public Optional<ExaminationSchedule> findConcrete(IndicatorType indicatorType, Patient patient) {
+        return repository.findByIndicatorTypeAndPatientId(indicatorType, patient.getId());
     }
 
     @Override
     public ExaminationSchedule findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Расписание с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Расписания с id \"%s\" не существует".formatted(id))
         );
     }
 
@@ -88,7 +88,7 @@ public class ExaminationScheduleServiceImpl implements ExaminationScheduleServic
     @Override
     public void deleteById(Integer id) throws DataDeletionServiceException {
         try {
-            repository.deleteById(findById(id).getId());
+            repository.deleteById(id);
         } catch (Exception e) {
             throw new DataDeletionServiceException("Сущность с id \"%s\" не была удалена".formatted(id), e);
         }

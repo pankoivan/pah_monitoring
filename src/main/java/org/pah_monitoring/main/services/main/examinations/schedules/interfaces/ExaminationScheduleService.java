@@ -21,7 +21,7 @@ public interface ExaminationScheduleService extends
         DataAddingValidationService<ExaminationScheduleAddingDto>, DataEditingValidationService<ExaminationScheduleEditingDto>,
         DataSavingValidationService<ExaminationScheduleSavingDto>, UrlValidationService {
 
-    Optional<ExaminationSchedule> findConcrete(IndicatorType type, Patient patient);
+    Optional<ExaminationSchedule> findConcrete(IndicatorType indicatorType, Patient patient);
 
     ExaminationSchedule findById(Integer id) throws DataSearchingServiceException;
 
