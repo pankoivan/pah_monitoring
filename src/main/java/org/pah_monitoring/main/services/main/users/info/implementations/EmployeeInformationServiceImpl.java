@@ -35,7 +35,7 @@ public class EmployeeInformationServiceImpl implements EmployeeInformationServic
     @Override
     public EmployeeInformation findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Рабочая информация с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Рабочей информации с id \"%s\" не существует".formatted(id))
         );
     }
 

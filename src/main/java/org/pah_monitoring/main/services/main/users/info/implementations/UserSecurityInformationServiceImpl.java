@@ -50,7 +50,7 @@ public class UserSecurityInformationServiceImpl implements UserSecurityInformati
     @Override
     public UserSecurityInformation findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Логин-информация с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Логин-информации с id \"%s\" не существует".formatted(id))
         );
     }
 

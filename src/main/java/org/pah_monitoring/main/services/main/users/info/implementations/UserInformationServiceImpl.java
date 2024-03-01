@@ -33,7 +33,7 @@ public class UserInformationServiceImpl implements UserInformationService {
     @Override
     public UserInformation findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Общая информация с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Общей информации с id \"%s\" не существует".formatted(id))
         );
     }
 
