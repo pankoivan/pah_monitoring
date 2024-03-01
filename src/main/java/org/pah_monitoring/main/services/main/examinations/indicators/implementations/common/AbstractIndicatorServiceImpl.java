@@ -12,6 +12,9 @@ import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserE
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.IndicatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @RequiredArgsConstructor
 @Getter
 @Setter(onMethod = @__(@Autowired))
@@ -50,6 +53,16 @@ public abstract class AbstractIndicatorServiceImpl<T extends Indicator> implemen
                     """
             );
         }
+    }
+
+    protected List<T> overPeriod(List<T> indicators, String pathPeriod) {
+        Period period = Period.myValueOf(pathPeriod);
+        return period == Period.WHOLE_TIME
+                ? indicators
+                : indicators
+                    .stream()
+                    .filter(indicator -> indicator.getDate().isAfter(LocalDateTime.now().minusDays(period.getDays())))
+                    .toList();
     }
 
 }
