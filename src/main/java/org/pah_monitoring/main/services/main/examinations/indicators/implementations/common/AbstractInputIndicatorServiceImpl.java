@@ -31,12 +31,8 @@ public abstract class AbstractInputIndicatorServiceImpl<T extends Indicator, M> 
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-        if (getExtractionService().patient().hasNoAnamnesis()) {
-            throw new DataValidationServiceException(HAS_NO_ANAMNESIS);
-        }
-        if (getExtractionService().patient().hasNoDoctor()) {
-            throw new DataValidationServiceException(HAS_NO_DOCTOR);
-        }
+        checkHasNoAnamnesis();
+        checkHasNoDoctor();
     }
 
     @Override

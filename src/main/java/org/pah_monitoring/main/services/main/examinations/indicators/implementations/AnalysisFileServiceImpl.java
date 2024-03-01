@@ -110,12 +110,8 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
 
     @Override
     public void checkDataValidityForAdding(MultipartFile file) throws DataValidationServiceException {
-        if (getExtractionService().patient().hasNoAnamnesis()) {
-            throw new DataValidationServiceException(HAS_NO_ANAMNESIS);
-        }
-        if (getExtractionService().patient().hasNoDoctor()) {
-            throw new DataValidationServiceException(HAS_NO_DOCTOR);
-        }
+        checkHasNoAnamnesis();
+        checkHasNoDoctor();
         if (file == null) {
             throw new DataValidationServiceException("Файл не выбран");
         }
