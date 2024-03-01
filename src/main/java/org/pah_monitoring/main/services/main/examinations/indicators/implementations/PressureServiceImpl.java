@@ -62,7 +62,7 @@ public class PressureServiceImpl extends AbstractInputIndicatorServiceImpl<Press
     @Override
     public Pressure findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Показатель \"Давление\" с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Показателя \"Давление\" с id \"%s\" не существует".formatted(id))
         );
     }
 

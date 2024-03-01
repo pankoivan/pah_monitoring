@@ -21,6 +21,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.repositorites.examinations.indicators.WalkTestRepository;
 import org.pah_monitoring.main.services.main.examinations.indicators.implementations.common.AbstractInputIndicatorServiceImpl;
+import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.InputIndicatorService;
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,10 +42,10 @@ public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl<WalkT
     private HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
     @Qualifier("pulseOximetryService")
-    private AbstractInputIndicatorServiceImpl<PulseOximetry, PulseOximetryAddingDto> pulseOximetryService;
+    private InputIndicatorService<PulseOximetry, PulseOximetryAddingDto> pulseOximetryService;
 
     @Qualifier("pressureService")
-    private AbstractInputIndicatorServiceImpl<Pressure, PressureAddingDto> pressureService;
+    private InputIndicatorService<Pressure, PressureAddingDto> pressureService;
 
     @Override
     public IndicatorType getIndicatorType() {
@@ -74,7 +75,7 @@ public class WalkTestServiceImpl extends AbstractInputIndicatorServiceImpl<WalkT
     @Override
     public WalkTest findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Показатель \"Т6МХ\" с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Показателя \"Т6МХ\" с id \"%s\" не существует".formatted(id))
         );
     }
 

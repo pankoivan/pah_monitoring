@@ -61,7 +61,7 @@ public class FaintingServiceImpl extends AbstractInputIndicatorServiceImpl<Faint
     @Override
     public Fainting findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Показатель \"Обморок\" с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Показателя \"Обморок\" с id \"%s\" не существует".formatted(id))
         );
     }
 

@@ -61,7 +61,7 @@ public class OverallHealthServiceImpl extends AbstractInputIndicatorServiceImpl<
     @Override
     public OverallHealth findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Показатель \"Общее самочувствие\" с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Показателя \"Общее самочувствие\" с id \"%s\" не существует".formatted(id))
         );
     }
 
