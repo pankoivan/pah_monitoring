@@ -40,6 +40,14 @@ public interface IndicatorService<T> extends UrlValidationService {
 
         private final int days;
 
+        public static Period myValueOf(String period) {
+            try {
+                return Period.valueOf(period);
+            } catch (NullPointerException | IllegalArgumentException e) {
+                return WHOLE_TIME;
+            }
+        }
+
     }
 
 }
