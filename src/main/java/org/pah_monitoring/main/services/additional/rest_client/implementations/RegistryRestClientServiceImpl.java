@@ -72,9 +72,9 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
         set.addAll(getRegistryBaseResponse("nameFull", searched.toLowerCase(), "LIKE").getRegistryHospitalSet());
         set.addAll(getRegistryBaseResponse("nameFull", searched.toUpperCase(), "LIKE").getRegistryHospitalSet());
         if (searched.length() > 1) {
-            set.addAll(getRegistryBaseResponse(
-                    "nameFull", searched.substring(0, 1).toUpperCase() + searched.substring(1).toLowerCase(), "LIKE")
-                    .getRegistryHospitalSet()
+            set.addAll(
+                    getRegistryBaseResponse("nameFull", searched.substring(0, 1).toUpperCase() + searched.substring(1).toLowerCase(), "LIKE")
+                            .getRegistryHospitalSet()
             );
         }
         return set;
@@ -107,7 +107,7 @@ public class RegistryRestClientServiceImpl implements RegistryRestClientService 
                     RegistryBaseResponse.class
             ).getBody();
         } catch (UrlUtilsException | RestClientException e) {
-            throw new RestClientServiceException("Произошла ошибка при REST-взаимодействии с API реестра", e);
+            throw new RestClientServiceException("Произошла ошибка при REST-взаимодействии с API реестра медицинских организаций РФ", e);
         }
     }
 
