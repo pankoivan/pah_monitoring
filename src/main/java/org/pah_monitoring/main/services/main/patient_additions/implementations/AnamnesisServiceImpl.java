@@ -64,12 +64,8 @@ public class AnamnesisServiceImpl implements AnamnesisService {
         if (bindingResult.hasErrors()) {
             throw new DataValidationServiceException(bindingResultAnyErrorMessage(bindingResult));
         }
-        try {
-            if (extractionService.patient().hasAnamnesis()) {
-                throw new DataValidationServiceException("Анамнез не может быть отправлен больше одного раза");
-            }
-        } catch (NullPointerException | ClassCastException e) {
-            throw new DataValidationServiceException(e.getMessage(), e);
+        if (extractionService.patient().hasAnamnesis()) {
+            throw new DataValidationServiceException("Анамнез не может быть отправлен больше одного раза");
         }
     }
 
@@ -77,8 +73,10 @@ public class AnamnesisServiceImpl implements AnamnesisService {
     public void checkAccessRightsForObtaining(Patient patient) throws NotEnoughRightsServiceException {
         if (!(
                 checkService.isSelf(patient) ||
-                (patient.isActive() && checkService.isOwnDoctor(patient) ||
-                patient.isNotActive() && checkService.isDoctorFromSameHospital(patient.getHospital()))
+                (
+                    patient.isActive() && checkService.isOwnDoctor(patient) ||
+                    patient.isNotActive() && checkService.isDoctorFromSameHospital(patient.getHospital())
+                )
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
