@@ -15,15 +15,15 @@ import java.util.Optional;
 
 public interface FileIndicatorService<T extends Indicator> extends IndicatorService<T> {
 
-    Optional<LocalDateTime> getLastExaminationDateFor(AnalysisFile.AnalysisType type, Patient patient);
+    Optional<LocalDateTime> getLastExaminationDateFor(AnalysisFile.AnalysisType analysisType, Patient patient);
 
-    Optional<String> getScheduleFor(AnalysisFile.AnalysisType type, Patient patient);
+    Optional<String> getScheduleFor(AnalysisFile.AnalysisType analysisType, Patient patient);
 
-    IndicatorCard getIndicatorCardFor(AnalysisFile.AnalysisType type, Patient patient);
+    IndicatorCard getIndicatorCardFor(AnalysisFile.AnalysisType analysisType, Patient patient);
 
-    List<T> findAllByPatientId(AnalysisFile.AnalysisType type, Integer patientId) throws DataSearchingServiceException;
+    List<T> findAllByPatientId(AnalysisFile.AnalysisType analysisType, Integer patientId) throws DataSearchingServiceException;
 
-    List<T> findAllByPatientId(AnalysisFile.AnalysisType type, Integer patientId, String period) throws DataSearchingServiceException;
+    List<T> findAllByPatientId(AnalysisFile.AnalysisType analysisType, Integer patientId, String period) throws DataSearchingServiceException;
 
     T add(MultipartFile file, AnalysisFile.AnalysisType analysisType) throws DataSavingServiceException;
 

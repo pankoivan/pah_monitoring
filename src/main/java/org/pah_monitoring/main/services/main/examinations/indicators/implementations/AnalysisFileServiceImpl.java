@@ -52,35 +52,41 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
     private HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
     @Override
-    public Optional<LocalDateTime> getLastExaminationDateFor(AnalysisFile.AnalysisType type, Patient patient) {
-        return repository.findAllByAnalysisTypeAndPatientId(type, patient.getId())
+    public Optional<LocalDateTime> getLastExaminationDateFor(AnalysisFile.AnalysisType analysisType, Patient patient) {
+        return repository.findAllByAnalysisTypeAndPatientId(analysisType, patient.getId())
                 .stream()
                 .map(AnalysisFile::getDate)
                 .max(Comparator.comparing(Function.identity()));
     }
 
     @Override
-    public Optional<String> getScheduleFor(AnalysisFile.AnalysisType type, Patient patient) {
-        return scheduleService.findConcrete(IndicatorType.valueOf(type.name()), patient).map(ExaminationSchedule::getSchedule);
+    public Optional<String> getScheduleFor(AnalysisFile.AnalysisType analysisType, Patient patient) {
+        return scheduleService.findConcrete(IndicatorType.valueOf(analysisType.name()), patient).map(ExaminationSchedule::getSchedule);
     }
 
     @Override
-    public IndicatorCard getIndicatorCardFor(AnalysisFile.AnalysisType type, Patient patient) {
+    public IndicatorCard getIndicatorCardFor(AnalysisFile.AnalysisType analysisType, Patient patient) {
         return FileIndicatorCard
                 .builder()
-                .indicatorType(IndicatorType.valueOf(type.name()))
-                .name(type.getName())
-                .filename(type.getFilename())
-                .schedule(getScheduleFor(type, patient).orElse(null))
-                .date(getLastExaminationDateFor(type, patient).orElse(null))
-                .postFormLink(type.getPostFormLink())
-                .fileLink(type.getFileLink().formatted(patient.getId()))
+                .indicatorType(IndicatorType.valueOf(analysisType.name()))
+                .name(analysisType.getName())
+                .filename(analysisType.getFilename())
+                .schedule(getScheduleFor(analysisType, patient).orElse(null))
+                .date(getLastExaminationDateFor(analysisType, patient).orElse(null))
+                .postFormLink(analysisType.getPostFormLink())
+                .fileLink(analysisType.getFileLink().formatted(patient.getId()))
                 .build();
     }
 
     @Override
-    public List<AnalysisFile> findAllByPatientId(AnalysisFile.AnalysisType type, Integer id) throws DataSearchingServiceException {
-        return repository.findAllByAnalysisTypeAndPatientId(type, patientService.findById(id).getId());
+    public List<AnalysisFile> findAllByPatientId(AnalysisFile.AnalysisType analysisType, Integer id) throws DataSearchingServiceException {
+        return repository.findAllByAnalysisTypeAndPatientId(analysisType, patientService.findById(id).getId());
+    }
+
+    @Override
+    public List<AnalysisFile> findAllByPatientId(AnalysisFile.AnalysisType analysisType, Integer patientId, String period)
+            throws DataSearchingServiceException {
+        return overPeriod(findAllByPatientId(analysisType, patientId), period);
     }
 
     @Override
@@ -132,7 +138,9 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
 
     private String getExtension(MultipartFile file) {
         String filename = file.getOriginalFilename();
-        return filename.substring(filename.lastIndexOf(".") + 1);
+        return filename.contains(".")
+                ? filename.substring(filename.lastIndexOf(".") + 1)
+                : "";
     }
 
 }
