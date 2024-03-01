@@ -3,6 +3,9 @@ package org.pah_monitoring.main.services.main.patient_additions.implementations;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.dto.in.patient_additions.AnamnesisAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.entities.main.patient_additions.Anamnesis;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -13,8 +16,9 @@ import org.pah_monitoring.main.repositorites.patient_additions.AnamnesisReposito
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserExtractionService;
 import org.pah_monitoring.main.services.main.patient_additions.interfaces.AnamnesisService;
-import org.pah_monitoring.main.services.main.users.users.interfaces.PatientService;
+import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -25,7 +29,8 @@ public class AnamnesisServiceImpl implements AnamnesisService {
 
     private final AnamnesisRepository repository;
 
-    private PatientService patientService;
+    @Qualifier("patientService")
+    private final HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
     private CurrentUserExtractionService extractionService;
 

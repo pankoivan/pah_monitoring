@@ -1,6 +1,9 @@
 package org.pah_monitoring.main.controllers.mvc.patient_additions;
 
 import lombok.AllArgsConstructor;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
@@ -10,7 +13,8 @@ import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceExcept
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.patient_additions.interfaces.AchievementService;
-import org.pah_monitoring.main.services.main.users.users.interfaces.PatientService;
+import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +32,8 @@ public class AchievementsMvcController {
 
     private final AchievementService achievementService;
 
-    private final PatientService patientService;
+    @Qualifier("patientService")
+    private final HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
     private final CurrentUserCheckService checkService;
 

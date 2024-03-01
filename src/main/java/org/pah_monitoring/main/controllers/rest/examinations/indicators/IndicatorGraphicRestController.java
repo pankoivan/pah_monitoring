@@ -2,6 +2,9 @@ package org.pah_monitoring.main.controllers.rest.examinations.indicators;
 
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.examinations.indicators.*;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
+import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
 import org.pah_monitoring.main.dto.out.examinations.indicators.graphics.*;
 import org.pah_monitoring.main.entities.main.examinations.indicators.*;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
@@ -12,7 +15,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoListMapper;
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.InputIndicatorService;
-import org.pah_monitoring.main.services.main.users.users.interfaces.PatientService;
+import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +31,8 @@ import java.util.List;
 @PreAuthorize("hasAnyRole('DOCTOR', 'PATIENT')")
 public class IndicatorGraphicRestController {
 
-    private final PatientService patientService;
+    @Qualifier("patientService")
+    private final HospitalUserService<Patient, PatientAddingDto, PatientEditingDto, PatientSavingDto> patientService;
 
     @Qualifier("spirometryService")
     private final InputIndicatorService<Spirometry, SpirometryAddingDto> spirometryService;
