@@ -70,6 +70,14 @@ public abstract class AbstractHospitalEmployeeInactivityServiceImpl
             throw new DataValidationServiceException("Нельзя назначить отпуск или больничный самому себе, а также уволить самого себя");
         }
 
+        if (hospitalEmployee.isDoctor() && ((Doctor) hospitalEmployee).hasPatients()) {
+            throw new DataValidationServiceException("""
+                    У этого врача всё ещё есть пациенты, поэтому его нельзя отправлять в отпуск, на больничный или увольнять.\
+                     Для осуществления этих действий переведите всех его пациентов к другому врачу.
+                    """
+            );
+        }
+
         try {
             if (
                     hospitalEmployee.isAdministrator() &&
@@ -94,16 +102,6 @@ public abstract class AbstractHospitalEmployeeInactivityServiceImpl
             }
         } catch (DataSearchingServiceException e) {
             throw new DataValidationServiceException(e.getMessage(), e);
-        }
-
-        if (
-                hospitalEmployee.isDoctor() && ((Doctor) hospitalEmployee).hasPatients()
-        ) {
-            throw new DataValidationServiceException("""
-                    У этого врача всё ещё есть пациенты, поэтому его нельзя отправлять в отпуск, на больничный или увольнять.\
-                     Для осуществления этих действий переведите всех его пациентов к другому врачу
-                    """
-            );
         }
 
     }

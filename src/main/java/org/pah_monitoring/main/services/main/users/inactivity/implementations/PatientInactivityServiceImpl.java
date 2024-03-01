@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.services.main.users.inactivity.implementations;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.pah_monitoring.main.dto.in.users.inactivity.PatientInactivityAddingDto;
@@ -28,7 +27,6 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Service("patientInactivityService")
-@Transactional
 public class PatientInactivityServiceImpl implements InactivityService<PatientInactivity, PatientInactivityAddingDto, Patient> {
 
     private final PatientInactivityRepository repository;
