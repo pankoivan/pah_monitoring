@@ -20,6 +20,6 @@ public interface HospitalRegistrationRequestService extends DataAddingValidation
 
     HospitalRegistrationRequest add(HospitalRegistrationRequestAddingDto addingDto) throws DataSavingServiceException;
 
-    void deleteById(Integer id) throws DataSearchingServiceException, DataDeletionServiceException;
+    void deleteById(Integer id) throws DataDeletionServiceException;
 
 }

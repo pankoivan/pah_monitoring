@@ -77,10 +77,9 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     }
 
     @Override
-    public void deleteById(Integer id) throws DataSearchingServiceException, DataDeletionServiceException {
-        HospitalRegistrationRequest request = findById(id);
+    public void deleteById(Integer id) throws DataDeletionServiceException {
         try {
-            repository.deleteById(request.getId());
+            repository.deleteById(id);
         } catch (Exception e) {
             throw new DataDeletionServiceException("Сущность с идентификатором \"%s\" не была удалена".formatted(id), e);
         }
