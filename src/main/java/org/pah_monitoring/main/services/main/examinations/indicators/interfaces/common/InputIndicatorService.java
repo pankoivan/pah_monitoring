@@ -24,6 +24,8 @@ public interface InputIndicatorService<T extends Indicator, M> extends Indicator
 
     List<T> findAllByPatientId(Integer patientId) throws DataSearchingServiceException;
 
+    List<T> findAllByPatientId(Integer patientId, String period) throws DataSearchingServiceException;
+
     T add(M addingDto) throws DataSavingServiceException;
 
 }

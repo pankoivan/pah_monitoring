@@ -23,6 +23,8 @@ public interface FileIndicatorService<T extends Indicator> extends IndicatorServ
 
     List<T> findAllByPatientId(AnalysisFile.AnalysisType type, Integer patientId) throws DataSearchingServiceException;
 
+    List<T> findAllByPatientId(AnalysisFile.AnalysisType type, Integer patientId, String period) throws DataSearchingServiceException;
+
     T add(MultipartFile file, AnalysisFile.AnalysisType analysisType) throws DataSavingServiceException;
 
     void checkDataValidityForAdding(MultipartFile file) throws DataValidationServiceException;
