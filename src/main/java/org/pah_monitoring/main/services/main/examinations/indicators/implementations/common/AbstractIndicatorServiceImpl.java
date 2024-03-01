@@ -3,6 +3,7 @@ package org.pah_monitoring.main.services.main.examinations.indicators.implementa
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.Indicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
@@ -13,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RequiredArgsConstructor
 @Getter
 @Setter(onMethod = @__(@Autowired))
-public abstract class AbstractIndicatorServiceImpl<T> implements IndicatorService<T> {
+public abstract class AbstractIndicatorServiceImpl<T extends Indicator> implements IndicatorService<T> {
 
     protected static final String HAS_NO_ANAMNESIS = """
             Вы не можете отправлять результаты наблюдений, так как на данный момент у вас ещё не отправлен анамнез.\
