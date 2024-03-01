@@ -7,10 +7,10 @@ import org.pah_monitoring.main.entities.main.hospitals.Hospital;
 
 public interface HospitalUserStatisticsService {
 
-    AdministratorStatistics getAdministratorStatistics(Hospital hospital);
+    AdministratorStatistics getAdministratorStatisticsFor(Hospital hospital);
 
-    DoctorStatistics getDoctorStatistics(Hospital hospital);
+    DoctorStatistics getDoctorStatisticsFor(Hospital hospital);
 
-    PatientStatistics getPatientStatistics(Hospital hospital);
+    PatientStatistics getPatientStatisticsFor(Hospital hospital);
 
 }

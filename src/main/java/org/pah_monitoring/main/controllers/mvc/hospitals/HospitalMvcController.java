@@ -59,9 +59,9 @@ public class HospitalMvcController {
             service.checkHospitalCurrentState(hospital);
             service.checkAccessRightsForObtainingConcrete(hospital);
             model.addAttribute("hospital", hospital);
-            model.addAttribute("adminStat", statisticsService.getAdministratorStatistics(hospital));
-            model.addAttribute("doctorStat", statisticsService.getDoctorStatistics(hospital));
-            model.addAttribute("patientStat", statisticsService.getPatientStatistics(hospital));
+            model.addAttribute("adminStat", statisticsService.getAdministratorStatisticsFor(hospital));
+            model.addAttribute("doctorStat", statisticsService.getDoctorStatisticsFor(hospital));
+            model.addAttribute("patientStat", statisticsService.getPatientStatisticsFor(hospital));
             pageHeaderService.addHeader(model);
             return "hospitals/hospital";
         } catch (UrlValidationServiceException | DataSearchingServiceException | DataValidationServiceException e) {

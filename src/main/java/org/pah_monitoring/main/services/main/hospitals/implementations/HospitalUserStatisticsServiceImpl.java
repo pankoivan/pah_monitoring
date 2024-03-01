@@ -21,7 +21,7 @@ import java.util.List;
 public class HospitalUserStatisticsServiceImpl implements HospitalUserStatisticsService {
 
     @Override
-    public AdministratorStatistics getAdministratorStatistics(Hospital hospital) {
+    public AdministratorStatistics getAdministratorStatisticsFor(Hospital hospital) {
         List<Administrator> administrators = hospital.getAdministrators();
         return AdministratorStatistics
                 .builder()
@@ -34,7 +34,7 @@ public class HospitalUserStatisticsServiceImpl implements HospitalUserStatistics
     }
 
     @Override
-    public DoctorStatistics getDoctorStatistics(Hospital hospital) {
+    public DoctorStatistics getDoctorStatisticsFor(Hospital hospital) {
         List<Doctor> doctors = hospital.getDoctors();
         return DoctorStatistics
                 .builder()
@@ -48,7 +48,7 @@ public class HospitalUserStatisticsServiceImpl implements HospitalUserStatistics
     }
 
     @Override
-    public PatientStatistics getPatientStatistics(Hospital hospital) {
+    public PatientStatistics getPatientStatisticsFor(Hospital hospital) {
         List<Patient> patients = hospital.getPatients();
         return PatientStatistics
                 .builder()

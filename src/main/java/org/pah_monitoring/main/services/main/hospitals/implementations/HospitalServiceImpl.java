@@ -54,7 +54,7 @@ public class HospitalServiceImpl implements HospitalService {
     @Override
     public Hospital findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Медицинское учреждение с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Медицинского учреждения с id \"%s\" не существует".formatted(id))
         );
     }
 
@@ -123,20 +123,21 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public void checkHospitalCurrentState(Hospital requestedHospital) throws DataValidationServiceException {
-        if (requestedHospital.getCurrentState() != Hospital.CurrentState.REGISTERED) {
-            throw new DataValidationServiceException(("Невозможно получить информацию о медицинском учреждении \"%s\", " +
-                    "так как оно в данный момент ещё не зарегистрировано, а только ожидает выдачи кода или регистрации администратора")
-                    .formatted(requestedHospital.getName())
+    public void checkHospitalCurrentState(Hospital hospital) throws DataValidationServiceException {
+        if (hospital.getCurrentState() != Hospital.CurrentState.REGISTERED) {
+            throw new DataValidationServiceException("""
+                    Невозможно получить информацию о медицинском учреждении "%s", так как оно в данный момент ещё не\
+                     зарегистрировано, а только ожидает выдачи кода или регистрации администратора.
+                    """.formatted(hospital.getName())
             );
         }
     }
 
     @Override
-    public void checkAccessRightsForObtainingConcrete(Hospital requestedHospital) throws NotEnoughRightsServiceException {
+    public void checkAccessRightsForObtainingConcrete(Hospital hospital) throws NotEnoughRightsServiceException {
         if (!(
                 checkService.isMainAdministrator() ||
-                checkService.isHospitalUserFromSameHospital(requestedHospital)
+                checkService.isHospitalUserFromSameHospital(hospital)
         )) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }

@@ -42,14 +42,14 @@ public class HospitalRegistrationRequestServiceImpl implements HospitalRegistrat
     @Override
     public HospitalRegistrationRequest findByEmail(String email) throws DataSearchingServiceException {
         return repository.findByEmail(email).orElseThrow(
-                () -> new DataSearchingServiceException("Заявка для почты \"%s\" не существует".formatted(email))
+                () -> new DataSearchingServiceException("Заявки для почты \"%s\" не существует".formatted(email))
         );
     }
 
     @Override
     public HospitalRegistrationRequest findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Заявка с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Заявки с id \"%s\" не существует".formatted(id))
         );
     }
 
