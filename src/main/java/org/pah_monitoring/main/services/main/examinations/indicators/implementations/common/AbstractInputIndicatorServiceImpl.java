@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.Indicator;
 import org.pah_monitoring.main.entities.main.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
+import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.InputIndicatorService;
 import org.pah_monitoring.main.services.main.examinations.schedules.interfaces.ExaminationScheduleService;
@@ -25,6 +26,11 @@ public abstract class AbstractInputIndicatorServiceImpl<T extends Indicator, M> 
         implements InputIndicatorService<T, M> {
 
     private ExaminationScheduleService scheduleService;
+
+    @Override
+    public List<T> findAllByPatientId(Integer patientId, String period) throws DataSearchingServiceException {
+        return overPeriod(findAllByPatientId(patientId), period);
+    }
 
     @Override
     public void checkDataValidityForAdding(M addingDto, BindingResult bindingResult) throws DataValidationServiceException {
