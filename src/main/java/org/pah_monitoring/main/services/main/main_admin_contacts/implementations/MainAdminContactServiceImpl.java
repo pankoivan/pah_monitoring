@@ -33,7 +33,7 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
     @Override
     public MainAdminContact findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Контакт с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Контакта с id \"%s\" не существует".formatted(id))
         );
     }
 
@@ -54,10 +54,9 @@ public class MainAdminContactServiceImpl implements MainAdminContactService {
     }
 
     @Override
-    public void deleteById(Integer id) throws DataSearchingServiceException, DataDeletionServiceException {
-        MainAdminContact contact = findById(id);
+    public void deleteById(Integer id) throws DataDeletionServiceException {
         try {
-            repository.deleteById(contact.getId());
+            repository.deleteById(id);
         } catch (Exception e) {
             throw new DataDeletionServiceException("Сущность с идентификатором \"%s\" не была удалена".formatted(id), e);
         }

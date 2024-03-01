@@ -18,6 +18,6 @@ public interface MainAdminContactService extends DataSavingValidationService<Mai
 
     MainAdminContact save(MainAdminContactSavingDto savingDto) throws DataSavingServiceException;
 
-    void deleteById(Integer id) throws DataSearchingServiceException, DataDeletionServiceException;
+    void deleteById(Integer id) throws DataDeletionServiceException;
 
 }
