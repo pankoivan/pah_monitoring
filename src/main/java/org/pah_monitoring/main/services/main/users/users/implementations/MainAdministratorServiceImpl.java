@@ -17,7 +17,7 @@ public class MainAdministratorServiceImpl implements MainAdministratorService {
 
     @Override
     public MainAdministrator get() {
-        return repository.findAll().get(0);
+        return repository.findAll().getFirst();
     }
 
 }

@@ -59,7 +59,7 @@ public class AdministratorServiceImpl
     @Override
     public Administrator findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Администратор с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Администратора с id \"%s\" не существует".formatted(id))
         );
     }
 

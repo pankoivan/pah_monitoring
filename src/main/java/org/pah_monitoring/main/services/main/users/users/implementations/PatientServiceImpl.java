@@ -121,7 +121,7 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
     @Override
     public Patient findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Пациент с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Пациента с id \"%s\" не существует".formatted(id))
         );
     }
 
@@ -202,7 +202,7 @@ public class PatientServiceImpl extends AbstractHospitalUserServiceImpl<Patient,
     @Override
     public void checkDataValidityForDoctorRemoval(Patient patient) throws DataValidationServiceException {
         if (patient.hasNoDoctor()) {
-            throw new DataValidationServiceException("У пациента с id \"%s\" нет доктора".formatted(patient.getId()));
+            throw new DataValidationServiceException("У пациента с id \"%s\" нет врача".formatted(patient.getId()));
         }
         if (patient.isNotActive()) {
             throw new DataValidationServiceException("Пациент с id \"%s\" неактивен".formatted(patient.getId()));

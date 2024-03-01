@@ -66,10 +66,6 @@ public abstract class AbstractHospitalEmployeeInactivityServiceImpl
             throw new DataValidationServiceException("Этот сотрудник уже находится в отпуске, на больничном или уволен");
         }
 
-        if (checkService.isSelf(hospitalEmployee)) {
-            throw new DataValidationServiceException("Нельзя назначить отпуск или больничный самому себе, а также уволить самого себя");
-        }
-
         if (hospitalEmployee.isDoctor() && ((Doctor) hospitalEmployee).hasPatients()) {
             throw new DataValidationServiceException("""
                     У этого врача всё ещё есть пациенты, поэтому его нельзя отправлять в отпуск, на больничный или увольнять.\

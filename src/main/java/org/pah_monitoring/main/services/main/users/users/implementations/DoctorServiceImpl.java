@@ -59,7 +59,7 @@ public class DoctorServiceImpl
     @Override
     public Doctor findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Врач с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Врача с id \"%s\" не существует".formatted(id))
         );
     }
 

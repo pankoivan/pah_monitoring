@@ -19,7 +19,7 @@ public interface RegistrationSecurityCodeService {
 
     RegistrationSecurityCode findByStringUuid(String stringUuid) throws UuidUtilsException, DataSearchingServiceException;
 
-    void deleteByEmail(String email) throws DataSearchingServiceException, DataDeletionServiceException;
+    void deleteByEmail(String email) throws DataDeletionServiceException;
 
     void deleteExpired();
 

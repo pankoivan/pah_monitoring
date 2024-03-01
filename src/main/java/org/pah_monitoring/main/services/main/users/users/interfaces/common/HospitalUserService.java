@@ -38,10 +38,10 @@ public interface HospitalUserService
 
     T edit(R editingDto) throws DataSavingServiceException;
 
-    void checkAccessRightsForObtainingAllInHospital(Hospital requestedHospital) throws NotEnoughRightsServiceException;
+    void checkAccessRightsForObtainingAllInHospital(Hospital hospital) throws NotEnoughRightsServiceException;
 
-    void checkAccessRightsForObtainingConcrete(T requestedHospitalUser) throws NotEnoughRightsServiceException;
+    void checkAccessRightsForObtainingConcrete(T hospitalUser) throws NotEnoughRightsServiceException;
 
-    void checkAccessRightsForEditing(T requestedEditingHospitalUser) throws NotEnoughRightsServiceException;
+    void checkAccessRightsForEditing(T hospitalUser) throws NotEnoughRightsServiceException;
 
 }

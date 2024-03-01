@@ -22,8 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 
 @RequiredArgsConstructor
-@Setter(onMethod = @__(@Autowired))
 @Getter
+@Setter(onMethod = @__(@Autowired))
 public abstract class AbstractHospitalUserServiceImpl
         <T extends HospitalUser, M extends HospitalUserAddingInfo, R extends HospitalUserEditingInfo, N extends HospitalUserSavingInfo>
         implements HospitalUserService<T, M, R, N> {
