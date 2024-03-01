@@ -21,7 +21,7 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 @Getter
 @Setter(onMethod = @__(@Autowired))
-public abstract class AbstractInputIndicatorServiceImpl<T, M> extends AbstractIndicatorServiceImpl<T>
+public abstract class AbstractInputIndicatorServiceImpl<T extends Indicator, M> extends AbstractIndicatorServiceImpl<T>
         implements InputIndicatorService<T, M> {
 
     private ExaminationScheduleService scheduleService;
