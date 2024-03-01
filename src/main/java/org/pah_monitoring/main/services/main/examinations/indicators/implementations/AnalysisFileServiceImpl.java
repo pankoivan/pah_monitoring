@@ -110,7 +110,7 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
                     .build()
             );
         } catch (Exception e) {
-            throw new DataSavingServiceException(e.getMessage(), e);
+            throw new DataSavingServiceException("Файл \"%s\" не был сохранён".formatted(file), e);
         }
     }
 
