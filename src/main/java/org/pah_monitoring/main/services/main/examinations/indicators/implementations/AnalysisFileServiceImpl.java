@@ -79,8 +79,8 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
     }
 
     @Override
-    public List<AnalysisFile> findAllByPatientId(AnalysisFile.AnalysisType analysisType, Integer id) throws DataSearchingServiceException {
-        return repository.findAllByAnalysisTypeAndPatientId(analysisType, patientService.findById(id).getId());
+    public List<AnalysisFile> findAllByPatientId(AnalysisFile.AnalysisType analysisType, Integer patientId) throws DataSearchingServiceException {
+        return repository.findAllByAnalysisTypeAndPatientId(analysisType, patientService.findById(patientId).getId());
     }
 
     @Override
@@ -92,12 +92,12 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
     @Override
     public AnalysisFile findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
-                () -> new DataSearchingServiceException("Показатель \"Файл\" с id \"%s\" не существует".formatted(id))
+                () -> new DataSearchingServiceException("Показателя \"Файл\" с id \"%s\" не существует".formatted(id))
         );
     }
 
     @Override
-    public AnalysisFile add(MultipartFile file, AnalysisFile.AnalysisType analysisType) throws DataSavingServiceException {
+    public AnalysisFile add(AnalysisFile.AnalysisType analysisType, MultipartFile file) throws DataSavingServiceException {
         try {
             String filename = generateFilename(file);
             file.transferTo(Paths.get(uploadPath, filename));
