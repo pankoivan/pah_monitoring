@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc.indicators;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.dto.in.examinations.indicators.SpirometryAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
@@ -40,15 +40,18 @@ public class IndicatorGraphicMvcController {
 
     private final PageHeaderService pageHeaderService;
 
-    @GetMapping("/spirometry")
-    public String getSpirometryGraphic(Model model, @PathVariable("patientId") String pathPatientId) {
+    @GetMapping({
+            "/spirometry", "/walk-test", "/pulse-oximetry", "/pressure", "/liquid", "/weight",
+    })
+    public String getIndicatorGraphicPage(HttpServletRequest request, Model model, @PathVariable("patientId") String pathPatientId) {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             accessRightsCheckService.checkAccessRightsForObtaining(patient);
+            model.addAttribute("periods", IndicatorService.Period.values());
             model.addAttribute("patient", patient);
             model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
-            return "indicators/graphics/spirometry-graphic";
+            return "indicators/graphics/%s-graphic".formatted(whichIndicator(request));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
@@ -56,84 +59,10 @@ public class IndicatorGraphicMvcController {
         }
     }
 
-    @GetMapping("/walk-test")
-    public String getWalkTestGraphic(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/graphics/walk-test-graphic";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }
 
-    @GetMapping("/pulse-oximetry")
-    public String getPulseOximetryGraphic(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/graphics/pulse-oximetry-graphic";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }
-
-    @GetMapping("/pressure")
-    public String getPressureGraphic(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/graphics/pressure-graphic";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }
-
-    @GetMapping("/liquid")
-    public String getLiquidGraphic(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/graphics/liquid-graphic";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }
-
-    @GetMapping("/weight")
-    public String getWeightGraphic(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/graphics/weight-graphic";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
+    private String whichIndicator(HttpServletRequest request) {
+        String[] parts = request.getRequestURI().split("/");
+        return parts[parts.length - 1];
     }
 
 }
