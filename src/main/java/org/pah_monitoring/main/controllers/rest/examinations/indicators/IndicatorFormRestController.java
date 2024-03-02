@@ -1,7 +1,6 @@
 package org.pah_monitoring.main.controllers.rest.examinations.indicators;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.dto.in.examinations.indicators.*;
 import org.pah_monitoring.main.entities.main.examinations.indicators.*;
@@ -16,8 +15,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @AllArgsConstructor
 @RestController
@@ -213,7 +210,7 @@ public class IndicatorFormRestController {
                                 @PathVariable("concrete") String concrete) {
         try {
             analysisFileService.checkDataValidityForAdding(file);
-            analysisFileService.add(file, AnalysisFile.AnalysisType.fromUrlPart(concrete));
+            analysisFileService.add(AnalysisFile.AnalysisType.fromUrlPart(concrete), file);
         } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {

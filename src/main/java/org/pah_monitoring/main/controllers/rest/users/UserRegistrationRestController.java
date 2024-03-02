@@ -21,7 +21,6 @@ import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataDe
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
 import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
-import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
@@ -65,7 +64,7 @@ public class UserRegistrationRestController {
             codeService.deleteByEmail(administrator.getUserSecurityInformation().getEmail());
             hospitalService.upgrade(administrator.getHospital());
             return userMapper.map(administrator);
-        } catch (DataValidationServiceException | DataSearchingServiceException e) {
+        } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
             throw new DataSavingRestControllerException(e.getMessage(), e);
@@ -81,7 +80,7 @@ public class UserRegistrationRestController {
             Doctor doctor = doctorService.add(addingDto);
             codeService.deleteByEmail(doctor.getUserSecurityInformation().getEmail());
             return userMapper.map(doctor);
-        } catch (DataValidationServiceException | DataSearchingServiceException e) {
+        } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
             throw new DataSavingRestControllerException(e.getMessage(), e);
@@ -97,7 +96,7 @@ public class UserRegistrationRestController {
             Patient patient = patientService.add(addingDto);
             codeService.deleteByEmail(patient.getUserSecurityInformation().getEmail());
             return userMapper.map(patient);
-        } catch (DataValidationServiceException | DataSearchingServiceException e) {
+        } catch (DataValidationServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
         } catch (DataSavingServiceException e) {
             throw new DataSavingRestControllerException(e.getMessage(), e);

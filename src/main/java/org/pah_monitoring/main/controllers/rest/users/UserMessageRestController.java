@@ -54,9 +54,8 @@ public class UserMessageRestController {
     public void edit(@RequestBody @Valid UserMessageEditingDto editingDto, BindingResult bindingResult) {
         try {
             UserMessage message = service.findById(editingDto.getId());
-            User recipient = searchingService.findUserByUserInformationId(message.getRecipient().getId());
             service.checkAccessRightsForEditing(searchingService.findUserByUserInformationId(message.getAuthor().getId()));
-            service.checkDataValidityForActions(recipient);
+            service.checkDataValidityForActions(searchingService.findUserByUserInformationId(message.getRecipient().getId()));
             service.checkDataValidityForEditing(editingDto, bindingResult);
             service.edit(editingDto);
         } catch (DataSearchingServiceException | DataValidationServiceException e) {
@@ -72,9 +71,8 @@ public class UserMessageRestController {
     public void delete(@PathVariable("id") String pathId) {
         try {
             UserMessage message = service.findById(service.parsePathId(pathId));
-            User recipient = searchingService.findUserByUserInformationId(message.getRecipient().getId());
             service.checkAccessRightsForDeleting(searchingService.findUserByUserInformationId(message.getAuthor().getId()));
-            service.checkDataValidityForActions(recipient);
+            service.checkDataValidityForActions(searchingService.findUserByUserInformationId(message.getRecipient().getId()));
             service.deleteById(message.getId());
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);

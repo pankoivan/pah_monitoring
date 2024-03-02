@@ -11,7 +11,6 @@ import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataDe
 import org.pah_monitoring.main.exceptions.controller.rest.internal_server.DataSavingRestControllerException;
 import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
-import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
@@ -48,7 +47,7 @@ public class MainAdminContactRestController {
     public void delete(@PathVariable("id") String pathId) {
         try {
             service.deleteById(service.parsePathId(pathId));
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
+        } catch (UrlValidationServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
         } catch (DataDeletionServiceException e) {
             throw new DataDeletionRestControllerException(e.getMessage(), e);
