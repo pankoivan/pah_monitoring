@@ -6,6 +6,8 @@ import org.pah_monitoring.main.dto.in.examinations.indicators.PhysicalChangesAdd
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.plain.OverallHealthPlainDto;
+import org.pah_monitoring.main.dto.out.examinations.indicators.plain.PhysicalChangesPlainDto;
 import org.pah_monitoring.main.entities.main.examinations.indicators.AnalysisFile;
 import org.pah_monitoring.main.entities.main.examinations.indicators.OverallHealth;
 import org.pah_monitoring.main.entities.main.examinations.indicators.PhysicalChanges;
@@ -15,6 +17,7 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.FileIndicatorService;
@@ -40,8 +43,14 @@ public class IndicatorPlainMvcController {
     @Qualifier("physicalChangesService")
     private final InputIndicatorService<PhysicalChanges, PhysicalChangesAddingDto> physicalChangesService;
 
+    @Qualifier("physicalChangesPlainMapper")
+    private final BaseEntityToOutDtoMapper<PhysicalChanges, PhysicalChangesPlainDto> physicalChangesPlainMapper;
+
     @Qualifier("overallHealthService")
     private final InputIndicatorService<OverallHealth, OverallHealthAddingDto> overallHealthService;
+
+    @Qualifier("overallHealthPlainMapper")
+    private final BaseEntityToOutDtoMapper<OverallHealth, OverallHealthPlainDto> overallHealthPlainMapper;
 
     @Qualifier("analysisFileService")
     private final FileIndicatorService<AnalysisFile> analysisFileService;
@@ -51,13 +60,14 @@ public class IndicatorPlainMvcController {
     private final PageHeaderService pageHeaderService;
 
     @GetMapping("/physical-changes/{id}")
-    public String physicalChanges(Model model,
-                                  @PathVariable("patientId") String pathPatientId,
-                                  @PathVariable("id") String pathId) {
+    public String getPhysicalChangesPage(Model model, @PathVariable("patientId") String pathPatientId, @PathVariable("id") String pathId) {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             physicalChangesService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("physicalChanges", physicalChangesService.findById(physicalChangesService.parsePathId(pathId)));
+            model.addAttribute(
+                    "physicalChanges",
+                    physicalChangesPlainMapper.map(physicalChangesService.findById(physicalChangesService.parsePathId(pathId)))
+            );
             model.addAttribute("patient", patient);
             model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
@@ -70,13 +80,14 @@ public class IndicatorPlainMvcController {
     }
 
     @GetMapping("/overall-health/{id}")
-    public String overallHealth(Model model,
-                                @PathVariable("patientId") String pathPatientId,
-                                @PathVariable("id") String pathId) {
+    public String getOverallHealthPage(Model model, @PathVariable("patientId") String pathPatientId, @PathVariable("id") String pathId) {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             overallHealthService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("overallHealth", overallHealthService.findById(overallHealthService.parsePathId(pathId)));
+            model.addAttribute(
+                    "overallHealth",
+                    overallHealthPlainMapper.map(overallHealthService.findById(overallHealthService.parsePathId(pathId)))
+            );
             model.addAttribute("patient", patient);
             model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
@@ -88,13 +99,14 @@ public class IndicatorPlainMvcController {
         }
     }
 
-    @GetMapping("/blood-test")
-    public String temp(Model model,
-                       @PathVariable("patientId") String pathPatientId) {
+    @GetMapping("/analysis-file/{concrete}")
+    public String getAnalysisFilePage(Model model, @PathVariable("patientId") String pathPatientId, @PathVariable("concrete") String concrete) {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             analysisFileService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("files", analysisFileService.findAllByPatientId(AnalysisFile.AnalysisType.BLOOD_TEST, patient.getId()));
+            AnalysisFile.AnalysisType analysisType = AnalysisFile.AnalysisType.fromUrlPart(concrete);
+            model.addAttribute("name", analysisType.getName());
+            model.addAttribute("files", analysisFileService.findAllByPatientId(analysisType, patient.getId()));
             model.addAttribute("patient", patient);
             model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
