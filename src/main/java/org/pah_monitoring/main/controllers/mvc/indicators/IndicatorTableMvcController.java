@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc.indicators;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.dto.in.examinations.indicators.SpirometryAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
@@ -40,15 +40,19 @@ public class IndicatorTableMvcController {
 
     private final PageHeaderService pageHeaderService;
 
-    @GetMapping("/spirometry")
-    public String getSpirometryTable(Model model, @PathVariable("patientId") String pathPatientId) {
+    @GetMapping({
+            "/spirometry", "/walk-test", "/pulse-oximetry", "/cough", "/chest-pain", "/fainting",
+            "/physical-changes", "/overall-health", "/vertigo", "/pressure", "/liquid", "/weight"
+    })
+    public String getIndicatorTablePage(HttpServletRequest request, Model model, @PathVariable("patientId") String pathPatientId) {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             accessRightsCheckService.checkAccessRightsForObtaining(patient);
+            model.addAttribute("periods", IndicatorService.Period.values());
             model.addAttribute("patient", patient);
             model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
-            return "indicators/tables/spirometry-table";
+            return "indicators/tables/%s-table".formatted(whichIndicator(request));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
@@ -56,180 +60,9 @@ public class IndicatorTableMvcController {
         }
     }
 
-    @GetMapping("/walk-test")
-    public String getWalkTestTable(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/tables/walk-test-table";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }
-
-    @GetMapping("/pulse-oximetry")
-    public String getPulseOximetryTable(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/tables/pulse-oximetry-table";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }
-
-    @GetMapping("/cough")
-    public String getCoughTable(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/tables/cough-table";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }
-
-    @GetMapping("/chest-pain")
-    public String getChestPainTable(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/tables/chest-pain-table";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }
-
-    @GetMapping("/fainting")
-    public String getFaintingTable(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/tables/fainting-table";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }
-
-    @GetMapping("/physical-changes")
-    public String getPhysicalChangesTable(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/tables/physical-changes-table";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }
-
-    @GetMapping("/overall-health")
-    public String getOverallHealthTable(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/tables/overall-health-table";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }
-
-    @GetMapping("/vertigo")
-    public String getVertigoTable(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/tables/vertigo-table";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }
-
-    @GetMapping("/pressure")
-    public String getPressureTable(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/tables/pressure-table";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }
-
-    @GetMapping("/liquid")
-    public String getLiquidTable(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/tables/liquid-table";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }
-
-    @GetMapping("/weight")
-    public String getWeightTable(Model model, @PathVariable("patientId") String pathPatientId) {
-        try {
-            Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
-            accessRightsCheckService.checkAccessRightsForObtaining(patient);
-            model.addAttribute("patient", patient);
-            model.addAttribute("isSelf", checkService.isSelf(patient));
-            pageHeaderService.addHeader(model);
-            return "indicators/tables/weight-table";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
+    private String whichIndicator(HttpServletRequest request) {
+        String[] parts = request.getRequestURI().split("/");
+        return parts[parts.length - 1];
     }
 
 }
