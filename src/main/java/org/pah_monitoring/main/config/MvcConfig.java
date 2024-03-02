@@ -1,12 +1,15 @@
 package org.pah_monitoring.main.config;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Setter(onMethod = @__(@Autowired))
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
