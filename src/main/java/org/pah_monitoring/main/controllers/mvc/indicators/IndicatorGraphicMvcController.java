@@ -2,6 +2,7 @@ package org.pah_monitoring.main.controllers.mvc.indicators;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import org.pah_monitoring.auxiliary.utils.UrlUtils;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientAddingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientEditingDto;
 import org.pah_monitoring.main.dto.in.users.users.patient.PatientSavingDto;
@@ -12,6 +13,7 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
+import org.pah_monitoring.main.exceptions.utils.UrlUtilsException;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.IndicatorService;
@@ -51,18 +53,12 @@ public class IndicatorGraphicMvcController {
             model.addAttribute("patient", patient);
             model.addAttribute("isSelf", checkService.isSelf(patient));
             pageHeaderService.addHeader(model);
-            return "indicators/graphics/%s-graphic".formatted(whichIndicator(request));
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
+            return "indicators/graphics/%s-graphic".formatted(UrlUtils.getLastUrlPart(request.getRequestURI()));
+        } catch (UrlValidationServiceException | DataSearchingServiceException | UrlUtilsException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
             throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
         }
-    }
-
-
-    private String whichIndicator(HttpServletRequest request) {
-        String[] parts = request.getRequestURI().split("/");
-        return parts[parts.length - 1];
     }
 
 }

@@ -27,4 +27,15 @@ public final class UrlUtils {
 
     }
 
+    public static String getLastUrlPart(String url) throws UrlUtilsException {
+
+        if (url == null || !url.contains("/")) {
+            throw new UrlUtilsException("Некорректный формат URL: \"%s\"".formatted(url));
+        }
+
+        String[] parts = url.split("/");
+        return parts[parts.length - 1];
+
+    }
+
 }
