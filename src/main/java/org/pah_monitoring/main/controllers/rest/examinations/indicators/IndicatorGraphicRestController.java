@@ -18,10 +18,7 @@ import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.
 import org.pah_monitoring.main.services.main.users.users.interfaces.common.HospitalUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -71,11 +68,12 @@ public class IndicatorGraphicRestController {
     private final BaseEntityToOutDtoListMapper<Weight, WeightGraphicDto> weightGraphicMapper;
 
     @GetMapping("/spirometry")
-    public List<SpirometryGraphicDto> getSpirometryGraphic(@PathVariable("patientId") String pathPatientId) {
+    public List<SpirometryGraphicDto> getSpirometryGraphic(@PathVariable("patientId") String pathPatientId,
+                                                           @RequestParam(value = "period", required = false) String period) {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             spirometryService.checkAccessRightsForObtaining(patient);
-            return spirometryGraphicMapper.mapList(spirometryService.findAllByPatientId(patient.getId()));
+            return spirometryGraphicMapper.mapList(spirometryService.findAllByPatientId(patient.getId(), period));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
@@ -84,11 +82,12 @@ public class IndicatorGraphicRestController {
     }
 
     @GetMapping("/walk-test")
-    public List<WalkTestGraphicDto> getWalkTestGraphic(@PathVariable("patientId") String pathPatientId) {
+    public List<WalkTestGraphicDto> getWalkTestGraphic(@PathVariable("patientId") String pathPatientId,
+                                                       @RequestParam(value = "period", required = false) String period) {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             walkTestService.checkAccessRightsForObtaining(patient);
-            return walkTestGraphicMapper.mapList(walkTestService.findAllByPatientId(patient.getId()));
+            return walkTestGraphicMapper.mapList(walkTestService.findAllByPatientId(patient.getId(), period));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
@@ -97,11 +96,12 @@ public class IndicatorGraphicRestController {
     }
 
     @GetMapping("/pulse-oximetry")
-    public List<PulseOximetryGraphicDto> getPulseOximetryGraphic(@PathVariable("patientId") String pathPatientId) {
+    public List<PulseOximetryGraphicDto> getPulseOximetryGraphic(@PathVariable("patientId") String pathPatientId,
+                                                                 @RequestParam(value = "period", required = false) String period) {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             pulseOximetryService.checkAccessRightsForObtaining(patient);
-            return pulseOximetryGraphicMapper.mapList(pulseOximetryService.findAllByPatientId(patient.getId()));
+            return pulseOximetryGraphicMapper.mapList(pulseOximetryService.findAllByPatientId(patient.getId(), period));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
@@ -110,11 +110,12 @@ public class IndicatorGraphicRestController {
     }
 
     @GetMapping("/pressure")
-    public List<PressureGraphicDto> getPressureGraphic(@PathVariable("patientId") String pathPatientId) {
+    public List<PressureGraphicDto> getPressureGraphic(@PathVariable("patientId") String pathPatientId,
+                                                       @RequestParam(value = "period", required = false) String period) {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             pressureService.checkAccessRightsForObtaining(patient);
-            return pressureGraphicMapper.mapList(pressureService.findAllByPatientId(patient.getId()));
+            return pressureGraphicMapper.mapList(pressureService.findAllByPatientId(patient.getId(), period));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
@@ -123,11 +124,12 @@ public class IndicatorGraphicRestController {
     }
 
     @GetMapping("/liquid")
-    public List<LiquidGraphicDto> getLiquidGraphic(@PathVariable("patientId") String pathPatientId) {
+    public List<LiquidGraphicDto> getLiquidGraphic(@PathVariable("patientId") String pathPatientId,
+                                                   @RequestParam(value = "period", required = false) String period) {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             liquidService.checkAccessRightsForObtaining(patient);
-            return liquidGraphicMapper.mapList(liquidService.findAllByPatientId(patient.getId()));
+            return liquidGraphicMapper.mapList(liquidService.findAllByPatientId(patient.getId(), period));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
@@ -136,11 +138,12 @@ public class IndicatorGraphicRestController {
     }
 
     @GetMapping("/weight")
-    public List<WeightGraphicDto> getWeightGraphic(@PathVariable("patientId") String pathPatientId) {
+    public List<WeightGraphicDto> getWeightGraphic(@PathVariable("patientId") String pathPatientId,
+                                                   @RequestParam(value = "period", required = false) String period) {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             weightService.checkAccessRightsForObtaining(patient);
-            return weightGraphicMapper.mapList(weightService.findAllByPatientId(patient.getId()));
+            return weightGraphicMapper.mapList(weightService.findAllByPatientId(patient.getId(), period));
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationRestControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
