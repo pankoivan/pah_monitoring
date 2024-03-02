@@ -79,6 +79,13 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
     }
 
     @Override
+    public AnalysisFile findByFilename(String filename) throws DataSearchingServiceException {
+        return repository.findByFilename(filename).orElseThrow(
+                () -> new DataSearchingServiceException("Показателя \"Файл\" с названием \"%s\" не существует".formatted(filename))
+        );
+    }
+
+    @Override
     public List<AnalysisFile> findAllByPatientId(AnalysisFile.AnalysisType analysisType, Integer patientId) throws DataSearchingServiceException {
         return repository.findAllByAnalysisTypeAndPatientId(analysisType, patientService.findById(patientId).getId());
     }

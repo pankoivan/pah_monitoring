@@ -21,6 +21,8 @@ public interface FileIndicatorService<T extends Indicator> extends IndicatorServ
 
     IndicatorCard getIndicatorCardFor(AnalysisFile.AnalysisType analysisType, Patient patient);
 
+    T findByFilename(String filename) throws DataSearchingServiceException;
+
     List<T> findAllByPatientId(AnalysisFile.AnalysisType analysisType, Integer patientId) throws DataSearchingServiceException;
 
     List<T> findAllByPatientId(AnalysisFile.AnalysisType analysisType, Integer patientId, String period) throws DataSearchingServiceException;
