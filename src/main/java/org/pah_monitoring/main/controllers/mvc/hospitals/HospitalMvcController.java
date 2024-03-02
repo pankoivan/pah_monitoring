@@ -12,7 +12,6 @@ import org.pah_monitoring.main.filtration.enums.hospitals.HospitalFiltrationProp
 import org.pah_monitoring.main.filtration.enums.hospitals.HospitalSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
-import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalService;
 import org.pah_monitoring.main.services.main.hospitals.interfaces.HospitalUserStatisticsService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,8 +33,6 @@ public class HospitalMvcController {
     private final HospitalService service;
 
     private final HospitalUserStatisticsService statisticsService;
-
-    private final CurrentUserCheckService checkService;
 
     private final PageHeaderService pageHeaderService;
 

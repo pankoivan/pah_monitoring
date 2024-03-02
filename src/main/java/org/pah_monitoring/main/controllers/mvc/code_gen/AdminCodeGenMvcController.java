@@ -27,7 +27,7 @@ public class AdminCodeGenMvcController {
         model.addAttribute("expirationDateList", ExpirationDate.values());
         model.addAttribute("roles", Role.hospitalRoles());
         pageHeaderService.addHeader(model);
-        return "admin-code-gen";
+        return "code_gen/admin-code-gen";
     }
 
 }
