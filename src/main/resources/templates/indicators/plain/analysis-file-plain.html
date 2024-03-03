@@ -19,7 +19,7 @@
         <!---->
         <div class="container text-secondary my-5">
             <!---->
-            <div class="row fs-5 mb-5">
+            <!--<div class="row fs-5 mb-5">
                 <div class="col-12">
                     <h1 class="text-center fs-3 mb-0">
                         <span th:if="${isSelf}"> Ваши файлы </span>
@@ -29,12 +29,37 @@
                         </span>
                     </h1>
                 </div>
+            </div>-->
+            <!---->
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+                        <h1 class="text-center fs-4 m-2 m-md-0">
+                            <span th:if="${isSelf}">Ваши файлы</span>
+                            <span th:if="${!isSelf}">
+                                Файлы пациента
+                                <span th:text="${patient.userInformation.fullName}" class="fw-bold">Иванов Степан Петрович</span>
+                            </span>
+                        </h1>
+                        <div class="m-1 m-md-0">
+                            <button class="btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#period" aria-expanded="false" aria-controls="period" id="period-button">Период</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!---->
             <div class="row fs-5" th:each="each, status : ${files}" th:classappend="${!status.last} ? 'mb-3'">
-                <div class="col-12">
-                    <img width="28" src="../../../static/svg/pdf.svg" th:src="@{/svg/pdf.svg}" alt="PDF" />
-                    <a href="#" th:href="@{/uploads/__${each.filename}__}" th:text="${each.filename}" class="text-secondary">Киров (1) 17-09-2019 12:58:57</a>
+                <div class="col-12 d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+                    <div class="m-2 m-md-0">
+                        <img width="28" src="../../../static/svg/pdf.svg" th:src="@{/svg/pdf.svg}" alt="PDF" />
+                        <a href="#" th:href="@{/uploads/__${each.filename}__}" th:text="${each.filename}" class="text-secondary">Киров (1) 17-09-2019 12.58.57</a>
+                    </div>
+                    <div class="m-2 m-md-0">
+                        <span th:text="${each.formattedDate}">17-09-2019 12:58:57</span>
+                    </div>
+                    <div class="m-2 m-md-0">
+                        <img width="28" src="../../../static/svg/download.svg" th:src="@{/svg/download.svg}" alt="Загрузить" />
+                    </div>
                 </div>
             </div>
             <!---->
