@@ -14,6 +14,7 @@ public class PhysicalChangesToPlainDtoMapper implements BaseEntityToOutDtoMapper
     public PhysicalChangesPlainDto map(PhysicalChanges physicalChanges) {
         return PhysicalChangesPlainDto
                 .builder()
+                .formattedDate(physicalChanges.getFormattedDate())
                 .abdominalEnlargement(hasNot(physicalChanges.getAbdominalEnlargement()))
                 .legsSwelling(physicalChanges.getLegsSwelling().getAlias())
                 .vascularAsterisks(hasNot(physicalChanges.getVascularAsterisks()))

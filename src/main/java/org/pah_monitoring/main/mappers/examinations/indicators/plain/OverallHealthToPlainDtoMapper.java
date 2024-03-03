@@ -14,6 +14,7 @@ public class OverallHealthToPlainDtoMapper implements BaseEntityToOutDtoMapper<O
     public OverallHealthPlainDto map(OverallHealth overallHealth) {
         return OverallHealthPlainDto
                 .builder()
+                .formattedDate(overallHealth.getFormattedDate())
                 .breathlessness(overallHealth.getBreathlessness().getAlias())
                 .fatigue(overallHealth.getFatigue().getAlias())
                 .restFeeling(hasNot(overallHealth.getRestFeeling()))

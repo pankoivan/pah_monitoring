@@ -8,6 +8,8 @@ import org.pah_monitoring.main.dto.out.common.interfaces.OutDto;
 @Builder
 public class OverallHealthPlainDto implements OutDto {
 
+    private String formattedDate;
+
     private String breathlessness;
 
     private String fatigue;
