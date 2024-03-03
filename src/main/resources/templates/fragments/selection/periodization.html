@@ -17,7 +17,7 @@
                             <div class="mb-auto">
                                 <div class="m-2 m-lg-0">
                                     <div class="form-check" th:each="each : ${periodsFirstPart}">
-                                        <label class="form-check-label" th:for="${each}" th:text="${each.alias}">За последние три дня</label>
+                                        <label class="form-check-label" th:for="${each}" th:text="${each.alias}">За последний день</label>
                                         <input class="form-check-input" type="radio" name="period" th:id="${each}" />
                                     </div>
                                 </div>
@@ -25,7 +25,7 @@
                             <div class="mb-auto">
                                 <div class="m-2 m-lg-0">
                                     <div class="form-check" th:each="each : ${periodsSecondPart}">
-                                        <label class="form-check-label" th:for="${each}" th:text="${each.alias}">За последние три дня</label>
+                                        <label class="form-check-label" th:for="${each}" th:text="${each.alias}">За последние две недели</label>
                                         <input class="form-check-input" type="radio" name="period" th:id="${each}" />
                                     </div>
                                 </div>
@@ -33,7 +33,7 @@
                             <div class="mb-auto">
                                 <div class="m-2 m-lg-0">
                                     <div class="form-check" th:each="each : ${periodsThirdPart}">
-                                        <label class="form-check-label" th:for="${each}" th:text="${each.alias}">За последние три дня</label>
+                                        <label class="form-check-label" th:for="${each}" th:text="${each.alias}">За всё время</label>
                                         <input class="form-check-input" type="radio" name="period" th:id="${each}" />
                                     </div>
                                 </div>
