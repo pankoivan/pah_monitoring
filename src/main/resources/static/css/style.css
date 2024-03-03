@@ -72,3 +72,11 @@
     word-wrap: break-word;
     word-break: break-all;
 }
+
+form,
+.filter {
+    hr {
+        margin-left: -16px;
+        margin-right: -16px;
+    }
+}

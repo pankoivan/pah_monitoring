@@ -19,18 +19,6 @@
         <!---->
         <div class="container text-secondary my-5">
             <!---->
-            <!--<div class="row fs-5 mb-5">
-                <div class="col-12">
-                    <h1 class="text-center fs-3 mb-0">
-                        <span th:if="${isSelf}"> Ваши файлы </span>
-                        <span th:if="${!isSelf}">
-                            Файлы пациента
-                            <span th:text="${patient.userInformation.fullName}" class="fw-bold">Иванов Степан Петрович</span>
-                        </span>
-                    </h1>
-                </div>
-            </div>-->
-            <!---->
             <div class="row text-center mb-5">
                 <div class="col-12">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
@@ -64,6 +52,12 @@
                             <img width="28" src="../../../static/svg/download.svg" th:src="@{/svg/download.svg}" alt="Загрузить" />
                         </a>
                     </div>
+                </div>
+            </div>
+            <!---->
+            <div class="row" th:if="${files.empty}" id="empty-files-message">
+                <div class="col-12">
+                    <div class="text-secondary text-center fst-italic fs-2">Список файлов пуст</div>
                 </div>
             </div>
             <!---->
