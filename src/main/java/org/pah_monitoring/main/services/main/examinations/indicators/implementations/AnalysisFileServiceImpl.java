@@ -12,6 +12,7 @@ import org.pah_monitoring.main.entities.main.enums.IndicatorType;
 import org.pah_monitoring.main.entities.main.examinations.indicators.AnalysisFile;
 import org.pah_monitoring.main.entities.main.examinations.schedules.ExaminationSchedule;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
+import org.pah_monitoring.main.exceptions.service.data.DataDownloadingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
@@ -26,6 +27,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -76,6 +79,17 @@ public class AnalysisFileServiceImpl extends AbstractIndicatorServiceImpl<Analys
                 .postFormLink(analysisType.getPostFormLink())
                 .fileLink(analysisType.getFileLink().formatted(patient.getId()))
                 .build();
+    }
+
+    @Override
+    public byte[] download(AnalysisFile analysisFile) throws DataDownloadingServiceException {
+        try {
+            return Files.readAllBytes(Paths.get(uploadPath, analysisFile.getFilename()));
+        } catch (IOException e) {
+            throw new DataDownloadingServiceException(
+                    "Произошла ошибка при скачивании файла \"%s\" с сервера".formatted(analysisFile.getFilename()), e
+            );
+        }
     }
 
     @Override

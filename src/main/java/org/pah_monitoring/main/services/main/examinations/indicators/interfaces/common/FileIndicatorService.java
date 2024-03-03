@@ -4,6 +4,7 @@ import org.pah_monitoring.main.entities.additional.indicators.IndicatorCard;
 import org.pah_monitoring.main.entities.main.examinations.indicators.AnalysisFile;
 import org.pah_monitoring.main.entities.main.examinations.indicators.common.interfaces.Indicator;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
+import org.pah_monitoring.main.exceptions.service.data.DataDownloadingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
@@ -20,6 +21,8 @@ public interface FileIndicatorService<T extends Indicator> extends IndicatorServ
     Optional<String> getScheduleFor(AnalysisFile.AnalysisType analysisType, Patient patient);
 
     IndicatorCard getIndicatorCardFor(AnalysisFile.AnalysisType analysisType, Patient patient);
+
+    byte[] download(AnalysisFile analysisFile) throws DataDownloadingServiceException;
 
     T findByFilename(String filename) throws DataSearchingServiceException;
 

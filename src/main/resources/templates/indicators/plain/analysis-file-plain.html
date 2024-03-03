@@ -58,7 +58,7 @@
                         <span th:text="${each.formattedDate}">17-09-2019 12:58:57</span>
                     </div>
                     <div class="m-2 m-md-0">
-                        <a href="#" th:href="@{/download/analysis-file/__${each.filename}__}" class="text-decoration-none">
+                        <a href="#" th:href="@{/download/__${each.filename}__}" class="text-decoration-none">
                             <img width="28" src="../../../static/svg/download.svg" th:src="@{/svg/download.svg}" alt="Загрузить" />
                         </a>
                     </div>
