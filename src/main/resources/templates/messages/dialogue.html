@@ -44,7 +44,7 @@
                 </div>
             </div>
             <!---->
-            <div th:replace="~{/fragments/filtration/filtration :: filtration}"></div>
+            <div th:replace="~{/fragments/selection/filtration :: filtration}"></div>
             <!---->
             <div class="row" th:each="each, status : ${dialogue}" th:classappend="${!status.last} ? 'mb-5'">
                 <div class="col-12">
@@ -90,7 +90,7 @@
                 </div>
             </div>
             <!---->
-            <div th:replace="~{/fragments/pagination/pagination :: pagination}"></div>
+            <div th:replace="~{/fragments/selection/pagination :: pagination}"></div>
             <!---->
         </div>
         <!---->
@@ -98,8 +98,8 @@
         <div th:replace="${recipient.isMainAdministrator || recipient.isHospitalEmployee && !recipient.isDismissed || recipient.isPatient && recipient.isActive} ? ~{/fragments/modal/success-modal :: success-modal} : ~{}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
-        <script src="../../static/js/common/get-params.js" th:src="@{/js/common/get-params.js}"></script>
-        <script src="../../static/js/common/pagination.js" th:src="@{/js/common/pagination.js}"></script>
+        <script src="../../static/js/selection/filtration.js" th:src="@{/js/selection/filtration.js}"></script>
+        <script src="../../static/js/selection/pagination.js" th:src="@{/js/selection/pagination.js}"></script>
         <script src="../../static/js/messages/dialogue.js" th:src="@{/js/messages/dialogue.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->

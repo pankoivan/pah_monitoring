@@ -4,13 +4,13 @@
         <meta charset="UTF-8" />
     </head>
     <body>
-        <div th:fragment="period" class="row">
+        <div th:fragment="periodization" class="row">
             <div class="col-12">
-                <div id="period" class="collapse">
+                <div id="filter" class="collapse">
                     <div class="filter rounded fs-6 p-3 mb-5">
                         <div class="d-flex flex-row align-items-center justify-content-between">
                             <h5 class="text-secondary fs-5 mb-0">Период</h5>
-                            <button type="button" data-bs-toggle="collapse" href="#period" class="btn-close" aria-label="Close"></button>
+                            <button type="button" data-bs-toggle="collapse" href="#filter" class="btn-close" aria-label="Close"></button>
                         </div>
                         <hr />
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-between">
@@ -41,7 +41,7 @@
                         </div>
                         <hr />
                         <div class="d-flex flex-row align-items-center justify-content-between">
-                            <button class="btn btn-primary" id="period-apply-button">Применить</button>
+                            <button class="btn btn-primary" id="filter-apply-button">Применить</button>
                             <button class="btn btn-outline-primary" type="button" id="filter-clear-button">Отменить</button>
                         </div>
                     </div>
