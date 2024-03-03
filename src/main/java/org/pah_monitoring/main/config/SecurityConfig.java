@@ -5,9 +5,9 @@ import lombok.Setter;
 import org.pah_monitoring.auxiliary.utils.UrlUtils;
 import org.pah_monitoring.main.entities.main.examinations.indicators.AnalysisFile;
 import org.pah_monitoring.main.entities.main.users.users.Patient;
+import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.utils.UrlUtilsException;
-import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.main.examinations.indicators.interfaces.common.FileIndicatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,8 +36,6 @@ public class SecurityConfig {
 
     @Qualifier("analysisFileService")
     private FileIndicatorService<AnalysisFile> analysisFileService;
-
-    private CurrentUserCheckService checkService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -101,14 +99,13 @@ public class SecurityConfig {
             }
 
             Patient patient = analysisFile.getPatient();
-            if (!(
-                    patient.isActive() && (checkService.isSelf(patient) || checkService.isOwnDoctor(patient)) ||
-                    patient.isNotActive() && checkService.isDoctorFromSameHospital(patient.getHospital())
-            )) {
+            try {
+                analysisFileService.checkAccessRightsForObtaining(patient);
+            } catch (NotEnoughRightsServiceException e) {
                 return new AuthorizationDecision(false);
-            } else {
-                return new AuthorizationDecision(true);
             }
+
+            return new AuthorizationDecision(true);
 
         };
 
