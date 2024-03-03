@@ -49,7 +49,7 @@ public class UserMessageMvcController {
         return "messages/dialogues";
     }
 
-    @GetMapping("/{recipientId}")
+    /*@GetMapping("/{recipientId}")
     public String getDialoguePage(Model model, @PathVariable("recipientId") String pathRecipientId, @RequestParam Map<String, String> parameters) {
         try {
             User recipient = searchingService.findUserByUserInformationId(service.parsePathId(pathRecipientId));
@@ -59,6 +59,24 @@ public class UserMessageMvcController {
             model.addAttribute("dialogue", service.findDialogue(recipient.getUserInformation().getId(), parameters, pageStat));
             model.addAttribute("currentPage", pageStat.getCurrentPage());
             model.addAttribute("pagesCount", pageStat.getPagesCount());
+            model.addAttribute("filtrationProperties", DialogueFiltrationProperty.values());
+            model.addAttribute("sortingProperties", DialogueSortingProperty.values());
+            pageHeaderService.addHeader(model);
+            return "messages/dialogue";
+        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
+            throw new UrlValidationMvcControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
+        }
+    }*/
+
+    @GetMapping("/{recipientId}")
+    public String getDialoguePage(Model model, @PathVariable("recipientId") String pathRecipientId) {
+        try {
+            User recipient = searchingService.findUserByUserInformationId(service.parsePathId(pathRecipientId));
+            service.checkAccessRightsForAdding(recipient);
+            model.addAttribute("recipient", recipient);
+            model.addAttribute("dialogue", service.findDialogue(recipient.getUserInformation().getId()));
             model.addAttribute("filtrationProperties", DialogueFiltrationProperty.values());
             model.addAttribute("sortingProperties", DialogueSortingProperty.values());
             pageHeaderService.addHeader(model);

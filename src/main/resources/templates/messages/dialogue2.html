@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Диалог</title>
+        <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary fs-5 my-5">
+            <!---->
+            <div class="row mb-5" th:if="${recipient.isMainAdministrator || recipient.isHospitalEmployee && !recipient.isDismissed || recipient.isPatient && recipient.isActive}">
+                <div class="col-12">
+                    <form id="message-form">
+                        <input class="visually-hidden" name="id" />
+                        <div>
+                            <label for="message" class="form-label">Текст сообщения</label>
+                            <a href="#" id="send" class="text-decoration-none">
+                                <img width="20" src="../../static/svg/send.svg" th:src="@{/svg/send.svg}" alt="Отправить" />
+                            </a>
+                            <textarea name="message" id="message" class="form-control" rows="3" placeholder="Введите текст сообщения..."></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!---->
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+                        <h1 class="fs-3 m-2 m-md-0" th:text="${recipient.userInformation.fullName}">Иванов Иван Иванович</h1>
+                        <div class="m-2 m-md-0">
+                            <button class="btn btn-lg btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filter" aria-expanded="false" aria-controls="filter" id="filter-button">Фильтр</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div th:replace="~{/fragments/selection/filtration :: filtration}"></div>
+            <!---->
+            <div class="row" th:each="each, status : ${dialogue}" th:classappend="${!status.last} ? 'mb-5'">
+                <div class="col-12">
+                    <div class="d-flex flex-row flex-wrap align-items-center justify-content-center justify-content-lg-between">
+                        <div class="mx-3 mx-lg-0" th:text="${each.authorFullName}">Вы</div>
+                        <div class="mx-3 mx-lg-0" th:text="${each.formattedDate}">19.03.2021 в 19:54:12</div>
+                    </div>
+                    <hr class="my-1" />
+                    <div th:text="${each.text}" th:attr="data-text=${each.id}" class="text-break">
+                        Товарищи! сложившаяся структура организации представляет собой интересный эксперимент проверки форм развития. Повседневная практика показывает, что новая модель организационной деятельности требуют от нас анализа системы обучения
+                        кадров, соответствует насущным потребностям.
+                    </div>
+                    <div class="d-flex flex-row flex-wrap align-items-center justify-content-between">
+                        <div>
+                            <a
+                                th:if="${(each.author.id == currentUser.userInformation.id) && (recipient.isMainAdministrator || recipient.isHospitalEmployee && !recipient.isDismissed || recipient.isPatient && recipient.isActive)}"
+                                href="#"
+                                th:attr="data-edit=${each.id}"
+                                class="text-decoration-none"
+                            >
+                                <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
+                            </a>
+                            <a
+                                th:if="${(each.author.id == currentUser.userInformation.id) && (recipient.isMainAdministrator || recipient.isHospitalEmployee && !recipient.isDismissed || recipient.isPatient && recipient.isActive)}"
+                                href="#"
+                                th:attr="data-delete=${each.id}"
+                                class="text-decoration-none"
+                            >
+                                <img width="20" src="../../static/svg/delete.svg" th:src="@{/svg/delete.svg}" alt="Удалить" />
+                            </a>
+                        </div>
+                        <div th:if="${each.formattedEditingDate != null}" class="text-end fst-italic fs-6">
+                            <span>Изм.</span>
+                            <span th:text="${each.formattedEditingDate}">21.04.2022 в 15:22:36</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div class="row" th:if="${dialogue.empty}" id="empty-dialogue-message">
+                <div class="col-12">
+                    <div class="text-secondary text-center fst-italic fs-2">Диалог пуст</div>
+                </div>
+            </div>
+            <!---->
+            <div th:replace="~{/fragments/selection/pagination :: pagination}"></div>
+            <!---->
+        </div>
+        <!---->
+        <div th:replace="${recipient.isMainAdministrator || recipient.isHospitalEmployee && !recipient.isDismissed || recipient.isPatient && recipient.isActive} ? ~{/fragments/modal/error-modal :: error-modal} : ~{}"></div>
+        <div th:replace="${recipient.isMainAdministrator || recipient.isHospitalEmployee && !recipient.isDismissed || recipient.isPatient && recipient.isActive} ? ~{/fragments/modal/success-modal :: success-modal} : ~{}"></div>
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="../../static/js/selection/filtration.js" th:src="@{/js/selection/filtration.js}"></script>
+        <script src="../../static/js/selection/pagination.js" th:src="@{/js/selection/pagination.js}"></script>
+        <script src="../../static/js/messages/dialogue.js" th:src="@{/js/messages/dialogue.js}"></script>
+        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
+    </body>
+</html>

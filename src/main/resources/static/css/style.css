@@ -80,3 +80,7 @@ form,
         margin-right: -16px;
     }
 }
+
+div::-webkit-scrollbar {
+    width: 0px;
+}
