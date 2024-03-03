@@ -31,6 +31,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.stream.Stream;
 
@@ -103,20 +104,21 @@ public class IndicatorPlainMvcController {
     }
 
     @GetMapping("/analysis-file/{concrete}")
-    public String getAnalysisFilePage(Model model, @PathVariable("patientId") String pathPatientId, @PathVariable("concrete") String concrete) {
+    public String getAnalysisFilePage(Model model,
+                                      @PathVariable("patientId") String pathPatientId,
+                                      @PathVariable("concrete") String concrete,
+                                      @RequestParam(value = "period", required = false) String period) {
         try {
             Patient patient = patientService.findById(patientService.parsePathId(pathPatientId));
             analysisFileService.checkAccessRightsForObtaining(patient);
             AnalysisFile.AnalysisType analysisType = AnalysisFile.AnalysisType.fromUrlPart(concrete);
-            model.addAttribute("name", analysisType.getName());
-            model.addAttribute("files", analysisFileService.findAllByPatientId(analysisType, patient.getId()));
+            model.addAttribute("analysisTypeName", analysisType.getName());
+            model.addAttribute("files", analysisFileService.findAllByPatientId(analysisType, patient.getId(), period));
             model.addAttribute("patient", patient);
             model.addAttribute("isSelf", checkService.isSelf(patient));
-
             model.addAttribute("periodsFirstPart", Stream.of(IndicatorService.Period.values()).skip(0).limit(3));
             model.addAttribute("periodsSecondPart", Stream.of(IndicatorService.Period.values()).skip(3).limit(3));
             model.addAttribute("periodsThirdPart", Stream.of(IndicatorService.Period.values()).skip(6).limit(3));
-
             pageHeaderService.addHeader(model);
             return "indicators/plain/analysis-file-plain";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
