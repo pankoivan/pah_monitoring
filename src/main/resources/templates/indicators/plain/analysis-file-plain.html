@@ -30,13 +30,13 @@
                             </span>
                         </h1>
                         <div class="m-1 m-md-0">
-                            <button class="btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#period" aria-expanded="false" aria-controls="period" id="period-button">Период</button>
+                            <button class="btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filter" aria-expanded="false" aria-controls="filter" id="filter-button">Период</button>
                         </div>
                     </div>
                 </div>
             </div>
             <!---->
-            <div th:replace="~{/fragments/selection/periodization :: filter}"></div>
+            <div th:replace="~{/fragments/selection/periodization :: periodization}"></div>
             <!---->
             <div class="row fs-5" th:each="each, status : ${files}" th:classappend="${!status.last} ? 'mb-3'">
                 <div class="col-12 d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
@@ -65,7 +65,8 @@
         <!---->
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
-        <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <script src="../../../static/js/selection/periodization.js" th:src="@{/js/selection/periodization.js}"></script>
+        <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>
 </html>
