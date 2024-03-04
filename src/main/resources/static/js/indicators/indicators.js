@@ -180,7 +180,7 @@ function showErrorModal(response) {
 }
 
 if (errorModal) {
-    errorModal.addEventListener("hidden.bs.modal", () => {
+    errorModal.addEventListener("hide.bs.modal", () => {
         showScheduleEditingModal();
     });
 }
