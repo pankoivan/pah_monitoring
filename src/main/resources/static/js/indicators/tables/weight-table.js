@@ -1,5 +1,7 @@
 const patientId = document.querySelector("div[data-patient]").dataset.patient;
 
+const period = new URLSearchParams(window.location.search).get("period");
+
 new gridjs.Grid({
     columns: ["Дата", "Вес (кг)", "Индекс массы тела (м/кг²)"],
     resizable: true,
@@ -31,7 +33,7 @@ new gridjs.Grid({
         error: "Произошла ошибка при получении данных с сервера",
     },
     server: {
-        url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/weight`,
+        url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/weight?period=${period}`,
         then: (weights) => weights.map((weight) => [weight.formattedDate, weight.weight, weight.bodyMassIndex]),
     },
 }).render(document.getElementById("table"));

@@ -1,5 +1,7 @@
 const patientId = document.querySelector("div[data-patient]").dataset.patient;
 
+const period = new URLSearchParams(window.location.search).get("period");
+
 new gridjs.Grid({
     columns: ["Дата", "Тип", "Продолжительность", "Нитроглицерин"],
     resizable: true,
@@ -31,7 +33,7 @@ new gridjs.Grid({
         error: "Произошла ошибка при получении данных с сервера",
     },
     server: {
-        url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/chest-pain`,
+        url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/chest-pain?period=${period}`,
         then: (chestPains) => chestPains.map((chestPain) => [chestPain.formattedDate, chestPain.type, chestPain.duration, chestPain.nitroglycerin]),
     },
 }).render(document.getElementById("table"));

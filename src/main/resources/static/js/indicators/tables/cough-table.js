@@ -1,5 +1,7 @@
 const patientId = document.querySelector("div[data-patient]").dataset.patient;
 
+const period = new URLSearchParams(window.location.search).get("period");
+
 new gridjs.Grid({
     columns: ["Дата", "Тип", "Сила", "Тембр", "Кровохарканье"],
     resizable: true,
@@ -31,7 +33,7 @@ new gridjs.Grid({
         error: "Произошла ошибка при получении данных с сервера",
     },
     server: {
-        url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/cough`,
+        url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/cough?period=${period}`,
         then: (coughs) => coughs.map((cough) => [cough.formattedDate, cough.type, cough.power, cough.timbre, cough.hemoptysis]),
     },
 }).render(document.getElementById("table"));

@@ -1,5 +1,7 @@
 const patientId = document.querySelector("div[data-patient]").dataset.patient;
 
+const period = new URLSearchParams(window.location.search).get("period");
+
 new gridjs.Grid({
     columns: [
         "Дата",
@@ -42,7 +44,7 @@ new gridjs.Grid({
         error: "Произошла ошибка при получении данных с сервера",
     },
     server: {
-        url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/walk-test`,
+        url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/walk-test?period=${period}`,
         then: (walkTests) =>
             walkTests.map((walkTest) => [
                 walkTest.formattedDate,

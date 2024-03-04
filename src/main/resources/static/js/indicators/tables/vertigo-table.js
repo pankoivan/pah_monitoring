@@ -1,5 +1,7 @@
 const patientId = document.querySelector("div[data-patient]").dataset.patient;
 
+const period = new URLSearchParams(window.location.search).get("period");
+
 new gridjs.Grid({
     columns: ["Дата", "Продолжительность", "Тошнота"],
     resizable: true,
@@ -31,7 +33,7 @@ new gridjs.Grid({
         error: "Произошла ошибка при получении данных с сервера",
     },
     server: {
-        url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/vertigo`,
+        url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/vertigo?period=${period}`,
         then: (vertigos) => vertigos.map((vertigo) => [vertigo.formattedDate, vertigo.duration, vertigo.nausea]),
     },
 }).render(document.getElementById("table"));

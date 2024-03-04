@@ -1,5 +1,7 @@
 const patientId = document.querySelector("div[data-patient]").dataset.patient;
 
+const period = new URLSearchParams(window.location.search).get("period");
+
 new gridjs.Grid({
     columns: ["Дата", "Содержание кислорода в крови (%)", "Пульс (уд/мин)", "После нагрузки"],
     resizable: true,
@@ -31,7 +33,7 @@ new gridjs.Grid({
         error: "Произошла ошибка при получении данных с сервера",
     },
     server: {
-        url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/pulse-oximetry`,
+        url: `http://localhost:8080/rest/patients/${patientId}/examinations/tables/pulse-oximetry?period=${period}`,
         then: (pulseOximetries) => pulseOximetries.map((pulseOximetry) => [pulseOximetry.formattedDate, pulseOximetry.oxygenPercentage, pulseOximetry.pulseRate, pulseOximetry.afterExercise]),
     },
 }).render(document.getElementById("table"));
