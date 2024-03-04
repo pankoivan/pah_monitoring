@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.stream.Stream;
+
 @AllArgsConstructor
 @Controller
 @RequestMapping("/patients/{patientId}/examinations/graphics")
@@ -52,6 +54,9 @@ public class IndicatorGraphicMvcController {
             model.addAttribute("periods", IndicatorService.Period.values());
             model.addAttribute("patient", patient);
             model.addAttribute("isSelf", checkService.isSelf(patient));
+            model.addAttribute("periodsFirstPart", Stream.of(IndicatorService.Period.values()).skip(0).limit(3));
+            model.addAttribute("periodsSecondPart", Stream.of(IndicatorService.Period.values()).skip(3).limit(3));
+            model.addAttribute("periodsThirdPart", Stream.of(IndicatorService.Period.values()).skip(6).limit(3));
             pageHeaderService.addHeader(model);
             return "indicators/graphics/%s-graphic".formatted(UrlUtils.getLastUrlPart(request.getRequestURI()));
         } catch (UrlValidationServiceException | DataSearchingServiceException | UrlUtilsException e) {
