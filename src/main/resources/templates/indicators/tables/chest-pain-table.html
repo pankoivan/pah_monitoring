@@ -20,13 +20,27 @@
         <!---->
         <div class="container text-secondary my-5">
             <!---->
-            <div class="row fs-5 mb-5">
-                <h1 th:if="${isSelf}" class="text-center fs-3 mb-0">Динамика вашей боли в груди</h1>
-                <h1 th:if="${!isSelf}" class="text-center fs-3 mb-0">
-                    Динамика боли в груди пациента
-                    <span th:text="${patient.userInformation.fullName}" class="fw-bold">Петров Сергей Иванович</span>
-                </h1>
+            <div class="row text-center text-md-start mb-5">
+                <div class="col-12">
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+                        <div class="m-2 mx-4 m-md-0 mx-md-0">
+                            <h1 class="fs-5 mb-0">
+                                <span th:if="${isSelf}">Динамика вашей боли в груди</span>
+                                <span th:if="${!isSelf}">Динамика боли в груди</span>
+                            </h1>
+                            <h2 th:if="${!isSelf}" class="fs-6 mb-0">
+                                Пациент
+                                <span th:text="'&laquo;' + ${patient.userInformation.fullName} + '&raquo;'" class="fw-bold">Иванов Степан Петрович</span>
+                            </h2>
+                        </div>
+                        <div class="m-1 mx-2 m-md-0 mx-md-0">
+                            <button class="btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filter" aria-expanded="false" aria-controls="filter" id="filter-button">Период</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <!---->
+            <div th:replace="~{/fragments/selection/periodization :: periodization}"></div>
             <!---->
             <div class="row">
                 <div class="col-12">
@@ -38,9 +52,10 @@
         <!---->
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
-        <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js" th:src="@{https://unpkg.com/gridjs/dist/gridjs.umd.js}"></script>
         <script src="../../../static/js/indicators/tables/chest-pain-table.js" th:src="@{/js/indicators/tables/chest-pain-table.js}"></script>
+        <script src="../../../static/js/selection/periodization.js" th:src="@{/js/selection/periodization.js}"></script>
+        <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>
 </html>
