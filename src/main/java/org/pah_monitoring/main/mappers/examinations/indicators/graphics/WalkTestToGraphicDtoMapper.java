@@ -35,7 +35,7 @@ public class WalkTestToGraphicDtoMapper implements BaseEntityToOutDtoListMapper<
                 .formattedDate(walkTest.getFormattedDate())
                 .distance(NumberUtils.round(walkTest.getDistance(), 2))
                 .numberOfStops(walkTest.getNumberOfStops())
-                .breathlessness(walkTest.getBreathlessness().getAlias())
+                .breathlessness(NumberUtils.round(walkTest.getBreathlessness().getScore(), 2))
                 .pulseOximetryBefore(pulseOximetryGraphicMapper.map(walkTest.getPulseOximetryBefore()))
                 .pulseOximetryAfter(pulseOximetryGraphicMapper.map(walkTest.getPulseOximetryAfter()))
                 .pressureBefore(pressureGraphicMapper.map(walkTest.getPressureBefore()))

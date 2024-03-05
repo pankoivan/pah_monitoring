@@ -14,7 +14,7 @@ public class WalkTestGraphicDto implements OutDto {
 
     private Integer numberOfStops;
 
-    private String breathlessness;
+    private Double breathlessness;
 
     private PulseOximetryGraphicDto pulseOximetryBefore;
 
