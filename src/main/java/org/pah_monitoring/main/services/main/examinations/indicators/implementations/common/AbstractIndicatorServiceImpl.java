@@ -45,7 +45,7 @@ public abstract class AbstractIndicatorServiceImpl<T extends Indicator> implemen
     }
 
     protected void checkHasNoDoctor() throws DataValidationServiceException {
-        if (extractionService.patient().hasNoAnamnesis()) {
+        if (extractionService.patient().hasNoDoctor()) {
             throw new DataValidationServiceException("""
                     Вы не можете отправлять результаты наблюдений, так как на данный момент за вами не закреплён ни\
                      один врач. Ожидайте, пока администраторы назначат вам какого-нибудь врача, или обратитесь к ним\
