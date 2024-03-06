@@ -1,11 +1,13 @@
 const patientId = document.querySelector("div[data-patient]").dataset.patient;
 
+const period = new URLSearchParams(window.location.search).get("period");
+
 document.addEventListener("DOMContentLoaded", () => {
     fetchInit();
 });
 
 function fetchInit() {
-    fetch(`http://localhost:8080/rest/patients/${patientId}/examinations/graphics/pressure`, {
+    fetch(`http://localhost:8080/rest/patients/${patientId}/examinations/graphics/pressure?period=${period}`, {
         method: "GET",
         headers: {
             Accept: "application/json",
@@ -50,8 +52,6 @@ function beforeExercisePressureTable(pressures) {
 }
 
 function afterExercisePressureTable(pressures) {
-    console.log(pressures);
-    console.log(pressures[0]);
     new Chart(document.getElementById("after"), {
         type: "line",
         data: {
