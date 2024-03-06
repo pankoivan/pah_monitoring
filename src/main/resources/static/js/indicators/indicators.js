@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function schedulesInit() {
-    fetch("http://localhost:8080/rest/schedules/get/for/" + patientId, {
+    fetch(`http://localhost:8080/rest/schedules/get/for/${patientId}`, {
         method: "GET",
         headers: {
             Accept: "application/json",
@@ -50,7 +50,9 @@ function modalsInit() {
 }
 
 function addScheduleObjectEventListeners(edit) {
-    edit.addEventListener("click", () => {
+    edit.addEventListener("click", (event) => {
+        event.preventDefault();
+
         refreshScheduleEditingForm();
 
         const schedule = schedules.get(edit.dataset.edit);
