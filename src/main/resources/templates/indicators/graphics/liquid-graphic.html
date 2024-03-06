@@ -29,7 +29,7 @@
                             </h1>
                             <h2 th:if="${!isSelf}" class="fs-6 mb-0">
                                 Пациент
-                                <span th:text="'&laquo;' + ${patient.userInformation.fullName} + '&raquo;'" class="fw-bold">Иванов Степан Петрович</span>
+                                <span th:text="${patient.userInformation.fullName}" class="fw-bold">Иванов Степан Петрович</span>
                             </h2>
                         </div>
                         <div class="m-1 mx-2 m-md-0 mx-md-0">
