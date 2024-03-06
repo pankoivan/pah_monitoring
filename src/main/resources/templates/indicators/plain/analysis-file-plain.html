@@ -4,8 +4,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title th:if="${isSelf}">Ваши файлы</title>
-        <title th:if="${!isSelf}" th:text="'Файлы пациента &laquo;' + ${patient.userInformation.fullName}">Файлы пациента "Иванов Степан Петрович"</title>
+        <title th:if="${isSelf}" th:text="${analysisTypeName}">Развёрнутый анализ крови</title>
+        <title th:if="${!isSelf}" th:text="${analysisTypeName} + ' пациента &laquo;' + ${patient.userInformation.fullName} + '&raquo;'">Развёрнутый анализ крови пациента "Иванов Степан Петрович"</title>
         <link href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
         <link href="../../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
         <link rel="apple-touch-icon" sizes="180x180" href="../../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
@@ -19,17 +19,20 @@
         <!---->
         <div class="container text-secondary my-5">
             <!---->
-            <div class="row text-center mb-5">
+            <div class="row text-center text-md-start mb-5">
                 <div class="col-12">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
-                        <h1 class="text-center fs-4 m-2 m-md-0">
-                            <span th:if="${isSelf}">Ваши файлы</span>
-                            <span th:if="${!isSelf}">
-                                Файлы пациента
+                        <div class="m-2 mx-4 m-md-0 mx-md-0">
+                            <h1 class="fs-5 mb-0">
+                                <span th:if="${isSelf}" th:text="${analysisTypeName}">Развёрнутый анализ крови</span>
+                                <span th:if="${!isSelf}">Развёрнутый анализ крови</span>
+                            </h1>
+                            <h2 th:if="${!isSelf}" class="fs-6 mb-0">
+                                Пациент
                                 <span th:text="${patient.userInformation.fullName}" class="fw-bold">Иванов Степан Петрович</span>
-                            </span>
-                        </h1>
-                        <div class="m-1 m-md-0">
+                            </h2>
+                        </div>
+                        <div class="m-1 mx-2 m-md-0 mx-md-0">
                             <button class="btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filter" aria-expanded="false" aria-controls="filter" id="filter-button">Период</button>
                         </div>
                     </div>
@@ -45,11 +48,11 @@
                         <a href="#" th:href="@{/uploads/__${each.filename}__}" th:text="${each.filename}" class="text-secondary">Киров (1) 17-09-2019 12.58.57</a>
                     </div>
                     <div class="m-2 m-md-0">
-                        <span th:text="${each.formattedDate}">17-09-2019 12:58:57</span>
+                        <span th:text="${each.formattedDate}">17-09-2019 в 12:58:57</span>
                     </div>
                     <div class="m-2 m-md-0">
                         <a href="#" th:href="@{/download/__${each.filename}__}" class="text-decoration-none">
-                            <img width="28" src="../../../static/svg/download.svg" th:src="@{/svg/download.svg}" alt="Загрузить" />
+                            <img width="28" src="../../../static/svg/download.svg" th:src="@{/svg/download.svg}" alt="Скачать" />
                         </a>
                     </div>
                 </div>
@@ -57,7 +60,7 @@
             <!---->
             <div class="row" th:if="${files.empty}" id="empty-files-message">
                 <div class="col-12">
-                    <div class="text-secondary text-center fst-italic fs-2">Список файлов пуст</div>
+                    <div class="text-secondary text-center fst-italic fs-3">Список файлов пуст</div>
                 </div>
             </div>
             <!---->
