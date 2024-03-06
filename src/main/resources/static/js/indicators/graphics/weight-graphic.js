@@ -44,6 +44,16 @@ function weightGraphic(weights) {
                 },
             ],
         },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 80,
+                        minRotation: 80,
+                    },
+                },
+            },
+        },
     });
 }
 
@@ -62,6 +72,16 @@ function bodyMassIndexGraphic(weights) {
                     borderColor: "rgba(255, 99, 132, 1)",
                 },
             ],
+        },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 80,
+                        minRotation: 80,
+                    },
+                },
+            },
         },
     });
 }

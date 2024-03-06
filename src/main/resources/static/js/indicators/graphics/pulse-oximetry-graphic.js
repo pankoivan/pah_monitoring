@@ -46,6 +46,16 @@ function pulseRateBeforeExerciseGraphic(pulseOximetries) {
                 },
             ],
         },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 80,
+                        minRotation: 80,
+                    },
+                },
+            },
+        },
     });
 }
 
@@ -64,6 +74,16 @@ function oxygenPercentageBeforeExerciseGraphic(pulseOximetries) {
                     borderColor: "rgba(255, 99, 132, 1)",
                 },
             ],
+        },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 80,
+                        minRotation: 80,
+                    },
+                },
+            },
         },
     });
 }
@@ -84,6 +104,16 @@ function pulseRateAfterExerciseGraphic(pulseOximetries) {
                 },
             ],
         },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 80,
+                        minRotation: 80,
+                    },
+                },
+            },
+        },
     });
 }
 
@@ -102,6 +132,16 @@ function oxygenPercentageAfterExerciseGraphic(pulseOximetries) {
                     borderColor: "rgba(75, 192, 192, 1)",
                 },
             ],
+        },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 80,
+                        minRotation: 80,
+                    },
+                },
+            },
         },
     });
 }

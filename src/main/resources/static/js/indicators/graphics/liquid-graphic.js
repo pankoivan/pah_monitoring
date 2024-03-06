@@ -41,6 +41,16 @@ function liquidGraphic(liquids) {
                 },
             ],
         },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 80,
+                        minRotation: 80,
+                    },
+                },
+            },
+        },
     });
 }
 

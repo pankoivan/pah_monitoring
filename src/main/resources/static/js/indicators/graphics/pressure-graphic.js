@@ -48,6 +48,16 @@ function beforeExerciseGraphic(pressures) {
                 },
             ],
         },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 80,
+                        minRotation: 80,
+                    },
+                },
+            },
+        },
     });
 }
 
@@ -74,6 +84,16 @@ function afterExerciseGraphic(pressures) {
                     borderColor: "rgba(153, 102, 255, 1)",
                 },
             ],
+        },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 80,
+                        minRotation: 80,
+                    },
+                },
+            },
         },
     });
 }

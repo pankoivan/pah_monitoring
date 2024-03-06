@@ -66,6 +66,16 @@ function volumesGraphic(spirometries) {
                 },
             ],
         },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 80,
+                        minRotation: 80,
+                    },
+                },
+            },
+        },
     });
 }
 
@@ -84,6 +94,16 @@ function tiffnoIndexGraphic(spirometries) {
                     borderColor: "rgba(153, 102, 255, 1)",
                 },
             ],
+        },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 80,
+                        minRotation: 80,
+                    },
+                },
+            },
         },
     });
 }
