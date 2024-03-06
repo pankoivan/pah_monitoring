@@ -13,7 +13,7 @@ public interface Indicator extends BaseEntity {
     LocalDateTime getDate();
 
     default String getFormattedDate() {
-        return DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(getDate());
+        return DateTimeFormatConstants.DAY_MONTH_YEAR_COMMA_HOUR_MINUTE.format(getDate());
     }
 
 }
