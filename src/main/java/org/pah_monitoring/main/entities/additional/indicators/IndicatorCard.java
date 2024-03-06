@@ -25,7 +25,7 @@ public abstract class IndicatorCard {
 
     public String getFormattedDate() {
         return date != null
-                ? DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(date)
+                ? DateTimeFormatConstants.DAY_MONTH_YEAR_COMMA_HOUR_MINUTE.format(date)
                 : null;
     }
 
