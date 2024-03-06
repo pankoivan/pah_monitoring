@@ -12,7 +12,7 @@ public abstract class ExaminationScheduleSavingDto {
     @NotNull(message = "Поле \"schedule\" не должно отсутствовать")
     @NotEmpty(message = "Расписание не должно быть пустым")
     @NotBlank(message = "Расписание не должно состоять только из пробельных символов")
-    @Size(min = 5, max = 24, message = "Минимальная длина расписания - 5 символов, максимальная - 24 символа")
+    @Size(min = 5, max = 32, message = "Минимальная длина расписания - 5 символов, максимальная - 32 символа")
     private String schedule;
 
 }
