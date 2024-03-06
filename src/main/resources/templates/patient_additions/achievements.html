@@ -22,32 +22,37 @@
             <!---->
             <div class="row fs-5 mb-3" th:if="${patient == null}">
                 <div class="col-12">
-                    <h1 class="text-center fs-3 mb-3">Награды</h1>
-                    <p th:if="${currentUser.isPatient}">На этой странице приведён полный список всех наград, которые вы можете получить за определённые достижения.</p>
-                    <p th:if="${currentUser.isPatient}">Например, за отправку анамнеза вы получите награду "Историк", за первую отправку показателя "Т6МХ" - награду "Прогулка", за 50 отправок любых показателей - награду "Упорный".</p>
-                    <p th:if="${!currentUser.isPatient}">На этой странице приведён полный список всех наград, которые автоматически вручаются пациенту системой за определённые достижения.</p>
-                    <p th:if="${!currentUser.isPatient}">Например, за отправку анамнеза пациент получит награду "Историк", за первую отправку показателя "Т6МХ" - награду "Прогулка", за 50 отправок любых показателей - награду "Упорный".</p>
+                    <h1 class="text-center fs-4 mb-3">Награды</h1>
+                    <p th:if="${currentUser.isPatient}">
+                        На этой странице приведён полный список всех наград, которые вы можете получить за определённые достижения. Например, за отправку анамнеза вы получите награду "Историк", за первую отправку показателя "Т6МХ" - награду "Прогулка", за
+                        50 отправок любых показателей - награду "Упорный".
+                    </p>
+                    <p th:if="${!currentUser.isPatient}">
+                        На этой странице приведён полный список всех наград, которые автоматически вручаются пациенту системой за определённые достижения. Например, за отправку анамнеза пациент получит награду "Историк", за первую отправку показателя
+                        "Т6МХ" - награду "Прогулка", за 50 отправок любых показателей - награду "Упорный".
+                    </p>
                 </div>
             </div>
             <!---->
-            <div class="row fs-5 mb-5" th:if="${patient != null}">
+            <div class="row text-center fs-5 mb-5" th:if="${patient != null}">
                 <div class="col-12">
-                    <h1 class="text-center fs-3 mb-0">
+                    <h1 class="fs-4 mb-0">
                         <span th:if="${isSelf}">Ваши награды</span>
-                        <span th:if="${!isSelf}">
-                            Награды пациента
-                            <span th:text="${patient.userInformation.fullName}" class="fw-bold">Иванов Сергей Петрович</span>
-                        </span>
+                        <span th:if="${!isSelf}">Награды</span>
                     </h1>
+                    <h2 th:if="${!isSelf}" class="fs-5 mb-0">
+                        Пациент
+                        <span th:text="${patient.userInformation.fullName}" class="fw-bold">Иванов Степан Петрович</span>
+                    </h2>
                 </div>
             </div>
             <!---->
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center g-5" th:if="${!achievements.isEmpty}">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center fs-5 g-5" th:if="${!achievements.isEmpty}">
                 <div class="col mx-auto" th:each="each : ${achievements}">
                     <div class="border rounded p-3">
                         <h4 class="fs-4 mb-3" th:text="${each.name}">Награда</h4>
                         <div class="mb-3">
-                            <img src="../../static/img/achievements/1.png" th:src="@{/img/achievements/__${each.filename}__}" width="96" alt="Награда" />
+                            <img src="../../static/img/achievements/1.png" th:src="@{/img/achievements/__${each.filename}__}" width="124" alt="Награда" />
                         </div>
                         <p class="mb-0" th:text="${each.description}">Выдаётся за какие-то заслуги</p>
                     </div>
@@ -56,7 +61,7 @@
             <!---->
             <div class="row" th:if="${achievements.isEmpty}" id="empty-achievements-message">
                 <div class="col-12">
-                    <div class="text-secondary text-center fst-italic fs-2">Пока что не заработано ни одной награды</div>
+                    <div class="text-secondary text-center fst-italic fs-3">Пока что нет ни одной награды</div>
                 </div>
             </div>
             <!---->
