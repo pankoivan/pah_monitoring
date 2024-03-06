@@ -16,8 +16,8 @@ function fetchInit() {
         .then((response) => {
             if (response.ok) {
                 response.json().then((pressures) => {
-                    pressureGraphicBeforeExercise(pressures);
-                    pressureGraphicAfterExercise(pressures);
+                    beforeExerciseGraphic(pressures);
+                    afterExerciseGraphic(pressures);
                 });
             } else {
                 console.error("Ошибка сервера");
@@ -28,7 +28,7 @@ function fetchInit() {
         });
 }
 
-function pressureGraphicBeforeExercise(pressures) {
+function beforeExerciseGraphic(pressures) {
     new Chart(document.getElementById("before"), {
         type: "line",
         data: {
@@ -51,7 +51,7 @@ function pressureGraphicBeforeExercise(pressures) {
     });
 }
 
-function pressureGraphicAfterExercise(pressures) {
+function afterExerciseGraphic(pressures) {
     new Chart(document.getElementById("after"), {
         type: "line",
         data: {

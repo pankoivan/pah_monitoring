@@ -16,10 +16,10 @@ function fetchInit() {
         .then((response) => {
             if (response.ok) {
                 response.json().then((pulseOximetries) => {
-                    pulseRateBeforeExercise(pulseOximetries);
-                    oxygenPercentageBeforeExercise(pulseOximetries);
-                    pulseRateAfterExercise(pulseOximetries);
-                    oxygenPercentageAfterExercise(pulseOximetries);
+                    pulseRateBeforeExerciseGraphic(pulseOximetries);
+                    oxygenPercentageBeforeExerciseGraphic(pulseOximetries);
+                    pulseRateAfterExerciseGraphic(pulseOximetries);
+                    oxygenPercentageAfterExerciseGraphic(pulseOximetries);
                 });
             } else {
                 console.error("Ошибка сервера");
@@ -30,7 +30,7 @@ function fetchInit() {
         });
 }
 
-function pulseRateBeforeExercise(pulseOximetries) {
+function pulseRateBeforeExerciseGraphic(pulseOximetries) {
     new Chart(document.getElementById("pulseRateBefore"), {
         type: "line",
         data: {
@@ -49,7 +49,7 @@ function pulseRateBeforeExercise(pulseOximetries) {
     });
 }
 
-function oxygenPercentageBeforeExercise(pulseOximetries) {
+function oxygenPercentageBeforeExerciseGraphic(pulseOximetries) {
     new Chart(document.getElementById("oxygenPercentageBefore"), {
         type: "line",
         data: {
@@ -68,7 +68,7 @@ function oxygenPercentageBeforeExercise(pulseOximetries) {
     });
 }
 
-function pulseRateAfterExercise(pulseOximetries) {
+function pulseRateAfterExerciseGraphic(pulseOximetries) {
     new Chart(document.getElementById("pulseRateAfter"), {
         type: "line",
         data: {
@@ -87,7 +87,7 @@ function pulseRateAfterExercise(pulseOximetries) {
     });
 }
 
-function oxygenPercentageAfterExercise(pulseOximetries) {
+function oxygenPercentageAfterExerciseGraphic(pulseOximetries) {
     new Chart(document.getElementById("oxygenPercentageAfter"), {
         type: "line",
         data: {
