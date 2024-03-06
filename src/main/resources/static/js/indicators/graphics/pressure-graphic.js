@@ -32,17 +32,17 @@ function pressureGraphicBeforeExercise(pressures) {
     new Chart(document.getElementById("before"), {
         type: "line",
         data: {
-            labels: pressureDate(pressuresBeforeExercise(pressures)),
+            labels: date(beforeExercise(pressures)),
             datasets: [
                 {
                     label: "Верхнее давление (мм рт. ст.)",
-                    data: pressureUpper(pressuresBeforeExercise(pressures)),
+                    data: upper(beforeExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
                 },
                 {
                     label: "Нижнее давление (мм рт. ст.)",
-                    data: pressureLower(pressuresBeforeExercise(pressures)),
+                    data: lower(beforeExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
                 },
@@ -55,11 +55,11 @@ function pressureGraphicAfterExercise(pressures) {
     new Chart(document.getElementById("after"), {
         type: "line",
         data: {
-            labels: pressureDate(pressuresAfterExercise(pressures)),
+            labels: date(afterExercise(pressures)),
             datasets: [
                 {
                     label: "Верхнее давление (мм рт. ст.)",
-                    data: pressureUpper(pressuresAfterExercise(pressures)),
+                    data: upper(afterExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
                     backgroundColor: "rgba(75, 192, 192, 0.2)",
@@ -67,7 +67,7 @@ function pressureGraphicAfterExercise(pressures) {
                 },
                 {
                     label: "Нижнее давление (мм рт. ст.)",
-                    data: pressureLower(pressuresAfterExercise(pressures)),
+                    data: lower(afterExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
                     backgroundColor: "rgba(153, 102, 255, 0.2)",
@@ -78,22 +78,22 @@ function pressureGraphicAfterExercise(pressures) {
     });
 }
 
-function pressuresBeforeExercise(pressures) {
+function beforeExercise(pressures) {
     return pressures.filter((pressure) => pressure.afterExercise == false);
 }
 
-function pressuresAfterExercise(pressures) {
+function afterExercise(pressures) {
     return pressures.filter((pressure) => pressure.afterExercise == true);
 }
 
-function pressureUpper(pressures) {
+function upper(pressures) {
     return pressures.map((pressure) => pressure.upper);
 }
 
-function pressureLower(pressures) {
+function lower(pressures) {
     return pressures.map((pressure) => pressure.lower);
 }
 
-function pressureDate(pressures) {
+function date(pressures) {
     return pressures.map((pressure) => pressure.formattedDate);
 }

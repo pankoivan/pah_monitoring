@@ -31,11 +31,11 @@ function liquidGraphic(liquids) {
     new Chart(document.getElementById("liquid"), {
         type: "line",
         data: {
-            labels: liquidDate(liquids),
+            labels: date(liquids),
             datasets: [
                 {
                     label: "Количество жидкости в день (л)",
-                    data: liquidLiquid(liquids),
+                    data: liquid(liquids),
                     borderWidth: 1,
                     tension: 0.1,
                 },
@@ -44,10 +44,10 @@ function liquidGraphic(liquids) {
     });
 }
 
-function liquidLiquid(liquids) {
+function liquid(liquids) {
     return liquids.map((liquid) => liquid.liquid);
 }
 
-function liquidDate(liquids) {
+function date(liquids) {
     return liquids.map((liquid) => liquid.formattedDate);
 }
