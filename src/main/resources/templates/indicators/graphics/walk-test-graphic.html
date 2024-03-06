@@ -19,24 +19,55 @@
         <!---->
         <div class="container text-secondary my-5">
             <!---->
-            <div class="row fs-5 mb-5" th:attr="data-patient=${patient.id}">
-                <h1 th:if="${isSelf}" class="text-center fs-3 mb-0">Динамика вашего Т6МХ</h1>
-                <h1 th:if="${!isSelf}" class="text-center fs-3 mb-0">
-                    Динамика Т6МХ пациента
-                    <span th:text="${patient.userInformation.fullName}" class="fw-bold">Петров Сергей Иванович</span>
-                </h1>
+            <div class="row text-center text-md-start mb-5">
+                <div class="col-12">
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+                        <div class="m-2 mx-4 m-md-0 mx-md-0">
+                            <h1 class="fs-5 mb-0">
+                                <span th:if="${isSelf}">Динамика вашего Т6МХ</span>
+                                <span th:if="${!isSelf}">Динамика Т6МХ</span>
+                            </h1>
+                            <h2 th:if="${!isSelf}" class="fs-6 mb-0">
+                                Пациент
+                                <span th:text="${patient.userInformation.fullName}" class="fw-bold">Иванов Степан Петрович</span>
+                            </h2>
+                        </div>
+                        <div class="m-1 mx-2 m-md-0 mx-md-0">
+                            <button class="btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filter" aria-expanded="false" aria-controls="filter" id="filter-button">Период</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!---->
-            <div class="row mb-5">
-                <div class="col-12 col-lg-6">
-                    <h5 class="text-secondary fs-4 mb-3">До нагрузки</h5>
-                    <canvas id="oxygenPercentageBefore"></canvas>
-                    <canvas id="pulseRateBefore"></canvas>
+            <div th:replace="~{/fragments/selection/periodization :: periodization}"></div>
+            <!---->
+            <div class="row text-center mb-3">
+                <div class="col-12">
+                    <h5 class="text-secondary fs-5 mb-0">Общие результаты</h5>
                 </div>
-                <div class="col-12 col-lg-6">
-                    <h5 class="text-secondary fs-4 mb-3">После нагрузки</h5>
+            </div>
+            <!---->
+            <div class="row text-center mb-5" th:attr="data-patient=${patient.id}">
+                <div class="col-12 col-lg-6 mx-auto mb-3 mb-lg-0">
+                    <canvas id="distance"></canvas>
+                </div>
+                <div class="col-12 col-lg-6 mx-auto">
+                    <canvas id="breathlessness"></canvas>
+                </div>
+            </div>
+            <!---->
+            <div class="row text-center">
+                <div class="col-12 col-lg-6 mx-auto mb-5 mb-lg-0">
+                    <h5 class="text-secondary fs-5 mb-3">До нагрузки</h5>
+                    <canvas id="pressureBefore" class="mb-3"></canvas>
+                    <canvas id="pulseRateBefore" class="mb-3"></canvas>
+                    <canvas id="oxygenPercentageBefore"></canvas>
+                </div>
+                <div class="col-12 col-lg-6 mx-auto">
+                    <h5 class="text-secondary fs-5 mb-3">После нагрузки</h5>
+                    <canvas id="pressureAfter" class="mb-3"></canvas>
+                    <canvas id="pulseRateAfter" class="mb-3"></canvas>
                     <canvas id="oxygenPercentageAfter"></canvas>
-                    <canvas id="pulseRateAfter"></canvas>
                 </div>
             </div>
             <!---->
@@ -44,9 +75,10 @@
         <!---->
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
-        <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js" th:src="@{https://cdn.jsdelivr.net/npm/chart.js}"></script>
         <script src="../../../static/js/indicators/graphics/walk-test-graphic.js" th:src="@{/js/indicators/graphics/walk-test-graphic.js}"></script>
+        <script src="../../../static/js/selection/periodization.js" th:src="@{/js/selection/periodization.js}"></script>
+        <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>
 </html>
