@@ -16,8 +16,8 @@ function fetchInit() {
         .then((response) => {
             if (response.ok) {
                 response.json().then((pressures) => {
-                    beforeExercisePressureTable(pressures);
-                    afterExercisePressureTable(pressures);
+                    pressureGraphicBeforeExercise(pressures);
+                    pressureGraphicAfterExercise(pressures);
                 });
             } else {
                 console.error("Ошибка сервера");
@@ -28,21 +28,21 @@ function fetchInit() {
         });
 }
 
-function beforeExercisePressureTable(pressures) {
+function pressureGraphicBeforeExercise(pressures) {
     new Chart(document.getElementById("before"), {
         type: "line",
         data: {
-            labels: spirometryDate(pressuresBeforeExercise(pressures)),
+            labels: pressureDate(pressuresBeforeExercise(pressures)),
             datasets: [
                 {
                     label: "Верхнее давление до нагрузки (мм рт. ст.)",
-                    data: spirometryVlc(pressuresBeforeExercise(pressures)),
+                    data: pressureUpper(pressuresBeforeExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
                 },
                 {
                     label: "Нижнее давление до нагрузки (мм рт. ст.)",
-                    data: spirometryRlc(pressuresBeforeExercise(pressures)),
+                    data: pressureLower(pressuresBeforeExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
                 },
@@ -51,21 +51,21 @@ function beforeExercisePressureTable(pressures) {
     });
 }
 
-function afterExercisePressureTable(pressures) {
+function pressureGraphicAfterExercise(pressures) {
     new Chart(document.getElementById("after"), {
         type: "line",
         data: {
-            labels: spirometryDate(pressuresAfterExercise(pressures)),
+            labels: pressureDate(pressuresAfterExercise(pressures)),
             datasets: [
                 {
                     label: "Верхнее давление после нагрузки (мм рт. ст.)",
-                    data: spirometryVlc(pressuresAfterExercise(pressures)),
+                    data: pressureUpper(pressuresAfterExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
                 },
                 {
                     label: "Нижнее давление после нагрузки (мм рт. ст.)",
-                    data: spirometryRlc(pressuresAfterExercise(pressures)),
+                    data: pressureLower(pressuresAfterExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
                 },
@@ -82,14 +82,14 @@ function pressuresAfterExercise(pressures) {
     return pressures.filter((pressure) => pressure.afterExercise == true);
 }
 
-function spirometryVlc(pressures) {
+function pressureUpper(pressures) {
     return pressures.map((pressure) => pressure.upper);
 }
 
-function spirometryRlc(pressures) {
+function pressureLower(pressures) {
     return pressures.map((pressure) => pressure.lower);
 }
 
-function spirometryDate(pressures) {
+function pressureDate(pressures) {
     return pressures.map((pressure) => pressure.formattedDate);
 }

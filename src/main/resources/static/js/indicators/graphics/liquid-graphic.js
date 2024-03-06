@@ -1,11 +1,13 @@
 const patientId = document.querySelector("div[data-patient]").dataset.patient;
 
+const period = new URLSearchParams(window.location.search).get("period");
+
 document.addEventListener("DOMContentLoaded", () => {
     fetchInit();
 });
 
 function fetchInit() {
-    fetch(`http://localhost:8080/rest/patients/${patientId}/examinations/graphics/liquid`, {
+    fetch(`http://localhost:8080/rest/patients/${patientId}/examinations/graphics/liquid?period=${period}`, {
         method: "GET",
         headers: {
             Accept: "application/json",
@@ -14,7 +16,7 @@ function fetchInit() {
         .then((response) => {
             if (response.ok) {
                 response.json().then((liquids) => {
-                    liquidTable(liquids);
+                    liquidGraphic(liquids);
                 });
             } else {
                 console.error("Ошибка сервера");
@@ -25,7 +27,7 @@ function fetchInit() {
         });
 }
 
-function liquidTable(liquids) {
+function liquidGraphic(liquids) {
     new Chart(document.getElementById("liquid"), {
         type: "line",
         data: {
