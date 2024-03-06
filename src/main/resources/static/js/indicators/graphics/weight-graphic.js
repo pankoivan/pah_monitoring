@@ -1,11 +1,13 @@
 const patientId = document.querySelector("div[data-patient]").dataset.patient;
 
+const period = new URLSearchParams(window.location.search).get("period");
+
 document.addEventListener("DOMContentLoaded", () => {
     fetchInit();
 });
 
 function fetchInit() {
-    fetch(`http://localhost:8080/rest/patients/${patientId}/examinations/graphics/weight`, {
+    fetch(`http://localhost:8080/rest/patients/${patientId}/examinations/graphics/weight?period=${period}`, {
         method: "GET",
         headers: {
             Accept: "application/json",
@@ -14,8 +16,8 @@ function fetchInit() {
         .then((response) => {
             if (response.ok) {
                 response.json().then((weights) => {
-                    weightTable(weights);
-                    bodyMassIndexTable(weights);
+                    weightGraphic(weights);
+                    bodyMassIndexGraphic(weights);
                 });
             } else {
                 console.error("Ошибка сервера");
@@ -26,48 +28,54 @@ function fetchInit() {
         });
 }
 
-function weightTable(weights) {
+function weightGraphic(weights) {
     new Chart(document.getElementById("weight"), {
         type: "line",
         data: {
-            labels: weightDate(weights),
+            labels: date(weights),
             datasets: [
                 {
                     label: "Вес (кг)",
-                    data: weightWeight(weights),
+                    data: weight(weights),
                     borderWidth: 1,
                     tension: 0.1,
+                    backgroundColor: "rgba(54, 162, 235, 0.2)",
+                    borderColor: "rgba(54, 162, 235, 1)",
+                    backgroundColor: "rgba(255, 99, 132, 0.2)",
+                    borderColor: "rgba(255, 99, 132, 1)",
                 },
             ],
         },
     });
 }
 
-function bodyMassIndexTable(weights) {
+function bodyMassIndexGraphic(weights) {
     new Chart(document.getElementById("bodyMassIndex"), {
         type: "line",
         data: {
-            labels: weightDate(weights),
+            labels: date(weights),
             datasets: [
                 {
                     label: "Индекс массы тела (кг/м²)",
-                    data: weightBodyMassIndex(weights),
+                    data: bodyMassIndex(weights),
                     borderWidth: 1,
                     tension: 0.1,
+                    backgroundColor: "rgba(255, 99, 132, 0.2)",
+                    borderColor: "rgba(255, 99, 132, 1)",
                 },
             ],
         },
     });
 }
 
-function weightWeight(weights) {
+function weight(weights) {
     return weights.map((weight) => weight.weight);
 }
 
-function weightBodyMassIndex(weights) {
+function bodyMassIndex(weights) {
     return weights.map((weight) => weight.bodyMassIndex);
 }
 
-function weightDate(weights) {
+function date(weights) {
     return weights.map((weight) => weight.formattedDate);
 }
