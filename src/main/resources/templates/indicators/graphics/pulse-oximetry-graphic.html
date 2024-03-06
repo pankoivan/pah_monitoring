@@ -42,15 +42,15 @@
             <div th:replace="~{/fragments/selection/periodization :: periodization}"></div>
             <!---->
             <div class="row text-center" th:attr="data-patient=${patient.id}">
-                <div class="col-12 col-lg-6 text-center">
-                    <h5 class="text-secondary fs-4 mb-3">До нагрузки</h5>
-                    <canvas class="text-center" id="oxygenPercentageBefore"></canvas>
-                    <canvas class="text-center" id="pulseRateBefore"></canvas>
+                <div class="col-12 col-lg-6 mx-auto mb-5 mb-lg-0">
+                    <h5 class="text-secondary fs-5 mb-3">До нагрузки</h5>
+                    <canvas id="pulseRateBefore" class="mb-3"></canvas>
+                    <canvas id="oxygenPercentageBefore"></canvas>
                 </div>
-                <div class="col-12 col-lg-6 text-center">
-                    <h5 class="text-secondary fs-4 mb-3">После нагрузки</h5>
-                    <canvas class="text-center" id="oxygenPercentageAfter"></canvas>
-                    <canvas class="text-center" id="pulseRateAfter"></canvas>
+                <div class="col-12 col-lg-6 mx-auto">
+                    <h5 class="text-secondary fs-5 mb-3">После нагрузки</h5>
+                    <canvas id="pulseRateAfter" class="mb-3"></canvas>
+                    <canvas id="oxygenPercentageAfter"></canvas>
                 </div>
             </div>
             <!---->

@@ -1,11 +1,13 @@
 const patientId = document.querySelector("div[data-patient]").dataset.patient;
 
+const period = new URLSearchParams(window.location.search).get("period");
+
 document.addEventListener("DOMContentLoaded", () => {
     fetchInit();
 });
 
 function fetchInit() {
-    fetch(`http://localhost:8080/rest/patients/${patientId}/examinations/graphics/pulse-oximetry`, {
+    fetch(`http://localhost:8080/rest/patients/${patientId}/examinations/graphics/pulse-oximetry?period=${period}`, {
         method: "GET",
         headers: {
             Accept: "application/json",
@@ -14,10 +16,10 @@ function fetchInit() {
         .then((response) => {
             if (response.ok) {
                 response.json().then((pulseOximetries) => {
-                    beforeExerciseOxygenPercentagePulseOximetryTable(pulseOximetries);
-                    beforeExercisePulseRatePulseOximetryTable(pulseOximetries);
-                    afterExerciseOxygenPercentagePulseOximetryTable(pulseOximetries);
-                    afterExercisePulseRatePulseOximetryTable(pulseOximetries);
+                    pulseRateBeforeExercise(pulseOximetries);
+                    oxygenPercentageBeforeExercise(pulseOximetries);
+                    pulseRateAfterExercise(pulseOximetries);
+                    oxygenPercentageAfterExercise(pulseOximetries);
                 });
             } else {
                 console.error("Ошибка сервера");
@@ -28,90 +30,98 @@ function fetchInit() {
         });
 }
 
-function beforeExerciseOxygenPercentagePulseOximetryTable(pulseOximetries) {
-    new Chart(document.getElementById("oxygenPercentageBefore"), {
-        type: "line",
-        data: {
-            labels: pulseOximetryDate(pulseOximetryBeforeExercise(pulseOximetries)),
-            datasets: [
-                {
-                    label: "Содержание кислорода в крови (%)",
-                    data: pulseOximetryOxygenPercentage(pulseOximetryBeforeExercise(pulseOximetries)),
-                    borderWidth: 1,
-                    tension: 0.1,
-                },
-            ],
-        },
-    });
-}
-
-function beforeExercisePulseRatePulseOximetryTable(pulseOximetries) {
+function pulseRateBeforeExercise(pulseOximetries) {
     new Chart(document.getElementById("pulseRateBefore"), {
         type: "line",
         data: {
-            labels: pulseOximetryDate(pulseOximetryBeforeExercise(pulseOximetries)),
+            labels: date(beforeExercise(pulseOximetries)),
             datasets: [
                 {
                     label: "Пульс (уд/мин)",
-                    data: pulseOximetryPulseRate(pulseOximetryBeforeExercise(pulseOximetries)),
+                    data: pulseRate(beforeExercise(pulseOximetries)),
                     borderWidth: 1,
                     tension: 0.1,
+                    backgroundColor: "rgba(54, 162, 235, 0.2)",
+                    borderColor: "rgba(54, 162, 235, 1)",
                 },
             ],
         },
     });
 }
 
-function afterExerciseOxygenPercentagePulseOximetryTable(pulseOximetries) {
-    new Chart(document.getElementById("oxygenPercentageAfter"), {
+function oxygenPercentageBeforeExercise(pulseOximetries) {
+    new Chart(document.getElementById("oxygenPercentageBefore"), {
         type: "line",
         data: {
-            labels: pulseOximetryDate(pulseOximetryAfterExercise(pulseOximetries)),
+            labels: date(beforeExercise(pulseOximetries)),
             datasets: [
                 {
                     label: "Содержание кислорода в крови (%)",
-                    data: pulseOximetryOxygenPercentage(pulseOximetryAfterExercise(pulseOximetries)),
+                    data: oxygenPercentage(beforeExercise(pulseOximetries)),
                     borderWidth: 1,
                     tension: 0.1,
+                    backgroundColor: "rgba(255, 99, 132, 0.2)",
+                    borderColor: "rgba(255, 99, 132, 1)",
                 },
             ],
         },
     });
 }
 
-function afterExercisePulseRatePulseOximetryTable(pulseOximetries) {
+function pulseRateAfterExercise(pulseOximetries) {
     new Chart(document.getElementById("pulseRateAfter"), {
         type: "line",
         data: {
-            labels: pulseOximetryDate(pulseOximetryAfterExercise(pulseOximetries)),
+            labels: date(afterExercise(pulseOximetries)),
             datasets: [
                 {
                     label: "Пульс (уд/мин)",
-                    data: pulseOximetryPulseRate(pulseOximetryAfterExercise(pulseOximetries)),
+                    data: pulseRate(afterExercise(pulseOximetries)),
                     borderWidth: 1,
                     tension: 0.1,
+                    backgroundColor: "rgba(153, 102, 255, 0.2)",
+                    borderColor: "rgba(153, 102, 255, 1)",
                 },
             ],
         },
     });
 }
 
-function pulseOximetryBeforeExercise(pulseOximetries) {
+function oxygenPercentageAfterExercise(pulseOximetries) {
+    new Chart(document.getElementById("oxygenPercentageAfter"), {
+        type: "line",
+        data: {
+            labels: date(afterExercise(pulseOximetries)),
+            datasets: [
+                {
+                    label: "Содержание кислорода в крови (%)",
+                    data: oxygenPercentage(afterExercise(pulseOximetries)),
+                    borderWidth: 1,
+                    tension: 0.1,
+                    backgroundColor: "rgba(75, 192, 192, 0.2)",
+                    borderColor: "rgba(75, 192, 192, 1)",
+                },
+            ],
+        },
+    });
+}
+
+function beforeExercise(pulseOximetries) {
     return pulseOximetries.filter((pulseOximetry) => pulseOximetry.afterExercise == false);
 }
 
-function pulseOximetryAfterExercise(pulseOximetries) {
+function afterExercise(pulseOximetries) {
     return pulseOximetries.filter((pulseOximetry) => pulseOximetry.afterExercise == true);
 }
 
-function pulseOximetryOxygenPercentage(pulseOximetries) {
+function oxygenPercentage(pulseOximetries) {
     return pulseOximetries.map((pulseOximetry) => pulseOximetry.oxygenPercentage);
 }
 
-function pulseOximetryPulseRate(pulseOximetries) {
+function pulseRate(pulseOximetries) {
     return pulseOximetries.map((pulseOximetry) => pulseOximetry.pulseRate);
 }
 
-function pulseOximetryDate(pulseOximetries) {
+function date(pulseOximetries) {
     return pulseOximetries.map((pulseOximetry) => pulseOximetry.formattedDate);
 }
