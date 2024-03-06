@@ -35,13 +35,13 @@ function pressureGraphicBeforeExercise(pressures) {
             labels: pressureDate(pressuresBeforeExercise(pressures)),
             datasets: [
                 {
-                    label: "Верхнее давление до нагрузки (мм рт. ст.)",
+                    label: "Верхнее давление (мм рт. ст.)",
                     data: pressureUpper(pressuresBeforeExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
                 },
                 {
-                    label: "Нижнее давление до нагрузки (мм рт. ст.)",
+                    label: "Нижнее давление (мм рт. ст.)",
                     data: pressureLower(pressuresBeforeExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
@@ -58,13 +58,13 @@ function pressureGraphicAfterExercise(pressures) {
             labels: pressureDate(pressuresAfterExercise(pressures)),
             datasets: [
                 {
-                    label: "Верхнее давление после нагрузки (мм рт. ст.)",
+                    label: "Верхнее давление (мм рт. ст.)",
                     data: pressureUpper(pressuresAfterExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
                 },
                 {
-                    label: "Нижнее давление после нагрузки (мм рт. ст.)",
+                    label: "Нижнее давление (мм рт. ст.)",
                     data: pressureLower(pressuresAfterExercise(pressures)),
                     borderWidth: 1,
                     tension: 0.1,
