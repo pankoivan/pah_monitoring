@@ -19,15 +19,16 @@
         <!---->
         <div class="container text-secondary my-5">
             <!---->
-            <div class="row fs-5 mb-5">
+            <div class="row text-center mb-5">
                 <div class="col-12">
-                    <h1 class="text-center fs-3 mb-0">
+                    <h1 class="fs-4 mb-0">
                         <span th:if="${isSelf}">Ваш анамнез</span>
-                        <span th:if="${!isSelf}">
-                            Анамнез пациента
-                            <span th:text="${patient.userInformation.fullName}" class="fw-bold">Иванов Степан Петрович</span>
-                        </span>
+                        <span th:if="${!isSelf}">Анамнез</span>
                     </h1>
+                    <h2 th:if="${!isSelf}" class="fs-5 mb-0">
+                        Пациент
+                        <span th:text="${patient.userInformation.fullName}" class="fw-bold">Иванов Степан Петрович</span>
+                    </h2>
                 </div>
             </div>
             <!---->
