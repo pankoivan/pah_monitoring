@@ -19,6 +19,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoMapper;
+import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserExtractionService;
 import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchingService;
 import org.pah_monitoring.main.services.main.users.messages.interfaces.UserMessageService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,6 +37,8 @@ public class UserMessageRestController {
 
     private final UserSearchingService searchingService;
 
+    private final CurrentUserExtractionService extractionService;
+
     @Qualifier("userMessageMapper")
     private final BaseEntityToOutDtoMapper<UserMessage, UserMessageOutDto> userMessageMapper;
 
@@ -43,7 +46,11 @@ public class UserMessageRestController {
     public UserMessageOutDto getById(@PathVariable("id") String pathId) {
         try {
             UserMessage message = service.findById(service.parsePathId(pathId));
-            service.checkAccessRightsForAdding(searchingService.findUserByUserInformationId(message.getRecipient().getId()));
+            if (extractionService.user().getUserInformation().equals(message.getAuthor())) {
+                return userMessageMapper.map(message);
+            } else {
+                service.checkAccessRightsForAdding(searchingService.findUserByUserInformationId(message.getAuthor().getId()));
+            }
             return userMessageMapper.map(message);
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);

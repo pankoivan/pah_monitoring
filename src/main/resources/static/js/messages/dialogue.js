@@ -134,7 +134,7 @@ function scrollDown() {
 
 // -------------------------------------------------- WebSocket --------------------------------------------------
 
-function fetchGet(id) {
+/*function onReceived(id) {
     fetch(`http://localhost:8080/rest/messages/${id}`, {
         method: "GET",
         headers: {
@@ -160,10 +160,10 @@ function fetchGet(id) {
         .catch((error) => {
             console.error("Ошибка запроса", error);
         });
-}
+}*/
 
 const onMessageReceived = (msg) => {
-    console.log("Уведомление!!!");
+    /*console.log("Уведомление!!!");
     console.log(msg);
     const imem = document.createElement("div");
     imem.classList = "border p-2 rounded bg-indicator";
@@ -171,11 +171,64 @@ const onMessageReceived = (msg) => {
     const message = document.createElement("div");
     message.classList = "col-12 mt-2";
     message.appendChild(imem);
-    document.getElementById("messenger").appendChild(message);
+    document.getElementById("messenger").appendChild(message);*/
+    /*if (msg.messageState == "ADDED") {
+    } else if (msg.messageState == "EDITED") {
+    } else if (msg.messageState == "DELETED") {
+    }*/
+    /*console.log(msg);
+    console.log("MESSAGE: " + msg);
+    console.log("DATA", msg.body);
+    console.log("BYBY: " + JSON.parse(msg.body).messageId);
+    const [headersStr, bodyStr] = msg.split("\n\n");
+    console.log("BODY: " + bodyStr);
+    const abc = JSON.parse(bodyStr);
+    console.log("BODYJSON: " + abc);*/
+    const body = JSON.parse(msg.body);
+    fetch(`http://localhost:8080/rest/messages/${body.messageId}`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+        },
+    })
+        .then((response) => {
+            if (response.ok) {
+                response.json().then((responseJson) => {
+                    console.log("RESPONSE: " + responseJson);
+                    /*const imem = document.createElement("div");
+                    imem.classList = "border p-2 rounded bg-indicator";
+                    imem.textContent = responseJson.text;
+                    const message = document.createElement("div");
+                    message.classList = "col-12 mt-2";
+                    message.appendChild(imem);
+                    document.getElementById("messenger").appendChild(message);
+                    scrollDown();*/
+                    if (body.messageState == "ADDED") {
+                        const message = document.createElement("div");
+                        message.classList = "border p-2 rounded bg-indicator";
+                        message.textContent = responseJson.text;
+                        const column = document.createElement("div");
+                        column.classList = "col-12 mt-2";
+                        column.appendChild(message);
+                        console.log("COLUMN: " + column);
+                        document.getElementById("messenger").appendChild(column);
+                        scrollDown();
+                    } else if (body.messageState == "EDITED") {
+                    } else if (body.messageState == "DELETED") {
+                    }
+                });
+            } else {
+                console.error("Ошибка сервера");
+            }
+        })
+        .catch((error) => {
+            console.error("Ошибка запроса", error);
+        });
 };
 
 const onConnected = () => {
     stompClient.subscribe(`/recipient/${authorId}/messages`, onMessageReceived);
+    stompClient.subscribe(`/recipient/${recipientId}/messages`, onMessageReceived);
 };
 
 const onError = () => {
