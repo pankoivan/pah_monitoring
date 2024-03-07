@@ -32,10 +32,11 @@ public class DialogueFilter extends AbstractEntityFilter<UserMessageOutDto> {
     @Override
     public Stream<UserMessageOutDto> filtered(Stream<UserMessageOutDto> messages, String filtration) {
         Optional<DialogueFiltrationProperty> filtrationProperty = DialogueFiltrationProperty.optionalValueOf(filtration);
-        return filtrationProperty.map(dialogueFiltrationProperty -> switch (dialogueFiltrationProperty) {
+        /*return filtrationProperty.map(dialogueFiltrationProperty -> switch (dialogueFiltrationProperty) {
             case AUTHOR -> messages.filter(message -> checkService.isSelf(message.getAuthor()));
             case RECIPIENT -> messages.filter(message -> !checkService.isSelf(message.getAuthor()));
-        }).orElse(messages);
+        }).orElse(messages);*/
+        return null;
     }
 
     @Override

@@ -24,7 +24,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row messenger mb-5">
+            <div class="row messenger mb-5" id="messenger">
                 <div class="col-12" th:each="each, status : ${dialogue}" th:classappend="${!status.last} ? 'mb-2'">
                     <!--<div class="d-flex flex-row flex-wrap align-items-center justify-content-center justify-content-lg-between">
                         <div class="mx-3 mx-lg-0" th:text="${each.authorFullName}">Вы</div>
@@ -50,9 +50,9 @@
                 </div>
             </div>
             <!---->
-            <div class="row">
+            <div class="row" th:attr="data-author=${currentUser.userInformation.id}">
                 <div class="col-12">
-                    <form id="message-form" class="border rounded p-3 bg-indicator">
+                    <form action="#" method="post" id="message-form" class="border rounded p-3 bg-indicator">
                         <input class="visually-hidden" name="id" />
                         <div class="d-flex flex-row align-items-center">
                             <textarea name="message" id="message" class="form-control flex-grow-1 me-2" rows="1" placeholder="Текст сообщения..."></textarea>
@@ -70,6 +70,7 @@
         <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js}"></script>
         <script src="../../static/js/messages/dialogue.js" th:src="@{/js/messages/dialogue.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
