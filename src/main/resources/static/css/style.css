@@ -2,6 +2,8 @@
     --my-bg-form: #f2f3f5;
     --my-bg-indicator: #f2f3f5;
     --my-bg-filter: #f2f3f5;
+    --my-bg-message-author: #f2f5f8;
+    --my-bg-message-recipient: #f1f9ef;
 }
 
 .bg-main {
@@ -84,8 +86,21 @@ form,
 .messenger {
     max-height: 60vh;
     overflow-y: auto;
+    background-image: url("/svg/pattern.svg");
+}
+
+.messenger-form {
+    background-image: url("/svg/pattern.svg");
 }
 
 .messenger::-webkit-scrollbar {
     width: 0px;
+}
+
+.bg-message-author {
+    background-color: var(--my-bg-message-author);
+}
+
+.bg-message-recipient {
+    background-color: var(--my-bg-message-recipient);
 }
