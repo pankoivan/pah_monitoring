@@ -30,7 +30,7 @@
                     <hr class="my-2" />
                     <div th:each="each, status : ${recipients}" th:classappend="${!status.last} ? 'mb-3'">
                         <img width="24" src="../../static/svg/profile.svg" th:src="@{/svg/profile.svg}" alt="Получатель" />
-                        <a href="#" th:href="@{/messages?recipientId=__${each.userInformation.id}__}" class="text-secondary text-decoration-none" th:text="${each.userInformation.fullName}">Петров Иван Ильич</a>
+                        <a href="#" th:href="@{/messages?recipientId=__${each.id}__}" class="text-secondary text-decoration-none" th:text="${each.fullName}">Петров Иван Ильич</a>
                     </div>
                 </div>
                 <div class="messenger-messages-area border rounded p-2" th:classappend="${param.recipientId} ? 'col-12 col-md-9' : 'col-9 d-none d-md-block'">

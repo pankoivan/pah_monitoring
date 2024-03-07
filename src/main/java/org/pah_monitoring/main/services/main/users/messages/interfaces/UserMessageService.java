@@ -4,6 +4,7 @@ import org.pah_monitoring.main.dto.in.users.messages.UserMessageAddingDto;
 import org.pah_monitoring.main.dto.in.users.messages.UserMessageEditingDto;
 import org.pah_monitoring.main.dto.in.users.messages.UserMessageSavingDto;
 import org.pah_monitoring.main.dto.out.users.messages.UserMessageOutDto;
+import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.entities.main.users.messages.UserMessage;
 import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -24,7 +25,7 @@ public interface UserMessageService extends
 
     UserMessage findById(Integer id) throws DataSearchingServiceException;
 
-    List<User> findAllRecipients();
+    List<UserInformation> findAllRecipients();
 
     List<UserMessageOutDto> findAllMessagesFor(Integer recipientId) throws DataSearchingServiceException;
 

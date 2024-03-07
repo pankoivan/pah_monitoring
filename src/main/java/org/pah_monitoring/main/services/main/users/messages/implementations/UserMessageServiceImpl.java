@@ -20,7 +20,6 @@ import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoListM
 import org.pah_monitoring.main.repositorites.users.messages.UserMessageRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserExtractionService;
-import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchingService;
 import org.pah_monitoring.main.services.main.users.info.interfaces.UserInformationService;
 import org.pah_monitoring.main.services.main.users.messages.interfaces.UserMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -40,8 +41,6 @@ public class UserMessageServiceImpl implements UserMessageService {
     private final UserMessageRepository repository;
 
     private UserInformationService userInformationService;
-
-    private UserSearchingService searchingService;
 
     private CurrentUserExtractionService extractionService;
 
@@ -58,7 +57,7 @@ public class UserMessageServiceImpl implements UserMessageService {
     }
 
     @Override
-    public List<User> findAllRecipients() {
+    public List<UserInformation> findAllRecipients() {
 
         Set<UserInformation> userInfoRecipients = repository
                 .findAllByAuthorId(extractionService.user().getUserInformation().getId())
@@ -74,7 +73,7 @@ public class UserMessageServiceImpl implements UserMessageService {
 
         userInfoRecipients.addAll(userInfoAuthors);
 
-        return map(userInfoRecipients);
+        return userInfoRecipients.stream().toList();
 
     }
 
@@ -199,22 +198,6 @@ public class UserMessageServiceImpl implements UserMessageService {
         if (!checkService.isSelf(author)) {
             throw new NotEnoughRightsServiceException("Недостаточно прав");
         }
-    }
-
-    private List<User> map(Collection<UserInformation> userInformations) {
-        List<User> users = new ArrayList<>();
-        for (UserInformation info : userInformations) {
-            User recipient;
-            try {
-                recipient = searchingService.findUserByUserInformationId(info.getId());
-            } catch (DataSearchingServiceException e) {
-                recipient = null;
-            }
-            if (recipient != null) {
-                users.add(recipient);
-            }
-        }
-        return users;
     }
 
     private List<UserMessageOutDto> defaultDialogueSorting(List<UserMessageOutDto> messages) {
