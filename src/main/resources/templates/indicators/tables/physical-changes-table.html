@@ -42,9 +42,19 @@
             <!---->
             <div th:replace="~{/fragments/selection/periodization :: periodization}"></div>
             <!---->
-            <div class="row">
+            <div class="row mb-5">
                 <div class="col-12">
                     <div id="table" th:attr="data-patient=${patient.id}"></div>
+                </div>
+            </div>
+            <!---->
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="fs-5">Примечание</h4>
+                    <div class="fs-6">
+                        Эта таблица предназначена для удобной навигации по сданным в разное время показателям "Физические изменения", а непосредственно результаты удобнее просматривать в виде отдельных анкет, так как этот показатель содержит в себе много
+                        длинных вопросов с односложными ответами.
+                    </div>
                 </div>
             </div>
             <!---->
