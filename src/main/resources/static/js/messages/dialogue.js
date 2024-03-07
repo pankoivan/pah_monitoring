@@ -166,28 +166,19 @@ function scrollDown() {
 }*/
 
 const onMessageReceived = (msg) => {
-    /*console.log("Уведомление!!!");
-    console.log(msg);
-    const imem = document.createElement("div");
-    imem.classList = "border p-2 rounded bg-indicator";
-    imem.textContent = "Буб уббу буб убуб уб у";
-    const message = document.createElement("div");
-    message.classList = "col-12 mt-2";
-    message.appendChild(imem);
-    document.getElementById("messenger").appendChild(message);*/
-    /*if (msg.messageState == "ADDED") {
-    } else if (msg.messageState == "EDITED") {
-    } else if (msg.messageState == "DELETED") {
-    }*/
-    /*console.log(msg);
-    console.log("MESSAGE: " + msg);
-    console.log("DATA", msg.body);
-    console.log("BYBY: " + JSON.parse(msg.body).messageId);
-    const [headersStr, bodyStr] = msg.split("\n\n");
-    console.log("BODY: " + bodyStr);
-    const abc = JSON.parse(bodyStr);
-    console.log("BODYJSON: " + abc);*/
     const body = JSON.parse(msg.body);
+    if (body.authorId == recipientId || body.authorId == authorId) {
+        if (body.messageState == "ADDED") {
+            whenSaved(body);
+        } else if (body.messageState == "EDITED") {
+            whenSaved(body);
+        } else if (body.messageState == "DELETED") {
+            whenDeleted(body);
+        }
+    }
+};
+
+function whenSaved(body) {
     fetch(`http://localhost:8080/rest/messages/${body.messageId}`, {
         method: "GET",
         headers: {
@@ -197,33 +188,10 @@ const onMessageReceived = (msg) => {
         .then((response) => {
             if (response.ok) {
                 response.json().then((responseJson) => {
-                    console.log("RESPONSE: " + responseJson);
-                    /*const imem = document.createElement("div");
-                    imem.classList = "border p-2 rounded bg-indicator";
-                    imem.textContent = responseJson.text;
-                    const message = document.createElement("div");
-                    message.classList = "col-12 mt-2";
-                    message.appendChild(imem);
-                    document.getElementById("messenger").appendChild(message);
-                    scrollDown();*/
-                    console.log("body.authorId = " + body.authorId);
-                    console.log("recipientId = " + recipientId);
-                    console.log("body.authorId = " + body.authorId);
-                    console.log("authorId = " + authorId);
-                    if (body.authorId == recipientId || body.authorId == authorId) {
-                        if (body.messageState == "ADDED") {
-                            const message = document.createElement("div");
-                            message.classList = "border p-2 rounded bg-indicator";
-                            message.textContent = responseJson.text;
-                            const column = document.createElement("div");
-                            column.classList = "col-12 mt-2";
-                            column.appendChild(message);
-                            console.log("COLUMN: " + column);
-                            document.getElementById("messenger").appendChild(column);
-                            scrollDown();
-                        } else if (body.messageState == "EDITED") {
-                        } else if (body.messageState == "DELETED") {
-                        }
+                    if (body.messageState == "ADDED") {
+                        whenAdded(responseJson, body);
+                    } else if (body.messageState == "EDITED") {
+                        whenEdited(responseJson, body);
                     }
                 });
             } else {
@@ -233,7 +201,27 @@ const onMessageReceived = (msg) => {
         .catch((error) => {
             console.error("Ошибка запроса", error);
         });
-};
+}
+
+function whenAdded(responseJson, body) {
+    const message = document.createElement("div");
+    message.classList = "border p-2 rounded bg-indicator";
+    message.textContent = responseJson.text;
+    const column = document.createElement("div");
+    column.classList = "col-12 mt-2";
+    column.appendChild(message);
+    console.log("COLUMN: " + column);
+    document.getElementById("messenger").appendChild(column);
+    scrollDown();
+}
+
+function whenEdited(responseJson, body) {
+    // later
+}
+
+function whenDeleted(body) {
+    // later
+}
 
 const onConnected = () => {
     stompClient.subscribe(`/recipient/${authorId}/messages`, onMessageReceived);
