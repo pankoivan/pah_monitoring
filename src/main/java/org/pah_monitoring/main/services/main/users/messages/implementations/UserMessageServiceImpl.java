@@ -110,12 +110,6 @@ public class UserMessageServiceImpl implements UserMessageService {
     }
 
     @Override
-    public List<UserMessageOutDto> findDialogue(Integer recipientId, Map<String, String> parameters, EntityFilter.PageStat pageStat)
-            throws DataSearchingServiceException {
-        return dialogueFilter.apply(findDialogue(recipientId), parameters, pageStat);
-    }
-
-    @Override
     public UserMessage add(UserMessageAddingDto addingDto) throws DataSavingServiceException {
         try {
             return repository.save(

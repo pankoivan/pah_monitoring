@@ -32,9 +32,6 @@ public interface UserMessageService extends
 
     List<UserMessageOutDto> findDialogue(Integer recipientId) throws DataSearchingServiceException;
 
-    List<UserMessageOutDto> findDialogue(Integer recipientId, Map<String, String> parameters, EntityFilter.PageStat pageStat)
-            throws DataSearchingServiceException;
-
     UserMessage add(UserMessageAddingDto addingDto) throws DataSavingServiceException;
 
     UserMessage edit(UserMessageEditingDto editingDto) throws DataSavingServiceException;

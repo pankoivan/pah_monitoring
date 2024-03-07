@@ -7,8 +7,6 @@ import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControl
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
-import org.pah_monitoring.main.filtration.enums.messages.DialogueFiltrationProperty;
-import org.pah_monitoring.main.filtration.enums.messages.DialogueSortingProperty;
 import org.pah_monitoring.main.filtration.enums.messages.DialoguesFiltrationProperty;
 import org.pah_monitoring.main.filtration.enums.messages.DialoguesSortingProperty;
 import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
@@ -49,27 +47,6 @@ public class UserMessageMvcController {
         return "messages/dialogues";
     }
 
-    /*@GetMapping("/{recipientId}")
-    public String getDialoguePage(Model model, @PathVariable("recipientId") String pathRecipientId, @RequestParam Map<String, String> parameters) {
-        try {
-            User recipient = searchingService.findUserByUserInformationId(service.parsePathId(pathRecipientId));
-            service.checkAccessRightsForAdding(recipient);
-            model.addAttribute("recipient", recipient);
-            EntityFilter.PageStat pageStat = new EntityFilter.PageStat();
-            model.addAttribute("dialogue", service.findDialogue(recipient.getUserInformation().getId(), parameters, pageStat));
-            model.addAttribute("currentPage", pageStat.getCurrentPage());
-            model.addAttribute("pagesCount", pageStat.getPagesCount());
-            model.addAttribute("filtrationProperties", DialogueFiltrationProperty.values());
-            model.addAttribute("sortingProperties", DialogueSortingProperty.values());
-            pageHeaderService.addHeader(model);
-            return "messages/dialogue";
-        } catch (UrlValidationServiceException | DataSearchingServiceException e) {
-            throw new UrlValidationMvcControllerException(e.getMessage(), e);
-        } catch (NotEnoughRightsServiceException e) {
-            throw new NotEnoughRightsMvcControllerException(e.getMessage(), e);
-        }
-    }*/
-
     @GetMapping("/{recipientId}")
     public String getDialoguePage(Model model, @PathVariable("recipientId") String pathRecipientId) {
         try {
@@ -77,8 +54,6 @@ public class UserMessageMvcController {
             service.checkAccessRightsForAdding(recipient);
             model.addAttribute("recipient", recipient);
             model.addAttribute("dialogue", service.findDialogue(recipient.getUserInformation().getId()));
-            model.addAttribute("filtrationProperties", DialogueFiltrationProperty.values());
-            model.addAttribute("sortingProperties", DialogueSortingProperty.values());
             pageHeaderService.addHeader(model);
             return "messages/dialogue";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
