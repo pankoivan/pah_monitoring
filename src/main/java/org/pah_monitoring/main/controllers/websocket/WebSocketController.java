@@ -21,6 +21,7 @@ public class WebSocketController {
     @Data
     public static class Notification {
         private Integer messageId;
+        private Integer authorId;
         private Integer recipientId;
         private String messageState;
     }

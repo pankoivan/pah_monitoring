@@ -2,7 +2,7 @@ const messageForm = document.getElementById("message-form");
 
 const recipientId = Number(window.location.pathname.split("/").pop());
 
-const authorId = document.querySelector("div[data-author]").dataset.author;
+const authorId = Number(document.querySelector("div[data-author]").dataset.author);
 
 let isAdding = true;
 
@@ -60,6 +60,7 @@ function fetchAdd(data) {
                 response.json().then((responseJson) => {
                     sendNotification({
                         messageId: responseJson.id,
+                        authorId: authorId,
                         recipientId: recipientId,
                         messageState: "ADDED",
                     });
@@ -87,6 +88,7 @@ function fetchEdit(data) {
                 response.json().then((responseJson) => {
                     sendNotification({
                         messageId: responseJson.id,
+                        authorId: authorId,
                         recipientId: recipientId,
                         messageState: "EDITED",
                     });
@@ -108,6 +110,7 @@ function fetchDelete(id) {
             if (response.ok) {
                 sendNotification({
                     messageId: id,
+                    authorId: authorId,
                     recipientId: recipientId,
                     messageState: "DELETED",
                 });
@@ -203,18 +206,24 @@ const onMessageReceived = (msg) => {
                     message.appendChild(imem);
                     document.getElementById("messenger").appendChild(message);
                     scrollDown();*/
-                    if (body.messageState == "ADDED") {
-                        const message = document.createElement("div");
-                        message.classList = "border p-2 rounded bg-indicator";
-                        message.textContent = responseJson.text;
-                        const column = document.createElement("div");
-                        column.classList = "col-12 mt-2";
-                        column.appendChild(message);
-                        console.log("COLUMN: " + column);
-                        document.getElementById("messenger").appendChild(column);
-                        scrollDown();
-                    } else if (body.messageState == "EDITED") {
-                    } else if (body.messageState == "DELETED") {
+                    console.log("body.authorId = " + body.authorId);
+                    console.log("recipientId = " + recipientId);
+                    console.log("body.authorId = " + body.authorId);
+                    console.log("authorId = " + authorId);
+                    if (body.authorId == recipientId || body.authorId == authorId) {
+                        if (body.messageState == "ADDED") {
+                            const message = document.createElement("div");
+                            message.classList = "border p-2 rounded bg-indicator";
+                            message.textContent = responseJson.text;
+                            const column = document.createElement("div");
+                            column.classList = "col-12 mt-2";
+                            column.appendChild(message);
+                            console.log("COLUMN: " + column);
+                            document.getElementById("messenger").appendChild(column);
+                            scrollDown();
+                        } else if (body.messageState == "EDITED") {
+                        } else if (body.messageState == "DELETED") {
+                        }
                     }
                 });
             } else {
@@ -240,5 +249,5 @@ stompClient = Stomp.over(socket);
 stompClient.connect({}, onConnected, onError);
 
 function sendNotification(notification) {
-    stompClient.send("/app/messenger", {}, JSON.stringify(notification));
+    stompClient.send(`/app/messenger`, {}, JSON.stringify(notification));
 }
