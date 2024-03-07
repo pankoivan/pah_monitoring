@@ -42,9 +42,13 @@ public class UserMessageRestController {
     @GetMapping("/{id}")
     public UserMessageOutDto getById(@PathVariable("id") String pathId) {
         try {
-            return userMessageMapper.map(service.findById(service.parsePathId(pathId)));
+            UserMessage message = service.findById(service.parsePathId(pathId));
+            service.checkAccessRightsForAdding(searchingService.findUserByUserInformationId(message.getRecipient().getId()));
+            return userMessageMapper.map(message);
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new DataValidationRestControllerException(e.getMessage(), e);
+        } catch (NotEnoughRightsServiceException e) {
+            throw new NotEnoughRightsRestControllerException(e.getMessage(), e);
         }
     }
 
