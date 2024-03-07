@@ -40,10 +40,10 @@
                             <span th:if="${each.isActive && (param.patientId == null || !currentUser.isAdministrator || !each.isDoctor)}" class="text-success text-lowercase fs-6">Активен</span>
                             <span th:if="${each.isActive && param.patientId != null && currentUser.isAdministrator && each.isDoctor}">
                                 <a href="#" th:if="${!each.hasPatientById(param.patientId)}" class="text-decoration-none" th:attr="data-doctor-assign=${each.id}">
-                                    <img width="24" class="mb-1" src="../../static/svg/assign-to-doctor.svg" th:src="@{/svg/assign-to-doctor.svg}" alt="Назначить" />
+                                    <img width="24" class="mb-1" src="../../static/svg/accept.svg" th:src="@{/svg/accept.svg}" alt="Назначить" />
                                 </a>
                                 <a href="#" th:if="${each.hasPatientById(param.patientId)}" class="text-decoration-none" th:attr="data-doctor-remove=${each.id}">
-                                    <img width="24" class="mb-1" src="../../static/svg/remove-from-doctor.svg" th:src="@{/svg/remove-from-doctor.svg}" alt="Открепить" />
+                                    <img width="24" class="mb-1" src="../../static/svg/decline.svg" th:src="@{/svg/decline.svg}" alt="Открепить" />
                                 </a>
                             </span>
                             <span th:if="${each.isNotActive}" class="text-danger text-lowercase fs-6" th:text="${each.currentInactivity.get.shortInactivityMessage}">На больничном</span>

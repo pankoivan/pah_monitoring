@@ -85,11 +85,11 @@
                         <p th:case="'WAITING_CODE'" class="fs-6 mb-0">
                             <span>Ожидает вашего решения:</span>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#code-generation-modal" class="text-decoration-none">
-                                <img width="24" src="../../static/svg/assign-to-doctor.svg" th:src="@{/svg/assign-to-doctor.svg}" alt="Принять" />
+                                <img width="24" src="../../static/svg/accept.svg" th:src="@{/svg/accept.svg}" alt="Принять" />
                             </a>
                             <span class="fw-bold"> / </span>
                             <a href="#" class="text-decoration-none">
-                                <img width="24" src="../../static/svg/remove-from-doctor.svg" th:src="@{/svg/remove-from-doctor.svg}" alt="Отклонить" id="decline-request" />
+                                <img width="24" src="../../static/svg/decline.svg" th:src="@{/svg/decline.svg}" alt="Отклонить" id="decline-request" />
                             </a>
                         </p>
                         <p th:case="'WAITING_REGISTRATION'" class="fs-6 mb-0">
