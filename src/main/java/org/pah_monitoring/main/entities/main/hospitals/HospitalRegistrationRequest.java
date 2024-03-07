@@ -54,7 +54,7 @@ public class HospitalRegistrationRequest implements BaseEntity {
     private Hospital hospital;
 
     public String getFormattedDate() {
-        return DateTimeFormatConstants.DAY_MONTH_YEAR_WHITESPACE_HOUR_MINUTE_SECOND.format(date);
+        return DateTimeFormatConstants.DAY_MONTH_YEAR_COMMA_HOUR_MINUTE__READABLE.format(date);
     }
 
     @Override

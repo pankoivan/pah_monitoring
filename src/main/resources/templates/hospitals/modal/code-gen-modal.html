@@ -15,11 +15,11 @@
                         <form action="#" method="post" class="border rounded text-secondary fs-5 p-3" id="code-generation-form">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Медицинское учреждение</label>
-                                <input type="text" name="name" id="name" class="form-control" disabled th:value="${request.hospital.name}" />
+                                <input type="text" name="name" id="name" class="form-control" th:value="${request.hospital.name}" disabled />
                             </div>
                             <div class="mb-3">
                                 <label for="oid" class="form-label">OID</label>
-                                <input type="text" name="oid" id="oid" class="form-control" disabled th:value="${request.hospital.oid}" />
+                                <input type="text" name="oid" id="oid" class="form-control" th:value="${request.hospital.oid}" disabled />
                             </div>
                             <div class="mb-3">
                                 <label for="role" class="form-label">Роль</label>
@@ -29,7 +29,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Почта</label>
-                                <input type="email" name="email" id="email" class="form-control" disabled th:value="${request.email}" />
+                                <input type="email" name="email" id="email" class="form-control" th:value="${request.email}" disabled />
                             </div>
                             <div class="mb-4">
                                 <label for="expiration-date" class="form-label">Срок действия кода</label>

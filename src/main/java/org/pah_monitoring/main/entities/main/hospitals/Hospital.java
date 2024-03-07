@@ -64,7 +64,7 @@ public class Hospital implements BaseEntity {
     }
 
     public String getFormattedDate() {
-        return DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(date);
+        return DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE__READABLE.format(date);
     }
 
     @Override

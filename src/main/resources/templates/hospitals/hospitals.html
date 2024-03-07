@@ -34,7 +34,7 @@
             <div class="row" th:each="each, status : ${hospitals}" th:classappend="${!status.last} ? 'mb-3'">
                 <div class="col-12">
                     <div class="text-start">
-                        <p class="fs-5 text-break mb-2">
+                        <p class="fs-5 text-break mb-1">
                             <img width="24" src="../../static/svg/hospital.svg" th:src="@{/svg/hospital.svg}" alt="Медицинское учреждение" />
                             <span th:switch="${#strings.toString(each.currentState)}">
                                 <a th:case="'WAITING_CODE'" href="#" th:href="@{/hospital-registration/requests/__${each.request.id}__}" th:text="${each.name}" class="text-decoration-none text-secondary">Алмазова</a>
@@ -69,7 +69,7 @@
             <!---->
             <div class="row" th:if="${hospitals.empty}" id="empty-hospitals-message">
                 <div class="col-12">
-                    <div class="text-secondary text-center fst-italic fs-2">Список медицинских учреждений пуст</div>
+                    <div class="text-secondary text-center fst-italic fs-3">Список медицинских учреждений пуст</div>
                 </div>
             </div>
             <!---->
