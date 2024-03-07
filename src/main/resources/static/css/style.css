@@ -81,6 +81,11 @@ form,
     }
 }
 
-div::-webkit-scrollbar {
+.messenger {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.messenger::-webkit-scrollbar {
     width: 0px;
 }
