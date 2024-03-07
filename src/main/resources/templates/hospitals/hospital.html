@@ -19,14 +19,15 @@
         <div class="container text-secondary my-5">
             <!---->
             <div class="row mb-5">
-                <div class="col-12 text-center">
+                <div class="col-12">
                     <h1 th:text="${hospital.name}" class="fs-4">Национальный медицинский исследовательский центр имени В. А. Алмазова</h1>
-                    <p class="fs-4 mb-0">
+                    <p class="fs-5 mb-0">
                         OID:
                         <span th:text="${hospital.oid}">1.12.1235.11235.46.245</span>
                     </p>
                 </div>
             </div>
+            <hr class="my-5" />
             <!---->
             <div class="row mb-5">
                 <div class="col-12">
@@ -35,24 +36,18 @@
                     </h4>
                     <div class="fs-6">
                         <p class="mb-1">
-                            Всего:
-                            <span th:text="${adminStat.total}">11</span>
-                        </p>
-                        <p class="mb-1">
-                            Активные:
-                            <span th:text="${adminStat.activeCount}">5</span>
-                        </p>
-                        <p class="mb-1">
-                            В отпуске:
-                            <span th:text="${adminStat.vacationCount}">2</span>
-                        </p>
-                        <p class="mb-1">
-                            На больничном:
-                            <span th:text="${adminStat.sickLeaveCount}">3</span>
+                            Активные / Всего:
+                            <span th:text="${adminStat.activeCount}" class="fw-bold">5</span>
+                            /
+                            <span th:text="${adminStat.total}" class="fw-bold">11</span>
                         </p>
                         <p class="mb-0">
-                            Уволенные:
-                            <span th:text="${adminStat.dismissalCount}">1</span>
+                            В отпуске / На больничном / Уволенные:
+                            <span th:text="${adminStat.vacationCount}" class="fw-bold">2</span>
+                            /
+                            <span th:text="${adminStat.sickLeaveCount}" class="fw-bold">3</span>
+                            /
+                            <span th:text="${adminStat.dismissalCount}" class="fw-bold">1</span>
                         </p>
                     </div>
                 </div>
@@ -65,28 +60,22 @@
                     </h4>
                     <div class="fs-6">
                         <p class="mb-1">
-                            Всего:
-                            <span th:text="${doctorStat.total}">14</span>
+                            Активные / Всего:
+                            <span th:text="${doctorStat.activeCount}" class="fw-bold">10</span>
+                            /
+                            <span th:text="${doctorStat.total}" class="fw-bold">14</span>
                         </p>
                         <p class="mb-1">
-                            Активные:
-                            <span th:text="${doctorStat.activeCount}">10</span>
-                        </p>
-                        <p class="mb-1">
-                            В отпуске:
-                            <span th:text="${doctorStat.vacationCount}">1</span>
-                        </p>
-                        <p class="mb-1">
-                            На больничном:
-                            <span th:text="${doctorStat.sickLeaveCount}">1</span>
-                        </p>
-                        <p class="mb-1">
-                            Уволенные:
-                            <span th:text="${doctorStat.dismissalCount}">0</span>
+                            В отпуске / На больничном / Уволенные:
+                            <span th:text="${doctorStat.vacationCount}" class="fw-bold">1</span>
+                            /
+                            <span th:text="${doctorStat.sickLeaveCount}" class="fw-bold">1</span>
+                            /
+                            <span th:text="${doctorStat.dismissalCount}" class="fw-bold">1</span>
                         </p>
                         <p class="mb-0">
                             Без пациентов:
-                            <span th:text="${doctorStat.withoutPatientsCount}">2</span>
+                            <span th:text="${doctorStat.withoutPatientsCount}" class="fw-bold">2</span>
                         </p>
                     </div>
                 </div>
@@ -99,20 +88,14 @@
                     </h4>
                     <div class="fs-6">
                         <p class="mb-1">
-                            Всего:
-                            <span th:text="${patientStat.total}">26</span>
-                        </p>
-                        <p class="mb-1">
-                            Активные:
-                            <span th:text="${patientStat.activeCount}">24</span>
-                        </p>
-                        <p class="mb-1">
-                            Неактивные:
-                            <span th:text="${patientStat.inactiveCount}">2</span>
+                            Активные / Всего:
+                            <span th:text="${patientStat.activeCount}" class="fw-bold">24</span>
+                            /
+                            <span th:text="${patientStat.total}" class="fw-bold">26</span>
                         </p>
                         <p class="mb-0">
                             Нераспределённые:
-                            <span th:text="${patientStat.unallocated}">4</span>
+                            <span th:text="${patientStat.unallocated}" class="fw-bold">4</span>
                         </p>
                     </div>
                 </div>
@@ -126,11 +109,11 @@
                     <div class="fs-6">
                         <p class="mb-1">
                             Дата подачи заявки:
-                            <span th:text="${hospital.request.formattedDate}">21-11-2022 в 16:54:12</span>
+                            <span th:text="${hospital.request.formattedDate}" class="fw-semibold">21-11-2022 в 16:54:12</span>
                         </p>
                         <p class="mb-0">
                             Дата регистрации:
-                            <span th:text="${hospital.formattedDate}">25-11-2022 в 17:11:49</span>
+                            <span th:text="${hospital.formattedDate}" class="fw-semibold">25-11-2022 в 17:11:49</span>
                         </p>
                     </div>
                 </div>

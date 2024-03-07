@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Заявка на регистрацию медицинского учреждения</title>
+        <title th:text="'Заявка на регистрацию медицинского учреждения ' + ${request.hospital.name}">Заявка на регистрацию медицинского учреждения "Алмазова"</title>
         <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
         <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
         <link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
@@ -94,11 +94,11 @@
                         </p>
                         <p th:case="'WAITING_REGISTRATION'" class="fs-6 mb-0">
                             Ожидает регистрации администратора. Код был выдан
-                            <span th:text="${request.hospital.formattedDate}">19-08-2021 в 15:55:41</span>
+                            <span th:text="${request.hospital.formattedDate}" class="fw-semibold">19-08-2021 в 15:55:41</span>
                         </p>
                         <p th:case="'REGISTERED'" class="fs-6 mb-0">
                             Зарегистрировано
-                            <span th:text="${request.hospital.formattedDate}">19.12.2021 в 12:59:01</span>
+                            <span th:text="${request.hospital.formattedDate}" class="fw-semibold">19.12.2021 в 12:59:01</span>
                         </p>
                     </div>
                 </div>
