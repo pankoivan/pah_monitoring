@@ -54,9 +54,6 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Qualifier("dialoguesFilter")
     private EntityFilter<User> dialoguesFilter;
 
-    @Qualifier("dialogueFilter")
-    private EntityFilter<UserMessageOutDto> dialogueFilter;
-
     @Override
     public UserMessage findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(

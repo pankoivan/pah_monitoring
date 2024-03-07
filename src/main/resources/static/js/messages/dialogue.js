@@ -139,17 +139,17 @@ const onMessageReceived = (msg) => {
 
 const onConnected = () => {
     console.log("Годно!!!");
-    stompClient.subscribe(`/user/${authorId}/queue/messages`, onMessageReceived);
+    stompClient.subscribe(`/recipient/${authorId}/messages`, onMessageReceived);
 };
 
 const onError = () => {
     console.error("Ахтунг!!!");
 };
 
-const socket = new WebSocket("ws://localhost:8080/ws");
+const socket = new WebSocket("ws://localhost:8080/websocket/messenger");
 stompClient = Stomp.over(socket);
 stompClient.connect({}, onConnected, onError);
 
 function sendNotification(notification) {
-    stompClient.send("/app/chat", {}, JSON.stringify(notification));
+    stompClient.send("/app/messenger", {}, JSON.stringify(notification));
 }

@@ -1,4 +1,4 @@
-package org.pah_monitoring.main.config;
+package org.pah_monitoring.main.controllers.websocket;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,10 +13,9 @@ public class WebSocketController {
 
     private final SimpMessagingTemplate messagingTemplate;
 
-    @MessageMapping("/chat")
+    @MessageMapping("/messenger")
     public void processMessage(@Payload Notification notification) {
-        System.out.println("Recipient id: " + notification.getRecipientId().toString());
-        messagingTemplate.convertAndSendToUser(notification.getRecipientId().toString(), "/queue/messages", notification);
+        messagingTemplate.convertAndSendToUser(notification.getRecipientId().toString(), "/messages", notification);
     }
 
     @Data
