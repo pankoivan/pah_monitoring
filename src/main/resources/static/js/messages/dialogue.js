@@ -6,6 +6,10 @@ const authorId = document.querySelector("div[data-author]").dataset.author;
 
 let isAdding = true;
 
+document.addEventListener("DOMContentLoaded", () => {
+    scrollDown();
+});
+
 document.querySelectorAll("a[data-edit]").forEach((edit) => {
     edit.addEventListener("click", (event) => {
         event.preventDefault();
@@ -56,7 +60,7 @@ function fetchAdd(data) {
                 response.json().then((responseJson) => {
                     sendNotification({
                         messageId: responseJson.id,
-                        recipientId: responseJson.recipientId,
+                        recipientId: recipientId,
                         messageState: "ADDED",
                     });
                 });
@@ -83,7 +87,7 @@ function fetchEdit(data) {
                 response.json().then((responseJson) => {
                     sendNotification({
                         messageId: responseJson.id,
-                        recipientId: responseJson.recipientId,
+                        recipientId: recipientId,
                         messageState: "EDITED",
                     });
                 });
@@ -123,7 +127,40 @@ function showErrorModal(response) {
     });
 }
 
-// ------------------------------------------------------------------------------------------------------
+function scrollDown() {
+    const scrollPanel = document.getElementById("messenger");
+    scrollPanel.scrollTop = scrollPanel.scrollHeight;
+}
+
+// -------------------------------------------------- WebSocket --------------------------------------------------
+
+function fetchGet(id) {
+    fetch(`http://localhost:8080/rest/messages/${id}`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+        },
+    })
+        .then((response) => {
+            if (response.ok) {
+                response.json().then((responseJson) => {
+                    const imem = document.createElement("div");
+                    imem.classList = "border p-2 rounded bg-indicator";
+                    imem.textContent = responseJson.text;
+                    const message = document.createElement("div");
+                    message.classList = "col-12 mt-2";
+                    message.appendChild(imem);
+                    document.getElementById("messenger").appendChild(message);
+                    scrollDown();
+                });
+            } else {
+                console.error("Ошибка сервера");
+            }
+        })
+        .catch((error) => {
+            console.error("Ошибка запроса", error);
+        });
+}
 
 const onMessageReceived = (msg) => {
     console.log("Уведомление!!!");
@@ -138,12 +175,11 @@ const onMessageReceived = (msg) => {
 };
 
 const onConnected = () => {
-    console.log("Годно!!!");
     stompClient.subscribe(`/recipient/${authorId}/messages`, onMessageReceived);
 };
 
 const onError = () => {
-    console.error("Ахтунг!!!");
+    console.error("Ошибка веб-сокета");
 };
 
 const socket = new WebSocket("ws://localhost:8080/websocket/messenger");
