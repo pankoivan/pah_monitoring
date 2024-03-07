@@ -16,7 +16,6 @@ import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceExcept
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.mappers.common.interfaces.BaseEntityToOutDtoListMapper;
 import org.pah_monitoring.main.repositorites.users.messages.UserMessageRepository;
 import org.pah_monitoring.main.services.additional.users.interfaces.CurrentUserCheckService;
@@ -51,9 +50,6 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Qualifier("userMessageMapper")
     private BaseEntityToOutDtoListMapper<UserMessage, UserMessageOutDto> userMessageMapper;
 
-    @Qualifier("dialoguesFilter")
-    private EntityFilter<User> dialoguesFilter;
-
     @Override
     public UserMessage findById(Integer id) throws DataSearchingServiceException {
         return repository.findById(id).orElseThrow(
@@ -62,7 +58,7 @@ public class UserMessageServiceImpl implements UserMessageService {
     }
 
     @Override
-    public List<User> findAllDialogues() {
+    public List<User> findAllRecipients() {
 
         Set<UserInformation> userInfoRecipients = repository
                 .findAllByAuthorId(extractionService.user().getUserInformation().getId())
@@ -83,12 +79,7 @@ public class UserMessageServiceImpl implements UserMessageService {
     }
 
     @Override
-    public List<User> findAllDialogues(Map<String, String> parameters, EntityFilter.PageStat pageStat) {
-        return dialoguesFilter.apply(findAllDialogues(), parameters, pageStat);
-    }
-
-    @Override
-    public List<UserMessageOutDto> findDialogue(Integer recipientId) throws DataSearchingServiceException {
+    public List<UserMessageOutDto> findAllMessagesFor(Integer recipientId) throws DataSearchingServiceException {
 
         List<UserMessage> authorMessages = repository.findAllByAuthorIdAndRecipientId(
                 extractionService.user().getUserInformation().getId(),

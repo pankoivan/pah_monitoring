@@ -32,12 +32,12 @@ public class UserMessageMvcController {
     @GetMapping
     public String getMessengerPage(Model model, @RequestParam(value = "recipientId", required = false) String pathRecipientId) {
         try {
-            model.addAttribute("recipients", service.findAllDialogues());
+            model.addAttribute("recipients", service.findAllRecipients());
             if (pathRecipientId != null) {
                 User recipient = searchingService.findUserByUserInformationId(service.parsePathId(pathRecipientId));
                 service.checkAccessRightsForAdding(recipient);
                 model.addAttribute("recipient", recipient);
-                model.addAttribute("messages", service.findDialogue(recipient.getUserInformation().getId()));
+                model.addAttribute("messages", service.findAllMessagesFor(recipient.getUserInformation().getId()));
             } else {
                 model.addAttribute("recipient", null);
                 model.addAttribute("messages", null);

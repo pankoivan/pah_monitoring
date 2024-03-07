@@ -11,14 +11,12 @@ import org.pah_monitoring.main.exceptions.service.data.DataDeletionServiceExcept
 import org.pah_monitoring.main.exceptions.service.data.DataSavingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceException;
 import org.pah_monitoring.main.exceptions.service.data.DataValidationServiceException;
-import org.pah_monitoring.main.filtration.filters.common.EntityFilter;
 import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataAddingValidationService;
 import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataEditingValidationService;
 import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataSavingValidationService;
 import org.pah_monitoring.main.services.main.validation.interfaces.url.UrlValidationService;
 
 import java.util.List;
-import java.util.Map;
 
 public interface UserMessageService extends
         DataAddingValidationService<UserMessageAddingDto>, DataEditingValidationService<UserMessageEditingDto>,
@@ -26,11 +24,9 @@ public interface UserMessageService extends
 
     UserMessage findById(Integer id) throws DataSearchingServiceException;
 
-    List<User> findAllDialogues();
+    List<User> findAllRecipients();
 
-    List<User> findAllDialogues(Map<String, String> parameters, EntityFilter.PageStat pageStat);
-
-    List<UserMessageOutDto> findDialogue(Integer recipientId) throws DataSearchingServiceException;
+    List<UserMessageOutDto> findAllMessagesFor(Integer recipientId) throws DataSearchingServiceException;
 
     UserMessage add(UserMessageAddingDto addingDto) throws DataSavingServiceException;
 
