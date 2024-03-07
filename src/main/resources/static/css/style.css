@@ -2,6 +2,8 @@
     --my-bg-form: #f2f3f5;
     --my-bg-indicator: #f2f3f5;
     --my-bg-filter: #f2f3f5;
+    --my-bg-contacts-area: #f2f3f5;
+    --my-bg-messages-area: url("/svg/pattern.svg");
     --my-bg-message-author: #f2f5f8;
     --my-bg-message-recipient: #f1f9ef;
 }
@@ -83,19 +85,60 @@ form,
     }
 }
 
-.messenger {
-    max-height: 60vh;
+.messenger-area {
+    /*min-height: 65vh;
+    max-height: 65vh;*/
+}
+
+.messenger-area::-webkit-scrollbar {
+    width: 0px;
+}
+
+.messenger-contacts-area {
+    min-height: 65vh;
+    max-height: 65vh;
     overflow-y: auto;
-    background-image: url("/svg/pattern.svg");
+    background-color: var(--my-bg-contacts-area);
+    hr {
+        margin-left: -9px;
+        margin-right: -9px;
+    }
+}
+
+.messenger-messages-area {
+    min-height: 65vh;
+    max-height: 65vh;
+    overflow-y: auto;
+    background-image: var(--my-bg-messages-area);
+}
+
+.messenger-contacts-area::-webkit-scrollbar {
+    width: 0px;
+}
+
+.messenger-messages-area::-webkit-scrollbar {
+    width: 0px;
+}
+
+/*.messenger {
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .messenger-form {
     background-image: url("/svg/pattern.svg");
-}
+}*/
 
-.messenger::-webkit-scrollbar {
+/*.messenger::-webkit-scrollbar {
     width: 0px;
 }
+
+.byb {
+    hr {
+        margin-left: -9px;
+        margin-right: -9px;
+    }
+}*/
 
 .bg-message-author {
     background-color: var(--my-bg-message-author);

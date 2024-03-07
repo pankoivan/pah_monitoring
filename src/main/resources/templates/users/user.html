@@ -26,7 +26,7 @@
                             <a
                                 th:if="${!isSelf && (user.isHospitalUser && isCurrentUserHospitalUserFromSameHospital || user.isMainAdministrator && currentUser.isAdministrator || user.isAdministrator && currentUser.isMainAdministrator)}"
                                 href="#"
-                                th:href="@{/messages/__${user.userInformation.id}__}"
+                                th:href="@{/messages?recipientId=__${user.userInformation.id}__}"
                                 class="text-decoration-none"
                             >
                                 <img width="24" src="../../static/svg/message.svg" th:src="@{/svg/message.svg}" alt="Сообщение" />

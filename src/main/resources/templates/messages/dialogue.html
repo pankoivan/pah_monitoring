@@ -18,52 +18,35 @@
         <!---->
         <div class="container text-secondary fs-6 my-5">
             <!---->
-            <div class="row fs-5 mb-5">
+            <!--<div class="row fs-5 mb-5">
                 <div class="col-12">
                     <h1 class="text-center fs-3 mb-0" th:text="${recipient.userInformation.fullName}">Берия Лаврентий Павлович</h1>
                 </div>
-            </div>
+            </div>-->
             <!---->
-            <div class="row messenger mb-5 py-3 border rounded" id="messenger">
-                <div class="col-12" th:each="each, status : ${dialogue}" th:classappend="${!status.last} ? 'mb-2'">
-                    <!--<div class="d-flex flex-row flex-wrap align-items-center justify-content-center justify-content-lg-between">
-                        <div class="mx-3 mx-lg-0" th:text="${each.authorFullName}">Вы</div>
-                        <div class="mx-3 mx-lg-0" th:text="${each.formattedDate}">19.03.2021 в 19:54:12</div>
+            <div class="row mb-5 messenger-area" id="messenger">
+                <div class="messenger-contacts-area border rounded fs-5 p-2 pb-0" th:classappend="${param.recipientId} ? 'col-3 d-none d-md-block ' : 'col-12 col-md-3'">
+                    <h2 class="fs-4 mb-0">Контакты</h2>
+                    <hr class="my-2" />
+                    <div th:each="each, status : ${recipients}" th:classappend="${!status.last} ? 'mb-3'">
+                        <img width="24" src="../../static/svg/profile.svg" th:src="@{/svg/profile.svg}" alt="Получатель" />
+                        <a href="#" th:href="@{/messages?recipientId=__${each.userInformation.id}__}" class="text-secondary text-decoration-none" th:text="${each.userInformation.fullName}">Петров Иван Ильич</a>
                     </div>
-                    <hr class="my-1" />
-                    <div th:text="${each.text}" th:attr="data-text=${each.id}" class="text-break">Товарищи! сложиветствует потребностям.</div>
-                    <div class="d-flex flex-row flex-wrap align-items-center justify-content-between">
-                        <div>
-                            <a href="#" th:attr="data-edit=${each.id}" class="text-decoration-none">
-                                <img width="20" src="../../static/svg/edit.svg" th:src="@{/svg/edit.svg}" alt="Редактировать" />
-                            </a>
-                            <a href="#" th:attr="data-delete=${each.id}" class="text-decoration-none">
-                                <img width="20" src="../../static/svg/delete.svg" th:src="@{/svg/delete.svg}" alt="Удалить" />
-                            </a>
+                </div>
+                <div class="messenger-messages-area border rounded p-2" th:classappend="${param.recipientId} ? 'col-12 col-md-9' : 'col-9 d-none d-md-block'">
+                    <div class="col-12" th:each="each, status : ${messages}" th:classappend="${!status.last} ? 'mb-2'">
+                        <div class="col-10 me-auto text-start" th:if="${currentUser.userInformation.id == each.authorId}">
+                            <div class="border p-2 rounded bg-message-author d-inline-block w-auto text-start text-black" th:text="${each.text}">Текст1</div>
                         </div>
-                        <div th:if="${each.formattedEditingDate != null}" class="text-end fst-italic fs-6">
-                            <span>Изм.</span>
-                            <span th:text="${each.formattedEditingDate}">21.04.2022 в 15:22:36</span>
+                        <div class="col-10 ms-auto text-end" th:if="${currentUser.userInformation.id != each.authorId}">
+                            <div class="border p-2 rounded bg-message-recipient d-inline-block w-auto text-start text-black" th:text="${each.text}">Текст2</div>
                         </div>
-                    </div>-->
-
-                    <!--<div th:if="${currentUser.userInformation.id == each.authorId}" class="col-10 me-auto border p-2 rounded bg-message-author d-inline-block w-auto text-start" th:text="${each.text}">
-                        <div class="d-inline-block w-auto" th:text="${each.text}"></div>
-                    </div>
-                    <div th:if="${currentUser.userInformation.id != each.authorId}" class="col-10 ms-auto border p-2 rounded bg-message-recipient d-inline-block w-auto text-end" th:text="${each.text}">
-                        <div class="d-inline-block w-auto" th:text="${each.text}"></div>
-                    </div>-->
-                    <div class="col-10 me-auto text-start" th:if="${currentUser.userInformation.id == each.authorId}">
-                        <div class="border p-2 rounded bg-message-author d-inline-block w-auto text-start text-black" th:text="${each.text}">Текст1</div>
-                    </div>
-                    <div class="col-10 ms-auto text-end" th:if="${currentUser.userInformation.id != each.authorId}">
-                        <div class="border p-2 rounded bg-message-recipient d-inline-block w-auto text-start text-black" th:text="${each.text}">Текст2</div>
                     </div>
                 </div>
             </div>
             <!---->
-            <div class="row" th:attr="data-author=${currentUser.userInformation.id}">
-                <form action="#" method="post" id="message-form" class="border rounded messenger-form p-3 bg-indicator">
+            <div class="row d-none d-md-block" th:attr="data-author=${currentUser.userInformation.id}">
+                <form action="#" method="post" id="message-form" class="border rounded p-3 bg-indicator">
                     <input class="visually-hidden" name="id" />
                     <div class="d-flex flex-row align-items-center">
                         <textarea name="message" id="message" class="form-control flex-grow-1 me-2" rows="1" placeholder="Текст сообщения..."></textarea>

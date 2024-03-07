@@ -1,6 +1,7 @@
 const messageForm = document.getElementById("message-form");
 
-const recipientId = Number(window.location.pathname.split("/").pop());
+//const recipientId = Number(window.location.pathname.split("/").pop());
+const recipientId = Number(new URLSearchParams(window.location.search).get("recipientId"));
 
 const authorId = Number(document.querySelector("div[data-author]").dataset.author);
 
