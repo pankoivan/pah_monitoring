@@ -16,10 +16,10 @@
         <!---->
         <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
         <!---->
-        <div class="container text-secondary fs-6 my-5">
+        <div class="container text-secondary fs-6 my-5" th:attr="data-author=${currentUser.userInformation.id}">
             <!---->
-            <div class="row mb-5">
-                <div class="messenger-contacts-block border rounded fs-5 p-2 pb-0" th:classappend="${param.recipientId} ? 'col-3 d-none d-md-block ' : 'col-12 col-md-3'" id="contacts-block">
+            <div class="row p-3 p-sm-0">
+                <div class="messenger-contacts-block border rounded fs-5 p-2 pb-0" th:classappend="${param.recipientId} ? 'col-3 d-none d-md-block' : 'col-12 col-md-3'" id="contacts-block">
                     <h2 class="fs-4 mb-0">Контакты</h2>
                     <hr class="my-2" />
                     <div th:each="each, status : ${recipients}" th:classappend="${!status.last} ? 'mb-3'">
@@ -27,29 +27,42 @@
                         <a href="#" th:href="@{/messages?recipientId=__${each.id}__}" class="text-secondary text-decoration-none" th:text="${each.fullName}">Петров Иван Ильич</a>
                     </div>
                 </div>
-                <div class="messenger-messages-block border rounded p-2" th:classappend="${param.recipientId} ? 'col-12 col-md-9' : 'col-9 d-none d-md-block'" id="messenger-block">
-                    <div class="col-12" th:each="each, status : ${messages}" th:classappend="${!status.last} ? 'mb-2'">
-                        <div class="col-10 me-auto text-start" th:if="${currentUser.userInformation.id == each.authorId}">
-                            <div class="border p-2 rounded bg-message-author d-inline-block w-auto text-start text-black" th:text="${each.text}">Текст1</div>
+                <div class="messenger-messages-block d-flex flex-column align-items-between justify-content-between border rounded p-2" th:classappend="${param.recipientId} ? 'col-12 col-md-9' : 'col-9 d-none d-md-block'">
+                    <div class="flex-grow-1 o mb-1" id="messages-block" style="overflow-y: auto">
+                        <div class="col-12" th:each="each, status : ${messages}" th:classappend="${!status.last} ? 'mb-2'">
+                            <div class="col-10 me-auto text-start" th:if="${currentUser.userInformation.id == each.authorId}">
+                                <div class="border p-2 rounded bg-message-author d-inline-block w-auto text-start text-black" th:text="${each.text}">Текст1</div>
+                            </div>
+                            <div class="col-10 ms-auto text-end" th:if="${currentUser.userInformation.id != each.authorId}">
+                                <div class="border p-2 rounded bg-message-recipient d-inline-block w-auto text-start text-black" th:text="${each.text}">Текст2</div>
+                            </div>
                         </div>
-                        <div class="col-10 ms-auto text-end" th:if="${currentUser.userInformation.id != each.authorId}">
-                            <div class="border p-2 rounded bg-message-recipient d-inline-block w-auto text-start text-black" th:text="${each.text}">Текст2</div>
-                        </div>
+                    </div>
+                    <div class="mt-1">
+                        <form action="#" method="post" class="border rounded bg-form p-3" id="message-form">
+                            <input class="visually-hidden" name="id" />
+                            <div class="d-flex flex-row align-items-center justify-content-between">
+                                <textarea name="message" id="message" class="form-control flex-grow-1 me-2" rows="1" placeholder="Текст сообщения..."></textarea>
+                                <a href="#" id="send" class="text-decoration-none ms-2 mt-auto">
+                                    <img width="32" src="../../static/svg/send.svg" th:src="@{/svg/send.svg}" alt="Отправить" />
+                                </a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
             <!---->
-            <div class="row d-none d-md-block" th:attr="data-author=${currentUser.userInformation.id}">
-                <form action="#" method="post" id="message-form" class="border rounded p-3 bg-indicator">
+            <!--<div class="row p-3 p-sm-0" th:classappend="${param.recipientId} ? 'd-block' : 'd-none'">
+                <form action="#" method="post" class="border rounded bg-form p-3" id="message-form">
                     <input class="visually-hidden" name="id" />
-                    <div class="d-flex flex-row align-items-center">
+                    <div class="d-flex flex-row align-items-center justify-content-between">
                         <textarea name="message" id="message" class="form-control flex-grow-1 me-2" rows="1" placeholder="Текст сообщения..."></textarea>
-                        <a href="#" id="send" class="text-decoration-none ms-2">
+                        <a href="#" id="send" class="text-decoration-none ms-2 mt-auto">
                             <img width="32" src="../../static/svg/send.svg" th:src="@{/svg/send.svg}" alt="Отправить" />
                         </a>
                     </div>
                 </form>
-            </div>
+            </div>-->
             <!---->
         </div>
         <!---->

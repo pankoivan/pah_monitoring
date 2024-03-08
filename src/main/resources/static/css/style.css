@@ -86,8 +86,8 @@ form,
 }
 
 .messenger-contacts-block {
-    min-height: 65vh;
-    max-height: 65vh;
+    min-height: 80vh;
+    max-height: 80vh;
     overflow-y: auto;
     background-color: var(--my-bg-contacts-block);
     hr {
@@ -96,19 +96,35 @@ form,
     }
 }
 
+.mmw {
+    min-height: 80vh;
+    max-height: 80vh;
+}
+
 .messenger-contacts-block::-webkit-scrollbar {
     width: 0px;
 }
 
+o {
+}
+
+.o::-webkit-scrollbar {
+    width: 0px;
+}
+
 .messenger-messages-block {
-    min-height: 65vh;
-    max-height: 65vh;
-    overflow-y: auto;
+    min-height: 80vh;
+    max-height: 80vh;
+    /*overflow-y: auto;*/
     background-image: var(--my-bg-messages-block);
 }
 
 .messenger-messages-block::-webkit-scrollbar {
     width: 0px;
+}
+
+.bg-messenger-messages {
+    background-image: var(--my-bg-messages-block);
 }
 
 .bg-message-author {

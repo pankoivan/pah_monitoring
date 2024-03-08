@@ -131,7 +131,7 @@ function showErrorModal(response) {
 }
 
 function scrollDown() {
-    const scrollPanel = document.getElementById("messenger-block");
+    const scrollPanel = document.getElementById("messages-block");
     scrollPanel.scrollTop = scrollPanel.scrollHeight;
 }
 
