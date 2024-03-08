@@ -99,6 +99,16 @@ form,
     width: 0px;
 }
 
+.messenger-message-form {
+    background-color: #f2f3f5;
+    max-height: 35vh;
+    overflow-y: auto;
+}
+
+.messenger-message-form::-webkit-scrollbar {
+    width: 0px;
+}
+
 .bg-message-author {
     background-color: #f2f5f8;
 }
