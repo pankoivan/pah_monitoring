@@ -41,7 +41,7 @@
                             <div class="border rounded p-2" id="login-info">
                                 <div class="mb-2 m-1">
                                     <label for="email" class="form-label">Почта <span class="text-danger fs-6"> *</span></label>
-                                    <input type="email" name="email" id="email" class="form-control" placeholder="example@mail.com" />
+                                    <input th:value="${code.email}" type="email" name="email" id="email" class="form-control" placeholder="example@mail.com" />
                                 </div>
                                 <div class="mb-3 m-1">
                                     <label for="password" class="form-label">Пароль <span class="text-danger fs-6"> *</span></label>
@@ -107,8 +107,8 @@
         <div th:replace="~{/fragments/modal/code-input-modal :: code-input-modal}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
-        <script src="../../static/js/registration/code-check.js" th:src="@{/js/registration/code-check.js}"></script>
         <script src="../../static/js/registration/registration.js" th:src="@{/js/registration/registration.js}"></script>
+        <script src="../../static/js/registration/code-check.js" th:src="@{/js/registration/code-check.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>
