@@ -73,7 +73,7 @@ public class UserMessageServiceImpl implements UserMessageService {
 
         userInfoRecipients.addAll(userInfoAuthors);
 
-        return userInfoRecipients.stream().toList();
+        return defaultRecipientsSorting(userInfoRecipients);
 
     }
 
@@ -92,7 +92,7 @@ public class UserMessageServiceImpl implements UserMessageService {
 
         authorMessages.addAll(recipientMessages);
 
-        return defaultDialogueSorting(userMessageMapper.mapList(authorMessages));
+        return defaultMessagesSorting(userMessageMapper.mapList(authorMessages));
 
     }
 
@@ -200,7 +200,14 @@ public class UserMessageServiceImpl implements UserMessageService {
         }
     }
 
-    private List<UserMessageOutDto> defaultDialogueSorting(List<UserMessageOutDto> messages) {
+    private List<UserInformation> defaultRecipientsSorting(Set<UserInformation> recipients) {
+        return recipients
+                .stream()
+                .sorted(Comparator.comparing(UserInformation::getFullName))
+                .toList();
+    }
+
+    private List<UserMessageOutDto> defaultMessagesSorting(List<UserMessageOutDto> messages) {
         return messages
                 .stream()
                 .sorted(Comparator.comparing(UserMessageOutDto::getDate))
