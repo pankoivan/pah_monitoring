@@ -76,7 +76,7 @@ function loginInfoEditingModalInit() {
 }
 
 function fetchInfoEdit(data, whichInfo) {
-    fetch("http://localhost:8080/rest/user-profile/edit/" + whichInfo, {
+    fetch(`http://localhost:8080/rest/user-profile/edit/${whichInfo}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -263,7 +263,7 @@ function patientInactivityModalInit() {
 }
 
 function fetchInactivityAdd(data, whichInactivity) {
-    fetch("http://localhost:8080/rest/inactivity/add/" + whichInactivity, {
+    fetch(`http://localhost:8080/rest/inactivity/add/${whichInactivity}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -315,6 +315,7 @@ function refreshInactivity(response, whichInactivity) {
         document.getElementById("active-message").remove();
 
         if (whichInactivity != "patient-inactivity" && document.getElementById("own-patients")) {
+            document.getElementById("activity").classList.remove("mb-5");
             document.getElementById("own-patients").remove();
         }
 

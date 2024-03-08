@@ -18,11 +18,11 @@
         <!---->
         <div class="container text-secondary my-5">
             <!---->
-            <div class="row text-center mb-5">
-                <div class="col-12">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
                         <h1 class="fs-3 m-2 m-md-0" th:text="${usersListDescription}">Список пользователей</h1>
-                        <div class="m-1 m-md-0">
+                        <div class="m-2 m-md-0">
                             <button class="btn btn-lg btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filter" aria-expanded="false" aria-controls="filter" id="filter-button">Фильтр</button>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
             <!---->
             <div class="row" th:if="${users.empty}" id="empty-users-message">
                 <div class="col-12">
-                    <div th:text="${emptyUsersListMessage}" class="text-secondary text-center fst-italic fs-2">Список пользователей пуст</div>
+                    <div th:text="${emptyUsersListMessage}" class="text-secondary text-center fst-italic fs-3">Список пользователей пуст</div>
                 </div>
             </div>
             <!---->
@@ -79,9 +79,9 @@
         <div th:replace="${param.patientId != null && currentUser.isAdministrator} ? ~{/fragments/modal/error-modal :: error-modal} : ~{}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
+        <script src="../../static/js/users/users.js" th:src="@{/js/users/users.js}"></script>
         <script src="../../static/js/selection/filtration.js" th:src="@{/js/selection/filtration.js}"></script>
         <script src="../../static/js/selection/pagination.js" th:src="@{/js/selection/pagination.js}"></script>
-        <script src="../../static/js/users/users.js" th:src="@{/js/users/users.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
         <!---->
     </body>

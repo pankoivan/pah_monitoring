@@ -111,7 +111,7 @@
                 </div>
             </div>
             <!---->
-            <div class="row" th:classappend="${user.isDoctor && user.isActive && (isSelf || isCurrentUserAdminFromSameHospital) || user.isPatient} ? 'mb-5'">
+            <div class="row" th:classappend="${user.isDoctor && user.isActive && (isSelf || isCurrentUserAdminFromSameHospital) || user.isPatient} ? 'mb-5'" id="activity">
                 <div class="col-12" id="activity-parent-block">
                     <h3 class="fs-4">
                         Активность

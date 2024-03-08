@@ -1,13 +1,15 @@
 const patientId = new URLSearchParams(window.location.search).get("patientId");
 
 document.querySelectorAll("a[data-doctor-assign]").forEach((a) => {
-    a.addEventListener("click", () => {
+    a.addEventListener("click", (event) => {
+        event.preventDefault();
         fetchAssignToDoctor(patientId, a.dataset.doctorAssign);
     });
 });
 
 document.querySelectorAll("a[data-doctor-remove]").forEach((a) => {
-    a.addEventListener("click", () => {
+    a.addEventListener("click", (event) => {
+        event.preventDefault();
         fetchRemoveFromDoctor(patientId);
     });
 });
@@ -37,7 +39,7 @@ function fetchAssignToDoctor(patientId, doctorId) {
 }
 
 function fetchRemoveFromDoctor(patientId) {
-    fetch("http://localhost:8080/rest/patient-doctor-connection/remove/" + patientId, {
+    fetch(`http://localhost:8080/rest/patient-doctor-connection/remove/${patientId}`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -78,7 +80,7 @@ function fillSuccessModalTextForDoctorAssigning(responseJson) {
     const toPatient = document.createElement("a");
     toPatient.className = "href-success";
     toPatient.innerText = "профилю";
-    toPatient.href = "/patients/" + patientId;
+    toPatient.href = `/patients/${patientId}`;
 
     successModalText.appendChild(document.createTextNode("Пациент "));
     successModalText.appendChild(patient);
@@ -115,7 +117,7 @@ function fillSuccessModalTextForDoctorRemoval(responseJson) {
     const toPatient = document.createElement("a");
     toPatient.className = "href-success";
     toPatient.innerText = "профилю";
-    toPatient.href = "/patients/" + patientId;
+    toPatient.href = `/patients/${patientId}`;
 
     successModalText.appendChild(document.createTextNode("Пациент "));
     successModalText.appendChild(patient);
@@ -134,7 +136,7 @@ function fillSuccessModalTextForDoctorRemoval(responseJson) {
 
 if (document.getElementById("success-modal")) {
     document.getElementById("success-modal").addEventListener("hidden.bs.modal", () => {
-        window.location.href = "/patients/" + patientId;
+        window.location.href = `/patients/${patientId}`;
     });
 }
 
