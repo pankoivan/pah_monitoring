@@ -41,16 +41,13 @@
             <!---->
             <div th:replace="~{/fragments/selection/periodization :: periodization}"></div>
             <!---->
-            <div class="row mb-5" th:attr="data-patient=${patient.id}">
-                <h2 class="text-center fs-5 mb-1">До нагрузки</h2>
-                <div class="col-12">
+            <div class="row text-center" th:attr="data-patient=${patient.id}">
+                <div class="col-12 col-lg-6 mx-auto mb-5 mb-lg-0">
+                    <h5 class="text-secondary fs-5 mb-3">До нагрузки</h5>
                     <canvas id="before"></canvas>
                 </div>
-            </div>
-            <!---->
-            <div class="row">
-                <h2 class="text-center fs-5 mb-1">После нагрузки</h2>
-                <div class="col-12">
+                <div class="col-12 col-lg-6 mx-auto">
+                    <h5 class="text-secondary fs-5 mb-3">После нагрузки</h5>
                     <canvas id="after"></canvas>
                 </div>
             </div>

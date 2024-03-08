@@ -38,6 +38,8 @@ function liquidGraphic(liquids) {
                     data: liquid(liquids),
                     borderWidth: 1,
                     tension: 0.1,
+                    backgroundColor: "rgba(3, 211, 244, 0.2)",
+                    borderColor: "rgba(3, 211, 244, 1)",
                 },
             ],
         },
