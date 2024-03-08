@@ -7,9 +7,10 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataAddingValidationService;
 import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataEditingValidationService;
 import org.pah_monitoring.main.services.main.validation.interfaces.data.saving.DataSavingValidationService;
+import org.pah_monitoring.main.services.main.validation.interfaces.url.UrlValidationService;
 
 public interface UserInfoService<T, M, R, N>
-        extends DataAddingValidationService<M>, DataEditingValidationService<R>, DataSavingValidationService<N> {
+        extends DataAddingValidationService<M>, DataEditingValidationService<R>, DataSavingValidationService<N>, UrlValidationService {
 
     T findById(Integer id) throws DataSearchingServiceException;
 

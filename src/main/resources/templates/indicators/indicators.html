@@ -32,7 +32,7 @@
             <!---->
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center g-3">
                 <div class="col mx-auto" th:each="each : ${cards}">
-                    <div class="card bg-indicator text-secondary">
+                    <div class="card bg-indicator-card text-secondary">
                         <img src="../../static/img/indicators/pressure.jpg" th:src="@{'/img/indicators/' + ${each.filename}}" class="card-img-top rounded px-2 pt-2" alt="Давление" />
                         <div class="card-body text-start">
                             <h5 class="card-title text-center mb-3" th:text="${each.name}">Давление</h5>

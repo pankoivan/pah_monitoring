@@ -1,31 +1,13 @@
-:root {
-    --my-bg-form: #f2f3f5;
-    --my-bg-indicator: #f2f3f5;
-    --my-bg-filter: #f2f3f5;
-    --my-bg-contacts-block: #f2f3f5;
-    --my-bg-messages-block: url("/svg/pattern.svg");
-    --my-bg-message-author: #f2f5f8;
-    --my-bg-message-recipient: #f1f9ef;
-}
-
 .bg-main {
     background-color: var(--bs-gray-100);
 }
 
 .bg-form {
-    background-color: var(--my-bg-form);
+    background-color: #f2f3f5;
 }
 
-.bg-indicator {
-    background-color: var(--my-bg-indicator);
-}
-
-.href-success {
-    color: var(--bs-success-text-emphasis);
-}
-
-.href-danger {
-    color: var(--bs-danger-text-emphasis);
+.bg-indicator-card {
+    background-color: #f2f3f5;
 }
 
 .modal-overriden-danger {
@@ -37,6 +19,10 @@
     --bs-modal-footer-border-color: var(--bs-danger-border-subtle);
 }
 
+.href-danger {
+    color: var(--bs-danger-text-emphasis);
+}
+
 .modal-overriden-success {
     --bs-modal-bg: var(--bs-success-bg-subtle);
     --bs-modal-color: var(--bs-success-text-emphasis);
@@ -46,11 +32,15 @@
     --bs-modal-footer-border-color: var(--bs-success-border-subtle);
 }
 
+.href-success {
+    color: var(--bs-success-text-emphasis);
+}
+
 .pagination-overriden {
     margin-bottom: 0 !important;
 }
 
-.card:hover {
+.bg-indicator-card:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -67,14 +57,9 @@
 }
 
 .filter {
-    background-color: var(--my-bg-filter);
+    background-color: #f2f3f5;
     border-color: var(--bs-gray-300) !important;
     border: thin solid;
-}
-
-.break-all {
-    word-wrap: break-word;
-    word-break: break-all;
 }
 
 form,
@@ -89,48 +74,39 @@ form,
     min-height: 80vh;
     max-height: 80vh;
     overflow-y: auto;
-    background-color: var(--my-bg-contacts-block);
+    background-color: #e1eff5;
     hr {
         margin-left: -9px;
         margin-right: -9px;
     }
 }
 
-.mmw {
-    min-height: 80vh;
-    max-height: 80vh;
-}
-
 .messenger-contacts-block::-webkit-scrollbar {
-    width: 0px;
-}
-
-o {
-}
-
-.o::-webkit-scrollbar {
     width: 0px;
 }
 
 .messenger-messages-block {
     min-height: 80vh;
     max-height: 80vh;
-    /*overflow-y: auto;*/
-    background-image: var(--my-bg-messages-block);
+    background-image: url("/svg/pattern.svg");
 }
 
-.messenger-messages-block::-webkit-scrollbar {
+.messenger-messages-list-block {
+    overflow-y: auto;
+}
+
+.messenger-messages-list-block::-webkit-scrollbar {
     width: 0px;
 }
 
-.bg-messenger-messages {
-    background-image: var(--my-bg-messages-block);
-}
-
 .bg-message-author {
-    background-color: var(--my-bg-message-author);
+    background-color: #f2f5f8;
 }
 
 .bg-message-recipient {
-    background-color: var(--my-bg-message-recipient);
+    background-color: #f1f9ef;
+}
+
+.bg-selected-recipient {
+    background-color: #f2f3f5;
 }

@@ -1,7 +1,7 @@
 package org.pah_monitoring.main.controllers.mvc.messages;
 
 import lombok.AllArgsConstructor;
-import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
+import org.pah_monitoring.main.entities.main.users.info.UserInformation;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -9,6 +9,7 @@ import org.pah_monitoring.main.exceptions.service.data.DataSearchingServiceExcep
 import org.pah_monitoring.main.exceptions.service.url.UrlValidationServiceException;
 import org.pah_monitoring.main.services.additional.mvc.interfaces.PageHeaderService;
 import org.pah_monitoring.main.services.additional.users.interfaces.UserSearchingService;
+import org.pah_monitoring.main.services.main.users.info.interfaces.UserInformationService;
 import org.pah_monitoring.main.services.main.users.messages.interfaces.UserMessageService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/messages")
+@RequestMapping("/messenger")
 @PreAuthorize("isAuthenticated()")
 public class UserMessageMvcController {
 
     private final UserMessageService service;
+
+    private final UserInformationService userInformationService;
 
     private final UserSearchingService searchingService;
 
@@ -34,16 +37,16 @@ public class UserMessageMvcController {
         try {
             model.addAttribute("recipients", service.findAllRecipients());
             if (pathRecipientId != null) {
-                User recipient = searchingService.findUserByUserInformationId(service.parsePathId(pathRecipientId));
-                service.checkAccessRightsForAdding(recipient);
+                UserInformation recipient = userInformationService.findById(userInformationService.parsePathId(pathRecipientId));
+                service.checkAccessRightsForAdding(searchingService.findUserByUserInformationId(recipient.getId()));
                 model.addAttribute("recipient", recipient);
-                model.addAttribute("messages", service.findAllMessagesFor(recipient.getUserInformation().getId()));
+                model.addAttribute("messages", service.findAllMessagesFor(recipient.getId()));
             } else {
                 model.addAttribute("recipient", null);
                 model.addAttribute("messages", null);
             }
             pageHeaderService.addHeader(model);
-            return "messages/dialogue";
+            return "messenger/messenger";
         } catch (UrlValidationServiceException | DataSearchingServiceException e) {
             throw new UrlValidationMvcControllerException(e.getMessage(), e);
         } catch (NotEnoughRightsServiceException e) {
