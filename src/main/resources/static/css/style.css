@@ -74,10 +74,14 @@ form,
     min-height: 80vh;
     max-height: 80vh;
     overflow-y: auto;
-    background-color: #e1eff5;
+    background-color: rgb(141, 149, 194);
     hr {
         margin-left: -9px;
         margin-right: -9px;
+    }
+    color: rgb(241, 249, 239);
+    a {
+        color: rgb(241, 249, 239);
     }
 }
 
@@ -88,7 +92,7 @@ form,
 .messenger-messages-block {
     min-height: 80vh;
     max-height: 80vh;
-    background-image: url("/svg/pattern.svg");
+    background-image: url("/svg/patternmsg.svg");
 }
 
 .messenger-messages-list-block {
@@ -124,5 +128,9 @@ form,
 }
 
 .bg-selected-recipient {
+    background-color: #f1f9ef;
+}
+
+.bg-current-recipient {
     background-color: #f2f3f5;
 }

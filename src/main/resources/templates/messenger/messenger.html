@@ -19,19 +19,19 @@
         <div class="container text-secondary my-5" th:attr="data-author=${currentUser.userInformation.id}">
             <!---->
             <div class="row fs-6 px-3 px-sm-0">
-                <div class="messenger-contacts-block text-break border rounded fs-5 p-2" th:classappend="${param.recipientId} ? 'col-3 d-none d-md-block' : 'col-12 col-md-3'" id="contacts-block">
+                <div class="messenger-contacts-block text-break border rounded fs-5 p-2" th:classappend="${param.recipientId} ? 'col-4 d-none d-md-block' : 'col-12 col-md-4'" id="contacts-block">
                     <h2 class="fs-4 mb-0">Контакты</h2>
                     <hr class="my-2" />
                     <div th:each="each, status : ${recipients}" th:classappend="${!status.last} ? 'mb-3'">
-                        <div th:classappend="${#strings.equals(each.id, param.recipientId)} ? 'bg-selected-recipient rounded p-1'">
-                            <img width="24" src="../../static/svg/recipient.svg" th:src="@{/svg/recipient.svg}" alt="Получатель" />
-                            <a href="#" th:href="@{/messenger?recipientId=__${each.id}__}" class="text-secondary text-decoration-none" th:text="${each.fullName}">Петров Иван Ильич</a>
+                        <div th:classappend="${#strings.equals(each.id, param.recipientId)} ? 'bg-selected-recipient border rounded p-2'">
+                            <img th:if="${!#strings.equals(each.id, param.recipientId)}" width="24" src="../../static/svg/recipient.svg" th:src="@{/svg/recipient.svg}" alt="Получатель" />
+                            <a th:classappend="${#strings.equals(each.id, param.recipientId)} ? 'text-black'" href="#" th:href="@{/messenger?recipientId=__${each.id}__}" class="text-decoration-none" th:text="${each.fullName}">Петров Иван Ильич</a>
                         </div>
                     </div>
                 </div>
-                <div class="messenger-messages-block text-break d-flex flex-column align-items-between justify-content-between border rounded p-2" th:classappend="${param.recipientId} ? 'col-12 col-md-9' : 'col-9 d-none d-md-block'">
+                <div class="messenger-messages-block text-break d-flex flex-column align-items-between justify-content-between border rounded p-2" th:classappend="${param.recipientId} ? 'col-12 col-md-8' : 'col-8 d-none d-md-block'">
                     <div class="mb-2 fs-5" th:if="${param.recipientId}">
-                        <div class="border rounded bg-selected-recipient p-2">
+                        <div class="border rounded bg-current-recipient p-2">
                             <img width="24" src="../../static/svg/recipient.svg" th:src="@{/svg/recipient.svg}" alt="Получатель" />
                             <a href="#" th:href="@{/messenger?recipientId=__${recipient.id}__}" class="text-secondary text-decoration-none" th:text="${recipient.fullName}">Петров Иван Ильич</a>
                         </div>
@@ -41,7 +41,7 @@
                             <div class="col-10 me-auto text-start" th:if="${currentUser.userInformation.id == each.authorId}">
                                 <div class="message-author border p-2 rounded d-inline-block w-auto text-start text-black" th:attr="data-message=${each.id}">
                                     <div th:text="${each.text}">Сообщение автора</div>
-                                    <div class="d-inline-block w-auto d-flex flex-row align-items-center justify-content-between">
+                                    <div class="d-flex flex-row align-items-center justify-content-between">
                                         <div>
                                             <a href="#" class="text-decoration-none d-none">
                                                 <img width="16" src="../../static/svg/msgedit.svg" th:src="@{/svg/msgedit.svg}" alt="Редактировать" />

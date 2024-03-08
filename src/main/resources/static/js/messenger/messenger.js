@@ -8,6 +8,7 @@ let isAdding = true;
 
 document.addEventListener("DOMContentLoaded", () => {
     scrollDown();
+    messagesEvents();
 });
 
 document.querySelectorAll("a[data-edit]").forEach((edit) => {
@@ -135,6 +136,23 @@ function scrollDown() {
     scrollPanel.scrollTop = scrollPanel.scrollHeight;
 }
 
+function messagesEvents() {
+    document.querySelectorAll("div[data-message]").forEach((message) => {
+        message.addEventListener("mouseover", (event) => {
+            event.currentTarget.querySelectorAll("a").forEach((a) => {
+                a.classList.remove("d-none");
+            });
+        });
+    });
+    document.querySelectorAll("div[data-message]").forEach((message) => {
+        message.addEventListener("mouseout", (event) => {
+            event.currentTarget.querySelectorAll("a").forEach((a) => {
+                a.classList.add("d-none");
+            });
+        });
+    });
+}
+
 // -------------------------------------------------- WebSocket --------------------------------------------------
 
 const onMessageReceived = (msg) => {
@@ -240,19 +258,3 @@ function sendNotification(notification) {
 }
 
 // ---
-
-document.querySelectorAll("div[data-message]").forEach((message) => {
-    message.addEventListener("mouseover", (event) => {
-        event.currentTarget.querySelectorAll("a").forEach((a) => {
-            a.classList.remove("d-none");
-        });
-    });
-});
-
-document.querySelectorAll("div[data-message]").forEach((message) => {
-    message.addEventListener("mouseout", (event) => {
-        event.currentTarget.querySelectorAll("a").forEach((a) => {
-            a.classList.add("d-none");
-        });
-    });
-});
