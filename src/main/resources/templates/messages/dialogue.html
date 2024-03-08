@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Диалог</title>
+        <title>Мессенджер</title>
         <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
         <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
         <link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
@@ -18,14 +18,8 @@
         <!---->
         <div class="container text-secondary fs-6 my-5">
             <!---->
-            <!--<div class="row fs-5 mb-5">
-                <div class="col-12">
-                    <h1 class="text-center fs-3 mb-0" th:text="${recipient.userInformation.fullName}">Берия Лаврентий Павлович</h1>
-                </div>
-            </div>-->
-            <!---->
-            <div class="row mb-5 messenger-area" id="messenger">
-                <div class="messenger-contacts-area border rounded fs-5 p-2 pb-0" th:classappend="${param.recipientId} ? 'col-3 d-none d-md-block ' : 'col-12 col-md-3'">
+            <div class="row mb-5">
+                <div class="messenger-contacts-block border rounded fs-5 p-2 pb-0" th:classappend="${param.recipientId} ? 'col-3 d-none d-md-block ' : 'col-12 col-md-3'" id="contacts-block">
                     <h2 class="fs-4 mb-0">Контакты</h2>
                     <hr class="my-2" />
                     <div th:each="each, status : ${recipients}" th:classappend="${!status.last} ? 'mb-3'">
@@ -33,7 +27,7 @@
                         <a href="#" th:href="@{/messages?recipientId=__${each.id}__}" class="text-secondary text-decoration-none" th:text="${each.fullName}">Петров Иван Ильич</a>
                     </div>
                 </div>
-                <div class="messenger-messages-area border rounded p-2" th:classappend="${param.recipientId} ? 'col-12 col-md-9' : 'col-9 d-none d-md-block'">
+                <div class="messenger-messages-block border rounded p-2" th:classappend="${param.recipientId} ? 'col-12 col-md-9' : 'col-9 d-none d-md-block'" id="messenger-block">
                     <div class="col-12" th:each="each, status : ${messages}" th:classappend="${!status.last} ? 'mb-2'">
                         <div class="col-10 me-auto text-start" th:if="${currentUser.userInformation.id == each.authorId}">
                             <div class="border p-2 rounded bg-message-author d-inline-block w-auto text-start text-black" th:text="${each.text}">Текст1</div>

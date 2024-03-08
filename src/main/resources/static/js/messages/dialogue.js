@@ -1,6 +1,5 @@
 const messageForm = document.getElementById("message-form");
 
-//const recipientId = Number(window.location.pathname.split("/").pop());
 const recipientId = Number(new URLSearchParams(window.location.search).get("recipientId"));
 
 const authorId = Number(document.querySelector("div[data-author]").dataset.author);
@@ -132,7 +131,7 @@ function showErrorModal(response) {
 }
 
 function scrollDown() {
-    const scrollPanel = document.getElementById("messenger");
+    const scrollPanel = document.getElementById("messenger-block");
     scrollPanel.scrollTop = scrollPanel.scrollHeight;
 }
 
