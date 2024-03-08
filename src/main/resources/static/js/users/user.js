@@ -252,7 +252,7 @@ function patientInactivityModalInit() {
             event.preventDefault();
             const data = {
                 toWhomId: patientInactivityForm.querySelector('input[name="patient-inactivity-to-whom-id"]').value,
-                comment: patientInactivityForm.querySelector('input[name="patient-inactivity-comment"]').value == "" ? null : patientInactivityForm.querySelector('input[name="patient-inactivity-comment"]').value,
+                comment: patientInactivityForm.querySelector('textarea[name="patient-inactivity-comment"]').value == "" ? null : patientInactivityForm.querySelector('textarea[name="patient-inactivity-comment"]').value,
             };
             fetchInactivityAdd(data, "patient-inactivity");
         });
