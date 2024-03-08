@@ -7,29 +7,29 @@
         <title>Контакты</title>
         <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
         <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
-        <link rel="apple-touch-icon" sizes="180x180" href="../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
-        <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
-        <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
     </head>
 
     <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
         <!---->
         <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
         <!---->
-        <div class="container my-5" id="contacts-container">
+        <div class="container text-secondary my-5" id="contacts-container">
             <!---->
             <div class="row mb-5">
                 <div class="col-12">
-                    <form id="contacts-form" action="#" method="post" class="border rounded p-3">
-                        <input style="display: none" name="id" />
+                    <form action="#" method="post" class="bg-form border rounded p-3" id="contacts-form">
+                        <input name="id" class="visually-hidden" />
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
                             <div class="d-flex flex-row flex-wrap align-items-center justify-content-center flex-grow-1">
                                 <div class="flex-grow-1 m-1">
-                                    <label for="contacts-form-description" class="form-label text-secondary">Описание</label>
+                                    <label for="contacts-form-description" class="form-label">Описание</label>
                                     <input id="contacts-form-description" type="text" name="description" placeholder="ВКонтакте" class="form-control" />
                                 </div>
                                 <div class="flex-grow-1 m-1">
-                                    <label for="contacts-form-contact" class="form-label text-secondary">Контакт</label>
+                                    <label for="contacts-form-contact" class="form-label">Контакт</label>
                                     <input id="contacts-form-contact" type="text" name="contact" placeholder="bttps://vk.com" class="form-control" />
                                 </div>
                             </div>
@@ -44,10 +44,16 @@
             <div class="row">
                 <div class="col-12" id="contacts">
                     <div th:each="each, status : ${contacts}" class="text-start" th:classappend="${!status.last} ? 'mb-2'" th:id="'contact-' + ${each.id}">
-                        <h4 th:id="'description-contact-' + ${each.id}" class="text-secondary" th:text="${each.description}">ВКонтакте</h4>
-                        <p th:id="'contact-contact-' + ${each.id}" class="text-dark text-break mb-2" th:text="${each.contact}">bttps://some/very/very/very/very/very/long/link</p>
-                        <a th:id="'edit-contact-' + ${each.id}" href="#" class="text-secondary me-1">Изменить</a>
-                        <a th:id="'delete-contact-' + ${each.id}" href="#" class="text-secondary ms-1">Удалить</a>
+                        <h4>
+                            <span th:text="${each.description}" th:id="'description-contact-' + ${each.id}">ВКонтакте</span>
+                            <a href="#" class="text-decoration-none" th:id="'edit-contact-' + ${each.id}">
+                                <img width="24" src="../../static/svg/msgedit.svg" th:src="@{/svg/msgedit.svg}" alt="Редактировать" />
+                            </a>
+                            <a href="#" class="text-decoration-none" th:id="'delete-contact-' + ${each.id}">
+                                <img width="24" src="../../static/svg/msgdelete.svg" th:src="@{/svg/msgdelete.svg}" alt="Удалить" />
+                            </a>
+                        </h4>
+                        <p class="text-dark text-break mb-2" th:id="'contact-contact-' + ${each.id}" th:text="${each.contact}">bttps://some/very/very/very/very/very/long/link</p>
                         <hr th:if="${!status.last}" />
                     </div>
                 </div>
@@ -60,6 +66,7 @@
             </div>
         </div>
         <!---->
+        <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
         <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>
         <!---->
