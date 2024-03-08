@@ -19,7 +19,7 @@
         <div class="container text-secondary my-5" th:attr="data-author=${currentUser.userInformation.id}">
             <!---->
             <div class="row fs-6 px-3 px-sm-0">
-                <div class="messenger-contacts-block border rounded fs-5 p-2" th:classappend="${param.recipientId} ? 'col-3 d-none d-md-block' : 'col-12 col-md-3'" id="contacts-block">
+                <div class="messenger-contacts-block text-break border rounded fs-5 p-2" th:classappend="${param.recipientId} ? 'col-3 d-none d-md-block' : 'col-12 col-md-3'" id="contacts-block">
                     <h2 class="fs-4 mb-0">Контакты</h2>
                     <hr class="my-2" />
                     <div th:each="each, status : ${recipients}" th:classappend="${!status.last} ? 'mb-3'">
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="messenger-messages-block d-flex flex-column align-items-between justify-content-between border rounded p-2" th:classappend="${param.recipientId} ? 'col-12 col-md-9' : 'col-9 d-none d-md-block'">
+                <div class="messenger-messages-block text-break d-flex flex-column align-items-between justify-content-between border rounded p-2" th:classappend="${param.recipientId} ? 'col-12 col-md-9' : 'col-9 d-none d-md-block'">
                     <div class="mb-2 fs-5" th:if="${param.recipientId}">
                         <div class="border rounded bg-selected-recipient p-2">
                             <img width="24" src="../../static/svg/recipient.svg" th:src="@{/svg/recipient.svg}" alt="Получатель" />
@@ -39,10 +39,26 @@
                     <div class="flex-grow-1 messenger-messages-list-block" id="messages-block">
                         <div class="col-12" th:each="each, status : ${messages}" th:classappend="${!status.last} ? 'mb-2'">
                             <div class="col-10 me-auto text-start" th:if="${currentUser.userInformation.id == each.authorId}">
-                                <div class="border p-2 rounded bg-message-author d-inline-block w-auto text-start text-black" th:text="${each.text}">Текст1</div>
+                                <div class="message-author border p-2 rounded d-inline-block w-auto text-start text-black" th:attr="data-message=${each.id}">
+                                    <div th:text="${each.text}">Сообщение автора</div>
+                                    <div class="d-inline-block w-auto d-flex flex-row align-items-center justify-content-between">
+                                        <div>
+                                            <a href="#" class="text-decoration-none d-none">
+                                                <img width="16" src="../../static/svg/msgedit.svg" th:src="@{/svg/msgedit.svg}" alt="Редактировать" />
+                                            </a>
+                                            <a href="#" class="text-decoration-none d-none">
+                                                <img width="16" src="../../static/svg/msgdelete.svg" th:src="@{/svg/msgdelete.svg}" alt="Удалить" />
+                                            </a>
+                                        </div>
+                                        <div class="message-date text-end text-secondary" th:text="${each.formattedDate}">16:56</div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-10 ms-auto text-end" th:if="${currentUser.userInformation.id != each.authorId}">
-                                <div class="border p-2 rounded bg-message-recipient d-inline-block w-auto text-start text-black" th:text="${each.text}">Текст2</div>
+                                <div class="message-recipient border p-2 rounded d-inline-block w-auto text-start text-black">
+                                    <div th:text="${each.text}">Сообщение получателя</div>
+                                    <div class="message-date text-end text-secondary" th:text="${each.formattedDate}">16:56</div>
+                                </div>
                             </div>
                         </div>
                     </div>

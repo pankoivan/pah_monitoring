@@ -137,34 +137,6 @@ function scrollDown() {
 
 // -------------------------------------------------- WebSocket --------------------------------------------------
 
-/*function onReceived(id) {
-    fetch(`http://localhost:8080/rest/messages/${id}`, {
-        method: "GET",
-        headers: {
-            Accept: "application/json",
-        },
-    })
-        .then((response) => {
-            if (response.ok) {
-                response.json().then((responseJson) => {
-                    const imem = document.createElement("div");
-                    imem.classList = "border p-2 rounded bg-indicator";
-                    imem.textContent = responseJson.text;
-                    const message = document.createElement("div");
-                    message.classList = "col-12 mt-2";
-                    message.appendChild(imem);
-                    document.getElementById("messenger").appendChild(message);
-                    scrollDown();
-                });
-            } else {
-                console.error("Ошибка сервера");
-            }
-        })
-        .catch((error) => {
-            console.error("Ошибка запроса", error);
-        });
-}*/
-
 const onMessageReceived = (msg) => {
     const body = JSON.parse(msg.body);
     if (body.authorId == recipientId || body.authorId == authorId) {
@@ -204,14 +176,41 @@ function whenSaved(body) {
 }
 
 function whenAdded(responseJson, body) {
-    const message = document.createElement("div");
-    message.classList = "border p-2 rounded bg-indicator";
-    message.textContent = responseJson.text;
-    const column = document.createElement("div");
-    column.classList = "col-12 mt-2";
-    column.appendChild(message);
-    console.log("COLUMN: " + column);
-    document.getElementById("messenger").appendChild(column);
+    const newMessage = document.createElement("div");
+    if (body.authorId == authorId) {
+        newMessage.innerHTML = `
+        <div class="col-12 mt-2">
+            <div class="col-10 me-auto text-start">
+                <div class="message-author border p-2 rounded d-inline-block w-auto text-start text-black" data-message=${responseJson.id}>
+                    <div>${responseJson.text}</div>
+                    <div class="d-inline-block w-auto d-flex flex-row align-items-center justify-content-between">
+                        <div>
+                            <a href="#" class="text-decoration-none d-none">
+                                <img width="16" src="../../static/svg/msgedit.svg" th:src="@{/svg/msgedit.svg}" alt="Редактировать" />
+                            </a>
+                            <a href="#" class="text-decoration-none d-none">
+                                <img width="16" src="../../static/svg/msgdelete.svg" th:src="@{/svg/msgdelete.svg}" alt="Удалить" />
+                            </a>
+                        </div>
+                        <div class="message-date text-end text-secondary">${responseJson.formattedDate}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `.trim();
+    } else {
+        newMessage.innerHTML = `
+        <div class="col-12 mt-2">
+            <div class="col-10 ms-auto text-end">
+                <div class="message-recipient border p-2 rounded d-inline-block w-auto text-start text-black">
+                    <div>${responseJson.text}</div>
+                    <div class="message-date text-end text-secondary">${responseJson.formattedDate}</div>
+                </div>
+            </div>
+        </div>
+    `.trim();
+    }
+    document.getElementById("messages-block").appendChild(newMessage);
     scrollDown();
 }
 
@@ -239,3 +238,21 @@ stompClient.connect({}, onConnected, onError);
 function sendNotification(notification) {
     stompClient.send(`/app/messenger`, {}, JSON.stringify(notification));
 }
+
+// ---
+
+document.querySelectorAll("div[data-message]").forEach((message) => {
+    message.addEventListener("mouseover", (event) => {
+        event.currentTarget.querySelectorAll("a").forEach((a) => {
+            a.classList.remove("d-none");
+        });
+    });
+});
+
+document.querySelectorAll("div[data-message]").forEach((message) => {
+    message.addEventListener("mouseout", (event) => {
+        event.currentTarget.querySelectorAll("a").forEach((a) => {
+            a.classList.add("d-none");
+        });
+    });
+});

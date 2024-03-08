@@ -109,12 +109,18 @@ form,
     width: 0px;
 }
 
-.bg-message-author {
+.message-author {
+    min-width: 15vh;
     background-color: #f2f5f8;
 }
 
-.bg-message-recipient {
+.message-recipient {
+    min-width: 15vh;
     background-color: #f1f9ef;
+}
+
+.message-date {
+    font-size: 10px;
 }
 
 .bg-selected-recipient {

@@ -22,4 +22,7 @@ public final class DateTimeFormatConstants {
     public static final DateTimeFormatter DAY_MONTH_YEAR_AT_HOUR_MINUTE__READABLE =
             DateTimeFormatter.ofPattern("dd MMM yyyy в HH:mm");
 
+    public static final DateTimeFormatter HOUR_MINUTE__READABLE =
+            DateTimeFormatter.ofPattern("HH:mm");
+
 }
