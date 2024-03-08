@@ -21,6 +21,9 @@
                                 <li>
                                     <a href="#" th:href="@{/doctors/__${currentUser.id}__/patients}" class="nav-link text-secondary">Пациенты</a>
                                 </li>
+                                <li>
+                                    <a href="#" th:href="@{/messenger}" class="nav-link text-secondary">Мессенджер</a>
+                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -32,10 +35,6 @@
                             <ul aria-labelledby="user" class="dropdown-menu text-small">
                                 <li>
                                     <a class="dropdown-item" href="#" th:href="@{/users/__${currentUser.userInformation.id}__}">Профиль</a>
-                                </li>
-                                <hr class="dropdown-divider" />
-                                <li>
-                                    <a class="dropdown-item" href="#" th:href="@{/messenger}">Мессенджер</a>
                                 </li>
                                 <hr class="dropdown-divider" />
                                 <li>

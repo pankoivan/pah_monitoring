@@ -19,16 +19,10 @@
                                     <a href="#" th:href="@{/hospitals/__${currentUser.hospital.id}__}" class="nav-link text-secondary">Медицинское учреждение</a>
                                 </li>
                                 <li>
-                                    <a href="#" th:href="@{/hospitals/__${currentUser.hospital.id}__/admins}" class="nav-link text-secondary">Администраторы</a>
-                                </li>
-                                <li>
-                                    <a href="#" th:href="@{/hospitals/__${currentUser.hospital.id}__/doctors}" class="nav-link text-secondary">Врачи</a>
-                                </li>
-                                <li>
-                                    <a href="#" th:href="@{/hospitals/__${currentUser.hospital.id}__/patients}" class="nav-link text-secondary">Пациенты</a>
-                                </li>
-                                <li>
                                     <a href="#" th:href="@{/code-generation}" class="nav-link text-secondary">Генерация кодов</a>
+                                </li>
+                                <li>
+                                    <a href="#" th:href="@{/messenger}" class="nav-link text-secondary">Мессенджер</a>
                                 </li>
                             </ul>
                         </nav>
@@ -41,10 +35,6 @@
                             <ul aria-labelledby="user" class="dropdown-menu text-small">
                                 <li>
                                     <a class="dropdown-item" href="#" th:href="@{/users/__${currentUser.userInformation.id}__}">Профиль</a>
-                                </li>
-                                <hr class="dropdown-divider" />
-                                <li>
-                                    <a class="dropdown-item" href="#" th:href="@{/messenger}">Мессенджер</a>
                                 </li>
                                 <hr class="dropdown-divider" />
                                 <li>
