@@ -204,10 +204,10 @@ function whenAdded(responseJson, body) {
                     <div class="d-inline-block w-auto d-flex flex-row align-items-center justify-content-between">
                         <div>
                             <a href="#" class="text-decoration-none d-none">
-                                <img width="16" src="../../static/svg/msgedit.svg" th:src="@{/svg/msgedit.svg}" alt="Редактировать" />
+                                <img width="16" src="/svg/msgedit.svg" alt="Редактировать" />
                             </a>
                             <a href="#" class="text-decoration-none d-none">
-                                <img width="16" src="../../static/svg/msgdelete.svg" th:src="@{/svg/msgdelete.svg}" alt="Удалить" />
+                                <img width="16" src="/svg/msgdelete.svg"alt="Удалить" />
                             </a>
                         </div>
                         <div class="message-date text-end text-secondary">${responseJson.formattedDate}</div>
@@ -216,6 +216,7 @@ function whenAdded(responseJson, body) {
             </div>
         </div>
         `.trim();
+        messagesEvents();
     } else {
         newMessage.innerHTML = `
         <div class="col-12 mt-2">
@@ -226,7 +227,7 @@ function whenAdded(responseJson, body) {
                 </div>
             </div>
         </div>
-    `.trim();
+        `.trim();
     }
     document.getElementById("messages-block").appendChild(newMessage);
     scrollDown();
@@ -256,5 +257,3 @@ stompClient.connect({}, onConnected, onError);
 function sendNotification(notification) {
     stompClient.send(`/app/messenger`, {}, JSON.stringify(notification));
 }
-
-// ---
