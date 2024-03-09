@@ -100,7 +100,7 @@ form,
 }
 
 .messenger-message-form {
-    background-color: #f2f3f5;
+    background-color: #e6e8ec;
     max-height: 35vh;
     overflow-y: auto;
 }
@@ -128,5 +128,5 @@ form,
 }
 
 .bg-current-recipient {
-    background-color: #f2f3f5;
+    background-color: #e6e8ec;
 }
