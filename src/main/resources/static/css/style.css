@@ -74,14 +74,10 @@ form,
     min-height: 80vh;
     max-height: 80vh;
     overflow-y: auto;
-    background-color: rgb(141, 149, 194);
+    background-color: #f2f3f5;
     hr {
         margin-left: -9px;
         margin-right: -9px;
-    }
-    color: rgb(241, 249, 239);
-    a {
-        color: rgb(241, 249, 239);
     }
 }
 
