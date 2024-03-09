@@ -102,7 +102,8 @@ function fillSuccessModalTextForCodeGeneration(responseJson) {
 }
 
 if (document.getElementById("decline-request")) {
-    document.getElementById("decline-request").addEventListener("click", () => {
+    document.getElementById("decline-request").addEventListener("click", (event) => {
+        event.preventDefault();
         fetchDelete();
     });
 }

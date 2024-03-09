@@ -68,7 +68,7 @@
                         Общая информация
                         <a
                             href="#"
-                            th:if="${(isSelf || isCurrentUserAdminFromSameHospital) && (user.isHospitalEmployee && !user.isDismissed || user.isPatient && user.isActive)}"
+                            th:if="${isSelf || isCurrentUserAdminFromSameHospital && (user.isHospitalEmployee && !user.isDismissed || user.isPatient && user.isActive)}"
                             data-bs-toggle="modal"
                             data-bs-target="#user-info-editing-modal"
                             class="text-decoration-none"
