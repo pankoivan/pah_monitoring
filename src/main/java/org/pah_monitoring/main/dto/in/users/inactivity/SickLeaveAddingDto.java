@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @ToString(callSuper = true)
 public class SickLeaveAddingDto extends InactivityAddingDto {
 
-    @NotNull(message = "Поле \"endDate\" не должно отсутствовать")
+    @NotNull(message = "Поле \"Дата окончания\" является обязательным")
     private LocalDate endDate;
 
 }
