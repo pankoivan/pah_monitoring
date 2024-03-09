@@ -7,12 +7,12 @@
         <div th:fragment="schedule-editing-modal" class="modal fade" id="schedule-editing-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header text-secondary">
                         <h1 class="modal-title fs-4" id="schedule-editing-modal-title">Редактирование расписания</h1>
                         <button id="schedule-editing-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body fs-5" id="schedule-editing-modal-text">
-                        <form id="schedule-editing-form" action="#" class="border rounded text-secondary fs-5 p-3">
+                    <div class="modal-body text-secondary fs-5" id="schedule-editing-modal-text">
+                        <form id="schedule-editing-form" action="#" class="border rounded fs-5 p-3">
                             <div class="mb-3">
                                 <label for="patient" class="form-label">Пациент</label>
                                 <input id="patient" type="text" name="patient" class="form-control" th:value="${patient.userInformation.fullName}" disabled />

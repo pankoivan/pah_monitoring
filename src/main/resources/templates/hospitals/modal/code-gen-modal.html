@@ -7,12 +7,12 @@
         <div th:fragment="code-gen-modal" class="modal fade" id="code-generation-modal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title text-secondary fs-4" id="code-generation-modal-title">Генерация кода</h1>
+                    <div class="modal-header text-secondary">
+                        <h1 class="modal-title fs-4" id="code-generation-modal-title">Генерация кода</h1>
                         <button id="code-generation-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body fs-5" id="code-generation-modal-text">
-                        <form action="#" method="post" class="border rounded text-secondary fs-5 p-3" id="code-generation-form">
+                    <div class="modal-body text-secondary fs-5" id="code-generation-modal-text">
+                        <form action="#" method="post" class="border rounded fs-5 p-3" id="code-generation-form">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Медицинское учреждение</label>
                                 <input type="text" name="name" id="name" class="form-control" th:value="${request.hospital.name}" disabled />
