@@ -206,8 +206,16 @@ function whenAdded(responseJson, body) {
                                 <img width="16" src="/svg/msgdelete.svg" alt="Удалить" />
                             </a>
                         </div>
-                        <div class="message-date text-end text-secondary" data-bs-toggle="tooltip" data-bs-placement="left" title="${responseJson.longFormattedDate}">
-                            ${responseJson.shortFormattedDate}
+                        <div
+                            class="message-date text-end text-secondary"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            data-bs-html="true"
+                            title="${responseJson.longFormattedDate}"
+                            data-editing-date
+                        >
+                            <span>${responseJson.shortFormattedDate}</span>
+                            <span class="d-none" data-editing-info>(ред)</span>
                         </div>
                     </div>
                 </div>
@@ -222,8 +230,16 @@ function whenAdded(responseJson, body) {
                     <div data-text>${responseJson.text}</div>
                     <div class="d-flex flex-row align-items-center justify-content-between">
                         <div></div>
-                        <div class="message-date text-end text-secondary" data-bs-toggle="tooltip" data-bs-placement="left" title="${responseJson.longFormattedDate}">
-                            ${responseJson.shortFormattedDate}
+                        <div
+                            class="message-date text-end text-secondary"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="left"
+                            data-bs-html="true"
+                            title="${responseJson.longFormattedDate}"
+                            data-editing-date
+                        >
+                            <span>${responseJson.shortFormattedDate}</span>
+                            <span class="d-none" data-editing-info>(ред)</span>
                         </div>
                     </div>
                 </div>
@@ -241,7 +257,12 @@ function whenAdded(responseJson, body) {
 }
 
 function whenEdited(responseJson, body) {
-    document.querySelector(`div[data-message="${body.messageId}"]`).querySelector("div[data-text]").textContent = responseJson.text;
+    const message = document.querySelector(`div[data-message="${body.messageId}"]`);
+    message.querySelector("div[data-text]").textContent = responseJson.text;
+    message.querySelector("span[data-editing-info]").classList.remove("d-none");
+    const editingDate = message.querySelector("div[data-editing-date]");
+    editingDate.setAttribute("title", `${responseJson.longFormattedDate}<br>ред. ${responseJson.longFormattedEditingDate}`);
+    messagesTooltips();
 }
 
 function whenDeleted(body) {

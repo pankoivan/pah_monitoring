@@ -51,7 +51,17 @@
                                                 <img width="16" src="../../static/svg/msgdelete.svg" th:src="@{/svg/msgdelete.svg}" alt="Удалить" />
                                             </a>
                                         </div>
-                                        <div class="message-date text-end text-secondary" th:text="${each.shortFormattedDate}" data-bs-toggle="tooltip" data-bs-placement="left" th:attr="title=${each.longFormattedDate}">16:56</div>
+                                        <div
+                                            class="message-date text-end text-secondary"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            th:attr="title=${each.longFormattedDate} + (${each.editingDate} != null ? ('<br>ред. ' + ${each.longFormattedEditingDate}) : '')"
+                                            data-editing-date
+                                        >
+                                            <span th:text="${each.shortFormattedDate}">16:56</span>
+                                            <span th:classappend="${each.editingDate == null} ? 'd-none'" data-editing-info>(ред)</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +70,17 @@
                                     <div th:text="${each.text}" data-text>Сообщение получателя</div>
                                     <div class="d-flex flex-row align-items-center justify-content-between">
                                         <div></div>
-                                        <div class="message-date text-end text-secondary" th:text="${each.shortFormattedDate}" data-bs-toggle="tooltip" data-bs-placement="left" th:attr="title=${each.longFormattedDate}">16:56</div>
+                                        <div
+                                            class="message-date text-end text-secondary"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="left"
+                                            data-bs-html="true"
+                                            th:attr="title=${each.longFormattedDate} + (${each.editingDate} != null ? ('<br>ред. ' + ${each.longFormattedEditingDate}) : '')"
+                                            data-editing-date
+                                        >
+                                            <span th:text="${each.shortFormattedDate}">16:56</span>
+                                            <span th:classappend="${each.editingDate == null} ? 'd-none'" data-editing-info>(ред)</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
