@@ -266,6 +266,8 @@ function whenEdited(responseJson, body) {
 }
 
 function whenDeleted(body) {
+    isAdding = true;
+    messageForm.reset();
     document.querySelector(`div[data-message="${body.messageId}"]`).remove();
 }
 
