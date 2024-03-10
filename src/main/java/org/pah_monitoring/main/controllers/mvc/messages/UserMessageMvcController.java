@@ -2,6 +2,7 @@ package org.pah_monitoring.main.controllers.mvc.messages;
 
 import lombok.AllArgsConstructor;
 import org.pah_monitoring.main.entities.main.users.info.UserInformation;
+import org.pah_monitoring.main.entities.main.users.users.common.interfaces.User;
 import org.pah_monitoring.main.exceptions.controller.mvc.NotEnoughRightsMvcControllerException;
 import org.pah_monitoring.main.exceptions.controller.mvc.UrlValidationMvcControllerException;
 import org.pah_monitoring.main.exceptions.service.access.NotEnoughRightsServiceException;
@@ -37,10 +38,11 @@ public class UserMessageMvcController {
         try {
             model.addAttribute("recipients", service.findAllRecipients());
             if (pathRecipientId != null) {
-                UserInformation recipient = userInformationService.findById(userInformationService.parsePathId(pathRecipientId));
-                service.checkAccessRightsForAdding(searchingService.findUserByUserInformationId(recipient.getId()));
+                UserInformation recipientInfo = userInformationService.findById(userInformationService.parsePathId(pathRecipientId));
+                User recipient = searchingService.findUserByUserInformationId(recipientInfo.getId());
+                service.checkAccessRightsForAdding(recipient);
                 model.addAttribute("recipient", recipient);
-                model.addAttribute("messages", service.findAllMessagesFor(recipient.getId()));
+                model.addAttribute("messages", service.findAllMessagesFor(recipientInfo.getId()));
             } else {
                 model.addAttribute("recipient", null);
                 model.addAttribute("messages", null);
