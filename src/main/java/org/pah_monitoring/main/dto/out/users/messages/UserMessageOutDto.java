@@ -24,10 +24,14 @@ public class UserMessageOutDto implements OutDto {
 
     private LocalDateTime date;
 
-    private String formattedDate;
+    private String shortFormattedDate;
+
+    private String longFormattedDate;
 
     private LocalDateTime editingDate;
 
-    private String formattedEditingDate;
+    private String shortFormattedEditingDate;
+
+    private String longFormattedEditingDate;
 
 }

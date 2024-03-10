@@ -4,6 +4,9 @@ const recipientId = Number(new URLSearchParams(window.location.search).get("reci
 
 const authorId = Number(document.querySelector("div[data-author]").dataset.author);
 
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
+
 let isAdding = true;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -136,23 +139,6 @@ function scrollDown() {
     scrollPanel.scrollTop = scrollPanel.scrollHeight;
 }
 
-function messagesEvents() {
-    document.querySelectorAll("div[data-message]").forEach((message) => {
-        message.addEventListener("mouseover", (event) => {
-            event.currentTarget.querySelectorAll("a").forEach((a) => {
-                a.classList.remove("d-none");
-            });
-        });
-    });
-    document.querySelectorAll("div[data-message]").forEach((message) => {
-        message.addEventListener("mouseout", (event) => {
-            event.currentTarget.querySelectorAll("a").forEach((a) => {
-                a.classList.add("d-none");
-            });
-        });
-    });
-}
-
 // -------------------------------------------------- WebSocket --------------------------------------------------
 
 const onMessageReceived = (msg) => {
@@ -216,7 +202,6 @@ function whenAdded(responseJson, body) {
             </div>
         </div>
         `.trim();
-        messagesEvents();
     } else {
         newMessage.innerHTML = `
         <div class="col-12 mt-2">

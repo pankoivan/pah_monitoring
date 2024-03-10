@@ -1,6 +1,5 @@
 package org.pah_monitoring.main.mappers.users.messages;
 
-import org.pah_monitoring.auxiliary.constants.DateTimeFormatConstants;
 import org.pah_monitoring.main.aop.annotations.NullWhenNull;
 import org.pah_monitoring.main.dto.out.users.messages.UserMessageOutDto;
 import org.pah_monitoring.main.entities.main.users.messages.UserMessage;
@@ -22,10 +21,11 @@ public class UserMessageToOutDtoMapper implements BaseEntityToOutDtoListMapper<U
                 .recipientFullName(userMessage.getRecipient().getFullName())
                 .text(userMessage.getText())
                 .date(userMessage.getDate())
-                //.formattedDate(userMessage.getFormattedDate())
-                .formattedDate(DateTimeFormatConstants.HOUR_MINUTE__READABLE.format(userMessage.getDate()))
+                .shortFormattedDate(userMessage.getShortFormattedDate())
+                .longFormattedDate(userMessage.getLongFormattedDate())
                 .editingDate(userMessage.getEditingDate())
-                .formattedEditingDate(userMessage.getFormattedEditingDate())
+                .shortFormattedEditingDate(userMessage.getShortFormattedEditingDate())
+                .longFormattedEditingDate(userMessage.getLongFormattedEditingDate())
                 .build();
     }
 

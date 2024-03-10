@@ -40,13 +40,23 @@ public class UserMessage implements BaseEntity {
     @JoinColumn(name = "author_id")
     private UserInformation author;
 
-    public String getFormattedDate() {
-        return DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(date);
+    public String getShortFormattedDate() {
+        return DateTimeFormatConstants.HOUR_MINUTE__READABLE.format(date);
     }
 
-    public String getFormattedEditingDate() {
+    public String getLongFormattedDate() {
+        return DateTimeFormatConstants.DAY_MONTH_YEAR_COMMA_HOUR_MINUTE__READABLE.format(date);
+    }
+
+    public String getShortFormattedEditingDate() {
         return editingDate != null
-                ? DateTimeFormatConstants.DAY_MONTH_YEAR_AT_HOUR_MINUTE_SECOND.format(editingDate)
+                ? DateTimeFormatConstants.HOUR_MINUTE__READABLE.format(editingDate)
+                : null;
+    }
+
+    public String getLongFormattedEditingDate() {
+        return editingDate != null
+                ? DateTimeFormatConstants.DAY_MONTH_YEAR_COMMA_HOUR_MINUTE__READABLE.format(editingDate)
                 : null;
     }
 
