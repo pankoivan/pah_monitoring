@@ -2,9 +2,26 @@ const patientId = document.querySelector("div[data-patient]").dataset.patient;
 
 const period = new URLSearchParams(window.location.search).get("period");
 
+moment.locale("ru");
+
 new gridjs.Grid({
     columns: [
-        "Дата",
+        {
+            name: "Дата",
+            sort: {
+                compare: (firstDate, secondDate) => {
+                    const firstMoment = moment(firstDate, "DD MMM YYYY, HH:mm");
+                    const secondMoment = moment(secondDate, "DD MMM YYYY, HH:mm");
+                    if (firstMoment.isBefore(secondMoment)) {
+                        return -1;
+                    } else if (firstMoment.isAfter(secondMoment)) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                },
+            },
+        },
         "Дистанция (м)",
         "Количество остановок",
         "Одышка по шкале Борга",

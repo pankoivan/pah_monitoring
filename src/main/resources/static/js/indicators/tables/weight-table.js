@@ -2,8 +2,30 @@ const patientId = document.querySelector("div[data-patient]").dataset.patient;
 
 const period = new URLSearchParams(window.location.search).get("period");
 
+moment.locale("ru");
+
 new gridjs.Grid({
-    columns: ["Дата", "Вес (кг)", "Индекс массы тела (м/кг²)"],
+    columns: [
+        {
+            name: "Дата",
+            sort: {
+                compare: (firstDate, secondDate) => {
+                    const firstMoment = moment(firstDate, "DD MMM YYYY, HH:mm");
+                    const secondMoment = moment(secondDate, "DD MMM YYYY, HH:mm");
+                    if (firstMoment.isBefore(secondMoment)) {
+                        return -1;
+                    } else if (firstMoment.isAfter(secondMoment)) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                },
+            },
+        },
+        ,
+        "Вес (кг)",
+        "Индекс массы тела (м/кг²)",
+    ],
     resizable: true,
     search: true,
     sort: true,
