@@ -2,33 +2,47 @@ const messageForm = document.getElementById("message-form");
 
 const recipientId = Number(new URLSearchParams(window.location.search).get("recipientId"));
 
-const authorId = Number(document.querySelector("div[data-author]").dataset.author);
-
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
+const authorId = Number(document.querySelector("div[data-you]").dataset.you);
 
 let isAdding = true;
 
 document.addEventListener("DOMContentLoaded", () => {
+    messagesTooltips();
     scrollDown();
     messagesEvents();
 });
 
-document.querySelectorAll("a[data-edit]").forEach((edit) => {
-    edit.addEventListener("click", (event) => {
+function messagesTooltips() {
+    [...document.querySelectorAll('[data-bs-toggle="tooltip"]')].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
+}
+
+function scrollDown() {
+    const scrollPanel = document.getElementById("messages-block");
+    scrollPanel.scrollTop = scrollPanel.scrollHeight;
+}
+
+function messagesEvents() {
+    document.querySelectorAll("div[data-author]").forEach((message) => {
+        messageEditEvent(message);
+        messageDeleteEvent(message);
+    });
+}
+
+function messageEditEvent(message) {
+    message.querySelector("a[data-edit]").addEventListener("click", (event) => {
         event.preventDefault();
         isAdding = false;
-        messageForm.querySelector('input[name="id"]').value = edit.dataset.edit;
-        messageForm.querySelector('textarea[name="message"]').value = document.querySelector(`div[data-text="${edit.dataset.edit}"]`).innerText;
+        messageForm.querySelector('input[name="id"]').value = message.dataset.message;
+        messageForm.querySelector('textarea[name="message"]').value = message.querySelector(`div[data-text]`).innerText;
     });
-});
+}
 
-document.querySelectorAll("a[data-delete]").forEach((deleteButton) => {
-    deleteButton.addEventListener("click", (event) => {
+function messageDeleteEvent(message) {
+    message.querySelector("a[data-delete]").addEventListener("click", (event) => {
         event.preventDefault();
-        fetchDelete(deleteButton.dataset.delete);
+        fetchDelete(message.dataset.message);
     });
-});
+}
 
 if (document.getElementById("send")) {
     document.getElementById("send").addEventListener("click", (event) => {
@@ -61,6 +75,7 @@ function fetchAdd(data) {
     })
         .then((response) => {
             if (response.ok) {
+                messageForm.reset();
                 response.json().then((responseJson) => {
                     sendNotification({
                         messageId: responseJson.id,
@@ -89,6 +104,8 @@ function fetchEdit(data) {
     })
         .then((response) => {
             if (response.ok) {
+                isAdding = true;
+                messageForm.reset();
                 response.json().then((responseJson) => {
                     sendNotification({
                         messageId: responseJson.id,
@@ -134,13 +151,6 @@ function showErrorModal(response) {
     });
 }
 
-function scrollDown() {
-    const scrollPanel = document.getElementById("messages-block");
-    scrollPanel.scrollTop = scrollPanel.scrollHeight;
-}
-
-// -------------------------------------------------- WebSocket --------------------------------------------------
-
 const onMessageReceived = (msg) => {
     const body = JSON.parse(msg.body);
     if (body.authorId == recipientId || body.authorId == authorId) {
@@ -185,18 +195,20 @@ function whenAdded(responseJson, body) {
         newMessage.innerHTML = `
         <div class="col-12 mt-2">
             <div class="col-10 me-auto text-start">
-                <div class="message-author border p-2 rounded d-inline-block w-auto text-start text-black" data-message=${responseJson.id}>
-                    <div>${responseJson.text}</div>
-                    <div class="d-inline-block w-auto d-flex flex-row align-items-center justify-content-between">
+                <div class="message-author border p-2 rounded d-inline-block w-auto text-start text-black" data-message="${responseJson.id}" data-author>
+                    <div data-text>${responseJson.text}</div>
+                    <div class="d-flex flex-row align-items-center justify-content-between">
                         <div>
-                            <a href="#" class="text-decoration-none d-none">
+                            <a href="#" class="text-decoration-none" data-edit>
                                 <img width="16" src="/svg/msgedit.svg" alt="Редактировать" />
                             </a>
-                            <a href="#" class="text-decoration-none d-none">
-                                <img width="16" src="/svg/msgdelete.svg"alt="Удалить" />
+                            <a href="#" class="text-decoration-none" data-delete>
+                                <img width="16" src="/svg/msgdelete.svg" alt="Удалить" />
                             </a>
                         </div>
-                        <div class="message-date text-end text-secondary">${responseJson.formattedDate}</div>
+                        <div class="message-date text-end text-secondary" data-bs-toggle="tooltip" data-bs-placement="left" title="${responseJson.longFormattedDate}">
+                            ${responseJson.shortFormattedDate}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -206,24 +218,34 @@ function whenAdded(responseJson, body) {
         newMessage.innerHTML = `
         <div class="col-12 mt-2">
             <div class="col-10 ms-auto text-end">
-                <div class="message-recipient border p-2 rounded d-inline-block w-auto text-start text-black">
-                    <div>${responseJson.text}</div>
-                    <div class="message-date text-end text-secondary">${responseJson.formattedDate}</div>
+                <div class="message-recipient border p-2 rounded d-inline-block w-auto text-start text-black" data-message="${responseJson.id}" data-recipient>
+                    <div data-text>${responseJson.text}</div>
+                    <div class="d-flex flex-row align-items-center justify-content-between">
+                        <div></div>
+                        <div class="message-date text-end text-secondary" data-bs-toggle="tooltip" data-bs-placement="left" title="${responseJson.longFormattedDate}">
+                            ${responseJson.shortFormattedDate}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         `.trim();
     }
     document.getElementById("messages-block").appendChild(newMessage);
+    if (body.authorId == authorId) {
+        messageEditEvent(document.querySelector(`div[data-message="${body.messageId}"]`));
+        messageDeleteEvent(document.querySelector(`div[data-message="${body.messageId}"]`));
+    }
+    messagesTooltips();
     scrollDown();
 }
 
 function whenEdited(responseJson, body) {
-    // later
+    document.querySelector(`div[data-message="${body.messageId}"]`).querySelector("div[data-text]").textContent = responseJson.text;
 }
 
 function whenDeleted(body) {
-    // later
+    document.querySelector(`div[data-message="${body.messageId}"]`).remove();
 }
 
 const onConnected = () => {

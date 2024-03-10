@@ -16,7 +16,7 @@
         <!---->
         <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
         <!---->
-        <div class="container text-secondary my-5" th:attr="data-author=${currentUser.userInformation.id}">
+        <div class="container text-secondary my-5" th:attr="data-you=${currentUser.userInformation.id}">
             <!---->
             <div class="row fs-6 px-3 px-sm-0">
                 <div class="messenger-contacts-block text-break border rounded fs-5 p-2" th:classappend="${param.recipientId} ? 'col-4 d-none d-md-block' : 'col-12 col-md-4'" id="contacts-block">
@@ -40,14 +40,14 @@
                     <div class="flex-grow-1 messenger-messages-list-block" id="messages-block">
                         <div class="col-12" th:each="each, status : ${messages}" th:classappend="${!status.last} ? 'mb-2'">
                             <div class="col-10 me-auto text-start" th:if="${currentUser.userInformation.id == each.authorId}">
-                                <div class="message-author border p-2 rounded d-inline-block w-auto text-start text-black" th:attr="data-message=${each.id}">
-                                    <div th:text="${each.text}">Сообщение автора</div>
+                                <div class="message-author border p-2 rounded d-inline-block w-auto text-start text-black" th:attr="data-message=${each.id}" data-author>
+                                    <div th:text="${each.text}" data-text>Сообщение автора</div>
                                     <div class="d-flex flex-row align-items-center justify-content-between">
                                         <div>
-                                            <a href="#" class="text-decoration-none">
+                                            <a href="#" class="text-decoration-none" data-edit>
                                                 <img width="16" src="../../static/svg/msgedit.svg" th:src="@{/svg/msgedit.svg}" alt="Редактировать" />
                                             </a>
-                                            <a href="#" class="text-decoration-none">
+                                            <a href="#" class="text-decoration-none" data-delete>
                                                 <img width="16" src="../../static/svg/msgdelete.svg" th:src="@{/svg/msgdelete.svg}" alt="Удалить" />
                                             </a>
                                         </div>
@@ -56,8 +56,8 @@
                                 </div>
                             </div>
                             <div class="col-10 ms-auto text-end" th:if="${currentUser.userInformation.id != each.authorId}">
-                                <div class="message-recipient border p-2 rounded d-inline-block w-auto text-start text-black">
-                                    <div th:text="${each.text}">Сообщение получателя</div>
+                                <div class="message-recipient border p-2 rounded d-inline-block w-auto text-start text-black" th:attr="data-message=${each.id}" data-recipient>
+                                    <div th:text="${each.text}" data-text>Сообщение получателя</div>
                                     <div class="d-flex flex-row align-items-center justify-content-between">
                                         <div></div>
                                         <div class="message-date text-end text-secondary" th:text="${each.shortFormattedDate}" data-bs-toggle="tooltip" data-bs-placement="left" th:attr="title=${each.longFormattedDate}">16:56</div>
