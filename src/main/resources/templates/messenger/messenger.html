@@ -34,7 +34,7 @@
                     <div class="mb-2 fs-5" th:if="${param.recipientId}">
                         <div class="border rounded bg-current-recipient p-2">
                             <img width="24" src="../../static/svg/recipient.svg" th:src="@{/svg/recipient.svg}" alt="Получатель" />
-                            <a href="#" th:href="@{/messenger?recipientId=__${recipient.userInformation.id}__}" class="text-secondary text-decoration-none" th:text="${recipient.userInformation.fullName}">Петров Иван Ильич</a>
+                            <a href="#" th:href="@{/users/__${recipient.userInformation.id}__}" class="text-secondary text-decoration-none" th:text="${recipient.userInformation.fullName}">Петров Иван Ильич</a>
                         </div>
                     </div>
                     <div class="flex-grow-1 messenger-messages-list-block" id="messages-block">
