@@ -66,7 +66,7 @@ userRegistrationForm.addEventListener("submit", (event) => {
 });
 
 function fetchAdd(data) {
-    fetch("http://localhost:8080/rest/registration/" + submitUrlPart, {
+    fetch(`http://localhost:8080/rest/registration/${submitUrlPart}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

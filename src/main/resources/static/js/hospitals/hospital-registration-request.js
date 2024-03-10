@@ -109,7 +109,7 @@ if (document.getElementById("decline-request")) {
 }
 
 function fetchDelete() {
-    fetch("http://localhost:8080/rest/hospital-registration/requests/delete/" + requestId, {
+    fetch(`http://localhost:8080/rest/hospital-registration/requests/delete/${requestId}`, {
         method: "POST",
     })
         .then((response) => {

@@ -368,7 +368,7 @@ function showSuccessModal(message) {
 }
 
 function showErrorBlock(errorBlockId, errorDescription) {
-    let errorBlock = document.getElementById(errorBlockId);
+    const errorBlock = document.getElementById(errorBlockId);
     errorBlock.querySelector("span").innerText = errorDescription;
     errorBlock.classList.remove("visually-hidden");
 }

@@ -142,7 +142,7 @@ function fetchEdit(data) {
 }
 
 function fetchDelete(id, indicatorType) {
-    fetch("http://localhost:8080/rest/schedules/delete/" + id, {
+    fetch(`http://localhost:8080/rest/schedules/delete/${id}`, {
         method: "POST",
     })
         .then((response) => {
