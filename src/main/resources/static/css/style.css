@@ -100,6 +100,7 @@ form,
 }
 
 .messenger-message-form {
+    border-color: #b7b7b7 !important;
     background-color: #e6e8ec;
     max-height: 35vh;
     overflow-y: auto;
@@ -111,11 +112,13 @@ form,
 
 .message-author {
     min-width: 15vh;
+    border-color: #c4c8cc !important;
     background-color: #f2f5f8;
 }
 
 .message-recipient {
     min-width: 15vh;
+    border-color: #aebbaa !important;
     background-color: #f1f9ef;
 }
 
@@ -128,5 +131,6 @@ form,
 }
 
 .bg-current-recipient {
+    border-color: #b7b7b7 !important;
     background-color: #e6e8ec;
 }

@@ -32,7 +32,7 @@
                 </div>
                 <div class="messenger-messages-block text-break d-flex flex-column align-items-between justify-content-between border rounded p-2" th:classappend="${param.recipientId} ? 'col-12 col-md-8' : 'col-8 d-none d-md-block'">
                     <div class="mb-2 fs-5" th:if="${param.recipientId}">
-                        <div class="border border-dark rounded bg-current-recipient p-2">
+                        <div class="border rounded bg-current-recipient p-2">
                             <img width="24" src="../../static/svg/recipient.svg" th:src="@{/svg/recipient.svg}" alt="Получатель" />
                             <a href="#" th:href="@{/messenger?recipientId=__${recipient.userInformation.id}__}" class="text-secondary text-decoration-none" th:text="${recipient.userInformation.fullName}">Петров Иван Ильич</a>
                         </div>
@@ -45,10 +45,10 @@
                                     <div class="d-flex flex-row align-items-center justify-content-between">
                                         <div>
                                             <a href="#" class="text-decoration-none" data-edit>
-                                                <img width="16" src="../../static/svg/msgedit.svg" th:src="@{/svg/msgedit.svg}" alt="Редактировать" />
+                                                <img width="16" src="../../static/svg/accept.svg" th:src="@{/svg/accept.svg}" alt="Редактировать" />
                                             </a>
                                             <a href="#" class="text-decoration-none" data-delete>
-                                                <img width="16" src="../../static/svg/msgdelete.svg" th:src="@{/svg/msgdelete.svg}" alt="Удалить" />
+                                                <img width="16" src="../../static/svg/decline.svg" th:src="@{/svg/decline.svg}" alt="Удалить" />
                                             </a>
                                         </div>
                                         <div
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="mt-2 fs-5" th:if="${param.recipientId}">
-                        <form action="#" method="post" class="messenger-message-form border border-dark rounded p-2" id="message-form">
+                        <form action="#" method="post" class="messenger-message-form border rounded p-2" id="message-form">
                             <input class="visually-hidden" name="id" />
                             <div class="d-flex flex-row align-items-center justify-content-between">
                                 <textarea name="message" id="message" class="form-control flex-grow-1 me-2" rows="1" placeholder="Текст сообщения..."></textarea>

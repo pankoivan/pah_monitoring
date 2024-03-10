@@ -200,10 +200,10 @@ function whenAdded(responseJson, body) {
                     <div class="d-flex flex-row align-items-center justify-content-between">
                         <div>
                             <a href="#" class="text-decoration-none" data-edit>
-                                <img width="16" src="/svg/msgedit.svg" alt="Редактировать" />
+                                <img width="16" src="/svg/accept.svg" alt="Редактировать" />
                             </a>
                             <a href="#" class="text-decoration-none" data-delete>
-                                <img width="16" src="/svg/msgdelete.svg" alt="Удалить" />
+                                <img width="16" src="/svg/decline.svg" alt="Удалить" />
                             </a>
                         </div>
                         <div

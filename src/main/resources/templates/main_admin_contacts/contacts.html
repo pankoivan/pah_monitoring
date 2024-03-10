@@ -47,10 +47,10 @@
                         <h4>
                             <span th:text="${each.description}" th:id="'description-contact-' + ${each.id}">ВКонтакте</span>
                             <a href="#" class="text-decoration-none" th:id="'edit-contact-' + ${each.id}">
-                                <img width="24" src="../../static/svg/msgedit.svg" th:src="@{/svg/msgedit.svg}" alt="Редактировать" />
+                                <img width="24" src="../../static/svg/contactedit.svg" th:src="@{/svg/contactedit.svg}" alt="Редактировать" />
                             </a>
                             <a href="#" class="text-decoration-none" th:id="'delete-contact-' + ${each.id}">
-                                <img width="24" src="../../static/svg/msgdelete.svg" th:src="@{/svg/msgdelete.svg}" alt="Удалить" />
+                                <img width="24" src="../../static/svg/contactdelete.svg" th:src="@{/svg/contactdelete.svg}" alt="Удалить" />
                             </a>
                         </h4>
                         <p class="text-dark text-break mb-2" th:id="'contact-contact-' + ${each.id}" th:text="${each.contact}">bttps://some/very/very/very/very/very/long/link</p>
