@@ -29,19 +29,23 @@ function messagesEvents() {
 }
 
 function messageEditEvent(message) {
-    message.querySelector("a[data-edit]").addEventListener("click", (event) => {
-        event.preventDefault();
-        isAdding = false;
-        messageForm.querySelector('input[name="id"]').value = message.dataset.message;
-        messageForm.querySelector('textarea[name="message"]').value = message.querySelector(`div[data-text]`).innerText;
-    });
+    if (message.querySelector("a[data-edit]")) {
+        message.querySelector("a[data-edit]").addEventListener("click", (event) => {
+            event.preventDefault();
+            isAdding = false;
+            messageForm.querySelector('input[name="id"]').value = message.dataset.message;
+            messageForm.querySelector('textarea[name="message"]').value = message.querySelector(`div[data-text]`).innerText;
+        });
+    }
 }
 
 function messageDeleteEvent(message) {
-    message.querySelector("a[data-delete]").addEventListener("click", (event) => {
-        event.preventDefault();
-        fetchDelete(message.dataset.message);
-    });
+    if (message.querySelector("a[data-delete]")) {
+        message.querySelector("a[data-delete]").addEventListener("click", (event) => {
+            event.preventDefault();
+            fetchDelete(message.dataset.message);
+        });
+    }
 }
 
 if (document.getElementById("send")) {
@@ -129,6 +133,8 @@ function fetchDelete(id) {
     })
         .then((response) => {
             if (response.ok) {
+                isAdding = true;
+                messageForm.reset();
                 sendNotification({
                     messageId: id,
                     authorId: authorId,
@@ -266,8 +272,6 @@ function whenEdited(responseJson, body) {
 }
 
 function whenDeleted(body) {
-    isAdding = true;
-    messageForm.reset();
     document.querySelector(`div[data-message="${body.messageId}"]`).remove();
 }
 

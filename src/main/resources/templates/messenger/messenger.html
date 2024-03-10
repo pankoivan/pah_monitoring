@@ -44,10 +44,10 @@
                                     <div th:text="${each.text}" data-text>Сообщение автора</div>
                                     <div class="d-flex flex-row align-items-center justify-content-between">
                                         <div>
-                                            <a href="#" class="text-decoration-none" data-edit>
+                                            <a href="#" class="text-decoration-none" data-edit th:if="${recipient.isHospitalEmployee && !recipient.isDismissed || recipient.isPatient && recipient.isActive}">
                                                 <img width="16" src="../../static/svg/accept.svg" th:src="@{/svg/accept.svg}" alt="Редактировать" />
                                             </a>
-                                            <a href="#" class="text-decoration-none" data-delete>
+                                            <a href="#" class="text-decoration-none" data-delete th:if="${recipient.isHospitalEmployee && !recipient.isDismissed || recipient.isPatient && recipient.isActive}">
                                                 <img width="16" src="../../static/svg/decline.svg" th:src="@{/svg/decline.svg}" alt="Удалить" />
                                             </a>
                                         </div>
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-2 fs-5" th:if="${param.recipientId}">
+                    <div class="mt-2 fs-5" th:if="${param.recipientId != null && (recipient.isHospitalEmployee && !recipient.isDismissed || recipient.isPatient && recipient.isActive)}">
                         <form action="#" method="post" class="messenger-message-form border rounded p-2" id="message-form">
                             <input class="visually-hidden" name="id" />
                             <div class="d-flex flex-row align-items-center justify-content-between">
