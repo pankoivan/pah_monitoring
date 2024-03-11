@@ -19,7 +19,8 @@ Array.from(document.getElementById("contacts").children).forEach((contact) => {
 function addEditDeleteEventListenersToContact(contact) {
     const contactId = extractEntityId(contact.id);
 
-    document.getElementById(`edit-contact-${contactId}`).addEventListener("click", () => {
+    document.getElementById(`edit-contact-${contactId}`).addEventListener("click", (event) => {
+        event.preventDefault();
         contactsForm.querySelector('input[name="id"]').value = contactId;
         contactsForm.querySelector('input[name="contact"]').value = document.getElementById(`contact-contact-${contactId}`).textContent;
         contactsForm.querySelector('input[name="description"]').value = document.getElementById(`description-contact-${contactId}`).textContent;
@@ -139,10 +140,10 @@ function newContact(responseJson, isFirst) {
 function editDeleteLink(which, id) {
     const img = document.createElement("img");
     img.width = 24;
-    img.src = "/svg/msg" + which + ".svg";
+    img.src = `/svg/contact${which}.svg`;
 
     const a = document.createElement("a");
-    a.id = which + "-contact-" + id;
+    a.id = `${which}-contact-${id}`;
     a.href = "#";
     a.className = "text-decoration-none";
 
@@ -153,8 +154,8 @@ function editDeleteLink(which, id) {
 
 function addEmptyContactsMessage() {
     const row = document.createElement("div");
-    row.className = "row";
     row.id = "empty-contacts-message";
+    row.className = "row";
 
     const col = document.createElement("div");
     col.className = "col-12";
