@@ -87,19 +87,22 @@ public class HospitalServiceImpl implements HospitalService {
     public void upgrade(Hospital hospital) {
         if (hospital.getCurrentState() == Hospital.CurrentState.WAITING_CODE) {
             hospital.setCurrentState(Hospital.CurrentState.WAITING_REGISTRATION);
+            hospital.setDate(LocalDateTime.now());
+            repository.save(hospital);
         } else if (hospital.getCurrentState() == Hospital.CurrentState.WAITING_REGISTRATION) {
             hospital.setCurrentState(Hospital.CurrentState.REGISTERED);
+            hospital.setDate(LocalDateTime.now());
+            repository.save(hospital);
         }
-        hospital.setDate(LocalDateTime.now());
-        repository.save(hospital);
     }
 
     @Override
     public void downgrade(Hospital hospital) {
         if (hospital.getCurrentState() == Hospital.CurrentState.WAITING_REGISTRATION) {
             hospital.setCurrentState(Hospital.CurrentState.WAITING_CODE);
+            hospital.setDate(hospital.getRequest().getDate());
+            repository.save(hospital);
         }
-        repository.save(hospital);
     }
 
     @Override
