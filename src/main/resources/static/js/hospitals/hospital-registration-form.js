@@ -1,5 +1,7 @@
 const hospitalRegistrationForm = document.getElementById("hospital-registration-form");
 
+const hospitals = document.getElementById("hospitals");
+
 let timerId;
 
 hospitalRegistrationForm.querySelector('input[name="hospitalName"]').addEventListener("input", () => {
@@ -24,8 +26,8 @@ function fetchSearch(data) {
         .then((response) => {
             if (response.ok) {
                 response.json().then((responseJson) => {
-                    clearHospitals(document.getElementById("hospitals"));
-                    fillHospitals(document.getElementById("hospitals"), responseJson);
+                    clearHospitals();
+                    fillHospitals(responseJson);
                 });
             } else {
                 console.error("Ошибка сервера", error);
@@ -36,24 +38,25 @@ function fetchSearch(data) {
         });
 }
 
-function clearHospitals(hospitals) {
+function clearHospitals() {
     while (hospitals.firstChild) {
         hospitals.removeChild(hospitals.firstChild);
     }
 }
 
-function fillHospitals(hospitals, responseJson) {
+function fillHospitals(responseJson) {
     responseJson.forEach((registryHospital) => {
-        appendHospital(registryHospital, hospitals);
+        appendHospital(registryHospital);
     });
 }
 
-function appendHospital(registryHospital, hospitals) {
+function appendHospital(registryHospital) {
     const hospital = document.createElement("a");
     hospital.className = "list-group-item list-group-item-action fs-6";
     hospital.innerText = registryHospital.name;
     hospital.href = "#";
-    hospital.addEventListener("click", () => {
+    hospital.addEventListener("click", (event) => {
+        event.preventDefault();
         hospitalRegistrationForm.querySelector('input[name="hospitalName"]').value = registryHospital.name;
         hospitalRegistrationForm.querySelector('input[name="hospitalOid"]').value = registryHospital.oid;
         clearHospitals(hospitals);
