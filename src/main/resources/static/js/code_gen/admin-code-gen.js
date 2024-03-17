@@ -18,6 +18,7 @@ function fetchAdd(data) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            "X-CSRF-TOKEN": codeGenerationForm.querySelector('input[name="_csrf"]').value,
         },
         body: JSON.stringify(data),
     })
@@ -55,15 +56,15 @@ function fillSuccessModalText(responseJson) {
 
     const role = document.createElement("span");
     role.className = "fw-bold";
-    role.innerText = `${responseJson.roleAlias}`;
+    role.textContent = `${responseJson.roleAlias}`;
 
     const email = document.createElement("span");
     email.className = "fw-bold";
-    email.innerText = `${responseJson.email}`;
+    email.textContent = `${responseJson.email}`;
 
     const expirationDate = document.createElement("span");
     expirationDate.className = "fw-bold";
-    expirationDate.innerText = `${responseJson.formattedExpirationDate}`;
+    expirationDate.textContent = `${responseJson.formattedExpirationDate}`;
 
     successModalText.appendChild(document.createTextNode("Код регистрации на роль "));
     successModalText.appendChild(role);

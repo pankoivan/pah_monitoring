@@ -56,8 +56,8 @@ public class UserRegistrationRestController {
 
     private final HospitalService hospitalService;
 
-    @PostMapping("/admin")
-    public UserOutDto addAdmin(@RequestBody @Valid AdministratorAddingDto addingDto, BindingResult bindingResult) {
+    @PostMapping("/administrator")
+    public UserOutDto addAdministrator(@RequestBody @Valid AdministratorAddingDto addingDto, BindingResult bindingResult) {
         try {
             administratorService.checkDataValidityForAdding(addingDto, bindingResult);
             Administrator administrator = administratorService.add(addingDto);

@@ -20,7 +20,7 @@
             <!---->
             <div class="row">
                 <div class="col-12 col-md-10 col-md-8 mx-auto">
-                    <form action="#" class="border rounded bg-form fs-5 p-3" id="code-generation-form">
+                    <form action="#" th:action="@{/rest/security-codes/generate/by-admin}" method="post" class="border rounded bg-form fs-5 p-3" id="code-generation-form">
                         <h2 class="fs-4">Генерация кодов</h2>
                         <hr />
                         <div class="mb-3">

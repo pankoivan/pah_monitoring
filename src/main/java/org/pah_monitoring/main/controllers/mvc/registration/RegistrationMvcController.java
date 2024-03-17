@@ -36,6 +36,7 @@ public class RegistrationMvcController {
         try {
             RegistrationSecurityCode code = service.findByStringUuid(stringCode);
             model.addAttribute("code", code);
+            model.addAttribute("role", code.getRole().name().toLowerCase());
             model.addAttribute("genders", Gender.values());
             pageHeaderService.addHeader(model);
             return "registration/registration";

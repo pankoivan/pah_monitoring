@@ -17,7 +17,7 @@
                                 <p class="mb-1 my-auto">Неверный код</p>
                             </div>
                         </div>
-                        <form action="#" method="post" id="code-input-form" class="mb-2">
+                        <form action="#" th:action="@{/rest/security-codes/check}" method="post" class="mb-2" id="code-input-form">
                             <div class="mb-3">
                                 <label for="code" class="form-label">Введите код регистрации</label>
                                 <input type="text" name="code" id="code" class="form-control" placeholder="dkjf-dsfj37-127sj-12s72j-1sju" />

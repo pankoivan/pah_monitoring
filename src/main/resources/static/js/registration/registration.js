@@ -1,10 +1,8 @@
 const userRegistrationForm = document.getElementById("user-registration-form");
 
-const role = userRegistrationForm.querySelector('input[name="role"]').value;
-
-const submitUrlPart = role == "Администратор" ? "admin" : role == "Врач" ? "doctor" : "patient";
-
 const code = new URLSearchParams(window.location.search).get("code");
+
+const submitUrl = userRegistrationForm.getAttribute("action");
 
 userRegistrationForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -19,13 +17,12 @@ userRegistrationForm.addEventListener("submit", (event) => {
     const birthdate = userRegistrationForm.querySelector('input[name="birthdate"]').value;
 
     let post;
-    if (role == "Администратор" || role == "Врач") {
+    if (submitUrl.includes("administrator") || submitUrl.includes("doctor")) {
         post = userRegistrationForm.querySelector('input[name="post"]').value;
     }
 
     let data;
-
-    if (role == "Администратор" || role == "Врач") {
+    if (submitUrl.includes("administrator") || submitUrl.includes("doctor")) {
         data = {
             userSecurityInformationAddingDto: {
                 email: email,
@@ -44,7 +41,7 @@ userRegistrationForm.addEventListener("submit", (event) => {
             },
             code: code,
         };
-    } else if (role == "Пациент") {
+    } else if (submitUrl.includes("patient")) {
         data = {
             userSecurityInformationAddingDto: {
                 email: email,
@@ -66,11 +63,12 @@ userRegistrationForm.addEventListener("submit", (event) => {
 });
 
 function fetchAdd(data) {
-    fetch(`http://localhost:8080/rest/registration/${submitUrlPart}`, {
+    fetch(`http://localhost:8080${submitUrl}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            "X-CSRF-TOKEN": userRegistrationForm.querySelector('input[name="_csrf"]').value,
         },
         body: JSON.stringify(data),
     })
@@ -108,11 +106,11 @@ function fillSuccessModalText(responseJson) {
 
     const fullName = document.createElement("span");
     fullName.className = "fw-bold";
-    fullName.innerText = `${responseJson.fullName}`;
+    fullName.textContent = `${responseJson.fullName}`;
 
     const login = document.createElement("a");
     login.className = "href-success";
-    login.innerText = "войти";
+    login.textContent = "войти";
     login.href = "/login";
 
     successModalText.appendChild(document.createTextNode("Вы успешно зарегистрировались в приложении, "));
@@ -124,7 +122,7 @@ function fillSuccessModalText(responseJson) {
     successModalText.appendChild(login);
     successModalText.appendChild(document.createTextNode(" в свой аккаунт."));
 
-    if (role == "Пациент") {
+    if (submitUrl.includes("patient")) {
         successModalText.appendChild(document.createElement("br"));
         successModalText.appendChild(document.createElement("br"));
         successModalText.appendChild(document.createTextNode("Рекомендуем вам сразу же после входа в аккаунт заполнить анамнез: он позволит вашему будущему лечащему врачу сразу же получить важную для дальнейшего лечения информацию."));

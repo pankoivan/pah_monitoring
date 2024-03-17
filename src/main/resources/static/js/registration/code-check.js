@@ -11,6 +11,7 @@ function fetchCheck(data) {
         headers: {
             "Content-Type": "application/text",
             Accept: "application/json",
+            "X-CSRF-TOKEN": codeInputForm.querySelector('input[name="_csrf"]').value,
         },
         body: data,
     })
