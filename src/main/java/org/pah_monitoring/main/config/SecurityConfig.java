@@ -18,7 +18,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -54,6 +53,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    @Autowired
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .sessionManagement(session -> session
@@ -62,10 +62,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/uploads/**").access(authorizationDecision())
                         .anyRequest().permitAll()
-                )
-                // todo: remove csrf in final version
-                .csrf(
-                        AbstractHttpConfigurer::disable
                 )
                 .formLogin(form -> form
                         .loginPage("/login")

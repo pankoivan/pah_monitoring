@@ -20,7 +20,7 @@
             <!---->
             <div class="row mb-5">
                 <div class="col-12">
-                    <form action="#" method="post" class="bg-form border rounded p-3" id="contacts-form">
+                    <form action="#" th:action="@{/rest/contacts/save}" method="post" class="bg-form border rounded p-3" id="contacts-form">
                         <input name="id" class="visually-hidden" />
                         <div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
                             <div class="d-flex flex-row flex-wrap align-items-center justify-content-center flex-grow-1">
@@ -45,7 +45,7 @@
                 <div class="col-12" id="contacts">
                     <div th:each="each, status : ${contacts}" class="text-start" th:classappend="${!status.last} ? 'mb-2'" th:id="'contact-' + ${each.id}">
                         <h4>
-                            <span th:text="${each.description}" th:id="'description-contact-' + ${each.id}">ВКонтакте</span>
+                            <span class="text-break" th:text="${each.description}" th:id="'description-contact-' + ${each.id}">ВКонтакте</span>
                             <a href="#" class="text-decoration-none" th:id="'edit-contact-' + ${each.id}">
                                 <img width="24" src="../../static/svg/contactedit.svg" th:src="@{/svg/contactedit.svg}" alt="Редактировать" />
                             </a>
@@ -64,7 +64,10 @@
                     <div class="text-secondary text-center fst-italic fs-1">Список контактов пуст</div>
                 </div>
             </div>
+            <!---->
         </div>
+        <!---->
+        <form action="#" th:action="@{/rest/contacts/delete/0}" method="post" class="d-none" id="deletion-token"></form>
         <!---->
         <div th:replace="~{/fragments/modal/success-modal :: success-modal}"></div>
         <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
@@ -72,5 +75,6 @@
         <!---->
         <script src="../../static/js/main_admin_contacts/contacts.js" th:src="@{/js/main_admin_contacts/contacts.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
     </body>
 </html>

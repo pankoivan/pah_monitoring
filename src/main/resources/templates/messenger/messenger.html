@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="mt-2 fs-5" th:if="${param.recipientId != null && (recipient.isHospitalEmployee && !recipient.isDismissed || recipient.isPatient && recipient.isActive)}">
-                        <form action="#" method="post" class="messenger-message-form border rounded p-2" id="message-form">
+                        <form action="#" th:action="@{/rest/messages/add}" method="post" class="messenger-message-form border rounded p-2" id="message-form">
                             <input class="visually-hidden" name="id" />
                             <div class="d-flex flex-row align-items-center justify-content-between">
                                 <textarea name="message" id="message" class="form-control flex-grow-1 me-2" rows="1" placeholder="Текст сообщения..."></textarea>
@@ -101,6 +101,9 @@
             </div>
             <!---->
         </div>
+        <!---->
+        <form action="#" th:action="@{/rest/messages/edit}" method="post" class="d-none" id="editing-token"></form>
+        <form action="#" th:action="@{/rest/messages/delete/0}" method="post" class="d-none" id="deletion-token"></form>
         <!---->
         <div th:replace="~{/fragments/modal/error-modal :: error-modal}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>

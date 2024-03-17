@@ -38,6 +38,7 @@ function fetchSave(data) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            "X-CSRF-TOKEN": contactsForm.querySelector('input[name="_csrf"]').value,
         },
         body: JSON.stringify(data),
     })
@@ -46,8 +47,8 @@ function fetchSave(data) {
                 contactsForm.reset();
                 response.json().then((responseJson) => {
                     try {
-                        document.getElementById(`contact-contact-${responseJson.id}`).innerText = responseJson.contact;
-                        document.getElementById(`description-contact-${responseJson.id}`).innerText = responseJson.description;
+                        document.getElementById(`contact-contact-${responseJson.id}`).textContent = responseJson.contact;
+                        document.getElementById(`description-contact-${responseJson.id}`).textContent = responseJson.description;
                         showSuccessModal("Контакт был успешно изменён");
                     } catch (error) {
                         if (document.getElementById("empty-contacts-message")) {
@@ -69,6 +70,9 @@ function fetchSave(data) {
 function fetchDelete(contact) {
     fetch(`http://localhost:8080/rest/contacts/delete/${extractEntityId(contact.id)}`, {
         method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.getElementById("deletion-token").querySelector('input[name="_csrf"]').value,
+        },
     })
         .then((response) => {
             if (response.ok) {
@@ -111,6 +115,7 @@ function newContact(responseJson, isFirst) {
 
     const contactDescription = document.createElement("span");
     contactDescription.id = `description-contact-${responseJson.id}`;
+    contactDescription.className = "text-break me-2";
     contactDescription.textContent = responseJson.description;
 
     const contactDescriptionBlock = document.createElement("h4");

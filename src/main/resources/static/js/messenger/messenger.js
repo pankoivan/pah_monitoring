@@ -34,7 +34,7 @@ function messageEditEvent(message) {
             event.preventDefault();
             isAdding = false;
             messageForm.querySelector('input[name="id"]').value = message.dataset.message;
-            messageForm.querySelector('textarea[name="message"]').value = message.querySelector(`div[data-text]`).innerText;
+            messageForm.querySelector('textarea[name="message"]').value = message.querySelector(`div[data-text]`).textContent;
         });
     }
 }
@@ -48,7 +48,7 @@ function messageDeleteEvent(message) {
     }
 }
 
-if (document.getElementById("send")) {
+if (messageForm) {
     document.getElementById("send").addEventListener("click", (event) => {
         event.preventDefault();
         let data;
@@ -74,6 +74,7 @@ function fetchAdd(data) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            "X-CSRF-TOKEN": messageForm.querySelector('input[name="_csrf"]').value,
         },
         body: JSON.stringify(data),
     })
@@ -103,6 +104,7 @@ function fetchEdit(data) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            "X-CSRF-TOKEN": document.getElementById("editing-token").querySelector('input[name="_csrf"]').value,
         },
         body: JSON.stringify(data),
     })
@@ -130,6 +132,9 @@ function fetchEdit(data) {
 function fetchDelete(id) {
     fetch(`http://localhost:8080/rest/messages/delete/${id}`, {
         method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.getElementById("deletion-token").querySelector('input[name="_csrf"]').value,
+        },
     })
         .then((response) => {
             if (response.ok) {
@@ -255,8 +260,9 @@ function whenAdded(responseJson, body) {
     }
     document.getElementById("messages-block").appendChild(newMessage);
     if (body.authorId == authorId) {
-        messageEditEvent(document.querySelector(`div[data-message="${body.messageId}"]`));
-        messageDeleteEvent(document.querySelector(`div[data-message="${body.messageId}"]`));
+        const message = document.querySelector(`div[data-message="${body.messageId}"]`);
+        messageEditEvent(message);
+        messageDeleteEvent(message);
     }
     messagesTooltips();
     scrollDown();
