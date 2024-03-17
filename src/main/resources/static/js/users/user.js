@@ -316,6 +316,11 @@ function refreshInactivity(response, whichInactivity) {
         document.getElementById("inactivity-add").remove();
         document.getElementById("active-message").remove();
 
+        if (whichInactivity == "dismissal") {
+            document.getElementById("employee-info-edit").remove();
+            document.getElementById("user-info-edit").remove();
+        }
+
         if (whichInactivity != "patient-inactivity" && document.getElementById("own-patients")) {
             document.getElementById("activity").classList.remove("mb-5");
             document.getElementById("own-patients").remove();
