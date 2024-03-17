@@ -18,7 +18,7 @@
                                 <span class="my-auto">Заполняемый текст</span>
                             </div>
                         </div>
-                        <form id="user-info-editing-form" action="#" class="border rounded text-secondary fs-5 p-3">
+                        <form id="user-info-editing-form" action="#" th:action="@{/rest/user-profile/edit/user-info}" method="post" class="border rounded text-secondary fs-5 p-3">
                             <input type="hidden" name="id" th:value="${user.userInformation.id}" />
                             <div class="mb-3">
                                 <label for="lastname" class="form-label">Фамилия</label>

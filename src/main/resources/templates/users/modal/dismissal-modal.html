@@ -18,7 +18,7 @@
                                 <span class="my-auto">Заполняемый текст</span>
                             </div>
                         </div>
-                        <form id="dismissal-form" action="#" class="border rounded text-secondary fs-5 p-3">
+                        <form id="dismissal-form" action="#" th:action="@{/rest/inactivity/add/dismissal}" method="post" class="border rounded text-secondary fs-5 p-3">
                             <input type="hidden" name="dismissal-to-whom-id" th:value="${user.employeeInformation.id}" />
                             <div class="mb-3">
                                 <label for="dismissal-employee" class="form-label">Сотрудник</label>

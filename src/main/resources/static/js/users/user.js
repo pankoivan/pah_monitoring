@@ -81,6 +81,7 @@ function fetchInfoEdit(data, whichInfo) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            "X-CSRF-TOKEN": document.getElementById(`${whichInfo}-editing-form`).querySelector('input[name="_csrf"]').value,
         },
         body: JSON.stringify(data),
     })
@@ -127,7 +128,7 @@ function refreshEmployeeInfoEditingFormData(responseJson) {
 }
 
 function refreshEmployeeInfo(responseJson) {
-    document.getElementById("info-post").innerText = responseJson.post;
+    document.getElementById("info-post").textContent = responseJson.post;
 }
 
 function refreshUserInfoEditingFormData(responseJson) {
@@ -151,11 +152,11 @@ function refreshUserInfoEditingFormData(responseJson) {
 
 function refreshUserInfo(responseJson) {
     document.title = responseJson.fullName;
-    document.getElementById("profile-full-name").innerText = responseJson.fullName;
-    document.getElementById("info-full-name").innerText = responseJson.fullName;
-    document.getElementById("info-phone-number").innerText = responseJson.phoneNumber;
-    document.getElementById("info-gender").innerText = responseJson.genderAlias;
-    document.getElementById("info-birthdate").innerText = responseJson.formattedBirthdate;
+    document.getElementById("profile-full-name").textContent = responseJson.fullName;
+    document.getElementById("info-full-name").textContent = responseJson.fullName;
+    document.getElementById("info-phone-number").textContent = responseJson.phoneNumber;
+    document.getElementById("info-gender").textContent = responseJson.genderAlias;
+    document.getElementById("info-birthdate").textContent = responseJson.formattedBirthdate;
     if (responseJson.genderAlias != null) {
         document.getElementById("info-gender-block").classList.remove("visually-hidden");
     }
@@ -171,7 +172,7 @@ function refreshLoginInfoEditingFormData(responseJson) {
 }
 
 function refreshLoginInfo(responseJson) {
-    document.getElementById("info-email").innerText = responseJson.email;
+    document.getElementById("info-email").textContent = responseJson.email;
 }
 
 function refreshForm(form, errorBlockId) {
@@ -268,6 +269,7 @@ function fetchInactivityAdd(data, whichInactivity) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            "X-CSRF-TOKEN": document.getElementById(`${whichInactivity}-form`).querySelector('input[name="_csrf"]').value,
         },
         body: JSON.stringify(data),
     })
@@ -325,14 +327,14 @@ function refreshInactivity(response, whichInactivity) {
 
         const inactivityMessage = document.createElement("p");
         inactivityMessage.classList = "text-danger mb-1";
-        inactivityMessage.innerText = responseJson.inactivityMessage;
+        inactivityMessage.textContent = responseJson.inactivityMessage;
 
         const authorMessagePart = document.createElement("span");
-        authorMessagePart.innerText = responseJson.authorMessagePart;
+        authorMessagePart.textContent = responseJson.authorMessagePart;
 
         const authorFullName = document.createElement("a");
         authorFullName.classList = "text-secondary";
-        authorFullName.innerText = responseJson.authorFullName;
+        authorFullName.textContent = responseJson.authorFullName;
         authorFullName.href = `/users/${responseJson.authorUserInformationId}`;
 
         const whomBlock = document.createElement("p");
@@ -345,7 +347,7 @@ function refreshInactivity(response, whichInactivity) {
         if (responseJson.comment) {
             const comment = document.createElement("span");
             comment.classList = "fst-italic";
-            comment.innerText = responseJson.comment;
+            comment.textContent = responseJson.comment;
 
             commentBlock = document.createElement("p");
             commentBlock.classList = "mb-0";
@@ -369,7 +371,7 @@ function showSuccessModal(message) {
 
 function showErrorBlock(errorBlockId, errorDescription) {
     const errorBlock = document.getElementById(errorBlockId);
-    errorBlock.querySelector("span").innerText = errorDescription;
+    errorBlock.querySelector("span").textContent = errorDescription;
     errorBlock.classList.remove("visually-hidden");
 }
 

@@ -18,7 +18,7 @@
                                 <span class="my-auto">Заполняемый текст</span>
                             </div>
                         </div>
-                        <form id="sick-leave-form" action="#" class="border rounded text-secondary fs-5 p-3">
+                        <form id="sick-leave-form" action="#" th:action="@{/rest/inactivity/add/sick-leave}" method="post" class="border rounded text-secondary fs-5 p-3">
                             <input type="hidden" name="sick-leave-to-whom-id" th:value="${user.employeeInformation.id}" />
                             <div class="mb-3">
                                 <label for="sick-leave-employee" class="form-label">Сотрудник</label>
