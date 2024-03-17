@@ -22,6 +22,7 @@ function fetchAdd(data) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            "X-CSRF-TOKEN": anamnesisForm.querySelector('input[name="_csrf"]').value,
         },
         body: JSON.stringify(data),
     })
@@ -62,7 +63,7 @@ function fillSuccessModalText(responseJson) {
 
     const toAnamnesis = document.createElement("a");
     toAnamnesis.className = "href-success";
-    toAnamnesis.innerText = "анамнеза";
+    toAnamnesis.textContent = "анамнеза";
     toAnamnesis.href = `/anamnesis/for/${responseJson.patientId}`;
 
     successModalText.appendChild(document.createTextNode("Анамнез был успешно отправлен."));
