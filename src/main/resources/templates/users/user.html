@@ -216,8 +216,8 @@
             <!---->
         </div>
         <!---->
-        <div th:replace="${user.isHospitalEmployee && (isSelf || isCurrentUserAdminFromSameHospital)} ? ~{/users/modal/employee-info-editing-modal :: employee-info-editing-modal} : ~{}"></div>
-        <div th:replace="${isSelf || isCurrentUserAdminFromSameHospital} ? ~{/users/modal/user-info-editing-modal :: user-info-editing-modal} : ~{}"></div>
+        <div th:replace="${user.isHospitalEmployee && !user.isDismissed && (isSelf || isCurrentUserAdminFromSameHospital)} ? ~{/users/modal/employee-info-editing-modal :: employee-info-editing-modal} : ~{}"></div>
+        <div th:replace="${isSelf || isCurrentUserAdminFromSameHospital && (user.isHospitalEmployee && !user.isDismissed || user.isPatient && user.isActive)} ? ~{/users/modal/user-info-editing-modal :: user-info-editing-modal} : ~{}"></div>
         <div th:replace="${isSelf} ? ~{/users/modal/login-info-editing-modal :: login-info-editing-modal} : ~{}"></div>
         <div th:replace="${user.isHospitalEmployee && user.isActive && !isSelf && isCurrentUserAdminFromSameHospital} ? ~{/users/modal/inactivity-selection-modal :: inactivity-selection-modal} : ~{}"></div>
         <div th:replace="${user.isHospitalEmployee && user.isActive && !isSelf && isCurrentUserAdminFromSameHospital} ? ~{/users/modal/vacation-modal :: vacation-modal} : ~{}"></div>
@@ -231,5 +231,6 @@
         <!---->
         <script src="../../static/js/users/user.js" th:src="@{/js/users/user.js}"></script>
         <script src="../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
     </body>
 </html>
