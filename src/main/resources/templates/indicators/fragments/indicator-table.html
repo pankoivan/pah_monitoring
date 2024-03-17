@@ -33,25 +33,7 @@
         <!---->
         <div class="container text-secondary my-5">
             <!---->
-            <div class="row text-center text-md-start mb-5">
-                <div class="col-12">
-                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
-                        <div class="m-2 mx-4 m-md-0 mx-md-0">
-                            <h1 class="fs-5 mb-0">
-                                <span th:if="${isSelf}" th:text="${pageSelfTitle}">Динамика вашего кашля</span>
-                                <span th:if="${!isSelf}" th:text="${pageOtherTitle}">Динамика кашля</span>
-                            </h1>
-                            <h2 th:if="${!isSelf}" class="fs-6 mb-0">
-                                Пациент
-                                <span th:text="${patient.userInformation.fullName}" class="fw-bold">Иванов Степан Петрович</span>
-                            </h2>
-                        </div>
-                        <div class="m-1 mx-2 m-md-0 mx-md-0">
-                            <button class="btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filter" aria-expanded="false" aria-controls="filter" id="filter-button">Период</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div th:replace="~{/indicators/fragments/indicator-title :: indicator-title (${pageSelfTitle}, ${pageOtherTitle})}"></div>
             <!---->
             <div th:replace="~{/fragments/selection/periodization :: periodization}"></div>
             <!---->
