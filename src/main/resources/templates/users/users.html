@@ -75,6 +75,9 @@
             <!---->
         </div>
         <!---->
+        <form th:if="${param.patientId != null && currentUser.isAdministrator}" action="#" th:action="@{/rest/patient-doctor-connection/assign}" method="post" class="d-none" id="doctor-assigning-token"></form>
+        <form th:if="${param.patientId != null && currentUser.isAdministrator}" action="#" th:action="@{/rest/patient-doctor-connection/remove/0}" method="post" class="d-none" id="doctor-removal-token"></form>
+        <!---->
         <div th:replace="${param.patientId != null && currentUser.isAdministrator} ? ~{/fragments/modal/success-modal :: success-modal} : ~{}"></div>
         <div th:replace="${param.patientId != null && currentUser.isAdministrator} ? ~{/fragments/modal/error-modal :: error-modal} : ~{}"></div>
         <div th:replace="~{/fragments/footers/footer :: footer}"></div>

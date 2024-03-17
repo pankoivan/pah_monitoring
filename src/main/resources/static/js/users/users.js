@@ -20,6 +20,7 @@ function fetchAssignToDoctor(patientId, doctorId) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            "X-CSRF-TOKEN": document.getElementById("doctor-assigning-token").querySelector('input[name="_csrf"]').value,
         },
         body: JSON.stringify({
             patientId: patientId,
@@ -43,6 +44,7 @@ function fetchRemoveFromDoctor(patientId) {
         method: "POST",
         headers: {
             Accept: "application/json",
+            "X-CSRF-TOKEN": document.getElementById("doctor-removal-token").querySelector('input[name="_csrf"]').value,
         },
     })
         .then((response) => {
@@ -71,15 +73,15 @@ function fillSuccessModalTextForDoctorAssigning(responseJson) {
 
     const patient = document.createElement("span");
     patient.className = "fw-bold";
-    patient.innerText = `${responseJson.patientFullName}`;
+    patient.textContent = `${responseJson.patientFullName}`;
 
     const doctor = document.createElement("span");
     doctor.className = "fw-bold";
-    doctor.innerText = `${responseJson.doctorFullName}`;
+    doctor.textContent = `${responseJson.doctorFullName}`;
 
     const toPatient = document.createElement("a");
     toPatient.className = "href-success";
-    toPatient.innerText = "профилю";
+    toPatient.textContent = "профилю";
     toPatient.href = `/patients/${patientId}`;
 
     successModalText.appendChild(document.createTextNode("Пациент "));
@@ -108,15 +110,15 @@ function fillSuccessModalTextForDoctorRemoval(responseJson) {
 
     const patient = document.createElement("span");
     patient.className = "fw-bold";
-    patient.innerText = `${responseJson.patientFullName}`;
+    patient.textContent = `${responseJson.patientFullName}`;
 
     const doctor = document.createElement("span");
     doctor.className = "fw-bold";
-    doctor.innerText = `${responseJson.doctorFullName}`;
+    doctor.textContent = `${responseJson.doctorFullName}`;
 
     const toPatient = document.createElement("a");
     toPatient.className = "href-success";
-    toPatient.innerText = "профилю";
+    toPatient.textContent = "профилю";
     toPatient.href = `/patients/${patientId}`;
 
     successModalText.appendChild(document.createTextNode("Пациент "));
