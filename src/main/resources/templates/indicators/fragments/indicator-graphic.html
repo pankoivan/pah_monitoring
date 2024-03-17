@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html
+    lang="ru"
+    xmlns:th="https://www.thymeleaf.org"
+    th:fragment="indicator-graphic (
+        documentSelfTitle,
+        documentOtherTitle,
+        pageSelfTitle,
+        pageOtherTitle,
+        jsLink,
+        whichGraphic
+    )"
+>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title th:if="${isSelf}" th:text="${documentSelfTitle}">Динамика вашего давления</title>
+        <title th:if="${!isSelf}" th:text="${documentOtherTitle}">Динамика давления пациента «Иванов Степан Петрович»</title>
+        <link href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link href="../../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../../static/favicon/apple-touch-icon.png" th:href="@{/favicon/apple-touch-icon.png}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../../../static/favicon/favicon-32x32.png" th:href="@{/favicon/favicon-32x32.png}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../../../static/favicon/favicon-16x16.png" th:href="@{/favicon/favicon-16x16.png}" />
+    </head>
+
+    <body class="min-vh-100 d-flex flex-column align-items-center justify-content-between bg-main">
+        <!---->
+        <div th:replace="~{@{${headerPath}} :: ${headerName}}"></div>
+        <!---->
+        <div class="container text-secondary my-5">
+            <!---->
+            <div th:replace="~{/indicators/fragments/indicator-title :: indicator-title (${pageSelfTitle}, ${pageOtherTitle})}"></div>
+            <!---->
+            <div th:replace="~{/fragments/selection/periodization :: periodization}"></div>
+            <!---->
+            <!---->
+            <div th:if="${#strings.equals('liquid', whichGraphic)}" class="row" th:attr="data-patient=${patient.id}">
+                <div class="col-12">
+                    <canvas id="liquid"></canvas>
+                </div>
+            </div>
+            <!---->
+            <!---->
+            <div th:if="${#strings.equals('weight', whichGraphic)}" class="row mb-5" th:attr="data-patient=${patient.id}">
+                <div class="col-12">
+                    <canvas id="weight"></canvas>
+                </div>
+            </div>
+            <!---->
+            <div th:if="${#strings.equals('weight', whichGraphic)}" class="row">
+                <div class="col-12">
+                    <canvas id="bodyMassIndex"></canvas>
+                </div>
+            </div>
+            <!---->
+            <!---->
+            <div th:if="${#strings.equals('spirometry', whichGraphic)}" class="row mb-5" th:attr="data-patient=${patient.id}">
+                <div class="col-12">
+                    <canvas id="volumes"></canvas>
+                </div>
+            </div>
+            <!---->
+            <div th:if="${#strings.equals('spirometry', whichGraphic)}" class="row">
+                <div class="col-12">
+                    <canvas id="tiffnoIndex"></canvas>
+                </div>
+            </div>
+            <!---->
+            <!---->
+            <div th:if="${#strings.equals('pressure', whichGraphic)}" class="row text-center" th:attr="data-patient=${patient.id}">
+                <div class="col-12 col-lg-6 mx-auto mb-5 mb-lg-0">
+                    <h5 class="text-secondary fs-5 mb-3">До нагрузки</h5>
+                    <canvas id="before"></canvas>
+                </div>
+                <div class="col-12 col-lg-6 mx-auto">
+                    <h5 class="text-secondary fs-5 mb-3">После нагрузки</h5>
+                    <canvas id="after"></canvas>
+                </div>
+            </div>
+            <!---->
+            <!---->
+            <div th:if="${#strings.equals('pulseOximetry', whichGraphic)}" class="row text-center" th:attr="data-patient=${patient.id}">
+                <div class="col-12 col-lg-6 mx-auto mb-5 mb-lg-0">
+                    <h5 class="text-secondary fs-5 mb-3">До нагрузки</h5>
+                    <canvas id="pulseRateBefore" class="mb-3"></canvas>
+                    <canvas id="oxygenPercentageBefore"></canvas>
+                </div>
+                <div class="col-12 col-lg-6 mx-auto">
+                    <h5 class="text-secondary fs-5 mb-3">После нагрузки</h5>
+                    <canvas id="pulseRateAfter" class="mb-3"></canvas>
+                    <canvas id="oxygenPercentageAfter"></canvas>
+                </div>
+            </div>
+            <!---->
+            <!---->
+            <div th:if="${#strings.equals('walkTest', whichGraphic)}" class="row text-center mb-5" th:attr="data-patient=${patient.id}">
+                <div class="col-12 col-lg-6 mx-auto mb-3 mb-lg-0">
+                    <canvas id="distance"></canvas>
+                </div>
+                <div class="col-12 col-lg-6 mx-auto">
+                    <canvas id="breathlessness"></canvas>
+                </div>
+            </div>
+            <!---->
+            <div th:if="${#strings.equals('walkTest', whichGraphic)}" class="row text-center">
+                <div class="col-12 col-lg-6 mx-auto mb-5 mb-lg-0">
+                    <h5 class="text-secondary fs-5 mb-3">До нагрузки</h5>
+                    <canvas id="pressureBefore" class="mb-3"></canvas>
+                    <canvas id="pulseRateBefore" class="mb-3"></canvas>
+                    <canvas id="oxygenPercentageBefore"></canvas>
+                </div>
+                <div class="col-12 col-lg-6 mx-auto">
+                    <h5 class="text-secondary fs-5 mb-3">После нагрузки</h5>
+                    <canvas id="pressureAfter" class="mb-3"></canvas>
+                    <canvas id="pulseRateAfter" class="mb-3"></canvas>
+                    <canvas id="oxygenPercentageAfter"></canvas>
+                </div>
+            </div>
+            <!---->
+            <!---->
+        </div>
+        <!---->
+        <div th:replace="~{/fragments/footers/footer :: footer}"></div>
+        <!---->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js" th:src="@{https://cdn.jsdelivr.net/npm/chart.js}"></script>
+        <script src="../../../static/js/indicators/graphics/pressure-graphic.js" th:src="@{${jsLink}}"></script>
+        <script src="../../../static/js/selection/periodization.js" th:src="@{/js/selection/periodization.js}"></script>
+        <script src="../../../static/js/bootstrap/bootstrap.bundle.min.js" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+        <!---->
+    </body>
+</html>
