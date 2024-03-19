@@ -106,6 +106,8 @@
             <!---->
         </div>
         <!---->
+        <form action="#" th:action="@{/rest/hospital-registration/requests/delete/0}" method="post" class="d-none" id="deletion-token"></form>
+        <!---->
         <div th:replace="${#strings.toString(request.hospital.currentState) == 'WAITING_CODE'} ? ~{/hospitals/modal/code-gen-modal :: code-gen-modal} : ~{}"></div>
         <!---->
         <div th:replace="${#strings.toString(request.hospital.currentState) == 'WAITING_CODE'} ? ~{/fragments/modal/error-modal :: error-modal} : ~{}"></div>

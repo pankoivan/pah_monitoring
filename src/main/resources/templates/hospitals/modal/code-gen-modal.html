@@ -12,7 +12,7 @@
                         <button id="code-generation-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-secondary fs-5" id="code-generation-modal-text">
-                        <form action="#" method="post" class="border rounded fs-5 p-3" id="code-generation-form">
+                        <form action="#" th:action="@{/rest/security-codes/generate/by-main-admin}" method="post" class="border rounded fs-5 p-3" id="code-generation-form">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Медицинское учреждение</label>
                                 <input type="text" name="name" id="name" class="form-control" th:value="${request.hospital.name}" disabled />

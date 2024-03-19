@@ -91,6 +91,7 @@ function fetchAdd(data) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            "X-CSRF-TOKEN": hospitalRegistrationForm.querySelector('input[name="_csrf"]').value,
         },
         body: JSON.stringify(data),
     })

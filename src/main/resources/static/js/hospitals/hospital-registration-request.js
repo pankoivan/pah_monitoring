@@ -23,6 +23,7 @@ function fetchAdd(data) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            "X-CSRF-TOKEN": codeGenerationForm.querySelector('input[name="_csrf"]').value,
         },
         body: JSON.stringify(data),
     })
@@ -111,6 +112,9 @@ if (document.getElementById("decline-request")) {
 function fetchDelete() {
     fetch(`http://localhost:8080/rest/hospital-registration/requests/delete/${requestId}`, {
         method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.getElementById("deletion-token").querySelector('input[name="_csrf"]').value,
+        },
     })
         .then((response) => {
             if (response.ok) {
