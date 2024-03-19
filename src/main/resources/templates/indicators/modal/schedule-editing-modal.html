@@ -12,7 +12,7 @@
                         <button id="schedule-editing-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-secondary fs-5" id="schedule-editing-modal-text">
-                        <form id="schedule-editing-form" action="#" class="border rounded fs-5 p-3">
+                        <form id="schedule-editing-form" action="#" th:action="@{/rest/schedules/add}" method="post" class="border rounded fs-5 p-3">
                             <div class="mb-3">
                                 <label for="patient" class="form-label">Пациент</label>
                                 <input id="patient" type="text" name="patient" class="form-control" th:value="${patient.userInformation.fullName}" disabled />
@@ -36,6 +36,8 @@
                     </div>
                 </div>
             </div>
+            <form action="#" th:action="@{/rest/schedules/edit}" method="post" class="d-none" id="editing-token"></form>
+            <form action="#" th:action="@{/rest/schedules/delete/0}" method="post" class="d-none" id="deletion-token"></form>
         </div>
     </body>
 </html>

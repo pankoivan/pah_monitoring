@@ -14,6 +14,9 @@ fileForm.addEventListener("submit", (event) => {
 function fetchAdd(formData) {
     fetch(`http://localhost:8080/rest/indicators/add/analysis-file/${whichFile}`, {
         method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": fileForm.querySelector('input[name="_csrf"]').value,
+        },
         body: formData,
     })
         .then((response) => {

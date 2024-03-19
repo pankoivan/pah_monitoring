@@ -15,6 +15,7 @@ function fetchAdd(data) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            "X-CSRF-TOKEN": liquidForm.querySelector('input[name="_csrf"]').value,
         },
         body: JSON.stringify(data),
     })

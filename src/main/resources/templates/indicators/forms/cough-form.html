@@ -26,7 +26,7 @@
             <!---->
             <div class="row fs-5">
                 <div class="col-12">
-                    <form action="#" method="post" id="cough-form">
+                    <form action="#" th:action="@{/rest/indicators/add/cough}" method="post" id="cough-form">
                         <div class="mb-5">
                             <h4 class="fs-4">Тип</h4>
                             <div class="form-check form-check-inline" th:each="each : ${type}">

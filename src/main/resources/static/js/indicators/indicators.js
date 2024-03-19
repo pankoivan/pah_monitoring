@@ -93,6 +93,7 @@ function fetchAdd(data) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            "X-CSRF-TOKEN": scheduleEditingForm.querySelector('input[name="_csrf"]').value,
         },
         body: JSON.stringify(data),
     })
@@ -120,6 +121,7 @@ function fetchEdit(data) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            "X-CSRF-TOKEN": document.getElementById("editing-token").querySelector('input[name="_csrf"]').value,
         },
         body: JSON.stringify(data),
     })
@@ -144,6 +146,9 @@ function fetchEdit(data) {
 function fetchDelete(id, indicatorType) {
     fetch(`http://localhost:8080/rest/schedules/delete/${id}`, {
         method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.getElementById("deletion-token").querySelector('input[name="_csrf"]').value,
+        },
     })
         .then((response) => {
             closeScheduleEditingModal();
