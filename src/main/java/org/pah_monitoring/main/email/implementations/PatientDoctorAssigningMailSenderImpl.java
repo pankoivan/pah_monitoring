@@ -13,8 +13,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Component("doctorAssigningEmailSender")
@@ -32,7 +30,6 @@ public class PatientDoctorAssigningMailSenderImpl implements EmailSender<Doctor>
     public void send(String recipient, Doctor doctor) {
         if (enabled) {
             try {
-                allowedRecipients(recipient); // todo: delete in final version
                 MimeMessage message = mailSender.createMimeMessage();
                 MimeMessageHelper helper = new MimeMessageHelper(message);
 
@@ -50,12 +47,6 @@ public class PatientDoctorAssigningMailSenderImpl implements EmailSender<Doctor>
             } catch (Exception e) {
                 throw new EmailSendingException("Произошла ошибка при уведомлении пациента о назначенном лечащем враче", e);
             }
-        }
-    }
-
-    private void allowedRecipients(String to) { // todo: delete in final version
-        if (!List.of("pank-tanya@yandex.ru", "ivan.tornado2@yandex.ru").contains(to)) {
-            throw new Error("Recipient \"%s\" is not allowed".formatted(to));
         }
     }
 

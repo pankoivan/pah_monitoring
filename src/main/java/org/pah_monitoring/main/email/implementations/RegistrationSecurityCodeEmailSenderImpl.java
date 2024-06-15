@@ -15,8 +15,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @Setter(onMethod = @__(@Autowired))
 @Component("codeEmailSender")
@@ -34,7 +32,6 @@ public class RegistrationSecurityCodeEmailSenderImpl implements EmailSender<Regi
     public void send(String recipient, RegistrationSecurityCode code) throws EmailSendingException {
         if (enabled) {
             try {
-                allowedRecipients(recipient); // todo: delete in final version
                 MimeMessage message = mailSender.createMimeMessage();
                 MimeMessageHelper helper = new MimeMessageHelper(message);
 
@@ -58,12 +55,6 @@ public class RegistrationSecurityCodeEmailSenderImpl implements EmailSender<Regi
                         """, e
                 );
             }
-        }
-    }
-
-    private void allowedRecipients(String to) { // todo: delete in final version
-        if (!List.of("pank-tanya@yandex.ru", "ivan.tornado2@yandex.ru").contains(to)) {
-            throw new Error("Recipient \"%s\" is not allowed".formatted(to));
         }
     }
 
